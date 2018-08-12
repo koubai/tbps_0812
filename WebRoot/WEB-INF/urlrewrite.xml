@@ -1,0 +1,968 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 3.2//EN"
+        "http://www.tuckey.org/res/dtds/urlrewrite3.2.dtd">
+
+<urlrewrite>
+
+	<rule>
+		<from>^/index.shtml$</from>
+		<to>/login/showLoginAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/login.shtml$</from>
+		<to>/login/loginAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/logout.shtml$</from>
+		<to>/login/logout.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/home.shtml$</from>
+		<to>/home/goHomeAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/showagent.shtml$</from>
+		<to>/agentcomp/showAgentCompAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/queryagent.shtml$</from>
+		<to>/agentcomp/queryAgentCompList.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/turnagent.shtml$</from>
+		<to>/agentcomp/turnAgentCompPage.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/showaddagentcomp.shtml$</from>
+		<to>/agentcomp/showAddAgentCompAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/addagentcomp.shtml$</from>
+		<to>/agentcomp/addAgentCompAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/showupdagentcomp.shtml$</from>
+		<to>/agentcomp/showUpdAgentCompAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/updagentcomp.shtml$</from>
+		<to>/agentcomp/updAgentCompAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/delagentcomp.shtml$</from>
+		<to>/agentcomp/delAgentCompAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/exportagentcomp.shtml$</from>
+		<to>/agentcomp/exportAgentCompAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/showexpert.shtml$</from>
+		<to>/expertlib/showExpertLibAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/queryexpert.shtml$</from>
+		<to>/expertlib/queryExpertLibList.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/turnexpert.shtml$</from>
+		<to>/expertlib/turnExpertLibPage.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/showaddexpert.shtml$</from>
+		<to>/expertlib/showAddExpertLibAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/addexpert.shtml$</from>
+		<to>/expertlib/addExpertLibAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/showupdexpert.shtml$</from>
+		<to>/expertlib/showUpdExpertLibAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/updexpert.shtml$</from>
+		<to>/expertlib/updExpertLibAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/delexpert.shtml$</from>
+		<to>/expertlib/delExpertLibAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/showbid.shtml$</from>
+		<to>/bid/showBidAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/querybid.shtml$</from>
+		<to>/bid/queryBidList.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/turnbid.shtml$</from>
+		<to>/bid/turnBidPage.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/showaddbid.shtml$</from>
+		<to>/bid/showAddBidAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/addbid.shtml$</from>
+		<to>/bid/addBidAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/showupdbid.shtml$</from>
+		<to>/bid/showUpdBidAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/showupdbidstatus.shtml$</from>
+		<to>/bid/showUpdBidStatusAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/updbid.shtml$</from>
+		<to>/bid/updBidAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/updbidstatus.shtml$</from>
+		<to>/bid/updBidStatusAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/delbid.shtml$</from>
+		<to>/bid/delBidAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/queryagentbyid.shtml$</from>
+		<to>/agentcomp/queryAgentCompById.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/showaddbidcomp.shtml$</from>
+		<to>/bid/showAddBidCompAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/showupdbidcomp.shtml$</from>
+		<to>/bid/showUpdBidCompAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/delbidcom.shtml$</from>
+		<to>/bid/delBidComNoAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/showaddbidexpert.shtml$</from>
+		<to>/bid/showAddBidExpertAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/turnaddbidexpert.shtml$</from>
+		<to>/bid/turnAddBidExpertAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/queryaddbidexpert.shtml$</from>
+		<to>/bid/queryAddBidExpertAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/showaddbidagentcomp.shtml$</from>
+		<to>/bid/showAddBidAgentCompAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/queryaddbidagentcomp.shtml$</from>
+		<to>/bid/queryAddBidAgentCompAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/turnaddbidagentcomp.shtml$</from>
+		<to>/bid/turnAddBidAgentCompAction.action</to>
+	</rule>
+
+	<rule>
+		<from>^/exportbidlist.shtml$</from>
+		<to>/bid/exportBidListAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/showbidhis.shtml$</from>
+		<to>/bid/showBidHisAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/querybidhis.shtml$</from>
+		<to>/bid/queryBidHisAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/turnbidhis.shtml$</from>
+		<to>/bid/turnBidHisAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/showuserinfo.shtml$</from>
+		<to>/userinfo/showUserInfoAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/queryuserinfo.shtml$</from>
+		<to>/userinfo/queryUserInfoAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/turnuserinfo.shtml$</from>
+		<to>/userinfo/turnUserInfoAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/showadduserInfo.shtml$</from>
+		<to>/userinfo/showAddUserInfoAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/adduserInfo.shtml$</from>
+		<to>/userinfo/addUserInfoAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/showupduserinfo.shtml$</from>
+		<to>/userinfo/showUpdUserInfoAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/upduserinfo.shtml$</from>
+		<to>/userinfo/updUserInfoAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/deluserinfo.shtml$</from>
+		<to>/userinfo/delUserInfoAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/showbiddetail.shtml$</from>
+		<to>/bid/showBidDetailAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/showbidhisdetail.shtml$</from>
+		<to>/bid/showBidHisDetailAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/showallbidhis.shtml$</from>
+		<to>/bid/showAllBidHisAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/exportbidhis.shtml$</from>
+		<to>/bid/exportBidHisAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/showsettlement.shtml$</from>
+		<to>/settlement/showSettlementAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/querysettlement.shtml$</from>
+		<to>/settlement/querySettlementAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/exportsettlement.shtml$</from>
+		<to>/settlement/exportSettlementAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/showwithhold.shtml$</from>
+		<to>/withhold/showWithholdAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/querywithhold.shtml$</from>
+		<to>/withhold/queryWithholdAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/turnwithhold.shtml$</from>
+		<to>/withhold/turnWithholdAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/showaddwithhold.shtml$</from>
+		<to>/withhold/showAddWithholdAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/addwithhold.shtml$</from>
+		<to>/withhold/addWithholdAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/delwithhold.shtml$</from>
+		<to>/withhold/delWithholdAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/showupdwithhold.shtml$</from>
+		<to>/withhold/showUpdWithholdAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/updwithhold.shtml$</from>
+		<to>/withhold/updWithholdAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/exportwithhold.shtml$</from>
+		<to>/withhold/exportWithholdAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/showaudit.shtml$</from>
+		<to>/audit/showAuditAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/queryaudit.shtml$</from>
+		<to>/audit/queryAuditList.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/turnaudit.shtml$</from>
+		<to>/audit/turnAuditPage.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/delaudit.shtml$</from>
+		<to>/audit/delAuditAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/showaddaudit.shtml$</from>
+		<to>/audit/showAddAuditAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/addaudit.shtml$</from>
+		<to>/audit/addAuditAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/showupdaudit.shtml$</from>
+		<to>/audit/showUpdAuditAction.action</to>
+	</rule>
+
+	<rule>
+		<from>^/updaudit.shtml$</from>
+		<to>/audit/updAuditAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/showauditdetail.shtml$</from>
+		<to>/audit/showAuditDetail.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/exportaudit.shtml$</from>
+		<to>/audit/exportAuditListAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/showallaudithis.shtml$</from>
+		<to>/audit/showAllAuditHisAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/showaudithistdetail.shtml$</from>
+		<to>/audit/showAuditHistDetail.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/exportaudithist.shtml$</from>
+		<to>/audit/exportAuditHist.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/showbond.shtml$</from>
+		<to>/bond/showBondAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/showbonddetail.shtml$</from>
+		<to>/bond/showBondDetailAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/querybond.shtml$</from>
+		<to>/bond/queryBondAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/exportbond.shtml$</from>
+		<to>/bond/exportBondAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/showgetautobidexpert.shtml$</from>
+		<to>/bid/showGetAutoBidExpertAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/getautobidexpert.shtml$</from>
+		<to>/bid/getAutoBidExpertAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/exportexpert.shtml$</from>
+		<to>/expertlib/exportExpertLibAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/exportbidexpert.shtml$</from>
+		<to>/bid/exportBidExpertAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/showbondbidcomp.shtml$</from>
+		<to>/bond/showBondBidCompAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/showagentcompcommon.shtml$</from>
+		<to>/agentcomp/showAgentCompCommonAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/queryagentcompcommon.shtml$</from>
+		<to>/agentcomp/queryAgentCompCommonAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/turnagentcompcommon.shtml$</from>
+		<to>/agentcomp/turnAgentCompCommonAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/exportbonddetail.shtml$</from>
+		<to>/bond/exportBondDetailAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/exportbidallinfo.shtml$</from>
+		<to>/bid/exportBidAllInfoAction.action</to>
+	</rule>
+	
+	<outbound-rule>
+		<from>/bid/exportBidAllInfoAction.action$</from>
+		<to>/exportbidallinfo.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bond/exportBondDetailAction.action$</from>
+		<to>/exportbonddetail.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/agentcomp/turnAgentCompCommonAction.action$</from>
+		<to>/turnagentcompcommon.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/agentcomp/queryAgentCompCommonAction.action$</from>
+		<to>/queryagentcompcommon.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/agentcomp/showAgentCompCommonAction.action$</from>
+		<to>/showagentcompcommon.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bond/showBondBidCompAction.action$</from>
+		<to>/showbondbidcomp.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bid/exportBidExpertAction.action$</from>
+		<to>/exportbidexpert.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/expertlib/exportExpertLibAction.action$</from>
+		<to>/exportexpert.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bid/getAutoBidExpertAction.action$</from>
+		<to>/getautobidexpert.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bid/showGetAutoBidExpertAction.action$</from>
+		<to>/showgetautobidexpert.shtml</to>
+	</outbound-rule>
+
+	<outbound-rule>
+		<from>/bond/exportBondAction.action$</from>
+		<to>/exportbond.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bond/queryBondAction.action$</from>
+		<to>/querybond.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bond/showBondDetailAction.action$</from>
+		<to>/showbonddetail.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bond/showBondAction.action$</from>
+		<to>/showbond.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/audit/exportAuditHist.action$</from>
+		<to>/exportaudithist.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/audit/showAuditHistDetail.action$</from>
+		<to>/showaudithistdetail.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/audit/showAllAuditHisAction.action$</from>
+		<to>/showallaudithis.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/audit/exportAuditListAction.action$</from>
+		<to>/exportaudit.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/audit/showAuditDetail.action$</from>
+		<to>/showauditdetail.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/audit/updAuditAction.action$</from>
+		<to>/updaudit.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/audit/showUpdAuditAction.action$</from>
+		<to>/showupdaudit.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/audit/addAuditAction.action$</from>
+		<to>/addaudit.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/audit/showAddAuditAction.action$</from>
+		<to>/showaddaudit.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/audit/delAuditAction.action$</from>
+		<to>/delaudit.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/audit/turnAuditPage.action$</from>
+		<to>/turnaudit.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/audit/queryAuditList.action$</from>
+		<to>/queryaudit.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/audit/showAuditAction.action$</from>
+		<to>/showaudit.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/withhold/exportWithholdAction.action$</from>
+		<to>/exportwithhold.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/withhold/updWithholdAction.action$</from>
+		<to>/updwithhold.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/withhold/showUpdWithholdAction.action$</from>
+		<to>/showupdwithhold.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/withhold/delWithholdAction.action$</from>
+		<to>/delwithhold.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/withhold/addWithholdAction.action$</from>
+		<to>/addwithhold.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/withhold/showAddWithholdAction.action$</from>
+		<to>/showaddwithhold.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/withhold/turnWithholdAction.action$</from>
+		<to>/turnwithhold.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/withhold/queryWithholdAction.action$</from>
+		<to>/querywithhold.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/withhold/showWithholdAction.action$</from>
+		<to>/showwithhold.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/settlement/exportSettlementAction.action$</from>
+		<to>/exportsettlement.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/settlement/querySettlementAction.action$</from>
+		<to>/querysettlement.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/settlement/showSettlementAction.action$</from>
+		<to>/showsettlement.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bid/exportBidHisAction.action$</from>
+		<to>/exportbidhis.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bid/showAllBidHisAction.action$</from>
+		<to>/showallbidhis.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bid/showBidHisDetailAction.action$</from>
+		<to>/showbidhisdetail.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bid/showBidDetailAction.action$</from>
+		<to>/showbiddetail.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/userinfo/delUserInfoAction.action$</from>
+		<to>/deluserinfo.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/userinfo/updUserInfoAction.action$</from>
+		<to>/upduserinfo.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/userinfo/showUpdUserInfoAction.action$</from>
+		<to>/showupduserinfo.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/userinfo/addUserInfoAction.action$</from>
+		<to>/adduserInfo.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/userinfo/showAddUserInfoAction.action$</from>
+		<to>/showadduserInfo.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/userinfo/turnUserInfoAction.action$</from>
+		<to>/turnuserinfo.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/userinfo/queryUserInfoAction.action$</from>
+		<to>/queryuserinfo.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/userinfo/showUserInfoAction.action$</from>
+		<to>/showuserinfo.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bid/turnBidHisAction.action$</from>
+		<to>/turnbidhis.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bid/queryBidHisAction.action$</from>
+		<to>/querybidhis.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bid/showBidHisAction.action$</from>
+		<to>/showbidhis.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bid/exportBidListAction.action$</from>
+		<to>/exportbidlist.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bid/turnAddBidAgentCompAction.action$</from>
+		<to>/turnaddbidagentcomp.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bid/queryAddBidAgentCompAction.action$</from>
+		<to>/queryaddbidagentcomp.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bid/showAddBidAgentCompAction.action$</from>
+		<to>/showaddbidagentcomp.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bid/queryAddBidExpertAction.action$</from>
+		<to>/queryaddbidexpert.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bid/turnAddBidExpertAction.action$</from>
+		<to>/turnaddbidexpert.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bid/showAddBidExpertAction.action$</from>
+		<to>/showaddbidexpert.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bid/delBidComNoAction.action$</from>
+		<to>/delbidcom.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bid/showUpdBidCompAction.action$</from>
+		<to>/showupdbidcomp.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bid/showAddBidCompAction.action$</from>
+		<to>/showaddbidcomp.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/agentcomp/queryAgentCompById.action$</from>
+		<to>/queryagentbyid.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bid/delBidAction.action$</from>
+		<to>/delbid.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bid/updBidStatusAction.action$</from>
+		<to>/updbidstatus.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bid/updBidAction.action$</from>
+		<to>/updbid.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bid/showUpdBidStatusAction.action$</from>
+		<to>/showupdbidstatus.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bid/showUpdBidAction.action$</from>
+		<to>/showupdbid.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bid/addBidAction.action$</from>
+		<to>/addbid.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bid/showAddBidAction.action$</from>
+		<to>/showaddbid.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bid/turnBidPage.action$</from>
+		<to>/turnbid.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bid/queryBidList.action$</from>
+		<to>/querybid.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bid/showBidAction.action$</from>
+		<to>/showbid.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/expertlib/delExpertLibAction.action$</from>
+		<to>/delexpert.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/expertlib/updExpertLibAction.action$</from>
+		<to>/updexpert.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/expertlib/showUpdExpertLibAction.action$</from>
+		<to>/showupdexpert.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/expertlib/addExpertLibAction.action$</from>
+		<to>/addexpert.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/expertlib/showAddExpertLibAction.action$</from>
+		<to>/showaddexpert.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/expertlib/turnExpertLibPage.action$</from>
+		<to>/turnexpert.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/expertlib/queryExpertLibList.action$</from>
+		<to>/queryexpert.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/expertlib/showExpertLibAction.action$</from>
+		<to>/showexpert.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/agentcomp/exportAgentCompAction.action$</from>
+		<to>/exportagentcomp.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/agentcomp/delAgentCompAction.action$</from>
+		<to>/delagentcomp.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/agentcomp/updAgentCompAction.action$</from>
+		<to>/updagentcomp.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/agentcomp/showUpdAgentCompAction.action$</from>
+		<to>/showupdagentcomp.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/agentcomp/addAgentCompAction.action$</from>
+		<to>/addagentcomp.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/agentcomp/showAddAgentCompAction.action$</from>
+		<to>/showaddagentcomp.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/agentcomp/turnAgentCompPage.action$</from>
+		<to>/turnagent.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/agentcomp/queryAgentCompList.action$</from>
+		<to>/queryagent.shtml</to>
+	</outbound-rule>
+
+	<outbound-rule>
+		<from>/agentcomp/showAgentCompAction.action$</from>
+		<to>/showagent.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/home/goHomeAction.action$</from>
+		<to>/home.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/login/logout.action$</from>
+		<to>/logout.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/login/loginAction.action$</from>
+		<to>/login.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/login/showLoginAction.action$</from>
+		<to>/index.shtml</to>
+	</outbound-rule>
+	
+</urlrewrite>
+

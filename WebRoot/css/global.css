@@ -1,0 +1,46 @@
+ul,li{ list-style: none; }
+.top { height: 180px; background: #516f89 }
+.top-l { padding-top: 60px; }
+.top-r { padding-top: 50px; }
+.loginBox { width: 400px; margin: 50px auto; }
+#code { font-family: Arial, 宋体; font-style: italic; color: green; border: 1px solid #eee; background: #e2e2e2; padding: 2px 3px; letter-spacing: 3px; font-weight: bolder; }
+.bottom{ height: 120px; background: #516f89; }
+.login{ position: relative; }
+.login .bottom{ position: fixed; bottom:0; width:100%;}
+.nav{ color：#333; background:#e2e2e2; border-bottom: 1px solid #eee; padding:10px 0; }
+.loginInfo{ float: right; margin-bottom: 0;}
+.loginInfo li{ float:left; margin-right: 25px;}
+.loginInfo li i{ color:#999; margin-right: 5px; }
+.loginInfo li a{ color:#333; }
+.menuList{ width:500px; margin:30px auto; }
+.menuList .col-lg-6{ padding:10px; }
+.menuList .col-lg-6 a{ width:100%; padding:10px 0; display: block; }
+h3.title{ font-size: 18px; font-weight: normal; text-align: center; margin:15px 0; }
+h3.title a.backHome{ float: right; font-size: 14px; }
+h3.title a.backHome i.fa{ margin-right: 5px; font-size: 16px; }
+.form-label{ padding: 0; line-height: 34px; text-align: right;}
+.to{ text-align: center; }
+.account label{ font-weight: normal; }
+.table{ border-top: 3px solid #516f89; }
+.table th{ background: #eee; }
+.btns ul{ float: right; }
+.btns ul li{ float: left; margin-left: 15px;}
+.btns ul li a{}
+.btns ul li a i{ margin-right: 5px; }
+.pagination{ float: right; margin-top: 0; }
+.red{ color:red; }
+.form-group { margin-bottom: 5px;}
+.checkBox{ height: 34px; line-height: 34px; }
+.checkBox input[type=checkbox]{ vertical-align: middle; margin:0;}
+.box{ border:1px solid #ddd; margin:0 -10px; margin-bottom: 15px;}
+.box h5{ text-align: center; background: #e2e2e2; border:1px solid #fff; margin:0; height: 40px; line-height: 40px; margin-bottom: 10px;}
+.box .row{ padding:2px 25px 5px 0; }
+.pdl0{ padding-left: 0; }
+.mgt15{ margin-top: 15px; }
+.checkBoxs .checkBox{ background: #eee; }
+.addBtns{ width:120px; margin:20px auto;}
+.steps li{ float:left; }
+.steps li a{ width:80px; height: 80px; line-height: 80px; text-decoration:none; text-align: center; display: inline-block; background: #eee; border-radius:40px; }
+.steps li i{ color:#ccc; font-size: 30px; font-weight: 600; margin:0 15px; }
+.steps li.active a,.steps li:hover a{ background: #516f89; color:#fff; }
+.btn3{ width:212px; }
