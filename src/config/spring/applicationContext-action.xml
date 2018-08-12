@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+
+	<!-- 保证金汇总 -->
+	<bean id="bondAction" class="com.cn.tbps.action.BondAction" scope="session">
+		<property name="bondService">
+			<ref bean="bondService" />
+		</property>
+		<property name="agentCompService">
+			<ref bean="agentCompService" />
+		</property>
+		
+		
+		<property name="bidService">
+			<ref bean="bidService" />
+		</property>
+		<property name="bidCompService">
+			<ref bean="bidCompService" />
+		</property>
+	</bean>
+
+	<!-- 审价 -->
+	<bean id="auditAction" class="com.cn.tbps.action.AuditAction" scope="session">
+		<property name="auditService">
+			<ref bean="auditService" />
+		</property>
+		<property name="auditCompService">
+			<ref bean="auditCompService" />
+		</property>
+		<property name="configTabService">
+			<ref bean="configTabService" />
+		</property>
+		<property name="userInfoService">
+			<ref bean="userInfoService" />
+		</property>
+	</bean>
+	
+	<!-- 合同公司 -->
+	<bean id="auditCompAction" class="com.cn.tbps.action.AuditCompAction" scope="session">
+		<property name="auditCompService">
+			<ref bean="auditCompService" />
+		</property>
+	</bean>
+	
+	<!-- 费用计算清单 -->
+	<bean id="settlementAction" class="com.cn.tbps.action.SettlementAction" scope="session">
+		<property name="withholdService">
+			<ref bean="withholdService" />
+		</property>
+	</bean>
+	
+	<!-- 代扣 -->
+	<bean id="withholdAction" class="com.cn.tbps.action.WithholdAction" scope="session">
+		<property name="withholdService">
+			<ref bean="withholdService" />
+		</property>
+	</bean>
+
+	<!-- 用户信息 -->
+	<bean id="userInfoAction" class="com.cn.tbps.action.UserInfoAction" scope="session">
+		<property name="userInfoService">
+			<ref bean="userInfoService" />
+		</property>
+	</bean>
+
+	<!-- 招标 -->
+	<bean id="bidAction" class="com.cn.tbps.action.BidAction" scope="session">
+		<property name="bidService">
+			<ref bean="bidService" />
+		</property>
+		<property name="bidCompService">
+			<ref bean="bidCompService" />
+		</property>
+		<property name="expertLibService">
+			<ref bean="expertLibService" />
+		</property>
+		<property name="agentCompService">
+			<ref bean="agentCompService" />
+		</property>
+		<property name="configTabService">
+			<ref bean="configTabService" />
+		</property>
+		<property name="userInfoService">
+			<ref bean="userInfoService" />
+		</property>
+		<property name="bidCompApplyService">
+			<ref bean="bidCompApplyService" />
+		</property>
+		<property name="majorService">
+			<ref bean="majorService" />
+		</property>
+	</bean>
+
+	<!-- 专家库 -->
+	<bean id="expertLibAction" class="com.cn.tbps.action.ExpertLibAction" scope="session">
+		<property name="expertLibService">
+			<ref bean="expertLibService" />
+		</property>
+		<property name="majorService">
+			<ref bean="majorService" />
+		</property>
+	</bean>
+
+	<!-- 委托公司 -->
+	<bean id="agentCompAction" class="com.cn.tbps.action.AgentCompAction" scope="session">
+		<property name="agentCompService">
+			<ref bean="agentCompService" />
+		</property>
+	</bean>
+
+	<!-- 登录 -->
+	<bean id="loginAction" class="com.cn.tbps.action.LoginAction" scope="session">
+		<property name="userInfoService">
+			<ref bean="userInfoService" />
+		</property>
+	</bean>
+	
+	<!-- 首页 -->
+	<bean id="homeAction" class="com.cn.tbps.action.HomeAction" scope="session">
+	</bean>
+	
+	<!-- 验证码 -->
+	<bean id="randomActionBean" class="com.cn.tbps.action.ValidateCodeAction" />
+	
+	<!-- 登录拦截器 -->
+	<bean id="loginInterceptorBean" class="com.cn.tbps.interceptor.LoginInterceptor"/>
+	
+	<!-- 超级管理员拦截器 -->
+	<bean id="adminInterceptorBean" class="com.cn.tbps.interceptor.AdminInterceptor"/>
+	
+</beans>

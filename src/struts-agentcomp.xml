@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="agentcomp" extends="struts-tbps" namespace="/agentcomp">
+	
+		<action name="showAgentCompAction" class="agentCompAction" method="showAgentCompAction">
+			<result name="success">/page/agentcomp/agentcomplist.jsp</result>
+		</action>
+		
+		<action name="queryAgentCompList" class="agentCompAction" method="queryAgentCompList">
+			<result name="success">/page/agentcomp/agentcomplist.jsp</result>
+		</action>
+		
+		<action name="turnAgentCompPage" class="agentCompAction" method="turnAgentCompPage">
+			<result name="success">/page/agentcomp/agentcomplist.jsp</result>
+		</action>
+		
+		<action name="showAddAgentCompAction" class="agentCompAction" method="showAddAgentCompAction">
+			<result name="*">/page/agentcomp/addagent.jsp</result>
+		</action>
+		
+		<action name="addAgentCompAction" class="agentCompAction" method="addAgentCompAction">
+			<result name="success">/page/agentcomp/addagent.jsp</result>
+			<result name="checkerror">/page/agentcomp/addagent.jsp</result>
+		</action>
+		
+		<action name="showUpdAgentCompAction" class="agentCompAction" method="showUpdAgentCompAction">
+			<result name="success">/page/agentcomp/updagent.jsp</result>
+			<result name="checkerror">/page/agentcomp/updagent.jsp</result>
+		</action>
+		
+		<action name="updAgentCompAction" class="agentCompAction" method="updAgentCompAction">
+			<result name="success">/page/agentcomp/updagent.jsp</result>
+			<result name="checkerror">/page/agentcomp/updagent.jsp</result>
+		</action>
+		
+		<action name="delAgentCompAction" class="agentCompAction" method="delAgentCompAction">
+			<result name="success">/page/agentcomp/agentcomplist.jsp</result>
+			<result name="checkerror">/page/agentcomp/agentcomplist.jsp</result>
+		</action>
+
+		<action name="exportAgentCompAction" class="agentCompAction" method="exportAgentCompAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
+		
+		<action name="queryAgentCompById" class="agentCompAction" method="queryAgentCompById">
+			<result type="json"></result>
+		</action>
+		
+		<action name="showAgentCompCommonAction" class="agentCompAction" method="showAgentCompCommonAction">
+			<result name="success">/page/agentcomp/agentcommon.jsp</result>
+		</action>
+		
+		<action name="queryAgentCompCommonAction" class="agentCompAction" method="queryAgentCompCommonAction">
+			<result name="success">/page/agentcomp/agentcommon.jsp</result>
+		</action>
+		
+		<action name="turnAgentCompCommonAction" class="agentCompAction" method="turnAgentCompCommonAction">
+			<result name="success">/page/agentcomp/agentcommon.jsp</result>
+		</action>
+		
+	</package>
+
+</struts>

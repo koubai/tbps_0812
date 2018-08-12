@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+        PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="com.cn.tbps">
+
+	<resultMap id="SettlementDto" class="com.cn.tbps.dto.SettlementDto">
+		<result property="BILL_DATE" column="BILL_DATE" />
+		<result property="TOTAL_DATE" column="TOTAL_DATE" />
+		<result property="RECEIPT_DATE" column="RECEIPT_DATE" />
+		<result property="RECEIPT_NO" column="RECEIPT_NO" />
+		<result property="BILL_NO" column="BILL_NO" />
+		<result property="DATA_TYPE" column="DATA_TYPE" />
+		<result property="AGENT_NO" column="AGENT_NO" />
+		<result property="AGENT_COMP" column="AGENT_COMP" />
+		<result property="PROJECT_NAME" column="PROJECT_NAME" />
+		<result property="PAY_COMP" column="PAY_COMP" />
+		<result property="CHECK_PRICE" column="CHECK_PRICE" />
+		<result property="APPLY_PRICE" column="APPLY_PRICE" />
+		<result property="COMMISSION_PRICE" column="COMMISSION_PRICE" />
+		<result property="AMOUNT_PRICE" column="AMOUNT_PRICE" />
+		<result property="AT_PRICE" column="AT_PRICE" />
+		<result property="WITHHOLD_PRICE" column="WITHHOLD_PRICE" />
+		<result property="REMAIN_PRICE" column="REMAIN_PRICE" />
+	</resultMap>
+	
+	
+	<select id="querySettlementExport" parameterClass="java.util.Map" resultMap="SettlementDto">
+		SELECT * FROM
+			(
+			SELECT 
+				W.WITHHOLD_DATE AS BILL_DATE,
+				NULL AS TOTAL_DATE,
+				NULL AS RECEIPT_DATE,
+				NULL AS RECEIPT_NO,
+				W.WITHHOLD_NO AS BILL_NO,
+				'1' AS DATA_TYPE,
+				NULL AS AGENT_NO,
+				NULL AS AGENT_COMP,
+				W.WITHHOLD_TYPE AS PROJECT_NAME,
+				NULL AS PAY_COMP,
+				NULL AS CHECK_PRICE,
+				NULL AS APPLY_PRICE,
+				NULL AS COMMISSION_PRICE,
+				NULL AS AMOUNT_PRICE,
+				NULL AS AT_PRICE,
+				W.WITHHOLD_AMOUNT AS WITHHOLD_PRICE,
+				NULL AS REMAIN_PRICE
+			FROM withhold W WHERE 1 = 1 
+				AND W.DELETE_FLG = '1'
+				<isNotEmpty prepend="and" property="BILL_DATE_LOW">
+					W.WITHHOLD_DATE <![CDATA[>=]]> #BILL_DATE_LOW#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="BILL_DATE_HIGH">
+					W.WITHHOLD_DATE <![CDATA[<=]]> #BILL_DATE_HIGH#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="AGENT_COMP">
+					2 = 3
+				</isNotEmpty>
+			UNION
+			
+			SELECT 
+				A.VALUE_DATE AS BILL_DATE,
+				NULL AS TOTAL_DATE,
+				A.RECEIPT1_DATE AS RECEIPT_DATE,
+				A.RECEIPT1_NO AS RECEIPT_NO,
+				A.REPORT_NO AS BILL_NO,
+				'2' AS DATA_TYPE,
+				A.AGENT_NO AS AGENT_NO,
+				A.AGENT_CO_NAME AS AGENT_COMP,
+				A.PROJECT_NAME AS PROJECT_NAME,
+				A.CONTRACT_CO_NAME AS PAY_COMP,
+				A.RECEIPT1_AMOUNT_TOTAL AS CHECK_PRICE,
+				NULL AS APPLY_PRICE,
+				NULL AS COMMISSION_PRICE,
+				A.RECEIPT1_AMOUNT_TOTAL AS AMOUNT_PRICE,
+				NULL AS AT_PRICE,
+				NULL AS WITHHOLD_PRICE,
+				NULL AS REMAIN_PRICE
+			FROM audit A WHERE 1 = 1 
+				AND A.DELETE_FLG = '1'
+				AND A.VALUE_DATE IS NOT NULL
+				<isNotEmpty prepend="and" property="BILL_DATE_LOW">
+					A.VALUE_DATE <![CDATA[>=]]> #BILL_DATE_LOW#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="BILL_DATE_HIGH">
+					A.VALUE_DATE <![CDATA[<=]]> #BILL_DATE_HIGH#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="AGENT_COMP">
+					2 = 3
+				</isNotEmpty>
+			
+			UNION
+			
+			SELECT
+				B.RECEIPT1_VALUE_DATE AS BILL_DATE,
+				NULL AS TOTAL_DATE,
+				B.RECEIPT1_DATE AS RECEIPT_DATE,
+				B.RECEIPT1_NO AS RECEIPT_NO,
+				B.BID_NO AS BILL_NO,
+				'3' AS DATA_TYPE,
+				
+				B.AGENT_NO AS AGENT_NO,
+				
+				B.AGENT_CO_NAME AS AGENT_COMP,
+				B.PROJECT_NAME AS PROJECT_NAME,
+				B.BID_CO_NAME AS PAY_COMP,
+				NULL AS CHECK_PRICE,
+				(
+					SELECT sum(C.BID_APPLY_PRICE) FROM bidcomp C
+					WHERE C.BID_NO = B.BID_NO AND C.DELETE_FLG = '1'
+					GROUP BY C.BID_NO
+				) AS APPLY_PRICE,
+				B.RECEIPT1_AGENT_COMMISSION AS COMMISSION_PRICE,
+				(
+					IFNULL((
+						SELECT SUM(C.BID_APPLY_PRICE) FROM bidcomp C
+						WHERE C.BID_NO = B.BID_NO AND C.DELETE_FLG = '1'
+						GROUP BY C.BID_NO
+					), 0) + IFNULL(B.RECEIPT1_AGENT_COMMISSION, 0)
+				) AS AMOUNT_PRICE,
+				NULL AS AT_PRICE,
+				NULL AS WITHHOLD_PRICE,
+				NULL AS REMAIN_PRICE
+			FROM bid B WHERE 1 = 1
+				AND B.DELETE_FLG = '1'
+				AND B.RECEIPT1_VALUE_DATE IS NOT NULL
+				<isNotEmpty prepend="and" property="BILL_DATE_LOW">
+					B.RECEIPT1_VALUE_DATE <![CDATA[>=]]> #BILL_DATE_LOW#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="BILL_DATE_HIGH">
+					B.RECEIPT1_VALUE_DATE <![CDATA[<=]]> #BILL_DATE_HIGH#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="AGENT_COMP">
+					B.AGENT_CO_NAME like '%$AGENT_COMP$%' ESCAPE '/'
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="AGENT_NO">
+					B.AGENT_NO = #AGENT_NO#
+				</isNotEmpty>
+			UNION
+			
+			SELECT DATE_FORMAT(DATE_ADD(DATE_FORMAT(S.BILL_DATE, '%Y-%m-%d'), INTERVAL 1 MONTH), '%Y-%m-00') AS BILL_DATE,
+				DATE_FORMAT(S.BILL_DATE, '%Y年%m月') AS TOTAL_DATE,
+				NULL AS RECEIPT_DATE,
+				NULL AS RECEIPT_NO,
+				NULL AS BILL_NO,
+				'4' AS DATA_TYPE,
+				NULL AS AGENT_NO,
+				NULL AS AGENT_COMP,
+				NULL AS PROJECT_NAME,
+				NULL AS PAY_COMP,
+				IFNULL(SUM(S.CHECK_PRICE),0) AS CHECK_PRICE,
+				IFNULL(SUM(S.APPLY_PRICE),0) AS APPLY_PRICE,
+				IFNULL(SUM(S.COMMISSION_PRICE),0) AS COMMISSION_PRICE,
+				IFNULL(SUM(S.AMOUNT_PRICE),0) AS AMOUNT_PRICE,
+				IFNULL(SUM(S.AMOUNT_PRICE),0) * CAST((SELECT CONFIG_VAL FROM configtab WHERE CONFIG_TYPE = 'SETTLEMENT_RATE') AS DECIMAL(18,2)) AS AT_PRICE,
+				IFNULL(SUM(S.WITHHOLD_PRICE),0) AS WITHHOLD_PRICE,
+				(IFNULL(SUM(S.AMOUNT_PRICE), 0) * CAST((SELECT CONFIG_VAL FROM configtab WHERE CONFIG_TYPE = 'SETTLEMENT_RATE') AS DECIMAL(18,2)) - IFNULL(SUM(S.WITHHOLD_PRICE), 0)) AS REMAIN_PRICE
+			FROM (
+				SELECT 
+					WH.WITHHOLD_DATE AS BILL_DATE,
+					NULL AS RECEIPT_DATE,
+					NULL AS RECEIPT_NO,
+					WH.WITHHOLD_NO AS BILL_NO,
+					'1' AS DATA_TYPE,
+					NULL AS AGENT_NO,
+					NULL AS AGENT_COMP,
+					WH.WITHHOLD_TYPE AS PROJECT_NAME,
+					NULL AS PAY_COMP,
+					NULL AS CHECK_PRICE,
+					NULL AS APPLY_PRICE,
+					NULL AS COMMISSION_PRICE,
+					NULL AS AMOUNT_PRICE,
+					NULL AS AT_PRICE,
+					WH.WITHHOLD_AMOUNT AS WITHHOLD_PRICE,
+					NULL AS REMAIN_PRICE
+				FROM withhold WH WHERE 1 = 1 
+					AND WH.DELETE_FLG = '1'
+					<isNotEmpty prepend="and" property="BILL_DATE_LOW">
+						WH.WITHHOLD_DATE <![CDATA[>=]]> #BILL_DATE_LOW#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="BILL_DATE_HIGH">
+						WH.WITHHOLD_DATE <![CDATA[<=]]> #BILL_DATE_HIGH#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="AGENT_COMP">
+						2 = 3
+					</isNotEmpty>
+					
+				UNION
+				SELECT 
+					A.VALUE_DATE AS BILL_DATE,
+					A.RECEIPT1_DATE AS RECEIPT_DATE,
+					A.RECEIPT1_NO AS RECEIPT_NO,
+					A.REPORT_NO AS BILL_NO,
+					'2' AS DATA_TYPE,
+					A.AGENT_NO AS AGENT_NO,
+					A.AGENT_CO_NAME AS AGENT_COMP,
+					A.PROJECT_NAME AS PROJECT_NAME,
+					A.CONTRACT_CO_NAME AS PAY_COMP,
+					A.RECEIPT1_AMOUNT_TOTAL AS CHECK_PRICE,
+					NULL AS APPLY_PRICE,
+					NULL AS COMMISSION_PRICE,
+					A.RECEIPT1_AMOUNT_TOTAL AS AMOUNT_PRICE,
+					NULL AS AT_PRICE,
+					NULL AS WITHHOLD_PRICE,
+					NULL AS REMAIN_PRICE
+				FROM audit A WHERE 1 = 1 
+					AND A.DELETE_FLG = '1'
+					AND A.VALUE_DATE IS NOT NULL
+					<isNotEmpty prepend="and" property="BILL_DATE_LOW">
+						A.VALUE_DATE <![CDATA[>=]]> #BILL_DATE_LOW#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="BILL_DATE_HIGH">
+						A.VALUE_DATE <![CDATA[<=]]> #BILL_DATE_HIGH#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="AGENT_COMP">
+						2 = 3
+					</isNotEmpty>
+				
+				UNION
+				SELECT
+					BB.RECEIPT1_VALUE_DATE AS BILL_DATE,
+					BB.RECEIPT1_DATE AS RECEIPT_DATE,
+					BB.RECEIPT1_NO AS RECEIPT_NO,
+					BB.BID_NO AS BILL_NO,
+					'3' AS DATA_TYPE,
+					BB.AGENT_NO AS AGENT_NO,
+					BB.AGENT_CO_NAME AS AGENT_COMP,
+					BB.PROJECT_NAME AS PROJECT_NAME,
+					BB.BID_CO_NAME AS PAY_COMP,
+					NULL AS CHECK_PRICE,
+					(
+						SELECT sum(C.BID_APPLY_PRICE) FROM bidcomp C
+						WHERE C.BID_NO = BB.BID_NO AND C.DELETE_FLG = '1'
+						GROUP BY C.BID_NO
+					) AS APPLY_PRICE,
+					BB.RECEIPT1_AGENT_COMMISSION AS COMMISSION_PRICE,
+					(
+						IFNULL((
+							SELECT SUM(C.BID_APPLY_PRICE) FROM bidcomp C
+							WHERE C.BID_NO = BB.BID_NO AND C.DELETE_FLG = '1'
+							GROUP BY C.BID_NO
+						), 0) + IFNULL(BB.RECEIPT1_AGENT_COMMISSION, 0)
+					) AS AMOUNT_PRICE,
+					NULL AS AT_PRICE,
+					NULL AS WITHHOLD_PRICE,
+					NULL AS REMAIN_PRICE
+				FROM bid BB WHERE 1 = 1
+					AND BB.DELETE_FLG = '1'
+					AND BB.RECEIPT1_VALUE_DATE IS NOT NULL
+					<isNotEmpty prepend="and" property="BILL_DATE_LOW">
+						BB.RECEIPT1_VALUE_DATE <![CDATA[>=]]> #BILL_DATE_LOW#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="BILL_DATE_HIGH">
+						BB.RECEIPT1_VALUE_DATE <![CDATA[<=]]> #BILL_DATE_HIGH#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="AGENT_COMP">
+						BB.AGENT_CO_NAME like '%$AGENT_COMP$%' ESCAPE '/'
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="AGENT_NO">
+						BB.AGENT_NO = #AGENT_NO#
+					</isNotEmpty>
+				) S WHERE 1 = 1
+				<isNotEmpty prepend="and" property="DATA_TYPE">
+					S.DATA_TYPE IN ($DATA_TYPE$)
+				</isNotEmpty>
+				GROUP BY DATE_FORMAT(S.BILL_DATE, '%Y-%m-00')
+				
+			UNION
+			SELECT '9999-12-31' AS BILL_DATE,
+				DATE_FORMAT(S.BILL_DATE, '%Y年%m月') AS TOTAL_DATE,
+				NULL AS RECEIPT_DATE,
+				NULL AS RECEIPT_NO,
+				NULL AS BILL_NO,
+				'5' AS DATA_TYPE,
+				NULL AS AGENT_NO,
+				NULL AS AGENT_COMP,
+				NULL AS PROJECT_NAME,
+				NULL AS PAY_COMP,
+				IFNULL(SUM(S.CHECK_PRICE),0) AS CHECK_PRICE,
+				IFNULL(SUM(S.APPLY_PRICE),0) AS APPLY_PRICE,
+				IFNULL(SUM(S.COMMISSION_PRICE),0) AS COMMISSION_PRICE,
+				IFNULL(SUM(S.AMOUNT_PRICE),0) AS AMOUNT_PRICE,
+				IFNULL(SUM(S.AMOUNT_PRICE),0) * CAST((SELECT CONFIG_VAL FROM configtab WHERE CONFIG_TYPE = 'SETTLEMENT_RATE') AS DECIMAL(18,2)) AS AT_PRICE,
+				IFNULL(SUM(S.WITHHOLD_PRICE),0) AS WITHHOLD_PRICE,
+				(IFNULL(SUM(S.AMOUNT_PRICE), 0) * CAST((SELECT CONFIG_VAL FROM configtab WHERE CONFIG_TYPE = 'SETTLEMENT_RATE') AS DECIMAL(18,2)) - IFNULL(SUM(S.WITHHOLD_PRICE), 0)) AS REMAIN_PRICE
+			FROM (
+				SELECT 
+					WH.WITHHOLD_DATE AS BILL_DATE,
+					NULL AS RECEIPT_DATE,
+					NULL AS RECEIPT_NO,
+					WH.WITHHOLD_NO AS BILL_NO,
+					'1' AS DATA_TYPE,
+					NULL AS AGENT_NO,
+					NULL AS AGENT_COMP,
+					WH.WITHHOLD_TYPE AS PROJECT_NAME,
+					NULL AS PAY_COMP,
+					NULL AS CHECK_PRICE,
+					NULL AS APPLY_PRICE,
+					NULL AS COMMISSION_PRICE,
+					NULL AS AMOUNT_PRICE,
+					NULL AS AT_PRICE,
+					WH.WITHHOLD_AMOUNT AS WITHHOLD_PRICE,
+					NULL AS REMAIN_PRICE
+				FROM withhold WH WHERE 1 = 1 
+					AND WH.DELETE_FLG = '1'
+					<isNotEmpty prepend="and" property="BILL_DATE_LOW">
+						WH.WITHHOLD_DATE <![CDATA[>=]]> #BILL_DATE_LOW#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="BILL_DATE_HIGH">
+						WH.WITHHOLD_DATE <![CDATA[<=]]> #BILL_DATE_HIGH#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="AGENT_COMP">
+						2 = 3
+					</isNotEmpty>
+				UNION
+				SELECT 
+					A.VALUE_DATE AS BILL_DATE,
+					A.RECEIPT1_DATE AS RECEIPT_DATE,
+					A.RECEIPT1_NO AS RECEIPT_NO,
+					A.REPORT_NO AS BILL_NO,
+					'2' AS DATA_TYPE,
+					A.AGENT_NO AS AGENT_NO,
+					A.AGENT_CO_NAME AS AGENT_COMP,
+					A.PROJECT_NAME AS PROJECT_NAME,
+					A.CONTRACT_CO_NAME AS PAY_COMP,
+					A.RECEIPT1_AMOUNT_TOTAL AS CHECK_PRICE,
+					NULL AS APPLY_PRICE,
+					NULL AS COMMISSION_PRICE,
+					A.RECEIPT1_AMOUNT_TOTAL AS AMOUNT_PRICE,
+					NULL AS AT_PRICE,
+					NULL AS WITHHOLD_PRICE,
+					NULL AS REMAIN_PRICE
+				FROM audit A WHERE 1 = 1 
+					AND A.DELETE_FLG = '1'
+					AND A.VALUE_DATE IS NOT NULL
+					<isNotEmpty prepend="and" property="BILL_DATE_LOW">
+						A.VALUE_DATE <![CDATA[>=]]> #BILL_DATE_LOW#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="BILL_DATE_HIGH">
+						A.VALUE_DATE <![CDATA[<=]]> #BILL_DATE_HIGH#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="AGENT_COMP">
+						2 = 3
+					</isNotEmpty>
+				UNION
+				SELECT
+					BB.RECEIPT1_VALUE_DATE AS BILL_DATE,
+					BB.RECEIPT1_DATE AS RECEIPT_DATE,
+					BB.RECEIPT1_NO AS RECEIPT_NO,
+					BB.BID_NO AS BILL_NO,
+					'3' AS DATA_TYPE,
+					BB.AGENT_NO AS AGENT_NO,
+					BB.AGENT_CO_NAME AS AGENT_COMP,
+					BB.PROJECT_NAME AS PROJECT_NAME,
+					BB.BID_CO_NAME AS PAY_COMP,
+					NULL AS CHECK_PRICE,
+					(
+						SELECT sum(C.BID_APPLY_PRICE) FROM bidcomp C
+						WHERE C.BID_NO = BB.BID_NO AND C.DELETE_FLG = '1'
+						GROUP BY C.BID_NO
+					) AS APPLY_PRICE,
+					BB.RECEIPT1_AGENT_COMMISSION AS COMMISSION_PRICE,
+					(
+						IFNULL((
+							SELECT SUM(C.BID_APPLY_PRICE) FROM bidcomp C
+							WHERE C.BID_NO = BB.BID_NO AND C.DELETE_FLG = '1'
+							GROUP BY C.BID_NO
+						), 0) + IFNULL(BB.RECEIPT1_AGENT_COMMISSION, 0)
+					) AS AMOUNT_PRICE,
+					NULL AS AT_PRICE,
+					NULL AS WITHHOLD_PRICE,
+					NULL AS REMAIN_PRICE
+				FROM bid BB WHERE 1 = 1
+					AND BB.DELETE_FLG = '1'
+					AND BB.RECEIPT1_VALUE_DATE IS NOT NULL
+					<isNotEmpty prepend="and" property="BILL_DATE_LOW">
+						BB.RECEIPT1_VALUE_DATE <![CDATA[>=]]> #BILL_DATE_LOW#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="BILL_DATE_HIGH">
+						BB.RECEIPT1_VALUE_DATE <![CDATA[<=]]> #BILL_DATE_HIGH#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="AGENT_COMP">
+						BB.AGENT_CO_NAME like '%$AGENT_COMP$%' ESCAPE '/'
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="AGENT_NO">
+						BB.AGENT_NO = #AGENT_NO#
+					</isNotEmpty>
+				) S WHERE 1 = 1
+				<isNotEmpty prepend="and" property="DATA_TYPE">
+					S.DATA_TYPE IN ($DATA_TYPE$)
+				</isNotEmpty>
+				
+				
+			) T WHERE 1 = 1
+			<isNotEmpty prepend="and" property="DATA_TYPE">
+				T.DATA_TYPE IN ($DATA_TYPE$)
+			</isNotEmpty>
+			ORDER BY T.BILL_DATE ASC
+	</select>
+	
+</sqlMap>

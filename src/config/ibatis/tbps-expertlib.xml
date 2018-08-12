@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+        PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="com.cn.tbps">
+
+	<resultMap id="ExpertLibDto" class="com.cn.tbps.dto.ExpertLibDto">
+		<result property="EXPERT_SEQ" column="EXPERT_SEQ" />
+		<result property="EXPERT_NAME" column="EXPERT_NAME" />
+		<result property="EXPERT_MAJOR" column="EXPERT_MAJOR" />
+		<result property="EXPERT_QULI" column="EXPERT_QULI" />
+		<result property="EXPERT_TEL1" column="EXPERT_TEL1" />
+		<result property="EXPERT_TEL2" column="EXPERT_TEL2" />
+		<result property="EXPERT_GENDER" column="EXPERT_GENDER" />
+		<result property="EXPERT_BIRTH" column="EXPERT_BIRTH" />
+		<result property="EXPERT_COMP" column="EXPERT_COMP" />
+		<result property="MEMO1" column="MEMO1" />
+		<result property="DELETE_FLG" column="DELETE_FLG" />
+		<result property="UPDATE_USER" column="UPDATE_USER" />
+		<result property="INSERT_DATE" column="INSERT_DATE" />
+		<result property="UPDATE_DATE" column="UPDATE_DATE" />
+		<result property="RESERVE1" column="RESERVE1" />
+		<result property="RESERVE2" column="RESERVE2" />
+		<result property="RESERVE3" column="RESERVE3" />
+		<result property="RESERVE4" column="RESERVE4" />
+		<result property="RESERVE5" column="RESERVE5" />
+	</resultMap>
+
+	<resultMap id="ExpertCompDto" class="com.cn.tbps.dto.ExpertLibDto">
+		<result property="EXPERT_COMP" column="EXPERT_COMP" />
+	</resultMap>
+	
+	<select id="queryAllExpertLibExportNew" parameterClass="java.util.Map" resultMap="ExpertLibDto">
+		select T.* from expertlib T where 1 = 1
+		and T.DELETE_FLG = '1'
+		<isNotEmpty prepend="and" property="EXPERT_NAME">
+			T.EXPERT_NAME like '%$EXPERT_NAME$%' ESCAPE '/'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="QUERY_EXPERT_MAJOR">
+			$QUERY_EXPERT_MAJOR$
+		</isNotEmpty>
+		order by T.UPDATE_DATE desc
+	</select>
+	
+	<select id="queryExpertLibByPageNew" parameterClass="java.util.Map" resultMap="ExpertLibDto">
+		select T.* from expertlib T where 1 = 1
+		and T.DELETE_FLG = '1'
+		<isNotEmpty prepend="and" property="EXPERT_NAME">
+			T.EXPERT_NAME like '%$EXPERT_NAME$%' ESCAPE '/'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="QUERY_EXPERT_MAJOR">
+			$QUERY_EXPERT_MAJOR$
+		</isNotEmpty>
+		order by T.UPDATE_DATE desc
+		LIMIT #start#, #end#
+	</select>
+	
+	<select id="queryExpertLibCountByPageNew" resultClass="int" parameterClass="java.util.Map">
+		select count(*) from expertlib T where 1 = 1
+			and T.DELETE_FLG = '1'
+			<isNotEmpty prepend="and" property="EXPERT_NAME">
+				T.EXPERT_NAME like '%$EXPERT_NAME$%' ESCAPE '/'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="QUERY_EXPERT_MAJOR">
+				$QUERY_EXPERT_MAJOR$
+			</isNotEmpty>
+	</select>
+	
+	<select id="autoQueryExpertLib" parameterClass="java.util.Map" resultMap="ExpertLibDto">
+		select T.* from expertlib T where 1 = 1
+		and T.DELETE_FLG = '1'
+		<isNotEmpty prepend="and" property="WITHOUT_EXPERT_SEQ_LIST">
+			T.EXPERT_SEQ not in ($WITHOUT_EXPERT_SEQ_LIST$) 
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="EXPERT_MAJOR">
+			T.EXPERT_MAJOR like '%$EXPERT_MAJOR$%' ESCAPE '/'
+		</isNotEmpty>		
+		order by T.UPDATE_DATE desc
+	</select>
+	
+	<select id="autoQueryExpertLibNew" parameterClass="java.util.Map" resultMap="ExpertLibDto">
+		select T.* from expertlib T where 1 = 1
+		and T.DELETE_FLG = '1'
+		<isNotEmpty prepend="and" property="WITHOUT_EXPERT_SEQ_LIST">
+			T.EXPERT_SEQ not in ($WITHOUT_EXPERT_SEQ_LIST$) 
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="EXPERT_MAJOR">
+			T.EXPERT_MAJOR like '%$EXPERT_MAJOR$%' ESCAPE '/'
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="EXPERT_NAME">
+			T.EXPERT_NAME like '%$EXPERT_NAME$%' ESCAPE '/'
+		</isNotEmpty>	
+		<isNotEmpty prepend="and" property="EXPERT_COMP">
+			<isNotEmpty prepend="" property="INCLUDE">
+				T.EXPERT_COMP $INCLUDE$ ($EXPERT_COMP$)  
+			</isNotEmpty>
+		</isNotEmpty>
+		order by T.UPDATE_DATE desc
+	</select>
+	
+	<select id="queryExpertLibByIds" parameterClass="java.util.Map" resultMap="ExpertLibDto">
+		select T.* from expertlib T where 1 = 1
+			and T.DELETE_FLG = '1'
+			and T.EXPERT_SEQ in ($IDS$)
+			order by T.UPDATE_DATE desc
+	</select>
+	
+	<select id="queryExpertLibCountByPageOr" resultClass="int" parameterClass="java.util.Map">
+		select count(*) from expertlib T where 1 = 1
+			and T.DELETE_FLG = '1'
+			<isNotEmpty prepend="and" property="EXPERT_NAME">
+				T.EXPERT_NAME like '%$EXPERT_NAME$%' ESCAPE '/'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="EXPERT_MAJOR">
+				$EXPERT_MAJOR$
+			</isNotEmpty>
+	</select>
+	
+	<select id="queryExpertLibCountByPageAnd" resultClass="int" parameterClass="java.util.Map">
+		select count(*) from expertlib T where 1 = 1
+			and T.DELETE_FLG = '1'
+			<isNotEmpty prepend="and" property="EXPERT_NAME">
+				T.EXPERT_NAME like '%$EXPERT_NAME$%' ESCAPE '/'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="EXPERT_MAJOR">
+				T.EXPERT_MAJOR like '%$EXPERT_MAJOR$%' ESCAPE '/'
+			</isNotEmpty>
+	</select>
+	
+	<select id="queryAllExpertLibExportOr" parameterClass="java.util.Map" resultMap="ExpertLibDto">
+		select T.* from expertlib T where 1 = 1
+		and T.DELETE_FLG = '1'
+		<isNotEmpty prepend="and" property="EXPERT_NAME">
+			T.EXPERT_NAME like '%$EXPERT_NAME$%' ESCAPE '/'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="EXPERT_MAJOR">
+			$EXPERT_MAJOR$
+		</isNotEmpty>
+		order by T.UPDATE_DATE desc
+	</select>
+	
+	<select id="queryAllExpertLibExportAnd" parameterClass="java.util.Map" resultMap="ExpertLibDto">
+		select T.* from expertlib T where 1 = 1
+		and T.DELETE_FLG = '1'
+		<isNotEmpty prepend="and" property="EXPERT_NAME">
+			T.EXPERT_NAME like '%$EXPERT_NAME$%' ESCAPE '/'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="EXPERT_MAJOR">
+			T.EXPERT_MAJOR like '%$EXPERT_MAJOR$%' ESCAPE '/'
+		</isNotEmpty>
+		order by T.UPDATE_DATE desc
+	</select>
+	
+	<select id="queryExpertLibByPageOr" parameterClass="java.util.Map" resultMap="ExpertLibDto">
+		select T.* from expertlib T where 1 = 1
+		and T.DELETE_FLG = '1'
+		<isNotEmpty prepend="and" property="EXPERT_NAME">
+			T.EXPERT_NAME like '%$EXPERT_NAME$%' ESCAPE '/'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="EXPERT_MAJOR">
+			$EXPERT_MAJOR$
+		</isNotEmpty>
+		order by T.UPDATE_DATE desc
+		LIMIT #start#, #end#
+	</select>
+	
+	<select id="queryAllExpertLibOr" parameterClass="java.util.Map" resultMap="ExpertLibDto">
+		select T.* from expertlib T where 1 = 1
+		and T.DELETE_FLG = '1'
+		<isNotEmpty prepend="and" property="EXPERT_MAJOR">
+			$EXPERT_MAJOR$
+		</isNotEmpty>
+		order by T.UPDATE_DATE desc
+	</select>
+	
+	<select id="queryExpertLibByPageAnd" parameterClass="java.util.Map" resultMap="ExpertLibDto">
+		select T.* from expertlib T where 1 = 1
+		and T.DELETE_FLG = '1'
+		<isNotEmpty prepend="and" property="EXPERT_NAME">
+			T.EXPERT_NAME like '%$EXPERT_NAME$%' ESCAPE '/'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="EXPERT_MAJOR">
+			T.EXPERT_MAJOR like '%$EXPERT_MAJOR$%' ESCAPE '/'
+		</isNotEmpty>
+		order by T.UPDATE_DATE desc
+		LIMIT #start#, #end#
+	</select>
+	
+	<select id="queryExpertLibByID" parameterClass="java.util.Map" resultMap="ExpertLibDto">
+		select * from expertlib where 
+			EXPERT_SEQ = #EXPERT_SEQ#
+			and DELETE_FLG = '1'
+	</select>
+	
+	<select id="queryAllExpertLib" parameterClass="java.util.Map" resultMap="ExpertLibDto">
+		select * from expertlib where 1 = 1 and DELETE_FLG = '1' order by UPDATE_DATE desc
+	</select>
+	
+	<select id="queryExpertComp" parameterClass="java.util.Map" resultMap="ExpertCompDto">
+		select distinct expert_comp from expertlib where 1 = 1 and DELETE_FLG = '1' order by UPDATE_DATE desc
+	</select>
+	
+	<insert id="insertExpertLib" parameterClass="com.cn.tbps.dto.ExpertLibDto">
+		insert into expertlib(EXPERT_NAME,EXPERT_MAJOR,EXPERT_QULI,EXPERT_TEL1,EXPERT_TEL2,EXPERT_GENDER,EXPERT_BIRTH,EXPERT_COMP,MEMO1,DELETE_FLG,UPDATE_USER,INSERT_DATE,UPDATE_DATE,RESERVE1,RESERVE2,RESERVE3,RESERVE4,RESERVE5)
+		values(#EXPERT_NAME#,#EXPERT_MAJOR#,#EXPERT_QULI#,#EXPERT_TEL1#,#EXPERT_TEL2#,#EXPERT_GENDER#,#EXPERT_BIRTH#,#EXPERT_COMP#,#MEMO1#,#DELETE_FLG#,#UPDATE_USER#,NOW(),NOW(),#RESERVE1#,#RESERVE2#,#RESERVE3#,#RESERVE4#,#RESERVE5#)
+	</insert>
+	
+	<update id="updateExpertLib" parameterClass="com.cn.tbps.dto.ExpertLibDto">
+		update expertlib
+		set EXPERT_SEQ = #EXPERT_SEQ#,
+			EXPERT_NAME = #EXPERT_NAME#,
+			EXPERT_MAJOR = #EXPERT_MAJOR#,
+			EXPERT_QULI = #EXPERT_QULI#,
+			EXPERT_TEL1 = #EXPERT_TEL1#,
+			EXPERT_TEL2 = #EXPERT_TEL2#,
+			EXPERT_GENDER = #EXPERT_GENDER#,
+			EXPERT_BIRTH = #EXPERT_BIRTH#,
+			EXPERT_COMP = #EXPERT_COMP#,
+			MEMO1 = #MEMO1#,
+			DELETE_FLG = #DELETE_FLG#,
+			UPDATE_USER = #UPDATE_USER#,
+			UPDATE_DATE = NOW(),
+			RESERVE1 = #RESERVE1#,
+			RESERVE2 = #RESERVE2#,
+			RESERVE3 = #RESERVE3#,
+			RESERVE4 = #RESERVE4#,
+			RESERVE5 = #RESERVE5#
+		where EXPERT_SEQ = #EXPERT_SEQ#
+	</update>
+	
+</sqlMap>

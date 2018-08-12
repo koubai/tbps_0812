@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+        PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="com.cn.tbps">
+
+	<resultMap id="WithholdDto" class="com.cn.tbps.dto.WithholdDto">
+		<result property="WITHHOLD_NO" column="WITHHOLD_NO" />
+		<result property="WITHHOLD_TYPE" column="WITHHOLD_TYPE" />
+		<result property="WITHHOLD_DATE" column="WITHHOLD_DATE" />
+		<result property="WITHHOLD_AMOUNT" column="WITHHOLD_AMOUNT" />
+		<result property="WITHHOLD_REASON" column="WITHHOLD_REASON" />
+		<result property="MEMO1" column="MEMO1" />
+		<result property="DELETE_FLG" column="DELETE_FLG" />
+		<result property="UPDATE_USER" column="UPDATE_USER" />
+		<result property="INSERT_DATE" column="INSERT_DATE" />
+		<result property="UPDATE_DATE" column="UPDATE_DATE" />
+		<result property="RESERVE1" column="RESERVE1" />
+		<result property="RESERVE2" column="RESERVE2" />
+		<result property="RESERVE3" column="RESERVE3" />
+		<result property="RESERVE4" column="RESERVE4" />
+		<result property="RESERVE5" column="RESERVE5" />
+	</resultMap>
+	
+	<select id="queryWithholdCountByPage" resultClass="int" parameterClass="java.util.Map">
+		select count(*) from withhold W where 1 = 1
+			and DELETE_FLG = '1'
+			<isNotEmpty prepend="and" property="WITHHOLD_DATE_LOW">
+				W.WITHHOLD_DATE <![CDATA[>=]]> #WITHHOLD_DATE_LOW#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="WITHHOLD_DATE_HIGH">
+				W.WITHHOLD_DATE <![CDATA[<=]]> #WITHHOLD_DATE_HIGH#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="WITHHOLD_TYPE">
+				W.WITHHOLD_TYPE = #WITHHOLD_TYPE#
+			</isNotEmpty>
+	</select>
+	
+	<select id="queryWithholdByPage" parameterClass="java.util.Map" resultMap="WithholdDto">
+		select W.* from withhold W where 1 = 1
+		and DELETE_FLG = '1'
+		<isNotEmpty prepend="and" property="WITHHOLD_DATE_LOW">
+			W.WITHHOLD_DATE <![CDATA[>=]]> #WITHHOLD_DATE_LOW#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="WITHHOLD_DATE_HIGH">
+			W.WITHHOLD_DATE <![CDATA[<=]]> #WITHHOLD_DATE_HIGH#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="WITHHOLD_TYPE">
+			W.WITHHOLD_TYPE = #WITHHOLD_TYPE#
+		</isNotEmpty>
+		order by W.UPDATE_DATE desc
+		LIMIT #start#, #end#
+	</select>
+	
+	<select id="queryWithholdExport" parameterClass="java.util.Map" resultMap="WithholdDto">
+		select W.* from withhold W where 1 = 1
+		and DELETE_FLG = '1'
+		<isNotEmpty prepend="and" property="WITHHOLD_DATE_LOW">
+			W.WITHHOLD_DATE <![CDATA[>=]]> #WITHHOLD_DATE_LOW#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="WITHHOLD_DATE_HIGH">
+			W.WITHHOLD_DATE <![CDATA[<=]]> #WITHHOLD_DATE_HIGH#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="WITHHOLD_TYPE">
+			W.WITHHOLD_TYPE = #WITHHOLD_TYPE#
+		</isNotEmpty>
+		order by W.UPDATE_DATE desc
+	</select>
+	
+	<select id="queryWithholdByID" parameterClass="java.util.Map" resultMap="WithholdDto">
+		select * from withhold where 
+			WITHHOLD_NO = #WITHHOLD_NO#
+			and DELETE_FLG = '1'
+	</select>
+	
+	<select id="queryAllWithholdByID" parameterClass="java.util.Map" resultMap="WithholdDto">
+		select * from withhold where 
+			WITHHOLD_NO = #WITHHOLD_NO#
+	</select>
+	
+	<insert id="insertWithhold" parameterClass="com.cn.tbps.dto.WithholdDto">
+		insert into withhold(WITHHOLD_NO,WITHHOLD_TYPE,WITHHOLD_DATE,WITHHOLD_AMOUNT,WITHHOLD_REASON,MEMO1,
+			DELETE_FLG,UPDATE_USER,INSERT_DATE,UPDATE_DATE,RESERVE1,RESERVE2,RESERVE3,RESERVE4,RESERVE5)
+		values(#WITHHOLD_NO#,#WITHHOLD_TYPE#,#WITHHOLD_DATE#,#WITHHOLD_AMOUNT#,#WITHHOLD_REASON#,#MEMO1#,
+			#DELETE_FLG#,#UPDATE_USER#,NOW(),NOW(),#RESERVE1#,#RESERVE2#,#RESERVE3#,#RESERVE4#,#RESERVE5#)
+	</insert>
+	
+	<update id="delWithholdById" parameterClass="java.util.Map">
+		update withhold set 
+			DELETE_FLG = #DELETE_FLG#,
+			UPDATE_USER = #UPDATE_USER#,
+			UPDATE_DATE = NOW()
+			where WITHHOLD_NO = #WITHHOLD_NO#
+	</update>
+	
+	<update id="updateWithhold" parameterClass="com.cn.tbps.dto.WithholdDto">
+		update withhold
+		set WITHHOLD_TYPE = #WITHHOLD_TYPE#,
+			WITHHOLD_DATE = #WITHHOLD_DATE#,
+			WITHHOLD_AMOUNT = #WITHHOLD_AMOUNT#,
+			WITHHOLD_REASON = #WITHHOLD_REASON#,
+			MEMO1 = #MEMO1#,
+			DELETE_FLG = #DELETE_FLG#,
+			UPDATE_USER = #UPDATE_USER#,
+			UPDATE_DATE = NOW(),
+			RESERVE1 = #RESERVE1#,
+			RESERVE2 = #RESERVE2#,
+			RESERVE3 = #RESERVE3#,
+			RESERVE4 = #RESERVE4#,
+			RESERVE5 = #RESERVE5#
+		where WITHHOLD_NO = #WITHHOLD_NO#
+	</update>
+	
+</sqlMap>

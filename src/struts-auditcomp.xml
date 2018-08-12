@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="auditcomp" extends="struts-tbps" namespace="/auditcomp">
+	
+		<action name="showAuditCompAction" class="auditCompAction" method="showAuditCompAction">
+			<result name="success">/page/auditcomp/auditcomplist.jsp</result>
+		</action>
+		
+		<action name="queryAuditCompList" class="auditCompAction" method="queryAuditCompList">
+			<result name="success">/page/auditcomp/auditcomplist.jsp</result>
+		</action>
+		
+		<action name="turnAuditCompPage" class="auditCompAction" method="turnAuditCompPage">
+			<result name="success">/page/auditcomp/auditcomplist.jsp</result>
+		</action>
+		
+		<action name="showAddAuditCompAction" class="auditCompAction" method="showAddAuditCompAction">
+			<result name="*">/page/auditcomp/addauditcomp.jsp</result>
+		</action>
+		
+		<action name="addAuditCompAction" class="auditCompAction" method="addAuditCompAction">
+			<result name="success">/page/auditcomp/addauditcomp.jsp</result>
+			<result name="checkerror">/page/auditcomp/addauditcomp.jsp</result>
+		</action>
+		
+		<action name="showUpdAuditCompAction" class="auditCompAction" method="showUpdAuditCompAction">
+			<result name="success">/page/auditcomp/updauditcomp.jsp</result>
+			<result name="checkerror">/page/auditcomp/updauditcomp.jsp</result>
+		</action>
+		
+		<action name="updAuditCompAction" class="auditCompAction" method="updAuditCompAction">
+			<result name="success">/page/auditcomp/updauditcomp.jsp</result>
+			<result name="checkerror">/page/auditcomp/updauditcomp.jsp</result>
+		</action>
+		
+		<action name="delAuditCompAction" class="auditCompAction" method="delAuditCompAction">
+			<result name="success">/page/auditcomp/auditcomplist.jsp</result>
+			<result name="checkerror">/page/auditcomp/auditcomplist.jsp</result>
+		</action>
+
+	</package>
+
+</struts>

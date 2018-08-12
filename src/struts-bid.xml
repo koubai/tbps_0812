@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="bid" extends="struts-tbps" namespace="/bid">
+	
+		<action name="showBidAction" class="bidAction" method="showBidAction">
+			<result name="success">/page/bid/bidlist.jsp</result>
+		</action>
+		
+		<action name="queryBidList" class="bidAction" method="queryBidList">
+			<result name="success">/page/bid/bidlist.jsp</result>
+		</action>
+		
+		<action name="turnBidPage" class="bidAction" method="turnBidPage">
+			<result name="success">/page/bid/bidlist.jsp</result>
+		</action>
+		
+		<action name="showAddBidAction" class="bidAction" method="showAddBidAction">
+			<result name="*">/page/bid/addbid.jsp</result>
+		</action>
+		
+		<action name="addBidAction" class="bidAction" method="addBidAction">
+			<result name="nextstep">/page/bid/updbidstatus.jsp</result>
+			<result name="success">/page/bid/addbid.jsp</result>
+			<result name="checkerror">/page/bid/addbid.jsp</result>
+		</action>
+		
+		<action name="showUpdBidAction" class="bidAction" method="showUpdBidAction">
+			<result name="success">/page/bid/updbid.jsp</result>
+			<result name="checkerror">/page/bid/updbid.jsp</result>
+		</action>
+		
+		<action name="updBidAction" class="bidAction" method="updBidAction">
+			<result name="success">/page/bid/updbid.jsp</result>
+			<result name="checkerror">/page/bid/updbid.jsp</result>
+		</action>
+		
+		<action name="showUpdBidStatusAction" class="bidAction" method="showUpdBidStatusAction">
+			<result name="success">/page/bid/updbidstatus.jsp</result>
+			<result name="checkerror">/page/bid/updbidstatus.jsp</result>
+		</action>
+		
+		<action name="updBidStatusAction" class="bidAction" method="updBidStatusAction">
+			<result name="success">/page/bid/updbidstatus.jsp</result>
+			<result name="checkerror">/page/bid/updbidstatus.jsp</result>
+		</action>
+		
+		<action name="delBidAction" class="bidAction" method="delBidAction">
+			<result name="success">/page/bid/bidlist.jsp</result>
+			<result name="checkerror">/page/bid/bidlist.jsp</result>
+		</action>
+		
+		<action name="showAddBidCompAction" class="bidAction" method="showAddBidCompAction">
+			<result name="success">/page/bid/addbidcomp.jsp</result>
+		</action>
+		
+		<action name="showUpdBidCompAction" class="bidAction" method="showUpdBidCompAction">
+			<result name="success">/page/bid/updbidcomp.jsp</result>
+		</action>
+		
+		<action name="delBidComNoAction" class="bidAction" method="delBidComNoAction">
+			<result name="success">/page/bid/bidlist.jsp</result>
+		</action>
+		
+		<action name="showAddBidExpertAction" class="bidAction" method="showAddBidExpertAction">
+			<result name="success">/page/bid/addbidexpert.jsp</result>
+		</action>
+		
+		<action name="turnAddBidExpertAction" class="bidAction" method="turnAddBidExpertAction">
+			<result name="success">/page/bid/addbidexpert.jsp</result>
+		</action>
+		
+		<action name="queryAddBidExpertAction" class="bidAction" method="queryAddBidExpertAction">
+			<result name="success">/page/bid/addbidexpert.jsp</result>
+		</action>
+		
+		<action name="showAddBidAgentCompAction" class="bidAction" method="showAddBidAgentCompAction">
+			<result name="success">/page/bid/addbidagent.jsp</result>
+		</action>
+		
+		<action name="queryAddBidAgentCompAction" class="bidAction" method="queryAddBidAgentCompAction">
+			<result name="success">/page/bid/addbidagent.jsp</result>
+		</action>
+		
+		<action name="turnAddBidAgentCompAction" class="bidAction" method="turnAddBidAgentCompAction">
+			<result name="success">/page/bid/addbidagent.jsp</result>
+		</action>
+		
+		<action name="exportBidListAction" class="bidAction" method="exportBidListAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
+		
+		<action name="exportBidAllInfoAction" class="bidAction" method="exportBidAllInfoAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
+		
+		<action name="showBidHisAction" class="bidAction" method="showBidHisAction">
+			<result name="success">/page/bid/bidhis.jsp</result>
+		</action>
+		
+		<action name="queryBidHisAction" class="bidAction" method="queryBidHisAction">
+			<result name="success">/page/bid/bidhis.jsp</result>
+		</action>
+		
+		<action name="turnBidHisAction" class="bidAction" method="turnBidHisAction">
+			<result name="success">/page/bid/bidhis.jsp</result>
+		</action>
+		
+		<action name="showBidDetailAction" class="bidAction" method="showBidDetailAction">
+			<result name="success">/page/bid/biddetail.jsp</result>
+		</action>
+		
+		<action name="showBidHisDetailAction" class="bidAction" method="showBidHisDetailAction">
+			<result name="success">/page/bid/bidhisdetail.jsp</result>
+		</action>
+		
+		<action name="showAllBidHisAction" class="bidAction" method="showAllBidHisAction">
+			<result name="success">/page/bid/bidhisall.jsp</result>
+		</action>
+		
+		<action name="exportBidHisAction" class="bidAction" method="exportBidHisAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
+		
+		<action name="showGetAutoBidExpertAction" class="bidAction" method="showGetAutoBidExpertAction">
+			<result name="success">/page/bid/addbidexpertauto.jsp</result>
+		</action>
+		
+		<action name="getAutoBidExpertAction" class="bidAction" method="getAutoBidExpertAction">
+			<result name="success">/page/bid/addbidexpertauto.jsp</result>
+		</action>
+		
+		<action name="showGetBidExportActionNew" class="bidAction" method="showGetBidExportActionNew">
+			<result name="success">/page/bid/addbidexpertnew.jsp</result>
+		</action>
+		
+		<action name="getBidExportActionNew" class="bidAction" method="getBidExportActionNew">
+			<result name="success">/page/bid/addbidexpertnew.jsp</result>
+		</action>
+
+		<action name="exportBidExpertAction" class="bidAction" method="exportBidExpertAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
+		
+		
+		<action name="exportBidFormAction" class="bidAction" method="exportBidFormAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
+
+		<action name="exportBidRegisterAction" class="bidAction" method="exportBidRegisterAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
+
+		<action name="exportSingleBidCompRegisterAction" class="bidAction" method="exportSingleBidCompRegisterAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
+
+		<action name="exportBidReplyAction" class="bidAction" method="exportBidReplyAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
+
+		<action name="exportBidReceiveAction" class="bidAction" method="exportBidReceiveAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
+		
+		<action name="exportBidAuditAction" class="bidAction" method="exportBidAuditAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
+
+		<action name="exportBidDepositAction" class="bidAction" method="exportBidDepositAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
+
+		<action name="exportBidBaseAction" class="bidAction" method="exportBidBaseAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
+
+		<action name="exportBidCancelAction" class="bidAction" method="exportBidCancelAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
+
+		<action name="exportBidSignAction" class="bidAction" method="exportBidSignAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
+		
+		<action name="showApplyNotePage" class="bidAction" method="showApplyNotePage">
+			<result name="success">/page/bid/addbidcompapply.jsp</result>
+		</action>
+		
+		<action name="showExportYearAction" class="bidAction" method="showExportYearAction">
+			<result name="success">/page/bid/exportyear.jsp</result>
+		</action>
+		
+		<action name="exportYearAction" class="bidAction" method="exportYearAction">
+			<result name="success">/page/bid/exportlist.jsp</result>
+			<result name="checkerror">/page/bid/exportlist.jsp</result>
+		</action>
+		
+		<action name="showSelectBidAgentCompAction" class="bidAction" method="showSelectBidAgentCompAction">
+			<result name="success">/page/bid/selectbidagent.jsp</result>
+		</action>
+		
+		<action name="showSelectBidCompAction" class="bidAction" method="showSelectBidCompAction">
+			<result name="success">/page/bid/selectbidcomp.jsp</result>
+		</action>
+		
+		<action name="showSelectProManagerAction" class="bidAction" method="showSelectProManagerAction">
+			<result name="success">/page/bid/selectprojectmanager.jsp</result>
+		</action>
+		
+		<action name="showBidList" class="bidAction" method="showBidList">
+			<result name="success">/page/bid/exportlist.jsp</result>
+		</action>
+		
+		<action name="exportBidList2Action" class="bidAction" method="exportBidList2Action">
+			<result name="success">/page/download.jsp</result>
+		</action>
+		
+		<action name="showSelectExpertCompAction" class="bidAction" method="showSelectExpertCompAction">
+			<result name="success">/page/bid/selectexpertcomp.jsp</result>
+		</action>
+		
+	</package>
+
+</struts>

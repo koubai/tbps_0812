@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+        PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="com.cn.tbps">
+
+	<resultMap id="MajorDto" class="com.cn.tbps.dto.MajorDto">
+		<result property="ID" column="ID" />
+		<result property="MAJORCODE" column="MAJORCODE" />
+		<result property="MAJORNAME" column="MAJORNAME" />
+		<result property="MAJORTYPE" column="MAJORTYPE" />
+		<result property="STATUS" column="STATUS" />
+		<result property="UPDATE_USER" column="UPDATE_USER" />
+		<result property="INSERT_DATE" column="INSERT_DATE" />
+		<result property="UPDATE_DATE" column="UPDATE_DATE" />
+	</resultMap>
+	
+	<select id="queryMajorCountByPage" resultClass="int" parameterClass="java.util.Map">
+		select count(*) from major T where 1 = 1 and T.STATUS = 1
+			<isNotEmpty prepend="and" property="MAJORCODE">
+				T.MAJORCODE like '%$MAJORCODE$%' ESCAPE '/'
+			</isNotEmpty>
+	</select>
+	
+	<select id="queryMajorByPage" parameterClass="java.util.Map" resultMap="MajorDto">
+		select T.* from major T where 1 = 1 and T.STATUS = 1
+		<isNotEmpty prepend="and" property="MAJORCODE">
+			T.MAJORCODE like '%$MAJORCODE$%' ESCAPE '/'
+		</isNotEmpty>
+		order by T.MAJORCODE,T.MAJORTYPE
+		LIMIT #start#, #end#
+	</select>
+	
+	<select id="queryMajorByID" parameterClass="java.util.Map" resultMap="MajorDto">
+		select * from major where ID = #ID#
+	</select>
+	
+	<select id="queryMajorByCode" parameterClass="java.util.Map" resultMap="MajorDto">
+		select * from major where MAJORCODE = #MAJORCODE#
+	</select>
+	
+	<select id="queryAllMajor" parameterClass="java.util.Map" resultMap="MajorDto">
+		select * from major where 1 = 1 and STATUS = 1
+		<isNotEmpty prepend="and" property="MAJORTYPE">
+			MAJORTYPE = #MAJORTYPE#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="MAJORCODE">
+			MAJORCODE like '$MAJORCODE$%' ESCAPE '/'
+		</isNotEmpty>
+		order by MAJORCODE,MAJORTYPE
+	</select>
+	
+	<insert id="insertMajor" parameterClass="com.cn.tbps.dto.MajorDto">
+		insert into major(MAJORCODE,MAJORNAME,MAJORTYPE,STATUS,UPDATE_USER,INSERT_DATE,UPDATE_DATE)
+		values(#MAJORCODE#,#MAJORNAME#,#MAJORTYPE#,#STATUS#,#UPDATE_USER#,NOW(),NOW())
+	</insert>
+	
+	<update id="updateMajor" parameterClass="com.cn.tbps.dto.MajorDto">
+		update major
+		set MAJORNAME = #MAJORNAME#,
+			STATUS = #STATUS#,
+			UPDATE_DATE = NOW()
+		where ID = #ID#
+	</update>
+	
+</sqlMap>

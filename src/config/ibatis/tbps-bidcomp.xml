@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+        PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="com.cn.tbps">
+
+	<resultMap id="BidCompDto" class="com.cn.tbps.dto.BidCompDto">
+		<result property="BID_NO" column="BID_NO" />
+		<result property="BID_CO_SEQ" column="BID_CO_SEQ" />
+		<result property="BID_CO_NO" column="BID_CO_NO" />
+		<result property="BID_CO_NAME" column="BID_CO_NAME" />
+		<result property="BID_CO_MANAGER" column="BID_CO_MANAGER" />
+		<result property="BID_CO_TEL" column="BID_CO_TEL" />
+		<result property="BID_CO_ADD" column="BID_CO_ADD" />
+		<result property="BID_CO_PS" column="BID_CO_PS" />
+		<result property="TAX_NO" column="TAX_NO" />
+		<result property="BID_PAYMENT_TYPE" column="BID_PAYMENT_TYPE" />
+		<result property="BID_PRICE" column="BID_PRICE" />
+		<result property="BID_CHECK_PRICE" column="BID_CHECK_PRICE" />
+		<result property="BID_RESULT" column="BID_RESULT" />
+		<result property="BID_WIN_PRICE" column="BID_WIN_PRICE" />
+		<result property="BID_APPLY_PRICE" column="BID_APPLY_PRICE" />
+		<result property="BID_BOND" column="BID_BOND" />
+		<result property="BID_VALUE_DATE" column="BID_VALUE_DATE" />
+		<result property="REFOUND_BOND_STATUS" column="REFOUND_BOND_STATUS" />
+		<result property="REFOUND_DEPOSIT_DATE" column="REFOUND_DEPOSIT_DATE" />
+		<result property="BID_REFUND_SIGN" column="BID_REFUND_SIGN" />
+		<result property="RECEPT_UL_FILE1" column="RECEPT_UL_FILE1" />
+		<result property="RECEPT_UL_FILE2" column="RECEPT_UL_FILE2" />
+		<result property="RECEPT_UL_FILE3" column="RECEPT_UL_FILE3" />
+		<result property="RECEPT_UL_FILE4" column="RECEPT_UL_FILE4" />
+		<result property="RECEPT_UL_FILE5" column="RECEPT_UL_FILE5" />
+		<result property="RECEPT_UL_FILE6" column="RECEPT_UL_FILE6" />
+		<result property="RECEPT_UL_FILE7" column="RECEPT_UL_FILE7" />
+		<result property="RECEPT_UL_FILE8" column="RECEPT_UL_FILE8" />
+		<result property="RECEPT_UL_FILE9" column="RECEPT_UL_FILE9" />
+		<result property="RECEPT_UL_FILE10" column="RECEPT_UL_FILE10" />
+		<result property="BID_APPLY_PRICE_DATE" column="BID_APPLY_PRICE_DATE" />
+		<result property="INVOICE_TYPE" column="INVOICE_TYPE" />
+		<result property="INVOICE_DATE" column="INVOICE_DATE" />
+		<result property="BID_RECEIPT_NO" column="BID_RECEIPT_NO" />
+		<result property="BID_APPLY_PRICE_STATUS" column="BID_APPLY_PRICE_STATUS" />
+		<result property="MEMO1" column="MEMO1" />
+		<result property="DELETE_FLG" column="DELETE_FLG" />
+		<result property="UPDATE_USER" column="UPDATE_USER" />
+		<result property="INSERT_DATE" column="INSERT_DATE" />
+		<result property="UPDATE_DATE" column="UPDATE_DATE" />
+		<result property="RESERVE1" column="RESERVE1" />
+		<result property="RESERVE2" column="RESERVE2" />
+		<result property="RESERVE3" column="RESERVE3" />
+		<result property="RESERVE4" column="RESERVE4" />
+		<result property="RESERVE5" column="RESERVE5" />
+		<result property="RESERVE6" column="RESERVE6" />
+		<result property="RESERVE7" column="RESERVE7" />
+		<result property="RESERVE8" column="RESERVE8" />
+		<result property="RESERVE9" column="RESERVE9" />
+		<result property="RESERVE10" column="RESERVE10" />
+		<result property="RESERVE_DATE1" column="RESERVE_DATE1" />
+		<result property="RESERVE_DATE2" column="RESERVE_DATE2" />
+	</resultMap>
+	
+	<select id="queryBidCompCountByPage" resultClass="int" parameterClass="java.util.Map">
+		select count(*) from bidcomp T where 1 = 1
+			and T.DELETE_FLG = '1'
+			<isNotEmpty prepend="and" property="BID_NO">
+				T.BID_NO = #BID_NO#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="BID_CO_SEQ">
+				T.BID_CO_SEQ = #BID_CO_SEQ#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="BID_CO_NO">
+				T.BID_CO_NO = #BID_CO_NO#
+			</isNotEmpty>
+	</select>
+	
+	<select id="queryBidCompByPage" parameterClass="java.util.Map" resultMap="BidCompDto">
+		select T.* from bidcomp T where 1 = 1
+			and T.DELETE_FLG = '1'
+			<isNotEmpty prepend="and" property="BID_NO">
+				T.BID_NO = #BID_NO#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="BID_CO_SEQ">
+				T.BID_CO_SEQ = #BID_CO_SEQ#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="BID_CO_NO">
+				T.BID_CO_NO = #BID_CO_NO#
+			</isNotEmpty>
+			order by T.UPDATE_DATE desc
+			LIMIT #start#, #end#
+	</select>
+	
+	<select id="queryBidCompByIds" parameterClass="java.util.Map" resultMap="BidCompDto">
+		select T.* from bidcomp T where 1 = 1
+			and T.DELETE_FLG = '1'
+			and T.BID_CO_NO in ($IDS$)
+			order by T.BID_CO_SEQ asc
+	</select>
+	
+	<select id="queryAllBidCompExport" parameterClass="java.util.Map" resultMap="BidCompDto">
+		select T.* from bidcomp T where 1 = 1
+			and T.DELETE_FLG = '1'
+			<isNotEmpty prepend="and" property="BID_NO">
+				T.BID_NO = #BID_NO#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="BID_CO_SEQ">
+				T.BID_CO_SEQ = #BID_CO_SEQ#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="BID_CO_NO">
+				T.BID_CO_NO = #BID_CO_NO#
+			</isNotEmpty>
+			order by T.UPDATE_DATE desc
+	</select>
+	
+	<select id="queryBidCompByID" parameterClass="java.util.Map" resultMap="BidCompDto">
+		select * from bidcomp where 
+			BID_CO_NO = #BID_CO_NO#
+			and DELETE_FLG = '1'
+	</select>
+	
+	<select id="queryAllBidCompByID" parameterClass="java.util.Map" resultMap="BidCompDto">
+		select * from bidcomp where 
+			BID_CO_NO = #BID_CO_NO#
+	</select>
+	
+	<insert id="insertBidComp" parameterClass="com.cn.tbps.dto.BidCompDto">
+		insert into bidcomp(BID_NO,BID_CO_SEQ,BID_CO_NO,BID_CO_NAME,BID_CO_MANAGER,BID_CO_TEL,BID_CO_ADD,BID_CO_PS,TAX_NO,BID_PAYMENT_TYPE,
+			BID_PRICE,BID_CHECK_PRICE,BID_RESULT,BID_WIN_PRICE,BID_APPLY_PRICE,BID_BOND,BID_VALUE_DATE,REFOUND_BOND_STATUS,
+			REFOUND_DEPOSIT_DATE,BID_REFUND_SIGN,RECEPT_UL_FILE1,RECEPT_UL_FILE2,RECEPT_UL_FILE3,RECEPT_UL_FILE4,RECEPT_UL_FILE5,
+			RECEPT_UL_FILE6,RECEPT_UL_FILE7,RECEPT_UL_FILE8,RECEPT_UL_FILE9,RECEPT_UL_FILE10,BID_APPLY_PRICE_DATE,
+			INVOICE_TYPE,INVOICE_DATE,BID_RECEIPT_NO,BID_APPLY_PRICE_STATUS,MEMO1,DELETE_FLG,UPDATE_USER,INSERT_DATE,
+			UPDATE_DATE,RESERVE1,RESERVE2,RESERVE3,RESERVE4,RESERVE5,RESERVE6,RESERVE7,RESERVE8,RESERVE9,RESERVE10,
+			RESERVE_DATE1,RESERVE_DATE2)
+		values(#BID_NO#,#BID_CO_SEQ#,#BID_CO_NO#,#BID_CO_NAME#,#BID_CO_MANAGER#,#BID_CO_TEL#,#BID_CO_ADD#,#BID_CO_PS#,#TAX_NO#,#BID_PAYMENT_TYPE#,
+			#BID_PRICE#,#BID_CHECK_PRICE#,#BID_RESULT#,#BID_WIN_PRICE#,#BID_APPLY_PRICE#,#BID_BOND#,#BID_VALUE_DATE#,#REFOUND_BOND_STATUS#,
+			#REFOUND_DEPOSIT_DATE#,#BID_REFUND_SIGN#,#RECEPT_UL_FILE1#,#RECEPT_UL_FILE2#,#RECEPT_UL_FILE3#,#RECEPT_UL_FILE4#,#RECEPT_UL_FILE5#,
+			#RECEPT_UL_FILE6#,#RECEPT_UL_FILE7#,#RECEPT_UL_FILE8#,#RECEPT_UL_FILE9#,#RECEPT_UL_FILE10#,#BID_APPLY_PRICE_DATE#,
+			#INVOICE_TYPE#,#INVOICE_DATE#,#BID_RECEIPT_NO#,#BID_APPLY_PRICE_STATUS#,#MEMO1#,#DELETE_FLG#,#UPDATE_USER#,NOW(),
+			NOW(),#RESERVE1#,#RESERVE2#,#RESERVE3#,#RESERVE4#,#RESERVE5#,#RESERVE6#,#RESERVE7#,#RESERVE8#,#RESERVE9#,#RESERVE10#,
+			#RESERVE_DATE1#,#RESERVE_DATE2#)
+			<selectKey resultClass="Integer" keyProperty="BID_CO_NO">
+				SELECT @@IDENTITY AS BID_CO_NO
+			</selectKey>
+	</insert>
+	
+	<update id="delBidCompByBidNo" parameterClass="java.util.Map">
+		update bidcomp set 
+			DELETE_FLG = #DELETE_FLG#,
+			UPDATE_USER = #UPDATE_USER#,
+			UPDATE_DATE = NOW()
+			where BID_NO = #BID_NO#
+	</update>
+	
+	<update id="updateBidComp" parameterClass="com.cn.tbps.dto.BidCompDto">
+		update bidcomp
+		set BID_NO = #BID_NO#,
+			BID_CO_SEQ = #BID_CO_SEQ#,
+			BID_CO_NAME = #BID_CO_NAME#,
+			BID_CO_MANAGER = #BID_CO_MANAGER#,
+			BID_CO_TEL = #BID_CO_TEL#,
+			BID_CO_ADD = #BID_CO_ADD#,
+			BID_CO_PS = #BID_CO_PS#,
+			TAX_NO = #TAX_NO#,
+			BID_PAYMENT_TYPE = #BID_PAYMENT_TYPE#,
+			BID_PRICE = #BID_PRICE#,
+			BID_CHECK_PRICE = #BID_CHECK_PRICE#,
+			BID_RESULT = #BID_RESULT#,
+			BID_WIN_PRICE = #BID_WIN_PRICE#,
+			BID_APPLY_PRICE = #BID_APPLY_PRICE#,
+			BID_BOND = #BID_BOND#,
+			BID_VALUE_DATE = #BID_VALUE_DATE#,
+			REFOUND_BOND_STATUS = #REFOUND_BOND_STATUS#,
+			REFOUND_DEPOSIT_DATE = #REFOUND_DEPOSIT_DATE#,
+			BID_REFUND_SIGN = #BID_REFUND_SIGN#,
+			RECEPT_UL_FILE1 = #RECEPT_UL_FILE1#,
+			RECEPT_UL_FILE2 = #RECEPT_UL_FILE2#,
+			RECEPT_UL_FILE3 = #RECEPT_UL_FILE3#,
+			RECEPT_UL_FILE4 = #RECEPT_UL_FILE4#,
+			RECEPT_UL_FILE5 = #RECEPT_UL_FILE5#,
+			RECEPT_UL_FILE6 = #RECEPT_UL_FILE6#,
+			RECEPT_UL_FILE7 = #RECEPT_UL_FILE7#,
+			RECEPT_UL_FILE8 = #RECEPT_UL_FILE8#,
+			RECEPT_UL_FILE9 = #RECEPT_UL_FILE9#,
+			RECEPT_UL_FILE10 = #RECEPT_UL_FILE10#,
+			BID_APPLY_PRICE_DATE = #BID_APPLY_PRICE_DATE#,
+			INVOICE_TYPE = #INVOICE_TYPE#,
+			INVOICE_DATE = #INVOICE_DATE#,
+			BID_RECEIPT_NO = #BID_RECEIPT_NO#,
+			BID_APPLY_PRICE_STATUS = #BID_APPLY_PRICE_STATUS#,
+			MEMO1 = #MEMO1#,
+			DELETE_FLG = #DELETE_FLG#,
+			UPDATE_USER = #UPDATE_USER#,
+			UPDATE_DATE = NOW(),
+			RESERVE1 = #RESERVE1#,
+			RESERVE2 = #RESERVE2#,
+			RESERVE3 = #RESERVE3#,
+			RESERVE4 = #RESERVE4#,
+			RESERVE5 = #RESERVE5#,
+			RESERVE6 = #RESERVE6#,
+			RESERVE7 = #RESERVE7#,
+			RESERVE8 = #RESERVE8#,
+			RESERVE9 = #RESERVE9#,
+			RESERVE10 = #RESERVE10#,
+			RESERVE_DATE1 = #RESERVE_DATE1#,
+			RESERVE_DATE2 = #RESERVE_DATE2#
+		where BID_CO_NO = #BID_CO_NO#
+	</update>
+	
+	<select id="queryBidCompByName" parameterClass="java.util.Map" resultMap="BidCompDto">
+		select * from bidcomp where 
+			DELETE_FLG = '1'
+		<isNotEmpty prepend="and" property="BID_CO_NAME">
+			BID_CO_NAME like '%$BID_CO_NAME$%'
+		</isNotEmpty>
+		LIMIT 0,30
+	</select>
+	
+	
+</sqlMap>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+        PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="com.cn.tbps">
+
+	<resultMap id="UserInfoDto" class="com.cn.tbps.dto.UserInfoDto">
+		<result property="LOGIN_ID" column="LOGIN_ID" />
+		<result property="LOGIN_NAME" column="LOGIN_NAME" />
+		<result property="LOGIN_PW" column="LOGIN_PW" />
+		<result property="RANK" column="RANK" />
+		<result property="MEMO1" column="MEMO1" />
+		<result property="UPDATE_USER" column="UPDATE_USER" />
+		<result property="INSERT_DATE" column="INSERT_DATE" />
+		<result property="UPDATE_DATE" column="UPDATE_DATE" />
+		<result property="RESERVE1" column="RESERVE1" />
+		<result property="RESERVE2" column="RESERVE2" />
+		<result property="RESERVE3" column="RESERVE3" />
+		<result property="RESERVE4" column="RESERVE4" />
+		<result property="RESERVE5" column="RESERVE5" />
+	</resultMap>
+	
+	<select id="queryUserCountByPage" resultClass="int" parameterClass="java.util.Map">
+		select count(*) from userinfo T where 1 = 1
+			<isNotEmpty prepend="and" property="login_name">
+				T.login_name like '%$login_name$%' ESCAPE '/'
+			</isNotEmpty>
+	</select>
+	
+	<select id="queryUserByPage" parameterClass="java.util.Map" resultMap="UserInfoDto">
+		select T.* from userinfo T where 1 = 1
+		<isNotEmpty prepend="and" property="login_name">
+			T.login_name like '%$login_name$%' ESCAPE '/'
+		</isNotEmpty>
+		order by T.UPDATE_DATE desc
+		LIMIT #start#, #end#
+	</select>
+	
+	<select id="queryUserByID" parameterClass="java.util.Map" resultMap="UserInfoDto">
+		select * from userinfo where 
+			LOGIN_ID = #LOGIN_ID#
+	</select>
+	
+	<select id="queryAllUser" parameterClass="java.util.Map" resultMap="UserInfoDto">
+		select * from userinfo where 1 = 1 order by insert_date desc
+	</select>
+	
+	<delete id="deleteUser" parameterClass="java.util.Map">
+		delete from userinfo where LOGIN_ID = #LOGIN_ID#
+	</delete>
+	
+	<insert id="insertUser" parameterClass="com.cn.tbps.dto.UserInfoDto">
+		insert into userinfo(LOGIN_ID,LOGIN_NAME,LOGIN_PW,RANK,MEMO1,UPDATE_USER,INSERT_DATE,UPDATE_DATE,RESERVE1,RESERVE2,RESERVE3,RESERVE4,RESERVE5)
+		values(#LOGIN_ID#,#LOGIN_NAME#,#LOGIN_PW#,#RANK#,#MEMO1#,#UPDATE_USER#,NOW(),NOW(),#RESERVE1#,#RESERVE2#,#RESERVE3#,#RESERVE4#,#RESERVE5#)
+	</insert>
+	
+	<update id="updateUser" parameterClass="com.cn.tbps.dto.UserInfoDto">
+		update userinfo
+		set LOGIN_NAME = #LOGIN_NAME#,
+			LOGIN_PW = #LOGIN_PW#,
+			RANK = #RANK#,
+			MEMO1 = #MEMO1#,
+			UPDATE_USER = #UPDATE_USER#,
+			UPDATE_DATE = NOW(),
+			RESERVE1 = #RESERVE1#,
+			RESERVE2 = #RESERVE2#,
+			RESERVE3 = #RESERVE3#,
+			RESERVE4 = #RESERVE4#,
+			RESERVE5 = #RESERVE5#
+		where LOGIN_ID = #LOGIN_ID#
+	</update>
+	
+</sqlMap>

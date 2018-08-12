@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+        PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="com.cn.tbps">
+
+	<resultMap id="BidCompApplyDto" class="com.cn.tbps.dto.BidCompApplyDto">
+		<result property="ID" column="ID" />
+		<result property="BID_NO" column="BID_NO" />
+		<result property="BID_CO_NO" column="BID_CO_NO" />
+		<result property="APPLY_SORT" column="APPLY_SORT" />
+		<result property="APPLY_REQUIRE" column="APPLY_REQUIRE" />
+		<result property="APPLY_NOTE" column="APPLY_NOTE" />
+		<result property="STATUS" column="STATUS" />
+		<result property="RESERVE1" column="RESERVE1" />
+		<result property="RESERVE2" column="RESERVE2" />
+	</resultMap>
+	
+	<select id="queryBidCompApplyByBidCoNo" parameterClass="java.util.Map" resultMap="BidCompApplyDto">
+		select T.* from bidcompapply T where 1 = 1
+			and T.BID_CO_NO = #BID_CO_NO#
+			order by T.APPLY_SORT asc
+	</select>
+	
+	<select id="queryBidCompApplyByID" parameterClass="java.util.Map" resultMap="BidCompApplyDto">
+		select * from bidcompapply where 
+			ID = #ID#
+	</select>
+	
+	<select id="queryBidCompApplyByRequire" parameterClass="java.util.Map" resultMap="BidCompApplyDto">
+		select * from bidcompapply where 
+			BID_NO = #BID_NO#
+			and BID_CO_NO = #BID_CO_NO#
+			and APPLY_REQUIRE = #APPLY_REQUIRE#
+	</select>
+	
+	<insert id="insertBidCompApply" parameterClass="com.cn.tbps.dto.BidCompApplyDto">
+		insert into bidcompapply(BID_NO,BID_CO_NO,APPLY_SORT,APPLY_REQUIRE,APPLY_NOTE,STATUS,RESERVE1,RESERVE2)
+		values(#BID_NO#,#BID_CO_NO#,#APPLY_SORT#,#APPLY_REQUIRE#,#APPLY_NOTE#,#STATUS#,#RESERVE1#,#RESERVE2#)
+			<selectKey resultClass="Integer" keyProperty="ID">
+				SELECT @@IDENTITY AS ID
+			</selectKey>
+	</insert>
+	
+	<update id="delBidCompApplyByBidCoNo" parameterClass="java.util.Map">
+		delete from bidcompapply
+			where BID_CO_NO = #BID_CO_NO# and BID_NO = #BID_NO# and status = 0
+	</update>
+	
+	<update id="updBidCompApplyStatusByBidCoNo" parameterClass="java.util.Map">
+		update bidcompapply
+		set STATUS = 0
+		where BID_CO_NO = #BID_CO_NO# and BID_NO = #BID_NO#
+	</update>
+	
+	<update id="updBidCompApply" parameterClass="com.cn.tbps.dto.BidCompApplyDto">
+		update bidcompapply
+		set APPLY_SORT = #APPLY_SORT#,
+			APPLY_REQUIRE = #APPLY_REQUIRE#,
+			APPLY_NOTE = #APPLY_NOTE#,
+			STATUS = #STATUS#,
+			RESERVE1 = #RESERVE1#,
+			RESERVE2 = #RESERVE2#
+		where ID = #ID#
+	</update>
+	
+</sqlMap>

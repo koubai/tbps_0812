@@ -1,0 +1,54 @@
+package com.cn.tbps.service;
+
+import java.util.List;
+
+import com.cn.tbps.dto.BidCompApplyDto;
+
+/**
+ * @name BidCompApplyService.java
+ * @author Frank
+ * @time 2016-5-26下午10:13:49
+ * @version 1.0
+ */
+public interface BidCompApplyService {
+
+	/**
+	 * 根据投标公司ID查询报名内容数据
+	 * @param bidCoNo
+	 * @return
+	 */
+	public List<BidCompApplyDto> queryBidCompApplyByBidCoNo(String bidCoNo);
+	
+	/**
+	 * 根据ID查询报名内容数据
+	 * @param id
+	 * @return
+	 */
+	public BidCompApplyDto queryBidCompApplyByID(String id);
+	
+	/**
+	 * 新增数据
+	 * @param bidCompApply
+	 */
+	public void insertBidCompApply(BidCompApplyDto bidCompApply);
+	
+	/**
+	 * 根据投标公司ID删除报名内容数据
+	 * @param bidNo
+	 * @param bidCoNo
+	 */
+	public void delBidCompApplyByBidCoNo(String bidNo, String bidCoNo);
+	
+	/**
+	 * 根据投标公司ID删更新所有数据状态=0
+	 * @param bidNo
+	 * @param bidCoNo
+	 */
+	public void updBidCompApplyStatusByBidCoNo(String bidNo, String bidCoNo);
+	
+	/**
+	 * 更新数据
+	 * @param bidCompApply
+	 */
+	public void updBidCompApply(BidCompApplyDto bidCompApply);
+}

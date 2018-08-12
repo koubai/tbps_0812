@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="userinfo" extends="struts-admin" namespace="/userinfo">
+	
+		<action name="showUserInfoAction" class="userInfoAction" method="showUserInfoAction">
+			<result name="success">/page/userinfo/userinfolist.jsp</result>
+		</action>
+		
+		<action name="queryUserInfoAction" class="userInfoAction" method="queryUserInfoAction">
+			<result name="success">/page/userinfo/userinfolist.jsp</result>
+		</action>
+		
+		<action name="turnUserInfoAction" class="userInfoAction" method="turnUserInfoAction">
+			<result name="success">/page/userinfo/userinfolist.jsp</result>
+		</action>
+		
+		<action name="showAddUserInfoAction" class="userInfoAction" method="showAddUserInfoAction">
+			<result name="success">/page/userinfo/adduser.jsp</result>
+		</action>
+		
+		<action name="addUserInfoAction" class="userInfoAction" method="addUserInfoAction">
+			<result name="success">/page/userinfo/adduser.jsp</result>
+			<result name="checkerror">/page/userinfo/adduser.jsp</result>
+		</action>
+		
+		<action name="showUpdUserInfoAction" class="userInfoAction" method="showUpdUserInfoAction">
+			<result name="success">/page/userinfo/upduser.jsp</result>
+		</action>
+		
+		<action name="updUserInfoAction" class="userInfoAction" method="updUserInfoAction">
+			<result name="success">/page/userinfo/upduser.jsp</result>
+			<result name="checkerror">/page/userinfo/upduser.jsp</result>
+		</action>
+		
+		<action name="delUserInfoAction" class="userInfoAction" method="delUserInfoAction">
+			<result name="success">/page/userinfo/userinfolist.jsp</result>
+		</action>
+		
+	</package>
+
+</struts>

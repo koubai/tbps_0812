@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+	<!-- bidcntrct -->
+	<bean id="bidCntrctService" class="com.cn.tbps.service.impl.BidCntrctServiceImpl" >
+		<property name="bidCntrctDao">
+			<ref local="bidCntrctDao"/>
+		</property>
+	</bean>
+	
+	<bean id="bidCntrctDao" class="com.cn.tbps.dao.impl.BidCntrctDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+	
+	<!-- bidcntrcthis -->
+	<bean id="bidCntrctHisService" class="com.cn.tbps.service.impl.BidCntrctHisServiceImpl" >
+		<property name="bidCntrctHisDao">
+			<ref local="bidCntrctHisDao"/>
+		</property>
+	</bean>
+	
+	<bean id="bidCntrctHisDao" class="com.cn.tbps.dao.impl.BidCntrctHisDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+
+	<!-- auditCntrctHis -->
+	<bean id="auditCntrctHisService" class="com.cn.tbps.service.impl.AuditCntrctHisServiceImpl" >
+		<property name="auditCntrctHisDao">
+			<ref local="auditCntrctHisDao"/>
+		</property>
+	</bean>
+	
+	<bean id="auditCntrctHisDao" class="com.cn.tbps.dao.impl.AuditCntrctHisDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+	
+	<!-- auditCntrct -->
+	<bean id="auditCntrctService" class="com.cn.tbps.service.impl.AuditCntrctServiceImpl" >
+		<property name="auditCntrctDao">
+			<ref local="auditCntrctDao"/>
+		</property>
+	</bean>
+	
+	<bean id="auditCntrctDao" class="com.cn.tbps.dao.impl.AuditCntrctDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+	
+	<!-- MAJOR -->
+	<bean id="majorService" class="com.cn.tbps.service.impl.MajorServiceImpl" >
+		<property name="majorDao">
+			<ref local="majorDao"/>
+		</property>
+	</bean>
+	
+	<bean id="majorDao" class="com.cn.tbps.dao.impl.MajorDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+
+	<!-- 配置表 -->
+	<bean id="configTabService" class="com.cn.tbps.service.impl.ConfigTabServiceImpl" >
+		<property name="configTabDao">
+			<ref local="configTabDao"/>
+		</property>
+	</bean>
+	
+	<bean id="configTabDao" class="com.cn.tbps.dao.impl.ConfigTabDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+	
+	<!-- 保证金汇总 -->
+	<bean id="bondService" class="com.cn.tbps.service.impl.BondServiceImpl" >
+		<property name="bondDao">
+			<ref local="bondDao"/>
+		</property>
+	</bean>
+	
+	<bean id="bondDao" class="com.cn.tbps.dao.impl.BondDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+	
+	<!-- 审价 -->
+	<bean id="auditService" class="com.cn.tbps.service.impl.AuditServiceImpl" >
+		<property name="auditDao">
+			<ref local="auditDao"/>
+		</property>
+		<property name="configTabDao">
+			<ref local="configTabDao"/>
+		</property>
+	</bean>
+	
+	<bean id="auditDao" class="com.cn.tbps.dao.impl.AuditDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+
+	<!-- 代扣 -->
+	<bean id="withholdService" class="com.cn.tbps.service.impl.WithholdServiceImpl" >
+		<property name="withholdDao">
+			<ref local="withholdDao"/>
+		</property>
+	</bean>
+	
+	<bean id="withholdDao" class="com.cn.tbps.dao.impl.WithholdDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+	
+	<!-- 投标公司 -->
+	<bean id="bidCompService" class="com.cn.tbps.service.impl.BidCompServiceImpl" >
+		<property name="bidCompApplyDao">
+			<ref local="bidCompApplyDao"/>
+		</property>
+		<property name="bidCompDao">
+			<ref local="bidCompDao"/>
+		</property>
+	</bean>
+	
+	<bean id="bidCompDao" class="com.cn.tbps.dao.impl.BidCompDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+
+	<!-- 招标 -->
+	<bean id="bidService" class="com.cn.tbps.service.impl.BidServiceImpl" >
+		<property name="bidDao">
+			<ref local="bidDao"/>
+		</property>
+		<property name="bidCompDao">
+			<ref local="bidCompDao"/>
+		</property>
+		<property name="expertLibDao">
+			<ref local="expertLibDao"/>
+		</property>
+		<property name="configTabDao">
+			<ref local="configTabDao"/>
+		</property>
+		<property name="bidCompApplyDao">
+			<ref local="bidCompApplyDao"/>
+		</property>
+	</bean>
+	
+	<bean id="bidDao" class="com.cn.tbps.dao.impl.BidDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+	
+	<!-- 投标公司报名内容 -->
+	<bean id="bidCompApplyService" class="com.cn.tbps.service.impl.BidCompApplyServiceImpl" >
+		<property name="bidCompApplyDao">
+			<ref local="bidCompApplyDao"/>
+		</property>
+	</bean>
+	
+	<bean id="bidCompApplyDao" class="com.cn.tbps.dao.impl.BidCompApplyDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+	
+	<!-- 用户 -->
+	<bean id="userInfoService" class="com.cn.tbps.service.impl.UserInfoServiceImpl" >
+		<property name="userInfoDao">
+			<ref local="userInfoDao"/>
+		</property>
+	</bean>
+	
+	<bean id="userInfoDao" class="com.cn.tbps.dao.impl.UserInfoDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+	
+	<!-- 委托公司 -->
+	<bean id="agentCompService" class="com.cn.tbps.service.impl.AgentCompServiceImpl" >
+		<property name="agentCompDao">
+			<ref local="agentCompDao"/>
+		</property>
+	</bean>
+	
+	<bean id="agentCompDao" class="com.cn.tbps.dao.impl.AgentCompDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+	
+	<!-- 合同公司 -->
+	<bean id="auditCompService" class="com.cn.tbps.service.impl.AuditCompServiceImpl" >
+		<property name="auditCompDao">
+			<ref local="auditCompDao"/>
+		</property>
+	</bean>
+	
+	<bean id="auditCompDao" class="com.cn.tbps.dao.impl.AuditCompDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+
+	<!-- 专家库 -->
+	<bean id="expertLibService" class="com.cn.tbps.service.impl.ExpertLibServiceImpl" >
+		<property name="expertLibDao">
+			<ref local="expertLibDao"/>
+		</property>
+		<property name="majorDao">
+			<ref local="majorDao"/>
+		</property>
+	</bean>
+	
+	<bean id="expertLibDao" class="com.cn.tbps.dao.impl.ExpertLibDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+
+	<bean id="tbpsServlet" class="com.cn.tbps.servlet.tbpsServlet" >
+		<property name="bidCompService">
+			<ref bean="bidCompService"/>
+		</property>
+	</bean>
+	
+</beans>

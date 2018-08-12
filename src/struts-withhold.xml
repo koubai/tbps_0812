@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="withhold" extends="struts-admin" namespace="/withhold">
+	
+		<action name="showWithholdAction" class="withholdAction" method="showWithholdAction">
+			<result name="success">/page/withhold/withholdlist.jsp</result>
+		</action>
+		
+		<action name="queryWithholdAction" class="withholdAction" method="queryWithholdAction">
+			<result name="success">/page/withhold/withholdlist.jsp</result>
+		</action>
+		
+		<action name="turnWithholdAction" class="withholdAction" method="turnWithholdAction">
+			<result name="success">/page/withhold/withholdlist.jsp</result>
+		</action>
+		
+		<action name="showAddWithholdAction" class="withholdAction" method="showAddWithholdAction">
+			<result name="success">/page/withhold/addwithhold.jsp</result>
+		</action>
+		
+		<action name="addWithholdAction" class="withholdAction" method="addWithholdAction">
+			<result name="success">/page/withhold/addwithhold.jsp</result>
+			<result name="checkerror">/page/withhold/addwithhold.jsp</result>
+		</action>
+		
+		<action name="showUpdWithholdAction" class="withholdAction" method="showUpdWithholdAction">
+			<result name="success">/page/withhold/updwithhold.jsp</result>
+		</action>
+		
+		<action name="updWithholdAction" class="withholdAction" method="updWithholdAction">
+			<result name="success">/page/withhold/updwithhold.jsp</result>
+			<result name="checkerror">/page/withhold/updwithhold.jsp</result>
+		</action>
+		
+		<action name="delWithholdAction" class="withholdAction" method="delWithholdAction">
+			<result name="success">/page/withhold/withholdlist.jsp</result>
+		</action>
+		
+		<action name="exportWithholdAction" class="withholdAction" method="exportWithholdAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
+		
+	</package>
+
+</struts>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="bond" extends="struts-tbps" namespace="/bond">
+	
+		<action name="showBondAction" class="bondAction" method="showBondAction">
+			<result name="success">/page/bond/bondlist.jsp</result>
+		</action>
+		
+		<action name="showBondDetailAction" class="bondAction" method="showBondDetailAction">
+			<result name="success">/page/bond/bonddetail.jsp</result>
+		</action>
+		
+		<action name="queryBondAction" class="bondAction" method="queryBondAction">
+			<result name="success">/page/bond/bondlist.jsp</result>
+		</action>
+		
+		<action name="exportBondAction" class="bondAction" method="exportBondAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
+		
+		<action name="exportBondDetailAction" class="bondAction" method="exportBondDetailAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
+		
+		<action name="showBondBidCompAction" class="bondAction" method="showBondBidCompAction">
+			<result name="success">/page/bond/bondbidcomp.jsp</result>
+		</action>
+		
+		<action name="showExportDateAction" class="bondAction" method="showExportDateAction">
+			<result name="success">/page/bond/exportyear.jsp</result>
+		</action>
+		
+		<action name="exportBond2Action" class="bondAction" method="exportBond2Action">
+			<result name="success">/page/download.jsp</result>
+		</action>
+		
+	</package>
+
+</struts>

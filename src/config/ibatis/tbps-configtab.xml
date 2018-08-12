@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+        PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="com.cn.tbps">
+
+	<resultMap id="ConfigTabDto" class="com.cn.tbps.dto.ConfigTabDto">
+		<result property="ID" column="ID" />
+		<result property="CONFIG_TYPE" column="CONFIG_TYPE" />
+		<result property="CONFIG_KEY" column="CONFIG_KEY" />
+		<result property="CONFIG_VAL" column="CONFIG_VAL" />
+		<result property="INSERT_DATE" column="INSERT_DATE" />
+		<result property="UPDATE_DATE" column="UPDATE_DATE" />
+		<result property="RESERVE1" column="RESERVE1" />
+		<result property="RESERVE2" column="RESERVE2" />
+		<result property="RESERVE3" column="RESERVE3" />
+		<result property="RESERVE4" column="RESERVE4" />
+		<result property="RESERVE5" column="RESERVE5" />
+	</resultMap>
+	
+	<select id="queryConfigTabByID" parameterClass="java.util.Map" resultMap="ConfigTabDto">
+		select * from configtab where 
+			ID = #ID#
+	</select>
+	
+	<select id="queryConfigTabByKey" parameterClass="java.util.Map" resultMap="ConfigTabDto">
+		select * from configtab where 
+			CONFIG_KEY = #CONFIG_KEY#
+			and CONFIG_TYPE = #CONFIG_TYPE#
+	</select>
+	
+	<select id="queryConfigTabByType" parameterClass="java.util.Map" resultMap="ConfigTabDto">
+		select * from configtab where 
+			CONFIG_TYPE = #CONFIG_TYPE# order by ID asc
+	</select>
+	
+	<delete id="deleteConfigTab" parameterClass="java.util.Map">
+		delete from configtab where ID = #ID#
+	</delete>
+	
+	<insert id="insertConfigTab" parameterClass="com.cn.tbps.dto.ConfigTabDto">
+		insert into configtab(CONFIG_TYPE,CONFIG_KEY,CONFIG_VAL,INSERT_DATE,UPDATE_DATE)
+		values(#CONFIG_TYPE#,#CONFIG_KEY#,#CONFIG_VAL#,NOW(),NOW())
+	</insert>
+	
+	<update id="updateConfigTab" parameterClass="com.cn.tbps.dto.ConfigTabDto">
+		update configtab
+		set CONFIG_VAL = #CONFIG_VAL#,
+			UPDATE_DATE = NOW()
+		where ID = #ID#
+	</update>
+	
+</sqlMap>

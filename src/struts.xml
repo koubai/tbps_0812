@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+
+	<constant name="struts.objectFactory" value="spring"/>
+	
+	<!-- 登录 -->
+	<include file="struts-login.xml"/>
+	
+	<!-- 首页 -->
+	<include file="struts-home.xml"/>
+	
+	<!-- 保证金 -->
+	<include file="struts-bond.xml"/>
+	
+	<!-- 费用结算清单 -->
+	<include file="struts-settlement.xml"/>
+	
+	<!-- 代扣 -->
+	<include file="struts-withhold.xml"/>
+	
+	<!-- 用户 -->
+	<include file="struts-userinfo.xml"/>
+	
+	<!-- 审价 -->
+	<include file="struts-audit.xml"/>
+	
+	<!-- 合同公司 -->
+	<include file="struts-auditcomp.xml"/>
+
+	<!-- 委托公司 -->
+	<include file="struts-agentcomp.xml"/>
+	
+	<!-- 专家库 -->
+	<include file="struts-expertlib.xml"/>
+	
+	<!-- 招标 -->
+	<include file="struts-bid.xml"/>
+	
+	<package name="index" extends="struts-default, json-default" namespace="/index">
+		
+		<!-- 验证码 -->
+		<action name="rand" class="randomActionBean">
+			<interceptor-ref name="params"></interceptor-ref>
+			<result type="stream">
+		    	<param name="contentType">image/jpeg</param>
+		        <param name="inputName">inputStream</param>
+			</result>
+		</action>
+		
+	</package>
+	
+	<!-- 登录 -->
+	<package name="struts-tbps" extends="struts-default, json-default" namespace="/">
+	
+		<interceptors>
+			<interceptor name="loginInterceptor" class="loginInterceptorBean"></interceptor>
+			<interceptor-stack name="loginStack">
+				<interceptor-ref name="loginInterceptor"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		
+		<default-interceptor-ref name="loginStack"></default-interceptor-ref>
+		
+		<!-- 全局返回值 -->
+		<global-results>
+			<!-- 404 -->
+			<result name="notfound">/page/404.jsp</result>
+			<!-- error -->
+			<result name="error">/page/error.jsp</result>
+			<!-- timeout -->
+			<result name="timeout">/page/timeout.jsp</result>
+			<!-- noauthority -->
+			<result name="noauthority">/page/authority.jsp</result>
+		</global-results>
+		
+		<!-- 全局异常 -->
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Exception"></exception-mapping>
+			<exception-mapping result="error" exception="java.sql.SQLException"></exception-mapping>
+		</global-exception-mappings>
+		
+	</package>
+	
+	<!-- admin -->
+	<package name="struts-admin" extends="struts-default, json-default" namespace="/">
+	
+		<interceptors>
+			<interceptor name="adminInterceptor" class="adminInterceptorBean"></interceptor>
+			<interceptor-stack name="adminStack">
+				<interceptor-ref name="adminInterceptor"></interceptor-ref>
+				<interceptor-ref name="defaultStack"></interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+		
+		<default-interceptor-ref name="adminStack"></default-interceptor-ref>
+		
+		<!-- 全局返回值 -->
+		<global-results>
+			<!-- 404 -->
+			<result name="notfound">/page/404.jsp</result>
+			<!-- error -->
+			<result name="error">/page/error.jsp</result>
+			<!-- timeout -->
+			<result name="timeout">/page/timeout.jsp</result>
+			<!-- noauthority -->
+			<result name="noauthority">/page/authority.jsp</result>
+		</global-results>
+		
+		<!-- 全局异常 -->
+		<global-exception-mappings>
+			<exception-mapping result="error" exception="java.lang.Exception"></exception-mapping>
+			<exception-mapping result="error" exception="java.sql.SQLException"></exception-mapping>
+		</global-exception-mappings>
+		
+	</package>
+	
+</struts>

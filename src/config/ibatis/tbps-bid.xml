@@ -1,0 +1,1619 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+        PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="com.cn.tbps">
+
+	<resultMap id="BidDto" class="com.cn.tbps.dto.BidDto">
+		<result property="BID_NO" column="BID_NO" />
+		<result property="BID_STATUS" column="BID_STATUS" />
+		<result property="BID_VALUE_DATE" column="BID_VALUE_DATE" />
+		<result property="CNTRCT_NO" column="CNTRCT_NO" />
+		<result property="PROJECT_DEVIEW_DATE" column="PROJECT_DEVIEW_DATE" />
+		<result property="CNTRCT_TYPE" column="CNTRCT_TYPE" />
+		<result property="PROJECT_NAME" column="PROJECT_NAME" />
+		<result property="PROJECT_PROPERTY" column="PROJECT_PROPERTY" />
+		<result property="PROJ_APPROVAL" column="PROJ_APPROVAL" />
+		<result property="PROJECT_AUTH" column="PROJECT_AUTH" />
+		<result property="PROJECT_MANAGER" column="PROJECT_MANAGER" />
+		<result property="BID_AGENT_PAY" column="BID_AGENT_PAY" />
+		<result property="BID_AGENT_PAY2" column="BID_AGENT_PAY2" />
+		<result property="BID_AGENT_PRICE" column="BID_AGENT_PRICE" />
+		<result property="BID_AGENT_PRICE_ACT" column="BID_AGENT_PRICE_ACT" />
+		<result property="RECEIPT1_DATE" column="RECEIPT1_DATE" />
+		<result property="RECEIPT1_VALUE_DATE" column="RECEIPT1_VALUE_DATE" />
+		<result property="REGISTE_ST_DATE1" column="REGISTE_ST_DATE1" />
+		<result property="REGISTE_ED_DATE1" column="REGISTE_ED_DATE1" />
+		<result property="REGISTE_ST_DATE2" column="REGISTE_ST_DATE2" />
+		<result property="REGISTE_ED_DATE2" column="REGISTE_ED_DATE2" />
+		<result property="REGISTE_ST_DATE3" column="REGISTE_ST_DATE3" />
+		<result property="REGISTE_ED_DATE3" column="REGISTE_ED_DATE3" />
+		<result property="REGISTE_ST_DATE4" column="REGISTE_ST_DATE4" />
+		<result property="REGISTE_ED_DATE4" column="REGISTE_ED_DATE4" />
+		<result property="REGISTE_ST_DATE5" column="REGISTE_ST_DATE5" />
+		<result property="REGISTE_ED_DATE5" column="REGISTE_ED_DATE5" />
+		<result property="APPLY_REQUIRE" column="APPLY_REQUIRE" />
+		<result property="BID_BOND" column="BID_BOND" />
+		<result property="TENDER_OPEN_DATE" column="TENDER_OPEN_DATE" />
+		<result property="TENDER_OPEN_ADDRESS" column="TENDER_OPEN_ADDRESS" />
+		<result property="TENDER_VERIFY_DATE" column="TENDER_VERIFY_DATE" />
+		<result property="BID_AUTH" column="BID_AUTH" />
+		<result property="BID_LIMIT_PRICE" column="BID_LIMIT_PRICE" />
+		<result property="BID_CO_LIST" column="BID_CO_LIST" />
+		<result property="BID_EXPERT_LIST" column="BID_EXPERT_LIST" />
+		<result property="BID_CO_SEQ" column="BID_CO_SEQ" />
+		<result property="BID_CO_NAME" column="BID_CO_NAME" />
+		<result property="BID_CO_PRICE" column="BID_CO_PRICE" />
+		<result property="BID_PRICE" column="BID_PRICE" />
+		<result property="BID_PRICE_LIST" column="BID_PRICE_LIST" />
+		<result property="BID_EXPERT_COMMISION" column="BID_EXPERT_COMMISION" />
+		<result property="BID_EXPERT_COMMISION_PRE" column="BID_EXPERT_COMMISION_PRE" />
+		<result property="BID_EXPERT_COMMISION_ACT" column="BID_EXPERT_COMMISION_ACT" />
+		<result property="BID_EXPERT_COMMISION_DIFF_DATE" column="BID_EXPERT_COMMISION_DIFF_DATE" />
+		<result property="BID_APPLY_PRICE" column="BID_APPLY_PRICE" />
+		<result property="BID_EXPERT_COMMISION_APPLY" column="BID_EXPERT_COMMISION_APPLY" />
+		<result property="APPLY_FORM_EDIT_DATE" column="APPLY_FORM_EDIT_DATE" />
+		<result property="APPLY_FORM_COLLECT_DATE" column="APPLY_FORM_COLLECT_DATE" />
+		<result property="APPLY_FORM_VERIFY_DATE" column="APPLY_FORM_VERIFY_DATE" />
+		<result property="APPLY_FORM_VERIFY" column="APPLY_FORM_VERIFY" />
+		<result property="APPLY_FORM_FIX_DATE" column="APPLY_FORM_FIX_DATE" />
+		<result property="APPLY_FORM_BOX_DATE" column="APPLY_FORM_BOX_DATE" />
+		<result property="SUPPORT_DOC_DATE" column="SUPPORT_DOC_DATE" />
+		<result property="BID_NOTICE_ST_DATE" column="BID_NOTICE_ST_DATE" />
+		<result property="BID_NOTICE_ED_DATE" column="BID_NOTICE_ED_DATE" />
+		<result property="BID_MESSAGE_DATE" column="BID_MESSAGE_DATE" />
+		<result property="BID_DOC_DELI_DATE1" column="BID_DOC_DELI_DATE1" />
+		<result property="BID_DOC_DELI_FILE1" column="BID_DOC_DELI_FILE1" />
+		<result property="BID_DOC_DELI_DATE2" column="BID_DOC_DELI_DATE2" />
+		<result property="BID_DOC_DELI_FILE2" column="BID_DOC_DELI_FILE2" />
+		<result property="BID_DOC_DELI_DATE3" column="BID_DOC_DELI_DATE3" />
+		<result property="BID_DOC_DELI_FILE3" column="BID_DOC_DELI_FILE3" />
+		<result property="BID_DOC_DELI_DATE4" column="BID_DOC_DELI_DATE4" />
+		<result property="BID_DOC_DELI_FILE4" column="BID_DOC_DELI_FILE4" />
+		<result property="BID_DOC_DELI_DATE5" column="BID_DOC_DELI_DATE5" />
+		<result property="BID_DOC_DELI_FILE5" column="BID_DOC_DELI_FILE5" />
+		<result property="BID_DOC_DELI_DATE6" column="BID_DOC_DELI_DATE6" />
+		<result property="BID_DOC_DELI_FILE6" column="BID_DOC_DELI_FILE6" />
+		<result property="BID_DOC_DELI_DATE7" column="BID_DOC_DELI_DATE7" />
+		<result property="BID_DOC_DELI_FILE7" column="BID_DOC_DELI_FILE7" />
+		<result property="BID_DOC_DELI_DATE8" column="BID_DOC_DELI_DATE8" />
+		<result property="BID_DOC_DELI_FILE8" column="BID_DOC_DELI_FILE8" />
+		<result property="BID_DOC_DELI_DATE9" column="BID_DOC_DELI_DATE9" />
+		<result property="BID_DOC_DELI_FILE9" column="BID_DOC_DELI_FILE9" />
+		<result property="BID_DOC_DELI_DATE10" column="BID_DOC_DELI_DATE10" />
+		<result property="BID_DOC_DELI_FILE10" column="BID_DOC_DELI_FILE10" />
+		<result property="BID_INFORM_RCV_DATE" column="BID_INFORM_RCV_DATE" />
+		<result property="BID_INFORM_RCV" column="BID_INFORM_RCV" />
+		<result property="BID_VER_DOC_SCAN_DATE" column="BID_VER_DOC_SCAN_DATE" />
+		<result property="BID_VER_DOC_SCAN" column="BID_VER_DOC_SCAN" />
+		<result property="BID_VER_DOC_DELI_DATE1" column="BID_VER_DOC_DELI_DATE1" />
+		<result property="BID_VER_DOC_DELI_FILE1" column="BID_VER_DOC_DELI_FILE1" />
+		<result property="BID_VER_DOC_DELI_DATE2" column="BID_VER_DOC_DELI_DATE2" />
+		<result property="BID_VER_DOC_DELI_FILE2" column="BID_VER_DOC_DELI_FILE2" />
+		<result property="BID_VER_DOC_DELI_DATE3" column="BID_VER_DOC_DELI_DATE3" />
+		<result property="BID_VER_DOC_DELI_FILE3" column="BID_VER_DOC_DELI_FILE3" />
+		<result property="BID_VER_DOC_DELI_DATE4" column="BID_VER_DOC_DELI_DATE4" />
+		<result property="BID_VER_DOC_DELI_FILE4" column="BID_VER_DOC_DELI_FILE4" />
+		<result property="BID_VER_DOC_DELI_DATE5" column="BID_VER_DOC_DELI_DATE5" />
+		<result property="BID_VER_DOC_DELI_FILE5" column="BID_VER_DOC_DELI_FILE5" />
+		<result property="BID_VER_DOC_DELI_DATE6" column="BID_VER_DOC_DELI_DATE6" />
+		<result property="BID_VER_DOC_DELI_FILE6" column="BID_VER_DOC_DELI_FILE6" />
+		<result property="BID_VER_DOC_DELI_DATE7" column="BID_VER_DOC_DELI_DATE7" />
+		<result property="BID_VER_DOC_DELI_FILE7" column="BID_VER_DOC_DELI_FILE7" />
+		<result property="BID_VER_DOC_DELI_DATE8" column="BID_VER_DOC_DELI_DATE8" />
+		<result property="BID_VER_DOC_DELI_FILE8" column="BID_VER_DOC_DELI_FILE8" />
+		<result property="BID_VER_DOC_DELI_DATE9" column="BID_VER_DOC_DELI_DATE9" />
+		<result property="BID_VER_DOC_DELI_FILE9" column="BID_VER_DOC_DELI_FILE9" />
+		<result property="BID_VER_DOC_DELI_DATE10" column="BID_VER_DOC_DELI_DATE10" />
+		<result property="BID_VER_DOC_DELI_FILE10" column="BID_VER_DOC_DELI_FILE10" />
+		<result property="PROGRESS_STATUS" column="PROGRESS_STATUS" />
+		<result property="FINISH_STATUS" column="FINISH_STATUS" />
+		<result property="FINISH_NOTE" column="FINISH_NOTE" />
+		<result property="STATUS" column="STATUS" />
+		<result property="MEMO1" column="MEMO1" />
+		<result property="RESERVE1" column="RESERVE1" />
+		<result property="RESERVE2" column="RESERVE2" />
+		<result property="RESERVE3" column="RESERVE3" />
+		<result property="RESERVE4" column="RESERVE4" />
+		<result property="RESERVE5" column="RESERVE5" />
+		<result property="RESERVE_DATE1" column="RESERVE_DATE1" />
+		<result property="RESERVE_DATE2" column="RESERVE_DATE2" />
+		<result property="RESERVE_DATE3" column="RESERVE_DATE3" />
+		<result property="RESERVE_DATE4" column="RESERVE_DATE4" />
+		<result property="RESERVE_DATE5" column="RESERVE_DATE5" />
+		<result property="RESERVE_DATE6" column="RESERVE_DATE6" />
+		<result property="RESERVE_DATE7" column="RESERVE_DATE7" />
+		<result property="RESERVE_DATE8" column="RESERVE_DATE8" />
+		<result property="RESERVE_DATE9" column="RESERVE_DATE9" />
+		<result property="RESERVE_DATE10" column="RESERVE_DATE10" />
+		<result property="LATEST_FLG" column="LATEST_FLG" />
+		<result property="DELETE_FLG" column="DELETE_FLG" />
+		<result property="UPDATE_USER" column="UPDATE_USER" />
+		<result property="INSERT_DATE" column="INSERT_DATE" />
+		<result property="UPDATE_DATE" column="UPDATE_DATE" />
+		<result property="BID_WIN_PRICE" column="BID_WIN_PRICE" />
+	</resultMap>
+	
+	<select id="queryBidCountByPage" resultClass="int" parameterClass="java.util.Map">
+		select count(*) from (
+			select T.BID_NO,
+				'1' AS BID_STATUS,
+				NULL AS BID_VALUE_DATE,
+					T.CNTRCT_NO,
+					T.PROJECT_DEVIEW_DATE,
+					T.CNTRCT_TYPE,
+					T.PROJECT_NAME,
+					T.PROJECT_PROPERTY,
+					T.PROJ_APPROVAL,
+					T.PROJECT_AUTH,
+					T.PROJECT_MANAGER,
+					T.BID_AGENT_PAY,
+					T.BID_AGENT_PAY2,
+					T.BID_AGENT_PRICE,
+					T.BID_AGENT_PRICE_ACT,
+					T.RECEIPT1_DATE,
+					T.RECEIPT1_VALUE_DATE,
+					T.REGISTE_ST_DATE1,
+					T.REGISTE_ED_DATE1,
+					T.REGISTE_ST_DATE2,
+					T.REGISTE_ED_DATE2,
+					T.REGISTE_ST_DATE3,
+					T.REGISTE_ED_DATE3,
+					T.REGISTE_ST_DATE4,
+					T.REGISTE_ED_DATE4,
+					T.REGISTE_ST_DATE5,
+					T.REGISTE_ED_DATE5,
+					T.APPLY_REQUIRE,
+					T.BID_BOND,
+					T.TENDER_OPEN_DATE,
+					T.TENDER_OPEN_ADDRESS,
+					T.TENDER_VERIFY_DATE,
+					T.BID_AUTH,
+					T.BID_LIMIT_PRICE,
+					T.BID_CO_LIST,
+					T.BID_EXPERT_LIST,
+					T.BID_CO_SEQ,
+					T.BID_CO_NAME,
+					T.BID_CO_PRICE,
+					T.BID_PRICE,
+					T.BID_PRICE_LIST,
+					T.BID_EXPERT_COMMISION,
+					T.BID_EXPERT_COMMISION_PRE,
+					T.BID_EXPERT_COMMISION_ACT,
+					T.BID_EXPERT_COMMISION_DIFF_DATE,
+					T.BID_APPLY_PRICE,
+					T.BID_EXPERT_COMMISION_APPLY,
+					T.APPLY_FORM_EDIT_DATE,
+					T.APPLY_FORM_COLLECT_DATE,
+					T.APPLY_FORM_VERIFY_DATE,
+					T.APPLY_FORM_VERIFY,
+					T.APPLY_FORM_FIX_DATE,
+					T.APPLY_FORM_BOX_DATE,
+					T.SUPPORT_DOC_DATE,
+					T.BID_NOTICE_ST_DATE,
+					T.BID_NOTICE_ED_DATE,
+					T.BID_MESSAGE_DATE,
+					T.BID_DOC_DELI_DATE1,
+					T.BID_DOC_DELI_FILE1,
+					T.BID_DOC_DELI_DATE2,
+					T.BID_DOC_DELI_FILE2,
+					T.BID_DOC_DELI_DATE3,
+					T.BID_DOC_DELI_FILE3,
+					T.BID_DOC_DELI_DATE4,
+					T.BID_DOC_DELI_FILE4,
+					T.BID_DOC_DELI_DATE5,
+					T.BID_DOC_DELI_FILE5,
+					T.BID_DOC_DELI_DATE6,
+					T.BID_DOC_DELI_FILE6,
+					T.BID_DOC_DELI_DATE7,
+					T.BID_DOC_DELI_FILE7,
+					T.BID_DOC_DELI_DATE8,
+					T.BID_DOC_DELI_FILE8,
+					T.BID_DOC_DELI_DATE9,
+					T.BID_DOC_DELI_FILE9,
+					T.BID_DOC_DELI_DATE10,
+					T.BID_DOC_DELI_FILE10,
+					T.BID_INFORM_RCV_DATE,
+					T.BID_INFORM_RCV,
+					T.BID_VER_DOC_SCAN_DATE,
+					T.BID_VER_DOC_SCAN,
+					T.BID_VER_DOC_DELI_DATE1,
+					T.BID_VER_DOC_DELI_FILE1,
+					T.BID_VER_DOC_DELI_DATE2,
+					T.BID_VER_DOC_DELI_FILE2,
+					T.BID_VER_DOC_DELI_DATE3,
+					T.BID_VER_DOC_DELI_FILE3,
+					T.BID_VER_DOC_DELI_DATE4,
+					T.BID_VER_DOC_DELI_FILE4,
+					T.BID_VER_DOC_DELI_DATE5,
+					T.BID_VER_DOC_DELI_FILE5,
+					T.BID_VER_DOC_DELI_DATE6,
+					T.BID_VER_DOC_DELI_FILE6,
+					T.BID_VER_DOC_DELI_DATE7,
+					T.BID_VER_DOC_DELI_FILE7,
+					T.BID_VER_DOC_DELI_DATE8,
+					T.BID_VER_DOC_DELI_FILE8,
+					T.BID_VER_DOC_DELI_DATE9,
+					T.BID_VER_DOC_DELI_FILE9,
+					T.BID_VER_DOC_DELI_DATE10,
+					T.BID_VER_DOC_DELI_FILE10,
+					T.PROGRESS_STATUS,
+					T.FINISH_STATUS,
+					T.FINISH_NOTE,
+					T.STATUS,
+					T.MEMO1,
+					T.RESERVE1,
+					T.RESERVE2,
+					T.RESERVE3,
+					T.RESERVE4,
+					T.RESERVE5,
+					T.RESERVE_DATE1,
+					T.RESERVE_DATE2,
+					T.RESERVE_DATE3,
+					T.RESERVE_DATE4,
+					T.RESERVE_DATE5,
+					T.RESERVE_DATE6,
+					T.RESERVE_DATE7,
+					T.RESERVE_DATE8,
+					T.RESERVE_DATE9,
+					T.RESERVE_DATE10,
+					T.LATEST_FLG,
+					T.DELETE_FLG,
+					T.UPDATE_USER,
+					T.INSERT_DATE,
+					T.UPDATE_DATE
+			from bid T where 1 = 1
+				and T.DELETE_FLG = '1'
+				AND T.BID_CO_SEQ IS NULL
+				<isNotEmpty prepend="and" property="BID_NO_LOW">
+					T.BID_NO <![CDATA[>=]]> #BID_NO_LOW#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="BID_NO_HIGH">
+					T.BID_NO <![CDATA[<=]]> #BID_NO_HIGH#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="TENDER_OPEN_DATE_LOW">
+					T.TENDER_OPEN_DATE <![CDATA[>=]]> #TENDER_OPEN_DATE_LOW#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="TENDER_OPEN_DATE_HIGH">
+					T.TENDER_OPEN_DATE <![CDATA[<=]]> #TENDER_OPEN_DATE_HIGH#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="BID_CO_NAME">
+					T.BID_CO_NAME like '%$BID_CO_NAME$%' ESCAPE '/'
+				</isNotEmpty>
+				
+			UNION
+			select TT.* from
+				(select T.BID_NO,
+					'2' AS BID_STATUS,
+					(SELECT MAX(C.BID_VALUE_DATE) FROM bidcomp C WHERE C.BID_NO = T.BID_NO AND C.BID_RESULT = 'Y' AND C.DELETE_FLG = '1') AS BID_VALUE_DATE,
+					T.CNTRCT_NO,
+					T.PROJECT_DEVIEW_DATE,
+					T.CNTRCT_TYPE,
+					T.PROJECT_NAME,
+					T.PROJECT_PROPERTY,
+					T.PROJ_APPROVAL,
+					T.PROJECT_AUTH,
+					T.PROJECT_MANAGER,
+					T.BID_AGENT_PAY,
+					T.BID_AGENT_PAY2,
+					T.BID_AGENT_PRICE,
+					T.BID_AGENT_PRICE_ACT,
+					T.RECEIPT1_DATE,
+					T.RECEIPT1_VALUE_DATE,
+					T.REGISTE_ST_DATE1,
+					T.REGISTE_ED_DATE1,
+					T.REGISTE_ST_DATE2,
+					T.REGISTE_ED_DATE2,
+					T.REGISTE_ST_DATE3,
+					T.REGISTE_ED_DATE3,
+					T.REGISTE_ST_DATE4,
+					T.REGISTE_ED_DATE4,
+					T.REGISTE_ST_DATE5,
+					T.REGISTE_ED_DATE5,
+					T.APPLY_REQUIRE,
+					T.BID_BOND,
+					T.TENDER_OPEN_DATE,
+					T.TENDER_OPEN_ADDRESS,
+					T.TENDER_VERIFY_DATE,
+					T.BID_AUTH,
+					T.BID_LIMIT_PRICE,
+					T.BID_CO_LIST,
+					T.BID_EXPERT_LIST,
+					T.BID_CO_SEQ,
+					T.BID_CO_NAME,
+					T.BID_CO_PRICE,
+					T.BID_PRICE,
+					T.BID_PRICE_LIST,
+					T.BID_EXPERT_COMMISION,
+					T.BID_EXPERT_COMMISION_PRE,
+					T.BID_EXPERT_COMMISION_ACT,
+					T.BID_EXPERT_COMMISION_DIFF_DATE,
+					T.BID_APPLY_PRICE,
+					T.BID_EXPERT_COMMISION_APPLY,
+					T.APPLY_FORM_EDIT_DATE,
+					T.APPLY_FORM_COLLECT_DATE,
+					T.APPLY_FORM_VERIFY_DATE,
+					T.APPLY_FORM_VERIFY,
+					T.APPLY_FORM_FIX_DATE,
+					T.APPLY_FORM_BOX_DATE,
+					T.SUPPORT_DOC_DATE,
+					T.BID_NOTICE_ST_DATE,
+					T.BID_NOTICE_ED_DATE,
+					T.BID_MESSAGE_DATE,
+					T.BID_DOC_DELI_DATE1,
+					T.BID_DOC_DELI_FILE1,
+					T.BID_DOC_DELI_DATE2,
+					T.BID_DOC_DELI_FILE2,
+					T.BID_DOC_DELI_DATE3,
+					T.BID_DOC_DELI_FILE3,
+					T.BID_DOC_DELI_DATE4,
+					T.BID_DOC_DELI_FILE4,
+					T.BID_DOC_DELI_DATE5,
+					T.BID_DOC_DELI_FILE5,
+					T.BID_DOC_DELI_DATE6,
+					T.BID_DOC_DELI_FILE6,
+					T.BID_DOC_DELI_DATE7,
+					T.BID_DOC_DELI_FILE7,
+					T.BID_DOC_DELI_DATE8,
+					T.BID_DOC_DELI_FILE8,
+					T.BID_DOC_DELI_DATE9,
+					T.BID_DOC_DELI_FILE9,
+					T.BID_DOC_DELI_DATE10,
+					T.BID_DOC_DELI_FILE10,
+					T.BID_INFORM_RCV_DATE,
+					T.BID_INFORM_RCV,
+					T.BID_VER_DOC_SCAN_DATE,
+					T.BID_VER_DOC_SCAN,
+					T.BID_VER_DOC_DELI_DATE1,
+					T.BID_VER_DOC_DELI_FILE1,
+					T.BID_VER_DOC_DELI_DATE2,
+					T.BID_VER_DOC_DELI_FILE2,
+					T.BID_VER_DOC_DELI_DATE3,
+					T.BID_VER_DOC_DELI_FILE3,
+					T.BID_VER_DOC_DELI_DATE4,
+					T.BID_VER_DOC_DELI_FILE4,
+					T.BID_VER_DOC_DELI_DATE5,
+					T.BID_VER_DOC_DELI_FILE5,
+					T.BID_VER_DOC_DELI_DATE6,
+					T.BID_VER_DOC_DELI_FILE6,
+					T.BID_VER_DOC_DELI_DATE7,
+					T.BID_VER_DOC_DELI_FILE7,
+					T.BID_VER_DOC_DELI_DATE8,
+					T.BID_VER_DOC_DELI_FILE8,
+					T.BID_VER_DOC_DELI_DATE9,
+					T.BID_VER_DOC_DELI_FILE9,
+					T.BID_VER_DOC_DELI_DATE10,
+					T.BID_VER_DOC_DELI_FILE10,
+					T.PROGRESS_STATUS,
+					T.FINISH_STATUS,
+					T.FINISH_NOTE,
+					T.STATUS,
+					T.MEMO1,
+					T.RESERVE1,
+					T.RESERVE2,
+					T.RESERVE3,
+					T.RESERVE4,
+					T.RESERVE5,
+					T.RESERVE_DATE1,
+					T.RESERVE_DATE2,
+					T.RESERVE_DATE3,
+					T.RESERVE_DATE4,
+					T.RESERVE_DATE5,
+					T.RESERVE_DATE6,
+					T.RESERVE_DATE7,
+					T.RESERVE_DATE8,
+					T.RESERVE_DATE9,
+					T.RESERVE_DATE10,
+					T.LATEST_FLG,
+					T.DELETE_FLG,
+					T.UPDATE_USER,
+					T.INSERT_DATE,
+					T.UPDATE_DATE
+				from bid T where 1 = 1
+					and T.DELETE_FLG = '1'
+					AND T.BID_CO_SEQ IS NOT NULL
+					<isNotEmpty prepend="and" property="BID_NO_LOW">
+						T.BID_NO <![CDATA[>=]]> #BID_NO_LOW#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="BID_NO_HIGH">
+						T.BID_NO <![CDATA[<=]]> #BID_NO_HIGH#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="TENDER_OPEN_DATE_LOW">
+						T.TENDER_OPEN_DATE <![CDATA[>=]]> #TENDER_OPEN_DATE_LOW#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="TENDER_OPEN_DATE_HIGH">
+						T.TENDER_OPEN_DATE <![CDATA[<=]]> #TENDER_OPEN_DATE_HIGH#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="BID_CO_NAME">
+						T.BID_CO_NAME like '%$BID_CO_NAME$%' ESCAPE '/'
+					</isNotEmpty>
+				) TT where 1 = 1
+				<!-- AND (TT.BID_VALUE_DATE IS NULL OR TT.BID_VALUE_DATE <![CDATA[>]]> NOW()) -->
+				AND (TT.RECEIPT1_VALUE_DATE IS NULL OR TT.RECEIPT1_VALUE_DATE <![CDATA[>]]> NOW())
+				
+			UNION
+			select TT.* from
+				(select T.BID_NO,
+					'3' AS BID_STATUS,
+					(SELECT MAX(C.BID_VALUE_DATE) FROM bidcomp C WHERE C.BID_NO = T.BID_NO AND C.BID_RESULT = 'Y' AND C.DELETE_FLG = '1') AS BID_VALUE_DATE,
+					T.CNTRCT_NO,
+					T.PROJECT_DEVIEW_DATE,
+					T.CNTRCT_TYPE,
+					T.PROJECT_NAME,
+					T.PROJECT_PROPERTY,
+					T.PROJ_APPROVAL,
+					T.PROJECT_AUTH,
+					T.PROJECT_MANAGER,
+					T.BID_AGENT_PAY,
+					T.BID_AGENT_PAY2,
+					T.BID_AGENT_PRICE,
+					T.BID_AGENT_PRICE_ACT,
+					T.RECEIPT1_DATE,
+					T.RECEIPT1_VALUE_DATE,
+					T.REGISTE_ST_DATE1,
+					T.REGISTE_ED_DATE1,
+					T.REGISTE_ST_DATE2,
+					T.REGISTE_ED_DATE2,
+					T.REGISTE_ST_DATE3,
+					T.REGISTE_ED_DATE3,
+					T.REGISTE_ST_DATE4,
+					T.REGISTE_ED_DATE4,
+					T.REGISTE_ST_DATE5,
+					T.REGISTE_ED_DATE5,
+					T.APPLY_REQUIRE,
+					T.BID_BOND,
+					T.TENDER_OPEN_DATE,
+					T.TENDER_OPEN_ADDRESS,
+					T.TENDER_VERIFY_DATE,
+					T.BID_AUTH,
+					T.BID_LIMIT_PRICE,
+					T.BID_CO_LIST,
+					T.BID_EXPERT_LIST,
+					T.BID_CO_SEQ,
+					T.BID_CO_NAME,
+					T.BID_CO_PRICE,
+					T.BID_PRICE,
+					T.BID_PRICE_LIST,
+					T.BID_EXPERT_COMMISION,
+					T.BID_EXPERT_COMMISION_PRE,
+					T.BID_EXPERT_COMMISION_ACT,
+					T.BID_EXPERT_COMMISION_DIFF_DATE,
+					T.BID_APPLY_PRICE,
+					T.BID_EXPERT_COMMISION_APPLY,
+					T.APPLY_FORM_EDIT_DATE,
+					T.APPLY_FORM_COLLECT_DATE,
+					T.APPLY_FORM_VERIFY_DATE,
+					T.APPLY_FORM_VERIFY,
+					T.APPLY_FORM_FIX_DATE,
+					T.APPLY_FORM_BOX_DATE,
+					T.SUPPORT_DOC_DATE,
+					T.BID_NOTICE_ST_DATE,
+					T.BID_NOTICE_ED_DATE,
+					T.BID_MESSAGE_DATE,
+					T.BID_DOC_DELI_DATE1,
+					T.BID_DOC_DELI_FILE1,
+					T.BID_DOC_DELI_DATE2,
+					T.BID_DOC_DELI_FILE2,
+					T.BID_DOC_DELI_DATE3,
+					T.BID_DOC_DELI_FILE3,
+					T.BID_DOC_DELI_DATE4,
+					T.BID_DOC_DELI_FILE4,
+					T.BID_DOC_DELI_DATE5,
+					T.BID_DOC_DELI_FILE5,
+					T.BID_DOC_DELI_DATE6,
+					T.BID_DOC_DELI_FILE6,
+					T.BID_DOC_DELI_DATE7,
+					T.BID_DOC_DELI_FILE7,
+					T.BID_DOC_DELI_DATE8,
+					T.BID_DOC_DELI_FILE8,
+					T.BID_DOC_DELI_DATE9,
+					T.BID_DOC_DELI_FILE9,
+					T.BID_DOC_DELI_DATE10,
+					T.BID_DOC_DELI_FILE10,
+					T.BID_INFORM_RCV_DATE,
+					T.BID_INFORM_RCV,
+					T.BID_VER_DOC_SCAN_DATE,
+					T.BID_VER_DOC_SCAN,
+					T.BID_VER_DOC_DELI_DATE1,
+					T.BID_VER_DOC_DELI_FILE1,
+					T.BID_VER_DOC_DELI_DATE2,
+					T.BID_VER_DOC_DELI_FILE2,
+					T.BID_VER_DOC_DELI_DATE3,
+					T.BID_VER_DOC_DELI_FILE3,
+					T.BID_VER_DOC_DELI_DATE4,
+					T.BID_VER_DOC_DELI_FILE4,
+					T.BID_VER_DOC_DELI_DATE5,
+					T.BID_VER_DOC_DELI_FILE5,
+					T.BID_VER_DOC_DELI_DATE6,
+					T.BID_VER_DOC_DELI_FILE6,
+					T.BID_VER_DOC_DELI_DATE7,
+					T.BID_VER_DOC_DELI_FILE7,
+					T.BID_VER_DOC_DELI_DATE8,
+					T.BID_VER_DOC_DELI_FILE8,
+					T.BID_VER_DOC_DELI_DATE9,
+					T.BID_VER_DOC_DELI_FILE9,
+					T.BID_VER_DOC_DELI_DATE10,
+					T.BID_VER_DOC_DELI_FILE10,
+					T.PROGRESS_STATUS,
+					T.FINISH_STATUS,
+					T.FINISH_NOTE,
+					T.STATUS,
+					T.MEMO1,
+					T.RESERVE1,
+					T.RESERVE2,
+					T.RESERVE3,
+					T.RESERVE4,
+					T.RESERVE5,
+					T.RESERVE_DATE1,
+					T.RESERVE_DATE2,
+					T.RESERVE_DATE3,
+					T.RESERVE_DATE4,
+					T.RESERVE_DATE5,
+					T.RESERVE_DATE6,
+					T.RESERVE_DATE7,
+					T.RESERVE_DATE8,
+					T.RESERVE_DATE9,
+					T.RESERVE_DATE10,
+					T.LATEST_FLG,
+					T.DELETE_FLG,
+					T.UPDATE_USER,
+					T.INSERT_DATE,
+					T.UPDATE_DATE
+				from bid T where 1 = 1
+					and T.DELETE_FLG = '1'
+					AND T.BID_CO_SEQ IS NOT NULL
+					<isNotEmpty prepend="and" property="BID_NO_LOW">
+						T.BID_NO <![CDATA[>=]]> #BID_NO_LOW#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="BID_NO_HIGH">
+						T.BID_NO <![CDATA[<=]]> #BID_NO_HIGH#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="TENDER_OPEN_DATE_LOW">
+						T.TENDER_OPEN_DATE <![CDATA[>=]]> #TENDER_OPEN_DATE_LOW#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="TENDER_OPEN_DATE_HIGH">
+						T.TENDER_OPEN_DATE <![CDATA[<=]]> #TENDER_OPEN_DATE_HIGH#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="BID_CO_NAME">
+						T.BID_CO_NAME like '%$BID_CO_NAME$%' ESCAPE '/'
+					</isNotEmpty>
+				) TT where 1 = 1
+				<!-- AND TT.BID_VALUE_DATE IS NOT NULL AND TT.BID_VALUE_DATE <![CDATA[<=]]> NOW() -->
+				AND TT.RECEIPT1_VALUE_DATE IS NOT NULL AND TT.RECEIPT1_VALUE_DATE <![CDATA[<=]]> NOW()
+		) B where 1 = 1
+		<isNotEmpty prepend="and" property="BID_STATUS">
+			B.BID_STATUS in ($BID_STATUS$)
+		</isNotEmpty>
+	</select>
+	
+	<select id="queryBidByPage" parameterClass="java.util.Map" resultMap="BidDto">
+		select B.* from (
+			select T.BID_NO,
+				'1' AS BID_STATUS,
+				NULL AS BID_VALUE_DATE,
+					T.CNTRCT_NO,
+					T.PROJECT_DEVIEW_DATE,
+					T.CNTRCT_TYPE,
+					T.PROJECT_NAME,
+					T.PROJECT_PROPERTY,
+					T.PROJ_APPROVAL,
+					T.PROJECT_AUTH,
+					T.PROJECT_MANAGER,
+					T.BID_AGENT_PAY,
+					T.BID_AGENT_PAY2,
+					T.BID_AGENT_PRICE,
+					T.BID_AGENT_PRICE_ACT,
+					T.RECEIPT1_DATE,
+					T.RECEIPT1_VALUE_DATE,
+					T.REGISTE_ST_DATE1,
+					T.REGISTE_ED_DATE1,
+					T.REGISTE_ST_DATE2,
+					T.REGISTE_ED_DATE2,
+					T.REGISTE_ST_DATE3,
+					T.REGISTE_ED_DATE3,
+					T.REGISTE_ST_DATE4,
+					T.REGISTE_ED_DATE4,
+					T.REGISTE_ST_DATE5,
+					T.REGISTE_ED_DATE5,
+					T.APPLY_REQUIRE,
+					T.BID_BOND,
+					T.TENDER_OPEN_DATE,
+					T.TENDER_OPEN_ADDRESS,
+					T.TENDER_VERIFY_DATE,
+					T.BID_AUTH,
+					T.BID_LIMIT_PRICE,
+					T.BID_CO_LIST,
+					T.BID_EXPERT_LIST,
+					T.BID_CO_SEQ,
+					T.BID_CO_NAME,
+					T.BID_CO_PRICE,
+					T.BID_PRICE,
+					T.BID_PRICE_LIST,
+					T.BID_EXPERT_COMMISION,
+					T.BID_EXPERT_COMMISION_PRE,
+					T.BID_EXPERT_COMMISION_ACT,
+					T.BID_EXPERT_COMMISION_DIFF_DATE,
+					T.BID_APPLY_PRICE,
+					T.BID_EXPERT_COMMISION_APPLY,
+					T.APPLY_FORM_EDIT_DATE,
+					T.APPLY_FORM_COLLECT_DATE,
+					T.APPLY_FORM_VERIFY_DATE,
+					T.APPLY_FORM_VERIFY,
+					T.APPLY_FORM_FIX_DATE,
+					T.APPLY_FORM_BOX_DATE,
+					T.SUPPORT_DOC_DATE,
+					T.BID_NOTICE_ST_DATE,
+					T.BID_NOTICE_ED_DATE,
+					T.BID_MESSAGE_DATE,
+					T.BID_DOC_DELI_DATE1,
+					T.BID_DOC_DELI_FILE1,
+					T.BID_DOC_DELI_DATE2,
+					T.BID_DOC_DELI_FILE2,
+					T.BID_DOC_DELI_DATE3,
+					T.BID_DOC_DELI_FILE3,
+					T.BID_DOC_DELI_DATE4,
+					T.BID_DOC_DELI_FILE4,
+					T.BID_DOC_DELI_DATE5,
+					T.BID_DOC_DELI_FILE5,
+					T.BID_DOC_DELI_DATE6,
+					T.BID_DOC_DELI_FILE6,
+					T.BID_DOC_DELI_DATE7,
+					T.BID_DOC_DELI_FILE7,
+					T.BID_DOC_DELI_DATE8,
+					T.BID_DOC_DELI_FILE8,
+					T.BID_DOC_DELI_DATE9,
+					T.BID_DOC_DELI_FILE9,
+					T.BID_DOC_DELI_DATE10,
+					T.BID_DOC_DELI_FILE10,
+					T.BID_INFORM_RCV_DATE,
+					T.BID_INFORM_RCV,
+					T.BID_VER_DOC_SCAN_DATE,
+					T.BID_VER_DOC_SCAN,
+					T.BID_VER_DOC_DELI_DATE1,
+					T.BID_VER_DOC_DELI_FILE1,
+					T.BID_VER_DOC_DELI_DATE2,
+					T.BID_VER_DOC_DELI_FILE2,
+					T.BID_VER_DOC_DELI_DATE3,
+					T.BID_VER_DOC_DELI_FILE3,
+					T.BID_VER_DOC_DELI_DATE4,
+					T.BID_VER_DOC_DELI_FILE4,
+					T.BID_VER_DOC_DELI_DATE5,
+					T.BID_VER_DOC_DELI_FILE5,
+					T.BID_VER_DOC_DELI_DATE6,
+					T.BID_VER_DOC_DELI_FILE6,
+					T.BID_VER_DOC_DELI_DATE7,
+					T.BID_VER_DOC_DELI_FILE7,
+					T.BID_VER_DOC_DELI_DATE8,
+					T.BID_VER_DOC_DELI_FILE8,
+					T.BID_VER_DOC_DELI_DATE9,
+					T.BID_VER_DOC_DELI_FILE9,
+					T.BID_VER_DOC_DELI_DATE10,
+					T.BID_VER_DOC_DELI_FILE10,
+					T.PROGRESS_STATUS,
+					T.FINISH_STATUS,
+					T.FINISH_NOTE,
+					T.STATUS,
+					T.MEMO1,
+					T.RESERVE1,
+					T.RESERVE2,
+					T.RESERVE3,
+					T.RESERVE4,
+					T.RESERVE5,
+					T.RESERVE_DATE1,
+					T.RESERVE_DATE2,
+					T.RESERVE_DATE3,
+					T.RESERVE_DATE4,
+					T.RESERVE_DATE5,
+					T.RESERVE_DATE6,
+					T.RESERVE_DATE7,
+					T.RESERVE_DATE8,
+					T.RESERVE_DATE9,
+					T.RESERVE_DATE10,
+					T.LATEST_FLG,
+					T.DELETE_FLG,
+					T.UPDATE_USER,
+					T.INSERT_DATE,
+					T.UPDATE_DATE,
+				(SELECT BID_WIN_PRICE FROM bidcomp C WHERE C.BID_NO = T.BID_NO AND C.BID_RESULT = 'Y' GROUP BY C.BID_NO ORDER BY C.BID_CO_SEQ) AS BID_WIN_PRICE
+			from bid T where 1 = 1
+				and T.DELETE_FLG = '1'
+				AND T.BID_CO_SEQ IS NULL
+				<isNotEmpty prepend="and" property="BID_NO_LOW">
+					T.BID_NO <![CDATA[>=]]> #BID_NO_LOW#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="BID_NO_HIGH">
+					T.BID_NO <![CDATA[<=]]> #BID_NO_HIGH#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="TENDER_OPEN_DATE_LOW">
+					T.TENDER_OPEN_DATE <![CDATA[>=]]> #TENDER_OPEN_DATE_LOW#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="TENDER_OPEN_DATE_HIGH">
+					T.TENDER_OPEN_DATE <![CDATA[<=]]> #TENDER_OPEN_DATE_HIGH#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="BID_CO_NAME">
+					T.BID_CO_NAME like '%$BID_CO_NAME$%' ESCAPE '/'
+				</isNotEmpty>
+				
+			UNION
+			select TT.* from
+				(select T.BID_NO,
+					'2' AS BID_STATUS,
+					(SELECT MAX(C.BID_VALUE_DATE) FROM bidcomp C WHERE C.BID_NO = T.BID_NO AND C.BID_RESULT = 'Y' AND C.DELETE_FLG = '1') AS BID_VALUE_DATE,
+					T.CNTRCT_NO,
+					T.PROJECT_DEVIEW_DATE,
+					T.CNTRCT_TYPE,
+					T.PROJECT_NAME,
+					T.PROJECT_PROPERTY,
+					T.PROJ_APPROVAL,
+					T.PROJECT_AUTH,
+					T.PROJECT_MANAGER,
+					T.BID_AGENT_PAY,
+					T.BID_AGENT_PAY2,
+					T.BID_AGENT_PRICE,
+					T.BID_AGENT_PRICE_ACT,
+					T.RECEIPT1_DATE,
+					T.RECEIPT1_VALUE_DATE,
+					T.REGISTE_ST_DATE1,
+					T.REGISTE_ED_DATE1,
+					T.REGISTE_ST_DATE2,
+					T.REGISTE_ED_DATE2,
+					T.REGISTE_ST_DATE3,
+					T.REGISTE_ED_DATE3,
+					T.REGISTE_ST_DATE4,
+					T.REGISTE_ED_DATE4,
+					T.REGISTE_ST_DATE5,
+					T.REGISTE_ED_DATE5,
+					T.APPLY_REQUIRE,
+					T.BID_BOND,
+					T.TENDER_OPEN_DATE,
+					T.TENDER_OPEN_ADDRESS,
+					T.TENDER_VERIFY_DATE,
+					T.BID_AUTH,
+					T.BID_LIMIT_PRICE,
+					T.BID_CO_LIST,
+					T.BID_EXPERT_LIST,
+					T.BID_CO_SEQ,
+					T.BID_CO_NAME,
+					T.BID_CO_PRICE,
+					T.BID_PRICE,
+					T.BID_PRICE_LIST,
+					T.BID_EXPERT_COMMISION,
+					T.BID_EXPERT_COMMISION_PRE,
+					T.BID_EXPERT_COMMISION_ACT,
+					T.BID_EXPERT_COMMISION_DIFF_DATE,
+					T.BID_APPLY_PRICE,
+					T.BID_EXPERT_COMMISION_APPLY,
+					T.APPLY_FORM_EDIT_DATE,
+					T.APPLY_FORM_COLLECT_DATE,
+					T.APPLY_FORM_VERIFY_DATE,
+					T.APPLY_FORM_VERIFY,
+					T.APPLY_FORM_FIX_DATE,
+					T.APPLY_FORM_BOX_DATE,
+					T.SUPPORT_DOC_DATE,
+					T.BID_NOTICE_ST_DATE,
+					T.BID_NOTICE_ED_DATE,
+					T.BID_MESSAGE_DATE,
+					T.BID_DOC_DELI_DATE1,
+					T.BID_DOC_DELI_FILE1,
+					T.BID_DOC_DELI_DATE2,
+					T.BID_DOC_DELI_FILE2,
+					T.BID_DOC_DELI_DATE3,
+					T.BID_DOC_DELI_FILE3,
+					T.BID_DOC_DELI_DATE4,
+					T.BID_DOC_DELI_FILE4,
+					T.BID_DOC_DELI_DATE5,
+					T.BID_DOC_DELI_FILE5,
+					T.BID_DOC_DELI_DATE6,
+					T.BID_DOC_DELI_FILE6,
+					T.BID_DOC_DELI_DATE7,
+					T.BID_DOC_DELI_FILE7,
+					T.BID_DOC_DELI_DATE8,
+					T.BID_DOC_DELI_FILE8,
+					T.BID_DOC_DELI_DATE9,
+					T.BID_DOC_DELI_FILE9,
+					T.BID_DOC_DELI_DATE10,
+					T.BID_DOC_DELI_FILE10,
+					T.BID_INFORM_RCV_DATE,
+					T.BID_INFORM_RCV,
+					T.BID_VER_DOC_SCAN_DATE,
+					T.BID_VER_DOC_SCAN,
+					T.BID_VER_DOC_DELI_DATE1,
+					T.BID_VER_DOC_DELI_FILE1,
+					T.BID_VER_DOC_DELI_DATE2,
+					T.BID_VER_DOC_DELI_FILE2,
+					T.BID_VER_DOC_DELI_DATE3,
+					T.BID_VER_DOC_DELI_FILE3,
+					T.BID_VER_DOC_DELI_DATE4,
+					T.BID_VER_DOC_DELI_FILE4,
+					T.BID_VER_DOC_DELI_DATE5,
+					T.BID_VER_DOC_DELI_FILE5,
+					T.BID_VER_DOC_DELI_DATE6,
+					T.BID_VER_DOC_DELI_FILE6,
+					T.BID_VER_DOC_DELI_DATE7,
+					T.BID_VER_DOC_DELI_FILE7,
+					T.BID_VER_DOC_DELI_DATE8,
+					T.BID_VER_DOC_DELI_FILE8,
+					T.BID_VER_DOC_DELI_DATE9,
+					T.BID_VER_DOC_DELI_FILE9,
+					T.BID_VER_DOC_DELI_DATE10,
+					T.BID_VER_DOC_DELI_FILE10,
+					T.PROGRESS_STATUS,
+					T.FINISH_STATUS,
+					T.FINISH_NOTE,
+					T.STATUS,
+					T.MEMO1,
+					T.RESERVE1,
+					T.RESERVE2,
+					T.RESERVE3,
+					T.RESERVE4,
+					T.RESERVE5,
+					T.RESERVE_DATE1,
+					T.RESERVE_DATE2,
+					T.RESERVE_DATE3,
+					T.RESERVE_DATE4,
+					T.RESERVE_DATE5,
+					T.RESERVE_DATE6,
+					T.RESERVE_DATE7,
+					T.RESERVE_DATE8,
+					T.RESERVE_DATE9,
+					T.RESERVE_DATE10,
+					T.LATEST_FLG,
+					T.DELETE_FLG,
+					T.UPDATE_USER,
+					T.INSERT_DATE,
+					T.UPDATE_DATE,
+					(SELECT BID_WIN_PRICE FROM bidcomp C WHERE C.BID_NO = T.BID_NO AND C.BID_RESULT = 'Y' GROUP BY C.BID_NO ORDER BY C.BID_CO_SEQ) AS BID_WIN_PRICE
+				from bid T where 1 = 1
+					and T.DELETE_FLG = '1'
+					AND T.BID_CO_SEQ IS NOT NULL
+					<isNotEmpty prepend="and" property="BID_NO_LOW">
+						T.BID_NO <![CDATA[>=]]> #BID_NO_LOW#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="BID_NO_HIGH">
+						T.BID_NO <![CDATA[<=]]> #BID_NO_HIGH#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="TENDER_OPEN_DATE_LOW">
+						T.TENDER_OPEN_DATE <![CDATA[>=]]> #TENDER_OPEN_DATE_LOW#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="TENDER_OPEN_DATE_HIGH">
+						T.TENDER_OPEN_DATE <![CDATA[<=]]> #TENDER_OPEN_DATE_HIGH#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="BID_CO_NAME">
+						T.BID_CO_NAME like '%$BID_CO_NAME$%' ESCAPE '/'
+					</isNotEmpty>
+				) TT where 1 = 1
+				<!-- AND (TT.BID_VALUE_DATE IS NULL OR TT.BID_VALUE_DATE <![CDATA[>]]> NOW()) -->
+				AND (TT.RECEIPT1_VALUE_DATE IS NULL OR TT.RECEIPT1_VALUE_DATE <![CDATA[>]]> NOW())
+				
+			UNION
+			select TT.* from
+				(select T.BID_NO,
+					'3' AS BID_STATUS,
+					(SELECT MAX(C.BID_VALUE_DATE) FROM bidcomp C WHERE C.BID_NO = T.BID_NO AND C.BID_RESULT = 'Y' AND C.DELETE_FLG = '1') AS BID_VALUE_DATE,
+					T.CNTRCT_NO,
+					T.PROJECT_DEVIEW_DATE,
+					T.CNTRCT_TYPE,
+					T.PROJECT_NAME,
+					T.PROJECT_PROPERTY,
+					T.PROJ_APPROVAL,
+					T.PROJECT_AUTH,
+					T.PROJECT_MANAGER,
+					T.BID_AGENT_PAY,
+					T.BID_AGENT_PAY2,
+					T.BID_AGENT_PRICE,
+					T.BID_AGENT_PRICE_ACT,
+					T.RECEIPT1_DATE,
+					T.RECEIPT1_VALUE_DATE,
+					T.REGISTE_ST_DATE1,
+					T.REGISTE_ED_DATE1,
+					T.REGISTE_ST_DATE2,
+					T.REGISTE_ED_DATE2,
+					T.REGISTE_ST_DATE3,
+					T.REGISTE_ED_DATE3,
+					T.REGISTE_ST_DATE4,
+					T.REGISTE_ED_DATE4,
+					T.REGISTE_ST_DATE5,
+					T.REGISTE_ED_DATE5,
+					T.APPLY_REQUIRE,
+					T.BID_BOND,
+					T.TENDER_OPEN_DATE,
+					T.TENDER_OPEN_ADDRESS,
+					T.TENDER_VERIFY_DATE,
+					T.BID_AUTH,
+					T.BID_LIMIT_PRICE,
+					T.BID_CO_LIST,
+					T.BID_EXPERT_LIST,
+					T.BID_CO_SEQ,
+					T.BID_CO_NAME,
+					T.BID_CO_PRICE,
+					T.BID_PRICE,
+					T.BID_PRICE_LIST,
+					T.BID_EXPERT_COMMISION,
+					T.BID_EXPERT_COMMISION_PRE,
+					T.BID_EXPERT_COMMISION_ACT,
+					T.BID_EXPERT_COMMISION_DIFF_DATE,
+					T.BID_APPLY_PRICE,
+					T.BID_EXPERT_COMMISION_APPLY,
+					T.APPLY_FORM_EDIT_DATE,
+					T.APPLY_FORM_COLLECT_DATE,
+					T.APPLY_FORM_VERIFY_DATE,
+					T.APPLY_FORM_VERIFY,
+					T.APPLY_FORM_FIX_DATE,
+					T.APPLY_FORM_BOX_DATE,
+					T.SUPPORT_DOC_DATE,
+					T.BID_NOTICE_ST_DATE,
+					T.BID_NOTICE_ED_DATE,
+					T.BID_MESSAGE_DATE,
+					T.BID_DOC_DELI_DATE1,
+					T.BID_DOC_DELI_FILE1,
+					T.BID_DOC_DELI_DATE2,
+					T.BID_DOC_DELI_FILE2,
+					T.BID_DOC_DELI_DATE3,
+					T.BID_DOC_DELI_FILE3,
+					T.BID_DOC_DELI_DATE4,
+					T.BID_DOC_DELI_FILE4,
+					T.BID_DOC_DELI_DATE5,
+					T.BID_DOC_DELI_FILE5,
+					T.BID_DOC_DELI_DATE6,
+					T.BID_DOC_DELI_FILE6,
+					T.BID_DOC_DELI_DATE7,
+					T.BID_DOC_DELI_FILE7,
+					T.BID_DOC_DELI_DATE8,
+					T.BID_DOC_DELI_FILE8,
+					T.BID_DOC_DELI_DATE9,
+					T.BID_DOC_DELI_FILE9,
+					T.BID_DOC_DELI_DATE10,
+					T.BID_DOC_DELI_FILE10,
+					T.BID_INFORM_RCV_DATE,
+					T.BID_INFORM_RCV,
+					T.BID_VER_DOC_SCAN_DATE,
+					T.BID_VER_DOC_SCAN,
+					T.BID_VER_DOC_DELI_DATE1,
+					T.BID_VER_DOC_DELI_FILE1,
+					T.BID_VER_DOC_DELI_DATE2,
+					T.BID_VER_DOC_DELI_FILE2,
+					T.BID_VER_DOC_DELI_DATE3,
+					T.BID_VER_DOC_DELI_FILE3,
+					T.BID_VER_DOC_DELI_DATE4,
+					T.BID_VER_DOC_DELI_FILE4,
+					T.BID_VER_DOC_DELI_DATE5,
+					T.BID_VER_DOC_DELI_FILE5,
+					T.BID_VER_DOC_DELI_DATE6,
+					T.BID_VER_DOC_DELI_FILE6,
+					T.BID_VER_DOC_DELI_DATE7,
+					T.BID_VER_DOC_DELI_FILE7,
+					T.BID_VER_DOC_DELI_DATE8,
+					T.BID_VER_DOC_DELI_FILE8,
+					T.BID_VER_DOC_DELI_DATE9,
+					T.BID_VER_DOC_DELI_FILE9,
+					T.BID_VER_DOC_DELI_DATE10,
+					T.BID_VER_DOC_DELI_FILE10,
+					T.PROGRESS_STATUS,
+					T.FINISH_STATUS,
+					T.FINISH_NOTE,
+					T.STATUS,
+					T.MEMO1,
+					T.RESERVE1,
+					T.RESERVE2,
+					T.RESERVE3,
+					T.RESERVE4,
+					T.RESERVE5,
+					T.RESERVE_DATE1,
+					T.RESERVE_DATE2,
+					T.RESERVE_DATE3,
+					T.RESERVE_DATE4,
+					T.RESERVE_DATE5,
+					T.RESERVE_DATE6,
+					T.RESERVE_DATE7,
+					T.RESERVE_DATE8,
+					T.RESERVE_DATE9,
+					T.RESERVE_DATE10,
+					T.LATEST_FLG,
+					T.DELETE_FLG,
+					T.UPDATE_USER,
+					T.INSERT_DATE,
+					T.UPDATE_DATE,
+					(SELECT BID_WIN_PRICE FROM bidcomp C WHERE C.BID_NO = T.BID_NO AND C.BID_RESULT = 'Y' GROUP BY C.BID_NO ORDER BY C.BID_CO_SEQ) AS BID_WIN_PRICE
+				from bid T where 1 = 1
+					and T.DELETE_FLG = '1'
+					AND T.BID_CO_SEQ IS NOT NULL
+					<isNotEmpty prepend="and" property="BID_NO_LOW">
+						T.BID_NO <![CDATA[>=]]> #BID_NO_LOW#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="BID_NO_HIGH">
+						T.BID_NO <![CDATA[<=]]> #BID_NO_HIGH#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="TENDER_OPEN_DATE_LOW">
+						T.TENDER_OPEN_DATE <![CDATA[>=]]> #TENDER_OPEN_DATE_LOW#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="TENDER_OPEN_DATE_HIGH">
+						T.TENDER_OPEN_DATE <![CDATA[<=]]> #TENDER_OPEN_DATE_HIGH#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="BID_CO_NAME">
+						T.BID_CO_NAME like '%$BID_CO_NAME$%' ESCAPE '/'
+					</isNotEmpty>
+				) TT where 1 = 1
+				<!-- AND TT.BID_VALUE_DATE IS NOT NULL AND TT.BID_VALUE_DATE <![CDATA[<=]]> NOW() -->
+				AND TT.RECEIPT1_VALUE_DATE IS NOT NULL AND TT.RECEIPT1_VALUE_DATE <![CDATA[<=]]> NOW()
+		) B where 1 = 1
+		<isNotEmpty prepend="and" property="BID_STATUS">
+			B.BID_STATUS in ($BID_STATUS$)
+		</isNotEmpty>
+		order by B.BID_NO desc
+		LIMIT #start#, #end#
+	</select>
+	
+	<select id="queryAllBidExport" parameterClass="java.util.Map" resultMap="BidDto">
+		select T.BID_NO,
+			NULL as BID_STATUS,
+			NULL AS BID_VALUE_DATE,
+			T.CNTRCT_NO,
+			T.PROJECT_DEVIEW_DATE,
+			T.CNTRCT_TYPE,
+			T.PROJECT_NAME,
+			T.PROJECT_PROPERTY,
+			T.PROJ_APPROVAL,
+			T.PROJECT_AUTH,
+			T.PROJECT_MANAGER,
+			T.BID_AGENT_PAY,
+			T.BID_AGENT_PAY2,
+			T.BID_AGENT_PRICE,
+			T.BID_AGENT_PRICE_ACT,
+			T.RECEIPT1_DATE,
+			T.RECEIPT1_VALUE_DATE,
+			T.REGISTE_ST_DATE1,
+			T.REGISTE_ED_DATE1,
+			T.REGISTE_ST_DATE2,
+			T.REGISTE_ED_DATE2,
+			T.REGISTE_ST_DATE3,
+			T.REGISTE_ED_DATE3,
+			T.REGISTE_ST_DATE4,
+			T.REGISTE_ED_DATE4,
+			T.REGISTE_ST_DATE5,
+			T.REGISTE_ED_DATE5,
+			T.APPLY_REQUIRE,
+			T.BID_BOND,
+			T.TENDER_OPEN_DATE,
+			T.TENDER_OPEN_ADDRESS,
+			T.TENDER_VERIFY_DATE,
+			T.BID_AUTH,
+			T.BID_LIMIT_PRICE,
+			T.BID_CO_LIST,
+			T.BID_EXPERT_LIST,
+			T.BID_CO_SEQ,
+			T.BID_CO_NAME,
+			T.BID_CO_PRICE,
+			T.BID_PRICE,
+			T.BID_PRICE_LIST,
+			T.BID_EXPERT_COMMISION,
+			T.BID_EXPERT_COMMISION_PRE,
+			T.BID_EXPERT_COMMISION_ACT,
+			T.BID_EXPERT_COMMISION_DIFF_DATE,
+			T.BID_APPLY_PRICE,
+			T.BID_EXPERT_COMMISION_APPLY,
+			T.APPLY_FORM_EDIT_DATE,
+			T.APPLY_FORM_COLLECT_DATE,
+			T.APPLY_FORM_VERIFY_DATE,
+			T.APPLY_FORM_VERIFY,
+			T.APPLY_FORM_FIX_DATE,
+			T.APPLY_FORM_BOX_DATE,
+			T.SUPPORT_DOC_DATE,
+			T.BID_NOTICE_ST_DATE,
+			T.BID_NOTICE_ED_DATE,
+			T.BID_MESSAGE_DATE,
+			T.BID_DOC_DELI_DATE1,
+			T.BID_DOC_DELI_FILE1,
+			T.BID_DOC_DELI_DATE2,
+			T.BID_DOC_DELI_FILE2,
+			T.BID_DOC_DELI_DATE3,
+			T.BID_DOC_DELI_FILE3,
+			T.BID_DOC_DELI_DATE4,
+			T.BID_DOC_DELI_FILE4,
+			T.BID_DOC_DELI_DATE5,
+			T.BID_DOC_DELI_FILE5,
+			T.BID_DOC_DELI_DATE6,
+			T.BID_DOC_DELI_FILE6,
+			T.BID_DOC_DELI_DATE7,
+			T.BID_DOC_DELI_FILE7,
+			T.BID_DOC_DELI_DATE8,
+			T.BID_DOC_DELI_FILE8,
+			T.BID_DOC_DELI_DATE9,
+			T.BID_DOC_DELI_FILE9,
+			T.BID_DOC_DELI_DATE10,
+			T.BID_DOC_DELI_FILE10,
+			T.BID_INFORM_RCV_DATE,
+			T.BID_INFORM_RCV,
+			T.BID_VER_DOC_SCAN_DATE,
+			T.BID_VER_DOC_SCAN,
+			T.BID_VER_DOC_DELI_DATE1,
+			T.BID_VER_DOC_DELI_FILE1,
+			T.BID_VER_DOC_DELI_DATE2,
+			T.BID_VER_DOC_DELI_FILE2,
+			T.BID_VER_DOC_DELI_DATE3,
+			T.BID_VER_DOC_DELI_FILE3,
+			T.BID_VER_DOC_DELI_DATE4,
+			T.BID_VER_DOC_DELI_FILE4,
+			T.BID_VER_DOC_DELI_DATE5,
+			T.BID_VER_DOC_DELI_FILE5,
+			T.BID_VER_DOC_DELI_DATE6,
+			T.BID_VER_DOC_DELI_FILE6,
+			T.BID_VER_DOC_DELI_DATE7,
+			T.BID_VER_DOC_DELI_FILE7,
+			T.BID_VER_DOC_DELI_DATE8,
+			T.BID_VER_DOC_DELI_FILE8,
+			T.BID_VER_DOC_DELI_DATE9,
+			T.BID_VER_DOC_DELI_FILE9,
+			T.BID_VER_DOC_DELI_DATE10,
+			T.BID_VER_DOC_DELI_FILE10,
+			T.PROGRESS_STATUS,
+			T.FINISH_STATUS,
+			T.FINISH_NOTE,
+			T.STATUS,
+			T.MEMO1,
+			T.RESERVE1,
+			T.RESERVE2,
+			T.RESERVE3,
+			T.RESERVE4,
+			T.RESERVE5,
+			T.RESERVE_DATE1,
+			T.RESERVE_DATE2,
+			T.RESERVE_DATE3,
+			T.RESERVE_DATE4,
+			T.RESERVE_DATE5,
+			T.RESERVE_DATE6,
+			T.RESERVE_DATE7,
+			T.RESERVE_DATE8,
+			T.RESERVE_DATE9,
+			T.RESERVE_DATE10,
+			T.LATEST_FLG,
+			T.DELETE_FLG,
+			T.UPDATE_USER,
+			T.INSERT_DATE,
+			T.UPDATE_DATE,
+			(SELECT BID_WIN_PRICE FROM bidcomp C WHERE C.BID_NO = T.BID_NO AND C.BID_RESULT = 'Y' GROUP BY C.BID_NO ORDER BY C.BID_CO_SEQ) AS BID_WIN_PRICE
+		from bid T where 1 = 1
+			and T.DELETE_FLG = '1'
+			<isNotEmpty prepend="and" property="BID_NO_LOW">
+				T.BID_NO <![CDATA[>=]]> #BID_NO_LOW#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="BID_NO_HIGH">
+				T.BID_NO <![CDATA[<=]]> #BID_NO_HIGH#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="TENDER_OPEN_DATE_LOW">
+				T.TENDER_OPEN_DATE <![CDATA[>=]]> #TENDER_OPEN_DATE_LOW#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="TENDER_OPEN_DATE_HIGH">
+				T.TENDER_OPEN_DATE <![CDATA[<=]]> #TENDER_OPEN_DATE_HIGH#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="BID_CO_NAME">
+				T.BID_CO_NAME like '%$BID_CO_NAME$%' ESCAPE '/'
+			</isNotEmpty>
+			order by T.UPDATE_DATE desc
+	</select>
+	
+	<select id="queryBidByID" parameterClass="java.util.Map" resultMap="BidDto">
+		select T.BID_NO,
+			NULL as BID_STATUS,
+			NULL AS BID_VALUE_DATE,
+			T.CNTRCT_NO,
+			T.PROJECT_DEVIEW_DATE,
+			T.CNTRCT_TYPE,
+			T.PROJECT_NAME,
+			T.PROJECT_PROPERTY,
+			T.PROJ_APPROVAL,
+			T.PROJECT_AUTH,
+			T.PROJECT_MANAGER,
+			T.BID_AGENT_PAY,
+			T.BID_AGENT_PAY2,
+			T.BID_AGENT_PRICE,
+			T.BID_AGENT_PRICE_ACT,
+			T.RECEIPT1_DATE,
+			T.RECEIPT1_VALUE_DATE,
+			T.REGISTE_ST_DATE1,
+			T.REGISTE_ED_DATE1,
+			T.REGISTE_ST_DATE2,
+			T.REGISTE_ED_DATE2,
+			T.REGISTE_ST_DATE3,
+			T.REGISTE_ED_DATE3,
+			T.REGISTE_ST_DATE4,
+			T.REGISTE_ED_DATE4,
+			T.REGISTE_ST_DATE5,
+			T.REGISTE_ED_DATE5,
+			T.APPLY_REQUIRE,
+			T.BID_BOND,
+			T.TENDER_OPEN_DATE,
+			T.TENDER_OPEN_ADDRESS,
+			T.TENDER_VERIFY_DATE,
+			T.BID_AUTH,
+			T.BID_LIMIT_PRICE,
+			T.BID_CO_LIST,
+			T.BID_EXPERT_LIST,
+			T.BID_CO_SEQ,
+			T.BID_CO_NAME,
+			T.BID_CO_PRICE,
+			T.BID_PRICE,
+			T.BID_PRICE_LIST,
+			T.BID_EXPERT_COMMISION,
+			T.BID_EXPERT_COMMISION_PRE,
+			T.BID_EXPERT_COMMISION_ACT,
+			T.BID_EXPERT_COMMISION_DIFF_DATE,
+			T.BID_APPLY_PRICE,
+			T.BID_EXPERT_COMMISION_APPLY,
+			T.APPLY_FORM_EDIT_DATE,
+			T.APPLY_FORM_COLLECT_DATE,
+			T.APPLY_FORM_VERIFY_DATE,
+			T.APPLY_FORM_VERIFY,
+			T.APPLY_FORM_FIX_DATE,
+			T.APPLY_FORM_BOX_DATE,
+			T.SUPPORT_DOC_DATE,
+			T.BID_NOTICE_ST_DATE,
+			T.BID_NOTICE_ED_DATE,
+			T.BID_MESSAGE_DATE,
+			T.BID_DOC_DELI_DATE1,
+			T.BID_DOC_DELI_FILE1,
+			T.BID_DOC_DELI_DATE2,
+			T.BID_DOC_DELI_FILE2,
+			T.BID_DOC_DELI_DATE3,
+			T.BID_DOC_DELI_FILE3,
+			T.BID_DOC_DELI_DATE4,
+			T.BID_DOC_DELI_FILE4,
+			T.BID_DOC_DELI_DATE5,
+			T.BID_DOC_DELI_FILE5,
+			T.BID_DOC_DELI_DATE6,
+			T.BID_DOC_DELI_FILE6,
+			T.BID_DOC_DELI_DATE7,
+			T.BID_DOC_DELI_FILE7,
+			T.BID_DOC_DELI_DATE8,
+			T.BID_DOC_DELI_FILE8,
+			T.BID_DOC_DELI_DATE9,
+			T.BID_DOC_DELI_FILE9,
+			T.BID_DOC_DELI_DATE10,
+			T.BID_DOC_DELI_FILE10,
+			T.BID_INFORM_RCV_DATE,
+			T.BID_INFORM_RCV,
+			T.BID_VER_DOC_SCAN_DATE,
+			T.BID_VER_DOC_SCAN,
+			T.BID_VER_DOC_DELI_DATE1,
+			T.BID_VER_DOC_DELI_FILE1,
+			T.BID_VER_DOC_DELI_DATE2,
+			T.BID_VER_DOC_DELI_FILE2,
+			T.BID_VER_DOC_DELI_DATE3,
+			T.BID_VER_DOC_DELI_FILE3,
+			T.BID_VER_DOC_DELI_DATE4,
+			T.BID_VER_DOC_DELI_FILE4,
+			T.BID_VER_DOC_DELI_DATE5,
+			T.BID_VER_DOC_DELI_FILE5,
+			T.BID_VER_DOC_DELI_DATE6,
+			T.BID_VER_DOC_DELI_FILE6,
+			T.BID_VER_DOC_DELI_DATE7,
+			T.BID_VER_DOC_DELI_FILE7,
+			T.BID_VER_DOC_DELI_DATE8,
+			T.BID_VER_DOC_DELI_FILE8,
+			T.BID_VER_DOC_DELI_DATE9,
+			T.BID_VER_DOC_DELI_FILE9,
+			T.BID_VER_DOC_DELI_DATE10,
+			T.BID_VER_DOC_DELI_FILE10,
+			T.PROGRESS_STATUS,
+			T.FINISH_STATUS,
+			T.FINISH_NOTE,
+			T.STATUS,
+			T.MEMO1,
+			T.RESERVE1,
+			T.RESERVE2,
+			T.RESERVE3,
+			T.RESERVE4,
+			T.RESERVE5,
+			T.RESERVE_DATE1,
+			T.RESERVE_DATE2,
+			T.RESERVE_DATE3,
+			T.RESERVE_DATE4,
+			T.RESERVE_DATE5,
+			T.RESERVE_DATE6,
+			T.RESERVE_DATE7,
+			T.RESERVE_DATE8,
+			T.RESERVE_DATE9,
+			T.RESERVE_DATE10,
+			T.LATEST_FLG,
+			T.DELETE_FLG,
+			T.UPDATE_USER,
+			T.INSERT_DATE,
+			T.UPDATE_DATE,
+			(SELECT BID_WIN_PRICE FROM bidcomp C WHERE C.BID_NO = T.BID_NO AND C.BID_RESULT = 'Y' GROUP BY C.BID_NO ORDER BY C.BID_CO_SEQ) AS BID_WIN_PRICE
+		from bid T where 
+			BID_NO = #BID_NO#
+			and DELETE_FLG = '1'
+	</select>
+	
+	<select id="queryAllBidByID" parameterClass="java.util.Map" resultMap="BidDto">
+		select T.BID_NO,
+			NULL as BID_STATUS,
+			NULL AS BID_VALUE_DATE,
+			T.CNTRCT_NO,
+			T.PROJECT_DEVIEW_DATE,
+			T.CNTRCT_TYPE,
+			T.PROJECT_NAME,
+			T.PROJECT_PROPERTY,
+			T.PROJ_APPROVAL,
+			T.PROJECT_AUTH,
+			T.PROJECT_MANAGER,
+			T.BID_AGENT_PAY,
+			T.BID_AGENT_PAY2,
+			T.BID_AGENT_PRICE,
+			T.BID_AGENT_PRICE_ACT,
+			T.RECEIPT1_DATE,
+			T.RECEIPT1_VALUE_DATE,
+			T.REGISTE_ST_DATE1,
+			T.REGISTE_ED_DATE1,
+			T.REGISTE_ST_DATE2,
+			T.REGISTE_ED_DATE2,
+			T.REGISTE_ST_DATE3,
+			T.REGISTE_ED_DATE3,
+			T.REGISTE_ST_DATE4,
+			T.REGISTE_ED_DATE4,
+			T.REGISTE_ST_DATE5,
+			T.REGISTE_ED_DATE5,
+			T.APPLY_REQUIRE,
+			T.BID_BOND,
+			T.TENDER_OPEN_DATE,
+			T.TENDER_OPEN_ADDRESS,
+			T.TENDER_VERIFY_DATE,
+			T.BID_AUTH,
+			T.BID_LIMIT_PRICE,
+			T.BID_CO_LIST,
+			T.BID_EXPERT_LIST,
+			T.BID_CO_SEQ,
+			T.BID_CO_NAME,
+			T.BID_CO_PRICE,
+			T.BID_PRICE,
+			T.BID_PRICE_LIST,
+			T.BID_EXPERT_COMMISION,
+			T.BID_EXPERT_COMMISION_PRE,
+			T.BID_EXPERT_COMMISION_ACT,
+			T.BID_EXPERT_COMMISION_DIFF_DATE,
+			T.BID_APPLY_PRICE,
+			T.BID_EXPERT_COMMISION_APPLY,
+			T.APPLY_FORM_EDIT_DATE,
+			T.APPLY_FORM_COLLECT_DATE,
+			T.APPLY_FORM_VERIFY_DATE,
+			T.APPLY_FORM_VERIFY,
+			T.APPLY_FORM_FIX_DATE,
+			T.APPLY_FORM_BOX_DATE,
+			T.SUPPORT_DOC_DATE,
+			T.BID_NOTICE_ST_DATE,
+			T.BID_NOTICE_ED_DATE,
+			T.BID_MESSAGE_DATE,
+			T.BID_DOC_DELI_DATE1,
+			T.BID_DOC_DELI_FILE1,
+			T.BID_DOC_DELI_DATE2,
+			T.BID_DOC_DELI_FILE2,
+			T.BID_DOC_DELI_DATE3,
+			T.BID_DOC_DELI_FILE3,
+			T.BID_DOC_DELI_DATE4,
+			T.BID_DOC_DELI_FILE4,
+			T.BID_DOC_DELI_DATE5,
+			T.BID_DOC_DELI_FILE5,
+			T.BID_DOC_DELI_DATE6,
+			T.BID_DOC_DELI_FILE6,
+			T.BID_DOC_DELI_DATE7,
+			T.BID_DOC_DELI_FILE7,
+			T.BID_DOC_DELI_DATE8,
+			T.BID_DOC_DELI_FILE8,
+			T.BID_DOC_DELI_DATE9,
+			T.BID_DOC_DELI_FILE9,
+			T.BID_DOC_DELI_DATE10,
+			T.BID_DOC_DELI_FILE10,
+			T.BID_INFORM_RCV_DATE,
+			T.BID_INFORM_RCV,
+			T.BID_VER_DOC_SCAN_DATE,
+			T.BID_VER_DOC_SCAN,
+			T.BID_VER_DOC_DELI_DATE1,
+			T.BID_VER_DOC_DELI_FILE1,
+			T.BID_VER_DOC_DELI_DATE2,
+			T.BID_VER_DOC_DELI_FILE2,
+			T.BID_VER_DOC_DELI_DATE3,
+			T.BID_VER_DOC_DELI_FILE3,
+			T.BID_VER_DOC_DELI_DATE4,
+			T.BID_VER_DOC_DELI_FILE4,
+			T.BID_VER_DOC_DELI_DATE5,
+			T.BID_VER_DOC_DELI_FILE5,
+			T.BID_VER_DOC_DELI_DATE6,
+			T.BID_VER_DOC_DELI_FILE6,
+			T.BID_VER_DOC_DELI_DATE7,
+			T.BID_VER_DOC_DELI_FILE7,
+			T.BID_VER_DOC_DELI_DATE8,
+			T.BID_VER_DOC_DELI_FILE8,
+			T.BID_VER_DOC_DELI_DATE9,
+			T.BID_VER_DOC_DELI_FILE9,
+			T.BID_VER_DOC_DELI_DATE10,
+			T.BID_VER_DOC_DELI_FILE10,
+			T.PROGRESS_STATUS,
+			T.FINISH_STATUS,
+			T.FINISH_NOTE,
+			T.STATUS,
+			T.MEMO1,
+			T.RESERVE1,
+			T.RESERVE2,
+			T.RESERVE3,
+			T.RESERVE4,
+			T.RESERVE5,
+			T.RESERVE_DATE1,
+			T.RESERVE_DATE2,
+			T.RESERVE_DATE3,
+			T.RESERVE_DATE4,
+			T.RESERVE_DATE5,
+			T.RESERVE_DATE6,
+			T.RESERVE_DATE7,
+			T.RESERVE_DATE8,
+			T.RESERVE_DATE9,
+			T.RESERVE_DATE10,
+			T.LATEST_FLG,
+			T.DELETE_FLG,
+			T.UPDATE_USER,
+			T.INSERT_DATE,
+			T.UPDATE_DATE,
+			(SELECT BID_WIN_PRICE FROM bidcomp C WHERE C.BID_NO = T.BID_NO AND C.BID_RESULT = 'Y' GROUP BY C.BID_NO ORDER BY C.BID_CO_SEQ) AS BID_WIN_PRICE
+		from bid T where 
+			BID_NO = #BID_NO#
+	</select>
+	
+	<insert id="insertBid" parameterClass="com.cn.tbps.dto.BidDto">
+		insert into bid(BID_NO,CNTRCT_NO,PROJECT_DEVIEW_DATE,CNTRCT_TYPE,PROJECT_NAME,PROJECT_PROPERTY,PROJ_APPROVAL,PROJECT_AUTH,PROJECT_MANAGER,BID_AGENT_PAY,
+			BID_AGENT_PAY2,BID_AGENT_PRICE,BID_AGENT_PRICE_ACT,RECEIPT1_DATE,RECEIPT1_VALUE_DATE,REGISTE_ST_DATE1,REGISTE_ED_DATE1,REGISTE_ST_DATE2,
+			REGISTE_ED_DATE2,REGISTE_ST_DATE3,REGISTE_ED_DATE3,REGISTE_ST_DATE4,REGISTE_ED_DATE4,REGISTE_ST_DATE5,REGISTE_ED_DATE5,APPLY_REQUIRE,BID_BOND,
+			TENDER_OPEN_DATE,TENDER_OPEN_ADDRESS,TENDER_VERIFY_DATE,BID_AUTH,BID_LIMIT_PRICE,BID_CO_LIST,BID_EXPERT_LIST,BID_CO_SEQ,BID_CO_NAME,BID_CO_PRICE,
+			BID_PRICE,BID_PRICE_LIST,BID_EXPERT_COMMISION,BID_EXPERT_COMMISION_PRE,BID_EXPERT_COMMISION_ACT,BID_EXPERT_COMMISION_DIFF_DATE,BID_APPLY_PRICE,
+			BID_EXPERT_COMMISION_APPLY,APPLY_FORM_EDIT_DATE,APPLY_FORM_COLLECT_DATE,APPLY_FORM_VERIFY_DATE,APPLY_FORM_VERIFY,APPLY_FORM_FIX_DATE,
+			APPLY_FORM_BOX_DATE,SUPPORT_DOC_DATE,BID_NOTICE_ST_DATE,BID_NOTICE_ED_DATE,BID_MESSAGE_DATE,BID_DOC_DELI_DATE1,BID_DOC_DELI_FILE1,BID_DOC_DELI_DATE2,
+			BID_DOC_DELI_FILE2,BID_DOC_DELI_DATE3,BID_DOC_DELI_FILE3,BID_DOC_DELI_DATE4,BID_DOC_DELI_FILE4,BID_DOC_DELI_DATE5,BID_DOC_DELI_FILE5,BID_DOC_DELI_DATE6,
+			BID_DOC_DELI_FILE6,BID_DOC_DELI_DATE7,BID_DOC_DELI_FILE7,BID_DOC_DELI_DATE8,BID_DOC_DELI_FILE8,BID_DOC_DELI_DATE9,BID_DOC_DELI_FILE9,BID_DOC_DELI_DATE10,
+			BID_DOC_DELI_FILE10,BID_INFORM_RCV_DATE,BID_INFORM_RCV,BID_VER_DOC_SCAN_DATE,BID_VER_DOC_SCAN,BID_VER_DOC_DELI_DATE1,BID_VER_DOC_DELI_FILE1,
+			BID_VER_DOC_DELI_DATE2,BID_VER_DOC_DELI_FILE2,BID_VER_DOC_DELI_DATE3,BID_VER_DOC_DELI_FILE3,BID_VER_DOC_DELI_DATE4,BID_VER_DOC_DELI_FILE4,
+			BID_VER_DOC_DELI_DATE5,BID_VER_DOC_DELI_FILE5,BID_VER_DOC_DELI_DATE6,BID_VER_DOC_DELI_FILE6,BID_VER_DOC_DELI_DATE7,BID_VER_DOC_DELI_FILE7,
+			BID_VER_DOC_DELI_DATE8,BID_VER_DOC_DELI_FILE8,BID_VER_DOC_DELI_DATE9,BID_VER_DOC_DELI_FILE9,BID_VER_DOC_DELI_DATE10,BID_VER_DOC_DELI_FILE10,
+			PROGRESS_STATUS,FINISH_STATUS,FINISH_NOTE,STATUS,MEMO1,RESERVE1,RESERVE2,RESERVE3,RESERVE4,RESERVE5,RESERVE_DATE1,RESERVE_DATE2,RESERVE_DATE3,
+			RESERVE_DATE4,RESERVE_DATE5,RESERVE_DATE6,RESERVE_DATE7,RESERVE_DATE8,RESERVE_DATE9,RESERVE_DATE10,LATEST_FLG,DELETE_FLG,UPDATE_USER,INSERT_DATE,UPDATE_DATE)
+		values(#BID_NO#,#CNTRCT_NO#,#PROJECT_DEVIEW_DATE#,#CNTRCT_TYPE#,#PROJECT_NAME#,#PROJECT_PROPERTY#,#PROJ_APPROVAL#,#PROJECT_AUTH#,#PROJECT_MANAGER#,#BID_AGENT_PAY#,
+			#BID_AGENT_PAY2#,#BID_AGENT_PRICE#,#BID_AGENT_PRICE_ACT#,#RECEIPT1_DATE#,#RECEIPT1_VALUE_DATE#,#REGISTE_ST_DATE1#,#REGISTE_ED_DATE1#,#REGISTE_ST_DATE2#,
+			#REGISTE_ED_DATE2#,#REGISTE_ST_DATE3#,#REGISTE_ED_DATE3#,#REGISTE_ST_DATE4#,#REGISTE_ED_DATE4#,#REGISTE_ST_DATE5#,#REGISTE_ED_DATE5#,#APPLY_REQUIRE#,#BID_BOND#,
+			#TENDER_OPEN_DATE#,#TENDER_OPEN_ADDRESS#,#TENDER_VERIFY_DATE#,#BID_AUTH#,#BID_LIMIT_PRICE#,#BID_CO_LIST#,#BID_EXPERT_LIST#,#BID_CO_SEQ#,#BID_CO_NAME#,#BID_CO_PRICE#,
+			#BID_PRICE#,#BID_PRICE_LIST#,#BID_EXPERT_COMMISION#,#BID_EXPERT_COMMISION_PRE#,#BID_EXPERT_COMMISION_ACT#,#BID_EXPERT_COMMISION_DIFF_DATE#,#BID_APPLY_PRICE#,
+			#BID_EXPERT_COMMISION_APPLY#,#APPLY_FORM_EDIT_DATE#,#APPLY_FORM_COLLECT_DATE#,#APPLY_FORM_VERIFY_DATE#,#APPLY_FORM_VERIFY#,#APPLY_FORM_FIX_DATE#,
+			#APPLY_FORM_BOX_DATE#,#SUPPORT_DOC_DATE#,#BID_NOTICE_ST_DATE#,#BID_NOTICE_ED_DATE#,#BID_MESSAGE_DATE#,#BID_DOC_DELI_DATE1#,#BID_DOC_DELI_FILE1#,#BID_DOC_DELI_DATE2#,
+			#BID_DOC_DELI_FILE2#,#BID_DOC_DELI_DATE3#,#BID_DOC_DELI_FILE3#,#BID_DOC_DELI_DATE4#,#BID_DOC_DELI_FILE4#,#BID_DOC_DELI_DATE5#,#BID_DOC_DELI_FILE5#,#BID_DOC_DELI_DATE6#,
+			#BID_DOC_DELI_FILE6#,#BID_DOC_DELI_DATE7#,#BID_DOC_DELI_FILE7#,#BID_DOC_DELI_DATE8#,#BID_DOC_DELI_FILE8#,#BID_DOC_DELI_DATE9#,#BID_DOC_DELI_FILE9#,#BID_DOC_DELI_DATE10#,
+			#BID_DOC_DELI_FILE10#,#BID_INFORM_RCV_DATE#,#BID_INFORM_RCV#,#BID_VER_DOC_SCAN_DATE#,#BID_VER_DOC_SCAN#,#BID_VER_DOC_DELI_DATE1#,#BID_VER_DOC_DELI_FILE1#,
+			#BID_VER_DOC_DELI_DATE2#,#BID_VER_DOC_DELI_FILE2#,#BID_VER_DOC_DELI_DATE3#,#BID_VER_DOC_DELI_FILE3#,#BID_VER_DOC_DELI_DATE4#,#BID_VER_DOC_DELI_FILE4#,
+			#BID_VER_DOC_DELI_DATE5#,#BID_VER_DOC_DELI_FILE5#,#BID_VER_DOC_DELI_DATE6#,#BID_VER_DOC_DELI_FILE6#,#BID_VER_DOC_DELI_DATE7#,#BID_VER_DOC_DELI_FILE7#,
+			#BID_VER_DOC_DELI_DATE8#,#BID_VER_DOC_DELI_FILE8#,#BID_VER_DOC_DELI_DATE9#,#BID_VER_DOC_DELI_FILE9#,#BID_VER_DOC_DELI_DATE10#,#BID_VER_DOC_DELI_FILE10#,
+			#PROGRESS_STATUS#,#FINISH_STATUS#,#FINISH_NOTE#,#STATUS#,#MEMO1#,#RESERVE1#,#RESERVE2#,#RESERVE3#,#RESERVE4#,#RESERVE5#,#RESERVE_DATE1#,#RESERVE_DATE2#,#RESERVE_DATE3#,
+			#RESERVE_DATE4#,#RESERVE_DATE5#,#RESERVE_DATE6#,#RESERVE_DATE7#,#RESERVE_DATE8#,#RESERVE_DATE9#,#RESERVE_DATE10#,#LATEST_FLG#,#DELETE_FLG#,#UPDATE_USER#,NOW(),NOW())
+	</insert>
+	
+	<update id="updateBid" parameterClass="com.cn.tbps.dto.BidDto">
+		update bid
+		set CNTRCT_NO = #CNTRCT_NO#,
+			PROJECT_DEVIEW_DATE = #PROJECT_DEVIEW_DATE#,
+			CNTRCT_TYPE = #CNTRCT_TYPE#,
+			PROJECT_NAME = #PROJECT_NAME#,
+			PROJECT_PROPERTY = #PROJECT_PROPERTY#,
+			PROJ_APPROVAL = #PROJ_APPROVAL#,
+			PROJECT_AUTH = #PROJECT_AUTH#,
+			PROJECT_MANAGER = #PROJECT_MANAGER#,
+			BID_AGENT_PAY = #BID_AGENT_PAY#,
+			BID_AGENT_PAY2 = #BID_AGENT_PAY2#,
+			BID_AGENT_PRICE = #BID_AGENT_PRICE#,
+			BID_AGENT_PRICE_ACT = #BID_AGENT_PRICE_ACT#,
+			RECEIPT1_DATE = #RECEIPT1_DATE#,
+			RECEIPT1_VALUE_DATE = #RECEIPT1_VALUE_DATE#,
+			REGISTE_ST_DATE1 = #REGISTE_ST_DATE1#,
+			REGISTE_ED_DATE1 = #REGISTE_ED_DATE1#,
+			REGISTE_ST_DATE2 = #REGISTE_ST_DATE2#,
+			REGISTE_ED_DATE2 = #REGISTE_ED_DATE2#,
+			REGISTE_ST_DATE3 = #REGISTE_ST_DATE3#,
+			REGISTE_ED_DATE3 = #REGISTE_ED_DATE3#,
+			REGISTE_ST_DATE4 = #REGISTE_ST_DATE4#,
+			REGISTE_ED_DATE4 = #REGISTE_ED_DATE4#,
+			REGISTE_ST_DATE5 = #REGISTE_ST_DATE5#,
+			REGISTE_ED_DATE5 = #REGISTE_ED_DATE5#,
+			APPLY_REQUIRE = #APPLY_REQUIRE#,
+			BID_BOND = #BID_BOND#,
+			TENDER_OPEN_DATE = #TENDER_OPEN_DATE#,
+			TENDER_OPEN_ADDRESS = #TENDER_OPEN_ADDRESS#,
+			TENDER_VERIFY_DATE = #TENDER_VERIFY_DATE#,
+			BID_AUTH = #BID_AUTH#,
+			BID_LIMIT_PRICE = #BID_LIMIT_PRICE#,
+			BID_CO_LIST = #BID_CO_LIST#,
+			BID_EXPERT_LIST = #BID_EXPERT_LIST#,
+			BID_CO_SEQ = #BID_CO_SEQ#,
+			BID_CO_NAME = #BID_CO_NAME#,
+			BID_CO_PRICE = #BID_CO_PRICE#,
+			BID_PRICE = #BID_PRICE#,
+			BID_PRICE_LIST = #BID_PRICE_LIST#,
+			BID_EXPERT_COMMISION = #BID_EXPERT_COMMISION#,
+			BID_EXPERT_COMMISION_PRE = #BID_EXPERT_COMMISION_PRE#,
+			BID_EXPERT_COMMISION_ACT = #BID_EXPERT_COMMISION_ACT#,
+			BID_EXPERT_COMMISION_DIFF_DATE = #BID_EXPERT_COMMISION_DIFF_DATE#,
+			BID_APPLY_PRICE = #BID_APPLY_PRICE#,
+			BID_EXPERT_COMMISION_APPLY = #BID_EXPERT_COMMISION_APPLY#,
+			APPLY_FORM_EDIT_DATE = #APPLY_FORM_EDIT_DATE#,
+			APPLY_FORM_COLLECT_DATE = #APPLY_FORM_COLLECT_DATE#,
+			APPLY_FORM_VERIFY_DATE = #APPLY_FORM_VERIFY_DATE#,
+			APPLY_FORM_VERIFY = #APPLY_FORM_VERIFY#,
+			APPLY_FORM_FIX_DATE = #APPLY_FORM_FIX_DATE#,
+			APPLY_FORM_BOX_DATE = #APPLY_FORM_BOX_DATE#,
+			SUPPORT_DOC_DATE = #SUPPORT_DOC_DATE#,
+			BID_NOTICE_ST_DATE = #BID_NOTICE_ST_DATE#,
+			BID_NOTICE_ED_DATE = #BID_NOTICE_ED_DATE#,
+			BID_MESSAGE_DATE = #BID_MESSAGE_DATE#,
+			BID_DOC_DELI_DATE1 = #BID_DOC_DELI_DATE1#,
+			BID_DOC_DELI_FILE1 = #BID_DOC_DELI_FILE1#,
+			BID_DOC_DELI_DATE2 = #BID_DOC_DELI_DATE2#,
+			BID_DOC_DELI_FILE2 = #BID_DOC_DELI_FILE2#,
+			BID_DOC_DELI_DATE3 = #BID_DOC_DELI_DATE3#,
+			BID_DOC_DELI_FILE3 = #BID_DOC_DELI_FILE3#,
+			BID_DOC_DELI_DATE4 = #BID_DOC_DELI_DATE4#,
+			BID_DOC_DELI_FILE4 = #BID_DOC_DELI_FILE4#,
+			BID_DOC_DELI_DATE5 = #BID_DOC_DELI_DATE5#,
+			BID_DOC_DELI_FILE5 = #BID_DOC_DELI_FILE5#,
+			BID_DOC_DELI_DATE6 = #BID_DOC_DELI_DATE6#,
+			BID_DOC_DELI_FILE6 = #BID_DOC_DELI_FILE6#,
+			BID_DOC_DELI_DATE7 = #BID_DOC_DELI_DATE7#,
+			BID_DOC_DELI_FILE7 = #BID_DOC_DELI_FILE7#,
+			BID_DOC_DELI_DATE8 = #BID_DOC_DELI_DATE8#,
+			BID_DOC_DELI_FILE8 = #BID_DOC_DELI_FILE8#,
+			BID_DOC_DELI_DATE9 = #BID_DOC_DELI_DATE9#,
+			BID_DOC_DELI_FILE9 = #BID_DOC_DELI_FILE9#,
+			BID_DOC_DELI_DATE10 = #BID_DOC_DELI_DATE10#,
+			BID_DOC_DELI_FILE10 = #BID_DOC_DELI_FILE10#,
+			BID_INFORM_RCV_DATE = #BID_INFORM_RCV_DATE#,
+			BID_INFORM_RCV = #BID_INFORM_RCV#,
+			BID_VER_DOC_SCAN_DATE = #BID_VER_DOC_SCAN_DATE#,
+			BID_VER_DOC_SCAN = #BID_VER_DOC_SCAN#,
+			BID_VER_DOC_DELI_DATE1 = #BID_VER_DOC_DELI_DATE1#,
+			BID_VER_DOC_DELI_FILE1 = #BID_VER_DOC_DELI_FILE1#,
+			BID_VER_DOC_DELI_DATE2 = #BID_VER_DOC_DELI_DATE2#,
+			BID_VER_DOC_DELI_FILE2 = #BID_VER_DOC_DELI_FILE2#,
+			BID_VER_DOC_DELI_DATE3 = #BID_VER_DOC_DELI_DATE3#,
+			BID_VER_DOC_DELI_FILE3 = #BID_VER_DOC_DELI_FILE3#,
+			BID_VER_DOC_DELI_DATE4 = #BID_VER_DOC_DELI_DATE4#,
+			BID_VER_DOC_DELI_FILE4 = #BID_VER_DOC_DELI_FILE4#,
+			BID_VER_DOC_DELI_DATE5 = #BID_VER_DOC_DELI_DATE5#,
+			BID_VER_DOC_DELI_FILE5 = #BID_VER_DOC_DELI_FILE5#,
+			BID_VER_DOC_DELI_DATE6 = #BID_VER_DOC_DELI_DATE6#,
+			BID_VER_DOC_DELI_FILE6 = #BID_VER_DOC_DELI_FILE6#,
+			BID_VER_DOC_DELI_DATE7 = #BID_VER_DOC_DELI_DATE7#,
+			BID_VER_DOC_DELI_FILE7 = #BID_VER_DOC_DELI_FILE7#,
+			BID_VER_DOC_DELI_DATE8 = #BID_VER_DOC_DELI_DATE8#,
+			BID_VER_DOC_DELI_FILE8 = #BID_VER_DOC_DELI_FILE8#,
+			BID_VER_DOC_DELI_DATE9 = #BID_VER_DOC_DELI_DATE9#,
+			BID_VER_DOC_DELI_FILE9 = #BID_VER_DOC_DELI_FILE9#,
+			BID_VER_DOC_DELI_DATE10 = #BID_VER_DOC_DELI_DATE10#,
+			BID_VER_DOC_DELI_FILE10 = #BID_VER_DOC_DELI_FILE10#,
+			PROGRESS_STATUS = #PROGRESS_STATUS#,
+			FINISH_STATUS = #FINISH_STATUS#,
+			FINISH_NOTE = #FINISH_NOTE#,
+			STATUS = #STATUS#,
+			MEMO1 = #MEMO1#,
+			RESERVE1 = #RESERVE1#,
+			RESERVE2 = #RESERVE2#,
+			RESERVE3 = #RESERVE3#,
+			RESERVE4 = #RESERVE4#,
+			RESERVE5 = #RESERVE5#,
+			RESERVE_DATE1 = #RESERVE_DATE1#,
+			RESERVE_DATE2 = #RESERVE_DATE2#,
+			RESERVE_DATE3 = #RESERVE_DATE3#,
+			RESERVE_DATE4 = #RESERVE_DATE4#,
+			RESERVE_DATE5 = #RESERVE_DATE5#,
+			RESERVE_DATE6 = #RESERVE_DATE6#,
+			RESERVE_DATE7 = #RESERVE_DATE7#,
+			RESERVE_DATE8 = #RESERVE_DATE8#,
+			RESERVE_DATE9 = #RESERVE_DATE9#,
+			RESERVE_DATE10 = #RESERVE_DATE10#,
+			LATEST_FLG = #LATEST_FLG#,
+			DELETE_FLG = #DELETE_FLG#,
+			UPDATE_USER = #UPDATE_USER#,
+			UPDATE_DATE = NOW()
+		where BID_NO = #BID_NO#
+	</update>
+	
+</sqlMap>

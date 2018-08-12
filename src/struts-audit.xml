@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="audit" extends="struts-tbps" namespace="/audit">
+	
+		<action name="showAuditAction" class="auditAction" method="showAuditAction">
+			<result name="success">/page/audit/auditlist.jsp</result>
+		</action>
+		
+		<action name="queryAuditList" class="auditAction" method="queryAuditList">
+			<result name="success">/page/audit/auditlist.jsp</result>
+		</action>
+		
+		<action name="turnAuditPage" class="auditAction" method="turnAuditPage">
+			<result name="success">/page/audit/auditlist.jsp</result>
+		</action>
+		
+		<action name="delAuditAction" class="auditAction" method="delAuditAction">
+			<result name="success">/page/audit/auditlist.jsp</result>
+			<result name="checkerror">/page/audit/auditlist.jsp</result>
+		</action>
+		
+		<action name="showAddAuditAction" class="auditAction" method="showAddAuditAction">
+			<result name="success">/page/audit/addaudit.jsp</result>
+		</action>
+		
+		<action name="addAuditAction" class="auditAction" method="addAuditAction">
+			<result name="success">/page/audit/addaudit.jsp</result>
+			<result name="checkerror">/page/audit/addaudit.jsp</result>
+		</action>
+		
+		<action name="showUpdAuditAction" class="auditAction" method="showUpdAuditAction">
+			<result name="success">/page/audit/updaudit.jsp</result>
+			<result name="checkerror">/page/audit/updaudit.jsp</result>
+		</action>
+		
+		<action name="updAuditAction" class="auditAction" method="updAuditAction">
+			<result name="success">/page/audit/updaudit.jsp</result>
+			<result name="checkerror">/page/audit/updaudit.jsp</result>
+		</action>
+		
+		<action name="showAuditDetail" class="auditAction" method="showAuditDetail">
+			<result name="success">/page/audit/auditdetail.jsp</result>
+		</action>
+		
+		<action name="exportAuditListAction" class="auditAction" method="exportAuditListAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
+		
+		<action name="showAllAuditHisAction" class="auditAction" method="showAllAuditHisAction">
+			<result name="success">/page/audit/audithisall.jsp</result>
+		</action>
+		
+		<action name="showAuditHistDetail" class="auditAction" method="showAuditHistDetail">
+			<result name="success">/page/audit/audithisdetail.jsp</result>
+		</action>
+		
+		<action name="exportAuditHist" class="auditAction" method="exportAuditHist">
+			<result name="success">/page/download.jsp</result>
+		</action>
+
+		<action name="exportAuditReceiptAction" class="auditAction" method="exportAuditReceiptAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
+
+		<action name="exportAuditTableAction" class="auditAction" method="exportAuditTableAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
+		
+	</package>
+
+</struts>

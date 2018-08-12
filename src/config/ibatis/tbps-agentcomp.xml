@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+        PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="com.cn.tbps">
+
+	<resultMap id="AgentCompDto" class="com.cn.tbps.dto.AgentCompDto">
+		<result property="ANGENT_COMP_NO" column="ANGENT_COMP_NO" />
+		<result property="ANGENT_COMP_NAME" column="ANGENT_COMP_NAME" />
+		<result property="MEMO1" column="MEMO1" />
+		<result property="DELETE_FLG" column="DELETE_FLG" />
+		<result property="UPDATE_USER" column="UPDATE_USER" />
+		<result property="INSERT_DATE" column="INSERT_DATE" />
+		<result property="UPDATE_DATE" column="UPDATE_DATE" />
+		<result property="CO_MANAGER1" column="CO_MANAGER1" />
+		<result property="CO_MANAGER_TEL1" column="CO_MANAGER_TEL1" />
+		<result property="CO_ADDRESS1" column="CO_ADDRESS1" />
+		<result property="CO_MAIL1" column="CO_MAIL1" />
+		<result property="CO_MANAGER2" column="CO_MANAGER2" />
+		<result property="CO_MANAGER_TEL2" column="CO_MANAGER_TEL2" />
+		<result property="CO_ADDRESS2" column="CO_ADDRESS2" />
+		<result property="CO_MAIL2" column="CO_MAIL2" />
+		<result property="CO_MANAGER3" column="CO_MANAGER3" />
+		<result property="CO_MANAGER_TEL3" column="CO_MANAGER_TEL3" />
+		<result property="CO_ADDRESS3" column="CO_ADDRESS3" />
+		<result property="CO_MAIL3" column="CO_MAIL3" />
+		<result property="CO_MANAGER4" column="CO_MANAGER4" />
+		<result property="CO_MANAGER_TEL4" column="CO_MANAGER_TEL4" />
+		<result property="CO_ADDRESS4" column="CO_ADDRESS4" />
+		<result property="CO_MAIL4" column="CO_MAIL4" />
+		<result property="CO_MANAGER5" column="CO_MANAGER5" />
+		<result property="CO_MANAGER_TEL5" column="CO_MANAGER_TEL5" />
+		<result property="CO_ADDRESS5" column="CO_ADDRESS5" />
+		<result property="CO_MAIL5" column="CO_MAIL5" />
+		<result property="TAX_NO" column="TAX_NO" />
+		<result property="RESERVE1" column="RESERVE1" />
+		<result property="RESERVE2" column="RESERVE2" />
+		<result property="RESERVE3" column="RESERVE3" />
+		<result property="RESERVE4" column="RESERVE4" />
+		<result property="RESERVE5" column="RESERVE5" />
+	</resultMap>
+	
+	<select id="queryAgentCompCountByPage" resultClass="int" parameterClass="java.util.Map">
+		select count(*) from agentcomp T where 1 = 1
+			and T.DELETE_FLG = '1'
+			<isNotEmpty prepend="and" property="ANGENT_COMP_NO_LOW">
+				T.ANGENT_COMP_NO <![CDATA[>=]]> #ANGENT_COMP_NO_LOW#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ANGENT_COMP_NO_HIGH">
+				T.ANGENT_COMP_NO <![CDATA[<=]]> #ANGENT_COMP_NO_HIGH#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ANGENT_COMP_NAME">
+				T.ANGENT_COMP_NAME like '%$ANGENT_COMP_NAME$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="ANGENT_COMP_NO_PRE">
+				T.ANGENT_COMP_NO like '$ANGENT_COMP_NO_PRE$%'
+			</isNotEmpty>
+	</select>
+	
+	<select id="queryAllAgentCompExport" parameterClass="java.util.Map" resultMap="AgentCompDto">
+		select T.* from agentcomp T where 1 = 1
+		and T.DELETE_FLG = '1'
+		<isNotEmpty prepend="and" property="ANGENT_COMP_NO_LOW">
+			T.ANGENT_COMP_NO <![CDATA[>=]]> #ANGENT_COMP_NO_LOW#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="ANGENT_COMP_NO_HIGH">
+			T.ANGENT_COMP_NO <![CDATA[<=]]> #ANGENT_COMP_NO_HIGH#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="ANGENT_COMP_NAME">
+			T.ANGENT_COMP_NAME like '%$ANGENT_COMP_NAME$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="ANGENT_COMP_NO_PRE">
+			T.ANGENT_COMP_NO like '$ANGENT_COMP_NO_PRE$%'
+		</isNotEmpty>
+		order by ANGENT_COMP_NO desc
+	</select>
+	
+	<select id="queryAgentCompByPage" parameterClass="java.util.Map" resultMap="AgentCompDto">
+		select T.* from agentcomp T where 1 = 1
+		and T.DELETE_FLG = '1'
+		<isNotEmpty prepend="and" property="ANGENT_COMP_NO_LOW">
+			T.ANGENT_COMP_NO <![CDATA[>=]]> #ANGENT_COMP_NO_LOW#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="ANGENT_COMP_NO_HIGH">
+			T.ANGENT_COMP_NO <![CDATA[<=]]> #ANGENT_COMP_NO_HIGH#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="ANGENT_COMP_NAME">
+			T.ANGENT_COMP_NAME like '%$ANGENT_COMP_NAME$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="ANGENT_COMP_NO_PRE">
+			T.ANGENT_COMP_NO like '$ANGENT_COMP_NO_PRE$%'
+		</isNotEmpty>
+		order by ANGENT_COMP_NO desc
+		LIMIT #start#, #end#
+	</select>
+	
+	<select id="queryAgentCompByID" parameterClass="java.util.Map" resultMap="AgentCompDto">
+		select * from agentcomp where 
+			ANGENT_COMP_NO = #ANGENT_COMP_NO#
+			and DELETE_FLG = '1'
+	</select>
+	
+	<select id="queryAllAgentCompByID" parameterClass="java.util.Map" resultMap="AgentCompDto">
+		select * from agentcomp where 
+			ANGENT_COMP_NO = #ANGENT_COMP_NO#
+	</select>
+	
+	<select id="queryAllAgentComp" parameterClass="java.util.Map" resultMap="AgentCompDto">
+		select * from agentcomp where 1 = 1 and DELETE_FLG = '1' order by UPDATE_DATE desc
+	</select>
+	
+	<insert id="insertAgentComp" parameterClass="com.cn.tbps.dto.AgentCompDto">
+		insert into agentcomp(ANGENT_COMP_NO,ANGENT_COMP_NAME,MEMO1,DELETE_FLG,UPDATE_USER,INSERT_DATE,UPDATE_DATE,
+		CO_MANAGER1,CO_MANAGER_TEL1,CO_ADDRESS1,CO_MANAGER2,CO_MANAGER_TEL2,CO_ADDRESS2,CO_MANAGER3,CO_MANAGER_TEL3,
+		CO_ADDRESS3,CO_MANAGER4,CO_MANAGER_TEL4,CO_ADDRESS4,CO_MANAGER5,CO_MANAGER_TEL5,CO_ADDRESS5,
+		CO_MAIL1,CO_MAIL2,CO_MAIL3,CO_MAIL4,CO_MAIL5,TAX_NO,RESERVE1,RESERVE2,RESERVE3,RESERVE4,RESERVE5)
+		values(#ANGENT_COMP_NO#,#ANGENT_COMP_NAME#,#MEMO1#,#DELETE_FLG#,#UPDATE_USER#,NOW(),NOW(),
+		#CO_MANAGER1#,#CO_MANAGER_TEL1#,#CO_ADDRESS1#,#CO_MANAGER2#,#CO_MANAGER_TEL2#,#CO_ADDRESS2#,#CO_MANAGER3#,#CO_MANAGER_TEL3#,
+		#CO_ADDRESS3#,#CO_MANAGER4#,#CO_MANAGER_TEL4#,#CO_ADDRESS4#,#CO_MANAGER5#,#CO_MANAGER_TEL5#,#CO_ADDRESS5#,
+		#CO_MAIL1#,#CO_MAIL2#,#CO_MAIL3#,#CO_MAIL4#,#CO_MAIL5#,#TAX_NO#,#RESERVE1#,#RESERVE2#,#RESERVE3#,#RESERVE4#,#RESERVE5#)
+	</insert>
+	
+	<update id="updateAgentComp" parameterClass="com.cn.tbps.dto.AgentCompDto">
+		update agentcomp
+		set ANGENT_COMP_NAME = #ANGENT_COMP_NAME#,
+			MEMO1 = #MEMO1#,
+			DELETE_FLG = #DELETE_FLG#,
+			UPDATE_USER = #UPDATE_USER#,
+			UPDATE_DATE = NOW(),
+			CO_MANAGER1 = #CO_MANAGER1#,
+			CO_MANAGER_TEL1 = #CO_MANAGER_TEL1#,
+			CO_ADDRESS1 = #CO_ADDRESS1#,
+			CO_MANAGER2 = #CO_MANAGER2#,
+			CO_MANAGER_TEL2 = #CO_MANAGER_TEL2#,
+			CO_ADDRESS2 = #CO_ADDRESS2#,
+			CO_MANAGER3 = #CO_MANAGER3#,
+			CO_MANAGER_TEL3 = #CO_MANAGER_TEL3#,
+			CO_ADDRESS3 = #CO_ADDRESS3#,
+			CO_MANAGER4 = #CO_MANAGER4#,
+			CO_MANAGER_TEL4 = #CO_MANAGER_TEL4#,
+			CO_ADDRESS4 = #CO_ADDRESS4#,
+			CO_MANAGER5 = #CO_MANAGER5#,
+			CO_MANAGER_TEL5 = #CO_MANAGER_TEL5#,
+			CO_ADDRESS5 = #CO_ADDRESS5#,
+			CO_MAIL1 = #CO_MAIL1#,
+			CO_MAIL2 = #CO_MAIL2#,
+			CO_MAIL3 = #CO_MAIL3#,
+			CO_MAIL4 = #CO_MAIL4#,
+			CO_MAIL5 = #CO_MAIL5#,
+			TAX_NO = #TAX_NO#,
+			RESERVE1 = #RESERVE1#,
+			RESERVE2 = #RESERVE2#,
+			RESERVE3 = #RESERVE3#,
+			RESERVE4 = #RESERVE4#,
+			RESERVE5 = #RESERVE5#
+		where ANGENT_COMP_NO = #ANGENT_COMP_NO#
+	</update>
+	
+</sqlMap>

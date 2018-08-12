@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMapConfig
+  PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN"
+  "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+
+	<sqlMap resource="/config/ibatis/tbps-userinfo.xml" />
+	<sqlMap resource="/config/ibatis/tbps-agentcomp.xml" />
+	<sqlMap resource="/config/ibatis/tbps-auditcomp.xml" />
+	<sqlMap resource="/config/ibatis/tbps-expertlib.xml" />
+	<sqlMap resource="/config/ibatis/tbps-bid.xml" />
+	<sqlMap resource="/config/ibatis/tbps-bidhist.xml" />
+	<sqlMap resource="/config/ibatis/tbps-bidcomp.xml" />
+	<sqlMap resource="/config/ibatis/tbps-withhold.xml" />
+	<sqlMap resource="/config/ibatis/tbps-settlement.xml" />
+	<sqlMap resource="/config/ibatis/tbps-configtab.xml" />
+	<sqlMap resource="/config/ibatis/tbps-audit.xml" />
+	<sqlMap resource="/config/ibatis/tbps-audithist.xml" />
+	<sqlMap resource="/config/ibatis/tbps-bond.xml" />
+	<sqlMap resource="/config/ibatis/tbps-bidcompapply.xml" />
+	<sqlMap resource="/config/ibatis/tbps-major.xml" />
+	<sqlMap resource="/config/ibatis/tbps-auditcntrct.xml" />
+	<sqlMap resource="/config/ibatis/tbps-auditcntrcthis.xml" />
+	<sqlMap resource="/config/ibatis/tbps-bidcntrct.xml" />
+	<sqlMap resource="/config/ibatis/tbps-bidcntrcthis.xml" />
+	
+</sqlMapConfig>

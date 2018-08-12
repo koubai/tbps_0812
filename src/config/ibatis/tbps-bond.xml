@@ -1,0 +1,618 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+        PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="com.cn.tbps">
+
+	<resultMap id="BondDto" class="com.cn.tbps.dto.BondDto">
+		<result property="AGENT_NO" column="AGENT_NO" />
+		<result property="AGENT_CO_NAME" column="AGENT_CO_NAME" />
+		<result property="DATA_TYPE" column="DATA_TYPE" />
+		<result property="BILL_NO" column="BILL_NO" />
+		<result property="BILL_NAME" column="BILL_NAME" />
+		<result property="AMOUNT1" column="AMOUNT1" />
+		<result property="AMOUNT2" column="AMOUNT2" />
+		<result property="AMOUNT3" column="AMOUNT3" />
+		<result property="AMOUNT4" column="AMOUNT4" />
+		<result property="AMOUNT5" column="AMOUNT5" />
+		<result property="AMOUNT6" column="AMOUNT6" />
+		<result property="TOTAL" column="TOTAL" />
+		<result property="REFUND" column="REFUND" />
+		<result property="AGENT_FEE" column="AGENT_FEE" />
+		<result property="EXPERT_FEE" column="EXPERT_FEE" />
+		<result property="BID_COMMISION" column="BID_COMMISION" />
+		<result property="MEMO" column="MEMO" />
+		<result property="RESERVE_DATE2" column="RESERVE_DATE2" />
+		<result property="RESERVE_DATE3" column="RESERVE_DATE3" />
+		<result property="RESERVE_DATE4" column="RESERVE_DATE4" />
+		<result property="RESERVE_DATE5" column="RESERVE_DATE5" />
+	</resultMap>
+	
+	<select id="queryBondByAgentNo" parameterClass="java.util.Map" resultMap="BondDto">
+		SELECT
+			H.BILL_NO,
+			H.BILL_NAME,
+			H.DATA_TYPE,
+			H.AGENT_NO,
+			H.AGENT_CO_NAME,
+			H.AMOUNT1,
+			H.AMOUNT2,
+			H.AMOUNT3,
+			H.AMOUNT4,
+			H.AMOUNT5,
+			H.AMOUNT6,
+			(H.AMOUNT1 + H.AMOUNT2 + H.AMOUNT3 + H.AMOUNT4 + H.AMOUNT5 + H.AMOUNT6) AS TOTAL,
+			H.REFUND,
+			H.AGENT_FEE,
+			H.EXPERT_FEE,
+			H.BID_COMMISION,
+			H.MEMO,
+			H.RESERVE_DATE2,
+			H.RESERVE_DATE3,
+			H.RESERVE_DATE4,
+			H.RESERVE_DATE5
+		FROM (
+			SELECT
+				B.BID_NO AS BILL_NO,
+				B.PROJECT_NAME AS BILL_NAME,
+				'1' AS DATA_TYPE,
+				B.AGENT_NO,
+				B.AGENT_CO_NAME,
+				IFNULL((
+					SELECT SUM(IFNULL(C.BID_BOND, 0))
+						FROM bidcomp C WHERE 1 = 1 AND B.BID_NO = C.BID_NO AND C.BID_PAYMENT_TYPE = '1'
+						AND C.DELETE_FLG = '1' GROUP BY C.BID_NO, C.BID_PAYMENT_TYPE
+				), 0) AS AMOUNT1,
+				IFNULL((
+					SELECT SUM(IFNULL(C.BID_BOND, 0))
+						FROM bidcomp C WHERE 1 = 1 AND B.BID_NO = C.BID_NO AND C.BID_PAYMENT_TYPE = '2'
+						AND C.DELETE_FLG = '1' GROUP BY C.BID_NO, C.BID_PAYMENT_TYPE
+				), 0) AS AMOUNT2,
+				IFNULL((
+					SELECT SUM(IFNULL(C.BID_BOND, 0))
+						FROM bidcomp C WHERE 1 = 1 AND B.BID_NO = C.BID_NO AND C.BID_PAYMENT_TYPE = '3'
+						AND C.DELETE_FLG = '1' GROUP BY C.BID_NO, C.BID_PAYMENT_TYPE
+				), 0) AS AMOUNT3,
+				IFNULL((
+					SELECT SUM(IFNULL(C.BID_BOND, 0))
+						FROM bidcomp C WHERE 1 = 1 AND B.BID_NO = C.BID_NO AND C.BID_PAYMENT_TYPE = '4'
+						AND C.DELETE_FLG = '1' GROUP BY C.BID_NO, C.BID_PAYMENT_TYPE
+				), 0) AS AMOUNT4,
+				IFNULL((
+					SELECT SUM(IFNULL(C.BID_BOND, 0))
+						FROM bidcomp C WHERE 1 = 1 AND B.BID_NO = C.BID_NO AND C.BID_PAYMENT_TYPE = '5'
+						AND C.DELETE_FLG = '1' GROUP BY C.BID_NO, C.BID_PAYMENT_TYPE
+				), 0) AS AMOUNT5,
+				IFNULL((
+					SELECT SUM(IFNULL(C.BID_BOND, 0))
+						FROM bidcomp C WHERE 1 = 1 AND B.BID_NO = C.BID_NO AND C.BID_PAYMENT_TYPE = '6'
+						AND C.DELETE_FLG = '1' GROUP BY C.BID_NO, C.BID_PAYMENT_TYPE
+				), 0) AS AMOUNT6,
+				NULL AS REFUND,
+				NULL AS AGENT_FEE,
+				NULL AS EXPERT_FEE,
+				B.BID_COMMISION,
+				NULL AS MEMO,
+				B.RESERVE_DATE2,
+				B.RESERVE_DATE3,
+				B.RESERVE_DATE4,
+				B.RESERVE_DATE5
+			FROM bid B WHERE 1 = 1 AND B.DELETE_FLG = '1'
+				AND B.AGENT_NO IS NOT NULL AND B.AGENT_NO != ''
+				<isNotEmpty prepend="and" property="tenderOpenDateLow">
+					B.TENDER_OPEN_DATE <![CDATA[>=]]> #tenderOpenDateLow#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="tenderOpenDateHigh">
+					B.TENDER_OPEN_DATE <![CDATA[<=]]> #tenderOpenDateHigh#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="AGENT_NO">
+					B.AGENT_NO = #AGENT_NO#
+				</isNotEmpty>
+			UNION
+			
+			SELECT
+				'合计' AS BILL_NO,
+				NULL AS BILL_NAME,
+				'3' AS DATA_TYPE,
+				S.AGENT_NO,
+				S.AGENT_CO_NAME,
+				SUM(S.AMOUNT1) AS AMOUNT1,
+				SUM(S.AMOUNT2) AS AMOUNT2,
+				SUM(S.AMOUNT3) AS AMOUNT3,
+				SUM(S.AMOUNT4) AS AMOUNT4,
+				SUM(S.AMOUNT5) AS AMOUNT5,
+				SUM(S.AMOUNT6) AS AMOUNT6,
+				NULL AS REFUND,
+				NULL AS AGENT_FEE,
+				NULL AS EXPERT_FEE,
+				SUM(S.BID_COMMISION) AS BID_COMMISION,
+				NULL AS MEMO,
+				S.RESERVE_DATE2,
+				S.RESERVE_DATE3,
+				S.RESERVE_DATE4,
+				S.RESERVE_DATE5
+			FROM(
+				SELECT
+					B.BID_NO AS BILL_NO,
+					B.PROJECT_NAME AS BILL_NAME,
+					'1' AS DATA_TYPE,
+					B.AGENT_NO,
+					B.AGENT_CO_NAME,
+					IFNULL((
+						SELECT SUM(IFNULL(C.BID_BOND, 0))
+							FROM bidcomp C WHERE 1 = 1 AND B.BID_NO = C.BID_NO AND C.BID_PAYMENT_TYPE = '1'
+							AND C.DELETE_FLG = '1' GROUP BY C.BID_NO, C.BID_PAYMENT_TYPE
+					), 0) AS AMOUNT1,
+					IFNULL((
+						SELECT SUM(IFNULL(C.BID_BOND, 0))
+							FROM bidcomp C WHERE 1 = 1 AND B.BID_NO = C.BID_NO AND C.BID_PAYMENT_TYPE = '2'
+							AND C.DELETE_FLG = '1' GROUP BY C.BID_NO, C.BID_PAYMENT_TYPE
+					), 0) AS AMOUNT2,
+					IFNULL((
+						SELECT SUM(IFNULL(C.BID_BOND, 0))
+							FROM bidcomp C WHERE 1 = 1 AND B.BID_NO = C.BID_NO AND C.BID_PAYMENT_TYPE = '3'
+							AND C.DELETE_FLG = '1' GROUP BY C.BID_NO, C.BID_PAYMENT_TYPE
+					), 0) AS AMOUNT3,
+					IFNULL((
+						SELECT SUM(IFNULL(C.BID_BOND, 0))
+							FROM bidcomp C WHERE 1 = 1 AND B.BID_NO = C.BID_NO AND C.BID_PAYMENT_TYPE = '4'
+							AND C.DELETE_FLG = '1' GROUP BY C.BID_NO, C.BID_PAYMENT_TYPE
+					), 0) AS AMOUNT4,
+					IFNULL((
+						SELECT SUM(IFNULL(C.BID_BOND, 0))
+							FROM bidcomp C WHERE 1 = 1 AND B.BID_NO = C.BID_NO AND C.BID_PAYMENT_TYPE = '5'
+							AND C.DELETE_FLG = '1' GROUP BY C.BID_NO, C.BID_PAYMENT_TYPE
+					), 0) AS AMOUNT5,
+					IFNULL((
+						SELECT SUM(IFNULL(C.BID_BOND, 0))
+							FROM bidcomp C WHERE 1 = 1 AND B.BID_NO = C.BID_NO AND C.BID_PAYMENT_TYPE = '6'
+							AND C.DELETE_FLG = '1' GROUP BY C.BID_NO, C.BID_PAYMENT_TYPE
+					), 0) AS AMOUNT6,
+					NULL AS REFUND,
+					NULL AS AGENT_FEE,
+					NULL AS EXPERT_FEE,
+					B.BID_COMMISION,
+					NULL AS MEMO,
+					NULL AS RESERVE_DATE2,
+					NULL AS RESERVE_DATE3,
+					NULL AS RESERVE_DATE4,
+					NULL AS RESERVE_DATE5
+				FROM bid B WHERE 1 = 1 AND B.DELETE_FLG = '1'
+					AND B.AGENT_NO IS NOT NULL AND B.AGENT_NO != ''
+					<isNotEmpty prepend="and" property="tenderOpenDateLow">
+						B.TENDER_OPEN_DATE <![CDATA[>=]]> #tenderOpenDateLow#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="tenderOpenDateHigh">
+						B.TENDER_OPEN_DATE <![CDATA[<=]]> #tenderOpenDateHigh#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="AGENT_NO">
+						B.AGENT_NO = #AGENT_NO#
+					</isNotEmpty>
+			) S GROUP BY S.AGENT_NO, S.AGENT_CO_NAME
+		) H WHERE 1 = 1 ORDER BY H.DATA_TYPE
+		
+	</select>
+	
+	<select id="queryAllBondGroupByAgentNo" parameterClass="java.util.Map" resultMap="BondDto">
+		SELECT
+			NULL AS BILL_NO,
+			NULL AS BILL_NAME,
+			'1' AS DATA_TYPE,
+			S.AGENT_NO,
+			S.AGENT_CO_NAME,
+			SUM(S.AMOUNT1) AS AMOUNT1,
+			SUM(S.AMOUNT2) AS AMOUNT2,
+			SUM(S.AMOUNT3) AS AMOUNT3,
+			SUM(S.AMOUNT4) AS AMOUNT4,
+			SUM(S.AMOUNT5) AS AMOUNT5,
+			SUM(S.AMOUNT6) AS AMOUNT6,
+			SUM(S.TOTAL) AS TOTAL,
+			NULL AS REFUND,
+			NULL AS AGENT_FEE,
+			NULL AS EXPERT_FEE,
+			SUM(S.BID_COMMISION) AS BID_COMMISION,
+			NULL AS MEMO,
+			NULL AS RESERVE_DATE2,
+			NULL AS RESERVE_DATE3,
+			NULL AS RESERVE_DATE4,
+			NULL AS RESERVE_DATE5
+		FROM (
+			SELECT
+				H.BILL_NO,
+				H.BILL_NAME,
+				H.DATA_TYPE,
+				H.AGENT_NO,
+				H.AGENT_CO_NAME,
+				H.AMOUNT1,
+				H.AMOUNT2,
+				H.AMOUNT3,
+				H.AMOUNT4,
+				H.AMOUNT5,
+				H.AMOUNT6,
+				(H.AMOUNT1 + H.AMOUNT2 + H.AMOUNT3 + H.AMOUNT4 + H.AMOUNT5 + H.AMOUNT6) AS TOTAL,
+				H.REFUND,
+				H.AGENT_FEE,
+				H.EXPERT_FEE,
+				H.BID_COMMISION,
+				H.MEMO,
+				H.RESERVE_DATE2,
+				H.RESERVE_DATE3,
+				H.RESERVE_DATE4,
+				H.RESERVE_DATE5
+			FROM (
+				SELECT
+					B.BID_NO AS BILL_NO,
+					B.PROJECT_NAME AS BILL_NAME,
+					'1' AS DATA_TYPE,
+					B.AGENT_NO,
+					B.AGENT_CO_NAME,
+					IFNULL((
+						SELECT SUM(IFNULL(C.BID_BOND, 0))
+							FROM bidcomp C WHERE 1 = 1 AND B.BID_NO = C.BID_NO AND C.BID_PAYMENT_TYPE = '1'
+							AND C.DELETE_FLG = '1' GROUP BY C.BID_NO, C.BID_PAYMENT_TYPE
+					), 0) AS AMOUNT1,
+					IFNULL((
+						SELECT SUM(IFNULL(C.BID_BOND, 0))
+							FROM bidcomp C WHERE 1 = 1 AND B.BID_NO = C.BID_NO AND C.BID_PAYMENT_TYPE = '2'
+							AND C.DELETE_FLG = '1' GROUP BY C.BID_NO, C.BID_PAYMENT_TYPE
+					), 0) AS AMOUNT2,
+					IFNULL((
+						SELECT SUM(IFNULL(C.BID_BOND, 0))
+							FROM bidcomp C WHERE 1 = 1 AND B.BID_NO = C.BID_NO AND C.BID_PAYMENT_TYPE = '3'
+							AND C.DELETE_FLG = '1' GROUP BY C.BID_NO, C.BID_PAYMENT_TYPE
+					), 0) AS AMOUNT3,
+					IFNULL((
+						SELECT SUM(IFNULL(C.BID_BOND, 0))
+							FROM bidcomp C WHERE 1 = 1 AND B.BID_NO = C.BID_NO AND C.BID_PAYMENT_TYPE = '4'
+							AND C.DELETE_FLG = '1' GROUP BY C.BID_NO, C.BID_PAYMENT_TYPE
+					), 0) AS AMOUNT4,
+					IFNULL((
+						SELECT SUM(IFNULL(C.BID_BOND, 0))
+							FROM bidcomp C WHERE 1 = 1 AND B.BID_NO = C.BID_NO AND C.BID_PAYMENT_TYPE = '5'
+							AND C.DELETE_FLG = '1' GROUP BY C.BID_NO, C.BID_PAYMENT_TYPE
+					), 0) AS AMOUNT5,
+					IFNULL((
+						SELECT SUM(IFNULL(C.BID_BOND, 0))
+							FROM bidcomp C WHERE 1 = 1 AND B.BID_NO = C.BID_NO AND C.BID_PAYMENT_TYPE = '6'
+							AND C.DELETE_FLG = '1' GROUP BY C.BID_NO, C.BID_PAYMENT_TYPE
+					), 0) AS AMOUNT6,
+					NULL AS REFUND,
+					NULL AS AGENT_FEE,
+					NULL AS EXPERT_FEE,
+					B.BID_COMMISION,
+					NULL AS MEMO,
+					B.RESERVE_DATE2,
+					B.RESERVE_DATE3,
+					B.RESERVE_DATE4,
+					B.RESERVE_DATE5					
+				FROM bid B WHERE 1 = 1 AND B.DELETE_FLG = '1'
+					AND B.AGENT_NO IS NOT NULL AND B.AGENT_NO != ''
+					<isNotEmpty prepend="and" property="PROJECT_TYPE">
+						B.PROJECT_TYPE = #PROJECT_TYPE#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="tenderOpenDateLow">
+						B.TENDER_OPEN_DATE <![CDATA[>=]]> #tenderOpenDateLow#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="tenderOpenDateHigh">
+						B.TENDER_OPEN_DATE <![CDATA[<=]]> #tenderOpenDateHigh#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="AGENT_NO">
+						B.AGENT_NO = #AGENT_NO#
+					</isNotEmpty>
+			) H WHERE 1 = 1
+		) S GROUP BY S.AGENT_NO, S.AGENT_CO_NAME
+		
+		UNION
+		
+		SELECT
+			NULL AS BILL_NO,
+			NULL AS BILL_NAME,
+			'3' AS DATA_TYPE,
+			NULL AS AGENT_NO,
+			'合计' AS AGENT_CO_NAME,
+			SUM(S.AMOUNT1) AS AMOUNT1,
+			SUM(S.AMOUNT2) AS AMOUNT2,
+			SUM(S.AMOUNT3) AS AMOUNT3,
+			SUM(S.AMOUNT4) AS AMOUNT4,
+			SUM(S.AMOUNT5) AS AMOUNT5,
+			SUM(S.AMOUNT6) AS AMOUNT6,
+			SUM(S.TOTAL) AS TOTAL,
+			NULL AS REFUND,
+			NULL AS AGENT_FEE,
+			NULL AS EXPERT_FEE,
+			SUM(S.BID_COMMISION) AS BID_COMMISION,
+			NULL AS MEMO,
+			NULL AS RESERVE_DATE2,
+			NULL AS RESERVE_DATE3,
+			NULL AS RESERVE_DATE4,
+			NULL AS RESERVE_DATE5
+		FROM (
+			SELECT
+				H.BILL_NO,
+				H.BILL_NAME,
+				H.DATA_TYPE,
+				H.AGENT_NO,
+				H.AGENT_CO_NAME,
+				H.AMOUNT1,
+				H.AMOUNT2,
+				H.AMOUNT3,
+				H.AMOUNT4,
+				H.AMOUNT5,
+				H.AMOUNT6,
+				(H.AMOUNT1 + H.AMOUNT2 + H.AMOUNT3 + H.AMOUNT4 + H.AMOUNT5 + H.AMOUNT6) AS TOTAL,
+				H.REFUND,
+				H.AGENT_FEE,
+				H.EXPERT_FEE,
+				H.BID_COMMISION,
+				H.MEMO,
+				H.RESERVE_DATE2,
+				H.RESERVE_DATE3,
+				H.RESERVE_DATE4,
+				H.RESERVE_DATE5
+			FROM (
+				SELECT
+					B.BID_NO AS BILL_NO,
+					B.PROJECT_NAME AS BILL_NAME,
+					'1' AS DATA_TYPE,
+					B.AGENT_NO,
+					B.AGENT_CO_NAME,
+					IFNULL((
+						SELECT SUM(IFNULL(C.BID_BOND, 0))
+							FROM bidcomp C WHERE 1 = 1 AND B.BID_NO = C.BID_NO AND C.BID_PAYMENT_TYPE = '1'
+							AND C.DELETE_FLG = '1' GROUP BY C.BID_NO, C.BID_PAYMENT_TYPE
+					), 0) AS AMOUNT1,
+					IFNULL((
+						SELECT SUM(IFNULL(C.BID_BOND, 0))
+							FROM bidcomp C WHERE 1 = 1 AND B.BID_NO = C.BID_NO AND C.BID_PAYMENT_TYPE = '2'
+							AND C.DELETE_FLG = '1' GROUP BY C.BID_NO, C.BID_PAYMENT_TYPE
+					), 0) AS AMOUNT2,
+					IFNULL((
+						SELECT SUM(IFNULL(C.BID_BOND, 0))
+							FROM bidcomp C WHERE 1 = 1 AND B.BID_NO = C.BID_NO AND C.BID_PAYMENT_TYPE = '3'
+							AND C.DELETE_FLG = '1' GROUP BY C.BID_NO, C.BID_PAYMENT_TYPE
+					), 0) AS AMOUNT3,
+					IFNULL((
+						SELECT SUM(IFNULL(C.BID_BOND, 0))
+							FROM bidcomp C WHERE 1 = 1 AND B.BID_NO = C.BID_NO AND C.BID_PAYMENT_TYPE = '4'
+							AND C.DELETE_FLG = '1' GROUP BY C.BID_NO, C.BID_PAYMENT_TYPE
+					), 0) AS AMOUNT4,
+					IFNULL((
+						SELECT SUM(IFNULL(C.BID_BOND, 0))
+							FROM bidcomp C WHERE 1 = 1 AND B.BID_NO = C.BID_NO AND C.BID_PAYMENT_TYPE = '5'
+							AND C.DELETE_FLG = '1' GROUP BY C.BID_NO, C.BID_PAYMENT_TYPE
+					), 0) AS AMOUNT5,
+					IFNULL((
+						SELECT SUM(IFNULL(C.BID_BOND, 0))
+							FROM bidcomp C WHERE 1 = 1 AND B.BID_NO = C.BID_NO AND C.BID_PAYMENT_TYPE = '6'
+							AND C.DELETE_FLG = '1' GROUP BY C.BID_NO, C.BID_PAYMENT_TYPE
+					), 0) AS AMOUNT6,
+					NULL AS REFUND,
+					NULL AS AGENT_FEE,
+					NULL AS EXPERT_FEE,
+					B.BID_COMMISION,
+					NULL AS MEMO,
+					NULL AS RESERVE_DATE2,
+					NULL AS RESERVE_DATE3,
+					NULL AS RESERVE_DATE4,
+					NULL AS RESERVE_DATE5
+				FROM bid B WHERE 1 = 1 AND B.DELETE_FLG = '1'
+					AND B.AGENT_NO IS NOT NULL AND B.AGENT_NO != ''
+					<isNotEmpty prepend="and" property="PROJECT_TYPE">
+						B.PROJECT_TYPE = #PROJECT_TYPE#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="tenderOpenDateLow">
+						B.TENDER_OPEN_DATE <![CDATA[>=]]> #tenderOpenDateLow#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="tenderOpenDateHigh">
+						B.TENDER_OPEN_DATE <![CDATA[<=]]> #tenderOpenDateHigh#
+					</isNotEmpty>
+					<isNotEmpty prepend="and" property="AGENT_NO">
+						B.AGENT_NO = #AGENT_NO#
+					</isNotEmpty>
+			) H WHERE 1 = 1
+		) S
+		
+	</select>
+	
+	<resultMap id="BondExtendDto" class="com.cn.tbps.dto.BondExtendDto">
+		<result property="BID_NO" column="BID_NO" />
+		<result property="PROJECT_TYPE" column="PROJECT_TYPE" />
+		<result property="PROJECT_NAME" column="PROJECT_NAME" />
+		<result property="PROJECT_MANAGER" column="PROJECT_MANAGER" />
+		<result property="AGENT_NO" column="AGENT_NO" />
+		<result property="AGENT_CO_NAME" column="AGENT_CO_NAME" />
+		<result property="AGENT_CO_MANAGER" column="AGENT_CO_MANAGER" />
+		<result property="BOND_AUDIT" column="BOND_AUDIT" />
+		<result property="BID_COMMISION" column="BID_COMMISION" />
+		<result property="BID_CO_NO" column="BID_CO_NO" />
+		<result property="BID_CO_TB_NAME" column="BID_CO_TB_NAME" />
+		<result property="RESERVE_DATE2" column="RESERVE_DATE2" />
+		<result property="AMOUNT1" column="AMOUNT1" />
+		<result property="AMOUNT2" column="AMOUNT2" />
+		<result property="AMOUNT3" column="AMOUNT3" />
+		<result property="AMOUNT4" column="AMOUNT4" />
+		<result property="AMOUNT5" column="AMOUNT5" />
+		<result property="AMOUNT6" column="AMOUNT6" />
+		<result property="REFOUND_DEPOSIT_DATE" column="REFOUND_DEPOSIT_DATE" />
+		<result property="BID_APPLY_PRICE" column="BID_APPLY_PRICE" />
+		<result property="BID_RECEIPT_NO" column="BID_RECEIPT_NO" />
+		<result property="RESERVE_DATE1" column="RESERVE_DATE1" />
+		<result property="BID_VALUE_DATE" column="BID_VALUE_DATE" />
+		<result property="PROF_NO" column="PROF_NO" />
+		<result property="PROF_CO_NAME" column="PROF_CO_NAME" />
+		<result property="BID_CO_SEQ" column="BID_CO_SEQ" />
+		<result property="BID_CO_NAME" column="BID_CO_NAME" />
+		<result property="RECEIPT1_DATE" column="RECEIPT1_DATE" />
+		<result property="RECEIPT1_NO" column="RECEIPT1_NO" />
+		<result property="BID_AGENT_PRICE" column="BID_AGENT_PRICE" />
+		<result property="RECEIPT1_VALUE_DATE" column="RECEIPT1_VALUE_DATE" />
+	</resultMap>
+	
+	<select id="queryAllBondByBidNo" parameterClass="java.util.Map" resultMap="BondExtendDto">
+			SELECT
+				B.BID_NO AS BID_NO,
+				B.PROJECT_TYPE AS PROJECT_TYPE,
+				B.PROJECT_NAME AS PROJECT_NAME,
+				B.PROJECT_MANAGER AS PROJECT_MANAGER,
+				B.AGENT_NO AS AGENT_NO,
+				B.AGENT_CO_NAME AS AGENT_CO_NAME,
+				B.AGENT_CO_MANAGER AS AGENT_CO_MANAGER,
+				"/" AS BOND_AUDIT,
+				B.BID_COMMISION AS BID_COMMISION,
+				C.BID_CO_NO AS BID_CO_NO,
+				C.BID_CO_NAME AS BID_CO_TB_NAME,
+				C.RESERVE_DATE2 AS RESERVE_DATE2,
+				(CASE
+					WHEN C.BID_PAYMENT_TYPE = '1' THEN IFNULL(C.BID_BOND,0)
+				END
+				) AS AMOUNT1,
+				(CASE
+					WHEN C.BID_PAYMENT_TYPE = '2' THEN IFNULL(C.BID_BOND,0)
+				END
+				) AS AMOUNT2,
+				(CASE
+					WHEN C.BID_PAYMENT_TYPE = '3' THEN IFNULL(C.BID_BOND,0)
+				END
+				) AS AMOUNT3,
+				(CASE
+					WHEN C.BID_PAYMENT_TYPE = '4' THEN IFNULL(C.BID_BOND,0)
+				END
+				) AS AMOUNT4,
+				(CASE
+					WHEN C.BID_PAYMENT_TYPE = '5' THEN IFNULL(C.BID_BOND,0)
+				END
+				) AS AMOUNT5,
+				(CASE
+					WHEN C.BID_PAYMENT_TYPE = '6' THEN IFNULL(C.BID_BOND,0)
+				END
+				) AS AMOUNT6,
+				C.REFOUND_DEPOSIT_DATE AS REFOUND_DEPOSIT_DATE,
+				C.BID_APPLY_PRICE AS BID_APPLY_PRICE,
+				C.RESERVE_DATE1 AS RESERVE_DATE1,
+				C.BID_RECEIPT_NO AS BID_RECEIPT_NO,
+				C.BID_VALUE_DATE AS BID_VALUE_DATE,
+				B.PROF_NO AS PROF_NO,
+				B.PROF_CO_NAME AS PROF_CO_NAME,
+				B.BID_CO_SEQ AS BID_CO_SEQ,
+				B.BID_CO_NAME AS BID_CO_NAME,
+				B.RECEIPT1_DATE AS RECEIPT1_DATE,
+				B.RECEIPT1_NO AS RECEIPT1_NO,
+				B.BID_AGENT_PRICE AS BID_AGENT_PRICE,
+				B.RECEIPT1_VALUE_DATE AS RECEIPT1_VALUE_DATE
+								
+			FROM bid B left join bidcomp C ON 1 = 1 AND B.DELETE_FLG = '1'
+				and B.BID_NO = C.BID_NO
+			WHERE B.AGENT_NO IS NOT NULL AND B.AGENT_NO != ''
+				<isNotEmpty prepend="and" property="PROJECT_TYPE">
+					B.PROJECT_TYPE = #PROJECT_TYPE#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="tenderOpenDateLow">
+					B.TENDER_OPEN_DATE <![CDATA[>=]]> #tenderOpenDateLow#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="tenderOpenDateHigh">
+					B.TENDER_OPEN_DATE <![CDATA[<=]]> #tenderOpenDateHigh#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="AGENT_NO">
+					B.AGENT_NO = #AGENT_NO#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="reserveDate2Low">
+					C.RESERVE_DATE2 <![CDATA[>=]]> #reserveDate2Low#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="reserveDate2High">
+					C.RESERVE_DATE2 <![CDATA[<=]]> #reserveDate2High#
+				</isNotEmpty>
+			order by BID_NO, PROJECT_TYPE, PROJECT_NAME, AGENT_NO, RESERVE_DATE2
+		
+	</select>
+	
+	<resultMap id="BondDetailDto" class="com.cn.tbps.dto.BondDetailDto">
+		<result property="BID_NO" column="BID_NO" />
+		<result property="PROJECT_TYPE" column="PROJECT_TYPE" />
+		<result property="PROJECT_NAME" column="PROJECT_NAME" />
+		<result property="AGENT_NO" column="AGENT_NO" />
+		<result property="AGENT_CO_NAME" column="AGENT_CO_NAME" />
+		<result property="AGENT_CO_MANAGER" column="AGENT_CO_MANAGER" />
+		<result property="BOND_AUDIT" column="BOND_AUDIT" />
+		<result property="ANGENT_COST_PAYMENT" column="ANGENT_COST_PAYMENT" />
+		<result property="BID_CO_NAME" column="BID_CO_NAME" />
+		<result property="BID_BOND" column="BID_BOND" />
+		<result property="BID_CO_VALUE_DATE" column="BID_CO_VALUE_DATE" />
+		<result property="REFOUND_DEPOSIT_DATE" column="REFOUND_DEPOSIT_DATE" />
+		<result property="BID_PAYMENT_TYPE" column="BID_PAYMENT_TYPE" />
+		<result property="BID_WIN_CO_NAME" column="BID_WIN_CO_NAME" />
+		<result property="BID_PRICE_LIST" column="BID_PRICE_LIST" />
+		<result property="BID_APPLY_PRICE" column="BID_APPLY_PRICE" />
+		<result property="RECEIPT1_AGENT_COMMISSION" column="RECEIPT1_AGENT_COMMISSION" />
+		<result property="BID_COMMISION" column="BID_COMMISION" />
+		<result property="PROJECT_MANAGER" column="PROJECT_MANAGER" />
+		<result property="TENDER_OPEN_DATE" column="TENDER_OPEN_DATE" />
+		<result property="RESERVE_DATE1" column="RESERVE_DATE1" />
+		<result property="SUBMIT_DATE" column="SUBMIT_DATE" />
+		<result property="SUBMIT_DATE2" column="SUBMIT_DATE2" />
+		<result property="BID_NOTICE_DATE" column="BID_NOTICE_DATE" />
+		<result property="BID_NOTICE_DATE2" column="BID_NOTICE_DATE2" />
+		<result property="BID_VALUE_DATE" column="BID_VALUE_DATE" />
+		<result property="BID_WIN_SCAN_DATE" column="BID_WIN_SCAN_DATE" />
+		<result property="BID_AUDIT_SCAN_DATE" column="BID_AUDIT_SCAN_DATE" />
+		<result property="BID_CO_ZB_FM_DATE" column="BID_CO_ZB_FM_DATE" />
+		<result property="BID_CO_TB_FM_DATE" column="BID_CO_TB_FM_DATE" />
+		<result property="BID_CO_PB_FM_DATE" column="BID_CO_PB_FM_DATE" />
+		<result property="PROJ_ASTRICT_PRICE" column="PROJ_ASTRICT_PRICE" />
+		<result property="FINISH_STATUS" column="FINISH_STATUS" />
+		<result property="FINISH_NOTE" column="FINISH_NOTE" />
+	</resultMap>
+	
+	<select id="queryBondDetailByAgentNo" parameterClass="java.util.Map" resultMap="BondDetailDto">
+			SELECT
+				"" AS DATA_TYPE,
+				B.BID_NO AS BID_NO,
+				B.PROJECT_TYPE AS PROJECT_TYPE,
+				B.PROJECT_NAME AS PROJECT_NAME,
+				B.AGENT_NO AS AGENT_NO,
+				B.AGENT_CO_NAME AS AGENT_CO_NAME,
+				B.AGENT_CO_MANAGER AS AGENT_CO_MANAGER,
+				"/" AS BOND_AUDIT,
+				"中标单位" AS ANGENT_COST_PAYMENT,
+				C.BID_CO_NAME AS BID_CO_NAME,
+				C.BID_BOND AS BID_BOND,
+				C.BID_VALUE_DATE AS BID_CO_VALUE_DATE,
+				C.REFOUND_DEPOSIT_DATE AS REFOUND_DEPOSIT_DATE,
+				C.BID_PAYMENT_TYPE AS BID_PAYMENT_TYPE,
+				B.BID_CO_NAME AS BID_WIN_CO_NAME,
+				B.BID_PRICE_LIST AS BID_PRICE_LIST,
+				C.BID_APPLY_PRICE AS BID_APPLY_PRICE,
+				B.BID_AGENT_PRICE AS RECEIPT1_AGENT_COMMISSION,
+				B.BID_COMMISION AS BID_COMMISION,
+				B.PROJECT_MANAGER AS PROJECT_MANAGER,
+				B.TENDER_OPEN_DATE AS TENDER_OPEN_DATE,
+				B.RESERVE_DATE1 AS RESERVE_DATE1,
+				B.SUBMIT_DATE AS SUBMIT_DATE,
+				B.SUBMIT_DATE2 AS SUBMIT_DATE2,
+				B.BID_NOTICE_DATE AS BID_NOTICE_DATE,
+				B.BID_NOTICE_DATE2 AS BID_NOTICE_DATE2,
+				B.RECEIPT1_VALUE_DATE AS BID_VALUE_DATE,
+				"" AS BID_WIN_SCAN_DATE,
+				B.RESERVE_DATE4 AS BID_AUDIT_SCAN_DATE,
+				B.RESERVE_DATE2 AS BID_CO_ZB_FM_DATE,
+				B.RESERVE_DATE3 AS BID_CO_TB_FM_DATE,
+				B.MATERIAL_EXPRESS_DATE AS BID_CO_PB_FM_DATE,
+				B.PROJ_ASTRICT_PRICE AS PROJ_ASTRICT_PRICE,
+				B.FINISH_STATUS AS FINISH_STATUS,
+				B.FINISH_NOTE AS FINISH_NOTE
+								
+			FROM bid B left join bidcomp C ON 1 = 1 AND B.DELETE_FLG = '1'
+				and B.BID_NO = C.BID_NO
+			WHERE B.AGENT_NO IS NOT NULL AND B.AGENT_NO != ''
+				<isNotEmpty prepend="and" property="tenderOpenDateLow">
+					B.TENDER_OPEN_DATE <![CDATA[>=]]> #tenderOpenDateLow#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="tenderOpenDateHigh">
+					B.TENDER_OPEN_DATE <![CDATA[<=]]> #tenderOpenDateHigh#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="AGENT_NO">
+					B.AGENT_NO = #AGENT_NO#
+				</isNotEmpty>
+			order by BID_NO, PROJECT_TYPE, PROJECT_NAME, AGENT_NO
+	</select>
+	
+</sqlMap>

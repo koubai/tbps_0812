@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="expertlib" extends="struts-tbps" namespace="/expertlib">
+	
+		<action name="showSelectMajorPage" class="expertLibAction" method="showSelectMajorPage">
+			<result name="success">/page/expertlib/selectexpert.jsp</result>
+		</action>
+		
+		<action name="showExpertLibAction" class="expertLibAction" method="showExpertLibAction">
+			<result name="success">/page/expertlib/expertliblist.jsp</result>
+		</action>
+		
+		<action name="queryExpertLibList" class="expertLibAction" method="queryExpertLibList">
+			<result name="success">/page/expertlib/expertliblist.jsp</result>
+		</action>
+		
+		<action name="turnExpertLibPage" class="expertLibAction" method="turnExpertLibPage">
+			<result name="success">/page/expertlib/expertliblist.jsp</result>
+		</action>
+		
+		<action name="showAddExpertLibAction" class="expertLibAction" method="showAddExpertLibAction">
+			<result name="*">/page/expertlib/addexpert.jsp</result>
+		</action>
+		
+		<action name="addExpertLibAction" class="expertLibAction" method="addExpertLibAction">
+			<result name="success">/page/expertlib/addexpert.jsp</result>
+			<result name="checkerror">/page/expertlib/addexpert.jsp</result>
+		</action>
+		
+		<action name="showUpdExpertLibAction" class="expertLibAction" method="showUpdExpertLibAction">
+			<result name="success">/page/expertlib/updexpert.jsp</result>
+			<result name="checkerror">/page/expertlib/updexpert.jsp</result>
+		</action>
+		
+		<action name="updExpertLibAction" class="expertLibAction" method="updExpertLibAction">
+			<result name="success">/page/expertlib/updexpert.jsp</result>
+			<result name="checkerror">/page/expertlib/updexpert.jsp</result>
+		</action>
+		
+		<action name="delExpertLibAction" class="expertLibAction" method="delExpertLibAction">
+			<result name="success">/page/expertlib/expertliblist.jsp</result>
+			<result name="checkerror">/page/expertlib/expertliblist.jsp</result>
+		</action>
+		
+		<action name="exportExpertLibAction" class="expertLibAction" method="exportExpertLibAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
+		
+		<action name="queryChildExpertLibByParentid" class="expertLibAction" method="queryChildExpertLibByParentid">
+			<result type="json"></result>
+		</action>
+	</package>
+
+</struts>
