@@ -44,3 +44,11 @@ h3.title a.backHome i.fa{ margin-right: 5px; font-size: 16px; }
 .steps li i{ color:#ccc; font-size: 30px; font-weight: 600; margin:0 15px; }
 .steps li.active a,.steps li:hover a{ background: #516f89; color:#fff; }
 .btn3{ width:212px; }
+
+.pages{ float:right; padding-top:10px;}
+.pages ul{ margin:0; padding:0;}
+.pages ul li{ float:left; height:24px; line-height:24px;}
+.pages ul li a{ display:block; border:1px solid #ddd; line-height:24px; padding:0 10px;color:#438BCA;}
+.pages ul li a:hover{ background:#4B6A86; color:#fff;}
+.pages ul li a.last{ color:#ccc;}
+.pages ul li a.last:hover{ color:#ccc; background:none;}
