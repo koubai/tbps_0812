@@ -1,22 +1,28 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="c" uri="/WEB-INF/c.tld" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css" />
-<script type="text/javascript" src="<%=request.getContextPath()%>/js/common.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.5.1.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/js/Calendar3.js"></script>
-<!--<script type="text/javascript" src="<%=request.getContextPath()%>/js/jstorage.js"></script> -->
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
 <title>招标信息一览</title>
+<!-- Bootstrap -->
+<link href="<%=request.getContextPath()%>/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/node_modules/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/global.css">
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/common.js"></script>
+<!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+<!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+<!--[if lt IE 9]>
+<script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
 <script type="text/javascript">
-	$(document).ready(function(){
-		var h = screen.availHeight; 
-		$("#container").height(h - 20);
-	});
-/*	
+	/*	
     var formId = 'mainform';
     window.onbeforeunload = function () {
         //用表单id做键名称
@@ -210,289 +216,241 @@
 </script>
 </head>
 <body>
-	<div id="container">
-		<div id="top">
-			<div class="logobox">
-				<div class="logo_tittle"></div>
-				<div class="logo"></div>
-			</div>
-		</div>
-		<div class="content">
-			<jsp:include page="../info.jsp" flush="true" />
-			<div class="tittle">
-				<div class="icons"><a class="home" href="#" onclick="goHome();">返回首页</a><a class="quit" href="#" onclick="logout();">退出</a></div>
-				<div class="tittle_left">
-				</div>
-				<div class="tittle_center">
-					招标信息一览
-				</div>
-				<div class="tittle_right">
-				</div>
-			</div>
-			<s:form id="mainform" name="mainform" method="POST">
-				<s:hidden name="startIndex" id="startIndex"/>
-				<s:hidden name="strOpenDateLow" id="strOpenDateLow"/>
-				<s:hidden name="strOpenDateHigh" id="strOpenDateHigh"/>
-				<s:hidden name="strBidStatus" id="strBidStatus"/>
-				
-				<s:hidden name="updateBidNo" id="updateBidNo"/>
-				<s:hidden name="tmpBidStatus" id="tmpBidStatus"/>
-				
-				<div class="searchbox">
-					<div class="box1">
-						<label class="pdf10">招标编号</label>
-						<div class="box1_left"></div>
-						<div class="box1_center">
-							<s:textfield name="strBidNoLow" id="strBidNoLow" cssStyle="width: 120px;" maxlength="13" theme="simple"></s:textfield>
+	<jsp:include page="../head.jsp" flush="true" />
+	<div class="container-fluid">
+		<jsp:include page="../info.jsp" flush="true" />
+		<s:form id="mainform" name="mainform" method="POST">
+			<s:hidden name="startIndex" id="startIndex"/>
+			<s:hidden name="strOpenDateLow" id="strOpenDateLow"/>
+			<s:hidden name="strOpenDateHigh" id="strOpenDateHigh"/>
+			<s:hidden name="strBidStatus" id="strBidStatus"/>
+			<s:hidden name="updateBidNo" id="updateBidNo"/>
+			<s:hidden name="tmpBidStatus" id="tmpBidStatus"/>
+			<div class="row">
+				<div class="container-fluid">
+					<h3 class="title">招标信息一览<a class="backHome" href="#" onclick="goHome();"><i class="fa fa-home" aria-hidden="true"></i>返回首页</a></h3>
+					<div class="row">
+						<div class="col-lg-6 form-group">
+							<label for="" class="col-lg-2 form-label">招标编号</label>
+							<div class="col-lg-4">
+								<s:textfield name="strBidNoLow" id="strBidNoLow" cssClass="form-control" maxlength="13" theme="simple"></s:textfield>
+							</div>
+							<label for="" class="col-lg-1 form-label to">---</label>
+							<div class="col-lg-4">
+								<s:textfield name="strBidNoHigh" id="strBidNoHigh" cssClass="form-control" maxlength="13" theme="simple"></s:textfield>
+							</div>
 						</div>
-						<div class="box1_right"></div>
-						<label>-</label>
-						<div class="box1_left"></div>
-						<div class="box1_center">
-							<s:textfield name="strBidNoHigh" id="strBidNoHigh" cssStyle="width: 120px;" maxlength="13" theme="simple"></s:textfield>
+						<div class="col-lg-3 form-group">
+							<label for="" class="col-lg-3 form-label">委托公司</label>
+							<div class="col-lg-9">
+								<s:textfield name="strAgentName" id="strAgentName" cssClass="form-control" maxlength="20" theme="simple"></s:textfield>
+							</div>
 						</div>
-						<div class="box1_right"></div>
-					</div>
-					
-					<div class="box1">
-						<label class="pdf10">委托公司</label>
-						<div class="box1_left"></div>
-						<div class="box1_center">
-							<s:textfield name="strAgentName" id="strAgentName" cssClass="input80" cssStyle="width: 120px;" maxlength="20" theme="simple"></s:textfield>
+						<div class="col-lg-5 form-group">
+							<label for="" class="col-lg-3 form-label">委托公司代码</label>
+							<div class="col-lg-7">
+								<s:textfield name="strAgentNo" id="strAgentNo" cssClass="form-control" maxlength="4" theme="simple"></s:textfield>
+							</div>
+							<div class="col-lg-2">
+								<button class="btn btn-success" onclick="queryAgentCommon();">选择</button>
+							</div>
 						</div>
-						<div class="box1_right"></div>
-					</div>
-					
-					<div class="box1" style="display: none;">
-						<label class="pdf10">委托公司代码</label>
-						<div class="box1_left"></div>
-						<div class="box1_center">
-							<s:textfield name="strAgentNo" id="strAgentNo" cssClass="input80" cssStyle="width: 120px;" maxlength="4" theme="simple"></s:textfield>
+						<div class="col-lg-3 form-group">
+							<label for="" class="col-lg-3 form-label">分类</label>
+							<div class="col-lg-9">
+								<select id="strProjectType" name="strProjectType" class="form-control">
+									<s:if test='strProjectType == "1"'>
+										<option value="">请选择</option>
+										<option value="1" selected="selected">招标</option>
+										<option value="2">比选</option>
+										<option value="3">招标办</option>
+										<option value="4">竞价</option>
+									</s:if>
+									<s:elseif test='strProjectType == "2"'>
+										<option value="">请选择</option>
+										<option value="1">招标</option>
+										<option value="2" selected="selected">比选</option>
+										<option value="3">招标办</option>
+										<option value="4">竞价</option>
+									</s:elseif>
+									<s:elseif test='strProjectType == "3"'>
+										<option value="">请选择</option>
+										<option value="1">招标</option>
+										<option value="2">比选</option>
+										<option value="3" selected="selected">招标办</option>
+										<option value="4">竞价</option>
+									</s:elseif>
+									<s:elseif test='strProjectType == "4"'>
+										<option value="">请选择</option>
+										<option value="1">招标</option>
+										<option value="2">比选</option>
+										<option value="3">招标办</option>
+										<option value="4" selected="selected">竞价</option>
+									</s:elseif>
+									<s:else>
+										<option value="" selected="selected">请选择</option>
+										<option value="1">招标</option>
+										<option value="2">比选</option>
+										<option value="3">招标办</option>
+										<option value="4">竞价</option>
+									</s:else>
+								</select>
+							</div>
 						</div>
-						<div class="box1_right"></div>
-					</div>
-					
-					<div class="btn" style="margin-left: 5px; display: none;">
-						<div class="box1_left"></div>
-						<div class="box1_center">
-							<input type="button" class="input40" value="选择" onclick="queryAgentCommon();"/>
+						<div class="col-lg-3 form-group">
+							<label for="" class="col-lg-3 form-label">中标单位</label>
+							<div class="col-lg-9">
+								<s:textfield name="strBidCoName" id="strBidCoName" cssClass="form-control" maxlength="30" theme="simple"></s:textfield>
+							</div>
 						</div>
-						<div class="box1_right"></div>
-					</div>
-					
-					<div class="box1">
-						<label class="pdf10">分类</label>
-						<div class="box1_left"></div>
-						<div class="box1_center">
-							<select id="strProjectType" name="strProjectType" style="width: 150px;">
-								<s:if test='strProjectType == "1"'>
-									<option value="">请选择</option>
-									<option value="1" selected="selected">招标</option>
-									<option value="2">比选</option>
-									<option value="3">招标办</option>
-									<option value="4">竞价</option>
+						<div class="col-lg-3 form-group">
+							<label for="" class="col-lg-3 form-label">发票编号</label>
+							<div class="col-lg-9">
+								<s:textfield name="strReceipt1No" id="strReceipt1No" cssClass="form-control" maxlength="8" theme="simple"></s:textfield>
+							</div>
+						</div>
+						<div class="col-lg-6 form-group">
+							<label for="" class="col-lg-2 form-label">开标日期</label>
+							<div class="col-lg-4">
+								<div class="input-group date" data-provide="datepicker">
+									<input id="openDateLow" value="<s:property value="strOpenDateLow"/>" maxlength="10" type="text" class="form-control datepicker" readonly>
+									<div class="input-group-addon">
+										<span class="glyphicon glyphicon-th"></span>
+									</div>
+								</div>
+							</div>
+							<label for="" class="col-lg-1 form-label to">---</label>
+							<div class="col-lg-4">
+								<div class="input-group date" data-provide="datepicker">
+									<input id="openDateHigh" value="<s:property value="strOpenDateHigh"/>" maxlength="10" type="text" class="form-control datepicker" readonly>
+									<div class="input-group-addon">
+										<span class="glyphicon glyphicon-th"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 form-group">
+							<label for="" class="col-lg-3 form-label">投标状态</label>
+							<div class="col-lg-9 account">
+								<s:if test='%{strBidStatus.substring(0, 1) == "1"}'>
+									<input name="bidStatus" type="checkbox" checked/>
+									<label class="form-label" for="">未开标</label>
 								</s:if>
-								<s:elseif test='strProjectType == "2"'>
-									<option value="">请选择</option>
-									<option value="1">招标</option>
-									<option value="2" selected="selected">比选</option>
-									<option value="3">招标办</option>
-									<option value="4">竞价</option>
-								</s:elseif>
-								<s:elseif test='strProjectType == "3"'>
-									<option value="">请选择</option>
-									<option value="1">招标</option>
-									<option value="2">比选</option>
-									<option value="3" selected="selected">招标办</option>
-									<option value="4">竞价</option>
-								</s:elseif>
-								<s:elseif test='strProjectType == "4"'>
-									<option value="">请选择</option>
-									<option value="1">招标</option>
-									<option value="2">比选</option>
-									<option value="3">招标办</option>
-									<option value="4" selected="selected">竞价</option>
-								</s:elseif>
 								<s:else>
-									<option value="" selected="selected">请选择</option>
-									<option value="1">招标</option>
-									<option value="2">比选</option>
-									<option value="3">招标办</option>
-									<option value="4">竞价</option>
+									<input name="bidStatus" type="checkbox"/>
+									<label class="form-label" for="">未开标</label>
 								</s:else>
-							</select>
+								<s:if test='%{strBidStatus.substring(1, 2) == "2"}'>
+									<input name="bidStatus" type="checkbox" checked/>
+									<label class="form-label" for="">未到账</label>
+								</s:if>
+								<s:else>
+									<input name="bidStatus" type="checkbox"/>
+									<label class="form-label" for="">未到账</label>
+								</s:else>
+								<s:if test='%{strBidStatus.substring(2, 3) == "3"}'>
+									<input name="bidStatus" type="checkbox" checked/>
+									<label class="form-label" for="">已到账</label>
+								</s:if>
+								<s:else>
+									<input name="bidStatus" type="checkbox"/>
+									<label class="form-label" for="">已到账</label>
+								</s:else>
+							</div>
 						</div>
-						<div class="box1_right"></div>
-					</div>
-					<div class="box1">
-						<label class="pdf10">中标单位</label>
-						<div class="box1_left"></div>
-						<div class="box1_center">
-							<s:textfield name="strBidCoName" id="strBidCoName" cssClass="input80" cssStyle="width: 120px;" maxlength="30" theme="simple"></s:textfield>
-						</div>
-						<div class="box1_right"></div>
-					</div>
-					<div class="box1">
-						<label class="pdf10">发票编号</label>
-						<div class="box1_left"></div>
-						<div class="box1_center">
-							<s:textfield name="strReceipt1No" id="strReceipt1No" cssClass="input80" cssStyle="width: 120px;" maxlength="8" theme="simple"></s:textfield>
-						</div>
-						<div class="box1_right"></div>
-					</div>
-				</div>
-				<div class="searchbox">
-					<div class="box1">
-						<label class="pdf10">开标日期</label>
-						<div class="box1_left"></div>
-						<div class="box1_center date_input">
-							<input type="text" disabled="disabled" style="width: 105px;" id="openDateLow" value="<s:property value="strOpenDateLow"/>" maxlength="10" />
-							<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('openDateLow'));"></a>
-						</div>
-						<div class="box1_right"></div>
-						<label>-</label>
-						<div class="box1_left"></div>
-						<div class="box1_center date_input">
-							<input type="text" disabled="disabled" style="width: 105px;" id="openDateHigh" value="<s:property value="strOpenDateHigh"/>" maxlength="10" />
-							<a class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('openDateHigh'));"></a>
-						</div>
-						<div class="box1_right"></div>
-					</div>
-					<div class="box1" style="margin-left: 5px;">
-						<label class="pdf10">投标状态</label>
-						<div style="width: 300px; margin-top: 5px;">
-							<s:if test='%{strBidStatus.substring(0, 1) == "1"}'>
-								<input name="bidStatus" type="checkbox" checked="checked"/>未开标　
-							</s:if>
-							<s:else>
-								<input name="bidStatus" type="checkbox"/>未开标　
-							</s:else>
-							<s:if test='%{strBidStatus.substring(1, 2) == "2"}'>
-								<input name="bidStatus" type="checkbox" checked="checked"/>未到帐　
-							</s:if>
-							<s:else>
-								<input name="bidStatus" type="checkbox"/>未到帐　
-							</s:else>
-							<s:if test='%{strBidStatus.substring(2, 3) == "3"}'>
-								<input name="bidStatus" type="checkbox" checked="checked"/>已到帐　
-							</s:if>
-							<s:else>
-								<input name="bidStatus" type="checkbox"/>已到帐　
-							</s:else>
+						<div class="col-lg-2 form-group">
+							<button class="btn btn-success form-control" onclick="queryList();">检索</button>
 						</div>
 					</div>
-					<div class="btn" style="margin-left: 160px;">
-						<div class="box1_left"></div>
-						<div class="box1_center">
-							<input type="button" class="input40" value="检索" onclick="queryList();"/>
-						</div>
-						<div class="box1_right"></div>
+					<div class="btns">
+						<ul>
+							<li><a href="#" onclick="add();"><i class="fa fa-plus" aria-hidden="true"></i>新增</a></li>
+							<!-- <li><a href="#" onclick="upd();"><i class="fa fa-pencil" aria-hidden="true"></i>修改</a></li> -->
+							<li><a href="#" onclick="del();"><i class="fa fa-trash" aria-hidden="true"></i>删除</a></li>
+						</ul>
 					</div>
-					<div class="box1" style="margin-top:-3px; margin-left: -240px; color: red;">
-						<s:actionmessage />
-					</div>
-					<div class="icons thums">
-						<a class="add" onclick="add();">增加</a>
-						<!--
-						<a class="edit" onclick="upd();">修改</a>
-						-->
-						<a class="delete" onclick="del();">删除</a>
-					</div>
-				</div>
-				<div class="data_table" style="padding:0px;">
-					<div class="tab_tittle">
-						<table width="100%" border="1" cellpadding="5" cellspacing="0">
-						</table>
-					</div>
-					<div class="tab_content">
-						<table class="info_tab" width="140%" border="1" cellpadding="5" cellspacing="0">
-							<tr class="tittle">
-								<td width="20"></td>
-								<td width="60">招标编号</td>
-								<td width="40">开标日期</td>
-								<td width="80">委托单位</td>
-								<td width="80">项目名称</td>
-								<td width="300">进展状态</td>
-								<td width="60">中标单位</td>
-								<td width="40">中标价(万元)</td>
-								<td width="40">发票日期</td>
-								<td width="60">发票号码</td>
-								<td width="40">代理费</td>
-								<td width="40">到账日期</td>
+					<table class="table table-bordered">
+						<tr>
+							<th></th>
+							<th>招标编号</th>
+							<th>开标日期</th>
+							<th>委托单位</th>
+							<th>项目名称</th>
+							<th>进展状态</th>
+							<th>中标单位</th>
+							<th>中标价(万元)</th>
+							<th>发票日期</th>
+							<th>发票号码</th>
+							<th>代理费</th>
+							<th>到账日期</th>
+						</tr>
+						<s:iterator id="listBid" value="listBid" status="st1">
+							<tr>
+								<td><input name="radioKey" type="radio" value="<s:property value="BID_NO"/>"/></td>
+								<td><s:property value="BID_NO"/></td>
+								<td><s:date name="TENDER_OPEN_DATE" format="yyyy/MM/dd" /></td> 
+								<!-- <td><s:date name="BID_NOTICE_DATE" format="yyyy/MM/dd" /></td>-->
+								<td><s:property value="AGENT_CO_NAME"/></td>
+								<td><s:property value="PROJECT_NAME"/></td>
+								<td>
+									<ul>
+										<s:if test='STATUS == "50"'>
+											<li><a href="javascript:;" onclick="updbidstatus('<s:property value="BID_NO"/>', '10');">项目信息</a></li>
+											<li><a href="javascript:;" onclick="updbidstatus('<s:property value="BID_NO"/>', '20');">报　　名</a></li>
+											<li><a href="javascript:;" onclick="updbidstatus('<s:property value="BID_NO"/>', '30');">保  证  金</a></li>
+											<li><a href="javascript:;" onclick="updbidstatus('<s:property value="BID_NO"/>', '40');">开标评标</a></li>
+											<li><a href="javascript:;" onclick="updbidstatus('<s:property value="BID_NO"/>', '50');">资料归档</a></li>
+										</s:if>
+										<s:elseif test='STATUS == "40"'>
+											<li><a href="javascript:;" onclick="updbidstatus('<s:property value="BID_NO"/>', '10');">项目信息</a></li>
+											<li><a href="javascript:;" onclick="updbidstatus('<s:property value="BID_NO"/>', '20');">报　　名</a></li>
+											<li><a href="javascript:;" onclick="updbidstatus('<s:property value="BID_NO"/>', '30');">保  证  金</a></li>
+											<li><a href="javascript:;" onclick="updbidstatus('<s:property value="BID_NO"/>', '40');">开标评标</a></li>
+											<li><a href="javascript:;" class="select">资料归档</a></li>
+										</s:elseif>
+										<s:elseif test='STATUS == "30"'>
+											<li><a href="javascript:;" onclick="updbidstatus('<s:property value="BID_NO"/>', '10');">项目信息</a></li>
+											<li><a href="javascript:;" onclick="updbidstatus('<s:property value="BID_NO"/>', '20');">报　　名</a></li>
+											<li><a href="javascript:;" onclick="updbidstatus('<s:property value="BID_NO"/>', '30');">保  证  金</a></li>
+											<li><a href="javascript:;" class="select">开标评标</a></li>
+											<li><a href="javascript:;" class="select">资料归档</a></li>
+										</s:elseif>
+										<s:elseif test='STATUS == "20"'>
+											<li><a href="javascript:;" onclick="updbidstatus('<s:property value="BID_NO"/>', '10');">项目信息</a></li>
+											<li><a href="javascript:;" onclick="updbidstatus('<s:property value="BID_NO"/>', '20');">报　　名</a></li>
+											<li><a href="javascript:;" class="select">保  证  金</a></li>
+											<li><a href="javascript:;" class="select">开标评标</a></li>
+											<li><a href="javascript:;" class="select">资料归档</a></li>
+										</s:elseif>
+										<s:elseif test='STATUS == "10"'>
+											<li><a href="javascript:;" onclick="updbidstatus('<s:property value="BID_NO"/>', '10');">项目信息</a></li>
+											<li><a href="javascript:;" class="select">报　　名</a></li>
+											<li><a href="javascript:;" class="select">保  证  金</a></li>
+											<li><a href="javascript:;" class="select">开标评标</a></li>
+											<li><a href="javascript:;" class="select">资料归档</a></li>
+										</s:elseif>
+										<s:else>
+											<li><a href="javascript:;" class="select">项目信息</a></li>
+											<li><a href="javascript:;" class="select">报　　名</a></li>
+											<li><a href="javascript:;" class="select">保  证  金</a></li>
+											<li><a href="javascript:;" class="select">开标评标</a></li>
+											<li><a href="javascript:;" class="select">资料归档</a></li>
+										</s:else>
+									</ul>
+								</td>
+								<td><s:property value="BID_CO_NAME"/></td>
+								<!--
+								<td><s:property value="BID_PRICE"/></td>
+								-->
+								<td align="right"><s:property value="BID_PRICE_LIST"/></td>
+								<td><s:date name="RECEIPT1_DATE" format="yyyy/MM/dd" /></td>
+								<td><s:property value="RECEIPT1_NO"/></td>
+								<!-- <td align="right"><s:property value="RECEIPT1_AGENT_COMMISSION"/></td> -->
+								<td align="right"><s:property value="BID_AGENT_PRICE"/></td>
+								<td><s:date name="RECEIPT1_VALUE_DATE" format="yyyy/MM/dd" /></td>
 							</tr>
-							<s:iterator id="listBid" value="listBid" status="st1">
-								<s:if test="#st1.odd==true">
-									<tr class="tr_bg">
-								</s:if>
-								<s:else>
-									<tr>
-								</s:else>
-									<td><input name="radioKey" type="radio" value="<s:property value="BID_NO"/>"/></td>
-									<td><s:property value="BID_NO"/></td>
-									<td><s:date name="TENDER_OPEN_DATE" format="yyyy/MM/dd" /></td> 
-									<!-- <td><s:date name="BID_NOTICE_DATE" format="yyyy/MM/dd" /></td>-->
-									<td><s:property value="AGENT_CO_NAME"/></td>
-									<td><s:property value="PROJECT_NAME"/></td>
-									<td>
-										<ul>
-											<s:if test='STATUS == "50"'>
-												<li><a href="javascript:;" onclick="updbidstatus('<s:property value="BID_NO"/>', '10');">项目信息</a></li>
-												<li><a href="javascript:;" onclick="updbidstatus('<s:property value="BID_NO"/>', '20');">报　　名</a></li>
-												<li><a href="javascript:;" onclick="updbidstatus('<s:property value="BID_NO"/>', '30');">保  证  金</a></li>
-												<li><a href="javascript:;" onclick="updbidstatus('<s:property value="BID_NO"/>', '40');">开标评标</a></li>
-												<li><a href="javascript:;" onclick="updbidstatus('<s:property value="BID_NO"/>', '50');">资料归档</a></li>
-											</s:if>
-											<s:elseif test='STATUS == "40"'>
-												<li><a href="javascript:;" onclick="updbidstatus('<s:property value="BID_NO"/>', '10');">项目信息</a></li>
-												<li><a href="javascript:;" onclick="updbidstatus('<s:property value="BID_NO"/>', '20');">报　　名</a></li>
-												<li><a href="javascript:;" onclick="updbidstatus('<s:property value="BID_NO"/>', '30');">保  证  金</a></li>
-												<li><a href="javascript:;" onclick="updbidstatus('<s:property value="BID_NO"/>', '40');">开标评标</a></li>
-												<li><a href="javascript:;" class="select">资料归档</a></li>
-											</s:elseif>
-											<s:elseif test='STATUS == "30"'>
-												<li><a href="javascript:;" onclick="updbidstatus('<s:property value="BID_NO"/>', '10');">项目信息</a></li>
-												<li><a href="javascript:;" onclick="updbidstatus('<s:property value="BID_NO"/>', '20');">报　　名</a></li>
-												<li><a href="javascript:;" onclick="updbidstatus('<s:property value="BID_NO"/>', '30');">保  证  金</a></li>
-												<li><a href="javascript:;" class="select">开标评标</a></li>
-												<li><a href="javascript:;" class="select">资料归档</a></li>
-											</s:elseif>
-											<s:elseif test='STATUS == "20"'>
-												<li><a href="javascript:;" onclick="updbidstatus('<s:property value="BID_NO"/>', '10');">项目信息</a></li>
-												<li><a href="javascript:;" onclick="updbidstatus('<s:property value="BID_NO"/>', '20');">报　　名</a></li>
-												<li><a href="javascript:;" class="select">保  证  金</a></li>
-												<li><a href="javascript:;" class="select">开标评标</a></li>
-												<li><a href="javascript:;" class="select">资料归档</a></li>
-											</s:elseif>
-											<s:elseif test='STATUS == "10"'>
-												<li><a href="javascript:;" onclick="updbidstatus('<s:property value="BID_NO"/>', '10');">项目信息</a></li>
-												<li><a href="javascript:;" class="select">报　　名</a></li>
-												<li><a href="javascript:;" class="select">保  证  金</a></li>
-												<li><a href="javascript:;" class="select">开标评标</a></li>
-												<li><a href="javascript:;" class="select">资料归档</a></li>
-											</s:elseif>
-											<s:else>
-												<li><a href="javascript:;" class="select">项目信息</a></li>
-												<li><a href="javascript:;" class="select">报　　名</a></li>
-												<li><a href="javascript:;" class="select">保  证  金</a></li>
-												<li><a href="javascript:;" class="select">开标评标</a></li>
-												<li><a href="javascript:;" class="select">资料归档</a></li>
-											</s:else>
-										</ul>
-									</td>
-									<td><s:property value="BID_CO_NAME"/></td>
-									<!--
-									<td><s:property value="BID_PRICE"/></td>
-									-->
-									<td align="right"><s:property value="BID_PRICE_LIST"/></td>
-									<td><s:date name="RECEIPT1_DATE" format="yyyy/MM/dd" /></td>
-									<td><s:property value="RECEIPT1_NO"/></td>
-									<!-- <td align="right"><s:property value="RECEIPT1_AGENT_COMMISSION"/></td> -->
-									<td align="right"><s:property value="BID_AGENT_PRICE"/></td>
-									<td><s:date name="RECEIPT1_VALUE_DATE" format="yyyy/MM/dd" /></td>
-								</tr>
-							</s:iterator>
-						</table>
-					</div>
+						</s:iterator>
+					</table>
 					<div class="pages">
 						<ul>
 							<li>第<strong>${page.startIndex + 1}</strong>页/共<strong>${page.totalPage==0?1:page.totalPage}</strong>页/共<strong>${page.totalCount}</strong>条记录</li>
@@ -525,59 +483,24 @@
 						</ul>
 					</div>
 				</div>
-				<div class="btns" style="margin-top:-100px;">
-					<table border="0" style="margin:0 auto;">
-						<tr>
-							<td style="display: none;">
-								<div class="btn">
-									<div class="box1_left"></div>
-									<div class="box1_center">
-										<input class="input80" type="button" value="详细" onclick="showBidDetail();" />
-									</div>
-									<div class="box1_right"></div>
-								</div>
-							</td>
-							<td>
-								<div class="btn">
-									<div class="box1_left"></div>
-									<div class="box1_center">
-										<input class="input80" type="button" value="履历" onclick="showHis();" />
-									</div>
-									<div class="box1_right"></div>
-								</div>
-							</td>
-							<td>
-								<div class="btn">
-									<div class="box1_left"></div>
-									<div class="box1_center">
-										<input class="input80" type="button" value="下载" onclick="exportYear();" />
-									</div>
-									<div class="box1_right"></div>
-								</div>
-							</td>
-<!-- 						<td>
-								<div class="btn">
-									<div class="box1_left"></div>
-									<div class="box1_center">
-										<input class="input80" style="width: 120px;" type="button" value="完整信息下载" onclick="exportAllBidInfo();" />
-									</div>
-									<div class="box1_right"></div>
-								</div>
-							</td> -->
-							<td>
-								<div class="btn">
-									<div class="box1_left"></div>
-									<div class="box1_center">
-										<input class="input80" style="width: 120px;" type="button" value="专家信息下载" onclick="exportBidExpert();" />
-									</div>
-									<div class="box1_right"></div>
-								</div>
-							</td>
-						</tr>
-					</table>
-				</div>
-			</s:form>
-		</div>
+			</div>
+			<div class="operationBtns addBtns mgt15 btn3" style="width: 300px;">
+				<button class="btn btn-success" onclick="showHis();">履历</button>
+				<button class="btn btn-success" onclick="exportYear();">下载</button>
+				<button class="btn btn-success" onclick="exportBidExpert();">专家信息下载</button>
+			</div>
+		</s:form>
 	</div>
+	<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+<script src="<%=request.getContextPath()%>/node_modules/jquery/dist/jquery.min.js"></script>
+<!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+<script src="<%=request.getContextPath()%>/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.min.js"></script>
+<script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.zh-CN.min.js"></script>
+<script>
+	$('.datepicker').parent().datepicker({
+		"autoclose":true,"format":"yyyy-mm-dd","language":"zh-CN"
+	});
+</script>
 </body>
 </html>
