@@ -669,13 +669,13 @@
 							</li>
 						</ul>
 					</div>
+					<div class="operationBtns addBtns mgt15 btn3" style="width: 300px;">
+						<button class="btn btn-success" onclick="showAuditDetail();">详细</button>
+						<button class="btn btn-success" onclick="showHis();">履历</button>
+						<button class="btn btn-success" onclick="exportAudit();">下载</button>
+						<button class="btn btn-success" onclick="exportAuditReceipt();">下载(发票)</button>
+					</div>
 				</div>
-			</div>
-			<div class="operationBtns addBtns mgt15 btn3" style="width: 300px;">
-				<button class="btn btn-success" onclick="showAuditDetail();">详细</button>
-				<button class="btn btn-success" onclick="showHis();">履历</button>
-				<button class="btn btn-success" onclick="exportAudit();">下载</button>
-				<button class="btn btn-success" onclick="exportAuditReceipt();">下载(发票)</button>
 			</div>
 		</s:form>
 	</div>
