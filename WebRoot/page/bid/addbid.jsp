@@ -1,15 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="c" uri="/WEB-INF/c.tld" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css" />
-<script type="text/javascript" src="<%=request.getContextPath()%>/js/common.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/js/Calendar3.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.5.1.js"></script>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
 <title>招标信息输入</title>
+<!-- Bootstrap -->
+<link href="<%=request.getContextPath()%>/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/node_modules/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/global.css">
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/common.js"></script>
+<!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+<!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+<!--[if lt IE 9]>
+<script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
 <script type="text/javascript">
 	function add() {
 		if(checkdata()) {
@@ -412,599 +423,435 @@
 </script>
 </head>
 <body>
-	<div id="container">
-		<div id="top">
-			<div class="logobox">
-				<div class="logo_tittle"></div>
-				<div class="logo"></div>
-			</div>
-		</div>
-		<div class="content">
-			<jsp:include page="../info.jsp" flush="true" />
-			<div class="tittle">
-				<div class="icons"><a class="return" href="#" onclick="goBidList();">返回</a><a class="quit" href="#" onclick="logout();">退出</a></div>
-				<div class="tittle_left">
-				</div>
-				<div class="tittle_center" style="width:150px;">
-					<input type="hidden" id="agentCompEditFlag" value="0"/>
-					招标信息输入
-				</div>
-				<div class="tittle_right">
-				</div>
-			</div>
-			<s:form id="mainform" name="mainform" method="POST">
-				<s:hidden name="updateBidNo" id="updateBidNo"/>
-				<s:hidden name="tmpUpdType" id="tmpUpdType"/>
-				<s:hidden name="addBidDto.MEMO1" id="MEMO1"/>
-				<s:hidden name="addBidDto.ONLINE_DATE" id="ONLINE_DATE"/> 
-				<s:hidden name="addBidDto.SUBMIT_DATE" id="SUBMIT_DATE"/>
-				<s:hidden name="addBidDto.SUBMIT_DATE2" id="SUBMIT_DATE2"/>
-				<s:hidden name="addBidDto.TENDER_START_DATE" id="TENDER_START_DATE"/>
-				<s:hidden name="addBidDto.TENDER_OPEN_DATE" id="TENDER_OPEN_DATE"/>
-				<s:hidden name="addBidDto.RECEIPT1_DATE" id="RECEIPT1_DATE"/>
-				<s:hidden name="addBidDto.RECEIPT1_VALUE_DATE" id="RECEIPT1_VALUE_DATE"/>
-				<s:hidden name="addBidDto.RECEIPT2_DATE" id="RECEIPT2_DATE"/>
-				<s:hidden name="addBidDto.RECEIPT2_EXPRESS_DATE" id="RECEIPT2_EXPRESS_DATE"/>
-				<s:hidden name="addBidDto.TENDER_ONLINE" id="TENDER_ONLINE"/>
-				<s:hidden name="addBidDto.TENDER_DOWNLOAD" id="TENDER_DOWNLOAD"/>
-				<s:hidden name="addBidDto.APPLY_FORM_EDIT" id="APPLY_FORM_EDIT"/>
-				<s:hidden name="addBidDto.APPLY_FORM_VERIFY" id="APPLY_FORM_VERIFY"/>
-				<s:hidden name="addBidDto.APPLY_FORM_MERGE" id="APPLY_FORM_MERGE"/>
-				<s:hidden name="addBidDto.EXPERT_NAME_OFFERED" id="EXPERT_NAME_OFFERED"/>
-				<s:hidden name="addBidDto.EXPERT_INFORMED" id="EXPERT_INFORMED"/>
-				<s:hidden name="addBidDto.EXPERT_NAME_CONFIRMED" id="EXPERT_NAME_CONFIRMED"/>
-				<s:hidden name="addBidDto.CLARIFY_DOC" id="CLARIFY_DOC"/>
-				<s:hidden name="addBidDto.SUPPORT_DOC" id="SUPPORT_DOC"/>
-				<s:hidden name="addBidDto.SUPPORT_DOC_SENT" id="SUPPORT_DOC_SENT"/>
-				<s:hidden name="addBidDto.BIDDER_REPLY" id="BIDDER_REPLY"/>
-				<s:hidden name="addBidDto.OPEN_RESULT" id="OPEN_RESULT"/>
-				<s:hidden name="addBidDto.OPEN_VERIFY" id="OPEN_VERIFY"/>
-				<s:hidden name="addBidDto.INFORM_SENT" id="INFORM_SENT"/>
-				<s:hidden name="addBidDto.INFORM_CONTRACT" id="INFORM_CONTRACT"/>
-				<s:hidden name="addBidDto.ATTACH_POST_A" id="ATTACH_POST_A"/>
-				<s:hidden name="addBidDto.CONTRACT_VERIFY" id="CONTRACT_VERIFY"/>
-				<s:hidden name="addBidDto.COMMENT_POST" id="COMMENT_POST"/>
-				<s:hidden name="addBidDto.BID_REOPRT_EDIT" id="BID_REOPRT_EDIT"/>
-				<s:hidden name="addBidDto.BID_REPORT_VERIFY" id="BID_REPORT_VERIFY"/>
-				<s:hidden name="addBidDto.BID_REPORT_SENT" id="BID_REPORT_SENT"/>
-				<s:hidden name="addBidDto.BID_EXPERT_LIST" id="BID_EXPERT_LIST"/>
-				<s:hidden name="addBidDto.FINISH_STATUS" id="FINISH_STATUS"/>
-				<s:hidden name="addBidDto.MATERIAL_EXPRESS_DATE" id="MATERIAL_EXPRESS_DATE"/>
-				<s:hidden name="addBidDto.BID_MESSAGE_DATE" id="BID_MESSAGE_DATE"/>
-				<s:hidden name="addBidDto.APPLY_REQUIRE" id="APPLY_REQUIRE"/>
-				<s:hidden name="addBidDto.BID_NOTICE_DATE" id="BID_NOTICE_DATE"/>
-				<s:hidden name="addBidDto.BID_NOTICE_DATE2" id="BID_NOTICE_DATE2"/>
-				
-				<s:hidden name="addBidDto.BID_CO_LIST" id="BID_CO_LIST"/>
-				<s:hidden name="addBidDto.RECEIPT2_POST_NO" id="RECEIPT2_POST_NO"/>
-				<s:hidden name="addBidDto.RECEIPT2_NO" id="RECEIPT2_NO"/>
-				<s:hidden name="addBidDto.RECEIPT1_RECEIVER" id="RECEIPT1_RECEIVER"/>
-				<s:hidden name="addBidDto.RECEIPT1_NO" id="RECEIPT1_NO"/>
-				<s:hidden name="addBidDto.RECEIPT1_STAFF" id="RECEIPT1_STAFF"/>
-				<s:hidden name="addBidDto.PROF_CO_NAME" id="PROF_CO_NAME"/>
-				<s:hidden name="addBidDto.AGENT_CO_NAME" id="AGENT_CO_NAME"/>
-				
-				
-				<s:hidden name="tmpBidStatus" id="tmpBidStatus"/>
-				<s:hidden name="addBidDto.PROJECT_TYPE" id="PROJECT_TYPE"/>
-				<s:hidden name="addBidDto.IS_RANDOM" id="IS_RANDOM"/>
-				
-				<s:hidden name="addBidDto.AGENT_NO" id="AGENT_NO"/>
-				<s:hidden name="addBidDto.PROF_NO" id="PROF_NO"/>
-				<s:hidden name="addBidDto.PROJ_APPROVAL" id="PROJ_APPROVAL"/>
-				
-				<s:hidden name="addBidDto.AGENT_CO_MANAGER" id="AGENT_CO_MANAGER"/>
-				<s:hidden name="addBidDto.AGENT_CO_MANAGER_TEL" id="AGENT_CO_MANAGER_TEL"/>
-				<s:hidden name="addBidDto.AGENT_CO_POST_ADDRESS" id="AGENT_CO_POST_ADDRESS"/>
-				<s:hidden name="addBidDto.PROF_CO_MANAGER" id="PROF_CO_MANAGER"/>
-				<s:hidden name="addBidDto.PROF_CO_MANAGER_TEL" id="PROF_CO_MANAGER_TEL"/>
-				<s:hidden name="addBidDto.PROF_CO_POST_ADDRESS" id="PROF_CO_POST_ADDRESS"/>
-				
-				<s:hidden name="addBidDto.BID_NEED_MATERIAL_PRICE" id="BID_NEED_MATERIAL_PRICE"/>
-				<s:hidden name="addBidDto.STATUS" id="STATUS"/>
-				
-				<s:hidden name="addBidDto.RECEIPT1_AGENT_COMMISSION" id="RECEIPT1_AGENT_COMMISSION"/>
-				<s:hidden name="addBidDto.BID_COMMISION" id="BID_COMMISION"/>
-				<s:hidden name="addBidDto.FINISH_NOTE" id="FINISH_NOTE"/>
-				<s:hidden name="addBidDto.BID_AGENT_PRICE" id="BID_AGENT_PRICE"/>
-				<s:hidden name="addBidDto.RESERVE_DATE6" id="RESERVE_DATE6"/>
+	<jsp:include page="../head.jsp" flush="true" />
+	<div class="container-fluid">
+		<jsp:include page="../info.jsp" flush="true" />
+		<s:form id="mainform" name="mainform" method="POST">
+			<s:hidden name="updateBidNo" id="updateBidNo"/>
+			<s:hidden name="tmpUpdType" id="tmpUpdType"/>
+			<s:hidden name="addBidDto.MEMO1" id="MEMO1"/>
+			<s:hidden name="addBidDto.ONLINE_DATE" id="ONLINE_DATE"/> 
+			<s:hidden name="addBidDto.SUBMIT_DATE" id="SUBMIT_DATE"/>
+			<s:hidden name="addBidDto.SUBMIT_DATE2" id="SUBMIT_DATE2"/>
+			<s:hidden name="addBidDto.TENDER_START_DATE" id="TENDER_START_DATE"/>
+			<s:hidden name="addBidDto.TENDER_OPEN_DATE" id="TENDER_OPEN_DATE"/>
+			<s:hidden name="addBidDto.RECEIPT1_DATE" id="RECEIPT1_DATE"/>
+			<s:hidden name="addBidDto.RECEIPT1_VALUE_DATE" id="RECEIPT1_VALUE_DATE"/>
+			<s:hidden name="addBidDto.RECEIPT2_DATE" id="RECEIPT2_DATE"/>
+			<s:hidden name="addBidDto.RECEIPT2_EXPRESS_DATE" id="RECEIPT2_EXPRESS_DATE"/>
+			<s:hidden name="addBidDto.TENDER_ONLINE" id="TENDER_ONLINE"/>
+			<s:hidden name="addBidDto.TENDER_DOWNLOAD" id="TENDER_DOWNLOAD"/>
+			<s:hidden name="addBidDto.APPLY_FORM_EDIT" id="APPLY_FORM_EDIT"/>
+			<s:hidden name="addBidDto.APPLY_FORM_VERIFY" id="APPLY_FORM_VERIFY"/>
+			<s:hidden name="addBidDto.APPLY_FORM_MERGE" id="APPLY_FORM_MERGE"/>
+			<s:hidden name="addBidDto.EXPERT_NAME_OFFERED" id="EXPERT_NAME_OFFERED"/>
+			<s:hidden name="addBidDto.EXPERT_INFORMED" id="EXPERT_INFORMED"/>
+			<s:hidden name="addBidDto.EXPERT_NAME_CONFIRMED" id="EXPERT_NAME_CONFIRMED"/>
+			<s:hidden name="addBidDto.CLARIFY_DOC" id="CLARIFY_DOC"/>
+			<s:hidden name="addBidDto.SUPPORT_DOC" id="SUPPORT_DOC"/>
+			<s:hidden name="addBidDto.SUPPORT_DOC_SENT" id="SUPPORT_DOC_SENT"/>
+			<s:hidden name="addBidDto.BIDDER_REPLY" id="BIDDER_REPLY"/>
+			<s:hidden name="addBidDto.OPEN_RESULT" id="OPEN_RESULT"/>
+			<s:hidden name="addBidDto.OPEN_VERIFY" id="OPEN_VERIFY"/>
+			<s:hidden name="addBidDto.INFORM_SENT" id="INFORM_SENT"/>
+			<s:hidden name="addBidDto.INFORM_CONTRACT" id="INFORM_CONTRACT"/>
+			<s:hidden name="addBidDto.ATTACH_POST_A" id="ATTACH_POST_A"/>
+			<s:hidden name="addBidDto.CONTRACT_VERIFY" id="CONTRACT_VERIFY"/>
+			<s:hidden name="addBidDto.COMMENT_POST" id="COMMENT_POST"/>
+			<s:hidden name="addBidDto.BID_REOPRT_EDIT" id="BID_REOPRT_EDIT"/>
+			<s:hidden name="addBidDto.BID_REPORT_VERIFY" id="BID_REPORT_VERIFY"/>
+			<s:hidden name="addBidDto.BID_REPORT_SENT" id="BID_REPORT_SENT"/>
+			<s:hidden name="addBidDto.BID_EXPERT_LIST" id="BID_EXPERT_LIST"/>
+			<s:hidden name="addBidDto.FINISH_STATUS" id="FINISH_STATUS"/>
+			<s:hidden name="addBidDto.MATERIAL_EXPRESS_DATE" id="MATERIAL_EXPRESS_DATE"/>
+			<s:hidden name="addBidDto.BID_MESSAGE_DATE" id="BID_MESSAGE_DATE"/>
+			<s:hidden name="addBidDto.APPLY_REQUIRE" id="APPLY_REQUIRE"/>
+			<s:hidden name="addBidDto.BID_NOTICE_DATE" id="BID_NOTICE_DATE"/>
+			<s:hidden name="addBidDto.BID_NOTICE_DATE2" id="BID_NOTICE_DATE2"/>
+			
+			<s:hidden name="addBidDto.BID_CO_LIST" id="BID_CO_LIST"/>
+			<s:hidden name="addBidDto.RECEIPT2_POST_NO" id="RECEIPT2_POST_NO"/>
+			<s:hidden name="addBidDto.RECEIPT2_NO" id="RECEIPT2_NO"/>
+			<s:hidden name="addBidDto.RECEIPT1_RECEIVER" id="RECEIPT1_RECEIVER"/>
+			<s:hidden name="addBidDto.RECEIPT1_NO" id="RECEIPT1_NO"/>
+			<s:hidden name="addBidDto.RECEIPT1_STAFF" id="RECEIPT1_STAFF"/>
+			<s:hidden name="addBidDto.PROF_CO_NAME" id="PROF_CO_NAME"/>
+			<s:hidden name="addBidDto.AGENT_CO_NAME" id="AGENT_CO_NAME"/>
+			
+			<s:hidden name="tmpBidStatus" id="tmpBidStatus"/>
+			<s:hidden name="addBidDto.PROJECT_TYPE" id="PROJECT_TYPE"/>
+			<s:hidden name="addBidDto.IS_RANDOM" id="IS_RANDOM"/>
+			
+			<s:hidden name="addBidDto.AGENT_NO" id="AGENT_NO"/>
+			<s:hidden name="addBidDto.PROF_NO" id="PROF_NO"/>
+			<s:hidden name="addBidDto.PROJ_APPROVAL" id="PROJ_APPROVAL"/>
+			
+			<s:hidden name="addBidDto.AGENT_CO_MANAGER" id="AGENT_CO_MANAGER"/>
+			<s:hidden name="addBidDto.AGENT_CO_MANAGER_TEL" id="AGENT_CO_MANAGER_TEL"/>
+			<s:hidden name="addBidDto.AGENT_CO_POST_ADDRESS" id="AGENT_CO_POST_ADDRESS"/>
+			<s:hidden name="addBidDto.PROF_CO_MANAGER" id="PROF_CO_MANAGER"/>
+			<s:hidden name="addBidDto.PROF_CO_MANAGER_TEL" id="PROF_CO_MANAGER_TEL"/>
+			<s:hidden name="addBidDto.PROF_CO_POST_ADDRESS" id="PROF_CO_POST_ADDRESS"/>
+			
+			<s:hidden name="addBidDto.BID_NEED_MATERIAL_PRICE" id="BID_NEED_MATERIAL_PRICE"/>
+			<s:hidden name="addBidDto.STATUS" id="STATUS"/>
+			
+			<s:hidden name="addBidDto.RECEIPT1_AGENT_COMMISSION" id="RECEIPT1_AGENT_COMMISSION"/>
+			<s:hidden name="addBidDto.BID_COMMISION" id="BID_COMMISION"/>
+			<s:hidden name="addBidDto.FINISH_NOTE" id="FINISH_NOTE"/>
+			<s:hidden name="addBidDto.BID_AGENT_PRICE" id="BID_AGENT_PRICE"/>
+			<s:hidden name="addBidDto.RESERVE_DATE6" id="RESERVE_DATE6"/>
 
-				<s:hidden name="addBidDto.RESERVE5" id="RESERVE5" /> 
-				
-				<div class="searchbox update" style="height:0px;">
-					<table id="expertTable" style="display: none;">
-					</table>
-					<table id="compTable" style="display: none;">
-					</table>
-					<table width="100%" border="0" cellpadding="5" cellspacing="0">
-						<tr>
-							<td class="red" align="center" colspan="8"><s:actionmessage /></td>
-						</tr>
-						<tr style="height: 73px;">
-							<td colspan="8">
-								<table>
-									<tr style="height: 64px;" valign="middle">
-										<td width="3%">　</td>
-										<s:if test='addBidDto.STATUS == "10"'>
-											<td width="18%"><div class="currentuptstep">项目信息</div></td>
-										</s:if>
-										<s:else>
-											<td width="18%"><div class="currentstep">项目信息</div></td>
-										</s:else>
-										<td width="18%"><div class="unpassstep">报　　名</div></td>
-										<td width="18%"><div class="unpassstep">保  证  金</div></td>
-										<td width="18%"><div class="unpassstep">开标评标</div></td>
-										<td width="18%"><div class="unpassstep">资料归档</div></td>
-										<td width="7%">　</td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-						<tr>
-							<td align="right">
-								<label class="pdf10"><font color="red">*</font>招标编号</label>
-							</td>
-							<td>
-								<div class="box1_left"></div>
-								<div class="box1_center">
-									<s:if test='addBidDto.PROJECT_TYPE != "3" && addBidDto.PROJECT_TYPE != "4" && addBidDto.IS_RANDOM == "1"'>
-										<s:textfield name="addBidDto.BID_NO" id="BID_NO" disabled="true" cssStyle="width:135px;" maxlength="13" theme="simple"></s:textfield>
-									</s:if>
-									<s:else>
-										<s:textfield name="addBidDto.BID_NO" id="BID_NO" cssStyle="width:135px;" maxlength="13" theme="simple"></s:textfield>
-									</s:else>
-								</div>
-								<div class="box1_right"></div>
-								<div class="box1" style="vertical-align: middle; margin-top: 5px;">
-									<s:if test='addBidDto.IS_RANDOM == "1"'>
-										<input type="checkbox" id="random" checked="checked" onclick="randomBidNo(this);"/>是否随机
-									</s:if>
-									<s:else>
-										<input type="checkbox" id="random" onclick="randomBidNo(this);"/>是否随机
-									</s:else>
-								</div>
-							</td>
-							<td align="right">
-								<label class="pdf10"><font color="red">*</font>分类</label>
-							</td>
-							<td>
+			<s:hidden name="addBidDto.RESERVE5" id="RESERVE5" />
+			<div class="row">
+				<div class="container-fluid">
+					<h3 class="title">招标信息输入<a class="backHome" href="#" onclick="goBidList();"><i class="fa fa-arrow-left" aria-hidden="true"></i>返回</a></h3>
+					<ul class="steps">
+						<s:if test='addBidDto.STATUS == "10"'>
+							<li class="active"><a href="#">项目信息</a><i>→</i></li>
+						</s:if>
+						<s:else>
+							<li><a href="#">项目信息</a><i>→</i></li>
+						</s:else>
+						<li><a href="#">报名</a><i>→</i></li>
+						<li><a href="#">保证金</a><i>→</i></li>
+						<li><a href="#">开标评标</a><i>→</i></li>
+						<li><a href="#">资料归档</a></li>
+					</ul>
+					<div class="clearfix"></div>
+					<div class="row mgt15">
+						<div class="col-lg-3 form-group">
+							<label for="" class="col-lg-3 form-label"><span class="red">*</span>招标编号</label>
+							<div class="col-lg-9">
+								<s:if test='addBidDto.PROJECT_TYPE != "3" && addBidDto.PROJECT_TYPE != "4" && addBidDto.IS_RANDOM == "1"'>
+									<s:textfield name="addBidDto.BID_NO" id="BID_NO" disabled="true" cssClass="form-control" maxlength="13" theme="simple"></s:textfield>
+								</s:if>
+								<s:else>
+									<s:textfield name="addBidDto.BID_NO" id="BID_NO" cssClass="form-control" maxlength="13" theme="simple"></s:textfield>
+								</s:else>
+							</div>
+						</div>
+						<div class="col-lg-2 form-group">
+							<label for="" class="col-lg-4 form-label">是否随机</label>
+							<div class="col-lg-8 checkBox">
+								<s:if test='addBidDto.IS_RANDOM == "1"'>
+									<input type="checkbox" id="random" checked="checked" onclick="randomBidNo(this);"/>是否随机
+								</s:if>
+								<s:else>
+									<input type="checkbox" id="random" onclick="randomBidNo(this);"/>是否随机
+								</s:else>
+							</div>
+						</div>
+						<div class="col-lg-4 form-group">
+							<label for="" class="col-lg-3 form-label">分类</label>
+							<div class="col-lg-9 account">
 								<s:if test='addBidDto.PROJECT_TYPE == "1"'>
-									<input id="radioProjectType" name="projectType" checked="checked" onclick="selectProjectType(this);" type="radio" value="1"/><label>招标</label>
-									<input name="projectType" onclick="selectProjectType(this);" type="radio" value="2"/><label>比选</label>
-									<input name="projectType" onclick="selectProjectType(this);" type="radio" value="3"/><label>招标办</label>
-									<input name="projectType" onclick="selectProjectType(this);" type="radio" value="4"/><label>竞价</label>
+									<input id="radioProjectType" name="projectType" checked="checked" onclick="selectProjectType(this);" type="radio" value="1"/>
+									<label class="form-label" for="">招标</label>
+									<input name="projectType" onclick="selectProjectType(this);" type="radio" value="2"/>
+									<label class="form-label" for="">比选</label>
+									<input name="projectType" onclick="selectProjectType(this);" type="radio" value="3"/>
+									<label class="form-label" for="">招标办</label>
+									<input name="projectType" onclick="selectProjectType(this);" type="radio" value="4"/>
+									<label class="form-label" for="">竞价</label>
 								</s:if>
 								<s:elseif test='addBidDto.PROJECT_TYPE == "2"'>
-									<input id="radioProjectType" name="projectType" onclick="selectProjectType(this);" type="radio" value="1"/><label>招标</label>
-									<input name="projectType" onclick="selectProjectType(this);" type="radio" checked="checked" value="2"/><label>比选</label>
-									<input name="projectType" onclick="selectProjectType(this);" type="radio" value="3"/><label>招标办</label>
-									<input name="projectType" onclick="selectProjectType(this);" type="radio" value="4"/><label>竞价</label>
+									<input id="radioProjectType" name="projectType" onclick="selectProjectType(this);" type="radio" value="1"/>
+									<label class="form-label" for="">招标</label>
+									<input name="projectType" onclick="selectProjectType(this);" type="radio" checked="checked" value="2"/>
+									<label class="form-label" for="">比选</label>
+									<input name="projectType" onclick="selectProjectType(this);" type="radio" value="3"/>
+									<label class="form-label" for="">招标办</label>
+									<input name="projectType" onclick="selectProjectType(this);" type="radio" value="4"/>
+									<label class="form-label" for="">竞价</label>
 								</s:elseif>
 								<s:elseif test='addBidDto.PROJECT_TYPE == "3"'>
-									<input id="radioProjectType" onclick="selectProjectType(this);" name="projectType" type="radio" value="1"/><label>招标</label>
-									<input name="projectType" onclick="selectProjectType(this);" type="radio" value="2"/><label>比选</label>
-									<input name="projectType" onclick="selectProjectType(this);" type="radio" checked="checked" value="3"/><label>招标办</label>
-									<input name="projectType" onclick="selectProjectType(this);" type="radio" value="4"/><label>竞价</label>
+									<input id="radioProjectType" onclick="selectProjectType(this);" name="projectType" type="radio" value="1"/>
+									<label class="form-label" for="">招标</label>
+									<input name="projectType" onclick="selectProjectType(this);" type="radio" value="2"/>
+									<label class="form-label" for="">比选</label>
+									<input name="projectType" onclick="selectProjectType(this);" type="radio" checked="checked" value="3"/>
+									<label class="form-label" for="">招标办</label>
+									<input name="projectType" onclick="selectProjectType(this);" type="radio" value="4"/>
+									<label class="form-label" for="">竞价</label>
 								</s:elseif>
 								<s:elseif test='addBidDto.PROJECT_TYPE == "4"'>
-									<input id="radioProjectType" onclick="selectProjectType(this);" name="projectType" type="radio" value="1"/><label>招标</label>
-									<input name="projectType" onclick="selectProjectType(this);" type="radio" value="2"/><label>比选</label>
-									<input name="projectType" onclick="selectProjectType(this);" type="radio" value="3"/><label>招标办</label>
-									<input name="projectType" onclick="selectProjectType(this);" type="radio" checked="checked" value="4"/><label>竞价</label>
+									<input id="radioProjectType" onclick="selectProjectType(this);" name="projectType" type="radio" value="1"/>
+									<label class="form-label" for="">招标</label>
+									<input name="projectType" onclick="selectProjectType(this);" type="radio" value="2"/>
+									<label class="form-label" for="">比选</label>
+									<input name="projectType" onclick="selectProjectType(this);" type="radio" value="3"/>
+									<label class="form-label" for="">招标办</label>
+									<input name="projectType" onclick="selectProjectType(this);" type="radio" checked="checked" value="4"/>
+									<label class="form-label" for="">竞价</label>
 								</s:elseif>
 								<s:else>
-									<input id="radioProjectType" onclick="selectProjectType(this);" name="projectType" type="radio" value="1"/><label>招标</label>
-									<input name="projectType" onclick="selectProjectType(this);" type="radio" value="2"/><label>比选</label>
-									<input name="projectType" onclick="selectProjectType(this);" type="radio" value="3"/><label>招标办</label>
-									<input name="projectType" onclick="selectProjectType(this);" type="radio" value="4"/><label>竞价</label>
+									<input id="radioProjectType" onclick="selectProjectType(this);" name="projectType" type="radio" value="1"/>
+									<label class="form-label" for="">招标</label>
+									<input name="projectType" onclick="selectProjectType(this);" type="radio" value="2"/>
+									<label class="form-label" for="">比选</label>
+									<input name="projectType" onclick="selectProjectType(this);" type="radio" value="3"/>
+									<label class="form-label" for="">招标办</label>
+									<input name="projectType" onclick="selectProjectType(this);" type="radio" value="4"/>
+									<label class="form-label" for="">竞价</label>
 								</s:else>
-							</td>
-							<td align="right">
-								<label class="pdf10">工程师</label>
-							</td>
-							<td colspan="3">
-								<div class="box1_left"></div>
-								<div class="box1_center">
-									<select name="addBidDto.PROJECT_MANAGER" id="PROJECT_MANAGER" style="width:135px;">
-										<s:iterator id="listUserInfo" value="listUserInfo" status="st1">
-											<option value="<s:property value="LOGIN_NAME"/>" <s:if test="%{addBidDto.PROJECT_MANAGER == LOGIN_NAME}">selected</s:if>><s:property value="LOGIN_NAME"/></option>
-										</s:iterator>
-									</select>
+							</div>
+						</div>
+						<div class="col-lg-3 form-group">
+							<label for="" class="col-lg-3 form-label"><span class="red">*</span>工程师</label>
+							<div class="col-lg-9">
+								<select name="addBidDto.PROJECT_MANAGER" id="PROJECT_MANAGER" class="form-control">
+									<s:iterator id="listUserInfo" value="listUserInfo" status="st1">
+										<option value="<s:property value="LOGIN_NAME"/>" <s:if test="%{addBidDto.PROJECT_MANAGER == LOGIN_NAME}">selected</s:if>><s:property value="LOGIN_NAME"/></option>
+									</s:iterator>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-6 form-group">
+							<label for="" class="col-lg-2 form-label"><span class="red">*</span>项目名称</label>
+							<div class="col-lg-10">
+								<s:textfield name="addBidDto.PROJECT_NAME" id="PROJECT_NAME" cssClass="form-control" maxlength="300" theme="simple"></s:textfield>
+							</div>
+						</div>
+						<div class="col-lg-4 form-group">
+							<label for="" class="col-lg-3 form-label">保证金(万元)</label>
+							<div class="col-lg-9">
+								<input type="text" id="tmpBoundPrice" class="form-control" maxlength="12" value="<s:property value="addBidDto.RESERVE5" />" />
+							</div>
+						</div>
+						<div class="col-lg-2 form-group">
+							<button class="btn btn-success form-control" onclick="updBidBond();">更新</button>
+						</div>
+					</div>
+					<div class="">
+						<div class="col-lg-4">
+							<div class="box">
+								<h5>委托公司信息</h5>
+								<div class="row">
+									<label class="col-lg-4 form-label">代码</label>
+									<div class="col-lg-5">
+										<input type="text" id="agentNo" disabled="disabled" maxlength="4" class="form-control" value="<s:property value="addBidDto.AGENT_NO" />" />
+									</div>
+									<div class="col-lg-3"><button class="btn btn-success form-control" onclick="selectAgentComp()">检索</button></div>
 								</div>
-								<div class="box1_right"></div>
-							</td>
-						</tr>
-						<tr>
-							<td align="right">
-								<label class="pdf10"><font color="red">*</font>项目名称</label>
-							</td>
-							<td colspan="3">
-								<div class="box1_left"></div>
-								<div class="box1_center">
-									<s:textfield name="addBidDto.PROJECT_NAME" id="PROJECT_NAME" cssStyle="width:680px;" maxlength="300" theme="simple"></s:textfield>
+								<div class="row">
+									<label class="col-lg-4 form-label">名称</label>
+									<div class="col-lg-8">
+										<input type="text" id="agentCoName" disabled="disabled" maxlength="40" class="form-control" value="<s:property value="addBidDto.AGENT_CO_NAME" />" />
+									</div>
 								</div>
-								<div class="box1_right"></div>
-							</td>
-							<td width="80" align="right">保证金(万元)</td>
-							<td width="180">
-								<div class="box1_left"></div>
-								<div class="box1_center">
-									<input type="text" id="tmpBoundPrice" maxlength="12" style="width:165px;" value="<s:property value="addBidDto.RESERVE5" />" />
+								<div class="row">
+									<label class="col-lg-4 form-label">联系人</label>
+									<div class="col-lg-8">
+										<input type="text" id="agentCoManager" maxlength="24" class="form-control" value="<s:property value="addBidDto.AGENT_CO_MANAGER" />" />
+									</div>
 								</div>
-								<div class="box1_right"></div>
-							</td>
-							<td align="left">
-								<div class="btn1">
-								<div class="btn1_left"></div>
-								<div class="btn1_center">
-									<input class="input80" type="button" value="更新" onclick="updBidBond();"/>
+								<div class="row">
+									<label class="col-lg-4 form-label">电话</label>
+									<div class="col-lg-8">
+										<input type="text" id="agentCoManagerTel" maxlength="30" class="form-control" value="<s:property value="addBidDto.AGENT_CO_MANAGER_TEL" />" />
+									</div>
 								</div>
-								<div class="btn1_right"></div>
+								<div class="row">
+									<label class="col-lg-4 form-label">地址</label>
+									<div class="col-lg-8">
+										<input type="text" id="agentCoPostAddress" maxlength="40" class="form-control" value="<s:property value="addBidDto.AGENT_CO_POST_ADDRESS" />" />
+									</div>
 								</div>
-							</td>
-						</tr>
-					</table>					
-				</div>
-				<div class="companys">
-					<table width="100%" border="0">
-						<tr>
-							<td width="33%">
-								<table class="company_tab" width="100%" border="0">
-									<tr>
-										<td colspan="4" align="center" class="tittle"><strong>委托公司信息</strong></td>
-									</tr>
-									<tr>
-										<td align="right">代码</td>
-										<td>
-											<div class="box1_left"></div>
-											<div class="box1_center">
-												<input type="text" id="agentNo" disabled="disabled" maxlength="4" style="width:150px;" value="<s:property value="addBidDto.AGENT_NO" />" />
+								<div class="row">
+									<label class="col-lg-4 form-label">邮箱</label>
+									<div class="col-lg-8">
+										<s:textfield name="addBidDto.AGENT_CO_MAIL" id="AGENT_CO_MAIL" cssClass="form-control" maxlength="60" theme="simple"></s:textfield>
+									</div>
+								</div>
+								<div class="row" style="display: none;">
+									<label class="col-lg-4 form-label">邮箱</label>
+									<div class="col-lg-8">
+										<s:textfield name="addBidDto.agent_mail_pr" id="agent_mail_pr" cssClass="form-control" maxlength="29" theme="simple"></s:textfield>
+									</div>
+									<label class="col-lg-4 form-label">@</label>
+									<div class="col-lg-8">
+										<s:textfield name="addBidDto.agent_mail_suffix" id="agent_mail_suffix" cssClass="form-control" maxlength="30" theme="simple"></s:textfield>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="box">
+								<h5>专业公司信息</h5>
+								<div class="row">
+									<label class="col-lg-4 form-label">代码</label>
+									<div class="col-lg-5">
+										<input type="text" id="profNo" disabled="disabled" maxlength="4" class="form-control" value="<s:property value="addBidDto.PROF_NO" />" />
+									</div>
+									<div class="col-lg-3">
+										<button class="btn btn-success form-control" onclick="selectExpertComp()">检索</button>
+									</div>
+								</div>
+								<div class="row">
+									<label class="col-lg-4 form-label">名称</label>
+									<div class="col-lg-8">
+										<input type="text" id="profCoName" disabled="disabled" class="form-control" maxlength="40" value="<s:property value="addBidDto.PROF_CO_NAME" />" />
+									</div>
+								</div>
+								<div class="row">
+									<label class="col-lg-4 form-label">联系人</label>
+									<div class="col-lg-8">
+										<input type="text" id="profCoManager" maxlength="24" class="form-control" value="<s:property value="addBidDto.PROF_CO_MANAGER" />" />
+									</div>
+								</div>
+								<div class="row">
+									<label class="col-lg-4 form-label">电话</label>
+									<div class="col-lg-8">
+										<input type="text" id="profCoManagerTel" maxlength="30" class="form-control" value="<s:property value="addBidDto.PROF_CO_MANAGER_TEL" />" />
+									</div>
+								</div>
+								<div class="row">
+									<label class="col-lg-4 form-label">地址</label>
+									<div class="col-lg-8">
+										<input type="text" id="profCoPostAddress" maxlength="40" class="form-control" value="<s:property value="addBidDto.PROF_CO_POST_ADDRESS" />" />
+									</div>
+								</div>
+								<div class="row">
+									<label class="col-lg-4 form-label">邮箱</label>
+									<div class="col-lg-8">
+										<s:textfield name="addBidDto.PROF_CO_MAIL" id="PROF_CO_MAIL" cssClass="form-control" maxlength="60" theme="simple"></s:textfield>
+									</div>
+								</div>
+								<div class="row" style="display: none;">
+									<label class="col-lg-4 form-label">邮箱</label>
+									<div class="col-lg-8">
+										<s:textfield name="addBidDto.prof_mail_pr" id="prof_mail_pr" cssClass="form-control" maxlength="29" theme="simple"></s:textfield>
+									</div>
+									<label class="col-lg-4 form-label">@</label>
+									<div class="col-lg-8">
+										<s:textfield name="addBidDto.prof_mail_suffix" id="prof_mail_suffix" cssClass="form-control" maxlength="30" theme="simple"></s:textfield>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4">
+							<div class="box">
+								<h5>工程概况</h5>
+								<div class="row">
+									<label class="col-lg-4 form-label">批文</label>
+									<div class="col-lg-8">
+										<textarea id="tmpPROJ_APPROVAL" rows="3" cols="" class="form-control"><s:property value="addBidDto.PROJ_APPROVAL" /></textarea>
+									</div>
+								</div>
+								<div class="row">
+									<label class="col-lg-4 form-label">计划价格(元)</label>
+									<div class="col-lg-8">
+										<s:textfield name="addBidDto.PROJ_PLAN_PRICE" id="PROJ_PLAN_PRICE" cssClass="form-control" maxlength="8" theme="simple"></s:textfield>
+									</div>
+								</div>
+								<div class="row">
+									<label class="col-lg-4 form-label">限价(元)</label>
+									<div class="col-lg-8">
+										<s:textfield name="addBidDto.PROJ_ASTRICT_PRICE" id="PROJ_ASTRICT_PRICE" cssClass="form-control" maxlength="8" theme="simple"></s:textfield>
+									</div>
+								</div>
+								<div class="row">
+									<label class="col-lg-4 form-label">招标代理费支付方</label>
+									<div class="col-lg-8">
+										<select name="addBidDto.BID_AGENT_PAY" id="BID_AGENT_PAY" class="form-control">
+											<option value="">请选择</option>
+											<s:iterator id="bidAgentCompList" value="bidAgentCompList" status="st1">
+												<option value="<s:property value="CONFIG_KEY"/>" <s:if test="%{addBidDto.BID_AGENT_PAY == CONFIG_KEY}">selected</s:if>><s:property value="CONFIG_VAL"/></option>
+											</s:iterator>
+										</select>
+									</div>
+								</div>
+								<div class="row">
+									<label class="col-lg-4 form-label">备注</label>
+									<div class="col-lg-8">
+										<s:textfield name="addBidDto.BID_AGENT_PAY2" id="BID_AGENT_PAY2" cssClass="form-control" maxlength="8" theme="simple"></s:textfield>
+									</div>
+								</div>
+								<div class="row">
+									<label class="col-lg-4 form-label">新增招标资料费</label>
+									<div class="col-lg-8 account">
+										<s:if test='addBidDto.BID_NEED_MATERIAL_PRICE == "1"'>
+											<input name="needMaterialPrice" type="radio" value="0"/>
+											<label class="form-label" for="">需要</label>
+											<input name="needMaterialPrice" checked="checked" type="radio" value="1"/>
+											<label class="form-label" for="">不需要</label>
+										</s:if>
+										<s:else>
+											<input name="needMaterialPrice" checked="checked" type="radio" value="0"/>
+											<label class="form-label" for="">需要</label>
+											<input name="needMaterialPrice" type="radio" value="1"/>
+											<label class="form-label" for="">不需要</label>
+										</s:else>
+									</div>
+								</div>
+								<div class="row">
+									<label class="col-lg-4 form-label">承接项目日期</label>
+									<div class="col-lg-8">
+										<div class="input-group date" data-provide="datepicker">
+											<input type="text" id="reserveDate6" maxlength="10" class="form-control datepicker" readonly="" value="<s:date format="yyyy-MM-dd" name="addBidDto.RESERVE_DATE6"/>" />
+											<div class="input-group-addon">
+												<span class="glyphicon glyphicon-th"></span>
 											</div>
-											<div class="box1_right"></div>
-											<div class="btn">
-												<div class="box1_left"></div>
-												<div class="box1_center">
-													<input id="agentCompBtn" class="input40" type="button" value="检索" onclick="selectAgentComp()" />
-												</div>
-												<div class="box1_right"></div>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td align="right">名称</td>
-										<td>
-											<div class="box1_left"></div>
-											<div class="box1_center">
-												<input type="text" id="agentCoName" disabled="disabled" maxlength="40" style="width:250px;" value="<s:property value="addBidDto.AGENT_CO_NAME" />" />
-											</div>
-											<div class="box1_right"></div>
-										</td>
-									</tr>
-									<tr>
-										<td align="right">联系人</td>
-										<td>
-											<div class="box1_left"></div>
-											<div class="box1_center">
-												<input type="text" id="agentCoManager" maxlength="24" style="width:250px;" value="<s:property value="addBidDto.AGENT_CO_MANAGER" />" />
-											</div>
-											<div class="box1_right"></div>
-										</td>
-									</tr>
-									<tr>
-										<td align="right">电话</td>
-										<td>
-											<div class="box1_left"></div>
-											<div class="box1_center">
-												<input type="text" id="agentCoManagerTel" maxlength="30" style="width:250px;" value="<s:property value="addBidDto.AGENT_CO_MANAGER_TEL" />" />
-											</div>
-											<div class="box1_right"></div>
-										</td>
-									</tr>
-									<tr>
-										<td align="right">地址</td>
-										<td>
-											<div class="box1_left"></div>
-											<div class="box1_center">
-												<input type="text" id="agentCoPostAddress" maxlength="40" style="width:250px;" value="<s:property value="addBidDto.AGENT_CO_POST_ADDRESS" />" />
-											</div>
-											<div class="box1_right"></div>
-										</td>
-									</tr>
-									<tr>
-										<td align="right">邮箱</td>
-										<td>
-											<div class="box1">
-												<div class="box1_left"></div>
-												<div class="box1_center">
-													<s:textfield name="addBidDto.AGENT_CO_MAIL" id="AGENT_CO_MAIL" cssStyle="width:250px;" maxlength="60" theme="simple"></s:textfield>
-												</div>
-												<div class="box1_right"></div>
-											</div>
-										</td>
-									</tr>
-									<tr style="display: none;">
-										<td align="right">邮箱</td>
-										<td>
-											<div class="box1">
-												<div class="box1_left"></div>
-												<div class="box1_center">
-													<s:textfield name="addBidDto.agent_mail_pr" id="agent_mail_pr" cssStyle="width:116px;" maxlength="29" theme="simple"></s:textfield>
-												</div>
-												<div class="box1_right"></div>
-												<label>@</label>
-												<div class="box1_left"></div>
-												<div class="box1_center">
-													<s:textfield name="addBidDto.agent_mail_suffix" id="agent_mail_suffix" cssStyle="width:116px;" maxlength="30" theme="simple"></s:textfield>
-												</div>
-												<div class="box1_right"></div>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td>&nbsp;</td>
-										<td>&nbsp;</td>
-									</tr>
-								</table>
-							</td>
-							<td width="33%">
-								<table class="company_tab" width="100%" border="0">
-									<tr>
-										<td colspan="4" align="center" class="tittle"><strong>专业公司信息</strong></td>
-									</tr>
-									<tr>
-										<td align="right">代码</td>
-										<td>
-											<div class="box1_left"></div>
-											<div class="box1_center">
-												<input type="text" id="profNo" disabled="disabled" maxlength="4" style="width:150px;" value="<s:property value="addBidDto.PROF_NO" />" />
-											</div>
-											<div class="box1_right"></div>
-											<div class="btn">
-												<div class="box1_left"></div>
-												<div class="box1_center">
-													<input id="expertCompBtn" class="input40" type="button" onclick="selectExpertComp()" value="检索" />
-												</div>
-												<div class="box1_right"></div>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td align="right">名称</td>
-										<td>
-											<div class="box1_left"></div>
-											<div class="box1_center">
-												<input type="text" id="profCoName" disabled="disabled" style="width:250px;" maxlength="40" value="<s:property value="addBidDto.PROF_CO_NAME" />" />
-											</div>
-											<div class="box1_right"></div>
-										</td>
-									</tr>
-									<tr>
-										<td align="right">联系人</td>
-										<td>
-											<div class="box1_left"></div>
-											<div class="box1_center">
-												<input type="text" id="profCoManager" maxlength="24" style="width:250px;" value="<s:property value="addBidDto.PROF_CO_MANAGER" />" />
-											</div>
-											<div class="box1_right"></div>
-										</td>
-									</tr>
-									<tr>
-										<td align="right">电话</td>
-										<td>
-											<div class="box1_left"></div>
-											<div class="box1_center">
-												<input type="text" id="profCoManagerTel" maxlength="30" style="width:250px;" value="<s:property value="addBidDto.PROF_CO_MANAGER_TEL" />" />
-											</div>
-											<div class="box1_right"></div>
-										</td>
-									</tr>
-									<tr>
-										<td align="right">地址</td>
-										<td>
-											<div class="box1_left"></div>
-											<div class="box1_center">
-												<input type="text" id="profCoPostAddress" maxlength="40" style="width:250px;" value="<s:property value="addBidDto.PROF_CO_POST_ADDRESS" />" />
-											</div>
-											<div class="box1_right"></div>
-										</td>
-									</tr>
-									<tr>
-										<td align="right">邮箱</td>
-										<td>
-											<div class="box1">
-												<div class="box1_left"></div>
-												<div class="box1_center">
-													<s:textfield name="addBidDto.PROF_CO_MAIL" id="PROF_CO_MAIL" cssStyle="width:250px;" maxlength="60" theme="simple"></s:textfield>
-												</div>
-												<div class="box1_right"></div>
-											</div>
-										</td>
-									</tr>
-									<tr style="display: none;">
-										<td align="right">邮箱</td>
-										<td>
-											<div class="box1">
-												<div class="box1_left"></div>
-												<div class="box1_center">
-													<s:textfield name="addBidDto.prof_mail_pr" id="prof_mail_pr" cssStyle="width:116px;" maxlength="29" theme="simple"></s:textfield>
-												</div>
-												<div class="box1_right"></div>
-												<label>@</label>
-												<div class="box1_left"></div>
-												<div class="box1_center">
-													<s:textfield name="addBidDto.prof_mail_suffix" id="prof_mail_suffix" cssStyle="width:116px;" maxlength="30" theme="simple"></s:textfield>
-												</div>
-												<div class="box1_right"></div>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td>&nbsp;</td>
-										<td>&nbsp;</td>
-									</tr>
-								</table>
-							</td>
-							<td width="33%">
-								<table class="company_tab" width="100%" border="0">
-									<tr>
-										<td colspan="4" align="center" class="tittle"><strong>工程概况</strong></td>
-									</tr>
-									<tr style="height: 60px;">
-										<td align="right" width="110">批文</td>
-										<td>
-											<textarea id="tmpPROJ_APPROVAL" rows="3" cols="" style="width:255px;"><s:property value="addBidDto.PROJ_APPROVAL" /></textarea>
-										</td>
-									</tr>
-									<tr style="height: 35px;">
-										<td align="right">计划价格(元)</td>
-										<td>
-											<div class="box1_left"></div>
-											<div class="box1_center">
-												<s:textfield name="addBidDto.PROJ_PLAN_PRICE" id="PROJ_PLAN_PRICE" cssStyle="width:250px;" maxlength="8" theme="simple"></s:textfield>
-											</div>
-											<div class="box1_right"></div>
-										</td>
-									</tr>
-									<tr style="height: 35px;">
-										<td align="right">限价(元)</td>
-										<td>
-											<div class="box1_left"></div>
-											<div class="box1_center">
-												<s:textfield name="addBidDto.PROJ_ASTRICT_PRICE" id="PROJ_ASTRICT_PRICE" cssStyle="width:250px;" maxlength="8" theme="simple"></s:textfield>
-											</div>
-											<div class="box1_right"></div>
-										</td>
-									</tr>
-									<tr style="height: 35px;">
-										<td align="right">招标代理费支付方</td>
-										<td>
-											<div class="box1_left"></div>
-											<div class="box1_center">
-												<select name="addBidDto.BID_AGENT_PAY" id="BID_AGENT_PAY" style="width: 250px;">
-													<option value="">请选择</option>
-													<s:iterator id="bidAgentCompList" value="bidAgentCompList" status="st1">
-														<option value="<s:property value="CONFIG_KEY"/>" <s:if test="%{addBidDto.BID_AGENT_PAY == CONFIG_KEY}">selected</s:if>><s:property value="CONFIG_VAL"/></option>
-													</s:iterator>
-												</select>
-											</div>
-											<div class="box1_right"></div>
-										</td>
-									</tr>
-									<tr>
-										<td align="right">备注</td>
-										<td>
-											<s:textfield name="addBidDto.BID_AGENT_PAY2" id="BID_AGENT_PAY2" cssStyle="width:250px;" maxlength="8" theme="simple"></s:textfield>
-										</td>
-									</tr>
-									<tr style="height: 35px;">
-										<td align="right">新增招标资料费</td>
-										<td>
-											<s:if test='addBidDto.BID_NEED_MATERIAL_PRICE == "1"'>
-												<input name="needMaterialPrice" type="radio" value="0"/>需要　<input name="needMaterialPrice" checked="checked" type="radio" value="1"/>不需要
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<label class="col-lg-4 form-label">项目性质</label>
+									<div class="col-lg-8">
+										<select id="RESERVE2" name="addBidDto.RESERVE2" class="form-control">
+											<s:if test='addBidDto.RESERVE2 == "1"'>
+												<option value="">请选择</option>
+												<option value="1" selected="selected">成本内</option>
+												<option value="2">成本外</option>
+												<option value="3">其他</option>
 											</s:if>
+											<s:elseif test='addBidDto.RESERVE2 == "2"'>
+												<option value="">请选择</option>
+												<option value="1">成本内</option>
+												<option value="2" selected="selected">成本外</option>
+												<option value="3">其他</option>
+											</s:elseif>
+											<s:elseif test='addBidDto.RESERVE2 == "3"'>
+												<option value="">请选择</option>
+												<option value="1">成本内</option>
+												<option value="2">成本外</option>
+												<option value="3" selected="selected">其他</option>
+											</s:elseif>
 											<s:else>
-												<input name="needMaterialPrice" checked="checked" type="radio" value="0"/>需要　<input name="needMaterialPrice" type="radio" value="1"/>不需要
+												<option value="" selected="selected">请选择</option>
+												<option value="1">成本内</option>
+												<option value="2">成本外</option>
+												<option value="3">其他</option>
 											</s:else>
-										</td>
-									</tr>
-									<tr style="height: 35px;">
-										<td align="right">承接项目日期</td>
-										<td>
-											<div class="box1_left"></div>
-											<div class="box1_center date_input">
-												<input type="text" id="reserveDate6" maxlength="10" style="width: 230px;" disabled="disabled" value="<s:date format="yyyy-MM-dd" name="addBidDto.RESERVE_DATE6"/>" />
-												<a id="reserveDate6Btn" class="date" href="javascript:;" onclick="new Calendar().show(document.getElementById('reserveDate6'));"></a>
-											</div>
-											<div class="box1_right"></div>
-										</td>
-									</tr>
-									<tr style="height: 35px;">
-										<td align="right">项目性质</td>
-										<td>
-											<div class="box1_left"></div>
-											<div class="box1_center">
-												<select id="RESERVE2" name="addBidDto.RESERVE2" style="width: 250px;">
-													<s:if test='addBidDto.RESERVE2 == "1"'>
-														<option value="">请选择</option>
-														<option value="1" selected="selected">成本内</option>
-														<option value="2">成本外</option>
-														<option value="3">其他</option>
-													</s:if>
-													<s:elseif test='addBidDto.RESERVE2 == "2"'>
-														<option value="">请选择</option>
-														<option value="1">成本内</option>
-														<option value="2" selected="selected">成本外</option>
-														<option value="3">其他</option>
-													</s:elseif>
-													<s:elseif test='addBidDto.RESERVE2 == "3"'>
-														<option value="">请选择</option>
-														<option value="1">成本内</option>
-														<option value="2">成本外</option>
-														<option value="3" selected="selected">其他</option>
-													</s:elseif>
-													<s:else>
-														<option value="" selected="selected">请选择</option>
-														<option value="1">成本内</option>
-														<option value="2">成本外</option>
-														<option value="3">其他</option>
-													</s:else>
-												</select>
-											</div>
-											<div class="box1_right"></div>
-										</td>
-									</tr>
-								</table>
-							</td>
-						</tr>
-					</table>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="operationBtns addBtns mgt15 btn3">
+						<button class="btn btn-success" onclick="exportBidForm();">导出流转单</button>
+						<button class="btn btn-success" onclick="add();">保存</button>
+						<s:if test='addBidDto.STATUS == "10"'>
+							<button class="btn btn-success" onclick="nextstep();">下一步</button>
+						</s:if>
+						<button class="btn btn-success" onclick="goBidList();">返回</button>
+					</div>
 				</div>
-				<div class="trade">
-					<table cellpadding="10" style="margin:0 auto;">
-						<tr>
-							<td>
-								<div class="btn">
-									<div class="box1_left"></div>
-									<div class="box1_center">
-										<input class="input80" type="button" value="导出流转单" onclick="exportBidForm();"/>
-									</div>
-									<div class="box1_right"></div>
-								</div>
-							</td>
-							<td>
-								<div class="btn">
-									<div class="box1_left"></div>
-									<div class="box1_center">
-										<input class="input80" type="button" value="保存" onclick="add();"/>
-									</div>
-									<div class="box1_right"></div>
-								</div>
-							</td>
-							<s:if test='addBidDto.STATUS == "10"'>
-							<td>
-								<div class="btn">
-									<div class="box1_left"></div>
-									<div class="box1_center">
-										<input class="input80" type="button" value="下一步" onclick="nextstep();"/>
-									</div>
-									<div class="box1_right"></div>
-								</div>
-							</td>
-							</s:if>
-							<td>
-								<div class="btn">
-									<div class="box1_left"></div>
-									<div class="box1_center">
-										<input class="input80" type="button" value="返回" onclick="goBidList();"/>
-									</div>
-									<div class="box1_right"></div>
-								</div>
-							</td>
-						</tr>
-					</table>
-					<div style="height:225px;"></div>
-				</div>
-			</s:form>
-		</div>
+			</div>
+		</s:form>
 	</div>
+	<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+<script src="<%=request.getContextPath()%>/node_modules/jquery/dist/jquery.min.js"></script>
+<!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+<script src="<%=request.getContextPath()%>/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.min.js"></script>
+<script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.zh-CN.min.js"></script>
+<script>
+	$('.datepicker').parent().datepicker({
+		"autoclose":true,"format":"yyyy-mm-dd","language":"zh-CN"
+	});
+</script>
 </body>
 </html>
