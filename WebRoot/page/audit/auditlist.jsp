@@ -202,16 +202,17 @@
 	<jsp:include page="../head.jsp" flush="true" />
 	<div class="container-fluid">
 		<jsp:include page="../info.jsp" flush="true" />
-		<s:form id="mainform" name="mainform" method="POST">
-			<s:hidden name="startIndex" id="startIndex"/>
-			<s:hidden name="strValueDateLow" id="strValueDateLow"/>
-			<s:hidden name="strValueDateHigh" id="strValueDateHigh"/>
-			<s:hidden name="strDocArrDateLow" id="strDocArrDateLow"/>
-			<s:hidden name="strDocArrDateHigh" id="strDocArrDateHigh"/>
-			<s:hidden name="strAuditStatus" id="strAuditStatus"/>
-			<div class="row">
-				<%-- <jsp:include page="../menu.jsp" flush="true" /> --%>
-				<div class="col-lg-10">
+		<div class="row">
+			<jsp:include page="../menu.jsp" flush="true" />
+			<div class="col-lg-10 right">
+				<a class="toggle" href="javascript:;"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+				<s:form id="mainform" name="mainform" method="POST">
+					<s:hidden name="startIndex" id="startIndex"/>
+					<s:hidden name="strValueDateLow" id="strValueDateLow"/>
+					<s:hidden name="strValueDateHigh" id="strValueDateHigh"/>
+					<s:hidden name="strDocArrDateLow" id="strDocArrDateLow"/>
+					<s:hidden name="strDocArrDateHigh" id="strDocArrDateHigh"/>
+					<s:hidden name="strAuditStatus" id="strAuditStatus"/>
 					<h3 class="title">审价信息一览<a class="backHome" href="#" onclick="goHome();"><i class="fa fa-home" aria-hidden="true"></i>返回首页</a></h3>
 					<div class="row">
 						<div class="col-lg-3 form-group">
@@ -670,15 +671,15 @@
 							</li>
 						</ul>
 					</div>
-				</div>
+				</s:form>
 			</div>
-			<div class="operationBtns addBtns mgt15 btn3" style="width: 300px;">
-				<button class="btn btn-success" onclick="showAuditDetail();">详细</button>
-				<button class="btn btn-success" onclick="showHis();">履历</button>
-				<button class="btn btn-success" onclick="exportAudit();">下载</button>
-				<button class="btn btn-success" onclick="exportAuditReceipt();">下载(发票)</button>
-			</div>
-		</s:form>
+		</div>
+		<div class="operationBtns addBtns mgt15 btn3" style="width: 300px;">
+			<button class="btn btn-success" onclick="showAuditDetail();">详细</button>
+			<button class="btn btn-success" onclick="showHis();">履历</button>
+			<button class="btn btn-success" onclick="exportAudit();">下载</button>
+			<button class="btn btn-success" onclick="exportAuditReceipt();">下载(发票)</button>
+		</div>
 	</div>
 <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
 <script src="<%=request.getContextPath()%>/node_modules/jquery/dist/jquery.min.js"></script>
@@ -689,6 +690,13 @@
 <script>
 	$('.datepicker').parent().datepicker({
 		"autoclose":true,"format":"yyyy-mm-dd","language":"zh-CN"
+	});
+	
+	$('.toggle i').click(function(){
+		$('.left').toggle();
+		$(this).toggleClass('fa-angle-double-left');
+		$(this).toggleClass('fa-angle-double-right');
+		$(this).parent().parent('.right').toggleClass('w100');
 	});
 </script>
 </body>

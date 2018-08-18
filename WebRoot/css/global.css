@@ -51,6 +51,9 @@ h3.title a.backHome i.fa{ margin-right: 5px; font-size: 16px; }
 .panel-body{ padding:10px; }
 .panel-body ul{ margin:0; padding:0; }
 .panel-default,.panel-default>.panel-heading { border-color: #516f89;}
+.right{ position: relative; }
+.toggle{ position: absolute; left:5px; top:15px; font-size: 18px; }
+.w100{ width:100%; }
 
 .pages{ float:right; padding-top:10px;}
 .pages ul{ margin:0; padding:0;}

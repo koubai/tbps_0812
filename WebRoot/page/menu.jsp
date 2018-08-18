@@ -2,12 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="c" uri="/WEB-INF/c.tld"%>
-<div class="col-lg-2">
+<div class="col-lg-2 left">
 	<div class="panel-group" id="accordion">
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h4 class="panel-title">
-					<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"> 招标 </a>
+					<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"> 合同 </a>
 				</h4>
 			</div>
 			<div id="collapseOne" class="panel-collapse collapse">

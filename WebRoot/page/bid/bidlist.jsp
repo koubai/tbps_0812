@@ -219,16 +219,17 @@
 	<jsp:include page="../head.jsp" flush="true" />
 	<div class="container-fluid">
 		<jsp:include page="../info.jsp" flush="true" />
-		<s:form id="mainform" name="mainform" method="POST">
-			<s:hidden name="startIndex" id="startIndex"/>
-			<s:hidden name="strOpenDateLow" id="strOpenDateLow"/>
-			<s:hidden name="strOpenDateHigh" id="strOpenDateHigh"/>
-			<s:hidden name="strBidStatus" id="strBidStatus"/>
-			<s:hidden name="updateBidNo" id="updateBidNo"/>
-			<s:hidden name="tmpBidStatus" id="tmpBidStatus"/>
-			<div class="row">
-				<%-- <jsp:include page="../menu.jsp" flush="true" /> --%>
-				<div class="col-lg-10">
+		<div class="row">
+			<jsp:include page="../menu.jsp" flush="true" />
+			<div class="col-lg-10 right">
+			 	<a class="toggle" href="javascript:;"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+				<s:form id="mainform" name="mainform" method="POST">
+					<s:hidden name="startIndex" id="startIndex"/>
+					<s:hidden name="strOpenDateLow" id="strOpenDateLow"/>
+					<s:hidden name="strOpenDateHigh" id="strOpenDateHigh"/>
+					<s:hidden name="strBidStatus" id="strBidStatus"/>
+					<s:hidden name="updateBidNo" id="updateBidNo"/>
+					<s:hidden name="tmpBidStatus" id="tmpBidStatus"/>
 					<h3 class="title">招标信息一览<a class="backHome" href="#" onclick="goHome();"><i class="fa fa-home" aria-hidden="true"></i>返回首页</a></h3>
 					<div class="row">
 						<div class="col-lg-6 form-group">
@@ -483,14 +484,14 @@
 							</li>
 						</ul>
 					</div>
-				</div>
+				</s:form>
 			</div>
-			<div class="operationBtns addBtns mgt15 btn3" style="width: 300px;">
-				<button class="btn btn-success" onclick="showHis();">履历</button>
-				<button class="btn btn-success" onclick="exportYear();">下载</button>
-				<button class="btn btn-success" onclick="exportBidExpert();">专家信息下载</button>
-			</div>
-		</s:form>
+		</div>
+		<div class="operationBtns addBtns mgt15 btn3" style="width: 300px;">
+			<button class="btn btn-success" onclick="showHis();">履历</button>
+			<button class="btn btn-success" onclick="exportYear();">下载</button>
+			<button class="btn btn-success" onclick="exportBidExpert();">专家信息下载</button>
+		</div>
 	</div>
 	<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
 <script src="<%=request.getContextPath()%>/node_modules/jquery/dist/jquery.min.js"></script>
@@ -501,6 +502,13 @@
 <script>
 	$('.datepicker').parent().datepicker({
 		"autoclose":true,"format":"yyyy-mm-dd","language":"zh-CN"
+	});
+	
+	$('.toggle i').click(function(){
+		$('.left').toggle();
+		$(this).toggleClass('fa-angle-double-left');
+		$(this).toggleClass('fa-angle-double-right');
+		$(this).parent().parent('.right').toggleClass('w100');
 	});
 </script>
 </body>
