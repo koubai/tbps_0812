@@ -227,7 +227,8 @@
 			<s:hidden name="updateBidNo" id="updateBidNo"/>
 			<s:hidden name="tmpBidStatus" id="tmpBidStatus"/>
 			<div class="row">
-				<div class="container-fluid">
+				<%-- <jsp:include page="../menu.jsp" flush="true" /> --%>
+				<div class="col-lg-10">
 					<h3 class="title">招标信息一览<a class="backHome" href="#" onclick="goHome();"><i class="fa fa-home" aria-hidden="true"></i>返回首页</a></h3>
 					<div class="row">
 						<div class="col-lg-6 form-group">
