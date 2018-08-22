@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="bidcntrct" extends="struts-tbps" namespace="/bidcntrct">
+	
+		<action name="showBidCntrcPage" class="bidCntrctAction" method="showBidCntrcPage">
+			<result name="success">/page/bidcntrct/bidcntrctlist.jsp</result>
+		</action>
+		
+		<action name="queryBidCntrcList" class="bidCntrctAction" method="queryBidCntrcList">
+			<result name="success">/page/bidcntrct/bidcntrctlist.jsp</result>
+		</action>
+		
+		<action name="turnBidCntrcPage" class="bidCntrctAction" method="turnBidCntrcPage">
+			<result name="success">/page/bidcntrct/bidcntrctlist.jsp</result>
+		</action>
+		
+		<action name="showAddBidCntrc" class="bidCntrctAction" method="showAddBidCntrc">
+			<result name="success">/page/bidcntrct/addbidcntrct.jsp</result>
+		</action>
+		
+		<action name="addBidCntrc" class="bidCntrctAction" method="addBidCntrc">
+			<result name="success">/page/bidcntrct/addbidcntrct.jsp</result>
+			<result name="checkerror">/page/bidcntrct/addbidcntrct.jsp</result>
+		</action>
+		
+	</package>
+
+</struts>

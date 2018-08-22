@@ -41,6 +41,9 @@
 	<!-- 招标 -->
 	<include file="struts-bid.xml"/>
 	
+	<!-- 招标合同 -->
+	<include file="struts-bidcntrct.xml"/>
+	
 	<package name="index" extends="struts-default, json-default" namespace="/index">
 		
 		<!-- 验证码 -->

@@ -82,22 +82,52 @@
 	<select id="queryBidCntrctCountByPage" resultClass="int" parameterClass="java.util.Map">
 		select count(*) from bidcntrct T where 1 = 1
 			and T.DELETE_FLG = '1'
+		<isNotEmpty prepend="and" property="CNTRCT_YEAR">
+			T.CNTRCT_YEAR = #CNTRCT_YEAR#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="CNTRCT_NO">
+			T.CNTRCT_NO = #CNTRCT_NO#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="BID_COMP_NO">
+			T.BID_COMP_NO = #BID_COMP_NO#
+		</isNotEmpty>
 		<isNotEmpty prepend="and" property="CNTRCT_NAME">
 			T.CNTRCT_NAME like '%$CNTRCT_NAME$%'
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="CNTRCT_TYPE">
 			T.CNTRCT_TYPE = #CNTRCT_TYPE#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="CNTRCT_ST_DATE">
+			T.CNTRCT_ST_DATE <![CDATA[>=]]> #CNTRCT_ST_DATE#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="CNTRCT_ED_DATE">
+			T.CNTRCT_ED_DATE <![CDATA[<=]]> #CNTRCT_ED_DATE#
 		</isNotEmpty>
 	</select>
 	
 	<select id="queryBidCntrctByPage" parameterClass="java.util.Map" resultMap="BidCntrctDto">
 		select T.* from bidcntrct T where 1 = 1
 		and T.DELETE_FLG = '1'
+		<isNotEmpty prepend="and" property="CNTRCT_YEAR">
+			T.CNTRCT_YEAR = #CNTRCT_YEAR#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="CNTRCT_NO">
+			T.CNTRCT_NO = #CNTRCT_NO#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="BID_COMP_NO">
+			T.BID_COMP_NO = #BID_COMP_NO#
+		</isNotEmpty>
 		<isNotEmpty prepend="and" property="CNTRCT_NAME">
 			T.CNTRCT_NAME like '%$CNTRCT_NAME$%'
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="CNTRCT_TYPE">
 			T.CNTRCT_TYPE = #CNTRCT_TYPE#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="CNTRCT_ST_DATE">
+			T.CNTRCT_ST_DATE <![CDATA[>=]]> #CNTRCT_ST_DATE#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="CNTRCT_ED_DATE">
+			T.CNTRCT_ED_DATE <![CDATA[<=]]> #CNTRCT_ED_DATE#
 		</isNotEmpty>
 		order by CNTRCT_NO desc
 		LIMIT #start#, #end#

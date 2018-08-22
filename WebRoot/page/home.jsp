@@ -55,6 +55,10 @@
 	function showBond() {
 		window.location.href = '<c:url value="/bond/showBondAction.action"></c:url>';
 	}
+	
+	function showBidCntrctAction() {
+		window.location.href = '<c:url value="/bidcntrct/showBidCntrcPage.action"></c:url>';
+	}
 </script>
 </head>
 <body>
@@ -106,6 +110,9 @@
 			</s:else>
 			<div class="col-lg-6">
 				<a class="btn btn-primary" href="#" onclick="showAuditCompAction();">合同登记</a>
+			</div>
+			<div class="col-lg-6">
+				<a class="btn btn-primary" href="#" onclick="showBidCntrctAction();">招标合同管理一览</a>
 			</div>
 		</div>
 	</div>
