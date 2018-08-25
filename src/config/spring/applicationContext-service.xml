@@ -47,6 +47,9 @@
 		<property name="auditCntrctDao">
 			<ref local="auditCntrctDao"/>
 		</property>
+		<property name="auditCntrctHisDao">
+			<ref local="auditCntrctHisDao"/>
+		</property>
 	</bean>
 	
 	<bean id="auditCntrctDao" class="com.cn.tbps.dao.impl.AuditCntrctDaoImpl">

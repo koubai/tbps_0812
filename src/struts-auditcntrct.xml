@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="auditcntrct" extends="struts-tbps" namespace="/auditcntrct">
+	
+		<action name="showAuditCntrctAction" class="auditCntrctAction" method="showAuditCntrctAction">
+			<result name="success">/page/audit/auditcntrctlist.jsp</result>
+		</action>
+		
+		<action name="queryAuditCntrctList" class="auditCntrctAction" method="queryAuditCntrctList">
+			<result name="success">/page/audit/auditcntrctlist.jsp</result>
+		</action>
+		
+		<action name="turnAuditCntrctPage" class="auditCntrctAction" method="turnAuditCntrctPage">
+			<result name="success">/page/audit/auditcntrctlist.jsp</result>
+		</action>
+		
+		<action name="delAuditCntrctAction" class="auditCntrctAction" method="delAuditCntrctAction">
+			<result name="success">/page/audit/auditcntrctlist.jsp</result>
+			<result name="checkerror">/page/audit/auditcntrctlist.jsp</result>
+		</action>
+		
+		<action name="showAddAuditCntrctAction" class="auditCntrctAction" method="showAddAuditCntrctAction">
+			<result name="success">/page/audit/addauditcntrct.jsp</result>
+		</action>
+		
+		<action name="addAuditCntrctAction" class="auditCntrctAction" method="addAuditCntrctAction">
+			<result name="success">/page/audit/addauditcntrct.jsp</result>
+			<result name="checkerror">/page/audit/addauditcntrct.jsp</result>
+		</action>
+		
+		<action name="showUpdAuditCntrctAction" class="auditCntrctAction" method="showUpdAuditCntrctAction">
+			<result name="success">/page/audit/updauditcntrct.jsp</result>
+			<result name="checkerror">/page/audit/updauditcntrct.jsp</result>
+		</action>
+		
+		<action name="updAuditCntrctAction" class="auditCntrctAction" method="updAuditCntrctAction">
+			<result name="success">/page/audit/updauditcntrct.jsp</result>
+			<result name="checkerror">/page/audit/updauditcntrct.jsp</result>
+		</action>
+		
+		<action name="showAuditCntrctDetail" class="auditCntrctAction" method="showAuditCntrctDetail">
+			<result name="success">/page/audit/auditcntrctdetail.jsp</result>
+		</action>
+		
+		<action name="exportAuditCntrctListAction" class="auditCntrctAction" method="exportAuditCntrctListAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
+		
+		<action name="showAllAuditCntrctHisAction" class="auditCntrctAction" method="showAllAuditCntrctHisAction">
+			<result name="success">/page/audit/auditcntrcthisall.jsp</result>
+		</action>
+		
+		<action name="showAuditCntrctHistDetail" class="auditCntrctAction" method="showAuditCntrctHistDetail">
+			<result name="success">/page/audit/auditcntrcthisdetail.jsp</result>
+		</action>
+		
+		<action name="exportAuditCntrctHist" class="auditCntrctAction" method="exportAuditCntrctHist">
+			<result name="success">/page/download.jsp</result>
+		</action>
+		
+		<action name="showSelectAgentCompAction" class="auditCntrctAction" method="showSelectAgentCompAction">
+			<result name="success">/page/bid/selectagentcomp.jsp</result>
+		</action>
+		
+	</package>
+
+</struts>

@@ -11,18 +11,30 @@ import com.cn.tbps.dto.AuditCntrctDto;
 public class AuditCntrctDaoImpl extends BaseDao implements AuditCntrctDao {
 
 	@Override
-	public int queryAuditCntrctCountByPage(String CNTRCT_NAME, String CNTRCT_TYPE) {
+	public int queryAuditCntrctCountByPage(String strCntrctBelong, String strCntrctNO, String strCntrctType,
+			String strCntrctName, String strCntrctStDateLow, String strCntrctStDateHigh) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("CNTRCT_NAME", CNTRCT_NAME);
-		paramMap.put("CNTRCT_TYPE", CNTRCT_TYPE);
+		paramMap.put("CNTRCT_BELONG", strCntrctBelong);
+		paramMap.put("CNTRCT_NO", strCntrctNO);
+		paramMap.put("CNTRCT_TYPE", strCntrctType);
+		paramMap.put("CNTRCT_NAME", strCntrctName);
+		paramMap.put("CNTRCT_ST_DATE_LOW", strCntrctStDateLow);
+		paramMap.put("CNTRCT_ST_DATE_HIGH", strCntrctStDateHigh);
 		return (Integer) getSqlMapClientTemplate().queryForObject("queryAuditCntrctCountByPage", paramMap);
 	}
 
 	@Override
-	public List<AuditCntrctDto> queryAuditCntrctByPage(String CNTRCT_NAME, String CNTRCT_TYPE, int start, int end) {
+	public List<AuditCntrctDto> queryAuditCntrctByPage(String strCntrctBelong, String strCntrctNO, String strCntrctType,
+			String strCntrctName, String strCntrctStDateLow, String strCntrctStDateHigh, int start, int end) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("CNTRCT_NAME", CNTRCT_NAME);
-		paramMap.put("CNTRCT_TYPE", CNTRCT_TYPE);
+		paramMap.put("CNTRCT_BELONG", strCntrctBelong);
+		paramMap.put("CNTRCT_NO", strCntrctNO);
+		paramMap.put("CNTRCT_TYPE", strCntrctType);
+		paramMap.put("CNTRCT_NAME", strCntrctName);
+		paramMap.put("CNTRCT_ST_DATE_LOW", strCntrctStDateLow);
+		paramMap.put("CNTRCT_ST_DATE_HIGH", strCntrctStDateHigh);
+		paramMap.put("start", start);
+		paramMap.put("end", end);
 		@SuppressWarnings("unchecked")
 		List<AuditCntrctDto> list = getSqlMapClientTemplate().queryForList("queryAuditCntrctByPage", paramMap);
 		return list;

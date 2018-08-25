@@ -20,7 +20,17 @@
 		</property>
 	</bean>
 
-	<!-- 审价 -->
+	<!-- 审计 -->
+	<bean id="auditCntrctAction" class="com.cn.tbps.action.AuditCntrctAction" scope="session">
+		<property name="auditCntrctService">
+			<ref bean="auditCntrctService" />
+		</property>
+		<property name="userInfoService">
+			<ref bean="userInfoService" />
+		</property>
+	</bean>
+
+	<!-- 审计项目 -->
 	<bean id="auditAction" class="com.cn.tbps.action.AuditAction" scope="session">
 		<property name="auditService">
 			<ref bean="auditService" />

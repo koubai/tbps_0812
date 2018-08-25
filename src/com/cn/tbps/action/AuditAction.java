@@ -362,9 +362,202 @@ public class AuditAction extends BaseAction {
 		}
 		return SUCCESS;
 	}
-
 	
+	//审价
+	/**
+	 * 导出审定单（地铁）
+	 * @return
+	 */
+	public String exportAuditMetroAction() {
+		try {
+			this.clearMessages();
+			String filename = "page/audittemplate.xlsx";
+			String name =  StringUtil.createFileName(Constants.EXCEL_TYPE_SJSDD);
+			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
+			response.setContentType("application/vnd.ms-excel");
+			Poi2007Base base = PoiFactory.getPoi(Constants.EXCEL_TYPE_SJSDD);
+			
+			//查询数据
+			List<AuditDto> list = new ArrayList<AuditDto>();
+			list.add(updAuditDto);
+			base.setDatas(list);
+			base.setSheetName(Constants.EXCEL_TYPE_SJSDD);
+			base.setFilepath(filename);
+			base.exportExcel2(response.getOutputStream());
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
 	
+	//审价
+	/**
+	 * 导出审定单（非地铁）
+	 * @return
+	 */
+	public String exportAuditNoMetroAction() {
+		try {
+			this.clearMessages();
+			String filename = "page/audittemplate.xlsx";
+			String name =  StringUtil.createFileName(Constants.EXCEL_TYPE_SJSDD2);
+			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
+			response.setContentType("application/vnd.ms-excel");
+			Poi2007Base base = PoiFactory.getPoi(Constants.EXCEL_TYPE_SJSDD2);
+			
+			//查询数据
+			List<AuditDto> list = new ArrayList<AuditDto>();
+			list.add(updAuditDto);
+			base.setDatas(list);
+			base.setSheetName(Constants.EXCEL_TYPE_SJSDD2);
+			base.setFilepath(filename);
+			base.exportExcel2(response.getOutputStream());
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	//审价
+	/**
+	 * 资料登记表
+	 * @return
+	 */
+	public String exportAuditRegisterAction() {
+		try {
+			this.clearMessages();
+			String filename = "page/audittemplate.xlsx";
+			String name =  StringUtil.createFileName(Constants.EXCEL_TYPE_SJDJ);
+			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
+			response.setContentType("application/vnd.ms-excel");
+			Poi2007Base base = PoiFactory.getPoi(Constants.EXCEL_TYPE_SJDJ);
+			
+			//查询数据
+			List<AuditDto> list = new ArrayList<AuditDto>();
+			list.add(updAuditDto);
+			base.setDatas(list);
+			base.setSheetName(Constants.EXCEL_TYPE_SJDJ);
+			base.setFilepath(filename);
+			base.exportExcel2(response.getOutputStream());
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	//审价
+	/**
+	 * 会商纪要
+	 * @return
+	 */
+	public String exportAuditSummaryAction() {
+		try {
+			this.clearMessages();
+			String filename = "page/audittemplate.xlsx";
+			String name =  StringUtil.createFileName(Constants.EXCEL_TYPE_HSJY);
+			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
+			response.setContentType("application/vnd.ms-excel");
+			Poi2007Base base = PoiFactory.getPoi(Constants.EXCEL_TYPE_HSJY);
+			
+			//查询数据
+			List<AuditDto> list = new ArrayList<AuditDto>();
+			list.add(updAuditDto);
+			base.setDatas(list);
+			base.setSheetName(Constants.EXCEL_TYPE_HSJY);
+			base.setFilepath(filename);
+			base.exportExcel2(response.getOutputStream());
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	//审价
+	/**
+	 * 封面
+	 * @return
+	 */
+	public String exportAuditCoverAction() {
+		try {
+			this.clearMessages();
+			String filename = "page/audittemplate.xlsx";
+			String name =  StringUtil.createFileName(Constants.EXCEL_TYPE_COVER);
+			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
+			response.setContentType("application/vnd.ms-excel");
+			Poi2007Base base = PoiFactory.getPoi(Constants.EXCEL_TYPE_COVER);
+			
+			//查询数据
+			List<AuditDto> list = new ArrayList<AuditDto>();
+			list.add(updAuditDto);
+			base.setDatas(list);
+			base.setSheetName(Constants.EXCEL_TYPE_COVER);
+			base.setFilepath(filename);
+			base.exportExcel2(response.getOutputStream());
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	//审价
+	/**
+	 * 签署页
+	 * @return
+	 */
+	public String exportAuditSignAction() {
+		try {
+			this.clearMessages();
+			String filename = "page/audittemplate.xlsx";
+			String name =  StringUtil.createFileName(Constants.EXCEL_TYPE_SIGN);
+			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
+			response.setContentType("application/vnd.ms-excel");
+			Poi2007Base base = PoiFactory.getPoi(Constants.EXCEL_TYPE_SIGN);
+			
+			//查询数据
+			List<AuditDto> list = new ArrayList<AuditDto>();
+			list.add(updAuditDto);
+			base.setDatas(list);
+			base.setSheetName(Constants.EXCEL_TYPE_SIGN);
+			base.setFilepath(filename);
+			base.exportExcel2(response.getOutputStream());
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	//审价
+	/**
+	 * 报告
+	 * @return
+	 */
+	public String exportAuditReportAction() {
+		try {
+			this.clearMessages();
+			String filename = "page/auditreport.doc";
+			String name =  StringUtil.createFileName3(Constants.DOC_TYPE_REPORT);
+			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
+			response.setContentType("application/octet-stream");
+			Poi2007Base base = PoiFactory.getPoi(Constants.DOC_TYPE_REPORT);
+			
+			//查询数据
+			List<AuditDto> list = new ArrayList<AuditDto>();
+			list.add(updAuditDto);
+			base.setDatas(list);
+			base.setSheetName(Constants.DOC_TYPE_REPORT);
+			base.setFilepath(filename);
+			base.exportWord(response.getOutputStream());
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
 	
 	/**
 	 * 显示审价明细

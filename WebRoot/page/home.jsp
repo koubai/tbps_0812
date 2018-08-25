@@ -52,6 +52,10 @@
 		window.location.href = '<c:url value="/audit/showAuditAction.action"></c:url>';
 	}
 	
+	function auditcntrct() {
+		window.location.href = '<c:url value="/auditcntrct/showAuditCntrctAction.action"></c:url>';
+	}
+	
 	function showBond() {
 		window.location.href = '<c:url value="/bond/showBondAction.action"></c:url>';
 	}
@@ -63,7 +67,7 @@
 		<jsp:include page="info.jsp" flush="true" />
 		<div class="row menuList">
 			<div class="col-lg-6">
-				<a class="btn btn-primary" href="#" onclick="audit();">审价信息一览</a>
+				<a class="btn btn-primary" href="#" onclick="auditcntrct();">审计一览</a>
 			</div>
 			<div class="col-lg-6">
 				<a class="btn btn-primary" href="#" onclick="showBond();">保证金汇总</a>

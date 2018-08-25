@@ -15,6 +15,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -262,12 +263,55 @@ public class Poi2007Base {
 		}
 	}
 	
+	//读取DOC
+	private HWPFDocument readDoc(){
+		HWPFDocument doc = null;
+    	String filePath = this.filepath;
+        try {
+            FileInputStream fis = new FileInputStream(filePath);
+            doc = new HWPFDocument(fis);
+            fis.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return doc;
+    }
+	
+	/**
+	 * 导出word
+	 * @param out
+	 */
+	public void exportWord(OutputStream out) {
+		try {
+			//创建doc
+			HWPFDocument doc = readDoc();
+			//输出数据部分
+			writeData(doc);
+			
+			//输出Excel
+			out.flush();
+			doc.write(out);
+			out.close();
+			log.info("exportWord success.");
+		} catch (Exception e) {
+			log.error("exportWord error:" + e);
+		}
+	}
+	
 	
 	/**
 	 * 输出数据部分
 	 * @param sheet
 	 */
 	public void writeData(Workbook workbook) {
+		
+	}
+	
+	/**
+	 * 输出数据部分
+	 * @param sheet
+	 */
+	public void writeData(HWPFDocument doc) {
 		
 	}
 

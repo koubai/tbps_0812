@@ -258,4 +258,39 @@ public class Constants {
 	 */
 	public final static String EXCEL_TYPE_ZBBS = "ZB_BASE";
 	
+	/**
+	 * 审定单（地铁）
+	 */
+	public final static String EXCEL_TYPE_SJSDD = "SJ_SDD_METRO";
+	
+	/**
+	 * 审定单（非地铁）
+	 */
+	public final static String EXCEL_TYPE_SJSDD2 = "SJ_SDD_NO_METRO";
+	
+	/**
+	 * 资料登记表
+	 */
+	public final static String EXCEL_TYPE_SJDJ = "SJ_REGISTER";
+	
+	/**
+	 * 会商纪要
+	 */
+	public final static String EXCEL_TYPE_HSJY = "SJ_SUMMARY";
+	
+	/**
+	 * 封面
+	 */
+	public final static String EXCEL_TYPE_COVER = "SJ_COVER";
+	
+	/**
+	 * 签署页
+	 */
+	public final static String EXCEL_TYPE_SIGN = "SJ_SIGN";
+	
+	/**
+	 * 签署页
+	 */
+	public final static String DOC_TYPE_REPORT = "SJ_REPORT";
+	
 }

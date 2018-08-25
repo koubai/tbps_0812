@@ -367,7 +367,7 @@ public class AuditCntrctDto extends BaseDto {
 	/**
 	 * 更新日期
 	 */
-	private Date UPATE_DATE;
+	private Date UPDATE_DATE;
 
 	public String getCNTRCT_BELONG() {
 		return CNTRCT_BELONG;
@@ -937,16 +937,16 @@ public class AuditCntrctDto extends BaseDto {
 		INSERT_DATE = iNSERT_DATE;
 	}
 
-	public Date getUPATE_DATE() {
-		return UPATE_DATE;
-	}
-
-	public void setUPATE_DATE(Date uPATE_DATE) {
-		UPATE_DATE = uPATE_DATE;
-	}
-
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	public Date getUPDATE_DATE() {
+		return UPDATE_DATE;
+	}
+
+	public void setUPDATE_DATE(Date uPDATE_DATE) {
+		UPDATE_DATE = uPDATE_DATE;
 	}
 
 }

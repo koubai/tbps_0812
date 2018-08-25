@@ -26,7 +26,10 @@
 	<!-- 用户 -->
 	<include file="struts-userinfo.xml"/>
 	
-	<!-- 审价 -->
+	<!-- 审计 -->
+	<include file="struts-auditcntrct.xml"/>
+	
+	<!-- 审计项目 -->
 	<include file="struts-audit.xml"/>
 	
 	<!-- 合同公司 -->

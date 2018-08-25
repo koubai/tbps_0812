@@ -90,6 +90,27 @@ public class PoiFactory {
 		}else if(Constants.EXCEL_TYPE_ZBBS.equals(type)) {
 			//保证金汇总详细表
 			return new PoiBidBase();
+		}else if(Constants.EXCEL_TYPE_SIGN.equals(type)) {
+			//审计签署页
+			return new PoiAuditSign();
+		}else if(Constants.EXCEL_TYPE_HSJY.equals(type)) {
+			//审计会商纪要
+			return new PoiAuditSummary();
+		}else if(Constants.EXCEL_TYPE_COVER.equals(type)) {
+			//审计封面
+			return new PoiAuditCover();
+		}else if(Constants.EXCEL_TYPE_SJDJ.equals(type)) {
+			//审计资料登记表
+			return new PoiAuditRegister();
+		}else if(Constants.EXCEL_TYPE_SJSDD.equals(type)) {
+			//审计审定单（地铁）
+			return new PoiAuditMetro();
+		}else if(Constants.EXCEL_TYPE_SJSDD2.equals(type)) {
+			//审计审定单（非地铁）
+			return new PoiAuditNoMetro();
+		}else if(Constants.DOC_TYPE_REPORT.equals(type)) {
+			//审计报告
+			return new PoiAuditReport();
 		}
 		return null;
 	}

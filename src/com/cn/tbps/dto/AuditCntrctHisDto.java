@@ -372,7 +372,7 @@ public class AuditCntrctHisDto extends BaseDto {
 	/**
 	 * 更新日期
 	 */
-	private Date UPATE_DATE;
+	private Date UPDATE_DATE;
 
 	public Integer getCNTRCT_HIST_SEQ() {
 		return CNTRCT_HIST_SEQ;
@@ -950,11 +950,11 @@ public class AuditCntrctHisDto extends BaseDto {
 		INSERT_DATE = iNSERT_DATE;
 	}
 
-	public Date getUPATE_DATE() {
-		return UPATE_DATE;
+	public Date getUPDATE_DATE() {
+		return UPDATE_DATE;
 	}
 
-	public void setUPATE_DATE(Date uPATE_DATE) {
-		UPATE_DATE = uPATE_DATE;
+	public void setUPDATE_DATE(Date uPDATE_DATE) {
+		UPDATE_DATE = uPDATE_DATE;
 	}
 }
