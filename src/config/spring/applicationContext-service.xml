@@ -8,6 +8,9 @@
 		<property name="bidCntrctDao">
 			<ref local="bidCntrctDao"/>
 		</property>
+		<property name="bidDao">
+			<ref local="bidDao"/>
+		</property>
 	</bean>
 	
 	<bean id="bidCntrctDao" class="com.cn.tbps.dao.impl.BidCntrctDaoImpl">

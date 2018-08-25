@@ -2,6 +2,12 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 <beans>
 
+	<bean id="bidCntrctAction" class="com.cn.tbps.action.BidCntrctAction" scope="session">
+		<property name="bidCntrctService">
+			<ref bean="bidCntrctService" />
+		</property>
+	</bean>
+
 	<!-- 保证金汇总 -->
 	<bean id="bondAction" class="com.cn.tbps.action.BondAction" scope="session">
 		<property name="bondService">

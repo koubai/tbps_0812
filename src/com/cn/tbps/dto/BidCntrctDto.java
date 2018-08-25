@@ -33,7 +33,20 @@ public class BidCntrctDto extends BaseDto {
 	 * 合同类别
 	 */
 	private String CNTRCT_TYPE;
-
+	
+	//项目总数量
+	private int totalProject;
+	//完成项目数量
+	private int finishProject;
+	//进行中项目数量
+	private int buildingProject;
+	//失败项目数量
+	private int failProject;
+	//标书费
+	private BigDecimal bidAmount;
+	//专家费
+	private BigDecimal expertAmount;
+	
 	/**
 	 * 委托单位ID
 	 */
@@ -943,6 +956,54 @@ public class BidCntrctDto extends BaseDto {
 
 	public void setUPDATE_DATE(Date uPDATE_DATE) {
 		UPDATE_DATE = uPDATE_DATE;
+	}
+
+	public int getTotalProject() {
+		return totalProject;
+	}
+
+	public void setTotalProject(int totalProject) {
+		this.totalProject = totalProject;
+	}
+
+	public int getFinishProject() {
+		return finishProject;
+	}
+
+	public void setFinishProject(int finishProject) {
+		this.finishProject = finishProject;
+	}
+
+	public int getBuildingProject() {
+		return buildingProject;
+	}
+
+	public void setBuildingProject(int buildingProject) {
+		this.buildingProject = buildingProject;
+	}
+
+	public int getFailProject() {
+		return failProject;
+	}
+
+	public void setFailProject(int failProject) {
+		this.failProject = failProject;
+	}
+
+	public BigDecimal getBidAmount() {
+		return bidAmount;
+	}
+
+	public void setBidAmount(BigDecimal bidAmount) {
+		this.bidAmount = bidAmount;
+	}
+
+	public BigDecimal getExpertAmount() {
+		return expertAmount;
+	}
+
+	public void setExpertAmount(BigDecimal expertAmount) {
+		this.expertAmount = expertAmount;
 	}
 
 }

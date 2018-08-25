@@ -5,7 +5,8 @@ import com.cn.tbps.dto.BidCntrctDto;
 
 public interface BidCntrctService {
 
-	public Page queryBidCntrctByPage(String CNTRCT_NAME, String CNTRCT_TYPE, Page page);
+	public Page queryBidCntrctByPage(String CNTRCT_YEAR, String CNTRCT_NO, String BID_COMP_NO,
+			String CNTRCT_NAME, String CNTRCT_TYPE, String CNTRCT_ST_DATE, String CNTRCT_ED_DATE, Page page);
 	
 	public BidCntrctDto queryBidCntrctByID(String CNTRCT_NO);
 	

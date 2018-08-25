@@ -484,6 +484,56 @@
 		<to>/bid/exportBidAllInfoAction.action</to>
 	</rule>
 	
+	<rule>
+		<from>^/showbidcntrcpage.shtml$</from>
+		<to>/bidcntrct/showBidCntrcPage.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/querybidcntrclist.shtml$</from>
+		<to>/bidcntrct/queryBidCntrcList.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/turnbidcntrcpage.shtml$</from>
+		<to>/bidcntrct/turnBidCntrcPage.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/addbidcntrc.shtml$</from>
+		<to>/bidcntrct/addBidCntrc.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/showaddbidcntrc.shtml$</from>
+		<to>/bidcntrct/showAddBidCntrc.action</to>
+	</rule>
+	
+	<outbound-rule>
+		<from>/bidcntrct/showAddBidCntrc.action$</from>
+		<to>/showaddbidcntrc.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bidcntrct/addBidCntrc.action$</from>
+		<to>/addbidcntrc.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bidcntrct/turnBidCntrcPage.action$</from>
+		<to>/turnbidcntrcpage.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bidcntrct/queryBidCntrcList.action$</from>
+		<to>/querybidcntrclist.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bidcntrct/showBidCntrcPage.action$</from>
+		<to>/showbidcntrcpage.shtml</to>
+	</outbound-rule>
+	
 	<outbound-rule>
 		<from>/bid/exportBidAllInfoAction.action$</from>
 		<to>/exportbidallinfo.shtml</to>
