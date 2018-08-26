@@ -8,7 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-<title>合同更新</title><!-- Bootstrap -->
+<title>合同新增</title><!-- Bootstrap -->
 <link href="<%=request.getContextPath()%>/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/node_modules/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.css">
@@ -39,7 +39,7 @@
 		return reg.test(s);
 	}
 
-	function upd() {
+	function add() {
 		setAuditValue();
 		var CNTRCT_NO = $("#CNTRCT_NO").val();
 		var CNTRCT_TYPE = $("#CNTRCT_TYPE").val();
@@ -305,224 +305,11 @@
 				return;
 			}
 		}
-
-		//提示修改内容
-		var s = getAuditEditProject();
-		if(s != "") {
-			if(confirm("本次修改的内容有：\n" + s + "\n确定修改吗？")) {
-				document.mainform.action = '<c:url value="/auditcntrct/updAuditCntrctAction.action"></c:url>';
-				document.mainform.submit();
-			}
-		} else {
-			alert("没有修改内容！");
-		}
-	}
-	
-	function getAuditEditProject() {
-		var CNTRCT_BELONG_OLD = $("#CNTRCT_BELONG_OLD").val();
-		var CNTRCT_NAME_OLD = $("#CNTRCT_NAME_OLD").val();
-		var PROJECT_SENIOR_MANAGER_OLD = $("#PROJECT_SENIOR_MANAGER_OLD").val();
-		var CNTRCT_NM_OLD = $("#CNTRCT_NM_OLD").val();
-		var CNTRCT_TYPE_OLD = $("#CNTRCT_TYPE_OLD").val();
-		var AUDIT_COMP_NAME_OLD = $("#AUDIT_COMP_NAME_OLD").val();
-		var CO_MANAGER_ADDRESS1_OLD = $("#CO_MANAGER_ADDRESS1_OLD").val();
-		var CNTRCT_INFO_OLD = $("#CNTRCT_INFO_OLD").val();
-		var CNTRCT_RATE_1_OLD = $("#CNTRCT_RATE_1_OLD").val();
-		var CNTRCT_RATE_2_OLD = $("#CNTRCT_RATE_2_OLD").val();
-		var CNTRCT_RATE_4_OLD = $("#CNTRCT_RATE_4_OLD").val();
-		var CNTRCT_RATE_5_OLD = $("#CNTRCT_RATE_5_OLD").val();
-		var CNTRCT_AMOUNT_1_OLD = $("#CNTRCT_AMOUNT_1_OLD").val();
-		var CNTRCT_AMOUNT_2_OLD = $("#CNTRCT_AMOUNT_2_OLD").val();
-		var CNTRCT_AMOUNT_3_OLD = $("#CNTRCT_AMOUNT_3_OLD").val();
-		var CNTRCT_AMOUNT_4_OLD = $("#CNTRCT_AMOUNT_4_OLD").val();
-		var CNTRCT_AMOUNT_5_OLD = $("#CNTRCT_AMOUNT_5_OLD").val();
-		var CNTRCT_ALL_AMOUNT_OLD = $("#CNTRCT_ALL_AMOUNT_OLD").val();
-		var CNTRCT_UNPAY_AMOUNT_OLD = $("#CNTRCT_UNPAY_AMOUNT_OLD").val();
-		var TRIP_TOTAL_AMOUNT_OLD = $("#TRIP_TOTAL_AMOUNT_OLD").val();
-		var ESTIMATE_COST_OLD = $("#ESTIMATE_COST_OLD").val();
-		var ESTIMATE_CONSTRUCT_SAFE_COST_OLD = $("#ESTIMATE_CONSTRUCT_SAFE_COST_OLD").val();
-		var PRE_CONSTRUCT_SAFE_COST_OLD = $("#PRE_CONSTRUCT_SAFE_COST_OLD").val();
-		var CONSTRUCT_AREA_OLD = $("#CONSTRUCT_AREA_OLD").val();
-		var EXCUTE_AMOUNT_OLD = $("#EXCUTE_AMOUNT_OLD").val();
-		var CONSTRUCT_SAFE_COUNT_OLD = $("#CONSTRUCT_SAFE_COUNT_OLD").val();
-		var CONSTRUCT_SAFE_CNTRCT_COST_OLD = $("#CONSTRUCT_SAFE_CNTRCT_COST_OLD").val();
-		var CONSTRUCT_SAFE_CNTRCT_COST_PAID_OLD = $("#CONSTRUCT_SAFE_CNTRCT_COST_PAID_OLD").val();
-		var CONSTRUCT_SAFE_CNTRCT_COST_CTRL_OLD = $("#CONSTRUCT_SAFE_CNTRCT_COST_CTRL_OLD").val();
-		var BUDGETARY_OVERRUN_RISK_OLD = $("#BUDGETARY_OVERRUN_RISK_OLD").val();
-		var MONTHLY_REPORT_CNT_OLD = $("#MONTHLY_REPORT_CNT_OLD").val();
-		var SUGGEST_REPORT_CNT_OLD = $("#SUGGEST_REPORT_CNT_OLD").val();
-		var COMM_REPORT_CNT_OLD = $("#COMM_REPORT_CNT_OLD").val();
-		var FINISH_AUDIT_CNT_OLD = $("#FINISH_AUDIT_CNT_OLD").val();
-		var PROJ_PROGRESS_MEET_CNT_OLD = $("#PROJ_PROGRESS_MEET_CNT_OLD").val();
-		var PROGRESS_STATUS_OLD = $("#PROGRESS_STATUS_OLD").val();
-		var CNTRCT_ST_DATE_OLD = $("#CNTRCT_ST_DATE_OLD").val();
-		var CNTRCT_ED_DATE_OLD = $("#CNTRCT_ED_DATE_OLD").val();
-		var CONSTRUCT_ST_DATE_OLD = $("#CONSTRUCT_ST_DATE_OLD").val();
-		var PLAN_CONSTRUCT_ED_DATE_OLD = $("#PLAN_CONSTRUCT_ED_DATE_OLD").val();
-
-		var CNTRCT_BELONG = $("#CNTRCT_BELONG").val();
-		var CNTRCT_NAME = $("#CNTRCT_NAME").val();
-		var PROJECT_SENIOR_MANAGER = $("#PROJECT_SENIOR_MANAGER").val();
-		var CNTRCT_NM = $("#CNTRCT_NM").val();
-		var CNTRCT_TYPE = $("#CNTRCT_TYPE").val();
-		var AUDIT_COMP_NAME = $("#AUDIT_COMP_NAME").val();
-		var CO_MANAGER_ADDRESS1 = $("#CO_MANAGER_ADDRESS1").val();
-		var CNTRCT_INFO = $("#CNTRCT_INFO").val();
-		var CNTRCT_RATE_1 = $("#CNTRCT_RATE_1").val();
-		var CNTRCT_RATE_2 = $("#CNTRCT_RATE_2").val();
-		var CNTRCT_RATE_4 = $("#CNTRCT_RATE_4").val();
-		var CNTRCT_RATE_5 = $("#CNTRCT_RATE_5").val();
-		var CNTRCT_AMOUNT_1 = $("#CNTRCT_AMOUNT_1").val();
-		var CNTRCT_AMOUNT_2 = $("#CNTRCT_AMOUNT_2").val();
-		var CNTRCT_AMOUNT_3 = $("#CNTRCT_AMOUNT_3").val();
-		var CNTRCT_AMOUNT_4 = $("#CNTRCT_AMOUNT_4").val();
-		var CNTRCT_AMOUNT_5 = $("#CNTRCT_AMOUNT_5").val();
-		var CNTRCT_ALL_AMOUNT = $("#CNTRCT_ALL_AMOUNT").val();
-		var CNTRCT_UNPAY_AMOUNT = $("#CNTRCT_UNPAY_AMOUNT").val();
-		var TRIP_TOTAL_AMOUNT = $("#TRIP_TOTAL_AMOUNT").val();
-		var ESTIMATE_COST = $("#ESTIMATE_COST").val();
-		var ESTIMATE_CONSTRUCT_SAFE_COST = $("#ESTIMATE_CONSTRUCT_SAFE_COST").val();
-		var PRE_CONSTRUCT_SAFE_COST = $("#PRE_CONSTRUCT_SAFE_COST").val();
-		var CONSTRUCT_AREA = $("#CONSTRUCT_AREA").val();
-		var EXCUTE_AMOUNT = $("#EXCUTE_AMOUNT").val();
-		var CONSTRUCT_SAFE_COUNT = $("#CONSTRUCT_SAFE_COUNT").val();
-		var CONSTRUCT_SAFE_CNTRCT_COST = $("#CONSTRUCT_SAFE_CNTRCT_COST").val();
-		var CONSTRUCT_SAFE_CNTRCT_COST_PAID = $("#CONSTRUCT_SAFE_CNTRCT_COST_PAID").val();
-		var CONSTRUCT_SAFE_CNTRCT_COST_CTRL = $("#CONSTRUCT_SAFE_CNTRCT_COST_CTRL").val();
-		var BUDGETARY_OVERRUN_RISK = $("#BUDGETARY_OVERRUN_RISK").val();
-		var MONTHLY_REPORT_CNT = $("#MONTHLY_REPORT_CNT").val();
-		var SUGGEST_REPORT_CNT = $("#SUGGEST_REPORT_CNT").val();
-		var COMM_REPORT_CNT = $("#COMM_REPORT_CNT").val();
-		var FINISH_AUDIT_CNT = $("#FINISH_AUDIT_CNT").val();
-		var PROJ_PROGRESS_MEET_CNT = $("#PROJ_PROGRESS_MEET_CNT").val();
-		var PROGRESS_STATUS = $("#PROGRESS_STATUS").val();
-		var CNTRCT_ST_DATE = $("#CNTRCT_ST_DATE").val();
-		var CNTRCT_ED_DATE = $("#CNTRCT_ED_DATE").val();
-		var CONSTRUCT_ST_DATE = $("#CONSTRUCT_ST_DATE").val();
-		var PLAN_CONSTRUCT_ED_DATE = $("#PLAN_CONSTRUCT_ED_DATE").val();
 		
-		var s = "";
-		if(CNTRCT_BELONG != CNTRCT_BELONG_OLD) {
-			s += "合同归属\n";
+		if(confirm("确定追加吗？")) {
+			document.mainform.action = '<c:url value="/auditcntrct/addAuditCntrctAction.action"></c:url>';
+			document.mainform.submit();
 		}
-		if(CNTRCT_NAME != CNTRCT_NAME_OLD) {
-			s += "合同名称\n";
-		}
-		if(PROJECT_SENIOR_MANAGER != PROJECT_SENIOR_MANAGER_OLD) {
-			s += "负责工程师\n";
-		}
-		if(CNTRCT_NM != CNTRCT_NM_OLD) {
-			s += "合同简称\n";
-		}
-		if(CNTRCT_TYPE != CNTRCT_TYPE_OLD) {
-			s += "合同性质\n";
-		}
-		if(AUDIT_COMP_NAME != AUDIT_COMP_NAME_OLD) {
-			s += "委托单位\n";
-		}
-		if(CO_MANAGER_ADDRESS1 != CO_MANAGER_ADDRESS1_OLD) {
-			s += "联系人及联系方式\n";
-		}
-		if(CNTRCT_ST_DATE != CNTRCT_ST_DATE_OLD) {
-			s += "合同开始时间\n";
-		}
-		if(CNTRCT_ED_DATE != CNTRCT_ED_DATE_OLD) {
-			s += "合同结束时间\n";
-		}
-		if(CNTRCT_INFO != CNTRCT_INFO_OLD) {
-			s += "委托内容\n";
-		}
-		if(CNTRCT_RATE_1 != CNTRCT_RATE_1_OLD) {
-			s += "委托内容费率1(审价)\n";
-		}
-		if(CNTRCT_RATE_2 != CNTRCT_RATE_2_OLD) {
-			s += "委托内容费率2(咨询)\n";
-		}
-		if(CNTRCT_RATE_4 != CNTRCT_RATE_4_OLD) {
-			s += "委托内容费率4(控制价编制)\n";
-		}
-		if(CNTRCT_RATE_5 != CNTRCT_RATE_5_OLD) {
-			s += "委托内容费率5(全过程投资监理)\n";
-		}
-		if(CNTRCT_AMOUNT_1 != CNTRCT_AMOUNT_1_OLD) {
-			s += "委托内容金额1(审价)\n";
-		}
-		if(CNTRCT_AMOUNT_2 != CNTRCT_AMOUNT_2_OLD) {
-			s += "委托内容金额2(咨询)\n";
-		}
-		if(CNTRCT_AMOUNT_3 != CNTRCT_AMOUNT_3_OLD) {
-			s += "委托内容金额3(清单编制)\n";
-		}
-		if(CNTRCT_AMOUNT_4 != CNTRCT_AMOUNT_4_OLD) {
-			s += "委托内容金额4(控制价编制)\n";
-		}
-		if(CNTRCT_AMOUNT_5 != CNTRCT_AMOUNT_5_OLD) {
-			s += "委托内容金额5(全过程投资监理)\n";
-		}
-		if(CNTRCT_ALL_AMOUNT != CNTRCT_ALL_AMOUNT_OLD) {
-			s += "合同金额\n";
-		}
-		if(CNTRCT_UNPAY_AMOUNT != CNTRCT_UNPAY_AMOUNT_OLD) {
-			s += "未收金额\n";
-		}
-		if(TRIP_TOTAL_AMOUNT != TRIP_TOTAL_AMOUNT_OLD) {
-			s += "差旅合计\n";
-		}
-		if(ESTIMATE_COST != ESTIMATE_COST_OLD) {
-			s += "总概算\n";
-		}
-		if(ESTIMATE_CONSTRUCT_SAFE_COST != ESTIMATE_CONSTRUCT_SAFE_COST_OLD) {
-			s += "建安概算（不含物流设备及信息）\n";
-		}
-		if(PRE_CONSTRUCT_SAFE_COST != PRE_CONSTRUCT_SAFE_COST_OLD) {
-			s += "建安对应预备费\n";
-		}
-		if(CONSTRUCT_ST_DATE != CONSTRUCT_ST_DATE_OLD) {
-			s += "开工时间\n";
-		}
-		if(PLAN_CONSTRUCT_ED_DATE != PLAN_CONSTRUCT_ED_DATE_OLD) {
-			s += "预计完工时间\n";
-		}
-		if(CONSTRUCT_AREA != CONSTRUCT_AREA_OLD) {
-			s += "总建筑面积\n";
-		}
-		if(EXCUTE_AMOUNT != EXCUTE_AMOUNT_OLD) {
-			s += "执行总费用\n";
-		}
-		if(CONSTRUCT_SAFE_COUNT != CONSTRUCT_SAFE_COUNT_OLD) {
-			s += "执行建安（万元）合同（个）\n";
-		}
-		if(CONSTRUCT_SAFE_CNTRCT_COST != CONSTRUCT_SAFE_CNTRCT_COST_OLD) {
-			s += "执行建安（万元）合同价\n";
-		}
-		if(CONSTRUCT_SAFE_CNTRCT_COST_PAID != CONSTRUCT_SAFE_CNTRCT_COST_PAID_OLD) {
-			s += "执行建安（万元）已支付\n";
-		}
-		if(CONSTRUCT_SAFE_CNTRCT_COST_CTRL != CONSTRUCT_SAFE_CNTRCT_COST_CTRL_OLD) {
-			s += "执行建安（万元）控制价\n";
-		}
-		if(BUDGETARY_OVERRUN_RISK != BUDGETARY_OVERRUN_RISK_OLD) {
-			s += "超概的风险度\n";
-		}
-		if(MONTHLY_REPORT_CNT != MONTHLY_REPORT_CNT_OLD) {
-			s += "月报\n";
-		}
-		if(SUGGEST_REPORT_CNT != SUGGEST_REPORT_CNT_OLD) {
-			s += "建议书\n";
-		}
-		if(COMM_REPORT_CNT != COMM_REPORT_CNT_OLD) {
-			s += "联系函\n";
-		}
-		if(FINISH_AUDIT_CNT != FINISH_AUDIT_CNT_OLD) {
-			s += "已完审价\n";
-		}
-		if(PROJ_PROGRESS_MEET_CNT != PROJ_PROGRESS_MEET_CNT_OLD) {
-			s += "工程例会\n";
-		}
-		if(PROGRESS_STATUS != PROGRESS_STATUS_OLD) {
-			s += "大致进度及工作计划\n";
-		}
-		return s;
 	}
 	
 	function setAuditValue() {
@@ -547,6 +334,7 @@
 		
 		setDefaultValue("CNTRCT_RATE_1");
 		setDefaultValue("CNTRCT_RATE_2");
+		//setDefaultValue("CNTRCT_RATE_3");
 		setDefaultValue("CNTRCT_RATE_4");
 		setDefaultValue("CNTRCT_RATE_5");
 		setDefaultValue("CNTRCT_RATE_6");
@@ -576,25 +364,20 @@
 		setDefaultValue("CONSTRUCT_SAFE_CNTRCT_COST");
 		setDefaultValue("CONSTRUCT_SAFE_CNTRCT_COST_PAID");
 		setDefaultValue("CONSTRUCT_SAFE_CNTRCT_COST_CTRL");
-		setZeroValue("CONSTRUCT_SAFE_COUNT");
-		setZeroValue("BUDGETARY_OVERRUN_RISK");
-		setZeroValue("MONTHLY_REPORT_CNT");
-		setZeroValue("SUGGEST_REPORT_CNT");
-		setZeroValue("COMM_REPORT_CNT");
-		setZeroValue("FINISH_AUDIT_CNT");
-		setZeroValue("PROJ_PROGRESS_MEET_CNT");
+		//setDefaultValue("RESERVE7");
+		//setDefaultValue("RESERVE8");
+		setDefaultValue("CONSTRUCT_SAFE_COUNT");
+		setDefaultValue("BUDGETARY_OVERRUN_RISK");
+		setDefaultValue("MONTHLY_REPORT_CNT");
+		setDefaultValue("SUGGEST_REPORT_CNT");
+		setDefaultValue("COMM_REPORT_CNT");
+		setDefaultValue("FINISH_AUDIT_CNT");
+		setDefaultValue("PROJ_PROGRESS_MEET_CNT");
 
 	}
 	
-	//对decimal类型的，为空时设为0.00
-	function setDefaultValue(id) {
-		if($("#" + id).val() == "") {
-			$("#" + id).prop("value", "0.00");
-		}
-	}
-	
 	//对数字类型的，为空时设为0
-	function setZeroValue(id) {
+	function setDefaultValue(id) {
 		if($("#" + id).val() == "") {
 			$("#" + id).prop("value", "0");
 		}
@@ -639,6 +422,7 @@
 	function selectAgentComp() {
 		var url = '<c:url value="/bid/showAddBidAgentCompAction.action"></c:url>';
 		url += "?agentAddFlag=1&date=" + new Date();
+		
 		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
 	}
 	
@@ -651,78 +435,35 @@
 	<jsp:include page="../head.jsp" flush="true" />
 	<div class="container-fluid">
 		<jsp:include page="../info.jsp" flush="true" />
+		<div class="row">
 		<s:if test="hasActionMessages()">
 			<div class="row">
 				<span style="color:red; text-align:center;"><s:actionmessage /></span>
 			</div>
 		</s:if>
-		<div class="row">
 			<div class="col-lg-12 right">
 				<s:form id="mainform" name="mainform" method="POST">
-					<s:hidden name="updAuditCntrctDto.CNTRCT_ST_DATE" id="CNTRCT_ST_DATE"/>
-					<s:hidden name="updAuditCntrctDto.CNTRCT_ED_DATE" id="CNTRCT_ED_DATE"/>
-					<s:hidden name="updAuditCntrctDto.CNTRCT_INFO" id="CNTRCT_INFO"/>
-					<s:hidden name="updAuditCntrctDto.AUDIT_COMP_NO" id="AUDIT_COMP_NO"/>
-					<s:hidden name="updAuditCntrctDto.CO_MANAGER1" id="CO_MANAGER1"/>
-					<s:hidden name="updAuditCntrctDto.CO_MANAGER_TEL1" id="CO_MANAGER_TEL1"/>
-					<s:hidden name="updAuditCntrctDto.CO_ADDRESS1" id="CO_ADDRESS1"/>
-					<s:hidden name="updAuditCntrctDto.CONSTRUCT_ST_DATE" id="CONSTRUCT_ST_DATE"/>
-					<s:hidden name="updAuditCntrctDto.PLAN_CONSTRUCT_ED_DATE" id="PLAN_CONSTRUCT_ED_DATE"/>
-					
-					<s:hidden name="updAuditCntrctDtoOld.CNTRCT_BELONG" id="CNTRCT_BELONG_OLD"/>
-					<s:hidden name="updAuditCntrctDtoOld.CNTRCT_NAME" id="CNTRCT_NAME_OLD"/>
-					<s:hidden name="updAuditCntrctDtoOld.PROJECT_SENIOR_MANAGER" id="PROJECT_SENIOR_MANAGER_OLD"/>
-					<s:hidden name="updAuditCntrctDtoOld.CNTRCT_NM" id="CNTRCT_NM_OLD"/>
-					<s:hidden name="updAuditCntrctDtoOld.CNTRCT_TYPE" id="CNTRCT_TYPE_OLD"/>
-					<s:hidden name="updAuditCntrctDtoOld.AUDIT_COMP_NAME" id="AUDIT_COMP_NAME_OLD"/>
-					<s:hidden name="updAuditCntrctDtoOld.CO_MANAGER_ADDRESS1" id="CO_MANAGER_ADDRESS1_OLD"/>
-					<s:hidden name="updAuditCntrctDtoOld.CNTRCT_INFO" id="CNTRCT_INFO_OLD"/>
-					<s:hidden name="updAuditCntrctDtoOld.CNTRCT_RATE_1" id="CNTRCT_RATE_1_OLD"/>
-					<s:hidden name="updAuditCntrctDtoOld.CNTRCT_RATE_2" id="CNTRCT_RATE_2_OLD"/>
-					<s:hidden name="updAuditCntrctDtoOld.CNTRCT_RATE_4" id="CNTRCT_RATE_4_OLD"/>
-					<s:hidden name="updAuditCntrctDtoOld.CNTRCT_RATE_5" id="CNTRCT_RATE_5_OLD"/>
-					<s:hidden name="updAuditCntrctDtoOld.CNTRCT_AMOUNT_1" id="CNTRCT_AMOUNT_1_OLD"/>
-					<s:hidden name="updAuditCntrctDtoOld.CNTRCT_AMOUNT_2" id="CNTRCT_AMOUNT_2_OLD"/>
-					<s:hidden name="updAuditCntrctDtoOld.CNTRCT_AMOUNT_3" id="CNTRCT_AMOUNT_3_OLD"/>
-					<s:hidden name="updAuditCntrctDtoOld.CNTRCT_AMOUNT_4" id="CNTRCT_AMOUNT_4_OLD"/>
-					<s:hidden name="updAuditCntrctDtoOld.CNTRCT_AMOUNT_5" id="CNTRCT_AMOUNT_5_OLD"/>
-					<s:hidden name="updAuditCntrctDtoOld.CNTRCT_ALL_AMOUNT" id="CNTRCT_ALL_AMOUNT_OLD"/>
-					<s:hidden name="updAuditCntrctDtoOld.CNTRCT_UNPAY_AMOUNT" id="CNTRCT_UNPAY_AMOUNT_OLD"/>
-					<s:hidden name="updAuditCntrctDtoOld.TRIP_TOTAL_AMOUNT" id="TRIP_TOTAL_AMOUNT_OLD"/>
-					<s:hidden name="updAuditCntrctDtoOld.ESTIMATE_COST" id="ESTIMATE_COST_OLD"/>
-					<s:hidden name="updAuditCntrctDtoOld.ESTIMATE_CONSTRUCT_SAFE_COST" id="ESTIMATE_CONSTRUCT_SAFE_COST_OLD"/>
-					<s:hidden name="updAuditCntrctDtoOld.PRE_CONSTRUCT_SAFE_COST" id="PRE_CONSTRUCT_SAFE_COST_OLD"/>
-					<s:hidden name="updAuditCntrctDtoOld.CONSTRUCT_AREA" id="CONSTRUCT_AREA_OLD"/>
-					<s:hidden name="updAuditCntrctDtoOld.EXCUTE_AMOUNT" id="EXCUTE_AMOUNT_OLD"/>
-					<s:hidden name="updAuditCntrctDtoOld.CONSTRUCT_SAFE_COUNT" id="CONSTRUCT_SAFE_COUNT_OLD"/>
-					<s:hidden name="updAuditCntrctDtoOld.CONSTRUCT_SAFE_CNTRCT_COST" id="CONSTRUCT_SAFE_CNTRCT_COST_OLD"/>
-					<s:hidden name="updAuditCntrctDtoOld.CONSTRUCT_SAFE_CNTRCT_COST_PAID" id="CONSTRUCT_SAFE_CNTRCT_COST_PAID_OLD"/>
-					<s:hidden name="updAuditCntrctDtoOld.CONSTRUCT_SAFE_CNTRCT_COST_CTRL" id="CONSTRUCT_SAFE_CNTRCT_COST_CTRL_OLD"/>
-					<s:hidden name="updAuditCntrctDtoOld.BUDGETARY_OVERRUN_RISK" id="BUDGETARY_OVERRUN_RISK_OLD"/>
-					<s:hidden name="updAuditCntrctDtoOld.MONTHLY_REPORT_CNT" id="MONTHLY_REPORT_CNT_OLD"/>
-					<s:hidden name="updAuditCntrctDtoOld.SUGGEST_REPORT_CNT" id="SUGGEST_REPORT_CNT_OLD"/>
-					<s:hidden name="updAuditCntrctDtoOld.COMM_REPORT_CNT" id="COMM_REPORT_CNT_OLD"/>
-					<s:hidden name="updAuditCntrctDtoOld.FINISH_AUDIT_CNT" id="FINISH_AUDIT_CNT_OLD"/>
-					<s:hidden name="updAuditCntrctDtoOld.PROJ_PROGRESS_MEET_CNT" id="PROJ_PROGRESS_MEET_CNT_OLD"/>
-					<s:hidden name="updAuditCntrctDtoOld.PROGRESS_STATUS" id="PROGRESS_STATUS_OLD"/>
-						
-				<input id="CNTRCT_ST_DATE_OLD" type="hidden" value="<s:date name="updAuditCntrctDtoOld.CNTRCT_ST_DATE" format="yyyy-MM-dd"/>"/>
-				<input id="CNTRCT_ED_DATE_OLD" type="hidden" value="<s:date name="updAuditCntrctDtoOld.CNTRCT_ED_DATE" format="yyyy-MM-dd"/>"/>
-				<input id="CONSTRUCT_ST_DATE_OLD" type="hidden" value="<s:date name="updAuditCntrctDtoOld.CONSTRUCT_ST_DATE" format="yyyy-MM-dd"/>"/>
-				<input id="PLAN_CONSTRUCT_ED_DATE_OLD" type="hidden" value="<s:date name="updAuditCntrctDtoOld.PLAN_CONSTRUCT_ED_DATE" format="yyyy-MM-dd"/>"/>
-				
+					<s:hidden name="addAuditCntrctDto.CNTRCT_ST_DATE" id="CNTRCT_ST_DATE"/>
+					<s:hidden name="addAuditCntrctDto.CNTRCT_ED_DATE" id="CNTRCT_ED_DATE"/>
+					<s:hidden name="addAuditCntrctDto.CNTRCT_INFO" id="CNTRCT_INFO"/>
+					<s:hidden name="addAuditCntrctDto.AUDIT_COMP_NO" id="AUDIT_COMP_NO"/>
+					<s:hidden name="addAuditCntrctDto.CO_MANAGER1" id="CO_MANAGER1"/>
+					<s:hidden name="addAuditCntrctDto.CO_MANAGER_TEL1" id="CO_MANAGER_TEL1"/>
+					<s:hidden name="addAuditCntrctDto.CO_ADDRESS1" id="CO_ADDRESS1"/>
+					<s:hidden name="addAuditCntrctDto.CONSTRUCT_ST_DATE" id="CONSTRUCT_ST_DATE"/>
+					<s:hidden name="addAuditCntrctDto.PLAN_CONSTRUCT_ED_DATE" id="PLAN_CONSTRUCT_ED_DATE"/>
 					<h3 class="title"><label for="" class="col-lg-2 form-label">合同</label><a class="backHome" href="#" onclick="goAuditList();"><i class="fa fa-home" aria-hidden="true"></i>返回</a></h3>
 					<div class="row">
 						<div class="col-lg-12 form-group">
 							<label for="" class="col-lg-2 form-label">合同归属</label>
 							<div class="col-lg-2">
-								<select id="CNTRCT_BELONG" name="updAuditCntrctDto.CNTRCT_BELONG" class="form-control">
-									<s:if test='updAuditCntrctDto.CNTRCT_BELONG == "1"'>
+								<select id="CNTRCT_BELONG" name="addAuditCntrctDto.CNTRCT_BELONG" class="form-control">
+									<s:if test='addAuditCntrctDto.CNTRCT_BELONG == "1"'>
 										<option value="">请选择</option>
 										<option value="1" selected="selected">联合</option>
 										<option value="2">XX</option>
 									</s:if>
-									<s:elseif test='updAuditCntrctDto.CNTRCT_BELONG == "2"'>
+									<s:elseif test='addAuditCntrctDto.CNTRCT_BELONG == "2"'>
 										<option value="">请选择</option>
 										<option value="1">联合</option>
 										<option value="2" selected="selected">XX</option>
@@ -736,17 +477,17 @@
 							</div>
 							<label for="" class="col-lg-1 form-label">合同编号</label>
 							<div class="col-lg-2">
-								<s:textfield name="updAuditCntrctDto.CNTRCT_NO" id="CNTRCT_NO" disabled="true" cssClass="form-control" maxlength="20" theme="simple"></s:textfield>
+								<s:textfield name="addAuditCntrctDto.CNTRCT_NO" id="CNTRCT_NO" cssClass="form-control" maxlength="20" theme="simple"></s:textfield>
 							</div>
 							<label for="" class="col-lg-1 form-label">合同性质</label>
 							<div class="col-lg-2">
-								<select id="CNTRCT_TYPE" name="updAuditCntrctDto.CNTRCT_TYPE" class="form-control" onclick="show();">
-									<s:if test='updAuditCntrctDto.CNTRCT_TYPE == "1"'>
+								<select id="CNTRCT_TYPE" name="addAuditCntrctDto.CNTRCT_TYPE" class="form-control" onclick="show();">
+									<s:if test='addAuditCntrctDto.CNTRCT_TYPE == "1"'>
 										<option value="">请选择</option>
 										<option value="1" selected="selected">地铁</option>
 										<option value="2">非地铁</option>
 									</s:if>
-									<s:elseif test='updAuditCntrctDto.CNTRCT_TYPE == "2"'>
+									<s:elseif test='addAuditCntrctDto.CNTRCT_TYPE == "2"'>
 										<option value="">请选择</option>
 										<option value="1">地铁</option>
 										<option value="2" selected="selected">非地铁</option>
@@ -762,13 +503,13 @@
 						<div class="col-lg-12 form-group">
 							<label for="" class="col-lg-2 form-label">合同名称</label>
 							<div class="col-lg-5">
-								<s:textfield name="updAuditCntrctDto.CNTRCT_NAME" id="CNTRCT_NAME" cssClass="form-control" maxlength="1000" theme="simple"></s:textfield>
+								<s:textfield name="addAuditCntrctDto.CNTRCT_NAME" id="CNTRCT_NAME" cssClass="form-control" maxlength="1000" theme="simple"></s:textfield>
 							</div>
 							<label for="" class="col-lg-1 form-label">负责工程师</label>
 							<div class="col-lg-2">
-								<select name="updAuditCntrctDto.PROJECT_SENIOR_MANAGER" id="PROJECT_SENIOR_MANAGER" class="form-control">
+								<select name="addAuditCntrctDto.PROJECT_SENIOR_MANAGER" id="PROJECT_SENIOR_MANAGER" class="form-control">
 									<s:iterator id="listUserInfo" value="listUserInfo" status="st1">
-										<option value="<s:property value="LOGIN_NAME"/>" <s:if test="%{updAuditCntrctDto.PROJECT_SENIOR_MANAGER == LOGIN_NAME}">selected</s:if>><s:property value="LOGIN_NAME"/></option>
+										<option value="<s:property value="LOGIN_NAME"/>" <s:if test="%{addAuditCntrctDto.PROJECT_SENIOR_MANAGER == LOGIN_NAME}">selected</s:if>><s:property value="LOGIN_NAME"/></option>
 									</s:iterator>
 								</select>
 							</div>
@@ -776,26 +517,29 @@
 						<div class="col-lg-12 form-group">
 							<label for="" class="col-lg-2 form-label">合同简称</label>
 							<div class="col-lg-5">
-								<s:textfield name="updAuditCntrctDto.CNTRCT_NM" id="CNTRCT_NM" cssClass="form-control" maxlength="100" theme="simple"></s:textfield>
+								<s:textfield name="addAuditCntrctDto.CNTRCT_NM" id="CNTRCT_NM" cssClass="form-control" maxlength="100" theme="simple"></s:textfield>
 							</div>
 						</div>
 						<div class="col-lg-12 form-group">
 							<label for="" class="col-lg-2 form-label">委托单位</label>
-							<div class="col-lg-5">
-								<s:textfield name="updAuditCntrctDto.AUDIT_COMP_NAME" id="AUDIT_COMP_NAME" cssClass="form-control" maxlength="40" theme="simple"></s:textfield>
+							<div class="col-lg-4">
+								<s:textfield name="addAuditCntrctDto.AUDIT_COMP_NAME" id="AUDIT_COMP_NAME" cssClass="form-control" maxlength="40" theme="simple"></s:textfield>
+							</div>
+							<div class="col-lg-1">
+								<button class="btn btn-success form-control" type="button" onclick="selectAgentComp();">检索</button>
 							</div>
 						</div>
 						<div class="col-lg-12 form-group">
 							<label for="" class="col-lg-2 form-label">联系人及联系方式</label>
 							<div class="col-lg-5">
-								<s:textfield name="updAuditCntrctDto.CO_MANAGER_ADDRESS1" id="CO_MANAGER_ADDRESS1" cssClass="form-control" maxlength="100" theme="simple"></s:textfield>
+								<s:textfield name="addAuditCntrctDto.CO_MANAGER_ADDRESS1" id="CO_MANAGER_ADDRESS1" cssClass="form-control" maxlength="100" theme="simple"></s:textfield>
 							</div>
 						</div>
 						<div class="col-lg-12 form-group">
 							<label for="" class="col-lg-2 form-label">合同开始时间</label>
 							<div class="col-lg-2">
 								<div class="input-group date" data-provide="datepicker">
-									<input type="text" class="form-control datepicker" readonly id="cntrctStDate" value="<s:date format="yyyy-MM-dd" name="updAuditCntrctDto.CNTRCT_ST_DATE"/>" maxlength="10" />
+									<input type="text" class="form-control datepicker" readonly id="cntrctStDate" value="<s:date format="yyyy-MM-dd" name="addAuditCntrctDto.CNTRCT_ST_DATE"/>" maxlength="10" />
 									<div class="input-group-addon">
 										<span class="glyphicon glyphicon-th"></span>
 									</div>
@@ -804,7 +548,7 @@
 							<label for="" class="col-lg-1 form-label">合同结束时间</label>
 							<div class="col-lg-2">
 								<div class="input-group date" data-provide="datepicker">
-									<input type="text" class="form-control datepicker" readonly id="cntrctEdDate" value="<s:date format="yyyy-MM-dd" name="updAuditCntrctDto.CNTRCT_ED_DATE"/>" maxlength="10" />
+									<input type="text" class="form-control datepicker" readonly id="cntrctEdDate" value="<s:date format="yyyy-MM-dd" name="addAuditCntrctDto.CNTRCT_ED_DATE"/>" maxlength="10" />
 									<div class="input-group-addon">
 										<span class="glyphicon glyphicon-th"></span>
 									</div>
@@ -815,7 +559,7 @@
 						<div class="col-lg-12 form-group">
 							<label for="" class="col-lg-2 form-label">委托内容</label>
 							<div class="col-lg-5">
-								<s:if test='%{updAuditCntrctDto.CNTRCT_INFO.substring(0, 1) == "1"}'>
+								<s:if test='%{addAuditCntrctDto.CNTRCT_INFO.substring(0, 1) == "1"}'>
 									<input id="CNTRCT_INFO_0" type="checkbox" checked="checked"/>
 									<label class="form-label" for="">审价</label>　
 								</s:if>
@@ -828,7 +572,7 @@
 						<div class="col-lg-12 form-group">
 							<div class="col-lg-2"></div>
 							<div class="col-lg-5">
-								<s:if test='%{updAuditCntrctDto.CNTRCT_INFO.substring(1, 2) == "1"}'>
+								<s:if test='%{addAuditCntrctDto.CNTRCT_INFO.substring(1, 2) == "1"}'>
 									<input id="CNTRCT_INFO_1" type="checkbox" checked="checked"/>
 									<label class="form-label" for="">咨询</label>　
 								</s:if>
@@ -841,7 +585,7 @@
 						<div class="col-lg-12 form-group">
 							<div class="col-lg-2"></div>
 							<div class="col-lg-5">
-								<s:if test='%{updAuditCntrctDto.CNTRCT_INFO.substring(2, 3) == "1"}'>
+								<s:if test='%{addAuditCntrctDto.CNTRCT_INFO.substring(2, 3) == "1"}'>
 									<input id="CNTRCT_INFO_2" type="checkbox" checked="checked"/>
 									<label class="form-label" for="">清单编制</label>　
 								</s:if>
@@ -854,7 +598,7 @@
 						<div class="col-lg-12 form-group">
 							<div class="col-lg-2"></div>
 							<div class="col-lg-5">
-								<s:if test='%{updAuditCntrctDto.CNTRCT_INFO.substring(3, 4) == "1"}'>
+								<s:if test='%{addAuditCntrctDto.CNTRCT_INFO.substring(3, 4) == "1"}'>
 									<input id="CNTRCT_INFO_3" type="checkbox" checked="checked"/>
 									<label class="form-label" for="">控制价编制</label>　
 								</s:if>
@@ -867,7 +611,7 @@
 						<div class="col-lg-12 form-group">
 							<div class="col-lg-2"></div>
 							<div class="col-lg-5">
-								<s:if test='%{updAuditCntrctDto.CNTRCT_INFO.substring(4, 5) == "1"}'>
+								<s:if test='%{addAuditCntrctDto.CNTRCT_INFO.substring(4, 5) == "1"}'>
 									<input id="CNTRCT_INFO_4" type="checkbox" checked="checked" onclick="show();"/>
 									<label class="form-label" for="">全过程投资监理</label>　
 								</s:if>
@@ -882,7 +626,7 @@
 							<label for="" class="col-lg-1 form-label">审价：</label>
 							<label for="" class="col-lg-1 form-label">送审价*费率</label>
 							<div class="col-lg-2">
-								<s:textfield name="updAuditCntrctDto.CNTRCT_RATE_1" id="CNTRCT_RATE_1" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
+								<s:textfield name="addAuditCntrctDto.CNTRCT_RATE_1" id="CNTRCT_RATE_1" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
 							</div>
 							<div class="col-lg-1">
 								<label for="" class="form-label">%</label>
@@ -891,7 +635,7 @@
 								<label for="" class="form-label">=</label>
 							</div>
 							<div class="col-lg-2">
-								<s:textfield name="updAuditCntrctDto.CNTRCT_AMOUNT_1" id="CNTRCT_AMOUNT_1" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
+								<s:textfield name="addAuditCntrctDto.CNTRCT_AMOUNT_1" id="CNTRCT_AMOUNT_1" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
 							</div>
 							<div class="col-lg-1">
 								<label for="" class="form-label">金额(万元)</label>
@@ -902,7 +646,7 @@
 							<label for="" class="col-lg-2 form-label">咨询：</label>
 							<label for="" class="col-lg-1 form-label">送审价*费率</label>
 							<div class="col-lg-2">
-								<s:textfield name="updAuditCntrctDto.CNTRCT_RATE_2" id="CNTRCT_RATE_2" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
+								<s:textfield name="addAuditCntrctDto.CNTRCT_RATE_2" id="CNTRCT_RATE_2" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
 							</div>
 							<div class="col-lg-1">
 								<label for="" class="form-label">%</label>
@@ -911,7 +655,7 @@
 								<label for="" class="form-label">=</label>
 							</div>
 							<div class="col-lg-2">
-								<s:textfield name="updAuditCntrctDto.CNTRCT_AMOUNT_2" id="CNTRCT_AMOUNT_2" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
+								<s:textfield name="addAuditCntrctDto.CNTRCT_AMOUNT_2" id="CNTRCT_AMOUNT_2" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
 							</div>
 							<div class="col-lg-1">
 								<label for="" class="form-label">金额(万元)</label>
@@ -922,7 +666,7 @@
 							<label for="" class="col-lg-2 form-label">清单编制：</label>
 							<div class="col-lg-5"></div>
 							<div class="col-lg-2">
-								<s:textfield name="updAuditCntrctDto.CNTRCT_AMOUNT_3" id="CNTRCT_AMOUNT_3" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
+								<s:textfield name="addAuditCntrctDto.CNTRCT_AMOUNT_3" id="CNTRCT_AMOUNT_3" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
 							</div>
 							<div class="col-lg-1">
 								<label for="" class="form-label">金额(万元)</label>
@@ -933,7 +677,7 @@
 							<label for="" class="col-lg-2 form-label">控制价编制：</label>
 							<label for="" class="col-lg-1 form-label">限价金额*费率</label>
 							<div class="col-lg-2">
-								<s:textfield name="updAuditCntrctDto.CNTRCT_RATE_4" id="CNTRCT_RATE_4" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
+								<s:textfield name="addAuditCntrctDto.CNTRCT_RATE_4" id="CNTRCT_RATE_4" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
 							</div>
 							<div class="col-lg-1">
 								<label for="" class="form-label">%</label>
@@ -942,7 +686,7 @@
 								<label for="" class="form-label">=</label>
 							</div>
 							<div class="col-lg-2">
-								<s:textfield name="updAuditCntrctDto.CNTRCT_AMOUNT_4" id="CNTRCT_AMOUNT_4" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
+								<s:textfield name="addAuditCntrctDto.CNTRCT_AMOUNT_4" id="CNTRCT_AMOUNT_4" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
 							</div>
 							<div class="col-lg-1">
 								<label for="" class="form-label">金额(万元)</label>
@@ -953,7 +697,7 @@
 							<label for="" class="col-lg-2 form-label">全过程投资监理：</label>
 							<label for="" class="col-lg-1 form-label">预算金额*费率</label>
 							<div class="col-lg-2">
-								<s:textfield name="updAuditCntrctDto.CNTRCT_RATE_5" id="CNTRCT_RATE_5" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
+								<s:textfield name="addAuditCntrctDto.CNTRCT_RATE_5" id="CNTRCT_RATE_5" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
 							</div>
 							<div class="col-lg-1">
 								<label for="" class="form-label">%</label>
@@ -962,7 +706,7 @@
 								<label for="" class="form-label">=</label>
 							</div>
 							<div class="col-lg-2">
-								<s:textfield name="updAuditCntrctDto.CNTRCT_AMOUNT_5" id="CNTRCT_AMOUNT_5" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
+								<s:textfield name="addAuditCntrctDto.CNTRCT_AMOUNT_5" id="CNTRCT_AMOUNT_5" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
 							</div>
 							<div class="col-lg-1">
 								<label for="" class="form-label">金额(万元)</label>
@@ -972,34 +716,34 @@
 							<div class="col-lg-12 form-group" style="background-color: #ACD6FF;">
 								<label for="" class="col-lg-2 form-label">合同金额</label>
 								<div class="col-lg-2">
-									<s:textfield name="updAuditCntrctDto.CNTRCT_ALL_AMOUNT" id="CNTRCT_ALL_AMOUNT" cssClass="col-lg-10 form-control" style="width:80%" maxlength="14" theme="simple"></s:textfield>
+									<s:textfield name="addAuditCntrctDto.CNTRCT_ALL_AMOUNT" id="CNTRCT_ALL_AMOUNT" cssClass="col-lg-10 form-control" style="width:80%" maxlength="14" theme="simple"></s:textfield>
 									<label for="" class="col-lg-2 form-label">万元</label>
 								</div>
 								<label for="" class="col-lg-2 form-label">未收金额</label>
 								<div class="col-lg-2">
-									<s:textfield name="updAuditCntrctDto.CNTRCT_UNPAY_AMOUNT" id="CNTRCT_UNPAY_AMOUNT" cssClass="col-lg-10 form-control" style="width:80%" maxlength="14" theme="simple"></s:textfield>
+									<s:textfield name="addAuditCntrctDto.CNTRCT_UNPAY_AMOUNT" id="CNTRCT_UNPAY_AMOUNT" cssClass="col-lg-10 form-control" style="width:80%" maxlength="14" theme="simple"></s:textfield>
 									<label for="" class="col-lg-2 form-label">万元</label>
 								</div>
 								<label for="" class="col-lg-2 form-label">差旅合计</label>
 								<div class="col-lg-2">
-									<s:textfield name="updAuditCntrctDto.TRIP_TOTAL_AMOUNT" id="TRIP_TOTAL_AMOUNT" cssClass="col-lg-10 form-control" style="width:80%" maxlength="14" theme="simple"></s:textfield>
+									<s:textfield name="addAuditCntrctDto.TRIP_TOTAL_AMOUNT" id="TRIP_TOTAL_AMOUNT" cssClass="col-lg-10 form-control" style="width:80%" maxlength="14" theme="simple"></s:textfield>
 									<label for="" class="col-lg-2 form-label">万元</label>
 								</div>
 							</div>
 							<div class="col-lg-12 form-group" style="background-color: #FFF0AC;">
 								<label for="" class="col-lg-2 form-label">总概算</label>
 								<div class="col-lg-2">
-									<s:textfield name="updAuditCntrctDto.ESTIMATE_COST" id="ESTIMATE_COST" cssClass="col-lg-10 form-control" style="width:80%" maxlength="14" theme="simple"></s:textfield>
+									<s:textfield name="addAuditCntrctDto.ESTIMATE_COST" id="ESTIMATE_COST" cssClass="col-lg-10 form-control" style="width:80%" maxlength="14" theme="simple"></s:textfield>
 									<label for="" class="col-lg-2 form-label">万元</label>
 								</div>
 								<label for="" class="col-lg-2 form-label">建安概算（不含物流设备及信息）</label>
 								<div class="col-lg-2">
-									<s:textfield name="updAuditCntrctDto.ESTIMATE_CONSTRUCT_SAFE_COST" id="ESTIMATE_CONSTRUCT_SAFE_COST" cssClass="col-lg-10 form-control" style="width:80%" maxlength="14" theme="simple"></s:textfield>
+									<s:textfield name="addAuditCntrctDto.ESTIMATE_CONSTRUCT_SAFE_COST" id="ESTIMATE_CONSTRUCT_SAFE_COST" cssClass="col-lg-10 form-control" style="width:80%" maxlength="14" theme="simple"></s:textfield>
 									<label for="" class="col-lg-2 form-label">万元</label>
 								</div>
 								<label for="" class="col-lg-2 form-label">建安对应预备费</label>
 								<div class="col-lg-2">
-									<s:textfield name="updAuditCntrctDto.PRE_CONSTRUCT_SAFE_COST" id="PRE_CONSTRUCT_SAFE_COST" cssClass="col-lg-10 form-control" style="width:80%" maxlength="14" theme="simple"></s:textfield>
+									<s:textfield name="addAuditCntrctDto.PRE_CONSTRUCT_SAFE_COST" id="PRE_CONSTRUCT_SAFE_COST" cssClass="col-lg-10 form-control" style="width:80%" maxlength="14" theme="simple"></s:textfield>
 									<label for="" class="col-lg-2 form-label">万元</label>
 								</div>
 							</div>
@@ -1007,7 +751,7 @@
 								<label for="" class="col-lg-2 form-label">开工时间</label>
 								<div class="col-lg-2">
 									<div class="input-group date" data-provide="datepicker">
-										<input type="text" class="form-control datepicker" readonly id="constructStDate" value="<s:property value="updAuditCntrctDto.CONSTRUCT_ST_DATE"/>" maxlength="10" />
+										<input type="text" class="form-control datepicker" readonly id="constructStDate" value="<s:property value="addAuditCntrctDto.CONSTRUCT_ST_DATE"/>" maxlength="10" />
 										<div class="input-group-addon">
 											<span class="glyphicon glyphicon-th"></span>
 										</div>
@@ -1016,7 +760,7 @@
 								<label for="" class="col-lg-2 form-label">预计完工时间</label>
 								<div class="col-lg-2">
 									<div class="input-group date" data-provide="datepicker">
-										<input type="text" class="form-control datepicker" readonly id="planConstructEdDate" value="<s:property value="updAuditCntrctDto.PLAN_CONSTRUCT_ED_DATE"/>" maxlength="10" />
+										<input type="text" class="form-control datepicker" readonly id="planConstructEdDate" value="<s:property value="addAuditCntrctDto.PLAN_CONSTRUCT_ED_DATE"/>" maxlength="10" />
 										<div class="input-group-addon">
 											<span class="glyphicon glyphicon-th"></span>
 										</div>
@@ -1026,84 +770,84 @@
 							<div class="col-lg-12 form-group" style="background-color: #FFF0AC;">
 								<label for="" class="col-lg-2 form-label">总建筑面积</label>
 								<div class="col-lg-2">
-									<s:textfield name="updAuditCntrctDto.CONSTRUCT_AREA" id="CONSTRUCT_AREA" cssClass="col-lg-10 form-control" style="width:80%" maxlength="14" theme="simple"></s:textfield>
+									<s:textfield name="addAuditCntrctDto.CONSTRUCT_AREA" id="CONSTRUCT_AREA" cssClass="col-lg-10 form-control" style="width:80%" maxlength="14" theme="simple"></s:textfield>
 									<label for="" class="col-lg-2 form-label">m2</label>
 								</div>
 								<label for="" class="col-lg-2 form-label">执行总费用</label>
 								<div class="col-lg-2">
-									<s:textfield name="updAuditCntrctDto.EXCUTE_AMOUNT" id="EXCUTE_AMOUNT" cssClass="col-lg-10 form-control" style="width:80%" maxlength="14" theme="simple"></s:textfield>
+									<s:textfield name="addAuditCntrctDto.EXCUTE_AMOUNT" id="EXCUTE_AMOUNT" cssClass="col-lg-10 form-control" style="width:80%" maxlength="14" theme="simple"></s:textfield>
 									<label for="" class="col-lg-2 form-label">万元</label>
 								</div>
 							</div>
 							<div class="col-lg-12 form-group" style="background-color: #FFF0AC;">
 								<label for="" class="col-lg-2 form-label">执行建安（万元）合同（个）</label>
 								<div class="col-lg-2">
-									<s:textfield name="updAuditCntrctDto.CONSTRUCT_SAFE_COUNT" id="CONSTRUCT_SAFE_COUNT" cssClass="form-control" style="width:80%" maxlength="8" theme="simple"></s:textfield>
+									<s:textfield name="addAuditCntrctDto.CONSTRUCT_SAFE_COUNT" id="CONSTRUCT_SAFE_COUNT" cssClass="form-control" style="width:80%" maxlength="8" theme="simple"></s:textfield>
 								</div>
 								<label for="" class="col-lg-2 form-label">执行建安（万元）合同价</label>
 								<div class="col-lg-2">
-									<s:textfield name="updAuditCntrctDto.CONSTRUCT_SAFE_CNTRCT_COST" id="CONSTRUCT_SAFE_CNTRCT_COST" cssClass="form-control" style="width:80%" maxlength="14" theme="simple"></s:textfield>
+									<s:textfield name="addAuditCntrctDto.CONSTRUCT_SAFE_CNTRCT_COST" id="CONSTRUCT_SAFE_CNTRCT_COST" cssClass="form-control" style="width:80%" maxlength="14" theme="simple"></s:textfield>
 								</div>
 							</div>
 							<div class="col-lg-12 form-group" style="background-color: #FFF0AC;">
 								<label for="" class="col-lg-2 form-label">执行建安（万元）已支付</label>
 								<div class="col-lg-2">
-									<s:textfield name="updAuditCntrctDto.CONSTRUCT_SAFE_CNTRCT_COST_PAID" id="CONSTRUCT_SAFE_CNTRCT_COST_PAID" cssClass="form-control" style="width:80%" maxlength="14" theme="simple"></s:textfield>
+									<s:textfield name="addAuditCntrctDto.CONSTRUCT_SAFE_CNTRCT_COST_PAID" id="CONSTRUCT_SAFE_CNTRCT_COST_PAID" cssClass="form-control" style="width:80%" maxlength="14" theme="simple"></s:textfield>
 								</div>
 								<label for="" class="col-lg-2 form-label">执行建安（万元）控制价</label>
 								<div class="col-lg-2">
-									<s:textfield name="updAuditCntrctDto.CONSTRUCT_SAFE_CNTRCT_COST_CTRL" id="CONSTRUCT_SAFE_CNTRCT_COST_CTRL" cssClass="form-control" style="width:80%" maxlength="14" theme="simple"></s:textfield>
+									<s:textfield name="addAuditCntrctDto.CONSTRUCT_SAFE_CNTRCT_COST_CTRL" id="CONSTRUCT_SAFE_CNTRCT_COST_CTRL" cssClass="form-control" style="width:80%" maxlength="14" theme="simple"></s:textfield>
 								</div>
 							</div>
 							<div class="col-lg-12 form-group" style="background-color: #FFF0AC;">
 								<label for="" class="col-lg-2 form-label">超概的风险度</label>
 								<div class="col-lg-2">
-									<s:textfield name="updAuditCntrctDto.BUDGETARY_OVERRUN_RISK" id="BUDGETARY_OVERRUN_RISK" cssClass="form-control" style="width:80%" maxlength="5" theme="simple"></s:textfield>
+									<s:textfield name="addAuditCntrctDto.BUDGETARY_OVERRUN_RISK" id="BUDGETARY_OVERRUN_RISK" cssClass="form-control" style="width:80%" maxlength="5" theme="simple"></s:textfield>
 								</div>
 							</div>
 							<div class="col-lg-12 form-group" style="background-color: #FFF0AC;">
 								<label for="" class="col-lg-2 form-label">月报（累计）</label>
 								<div class="col-lg-2">
-									<s:textfield name="updAuditCntrctDto.MONTHLY_REPORT_CNT" id="MONTHLY_REPORT_CNT" cssClass="col-lg-10 form-control" style="width:80%" maxlength="8" theme="simple"></s:textfield>
+									<s:textfield name="addAuditCntrctDto.MONTHLY_REPORT_CNT" id="MONTHLY_REPORT_CNT" cssClass="col-lg-10 form-control" style="width:80%" maxlength="8" theme="simple"></s:textfield>
 									<label for="" class="col-lg-2 form-label">个</label>
 								</div>
 								<label for="" class="col-lg-2 form-label">建议书（累计）</label>
 								<div class="col-lg-2">
-									<s:textfield name="updAuditCntrctDto.SUGGEST_REPORT_CNT" id="SUGGEST_REPORT_CNT" cssClass="col-lg-10 form-control" style="width:80%" maxlength="8" theme="simple"></s:textfield>
+									<s:textfield name="addAuditCntrctDto.SUGGEST_REPORT_CNT" id="SUGGEST_REPORT_CNT" cssClass="col-lg-10 form-control" style="width:80%" maxlength="8" theme="simple"></s:textfield>
 									<label for="" class="col-lg-2 form-label">个</label>
 								</div>
 							</div>
 							<div class="col-lg-12 form-group" style="background-color: #FFF0AC;">
 								<label for="" class="col-lg-2 form-label">联系函（累计）</label>
 								<div class="col-lg-2">
-									<s:textfield name="updAuditCntrctDto.COMM_REPORT_CNT" id="COMM_REPORT_CNT" cssClass="col-lg-10 form-control" style="width:80%" maxlength="8" theme="simple"></s:textfield>
+									<s:textfield name="addAuditCntrctDto.COMM_REPORT_CNT" id="COMM_REPORT_CNT" cssClass="col-lg-10 form-control" style="width:80%" maxlength="8" theme="simple"></s:textfield>
 									<label for="" class="col-lg-2 form-label">个</label>
 								</div>
 								<label for="" class="col-lg-2 form-label">已完审价（累计）</label>
 								<div class="col-lg-2">
-									<s:textfield name="updAuditCntrctDto.FINISH_AUDIT_CNT" id="FINISH_AUDIT_CNT" cssClass="col-lg-10 form-control" style="width:80%" maxlength="8" theme="simple"></s:textfield>
+									<s:textfield name="addAuditCntrctDto.FINISH_AUDIT_CNT" id="FINISH_AUDIT_CNT" cssClass="col-lg-10 form-control" style="width:80%" maxlength="8" theme="simple"></s:textfield>
 									<label for="" class="col-lg-2 form-label">个</label>
 								</div>
 							</div>
 							<div class="col-lg-12 form-group" style="background-color: #FFF0AC;">
 								<label for="" class="col-lg-2 form-label">工程例会</label>
 								<div class="col-lg-2">
-									<s:textfield name="updAuditCntrctDto.PROJ_PROGRESS_MEET_CNT" id="PROJ_PROGRESS_MEET_CNT" cssClass="col-lg-10 form-control" style="width:80%" maxlength="8" theme="simple"></s:textfield>
+									<s:textfield name="addAuditCntrctDto.PROJ_PROGRESS_MEET_CNT" id="PROJ_PROGRESS_MEET_CNT" cssClass="col-lg-10 form-control" style="width:80%" maxlength="8" theme="simple"></s:textfield>
 									<label for="" class="col-lg-2 form-label">次</label>
 								</div>
 								<label for="" class="col-lg-2 form-label">大致进度及工作计划</label>
 								<div class="col-lg-2">
-									<s:textfield name="updAuditCntrctDto.PROGRESS_STATUS" id="PROGRESS_STATUS" cssClass="col-lg-10 form-control" style="width:80%" maxlength="2" theme="simple"></s:textfield>
+									<s:textfield name="addAuditCntrctDto.PROGRESS_STATUS" id="PROGRESS_STATUS" cssClass="col-lg-10 form-control" style="width:80%" maxlength="2" theme="simple"></s:textfield>
 								</div>
 							</div>
 						</div>
 						<div class="col-lg-12 form-group">
 						 	<div class="col-lg-9"></div>
 							<div class="col-lg-1">
-								<button class="btn btn-success" type="button" onclick="goAuditCntrctList();">取消</button>
+								<button class="btn btn-success form-control" type="button" onclick="goAuditCntrctList();">取消</button>
 							</div>
 							<div class="col-lg-1">
-								<button class="btn btn-success" type="button" onclick="upd();">保存</button>
+								<button class="btn btn-success form-control" type="button" onclick="add();">保存</button>
 							</div>
 						</div>
 					</div>
@@ -1128,8 +872,6 @@
 		$(this).toggleClass('fa-angle-double-right');
 		$(this).parent().parent('.right').toggleClass('w100');
 	});
-	
-	show();
 </script>
 </body>
 </html>

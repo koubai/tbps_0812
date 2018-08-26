@@ -7,43 +7,43 @@
 	<package name="auditcntrct" extends="struts-tbps" namespace="/auditcntrct">
 	
 		<action name="showAuditCntrctAction" class="auditCntrctAction" method="showAuditCntrctAction">
-			<result name="success">/page/audit/auditcntrctlist.jsp</result>
+			<result name="success">/page/auditcntrct/auditcntrctlist.jsp</result>
 		</action>
 		
 		<action name="queryAuditCntrctList" class="auditCntrctAction" method="queryAuditCntrctList">
-			<result name="success">/page/audit/auditcntrctlist.jsp</result>
+			<result name="success">/page/auditcntrct/auditcntrctlist.jsp</result>
 		</action>
 		
 		<action name="turnAuditCntrctPage" class="auditCntrctAction" method="turnAuditCntrctPage">
-			<result name="success">/page/audit/auditcntrctlist.jsp</result>
+			<result name="success">/page/auditcntrct/auditcntrctlist.jsp</result>
 		</action>
 		
 		<action name="delAuditCntrctAction" class="auditCntrctAction" method="delAuditCntrctAction">
-			<result name="success">/page/audit/auditcntrctlist.jsp</result>
-			<result name="checkerror">/page/audit/auditcntrctlist.jsp</result>
+			<result name="success">/page/auditcntrct/auditcntrctlist.jsp</result>
+			<result name="checkerror">/page/auditcntrct/auditcntrctlist.jsp</result>
 		</action>
 		
 		<action name="showAddAuditCntrctAction" class="auditCntrctAction" method="showAddAuditCntrctAction">
-			<result name="success">/page/audit/addauditcntrct.jsp</result>
+			<result name="success">/page/auditcntrct/addauditcntrct.jsp</result>
 		</action>
 		
 		<action name="addAuditCntrctAction" class="auditCntrctAction" method="addAuditCntrctAction">
-			<result name="success">/page/audit/addauditcntrct.jsp</result>
-			<result name="checkerror">/page/audit/addauditcntrct.jsp</result>
+			<result name="success">/page/auditcntrct/addauditcntrct.jsp</result>
+			<result name="checkerror">/page/auditcntrct/addauditcntrct.jsp</result>
 		</action>
 		
 		<action name="showUpdAuditCntrctAction" class="auditCntrctAction" method="showUpdAuditCntrctAction">
-			<result name="success">/page/audit/updauditcntrct.jsp</result>
-			<result name="checkerror">/page/audit/updauditcntrct.jsp</result>
+			<result name="success">/page/auditcntrct/updauditcntrct.jsp</result>
+			<result name="checkerror">/page/auditcntrct/updauditcntrct.jsp</result>
 		</action>
 		
 		<action name="updAuditCntrctAction" class="auditCntrctAction" method="updAuditCntrctAction">
-			<result name="success">/page/audit/updauditcntrct.jsp</result>
-			<result name="checkerror">/page/audit/updauditcntrct.jsp</result>
+			<result name="success">/page/auditcntrct/updauditcntrct.jsp</result>
+			<result name="checkerror">/page/auditcntrct/updauditcntrct.jsp</result>
 		</action>
 		
 		<action name="showAuditCntrctDetail" class="auditCntrctAction" method="showAuditCntrctDetail">
-			<result name="success">/page/audit/auditcntrctdetail.jsp</result>
+			<result name="success">/page/auditcntrct/auditcntrctdetail.jsp</result>
 		</action>
 		
 		<action name="exportAuditCntrctListAction" class="auditCntrctAction" method="exportAuditCntrctListAction">
@@ -51,19 +51,15 @@
 		</action>
 		
 		<action name="showAllAuditCntrctHisAction" class="auditCntrctAction" method="showAllAuditCntrctHisAction">
-			<result name="success">/page/audit/auditcntrcthisall.jsp</result>
+			<result name="success">/page/auditcntrct/auditcntrcthisall.jsp</result>
 		</action>
 		
 		<action name="showAuditCntrctHistDetail" class="auditCntrctAction" method="showAuditCntrctHistDetail">
-			<result name="success">/page/audit/auditcntrcthisdetail.jsp</result>
+			<result name="success">/page/auditcntrct/auditcntrcthisdetail.jsp</result>
 		</action>
 		
 		<action name="exportAuditCntrctHist" class="auditCntrctAction" method="exportAuditCntrctHist">
 			<result name="success">/page/download.jsp</result>
-		</action>
-		
-		<action name="showSelectAgentCompAction" class="auditCntrctAction" method="showSelectAgentCompAction">
-			<result name="success">/page/bid/selectagentcomp.jsp</result>
 		</action>
 		
 	</package>

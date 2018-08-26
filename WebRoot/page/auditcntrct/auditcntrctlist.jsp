@@ -98,6 +98,24 @@
 		document.mainform.action = '<c:url value="/auditcntrct/queryAuditCntrctList.action"></c:url>';
 		document.mainform.submit();
 	}
+
+	function queryAuditCntrctList() {
+		setQueryDate();
+		document.mainform.action = '<c:url value="/auditcntrct/showAuditCntrcyAction.action"></c:url>';
+		document.mainform.submit();
+	}
+
+	function queryAuditList() {
+		setQueryDate();
+		document.mainform.action = '<c:url value="/audit/showAuditAction.action"></c:url>';
+		document.mainform.submit();
+	}
+
+	function addaudit() {
+		setQueryDate();
+		document.mainform.action = '<c:url value="/audit/showAddAuditAction.action"></c:url>';
+		document.mainform.submit();
+	}
 	
 
 	//翻页
@@ -162,7 +180,7 @@
 	<div class="container-fluid">
 		<jsp:include page="../info.jsp" flush="true" />
 		<div class="row">
-			<jsp:include page="../menu.jsp" flush="true" />
+			<jsp:include page="../auditmenu.jsp" flush="true" />
 			<div class="col-lg-10 right">
 				<a class="toggle" href="javascript:;"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
 				<s:form id="mainform" name="mainform" method="POST">
