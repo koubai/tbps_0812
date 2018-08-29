@@ -82,7 +82,6 @@
 	
 	<select id="queryAuditCntrctHisCountByPage" resultClass="int" parameterClass="java.util.Map">
 		select count(*) from auditcntrct_hist T where 1 = 1
-			and T.DELETE_FLG = '1'
 		<isNotEmpty prepend="and" property="CNTRCT_NAME">
 			T.CNTRCT_NAME like '%$CNTRCT_NAME$%'
 		</isNotEmpty>
@@ -96,7 +95,6 @@
 	
 	<select id="queryAuditCntrctHisByPage" parameterClass="java.util.Map" resultMap="AuditCntrctHisDto">
 		select T.* from auditcntrct_hist T where 1 = 1
-		and T.DELETE_FLG = '1'
 		<isNotEmpty prepend="and" property="CNTRCT_NAME">
 			T.CNTRCT_NAME like '%$CNTRCT_NAME$%'
 		</isNotEmpty>
@@ -106,14 +104,14 @@
 		<isNotEmpty prepend="and" property="CNTRCT_NO">
 			T.CNTRCT_NO = #CNTRCT_NO#
 		</isNotEmpty>
-		order by INSERT_DATE desc
+		order by CNTRCT_HIST_SEQ desc
 		LIMIT #start#, #end#
 	</select>
 	
 	<select id="queryAuditCntrctHisByID" parameterClass="java.util.Map" resultMap="AuditCntrctHisDto">
 		select * from auditcntrct_hist where 
 			CNTRCT_HIST_SEQ = #CNTRCT_HIST_SEQ#
-			and DELETE_FLG = '1'
+			order by CNTRCT_HIST_SEQ desc
 	</select>
 	
 	<insert id="insertAuditCntrctHis" parameterClass="com.cn.tbps.dto.AuditCntrctHisDto">
