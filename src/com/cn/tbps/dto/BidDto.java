@@ -32,6 +32,20 @@ public class BidDto extends BaseDto {
 	 * 合同编号
 	 */
 	private String CNTRCT_NO;
+	
+	//关联招标合同字段
+	//合同名称
+	private String CNTRCT_NAME;
+	//合同年份
+	private String CNTRCT_YEAR;
+	//合同开始时间
+	private String CNTRCT_ST_DATE;
+	//合同结束时间
+	private String CNTRCT_ED_DATE;
+	//委托单位ID
+	private String BID_COMP_NO;
+	//委托单位名称
+	private String BID_COMP_NAME;
 
 	/**
 	 * 承接项目日期：
@@ -1715,5 +1729,53 @@ public class BidDto extends BaseDto {
 
 	public void setBID_VALUE_DATE(Date bID_VALUE_DATE) {
 		BID_VALUE_DATE = bID_VALUE_DATE;
+	}
+
+	public String getCNTRCT_YEAR() {
+		return CNTRCT_YEAR;
+	}
+
+	public void setCNTRCT_YEAR(String cNTRCT_YEAR) {
+		CNTRCT_YEAR = cNTRCT_YEAR;
+	}
+
+	public String getCNTRCT_ST_DATE() {
+		return CNTRCT_ST_DATE;
+	}
+
+	public void setCNTRCT_ST_DATE(String cNTRCT_ST_DATE) {
+		CNTRCT_ST_DATE = cNTRCT_ST_DATE;
+	}
+
+	public String getCNTRCT_ED_DATE() {
+		return CNTRCT_ED_DATE;
+	}
+
+	public void setCNTRCT_ED_DATE(String cNTRCT_ED_DATE) {
+		CNTRCT_ED_DATE = cNTRCT_ED_DATE;
+	}
+
+	public String getBID_COMP_NO() {
+		return BID_COMP_NO;
+	}
+
+	public void setBID_COMP_NO(String bID_COMP_NO) {
+		BID_COMP_NO = bID_COMP_NO;
+	}
+
+	public String getBID_COMP_NAME() {
+		return BID_COMP_NAME;
+	}
+
+	public void setBID_COMP_NAME(String bID_COMP_NAME) {
+		BID_COMP_NAME = bID_COMP_NAME;
+	}
+
+	public String getCNTRCT_NAME() {
+		return CNTRCT_NAME;
+	}
+
+	public void setCNTRCT_NAME(String cNTRCT_NAME) {
+		CNTRCT_NAME = cNTRCT_NAME;
 	}
 }

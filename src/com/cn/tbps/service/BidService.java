@@ -17,6 +17,9 @@ import com.cn.tbps.dto.ExpertLibDto;
  * @version 1.0
  */
 public interface BidService {
+	
+	public Page queryBidAndBidCntrctByPage(String CNTRCT_YEAR, String CNTRCT_NO, String BID_COMP_NO,
+			String CNTRCT_NAME, String CNTRCT_TYPE, String CNTRCT_ST_DATE, String CNTRCT_ED_DATE, Page page);
 
 	/**
 	 * 翻页查询投标

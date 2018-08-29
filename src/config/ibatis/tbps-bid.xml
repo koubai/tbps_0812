@@ -134,6 +134,200 @@
 		<result property="BID_WIN_PRICE" column="BID_WIN_PRICE" />
 	</resultMap>
 	
+	<resultMap id="BidDto1" class="com.cn.tbps.dto.BidDto">
+		<result property="BID_NO" column="BID_NO" />
+		<result property="BID_STATUS" column="BID_STATUS" />
+		<result property="BID_VALUE_DATE" column="BID_VALUE_DATE" />
+		<result property="CNTRCT_NO" column="CNTRCT_NO" />
+		<result property="CNTRCT_NAME" column="CNTRCT_NAME" />
+		<result property="CNTRCT_TYPE" column="CNTRCT_TYPE" />
+		<result property="CNTRCT_YEAR" column="CNTRCT_YEAR" />
+		<result property="CNTRCT_ST_DATE" column="CNTRCT_ST_DATE" />
+		<result property="CNTRCT_ED_DATE" column="CNTRCT_ED_DATE" />
+		<result property="BID_COMP_NO" column="BID_COMP_NO" />
+		<result property="BID_COMP_NAME" column="BID_COMP_NAME" />
+		<result property="PROJECT_DEVIEW_DATE" column="PROJECT_DEVIEW_DATE" />
+		<result property="CNTRCT_TYPE" column="CNTRCT_TYPE" />
+		<result property="PROJECT_NAME" column="PROJECT_NAME" />
+		<result property="PROJECT_PROPERTY" column="PROJECT_PROPERTY" />
+		<result property="PROJ_APPROVAL" column="PROJ_APPROVAL" />
+		<result property="PROJECT_AUTH" column="PROJECT_AUTH" />
+		<result property="PROJECT_MANAGER" column="PROJECT_MANAGER" />
+		<result property="BID_AGENT_PAY" column="BID_AGENT_PAY" />
+		<result property="BID_AGENT_PAY2" column="BID_AGENT_PAY2" />
+		<result property="BID_AGENT_PRICE" column="BID_AGENT_PRICE" />
+		<result property="BID_AGENT_PRICE_ACT" column="BID_AGENT_PRICE_ACT" />
+		<result property="RECEIPT1_DATE" column="RECEIPT1_DATE" />
+		<result property="RECEIPT1_VALUE_DATE" column="RECEIPT1_VALUE_DATE" />
+		<result property="REGISTE_ST_DATE1" column="REGISTE_ST_DATE1" />
+		<result property="REGISTE_ED_DATE1" column="REGISTE_ED_DATE1" />
+		<result property="REGISTE_ST_DATE2" column="REGISTE_ST_DATE2" />
+		<result property="REGISTE_ED_DATE2" column="REGISTE_ED_DATE2" />
+		<result property="REGISTE_ST_DATE3" column="REGISTE_ST_DATE3" />
+		<result property="REGISTE_ED_DATE3" column="REGISTE_ED_DATE3" />
+		<result property="REGISTE_ST_DATE4" column="REGISTE_ST_DATE4" />
+		<result property="REGISTE_ED_DATE4" column="REGISTE_ED_DATE4" />
+		<result property="REGISTE_ST_DATE5" column="REGISTE_ST_DATE5" />
+		<result property="REGISTE_ED_DATE5" column="REGISTE_ED_DATE5" />
+		<result property="APPLY_REQUIRE" column="APPLY_REQUIRE" />
+		<result property="BID_BOND" column="BID_BOND" />
+		<result property="TENDER_OPEN_DATE" column="TENDER_OPEN_DATE" />
+		<result property="TENDER_OPEN_ADDRESS" column="TENDER_OPEN_ADDRESS" />
+		<result property="TENDER_VERIFY_DATE" column="TENDER_VERIFY_DATE" />
+		<result property="BID_AUTH" column="BID_AUTH" />
+		<result property="BID_LIMIT_PRICE" column="BID_LIMIT_PRICE" />
+		<result property="BID_CO_LIST" column="BID_CO_LIST" />
+		<result property="BID_EXPERT_LIST" column="BID_EXPERT_LIST" />
+		<result property="BID_CO_SEQ" column="BID_CO_SEQ" />
+		<result property="BID_CO_NAME" column="BID_CO_NAME" />
+		<result property="BID_CO_PRICE" column="BID_CO_PRICE" />
+		<result property="BID_PRICE" column="BID_PRICE" />
+		<result property="BID_PRICE_LIST" column="BID_PRICE_LIST" />
+		<result property="BID_EXPERT_COMMISION" column="BID_EXPERT_COMMISION" />
+		<result property="BID_EXPERT_COMMISION_PRE" column="BID_EXPERT_COMMISION_PRE" />
+		<result property="BID_EXPERT_COMMISION_ACT" column="BID_EXPERT_COMMISION_ACT" />
+		<result property="BID_EXPERT_COMMISION_DIFF_DATE" column="BID_EXPERT_COMMISION_DIFF_DATE" />
+		<result property="BID_APPLY_PRICE" column="BID_APPLY_PRICE" />
+		<result property="BID_EXPERT_COMMISION_APPLY" column="BID_EXPERT_COMMISION_APPLY" />
+		<result property="APPLY_FORM_EDIT_DATE" column="APPLY_FORM_EDIT_DATE" />
+		<result property="APPLY_FORM_COLLECT_DATE" column="APPLY_FORM_COLLECT_DATE" />
+		<result property="APPLY_FORM_VERIFY_DATE" column="APPLY_FORM_VERIFY_DATE" />
+		<result property="APPLY_FORM_VERIFY" column="APPLY_FORM_VERIFY" />
+		<result property="APPLY_FORM_FIX_DATE" column="APPLY_FORM_FIX_DATE" />
+		<result property="APPLY_FORM_BOX_DATE" column="APPLY_FORM_BOX_DATE" />
+		<result property="SUPPORT_DOC_DATE" column="SUPPORT_DOC_DATE" />
+		<result property="BID_NOTICE_ST_DATE" column="BID_NOTICE_ST_DATE" />
+		<result property="BID_NOTICE_ED_DATE" column="BID_NOTICE_ED_DATE" />
+		<result property="BID_MESSAGE_DATE" column="BID_MESSAGE_DATE" />
+		<result property="BID_DOC_DELI_DATE1" column="BID_DOC_DELI_DATE1" />
+		<result property="BID_DOC_DELI_FILE1" column="BID_DOC_DELI_FILE1" />
+		<result property="BID_DOC_DELI_DATE2" column="BID_DOC_DELI_DATE2" />
+		<result property="BID_DOC_DELI_FILE2" column="BID_DOC_DELI_FILE2" />
+		<result property="BID_DOC_DELI_DATE3" column="BID_DOC_DELI_DATE3" />
+		<result property="BID_DOC_DELI_FILE3" column="BID_DOC_DELI_FILE3" />
+		<result property="BID_DOC_DELI_DATE4" column="BID_DOC_DELI_DATE4" />
+		<result property="BID_DOC_DELI_FILE4" column="BID_DOC_DELI_FILE4" />
+		<result property="BID_DOC_DELI_DATE5" column="BID_DOC_DELI_DATE5" />
+		<result property="BID_DOC_DELI_FILE5" column="BID_DOC_DELI_FILE5" />
+		<result property="BID_DOC_DELI_DATE6" column="BID_DOC_DELI_DATE6" />
+		<result property="BID_DOC_DELI_FILE6" column="BID_DOC_DELI_FILE6" />
+		<result property="BID_DOC_DELI_DATE7" column="BID_DOC_DELI_DATE7" />
+		<result property="BID_DOC_DELI_FILE7" column="BID_DOC_DELI_FILE7" />
+		<result property="BID_DOC_DELI_DATE8" column="BID_DOC_DELI_DATE8" />
+		<result property="BID_DOC_DELI_FILE8" column="BID_DOC_DELI_FILE8" />
+		<result property="BID_DOC_DELI_DATE9" column="BID_DOC_DELI_DATE9" />
+		<result property="BID_DOC_DELI_FILE9" column="BID_DOC_DELI_FILE9" />
+		<result property="BID_DOC_DELI_DATE10" column="BID_DOC_DELI_DATE10" />
+		<result property="BID_DOC_DELI_FILE10" column="BID_DOC_DELI_FILE10" />
+		<result property="BID_INFORM_RCV_DATE" column="BID_INFORM_RCV_DATE" />
+		<result property="BID_INFORM_RCV" column="BID_INFORM_RCV" />
+		<result property="BID_VER_DOC_SCAN_DATE" column="BID_VER_DOC_SCAN_DATE" />
+		<result property="BID_VER_DOC_SCAN" column="BID_VER_DOC_SCAN" />
+		<result property="BID_VER_DOC_DELI_DATE1" column="BID_VER_DOC_DELI_DATE1" />
+		<result property="BID_VER_DOC_DELI_FILE1" column="BID_VER_DOC_DELI_FILE1" />
+		<result property="BID_VER_DOC_DELI_DATE2" column="BID_VER_DOC_DELI_DATE2" />
+		<result property="BID_VER_DOC_DELI_FILE2" column="BID_VER_DOC_DELI_FILE2" />
+		<result property="BID_VER_DOC_DELI_DATE3" column="BID_VER_DOC_DELI_DATE3" />
+		<result property="BID_VER_DOC_DELI_FILE3" column="BID_VER_DOC_DELI_FILE3" />
+		<result property="BID_VER_DOC_DELI_DATE4" column="BID_VER_DOC_DELI_DATE4" />
+		<result property="BID_VER_DOC_DELI_FILE4" column="BID_VER_DOC_DELI_FILE4" />
+		<result property="BID_VER_DOC_DELI_DATE5" column="BID_VER_DOC_DELI_DATE5" />
+		<result property="BID_VER_DOC_DELI_FILE5" column="BID_VER_DOC_DELI_FILE5" />
+		<result property="BID_VER_DOC_DELI_DATE6" column="BID_VER_DOC_DELI_DATE6" />
+		<result property="BID_VER_DOC_DELI_FILE6" column="BID_VER_DOC_DELI_FILE6" />
+		<result property="BID_VER_DOC_DELI_DATE7" column="BID_VER_DOC_DELI_DATE7" />
+		<result property="BID_VER_DOC_DELI_FILE7" column="BID_VER_DOC_DELI_FILE7" />
+		<result property="BID_VER_DOC_DELI_DATE8" column="BID_VER_DOC_DELI_DATE8" />
+		<result property="BID_VER_DOC_DELI_FILE8" column="BID_VER_DOC_DELI_FILE8" />
+		<result property="BID_VER_DOC_DELI_DATE9" column="BID_VER_DOC_DELI_DATE9" />
+		<result property="BID_VER_DOC_DELI_FILE9" column="BID_VER_DOC_DELI_FILE9" />
+		<result property="BID_VER_DOC_DELI_DATE10" column="BID_VER_DOC_DELI_DATE10" />
+		<result property="BID_VER_DOC_DELI_FILE10" column="BID_VER_DOC_DELI_FILE10" />
+		<result property="PROGRESS_STATUS" column="PROGRESS_STATUS" />
+		<result property="FINISH_STATUS" column="FINISH_STATUS" />
+		<result property="FINISH_NOTE" column="FINISH_NOTE" />
+		<result property="STATUS" column="STATUS" />
+		<result property="MEMO1" column="MEMO1" />
+		<result property="RESERVE1" column="RESERVE1" />
+		<result property="RESERVE2" column="RESERVE2" />
+		<result property="RESERVE3" column="RESERVE3" />
+		<result property="RESERVE4" column="RESERVE4" />
+		<result property="RESERVE5" column="RESERVE5" />
+		<result property="RESERVE_DATE1" column="RESERVE_DATE1" />
+		<result property="RESERVE_DATE2" column="RESERVE_DATE2" />
+		<result property="RESERVE_DATE3" column="RESERVE_DATE3" />
+		<result property="RESERVE_DATE4" column="RESERVE_DATE4" />
+		<result property="RESERVE_DATE5" column="RESERVE_DATE5" />
+		<result property="RESERVE_DATE6" column="RESERVE_DATE6" />
+		<result property="RESERVE_DATE7" column="RESERVE_DATE7" />
+		<result property="RESERVE_DATE8" column="RESERVE_DATE8" />
+		<result property="RESERVE_DATE9" column="RESERVE_DATE9" />
+		<result property="RESERVE_DATE10" column="RESERVE_DATE10" />
+		<result property="LATEST_FLG" column="LATEST_FLG" />
+		<result property="DELETE_FLG" column="DELETE_FLG" />
+		<result property="UPDATE_USER" column="UPDATE_USER" />
+		<result property="INSERT_DATE" column="INSERT_DATE" />
+		<result property="UPDATE_DATE" column="UPDATE_DATE" />
+		<result property="BID_WIN_PRICE" column="BID_WIN_PRICE" />
+	</resultMap>
+	
+	<select id="queryBidAndBidCntrctCountByPage" resultClass="int" parameterClass="java.util.Map">
+		select count(*) from (
+			select C.T.* from bid T left join bidcntrct C on C.CNTRCT_NO = T.CNTRCT_NO
+		) B where 1 = 1 and B.DELETE_FLG = '1'
+		<isNotEmpty prepend="and" property="CNTRCT_YEAR">
+			B.CNTRCT_YEAR = #CNTRCT_YEAR#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="CNTRCT_TYPE">
+			B.CNTRCT_TYPE = #CNTRCT_TYPE#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="CNTRCT_NO">
+			B.CNTRCT_NO = #CNTRCT_NO#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="BID_COMP_NO">
+			B.BID_COMP_NO = #BID_COMP_NO#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="CNTRCT_NAME">
+			B.CNTRCT_NAME like '%$CNTRCT_NAME$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="CNTRCT_ST_DATE">
+			B.CNTRCT_ST_DATE <![CDATA[>=]]> #CNTRCT_ST_DATE#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="CNTRCT_ED_DATE">
+			B.CNTRCT_ED_DATE <![CDATA[<=]]> #CNTRCT_ED_DATE#
+		</isNotEmpty>
+	</select>
+	
+	<select id="queryBidAndBidCntrctByPage" parameterClass="java.util.Map" resultMap="BidDto">
+		select * from (
+			select C.BID_COMP_NO,C.CNTRCT_YEAR,C.CNTRCT_NAME,C.CNTRCT_ST_DATE,C.CNTRCT_ED_DATE,
+				T.* from bid T left join bidcntrct C on C.CNTRCT_NO = T.CNTRCT_NO
+		) B where 1 = 1 and B.DELETE_FLG = '1'
+		<isNotEmpty prepend="and" property="CNTRCT_YEAR">
+			B.CNTRCT_YEAR = #CNTRCT_YEAR#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="CNTRCT_TYPE">
+			B.CNTRCT_TYPE = #CNTRCT_TYPE#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="CNTRCT_NO">
+			B.CNTRCT_NO = #CNTRCT_NO#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="BID_COMP_NO">
+			B.BID_COMP_NO = #BID_COMP_NO#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="CNTRCT_NAME">
+			B.CNTRCT_NAME like '%$CNTRCT_NAME$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="CNTRCT_ST_DATE">
+			B.CNTRCT_ST_DATE <![CDATA[>=]]> #CNTRCT_ST_DATE#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="CNTRCT_ED_DATE">
+			B.CNTRCT_ED_DATE <![CDATA[<=]]> #CNTRCT_ED_DATE#
+		</isNotEmpty>
+		order by B.CNTRCT_NO desc,B.UPDATE_DATE desc
+		LIMIT #start#, #end#
+	</select>
+	
 	<select id="queryBidCountByPage" resultClass="int" parameterClass="java.util.Map">
 		select count(*) from (
 			select T.BID_NO,

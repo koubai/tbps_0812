@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="bidagentcost" extends="struts-tbps" namespace="/bidagentcost">
+	
+		<action name="showBidAgentCostAction" class="bidAgentCostAction" method="showBidAgentCostAction">
+			<result name="success">/page/bidagentcost/bidagentcostlist.jsp</result>
+		</action>
+		
+		<action name="queryBidAgentCostList" class="bidAgentCostAction" method="queryBidAgentCostList">
+			<result name="success">/page/bidagentcost/bidagentcostlist.jsp</result>
+		</action>
+		
+		<action name="turnBidAgentCostPage" class="bidAgentCostAction" method="turnBidAgentCostPage">
+			<result name="success">/page/bidagentcost/bidagentcostlist.jsp</result>
+		</action>
+		
+	</package>
+
+</struts>

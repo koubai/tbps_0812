@@ -1,8 +1,6 @@
 package com.cn.tbps.dao.impl;
 
 import java.math.BigDecimal;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +20,38 @@ import com.cn.tbps.dto.BidHistDto;
  * @version 1.0
  */
 public class BidDaoImpl extends BaseDao implements BidDao {
+	
+	@Override
+	public int queryBidAndBidCntrctCountByPage(String CNTRCT_YEAR, String CNTRCT_NO, String BID_COMP_NO,
+			String CNTRCT_NAME, String CNTRCT_TYPE, String CNTRCT_ST_DATE, String CNTRCT_ED_DATE) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("CNTRCT_YEAR", CNTRCT_YEAR);
+		paramMap.put("CNTRCT_NO", CNTRCT_NO);
+		paramMap.put("BID_COMP_NO", BID_COMP_NO);
+		paramMap.put("CNTRCT_NAME", CNTRCT_NAME);
+		paramMap.put("CNTRCT_TYPE", CNTRCT_TYPE);
+		paramMap.put("CNTRCT_ST_DATE", CNTRCT_ST_DATE);
+		paramMap.put("CNTRCT_ED_DATE", CNTRCT_ED_DATE);
+		return (Integer) getSqlMapClientTemplate().queryForObject("queryBidAndBidCntrctCountByPage", paramMap);
+	}
+
+	@Override
+	public List<BidDto> queryBidAndBidCntrctByPage(String CNTRCT_YEAR, String CNTRCT_NO, String BID_COMP_NO,
+			String CNTRCT_NAME, String CNTRCT_TYPE, String CNTRCT_ST_DATE, String CNTRCT_ED_DATE, int start, int end) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("CNTRCT_YEAR", CNTRCT_YEAR);
+		paramMap.put("CNTRCT_NO", CNTRCT_NO);
+		paramMap.put("BID_COMP_NO", BID_COMP_NO);
+		paramMap.put("CNTRCT_NAME", CNTRCT_NAME);
+		paramMap.put("CNTRCT_TYPE", CNTRCT_TYPE);
+		paramMap.put("CNTRCT_ST_DATE", CNTRCT_ST_DATE);
+		paramMap.put("CNTRCT_ED_DATE", CNTRCT_ED_DATE);
+		paramMap.put("start", start);
+		paramMap.put("end", end);
+		@SuppressWarnings("unchecked")
+		List<BidDto> list = getSqlMapClientTemplate().queryForList("queryBidAndBidCntrctByPage", paramMap);
+		return list;
+	}
 	
 	@Override
 	public List<BidDto> queryBidByPage(String bidNoLow, String bidNoHigh,
