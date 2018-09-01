@@ -273,7 +273,8 @@
 	
 	<select id="queryBidAndBidCntrctCountByPage" resultClass="int" parameterClass="java.util.Map">
 		select count(*) from (
-			select C.T.* from bid T left join bidcntrct C on C.CNTRCT_NO = T.CNTRCT_NO
+			select C.BID_COMP_NO,C.CNTRCT_YEAR,C.CNTRCT_NAME,C.CNTRCT_ST_DATE,C.CNTRCT_ED_DATE,
+				T.* from bid T left join bidcntrct C on C.CNTRCT_NO = T.CNTRCT_NO
 		) B where 1 = 1 and B.DELETE_FLG = '1'
 		<isNotEmpty prepend="and" property="CNTRCT_YEAR">
 			B.CNTRCT_YEAR = #CNTRCT_YEAR#
@@ -298,7 +299,7 @@
 		</isNotEmpty>
 	</select>
 	
-	<select id="queryBidAndBidCntrctByPage" parameterClass="java.util.Map" resultMap="BidDto">
+	<select id="queryBidAndBidCntrctByPage" parameterClass="java.util.Map" resultMap="BidDto1">
 		select * from (
 			select C.BID_COMP_NO,C.CNTRCT_YEAR,C.CNTRCT_NAME,C.CNTRCT_ST_DATE,C.CNTRCT_ED_DATE,
 				T.* from bid T left join bidcntrct C on C.CNTRCT_NO = T.CNTRCT_NO

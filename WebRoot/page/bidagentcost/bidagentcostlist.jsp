@@ -8,7 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-<title>招标合同管理一览</title>
+<title>代理费设定</title>
 <!-- Bootstrap -->
 <link href="<%=request.getContextPath()%>/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/node_modules/font-awesome/css/font-awesome.min.css">
@@ -23,8 +23,8 @@
 <![endif]-->
 <script type="text/javascript">
 	function add() {
-		document.mainform.action = '<c:url value="/bidcntrct/showAddBidCntrc.action"></c:url>';
-		document.mainform.submit();
+		//document.mainform.action = '<c:url value="/bidagentcost/showAddBidCntrc.action"></c:url>';
+		//document.mainform.submit();
 	}
 	
 	function getSelectedID() {
@@ -47,7 +47,7 @@
 
 	function queryList() {
 		setOpenDate();
-		document.mainform.action = '<c:url value="/bidcntrct/queryBidCntrcList.action"></c:url>';
+		document.mainform.action = '<c:url value="/bidagentcost/queryBidAgentCostList.action"></c:url>';
 		document.mainform.submit();
 	}
 	
@@ -55,7 +55,7 @@
 	function changePage(pageNum) {
 		setOpenDate();
 		document.getElementById("startIndex").value = pageNum;
-		document.mainform.action = '<c:url value="/bidcntrct/turnBidCntrcPage.action"></c:url>';
+		document.mainform.action = '<c:url value="/bidagentcost/turnBidAgentCostPage.action"></c:url>';
 		document.mainform.submit();
 	}
 
@@ -102,7 +102,7 @@
 					<s:hidden name="strCNTRCT_ST_DATE" id="strCNTRCT_ST_DATE"/>
 					<s:hidden name="strCNTRCT_ED_DATE" id="strCNTRCT_ED_DATE"/>
 					<s:hidden name="strBID_COMP_NO" id="strBID_COMP_NO"/>
-					<h3 class="title">招标合同管理一览<a class="backHome" href="#" onclick="goHome();"><i class="fa fa-home" aria-hidden="true"></i>返回首页</a></h3>
+					<h3 class="title">代理费设定<a class="backHome" href="#" onclick="goHome();"><i class="fa fa-home" aria-hidden="true"></i>返回首页</a></h3>
 					<div class="row">
 						<div class="col-lg-3 form-group">
 							<label for="" class="col-lg-3 form-label">合同年份</label>
@@ -151,78 +151,41 @@
 					</div>
 					<div class="btns">
 						<ul>
-							<li><a href="#" onclick="add();"><i class="fa fa-plus" aria-hidden="true"></i>新增</a></li>
-							<!-- <li><a href="#" onclick="upd();"><i class="fa fa-pencil" aria-hidden="true"></i>修改</a></li> -->
-							<li><a href="#" onclick="del();"><i class="fa fa-trash" aria-hidden="true"></i>删除</a></li>
 						</ul>
 					</div>
 					<table class="table table-bordered">
 						<tr>
 							<th></th>
-							<th>合同年份</th>
-							<th>合同编号</th>
+							<th>招标编号</th>
+							<th>项目名称</th>
 							<th>委托单位</th>
-							<th>项目总数量</th>
-							<th>完成数量</th>
-							<th>进行中数量</th>
-							<th>失败数量</th>
+							<th>项目进展</th>
+							<th>中标价</th>
 							<th>应收代理费</th>
 							<th>实收代理费</th>
-							<th>标书费</th>
-							<th>专家费支出</th>
+							<th>代理费支付方</th>
 						</tr>
-						<s:iterator id="listBidCntrct" value="listBidCntrct" status="st1">
+						<s:iterator id="listBid" value="listBid" status="st1">
 							<tr>
-								<td><input name="radioKey" type="radio" value="<s:property value="CNTRCT_NO"/>"/></td>
-								<td><s:property value="CNTRCT_YEAR"/></td>
-								<td><s:property value="CNTRCT_NO"/></td>
+								<td><input name="radioKey" type="radio" value="<s:property value="BID_NO"/>"/></td>
+								<td><s:property value="BID_NO"/></td>
+								<td><s:property value="PROJECT_NAME"/></td>
 								<td><s:property value="BID_COMP_NAME"/></td>
-								<td><s:property value="totalProject"/></td>
-								<td><s:property value="finishProject"/></td>
-								<td><s:property value="buildingProject"/></td>
-								<td><s:property value="failProject"/></td>
-								<td><s:property value="CNTRCT_ALL_AMOUNT"/></td>
-								<td><s:property value="CNTRCT_UNPAY_AMOUNT"/></td>
-								<td><s:property value="bidAmount"/></td>
-								<td><s:property value="expertAmount"/></td>
+								<td><s:property value="PROGRESS_STATUS"/></td>
+								<td><s:property value="BID_PRICE"/></td>
+								<td><s:property value="BID_AGENT_PRICE"/></td>
+								<td><s:property value="BID_AGENT_PRICE_ACT"/></td>
+								<td><s:property value="BID_AGENT_PAY"/></td>
 							</tr>
 						</s:iterator>
 					</table>
-					<div class="pages">
-						<ul>
-							<li>第<strong>${page.startIndex + 1}</strong>页/共<strong>${page.totalPage==0?1:page.totalPage}</strong>页/共<strong>${page.totalCount}</strong>条记录</li>
-							<li class="mgl15">跳转到
-								<input type="text" id="pagenum" class="text" maxlength="4" size="4"/>
-								<input type="button" value="GO" onclick="javascript:turnPage();"/>
-							</li>
-							<li class="mgl15">
-								<a class="first" href="#" onclick="changePage(0);">首页</a>
-							</li>
-							<li>
-								<s:if test="%{page.startIndex <= 0}">
-									<a class="last" href="#">上一页</a>
-								</s:if>
-								<s:else>
-									<a class="next" href="#" onclick="changePage('${page.previousIndex}');">上一页</a>
-								</s:else>
-							</li>
-							<li>
-								<s:if test="%{page.nextIndex > page.totalPage - 1}">
-									<a class="last" href="#">下一页</a>
-								</s:if>
-								<s:else>
-									<a class="next" href="#" onclick="changePage('${page.nextIndex}');">下一页</a>
-								</s:else>
-							</li>
-							<li>
-								<a class="next" href="#" onclick="changePage('${page.totalPage - 1}');">末页</a>
-							</li>
-						</ul>
-					</div>
+					<jsp:include page="../turning.jsp" flush="true" />
 				</s:form>
 			</div>
 		</div>
 		<div class="operationBtns addBtns mgt15 btn3" style="width: 300px;">
+			<button class="btn btn-success" onclick="save();">保存</button>
+			<button class="btn btn-success" onclick="calcAmount();">代理费计算</button>
 		</div>
 	</div>
 	<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->

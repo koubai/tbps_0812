@@ -47,6 +47,9 @@
 	<!-- 招标合同 -->
 	<include file="struts-bidcntrct.xml"/>
 	
+	<!-- 代理费设定 -->
+	<include file="struts-bidagentcost.xml"/>
+	
 	<package name="index" extends="struts-default, json-default" namespace="/index">
 		
 		<!-- 验证码 -->

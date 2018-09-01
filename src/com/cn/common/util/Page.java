@@ -1,5 +1,6 @@
 package com.cn.common.util;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
 public class Page implements java.io.Serializable {
 
 	private static final long serialVersionUID = 4401455863657857560L;
-	// 页数据条数，默认为12条
+	// 页数据条数，默认为10条
 	public static final int PAGESIZE = 10;
 	// 当前页记录数
 	private int pageSize;
@@ -28,6 +29,8 @@ public class Page implements java.io.Serializable {
 	private int previousIndex;
 	// 总页数
 	private int totalPage;
+	//跳转列表
+	private List<Integer> skipList;
 
 	public Page() {
 		setPageSize(PAGESIZE);
@@ -141,5 +144,39 @@ public class Page implements java.io.Serializable {
 	 */
 	public int getTotalPage() {
 		return totalPage;
+	}
+
+	public List<Integer> getSkipList() {
+		skipList = new ArrayList<Integer>();
+		if(totalPage == 0) {
+			skipList.add(1);
+		} else if(totalPage <= 5) {
+			//总页码小于5，则全部显示
+			for(int i = 1; i <= totalPage; i++) {
+				skipList.add(i);
+			}
+		} else {
+			//总页码大于5，则根据当前页码显示
+			if(startIndex <= 3) {
+				for(int i = 1; i <= 5; i++) {
+					skipList.add(i);
+				}
+			} else {
+				if(startIndex + 1 >= totalPage) {
+					for(int i = startIndex - 3; i <= startIndex + 1; i++) {
+						skipList.add(i);
+					}
+				} else {
+					for(int i = startIndex - 2; i <= startIndex + 2; i++) {
+						skipList.add(i);
+					}
+				}
+			}
+		}
+		return skipList;
+	}
+
+	public void setSkipList(List<Integer> skipList) {
+		this.skipList = skipList;
 	}
 }

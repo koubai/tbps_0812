@@ -453,37 +453,7 @@
 							</tr>
 						</s:iterator>
 					</table>
-					<div class="pages">
-						<ul>
-							<li>第<strong>${page.startIndex + 1}</strong>页/共<strong>${page.totalPage==0?1:page.totalPage}</strong>页/共<strong>${page.totalCount}</strong>条记录</li>
-							<li class="mgl15">跳转到
-								<input type="text" id="pagenum" class="text" maxlength="4" size="4"/>
-								<input type="button" value="GO" onclick="javascript:turnPage();"/>
-							</li>
-							<li class="mgl15">
-								<a class="first" href="#" onclick="changePage(0);">首页</a>
-							</li>
-							<li>
-								<s:if test="%{page.startIndex <= 0}">
-									<a class="last" href="#">上一页</a>
-								</s:if>
-								<s:else>
-									<a class="next" href="#" onclick="changePage('${page.previousIndex}');">上一页</a>
-								</s:else>
-							</li>
-							<li>
-								<s:if test="%{page.nextIndex > page.totalPage - 1}">
-									<a class="last" href="#">下一页</a>
-								</s:if>
-								<s:else>
-									<a class="next" href="#" onclick="changePage('${page.nextIndex}');">下一页</a>
-								</s:else>
-							</li>
-							<li>
-								<a class="next" href="#" onclick="changePage('${page.totalPage - 1}');">末页</a>
-							</li>
-						</ul>
-					</div>
+					<jsp:include page="../turning.jsp" flush="true" />
 				</s:form>
 			</div>
 		</div>

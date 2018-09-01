@@ -63,6 +63,10 @@
 	function showBidCntrctAction() {
 		window.location.href = '<c:url value="/bidcntrct/showBidCntrcPage.action"></c:url>';
 	}
+	
+	function showBidAgentCostAction() {
+		window.location.href = '<c:url value="/bidagentcost/showBidAgentCostAction.action"></c:url>';
+	}
 </script>
 </head>
 <body>
@@ -117,6 +121,11 @@
 			</div>
 			<div class="col-lg-6">
 				<a class="btn btn-primary" href="#" onclick="showBidCntrctAction();">招标合同管理一览</a>
+			</div>
+			<div class="col-lg-6">
+				<a class="btn btn-primary" href="#" onclick="showBidAgentCostAction();">代理费设定</a>
+			</div>
+			<div class="col-lg-6">
 			</div>
 		</div>
 	</div>
