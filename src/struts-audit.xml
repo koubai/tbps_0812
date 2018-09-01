@@ -69,6 +69,34 @@
 		<action name="exportAuditTableAction" class="auditAction" method="exportAuditTableAction">
 			<result name="success">/page/download.jsp</result>
 		</action>
+
+		<action name="exportAuditReportAction" class="auditAction" method="exportAuditReportAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
+
+		<action name="exportAuditSignAction" class="auditAction" method="exportAuditSignAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
+
+		<action name="exportAuditCoverAction" class="auditAction" method="exportAuditCoverAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
+
+		<action name="exportAuditSummaryAction" class="auditAction" method="exportAuditSummaryAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
+
+		<action name="exportAuditRegisterAction" class="auditAction" method="exportAuditRegisterAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
+
+		<action name="exportAuditNoMetroAction" class="auditAction" method="exportAuditNoMetroAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
+
+		<action name="exportAuditMetroAction" class="auditAction" method="exportAuditMetroAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
 		
 	</package>
 

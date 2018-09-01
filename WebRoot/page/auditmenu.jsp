@@ -2,6 +2,32 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="c" uri="/WEB-INF/c.tld"%>
+<script type="text/javascript">
+
+	function auditcntrct() {
+		document.mainform.action = '<c:url value="/auditcntrct/showAddAuditCntrctAction.action"></c:url>';
+		document.mainform.submit();
+	}
+	
+	function queryAuditCntrctList() {
+		setQueryDate();
+		document.mainform.action = '<c:url value="/auditcntrct/showAuditCntrcyAction.action"></c:url>';
+		document.mainform.submit();
+	}
+	
+	function queryAuditList() {
+		setQueryDate();
+		document.mainform.action = '<c:url value="/audit/showAuditAction.action"></c:url>';
+		document.mainform.submit();
+	}
+	
+	function addaudit() {
+		setQueryDate();
+		document.mainform.action = '<c:url value="/audit/showAddAuditAction.action"></c:url>';
+		document.mainform.submit();
+	}
+
+</script>
 <div class="col-lg-2 left">
 	<div class="panel-group" id="accordion">
 		<div class="panel panel-default">
@@ -14,7 +40,7 @@
 				<div class="panel-body">
 					<ul>
 						<li><a href="javascript:;" onclick="queryAuditCntrctList()">审计合同一览</a></li>
-						<li><a href="javascript:;" onclick="add()">审计合同新增</a></li>
+						<li><a href="javascript:;" onclick="auditcntrct()">审计合同新增</a></li>
 					</ul>
 				</div>
 			</div>

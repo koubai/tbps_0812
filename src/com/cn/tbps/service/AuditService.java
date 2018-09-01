@@ -34,7 +34,8 @@ public interface AuditService {
 	public Page queryAuditByPage(String auditNoLow, String auditNoHigh, String projectStatus,
 			String projectManager, String valueDateLow, String valueDateHigh, String agentNo,
 			String reportNoComp, String reportNoLow, String reportNoHigh, Page page, String auditStatus, 
-			String projectClass, String docArrDateLow, String docArrDateHigh, String agentName, String contractName);
+			String projectClass, String docArrDateLow, String docArrDateHigh, String agentName, 
+			String contractName, String strProjectName);
 	
 	/**
 	 * 查询审价（导出数据用）
@@ -54,7 +55,8 @@ public interface AuditService {
 	public List<AuditDto> queryAllAuditExport(String auditNoLow, String auditNoHigh, String projectStatus,
 			String projectManager, String valueDateLow, String valueDateHigh, String agentNo,
 			String reportNoComp, String reportNoLow, String reportNoHigh, String auditStatus, 
-			String projectClass, String docArrDateLow, String docArrDateHigh, String agentName, String contractName);
+			String projectClass, String docArrDateLow, String docArrDateHigh, String agentName, 
+			String contractName, String projectName);
 	
 	/**
 	 * 根据审价编号查询记录（查询未删除的记录）

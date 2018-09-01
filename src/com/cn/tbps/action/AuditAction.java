@@ -99,6 +99,11 @@ public class AuditAction extends BaseAction {
 	private String strProjectClass;
 
 	/**
+	 * 项目名称
+	 */
+	private String strProjectName;
+
+	/**
 	 * 项目进度
 	 */
 	private String strProjectStatus;
@@ -291,7 +296,7 @@ public class AuditAction extends BaseAction {
 			List<AuditDto> list = auditService.queryAllAuditExport(strAuditNoLow, strAuditNoHigh,
 					strProjectStatus, strProjectManager, strValueDateLow, strValueDateHigh, strAgentNo,
 					strPreReport, strReportLow, strReportHigh, strAuditStatus, 
-					strProjectClass, strDocArrDateLow, strDocArrDateHigh, strAgentName, strContractName);
+					strProjectClass, strDocArrDateLow, strDocArrDateHigh, strAgentName, strContractName, strProjectName);
 			base.setDatas(list);
 			base.setSheetName(Constants.EXCEL_TYPE_SJYL);
 			base.exportExcel(response.getOutputStream());
@@ -352,7 +357,7 @@ public class AuditAction extends BaseAction {
 			List<AuditDto> list = auditService.queryAllAuditExport(strAuditNoLow, strAuditNoHigh,
 					strProjectStatus, strProjectManager, strValueDateLow, strValueDateHigh, strAgentNo,
 					strPreReport, strReportLow, strReportHigh, strAuditStatus, 
-					strProjectClass, strDocArrDateLow, strDocArrDateHigh, strAgentName, strContractName);
+					strProjectClass, strDocArrDateLow, strDocArrDateHigh, strAgentName, strContractName, strProjectName);
 			base.setDatas(list);
 			base.setSheetName(Constants.EXCEL_TYPE_RECEIPT_SJYL);
 			base.exportExcel(response.getOutputStream());
@@ -811,7 +816,7 @@ public class AuditAction extends BaseAction {
 		page = auditService.queryAuditByPage(strAuditNoLow, strAuditNoHigh, strProjectStatus,
 				strProjectManager, strValueDateLow, strValueDateHigh, strAgentNo,
 				strPreReport, strReportLow, strReportHigh, page, strAuditStatus, 
-				strProjectClass, strDocArrDateLow, strDocArrDateHigh, strAgentName, strContractName);
+				strProjectClass, strDocArrDateLow, strDocArrDateHigh, strAgentName, strContractName, strProjectName);
 		listAudit = (List<AuditDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
@@ -1102,6 +1107,14 @@ public class AuditAction extends BaseAction {
 
 	public void setAuditCompService(AuditCompService auditCompService) {
 		this.auditCompService = auditCompService;
+	}
+
+	public String getStrProjectName() {
+		return strProjectName;
+	}
+
+	public void setStrProjectName(String strProjectName) {
+		this.strProjectName = strProjectName;
 	}
 
 }

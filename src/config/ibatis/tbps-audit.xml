@@ -258,6 +258,10 @@
 				<isNotEmpty prepend="and" property="CONTRACT_CO_NAME">
 					T.CONTRACT_CO_NAME like '%$CONTRACT_CO_NAME$%' ESCAPE '/'
 				</isNotEmpty>
+				
+				<isNotEmpty prepend="and" property="PROJECT_NAME">
+					T.PROJECT_NAME like '%$PROJECT_NAME$%' ESCAPE '/'
+				</isNotEmpty>
 				<isNotEmpty prepend="and" property="DOC_ARR_DATE_LOW">
 				</isNotEmpty>
 				<isNotEmpty prepend="and" property="DOC_ARR_DATE_HIGH">
@@ -266,7 +270,7 @@
 					T.RESERVE1 = #RESERVE1#
 				</isNotEmpty>
 			) TT where 1 = 1
-				AND (TT.VALUE_DATE IS NULL OR TT.VALUE_DATE <![CDATA[>]]> NOW())
+				AND (TT.B_SET_DATE IS NULL OR TT.B_SET_DATE <![CDATA[>]]> NOW())
 			UNION
 			select TT.* from
 			(select T.AUDIT_NO,
@@ -413,6 +417,10 @@
 				<isNotEmpty prepend="and" property="CONTRACT_CO_NAME">
 					T.CONTRACT_CO_NAME like '%$CONTRACT_CO_NAME$%' ESCAPE '/'
 				</isNotEmpty>
+				
+				<isNotEmpty prepend="and" property="PROJECT_NAME">
+					T.PROJECT_NAME like '%$PROJECT_NAME$%' ESCAPE '/'
+				</isNotEmpty>
 				<isNotEmpty prepend="and" property="DOC_ARR_DATE_LOW">
 				</isNotEmpty>
 				<isNotEmpty prepend="and" property="DOC_ARR_DATE_HIGH">
@@ -421,7 +429,7 @@
 					T.RESERVE1 = #RESERVE1#
 				</isNotEmpty>
 			) TT where 1 = 1
-				AND TT.VALUE_DATE IS NOT NULL AND TT.VALUE_DATE <![CDATA[<=]]> NOW()
+				AND TT.B_SET_DATE IS NOT NULL AND TT.B_SET_DATE <![CDATA[<=]]> NOW()
 		) B where 1 = 1
 		<isNotEmpty prepend="and" property="AUDIT_STATUS">
 			B.AUDIT_STATUS in ($AUDIT_STATUS$)
@@ -575,6 +583,10 @@
 				<isNotEmpty prepend="and" property="CONTRACT_CO_NAME">
 					T.CONTRACT_CO_NAME like '%$CONTRACT_CO_NAME$%' ESCAPE '/'
 				</isNotEmpty>
+				
+				<isNotEmpty prepend="and" property="PROJECT_NAME">
+					T.PROJECT_NAME like '%$PROJECT_NAME$%' ESCAPE '/'
+				</isNotEmpty>
 				<isNotEmpty prepend="and" property="DOC_ARR_DATE_LOW">
 				</isNotEmpty>
 				<isNotEmpty prepend="and" property="DOC_ARR_DATE_HIGH">
@@ -583,7 +595,7 @@
 					T.RESERVE1 = #RESERVE1#
 				</isNotEmpty>
 			) TT where 1 = 1
-				AND (TT.VALUE_DATE IS NULL OR TT.VALUE_DATE <![CDATA[>]]> NOW())
+				AND (TT.B_SET_DATE IS NULL OR TT.B_SET_DATE <![CDATA[>]]> NOW())
 			UNION
 			select TT.* from
 			(select T.AUDIT_NO,
@@ -730,6 +742,10 @@
 				<isNotEmpty prepend="and" property="CONTRACT_CO_NAME">
 					T.CONTRACT_CO_NAME like '%$CONTRACT_CO_NAME$%' ESCAPE '/'
 				</isNotEmpty>
+				
+				<isNotEmpty prepend="and" property="PROJECT_NAME">
+					T.PROJECT_NAME like '%$PROJECT_NAME$%' ESCAPE '/'
+				</isNotEmpty>
 				<isNotEmpty prepend="and" property="DOC_ARR_DATE_LOW">
 				</isNotEmpty>
 				<isNotEmpty prepend="and" property="DOC_ARR_DATE_HIGH">
@@ -738,7 +754,7 @@
 					T.RESERVE1 = #RESERVE1#
 				</isNotEmpty>
 			) TT where 1 = 1
-				AND TT.VALUE_DATE IS NOT NULL AND TT.VALUE_DATE <![CDATA[<=]]> NOW()
+				AND TT.B_SET_DATE IS NOT NULL AND TT.B_SET_DATE <![CDATA[<=]]> NOW()
 		) B where 1 = 1
 		<isNotEmpty prepend="and" property="AUDIT_STATUS">
 			B.AUDIT_STATUS in ($AUDIT_STATUS$)
@@ -894,6 +910,10 @@
 				<isNotEmpty prepend="and" property="CONTRACT_CO_NAME">
 					T.CONTRACT_CO_NAME like '%$CONTRACT_CO_NAME$%' ESCAPE '/'
 				</isNotEmpty>
+				
+				<isNotEmpty prepend="and" property="PROJECT_NAME">
+					T.PROJECT_NAME like '%$PROJECT_NAME$%' ESCAPE '/'
+				</isNotEmpty>
 				<isNotEmpty prepend="and" property="DOC_ARR_DATE_LOW">
 				</isNotEmpty>
 				<isNotEmpty prepend="and" property="DOC_ARR_DATE_HIGH">
@@ -902,7 +922,7 @@
 					T.RESERVE1 = #RESERVE1#
 				</isNotEmpty>
 			) TT where 1 = 1
-				AND (TT.VALUE_DATE IS NULL OR TT.VALUE_DATE <![CDATA[>]]> NOW())
+				AND (TT.B_SET_DATE IS NULL OR TT.B_SET_DATE <![CDATA[>]]> NOW())
 			UNION
 			select TT.* from
 			(select T.AUDIT_NO,
@@ -1049,6 +1069,10 @@
 				<isNotEmpty prepend="and" property="CONTRACT_CO_NAME">
 					T.CONTRACT_CO_NAME like '%$CONTRACT_CO_NAME$%' ESCAPE '/'
 				</isNotEmpty>
+				
+				<isNotEmpty prepend="and" property="PROJECT_NAME">
+					T.PROJECT_NAME like '%$PROJECT_NAME$%' ESCAPE '/'
+				</isNotEmpty>
 				<isNotEmpty prepend="and" property="DOC_ARR_DATE_LOW">
 				</isNotEmpty>
 				<isNotEmpty prepend="and" property="DOC_ARR_DATE_HIGH">
@@ -1057,7 +1081,7 @@
 					T.RESERVE1 = #RESERVE1#
 				</isNotEmpty>
 			) TT where 1 = 1
-				AND TT.VALUE_DATE IS NOT NULL AND TT.VALUE_DATE <![CDATA[<=]]> NOW()
+				AND TT.B_SET_DATE IS NOT NULL AND TT.B_SET_DATE <![CDATA[<=]]> NOW()
 		) B where 1 = 1
 		<isNotEmpty prepend="and" property="AUDIT_STATUS">
 			B.AUDIT_STATUS in ($AUDIT_STATUS$)

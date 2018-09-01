@@ -99,25 +99,6 @@
 		document.mainform.submit();
 	}
 
-	function queryAuditCntrctList() {
-		setQueryDate();
-		document.mainform.action = '<c:url value="/auditcntrct/showAuditCntrcyAction.action"></c:url>';
-		document.mainform.submit();
-	}
-
-	function queryAuditList() {
-		setQueryDate();
-		document.mainform.action = '<c:url value="/audit/showAuditAction.action"></c:url>';
-		document.mainform.submit();
-	}
-
-	function addaudit() {
-		setQueryDate();
-		document.mainform.action = '<c:url value="/audit/showAddAuditAction.action"></c:url>';
-		document.mainform.submit();
-	}
-	
-
 	//翻页
 	function changePage(pageNum) {
 		setQueryDate();

@@ -115,17 +115,12 @@
 	}
 	
 	function setQueryDate() {
-		$("#strValueDateLow").attr("value", $("#valueDateLow").val());
-		$("#strValueDateHigh").attr("value", $("#valueDateHigh").val());
-		$("#strDocArrDateLow").attr("value", $("#docArrDateLow").val());
-		$("#strDocArrDateHigh").attr("value", $("#docArrDateHigh").val());
-		
 		var strPreReport = $("#strPreReport").val();
 		if(strPreReport == "") {
 			$("#strReportLow").attr("value", "");
 			$("#strReportHigh").attr("value", "");
 		}
-		setAuditStatus();
+		//setAuditStatus();
 	}
 
 	function queryList() {
@@ -208,240 +203,25 @@
 				<a class="toggle" href="javascript:;"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
 				<s:form id="mainform" name="mainform" method="POST">
 					<s:hidden name="startIndex" id="startIndex"/>
-					<s:hidden name="strValueDateLow" id="strValueDateLow"/>
-					<s:hidden name="strValueDateHigh" id="strValueDateHigh"/>
-					<s:hidden name="strDocArrDateLow" id="strDocArrDateLow"/>
-					<s:hidden name="strDocArrDateHigh" id="strDocArrDateHigh"/>
-					<s:hidden name="strAuditStatus" id="strAuditStatus"/>
-					<h3 class="title">审价信息一览<a class="backHome" href="#" onclick="goHome();"><i class="fa fa-home" aria-hidden="true"></i>返回首页</a></h3>
+					<h3 class="title">审价项目一览<a class="backHome" href="#" onclick="goHome();"><i class="fa fa-home" aria-hidden="true"></i>返回首页</a></h3>
 					<div class="row">
-						<div class="col-lg-3 form-group">
-							<label for="" class="col-lg-3 form-label">项目分类</label>
-							<div class="col-lg-9">
-								<select id="strProjectClass" name="strProjectClass" class="form-control">
-									<s:if test='strProjectClass == "a"'>
-										<option value="">请选择</option>
-										<option value="a" selected="selected">地铁审价项目</option>
-										<option value="b">地铁投资监理项目</option>
-										<option value="c">地铁限价项目</option>
-										<option value="d">邮政审价项目</option>
-										<option value="e">投资监理项目</option>
-										<option value="f">投资监理审价项目</option>
-										<option value="g">其他项目</option>
-									</s:if>
-									<s:elseif test='strProjectClass == "b"'>
-										<option value="">请选择</option>
-										<option value="a">地铁审价项目</option>
-										<option value="b" selected="selected">地铁投资监理项目</option>
-										<option value="c">地铁限价项目</option>
-										<option value="d">邮政审价项目</option>
-										<option value="e">投资监理项目</option>
-										<option value="f">投资监理审价项目</option>
-										<option value="g">其他项目</option>
-									</s:elseif>
-									<s:elseif test='strProjectClass == "c"'>
-										<option value="">请选择</option>
-										<option value="a">地铁审价项目</option>
-										<option value="b">地铁投资监理项目</option>
-										<option value="c" selected="selected">地铁限价项目</option>
-										<option value="d">邮政审价项目</option>
-										<option value="e">投资监理项目</option>
-										<option value="f">投资监理审价项目</option>
-										<option value="g">其他项目</option>
-									</s:elseif>
-									<s:elseif test='strProjectClass == "d"'>
-										<option value="">请选择</option>
-										<option value="a">地铁审价项目</option>
-										<option value="b">地铁投资监理项目</option>
-										<option value="c">地铁限价项目</option>
-										<option value="d" selected="selected">邮政审价项目</option>
-										<option value="e">投资监理项目</option>
-										<option value="f">投资监理审价项目</option>
-										<option value="g">其他项目</option>
-									</s:elseif>
-									<s:elseif test='strProjectClass == "e"'>
-										<option value="">请选择</option>
-										<option value="a">地铁审价项目</option>
-										<option value="b">地铁投资监理项目</option>
-										<option value="c">地铁限价项目</option>
-										<option value="d">邮政审价项目</option>
-										<option value="e" selected="selected">投资监理项目</option>
-										<option value="f">投资监理审价项目</option>
-										<option value="g">其他项目</option>
-									</s:elseif>
-									<s:elseif test='strProjectClass == "f"'>
-										<option value="">请选择</option>
-										<option value="a">地铁审价项目</option>
-										<option value="b">地铁投资监理项目</option>
-										<option value="c">地铁限价项目</option>
-										<option value="d">邮政审价项目</option>
-										<option value="e">投资监理项目</option>
-										<option value="f" selected="selected">投资监理审价项目</option>
-										<option value="g">其他项目</option>
-									</s:elseif>
-									<s:elseif test='strProjectClass == "g"'>
-										<option value="">请选择</option>
-										<option value="a">地铁审价项目</option>
-										<option value="b">地铁投资监理项目</option>
-										<option value="c">地铁限价项目</option>
-										<option value="d">邮政审价项目</option>
-										<option value="e">投资监理项目</option>
-										<option value="f">投资监理审价项目</option>
-										<option value="g" selected="selected">其他项目</option>
-									</s:elseif>
-									<s:else>
-										<option value="" selected="selected">请选择</option>
-										<option value="a">地铁审价项目</option>
-										<option value="b">地铁投资监理项目</option>
-										<option value="c">地铁限价项目</option>
-										<option value="d">邮政审价项目</option>
-										<option value="e">投资监理项目</option>
-										<option value="f">投资监理审价项目</option>
-										<option value="g">其他项目</option>
-									</s:else>
-								</select>
-							</div>
-						</div>
-						<div class="col-lg-3 form-group">
-							<label for="" class="col-lg-3 form-label">项目进度</label>
-							<div class="col-lg-9">
-								<select id="strProjectStatus" name="strProjectStatus" class="form-control">
-									<s:if test='strProjectStatus == "1"'>
-										<option value="">请选择</option>
-										<option value="1" selected="selected">在审</option>
-										<option value="2">补交资料</option>
-										<option value="3">初稿已出</option>
-										<option value="4">审定单已出</option>
-										<option value="5">出报告</option>
-										<option value="6">快递</option>
-										<option value="7">完成</option>
-										<option value="8">终止</option>
-										<!-- <option value="9">归档</option> -->
-									</s:if>
-									<s:elseif test='strProjectStatus == "2"'>
-										<option value="">请选择</option>
-										<option value="1">在审</option>
-										<option value="2" selected="selected">补交资料</option>
-										<option value="3">初稿已出</option>
-										<option value="4">审定单已出</option>
-										<option value="5">出报告</option>
-										<option value="6">快递</option>
-										<option value="7">完成</option>
-										<option value="8">终止</option>
-										<!-- <option value="9">归档</option> -->
-									</s:elseif>
-									<s:elseif test='strProjectStatus == "3"'>
-										<option value="">请选择</option>
-										<option value="1">在审</option>
-										<option value="2">补交资料</option>
-										<option value="3" selected="selected">初稿已出</option>
-										<option value="4">审定单已出</option>
-										<option value="5">出报告</option>
-										<option value="6">快递</option>
-										<option value="7">完成</option>
-										<option value="8">终止</option>
-										<!-- <option value="9">归档</option> -->
-									</s:elseif>
-									<s:elseif test='strProjectStatus == "4"'>
-										<option value="">请选择</option>
-										<option value="1">在审</option>
-										<option value="2">补交资料</option>
-										<option value="3">初稿已出</option>
-										<option value="4" selected="selected">审定单已出</option>
-										<option value="5">出报告</option>
-										<option value="6">快递</option>
-										<option value="7">完成</option>
-										<option value="8">终止</option>
-										<!-- <option value="9">归档</option> -->
-									</s:elseif>
-									<s:elseif test='strProjectStatus == "5"'>
-										<option value="">请选择</option>
-										<option value="1">在审</option>
-										<option value="2">补交资料</option>
-										<option value="3">初稿已出</option>
-										<option value="4">审定单已出</option>
-										<option value="5" selected="selected">出报告</option>
-										<option value="6">快递</option>
-										<option value="7">完成</option>
-										<option value="8">终止</option>
-										<!-- <option value="9">归档</option> -->
-									</s:elseif>
-									<s:elseif test='strProjectStatus == "6"'>
-										<option value="">请选择</option>
-										<option value="1">在审</option>
-										<option value="2">补交资料</option>
-										<option value="3">初稿已出</option>
-										<option value="4">审定单已出</option>
-										<option value="5">出报告</option>
-										<option value="6" selected="selected">快递</option>
-										<option value="7">完成</option>
-										<option value="8">终止</option>
-										<!-- <option value="9">归档</option> -->
-									</s:elseif>
-									<s:elseif test='strProjectStatus == "7"'>
-										<option value="">请选择</option>
-										<option value="1">在审</option>
-										<option value="2">补交资料</option>
-										<option value="3">初稿已出</option>
-										<option value="4">审定单已出</option>
-										<option value="5">出报告</option>
-										<option value="6">快递</option>
-										<option value="7" selected="selected">完成</option>
-										<option value="8">终止</option>
-										<!-- <option value="9">归档</option> -->
-									</s:elseif>
-									<s:elseif test='strProjectStatus == "8"'>
-										<option value="">请选择</option>
-										<option value="1">在审</option>
-										<option value="2">补交资料</option>
-										<option value="3">初稿已出</option>
-										<option value="4">审定单已出</option>
-										<option value="5">出报告</option>
-										<option value="6">快递</option>
-										<option value="7">完成</option>
-										<option value="8" selected="selected">终止</option>
-										<!-- <option value="9">归档</option> -->
-									</s:elseif>
-									<!-- <s:elseif test='strProjectStatus == "9"'>
-										<option value="">请选择</option>
-										<option value="1">在审</option>
-										<option value="2">补交资料</option>
-										<option value="3">初稿已出</option>
-										<option value="4">审定单已出</option>
-										<option value="5">出报告</option>
-										<option value="6">快递</option>
-										<option value="7">完成</option>
-										<option value="8">终止</option>
-										<option value="9" selected="selected">归档</option>
-									</s:elseif> -->
-									<s:else>
-										<option value="" selected="selected">请选择</option>
-										<option value="1">在审</option>
-										<option value="2">补交资料</option>
-										<option value="3">初稿已出</option>
-										<option value="4">审定单已出</option>
-										<option value="5">出报告</option>
-										<option value="6">快递</option>
-										<option value="7">完成</option>
-										<option value="8">终止</option>
-										<!-- <option value="9">归档</option> -->
-									</s:else>
-								</select>
-							</div>
-						</div>
-						<div class="col-lg-3 form-group">
-							<label for="" class="col-lg-3 form-label">担当者</label>
-							<div class="col-lg-9">
+						<div class="col-lg-12 form-group">
+							<label for="" class="col-lg-1 form-label">工程师</label>
+							<div class="col-lg-2">
 								<select name="strProjectManager" id="strProjectManager" class="form-control">
 									<s:iterator id="listUserInfo" value="listUserInfo" status="st1">
 										<option value="<s:property value="LOGIN_NAME"/>" <s:if test="%{strProjectManager == LOGIN_NAME}">selected</s:if>><s:property value="LOGIN_NAME"/></option>
 									</s:iterator>
 								</select>
 							</div>
+							<label for="" class="col-lg-1 form-label">项目名称</label>
+							<div class="col-lg-4">
+								<s:textfield name="strProjectName" id="strProjectName" cssClass="form-control" maxlength="80" theme="simple"></s:textfield>
+							</div>
 						</div>
-						<div class="col-lg-3 form-group">
-							<label for="" class="col-lg-3 form-label">合同号</label>
-							<div class="col-lg-9">
+						<div class="col-lg-12 form-group">
+							<label for="" class="col-lg-1 form-label">项目文号</label>
+							<div class="col-lg-2">
 								<select id="strPreReport" name="strPreReport" class="form-control" onchange="selectPreReport();">
 									<option value="">请选择</option>
 									<s:iterator id="auditCompList" value="auditCompList" status="st">
@@ -449,194 +229,101 @@
 									</s:iterator>
 								</select>
 							</div>
-						</div>
-						<div class="col-lg-6 form-group">
-							<label for="" class="col-lg-1 form-label">文号</label>
-							<div class="col-lg-5">
-								<s:if test='strPreReport == ""'>
-									<input type="text" name="strReportLow" id="strReportLow" disabled="disabled" maxlength="10" value="" class="form-control"/>
-								</s:if>
-								<s:else>
-									<input type="text" name="strReportLow" id="strReportLow" maxlength="10" value="<s:property value="strReportLow"/>" class="form-control"/>
-								</s:else>
-							</div>
-							<label for="" class="col-lg-1 form-label to">---</label>
-							<div class="col-lg-5">
-								<s:if test='strPreReport == ""'>
-									<input type="text" name="strReportHigh" id="strReportHigh" disabled="disabled" maxlength="8" value="" class="form-control"/>
-								</s:if>
-								<s:else>
-									<input type="text" name="strReportHigh" id="strReportHigh" maxlength="8" value="<s:property value="strReportHigh"/>" class="form-control"/>
-								</s:else>
-							</div>
-						</div>
-						<div class="col-lg-6 form-group">
-							<label for="" class="col-lg-3 form-label">审价状态</label>
-							<div class="col-lg-9 account">
-								<s:if test='%{strAuditStatus.substring(0, 1) == "2"}'>
-									<input name="auditStatus" type="checkbox" checked="checked"/>
-									<label class="form-label" for="">未到账</label>　
-								</s:if>
-								<s:else>
-									<input name="auditStatus" type="checkbox"/>
-									<label class="form-label" for="">未到账</label>　
-								</s:else>
-								<s:if test='%{strAuditStatus.substring(1, 2) == "3"}'>
-									<input name="auditStatus" type="checkbox" checked="checked"/>
-									<label class="form-label" for="">已到账</label>
-								</s:if>
-								<s:else>
-									<input name="auditStatus" type="checkbox"/>
-									<label class="form-label" for="">已到账</label>
-								</s:else>
-							</div>
-						</div>
-						<div class="col-lg-6 form-group">
-							<label for="" class="col-lg-2 form-label">到账日期</label>
-							<div class="col-lg-4">
-								<div class="input-group date" data-provide="datepicker">
-									<input type="text" class="form-control datepicker" readonly id="valueDateLow" value="<s:property value="strValueDateLow"/>" maxlength="10" />
-									<div class="input-group-addon">
-										<span class="glyphicon glyphicon-th"></span>
-									</div>
-								</div>
-							</div>
-							<label for="" class="col-lg-1 form-label to">---</label>
-							<div class="col-lg-4">
-								<div class="input-group date" data-provide="datepicker">
-									<input type="text" class="form-control datepicker" readonly id="valueDateHigh" value="<s:property value="strValueDateHigh"/>" maxlength="10" />
-									<div class="input-group-addon">
-										<span class="glyphicon glyphicon-th"></span>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-6 form-group">
-							<label for="" class="col-lg-3 form-label">资料到达日期</label>
-							<div class="col-lg-4">
-								<div class="input-group date" data-provide="datepicker">
-									<input type="text" class="form-control datepicker" readonly id="docArrDateLow" value="<s:property value="strDocArrDateLow"/>" maxlength="10" />
-									<div class="input-group-addon">
-										<span class="glyphicon glyphicon-th"></span>
-									</div>
-								</div>
-							</div>
-							<label for="" class="col-lg-1 form-label to">---</label>
-							<div class="col-lg-4">
-								<div class="input-group date" data-provide="datepicker">
-									<input type="text" class="form-control datepicker" readonly id="docArrDateHigh" value="<s:property value="strDocArrDateHigh"/>" maxlength="10" />
-									<div class="input-group-addon">
-										<span class="glyphicon glyphicon-th"></span>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-5 form-group">
-							<label for="" class="col-lg-3 form-label">委托公司名称</label>
-							<div class="col-lg-7">
-								<s:textfield name="strAgentName" id="strAgentName" cssClass="form-control" maxlength="40" theme="simple"></s:textfield>
-							</div>
 							<div class="col-lg-2">
-								<button class="btn btn-success" onclick="queryAgentCommon();">选择</button>
+								<s:if test='strPreReport == ""'>
+									<s:textfield name="strReportLow" id="strReportLow" cssClass="form-control" disabled="disabled" maxlength="16" theme="simple"></s:textfield>
+								</s:if>
+								<s:else>
+									<s:textfield name="strReportLow" id="strReportLow" cssClass="form-control" maxlength="16" theme="simple"></s:textfield>
+								</s:else>
 							</div>
-						</div>
-						<div class="col-lg-5 form-group">
-							<label for="" class="col-lg-3 form-label">承揽公司名称</label>
-						 	<div class="col-lg-7">
-						 		<s:textfield name="strContractName" id="strContractName" cssClass="form-control" maxlength="40" theme="simple"></s:textfield>
-							</div>
+							<label for="" class="col-lg-1 form-label to">-</label>
 							<div class="col-lg-2">
-								<button class="btn btn-success" onclick="queryContractCommon();">选择</button>
+								<s:if test='strPreReport == ""'>
+									<s:textfield name="strReportHigh" id="strReportHigh" cssClass="form-control" disabled="disabled" maxlength="16" theme="simple"></s:textfield>
+								</s:if>
+								<s:else>
+									<s:textfield name="strReportHigh" id="strReportHigh" cssClass="form-control" maxlength="16" theme="simple"></s:textfield>
+								</s:else>
+							</div>
+							<div class="col-lg-1">
+							</div>
+							<div class="col-lg-1 form-group">
+								<button class="btn btn-success form-control" type="button" onclick="queryList();">检索</button>
 							</div>
 						</div>
-						<div class="col-lg-2 form-group">
-							<button class="btn btn-success form-control" onclick="queryList();">检索</button>
+						<div class="col-lg-8">
 						</div>
-					</div>
-					<div class="btns">
-						<ul>
-							<li><a href="#" onclick="add();"><i class="fa fa-plus" aria-hidden="true"></i>新增</a></li>
-							<li><a href="#" onclick="upd();"><i class="fa fa-pencil" aria-hidden="true"></i>修改</a></li>
-							<li><a href="#" onclick="del();"><i class="fa fa-trash" aria-hidden="true"></i>删除</a></li>
-						</ul>
+						<div class="col-lg-1 form-group">
+							<button class="btn btn-success form-control" type="button" onclick="del();">删除</button>
+						</div>
+						<div class="col-lg-1">
+						</div>
+						<div class="col-lg-1 form-group">
+							<button class="btn btn-success form-control" type="button" onclick="add();">增加</button>
+						</div>
+						<div class="col-lg-1 form-group">
+							<button class="btn btn-success form-control" type="button" onclick="upd();">编辑</button>
+						</div>
 					</div>
 					<table class="table table-bordered">
 						<tr>
 							<th></th>
-							<th>文号</th>
-							<th>担当者</th>
-							<th>资料到达日期</th>
-							<th>项目进度</th>
-							<th>归档</th>
-							<th>送审金额</th>
-							<th>审定金额</th>
-							<th>审定单发出日期</th>
-							<th>审定单回复日期</th>
-							<th>报告日期</th>
-							<th>委托公司</th>
-							<th>承包公司</th>
-							<th>审价费</th>
-							<th>开票日期</th>
-							<th>发票号</th>
-							<th>到帐日期</th>
+							<th>项目文号</th>
+							<th>项目名称</th>
+							<th>合同编号</th>
+							<th>工程师</th>
+							<th>资料收到日期</th>
+							<th>实施情况</th>
+							<th>预/结算</th>
+							<th>预算金额</th>
+							<th>委托方专业联系人及联系方式</th>
+							<th>承揽单位</th>
+							<th>承揽单位联系人及联系方式</th>
+							<th>送审价</th>
+							<th>审核价</th>
+							<th>核增额</th>
+							<th>核减额</th>
+							<th>净核减额</th>
+							<th>净核减率</th>
+							<th>控制价金额</th>
+							<th>立项金额</th>
+							<th>限价金额</th>
+							<th>合同金额</th>
 						</tr>
 						<s:iterator id="listAudit" value="listAudit" status="st1">
 							<tr>
 								<td><input name="radioKey" type="radio" value="<s:property value="AUDIT_NO"/>"/></td>
 								<td><s:property value="REPORT_NO"/></td>
-								<td align=middle ><s:property value="PROJECT_MANAGER"/></td>
-								<td align=middle ><s:date name="DOC_ARR_DATE" format="yyyy/MM/dd" /></td>
-								<td align=middle >
-									<s:if test='PROJECT_STATUS == "1"'>
-										在审
+								<td><s:property value="PROJECT_NAME"/></td>
+								<td><s:property value="CNTRCT_NO"/></td>
+								<td align="center"><s:date name="DOC_REC_DATE" format="yyyy/MM/dd" /></td>
+								<td align="center">
+									<s:if test='PROGRESS_STATUS == "1"'>
+										实施
 									</s:if>
-									<s:elseif test='PROJECT_STATUS == "2"'>
-										补交资料
-									</s:elseif>
-									<s:elseif test='PROJECT_STATUS == "3"'>
-										初稿已出
-									</s:elseif>
-									<s:elseif test='PROJECT_STATUS == "4"'>
-										审定单已出
-									</s:elseif>
-									<s:elseif test='PROJECT_STATUS == "5"'>
-										出报告
-									</s:elseif>
-									<s:elseif test='PROJECT_STATUS == "6"'>
-										快递
-									</s:elseif>
-									<s:elseif test='PROJECT_STATUS == "7"'>
-										完成
-									</s:elseif>
-									<s:elseif test='PROJECT_STATUS == "8"'>
-										终止
-									</s:elseif>
-									<s:elseif test='PROJECT_STATUS == "9"'>
-										归档
+									<s:elseif test='PROGRESS_STATUS == "2"'>
+										中止
 									</s:elseif>
 									<s:else>
-										<s:property value="PROJECT_STATUS"/>
+										<s:property value="PROGRESS_STATUS"/>
 									</s:else>
 								</td>
-								<td align=middle >
-									<s:if test='RESERVE4 == "1"'>
-										归档
-									</s:if>
-									<s:else>
-										<s:property value=""/>
-									</s:else>
-								</td>
-								<td align=right><s:property value="VERIFY_PER_AMOUNT"/></td>
-								<td align=right><s:property value="VERIFY_AMOUNT"/></td>
-								<td align=middle ><s:date name="VERIFY_DOC_SEND_DATE" format="yyyy/MM/dd" /></td>
-								<td align=middle ><s:date name="VERIFY_DOC_REPLY_DATE" format="yyyy/MM/dd" /></td>
-								<td align=middle ><s:date name="LAST_REPORT_DATE" format="yyyy/MM/dd" /></td>
-								<td><s:property value="AGENT_CO_NAME"/></td>
+								<td><s:property value="PRE_SET"/></td>
+								<td><s:property value="PRE_PRICE"/></td>
+								<td><s:property value="AGENT_CO_MANAGER"/></td>
 								<td><s:property value="CONTRACT_CO_NAME"/></td>
-								<td align=right><s:property value="RECEIPT1_AMOUNT"/></td>
-								<td align=middle ><s:date name="RECEIPT1_DATE" format="yyyy/MM/dd" /></td>
-								<td><s:property value="RECEIPT1_NO"/></td>
-								<td align=middle ><s:date name="VALUE_DATE" format="yyyy/MM/dd" /></td>
+								<td><s:property value="CONTRACT_CO_MANAGER"/></td>
+								<td><s:property value="VERIFY_PER_AMOUNT"/></td>
+								<td><s:property value="VERIFY_AMOUNT"/></td>
+								<td><s:property value="VERIFY_INCREASE"/></td>
+								<td><s:property value="VERIFY_DECREASE"/></td>
+								<td><s:property value="VERIFY_DIFF"/></td>
+								<td><s:property value="VERIFY_DIFF_RATE"/></td>
+								<td><s:property value="CNT_PRICE"/></td>
+								<td><s:property value="PROJ_PRICE"/></td>
+								<td><s:property value="LIMIT_PRICE"/></td>
+								<td><s:property value="CNTRCT_PRICE"/></td>
 							</tr>
 						</s:iterator>
 					</table>

@@ -183,6 +183,12 @@
 										<s:if test='RANK == "L"'>
 											管理员
 										</s:if>
+										<s:elseif test='RANK == "C"'>
+											负责人
+										</s:elseif>
+										<s:elseif test='RANK == "B"'>
+											工程师
+										</s:elseif>
 										<s:else>
 											一般用户
 										</s:else>

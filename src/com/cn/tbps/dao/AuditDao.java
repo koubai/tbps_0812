@@ -32,7 +32,8 @@ public interface AuditDao {
 	public int queryAuditCountByPage(String auditNoLow, String auditNoHigh, String projectStatus,
 			String projectManager, String valueDateLow, String valueDateHigh, String agentNo,
 			String reportNoComp, String reportNoLow, String reportNoHigh, String auditStatus, 
-			String projectClass, String docArrDateLow, String docArrDateHigh, String agentName, String contractName);
+			String projectClass, String docArrDateLow, String docArrDateHigh, String agentName, 
+			String contractName, String projectName);
 	
 	/**
 	 * 翻页查询记录
@@ -54,7 +55,8 @@ public interface AuditDao {
 	public List<AuditDto> queryAuditByPage(String auditNoLow, String auditNoHigh, String projectStatus,
 			String projectManager, String valueDateLow, String valueDateHigh, String agentNo,
 			String reportNoComp, String reportNoLow, String reportNoHigh, String auditStatus, 
-			String projectClass, String docArrDateLow, String docArrDateHigh, String agentName, String contractName, int start, int end);
+			String projectClass, String docArrDateLow, String docArrDateHigh, String agentName, 
+			String contractName, String projectName, int start, int end);
 	
 	/**
 	 * 查询审价（导出数据用）
@@ -74,7 +76,8 @@ public interface AuditDao {
 	public List<AuditDto> queryAllAuditExport(String auditNoLow, String auditNoHigh, String projectStatus,
 			String projectManager, String valueDateLow, String valueDateHigh, String agentNo,
 			String reportNoComp, String reportNoLow, String reportNoHigh, String auditStatus, 
-			String projectClass, String docArrDateLow, String docArrDateHigh, String agentName, String contractName);
+			String projectClass, String docArrDateLow, String docArrDateHigh, String agentName, 
+			String contractName, String projectName);
 	
 	/**
 	 * 根据审价编号查询记录（查询未删除的记录）
