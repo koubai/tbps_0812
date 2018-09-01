@@ -180,12 +180,12 @@
 						</s:iterator>
 					</table>
 					<jsp:include page="../turning.jsp" flush="true" />
+					<div class="operationBtns">
+						<!-- <button class="btn btn-success" onclick="save();">保存</button> -->
+						<button class="btn btn-success" onclick="calcAmount();">代理费计算</button>
+					</div>
 				</s:form>
 			</div>
-		</div>
-		<div class="operationBtns addBtns mgt15 btn3" style="width: 300px;">
-			<button class="btn btn-success" onclick="save();">保存</button>
-			<button class="btn btn-success" onclick="calcAmount();">代理费计算</button>
 		</div>
 	</div>
 	<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
