@@ -52,7 +52,7 @@
 		var REPORT_NO = $("#REPORT_NO").val();
 		var PROJECT_NAME = $("#PROJECT_NAME").val();
 		var PROJECT_MANAGER = $("#PROJECT_MANAGER").val();
-		var CONTRACT_NO = $("#CONTRACT_NO").val();
+		var CNTRCT_NO = $("#CNTRCT_NO").val();
 		//委托内容
 		var RESERVE1 = $("#RESERVE1").val();
 		
@@ -90,7 +90,7 @@
 			$("#PROJECT_MANAGER").focus();
 			return;
 		}
-		if(CONTRACT_NO == "") {
+		if(CNTRCT_NO == "") {
 			alert("合同编号不能为空！");
 			$("#CONTRACT_NO").focus();
 			return;
@@ -98,50 +98,6 @@
 		if(RESERVE1 == "") {
 			alert("委托内容不能为空！");
 			$("#RESERVE1").focus();
-			return;
-		}
-		
-		//名字长度验证
-		//委托公司负责人
-		var agentCoManager = $("#agentCoManager").val();
-		if(agentCoManager.length > 6) {
-			alert("委托公司负责人不能超过6个字！");
-			$("#agentCoManager").focus();
-			return;
-		}
-		//委托公司项目负责人
-		var AGENT_CO_STAFF = $("#AGENT_CO_STAFF").val();
-		if(AGENT_CO_STAFF.length > 6) {
-			alert("委托公司项目负责人不能超过6个字！");
-			$("#AGENT_CO_STAFF").focus();
-			return;
-		}
-		//专业公司负责人
-		var profCoManager = $("#profCoManager").val();
-		if(profCoManager.length > 6) {
-			alert("专业公司负责人不能超过6个字！");
-			$("#profCoManager").focus();
-			return;
-		}
-		//专业公司项目负责人
-		var PROF_CO_STAFF = $("#PROF_CO_STAFF").val();
-		if(PROF_CO_STAFF.length > 6) {
-			alert("专业公司项目负责人不能超过6个字！");
-			$("#PROF_CO_STAFF").focus();
-			return;
-		}
-		//承包公司负责人
-		var contractCoManager = $("#contractCoManager").val();
-		if(contractCoManager.length > 6) {
-			alert("承包公司负责人不能超过6个字！");
-			$("#contractCoManager").focus();
-			return;
-		}
-		//承包公司项目负责人
-		var CONTRACT_CO_STAFF = $("#CONTRACT_CO_STAFF").val();
-		if(CONTRACT_CO_STAFF.length > 6) {
-			alert("承包公司项目负责人不能超过6个字！");
-			$("#CONTRACT_CO_STAFF").focus();
 			return;
 		}
 		
@@ -166,6 +122,13 @@
 				return;
 			}
 		}
+		
+		$('#CNTRCT_NO').removeAttr("disabled");
+		$('#CNTRCT_NM').removeAttr("disabled");
+		$('#VERIFY_DECREASE').removeAttr("disabled");
+		$('#VERIFY_DIFF').removeAttr("disabled");
+		$('#VERIFY_DIFF_RATE').removeAttr("disabled");
+		
 		if(confirm("确定追加吗？")) {
 			document.mainform.action = '<c:url value="/audit/addAuditAction.action"></c:url>';
 			document.mainform.submit();
@@ -179,7 +142,6 @@
 		$("#AGENT_CO_MANAGER").attr("value", $("#agentCoManager").val());
 		$("#AGENT_CO_MANAGER_TEL").attr("value", $("#agentCoManagerTel").val());
 		$("#AGENT_CO_POST_ADDRESS").attr("value", $("#agentCoPostAddress").val());
-		
 		var agent_mail_pr = $("#agent_mail_pr").val();
 		var agent_mail_suffix = $("#agent_mail_suffix").val();
 		if(agent_mail_pr != "" || agent_mail_suffix != "") {
@@ -187,6 +149,7 @@
 		} else {
 			$("#AGENT_CO_MAIL").attr("value", "");
 		}
+		$("#AGENT_INFO").attr("value", $("#agentInfo").val());
 		
 		//专业公司
 		$("#PROF_NO").attr("value", $("#profNo").val());
@@ -194,13 +157,7 @@
 		$("#PROF_CO_MANAGER").attr("value", $("#profCoManager").val());
 		$("#PROF_CO_MANAGER_TEL").attr("value", $("#profCoManagerTel").val());
 		$("#PROF_CO_POST_ADDRESS").attr("value", $("#profCoPostAddress").val());
-		var prof_mail_pr = $("#prof_mail_pr").val();
-		var prof_mail_suffix = $("#prof_mail_suffix").val();
-		if(prof_mail_pr != "" || prof_mail_suffix != "") {
-			$("#PROF_CO_MAIL").attr("value", prof_mail_pr + "@" + prof_mail_suffix);
-		} else {
-			$("#PROF_CO_MAIL").attr("value", "");
-		}
+		$("#PROF_CO_MAIL").attr("value", $("#profCoMail").val());
 		
 		//承包公司
 		$("#CONTRACT_CO_NO").attr("value", $("#contractCoNo").val());
@@ -209,6 +166,8 @@
 		$("#CONTRACT_CO_MANAGER_TEL").attr("value", $("#contractCoManagerTel").val());
 		$("#CONTRACT_CO_POST_ADDRESS").attr("value", $("#contractCoPostAddress").val());
 		$("#CONTRACT_CO_MAIL").attr("value", $("#contractCoMail").val());
+		$("#CONTRACT_CO_INFO").attr("value", $("#contractCoInfo").val());
+		$("#CONTRACT_CO_ID").attr("value", $("#contractCoId").val());
 		
 		//各类日期
 		$("#REG_DATE").attr("value", $("#regDate").val());
@@ -253,7 +212,7 @@
 	//对数字类型的，为空时设为0
 	function setDefaultValue(id) {
 		if($("#" + id).val() == "") {
-			$("#" + id).attr("value", "0");
+			$("#" + id).prop("value", "0");
 		}
 	}
 	
@@ -484,7 +443,6 @@
 	
 	function showByUserRank(){
 		var userRank="<%=session.getAttribute("user_rank")%>";
-		alert(userRank);
 		if(userRank == "A"){
 			disableB();
 			disableC();
@@ -537,9 +495,17 @@
 		
 	}
 	
+	//合同选择
+	function selectAuditCntrct() {
+		var url = '<c:url value="/auditcntrct/showSelectAuditCntrctAction.action"></c:url>';
+		url += "?date=" + new Date();
+		
+		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+	}
+	
 	//承包公司
 	function selectContractComp() {
-		var url = '<c:url value="/bid/showAddBidAgentCompAction.action"></c:url>';
+		var url = '<c:url value="/agentcomp/showAgentCompAuditAction.action"></c:url>';
 		url += "?agentAddFlag=3&date=" + new Date();
 		
 		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
@@ -547,7 +513,7 @@
 	
 	//专业公司
 	function selectExpertComp() {
-		var url = '<c:url value="/bid/showAddBidAgentCompAction.action"></c:url>';
+		var url = '<c:url value="/agentcomp/showAgentCompAuditAction.action"></c:url>';
 		url += "?agentAddFlag=2&date=" + new Date();
 		
 		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
@@ -555,7 +521,7 @@
 	
 	//委托公司
 	function selectAgentComp() {
-		var url = '<c:url value="/bid/showAddBidAgentCompAction.action"></c:url>';
+		var url = '<c:url value="/agentcomp/showAgentCompAuditAction.action"></c:url>';
 		url += "?agentAddFlag=1&date=" + new Date();
 		
 		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
@@ -715,24 +681,27 @@
 					<s:hidden name="addAuditDto.B_INVOICE_DELI_DATE" id="B_INVOICE_DELI_DATE"/>
 					<s:hidden name="addAuditDto.B_INVOICE_DATE" id="B_INVOICE_DATE"/>
 					<s:hidden name="addAuditDto.B_SET_DATE" id="B_SET_DATE"/>
+					<s:hidden name="addAuditDto.AGENT_INFO" id="AGENT_INFO"/>
+					<s:hidden name="addAuditDto.CONTRACT_CO_ID" id="CONTRACT_CO_ID"/>
+					<s:hidden name="addAuditDto.CONTRACT_CO_INFO" id="CONTRACT_CO_INFO"/>
 					<s:hidden name="addAuditDto.RESERVE1" id="RESERVE1"/>
-					<h3 class="title"><label for="" class="col-lg-2 form-label">审价项目新增</label><a class="backHome" href="#" onclick="goAuditList();"><i class="fa fa-home" aria-hidden="true"></i>返回</a></h3>
+					<h3 class="title"><label for="" class="col-lg-2 form-label">审价项目新增</label></h3>
 					<div class="row">
 						<div class="col-lg-12 form-group">
 							<label for="" class="col-lg-2 form-label">合同归属</label>
 							<div class="col-lg-1">
-								<s:if test='addAuditDto.CNTRCT_BELONG == "1"'>
+								<s:if test='auditCntrctDto.CNTRCT_BELONG == "1"'>
 									<s:textfield name="" id="CNTRCT_BELONG" value="联合" disabled="true" cssClass="form-control" maxlength="40" theme="simple"></s:textfield>
 								</s:if>
-								<s:elseif test='addAuditDto.CNTRCT_BELONG == "2"'>
+								<s:elseif test='auditCntrctDto.CNTRCT_BELONG == "2"'>
 									<s:textfield name="" id="CNTRCT_BELONG" value="XX" disabled="true" cssClass="form-control" maxlength="40" theme="simple"></s:textfield>
 								</s:elseif>
 								<s:else>
-									<s:textfield name="" id="CNTRCT_BELONG" value="rrrrr" disabled="true" cssClass="form-control" maxlength="40" theme="simple"></s:textfield>
+									<s:textfield name="" id="CNTRCT_BELONG" value="" disabled="true" cssClass="form-control" maxlength="40" theme="simple"></s:textfield>
 								</s:else>
 							</div>
 							<div class="col-lg-1">
-								<button class="btn btn-success form-control" type="button" onclick="select();">合同选择</button>
+								<button class="btn btn-success form-control" type="button" onclick="selectAuditCntrct();">合同选择</button>
 							</div>
 							<label for="" class="col-lg-1 form-label">合同编号</label>
 							<div class="col-lg-2">
@@ -740,21 +709,21 @@
 							</div>
 							<label for="" class="col-lg-1 form-label">合同性质</label>
 							<div class="col-lg-2">
-								<s:if test='addAuditDto.CNTRCT_TYPE == "1"'>
+								<s:if test='auditCntrctDto.CNTRCT_TYPE == "1"'>
 									<s:textfield name="" id="CNTRCT_TYPE" value="地铁" disabled="true" cssClass="form-control" maxlength="40" theme="simple"></s:textfield>
 								</s:if>
-								<s:elseif test='addAuditDto.CNTRCT_TYPE == "2"'>
+								<s:elseif test='auditCntrctDto.CNTRCT_TYPE == "2"'>
 									<s:textfield name="" id="CNTRCT_TYPE" value="非地铁" disabled="true" cssClass="form-control" maxlength="40" theme="simple"></s:textfield>
 								</s:elseif>
 								<s:else>
-									<s:textfield name="" id="CNTRCT_TYPE" value="tttt" disabled="true" cssClass="form-control" maxlength="40" theme="simple"></s:textfield>
+									<s:textfield name="" id="CNTRCT_TYPE" value="" disabled="true" cssClass="form-control" maxlength="40" theme="simple"></s:textfield>
 								</s:else>
 							</div>
 						</div>
 						<div class="col-lg-12 form-group">
 							<label for="" class="col-lg-2 form-label">合同名称</label>
 							<div class="col-lg-5">
-								<s:textfield name="" id="CNTRCT_NAME" disabled="true" cssClass="form-control" maxlength="1000" theme="simple"></s:textfield>
+								<s:textfield name="auditCntrctDto.CNTRCT_NAME" id="CNTRCT_NAME" disabled="true" cssClass="form-control" maxlength="1000" theme="simple"></s:textfield>
 							</div>
 							<label for="" class="col-lg-1 form-label">合同简称</label>
 							<div class="col-lg-2">
@@ -764,27 +733,28 @@
 						<div class="col-lg-12 form-group">
 							<label for="" class="col-lg-2 form-label">委托单位</label>
 							<div class="col-lg-5">
-								<s:textfield name="" id="AUDIT_COMP_NAME" disabled="true" cssClass="form-control" maxlength="40" theme="simple"></s:textfield>
+								<s:textfield name="auditCntrctDto.AUDIT_COMP_NAME" id="AUDIT_COMP_NAME" disabled="true" cssClass="form-control" maxlength="40" theme="simple"></s:textfield>
 							</div>
 							<label for="" class="col-lg-1 form-label">联系人联系方式</label>
 							<div class="col-lg-2">
-								<s:textfield name="" id="CO_MANAGER_ADDRESS1" disabled="true" cssClass="form-control" maxlength="100" theme="simple"></s:textfield>
+								<s:textfield name="auditCntrctDto.CO_MANAGER_ADDRESS1" id="CO_MANAGER_ADDRESS1" disabled="true" cssClass="form-control" maxlength="100" theme="simple"></s:textfield>
 							</div>
 						</div>
 						<div class="col-lg-12 form-group">
 							<label for="" class="col-lg-2 form-label">合同开始时间</label>
 							<div class="col-lg-2">
 								<div class="input-group date" data-provide="datepicker">
-									<input type="text" class="form-control datepicker" disabled="disabled" id="cntrctStDate" maxlength="10" />
+									<input type="text" class="form-control datepicker" disabled="disabled" id="strCntrctStDate" value="<s:date format="yyyy-MM-dd" name="auditCntrctDto.CNTRCT_ST_DATE"/>"maxlength="10" />
 									<div class="input-group-addon">
 										<span class="glyphicon glyphicon-th"></span>
 									</div>
 								</div>
+								
 							</div>
 							<label for="" class="col-lg-1 form-label">合同结束时间</label>
 							<div class="col-lg-2">
 								<div class="input-group date" data-provide="datepicker">
-									<input type="text" class="form-control datepicker" disabled="disabled" id="cntrctEdDate" maxlength="10" />
+									<input type="text" class="form-control datepicker" disabled="disabled" id="strCntrctEdDate" value="<s:date format="yyyy-MM-dd" name="auditCntrctDto.CNTRCT_ED_DATE"/>"maxlength="10" />
 									<div class="input-group-addon">
 										<span class="glyphicon glyphicon-th"></span>
 									</div>
@@ -1057,7 +1027,14 @@
 							<div class="col-lg-2"></div>
 							<label for="" class="col-lg-2 form-label colorGold">委托方专业联系人及联系方式</label>
 							<div class="col-lg-4">
-								<s:textfield name="addAuditDto.AGENT_INFO" id="AGENT_INFO" disabled="true" cssClass="col-lg-10 form-control" maxlength="200" theme="simple"></s:textfield>
+								<input type="hidden" id="agentNo" value=""/>
+								<input type="hidden" id="agentCoName" value=""/>
+								<input type="hidden" id="agentCoManager" value=""/>
+								<input type="hidden" id="agentCoManagerTel" value=""/>
+								<input type="hidden" id="agentCoPostAddress" value=""/>
+								<input type="hidden" id="agent_mail_pr" value=""/>
+								<input type="hidden" id="agent_mail_suffix" value=""/>
+								<s:textfield name="" id="agentInfo" disabled="true" cssClass="col-lg-10 form-control" value="" maxlength="200" theme="simple"></s:textfield>
 							</div>
 							<div class="col-lg-1">
 								<button class="btn btn-success form-control" type="button" id="selectAgent" onclick="selectAgentComp();">选择</button>
@@ -1067,14 +1044,20 @@
 							<div class="col-lg-2"></div>
 							<label for="" class="col-lg-2 form-label colorGold">承揽单位联系人及联系方式</label>
 							<div class="col-lg-4">
-								<s:textfield name="addAuditDto.CONTRACT_CO_INFO" id="CONTRACT_CO_INFO" disabled="true" cssClass="col-lg-10 form-control" maxlength="200" theme="simple"></s:textfield>
+								<input type="hidden" id="contractCoNo" value=""/>
+								<input type="hidden" id="contractCoName" value=""/>
+								<input type="hidden" id="contractCoManager" value=""/>
+								<input type="hidden" id="contractCoManagerTel" value=""/>
+								<input type="hidden" id="contractCoPostAddress" value=""/>
+								<s:textfield name="" id="contractCoInfo" disabled="true" cssClass="col-lg-10 form-control" value="" maxlength="200" theme="simple"></s:textfield>
 							</div>
+							
 							<div class="col-lg-1">
 								<button class="btn btn-success form-control" type="button" id="selectContract" onclick="selectContractComp();">选择</button>
 							</div>
 							<label for="" class="col-lg-1 form-label colorGold">承揽单位</label>
 							<div class="col-lg-2">
-								<s:textfield name="addAuditDto.CONTRACT_CO_ID" id="CONTRACT_CO_ID" disabled="true" cssClass="col-lg-10 form-control" maxlength="20" theme="simple"></s:textfield>
+								<s:textfield name="" id="contractCoId" disabled="true" cssClass="col-lg-10 form-control" value="" maxlength="20" theme="simple"></s:textfield>
 							</div>
 						</div>
 						<div class="col-lg-12 form-group" id="verify">
@@ -1527,6 +1510,20 @@
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.zh-CN.min.js"></script>
 <script>
 	showByUserRank();
+	/* 
+	$('#agentNo').bind('input propertychange', function() {  
+		var agentCoManager = $('#agentCoManager').val();
+		var agentCoManagerTel = $('#agentCoManagerTel').val();
+		var agentCoPostAddress = $('#agentCoPostAddress').val();
+		var agent_mail_pr = $("#agent_mail_pr").val();
+		var agent_mail_suffix = $("#agent_mail_suffix").val();
+		var agent_mail = '';
+		if(agent_mail_pr != "" || agent_mail_suffix != "") {
+			agent_mail = agent_mail_pr + "@" + agent_mail_suffix;
+		}
+		var agent_info = agentCoManager + "/ " + agentCoManagerTel + "/ " + agentCoPostAddress + "/ " + agent_mail;
+	    $('#AGENT_INFO').val(agent_info);  
+	});  */
 	
 	$('.datepicker').parent().datepicker({
 		"autoclose":true,"format":"yyyy-mm-dd","language":"zh-CN"

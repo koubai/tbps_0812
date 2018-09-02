@@ -241,8 +241,8 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 	private void insertAuditHist(AuditDto audit) {
 		AuditHistDto auditHist = new AuditHistDto();
 		auditHist.setAUDIT_NO(audit.getAUDIT_NO());
-		auditHist.setCONTRACT_NO(audit.getCONTRACT_NO());
-		auditHist.setCONTRACTSNM(audit.getCONTRACTSNM());
+		auditHist.setCNTRCT_NO(audit.getCNTRCT_NO());
+		auditHist.setCNTRCT_NM(audit.getCNTRCT_NM());
 		auditHist.setREPORT_NO(audit.getREPORT_NO());
 		auditHist.setPROJECT_MANAGER(audit.getPROJECT_MANAGER());
 		auditHist.setPROJECT_NAME(audit.getPROJECT_NAME());
@@ -301,19 +301,19 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 		auditHist.setCNTRCT_PRICE(audit.getCNTRCT_PRICE());
 		auditHist.setPLAN_DOC_RCV_DATE(audit.getPLAN_DOC_RCV_DATE());
 		auditHist.setPLAN_DOC_RPT_DATE(audit.getPLAN_DOC_RPT_DATE());
-		auditHist.setPLAN_DOC_SND_DATE(audit.getPLAN_DOC_SND_DATE());
+		auditHist.setPLAN_DOC_SND_TYPE(audit.getPLAN_DOC_SND_TYPE());
 		auditHist.setPLAN_DOC_ARR_DATE(audit.getPLAN_DOC_ARR_DATE());
 		auditHist.setBID_DOC_RCV_DATE(audit.getBID_DOC_RCV_DATE());
 		auditHist.setBID_DOC_RPT_DATE(audit.getBID_DOC_RPT_DATE());
-		auditHist.setBID_DOC_SND_DATE(audit.getBID_DOC_SND_DATE());
+		auditHist.setBID_DOC_SND_TYPE(audit.getBID_DOC_SND_TYPE());
 		auditHist.setBID_DOC_ARR_DATE(audit.getBID_DOC_ARR_DATE());
 		auditHist.setSIGN_DOC_RCV_DATE(audit.getSIGN_DOC_RCV_DATE());
 		auditHist.setSIGN_DOC_RPT_DATE(audit.getSIGN_DOC_RPT_DATE());
-		auditHist.setSIGN_DOC_SND_DATE(audit.getSIGN_DOC_SND_DATE());
+		auditHist.setSIGN_DOC_SND_TYPE(audit.getSIGN_DOC_SND_TYPE());
 		auditHist.setSIGN_DOC_ARR_DATE(audit.getSIGN_DOC_ARR_DATE());
 		auditHist.setSET_DOC_RCV_DATE(audit.getSET_DOC_RCV_DATE());
 		auditHist.setSET_DOC_RPT_DATE(audit.getSET_DOC_RPT_DATE());
-		auditHist.setSET_DOC_SND_DATE(audit.getSET_DOC_SND_DATE());
+		auditHist.setSET_DOC_SND_TYPE(audit.getSET_DOC_SND_TYPE());
 		auditHist.setSET_DOC_ARR_DATE(audit.getSET_DOC_ARR_DATE());
 		auditHist.setPROGRESS_STATUS_MEMO(audit.getPROGRESS_STATUS_MEMO());
 		auditHist.setA_AMOUNT(audit.getA_AMOUNT());

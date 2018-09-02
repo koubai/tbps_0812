@@ -6,8 +6,6 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.cn.common.action.BaseAction;
 import com.cn.common.factory.Poi2007Base;
@@ -15,11 +13,12 @@ import com.cn.common.factory.PoiFactory;
 import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
+import com.cn.tbps.dto.AuditCntrctDto;
 import com.cn.tbps.dto.AuditCompDto;
 import com.cn.tbps.dto.AuditDto;
 import com.cn.tbps.dto.AuditHistDto;
-import com.cn.tbps.dto.ConfigTabDto;
 import com.cn.tbps.dto.UserInfoDto;
+import com.cn.tbps.service.AuditCntrctService;
 import com.cn.tbps.service.AuditCompService;
 import com.cn.tbps.service.AuditService;
 import com.cn.tbps.service.ConfigTabService;
@@ -40,6 +39,7 @@ public class AuditAction extends BaseAction {
 	private static final Logger log = LogManager.getLogger(AuditAction.class);
 	
 	private AuditService auditService;
+	private AuditCntrctService auditCntrctService;
 	
 	private ConfigTabService configTabService;
 
@@ -152,6 +152,8 @@ public class AuditAction extends BaseAction {
 	 *  删除审价编号
 	 */
 	private String delAuditNo;
+	
+	private AuditCntrctDto auditCntrctDto;
 	
 	//新增
 	/**
@@ -587,6 +589,7 @@ public class AuditAction extends BaseAction {
 		try {
 			this.clearMessages();
 			updAuditDto = auditService.queryAuditByID(updAuditNo);
+			auditCntrctDto = auditCntrctService.queryAuditCntrctByID(updAuditDto.getCNTRCT_NO());
 			if(updAuditDto == null) {
 				this.addActionMessage("该数据不存在！");
 				return "checkerror";
@@ -600,6 +603,14 @@ public class AuditAction extends BaseAction {
 		return SUCCESS;
 	}
 	
+	public AuditCntrctService getAuditCntrctService() {
+		return auditCntrctService;
+	}
+
+	public void setAuditCntrctService(AuditCntrctService auditCntrctService) {
+		this.auditCntrctService = auditCntrctService;
+	}
+
 	/**
 	 * 更新审价
 	 * @return
@@ -631,6 +642,7 @@ public class AuditAction extends BaseAction {
 		try {
 			this.clearMessages();
 			addAuditDto = new AuditDto();
+			auditCntrctDto = new AuditCntrctDto();
 		} catch(Exception e) {
 			return ERROR;
 		}
@@ -770,16 +782,12 @@ public class AuditAction extends BaseAction {
 	 * @return
 	 */
 	private boolean checkData(AuditDto audit) {
-		if(StringUtil.isBlank(audit.getPROJECT_TYPE())) {
-			this.addActionMessage("请选项目性质！");
+		if(StringUtil.isBlank(audit.getRESERVE1())) {
+			this.addActionMessage("请选委托内容！");
 			return false;
 		}
 		if(StringUtil.isBlank(audit.getREPORT_NO())) {
 			this.addActionMessage("报告文号不能为空！");
-			return false;
-		}
-		if(StringUtil.isBlank(audit.getPROJECT_STATUS())) {
-			this.addActionMessage("请选择项目进度！");
 			return false;
 		}
 		if(StringUtil.isBlank(audit.getPROJECT_NAME())) {
@@ -787,10 +795,10 @@ public class AuditAction extends BaseAction {
 			return false;
 		}
 		if(StringUtil.isBlank(audit.getPROJECT_MANAGER())) {
-			this.addActionMessage("担当者不能为空！");
+			this.addActionMessage("工程师不能为空！");
 			return false;
 		}
-		if(StringUtil.isBlank(audit.getCONTRACT_NO())) {
+		if(StringUtil.isBlank(audit.getCNTRCT_NO())) {
 			this.addActionMessage("合同编号不能为空！");
 			return false;
 		}
@@ -1115,6 +1123,14 @@ public class AuditAction extends BaseAction {
 
 	public void setStrProjectName(String strProjectName) {
 		this.strProjectName = strProjectName;
+	}
+
+	public AuditCntrctDto getAuditCntrctDto() {
+		return auditCntrctDto;
+	}
+
+	public void setAuditCntrctDto(AuditCntrctDto auditCntrctDto) {
+		this.auditCntrctDto = auditCntrctDto;
 	}
 
 }

@@ -47,6 +47,9 @@
 		<property name="auditService">
 			<ref bean="auditService" />
 		</property>
+		<property name="auditCntrctService">
+			<ref bean="auditCntrctService" />
+		</property>
 		<property name="auditCompService">
 			<ref bean="auditCompService" />
 		</property>

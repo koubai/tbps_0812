@@ -326,6 +326,14 @@
 		}
 		$("#CNTRCT_INFO").prop("value", cntrctInfo);
 		
+		//委托公司
+		$("#AUDIT_COMP_NO").attr("value", $("#agentNo").val());
+		$("#AUDIT_COMP_NAME").attr("value", $("#agentCoName").val());
+		$("#CO_MANAGER1").attr("value", $("#agentCoManager").val());
+		$("#CO_MANAGER_TEL1").attr("value", $("#agentCoManagerTel").val());
+		$("#CO_ADDRESS1").attr("value", $("#agentCoPostAddress").val());
+		$("#CO_MANAGER_ADDRESS1").attr("value", $("#agentInfo").val());
+		
 		//各类日期
 		$("#CNTRCT_ST_DATE").prop("value", $("#cntrctStDate").val());
 		$("#CNTRCT_ED_DATE").prop("value", $("#cntrctEdDate").val());
@@ -420,7 +428,7 @@
 	
 	//委托公司
 	function selectAgentComp() {
-		var url = '<c:url value="/bid/showAddBidAgentCompAction.action"></c:url>';
+		var url = '<c:url value="/agentcomp/showAgentCompAuditAction.action"></c:url>';
 		url += "?agentAddFlag=1&date=" + new Date();
 		
 		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
@@ -447,6 +455,8 @@
 					<s:hidden name="addAuditCntrctDto.CNTRCT_ED_DATE" id="CNTRCT_ED_DATE"/>
 					<s:hidden name="addAuditCntrctDto.CNTRCT_INFO" id="CNTRCT_INFO"/>
 					<s:hidden name="addAuditCntrctDto.AUDIT_COMP_NO" id="AUDIT_COMP_NO"/>
+					<s:hidden name="addAuditCntrctDto.AUDIT_COMP_NAME" id="AUDIT_COMP_NAME"/>
+					<s:hidden name="addAuditCntrctDto.CO_MANAGER_ADDRESS1" id="CO_MANAGER_ADDRESS1"/>
 					<s:hidden name="addAuditCntrctDto.CO_MANAGER1" id="CO_MANAGER1"/>
 					<s:hidden name="addAuditCntrctDto.CO_MANAGER_TEL1" id="CO_MANAGER_TEL1"/>
 					<s:hidden name="addAuditCntrctDto.CO_ADDRESS1" id="CO_ADDRESS1"/>
@@ -523,7 +533,14 @@
 						<div class="col-lg-12 form-group">
 							<label for="" class="col-lg-2 form-label">委托单位</label>
 							<div class="col-lg-4">
-								<s:textfield name="addAuditCntrctDto.AUDIT_COMP_NAME" id="AUDIT_COMP_NAME" cssClass="form-control" maxlength="40" theme="simple"></s:textfield>
+								<input type="hidden" id="agentNo" value=""/>
+								<input type="hidden" id="agentCoManager" value=""/>
+								<input type="hidden" id="agentCoManagerTel" value=""/>
+								<input type="hidden" id="agentCoPostAddress" value=""/>
+								<input type="hidden" id="agent_mail_pr" value=""/>
+								<input type="hidden" id="agent_mail_suffix" value=""/>
+								<input type="hidden" id="AGENT_CO_MAIL" value=""/>
+								<s:textfield id="agentCoName" cssClass="form-control" maxlength="40" theme="simple"></s:textfield>
 							</div>
 							<div class="col-lg-1">
 								<button class="btn btn-success form-control" type="button" onclick="selectAgentComp();">检索</button>
@@ -532,7 +549,7 @@
 						<div class="col-lg-12 form-group">
 							<label for="" class="col-lg-2 form-label">联系人及联系方式</label>
 							<div class="col-lg-5">
-								<s:textfield name="addAuditCntrctDto.CO_MANAGER_ADDRESS1" id="CO_MANAGER_ADDRESS1" cssClass="form-control" maxlength="100" theme="simple"></s:textfield>
+								<s:textfield id="agentInfo" cssClass="form-control" maxlength="100" theme="simple"></s:textfield>
 							</div>
 						</div>
 						<div class="col-lg-12 form-group">

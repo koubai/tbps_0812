@@ -62,6 +62,18 @@
 			<result name="success">/page/agentcomp/agentcommon.jsp</result>
 		</action>
 		
+		<action name="showAgentCompAuditAction" class="agentCompAction" method="showAgentCompCommonAction">
+			<result name="success">/page/agentcomp/agentaudit.jsp</result>
+		</action>
+		
+		<action name="queryAgentCompAuditAction" class="agentCompAction" method="queryAgentCompCommonAction">
+			<result name="success">/page/agentcomp/agentaudit.jsp</result>
+		</action>
+		
+		<action name="turnAgentCompAuditAction" class="agentCompAction" method="turnAgentCompCommonAction">
+			<result name="success">/page/agentcomp/agentaudit.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

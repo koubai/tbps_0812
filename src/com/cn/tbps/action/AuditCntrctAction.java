@@ -146,6 +146,18 @@ public class AuditCntrctAction extends BaseAction {
 	
 	private String agentAddFlag;
 	
+
+	//合同选择
+	/**
+	 * 合同开始时间
+	 */
+	private String cntrctStDate;
+
+	/**
+	 * 合同结束时间
+	 */
+	private String cntrctEdDate;
+	
 	
 	/**
 	 * 显示审计明细
@@ -334,6 +346,58 @@ public class AuditCntrctAction extends BaseAction {
 			queryAuditCntrct();
 		} catch(Exception e) {
 			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	//审计合同选择
+	/**
+	 * 添加审计项目---显示审计合同信息选择页面
+	 * @return
+	 */
+	public String showSelectAuditCntrctAction() {
+		try {
+			this.clearMessages();
+			//查询审计合同信息
+			cntrctStDate = "";
+			cntrctEdDate = "";
+			listAuditCntrct = new ArrayList<AuditCntrctDto>();
+			page = new Page();
+			startIndex = 0;
+			queryAuditCntrct();
+		} catch(Exception e) {
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 审计合同信息（查询）
+	 * @return
+	 */
+	public String querySelectAuditCntrctAction() {
+		try {
+			this.clearMessages();
+			//查询审计合同信息
+			startIndex = 0;
+			queryAuditCntrct();
+		} catch(Exception e) {
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 选择审计合同信息（翻页）
+	 * @return
+	 */
+	public String turnSelectAuditCntrctAction() {
+		try {
+			this.clearMessages();
+			//查询审计合同信息
+			queryAuditCntrct();
+		} catch(Exception e) {
 			return ERROR;
 		}
 		return SUCCESS;
@@ -583,6 +647,22 @@ public class AuditCntrctAction extends BaseAction {
 
 	public void setAgentAddFlag(String agentAddFlag) {
 		this.agentAddFlag = agentAddFlag;
+	}
+
+	public String getCntrctStDate() {
+		return cntrctStDate;
+	}
+
+	public void setCntrctStDate(String cntrctStDate) {
+		this.cntrctStDate = cntrctStDate;
+	}
+
+	public String getCntrctEdDate() {
+		return cntrctEdDate;
+	}
+
+	public void setCntrctEdDate(String cntrctEdDate) {
+		this.cntrctEdDate = cntrctEdDate;
 	}
 
 }

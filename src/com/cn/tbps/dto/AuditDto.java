@@ -30,12 +30,12 @@ public class AuditDto extends BaseDto {
 	/**
 	 * 合同编号
 	 */
-	private String CONTRACT_NO;
+	private String CNTRCT_NO;
 
 	/**
 	 * 合同简称
 	 */
-	private String CONTRACTSNM;
+	private String CNTRCT_NM;
 
 	/**
 	 * 报告文号
@@ -338,7 +338,7 @@ public class AuditDto extends BaseDto {
 	/**
 	 * 报告送达方式（立项阶段）
 	 */
-	private Date PLAN_DOC_SND_DATE;
+	private String PLAN_DOC_SND_TYPE;
 
 	/**
 	 * 报告送达日期（立项阶段）
@@ -358,7 +358,7 @@ public class AuditDto extends BaseDto {
 	/**
 	 * 报告送达方式（招标阶段）
 	 */
-	private Date BID_DOC_SND_DATE;
+	private String BID_DOC_SND_TYPE;
 
 	/**
 	 * 报告送达日期（招标阶段）
@@ -378,7 +378,7 @@ public class AuditDto extends BaseDto {
 	/**
 	 * 报告送达方式（合同签订阶段)
 	 */
-	private Date SIGN_DOC_SND_DATE;
+	private String SIGN_DOC_SND_TYPE;
 
 	/**
 	 * 报告送达日期（合同签订阶段)
@@ -398,7 +398,7 @@ public class AuditDto extends BaseDto {
 	/**
 	 * 报告送达方式（结算阶段）
 	 */
-	private Date SET_DOC_SND_DATE;
+	private String SET_DOC_SND_TYPE;
 
 	/**
 	 * 报告送达日期（结算阶段）
@@ -583,14 +583,6 @@ public class AuditDto extends BaseDto {
 
 	public void setPROJECT_MANAGER(String pROJECT_MANAGER) {
 		PROJECT_MANAGER = pROJECT_MANAGER;
-	}
-
-	public String getCONTRACT_NO() {
-		return CONTRACT_NO;
-	}
-
-	public void setCONTRACT_NO(String cONTRACT_NO) {
-		CONTRACT_NO = cONTRACT_NO;
 	}
 
 	public String getPROJECT_NAME() {
@@ -943,14 +935,6 @@ public class AuditDto extends BaseDto {
 		this.prof_mail_suffix = prof_mail_suffix;
 	}
 
-	public String getCONTRACTSNM() {
-		return CONTRACTSNM;
-	}
-
-	public void setCONTRACTSNM(String cONTRACTSNM) {
-		CONTRACTSNM = cONTRACTSNM;
-	}
-
 	public Date getDOC_REC_DATE() {
 		return DOC_REC_DATE;
 	}
@@ -1151,14 +1135,6 @@ public class AuditDto extends BaseDto {
 		PLAN_DOC_RPT_DATE = pLAN_DOC_RPT_DATE;
 	}
 
-	public Date getPLAN_DOC_SND_DATE() {
-		return PLAN_DOC_SND_DATE;
-	}
-
-	public void setPLAN_DOC_SND_DATE(Date pLAN_DOC_SND_DATE) {
-		PLAN_DOC_SND_DATE = pLAN_DOC_SND_DATE;
-	}
-
 	public Date getPLAN_DOC_ARR_DATE() {
 		return PLAN_DOC_ARR_DATE;
 	}
@@ -1181,14 +1157,6 @@ public class AuditDto extends BaseDto {
 
 	public void setBID_DOC_RPT_DATE(Date bID_DOC_RPT_DATE) {
 		BID_DOC_RPT_DATE = bID_DOC_RPT_DATE;
-	}
-
-	public Date getBID_DOC_SND_DATE() {
-		return BID_DOC_SND_DATE;
-	}
-
-	public void setBID_DOC_SND_DATE(Date bID_DOC_SND_DATE) {
-		BID_DOC_SND_DATE = bID_DOC_SND_DATE;
 	}
 
 	public Date getBID_DOC_ARR_DATE() {
@@ -1215,14 +1183,6 @@ public class AuditDto extends BaseDto {
 		SIGN_DOC_RPT_DATE = sIGN_DOC_RPT_DATE;
 	}
 
-	public Date getSIGN_DOC_SND_DATE() {
-		return SIGN_DOC_SND_DATE;
-	}
-
-	public void setSIGN_DOC_SND_DATE(Date sIGN_DOC_SND_DATE) {
-		SIGN_DOC_SND_DATE = sIGN_DOC_SND_DATE;
-	}
-
 	public Date getSIGN_DOC_ARR_DATE() {
 		return SIGN_DOC_ARR_DATE;
 	}
@@ -1245,14 +1205,6 @@ public class AuditDto extends BaseDto {
 
 	public void setSET_DOC_RPT_DATE(Date sET_DOC_RPT_DATE) {
 		SET_DOC_RPT_DATE = sET_DOC_RPT_DATE;
-	}
-
-	public Date getSET_DOC_SND_DATE() {
-		return SET_DOC_SND_DATE;
-	}
-
-	public void setSET_DOC_SND_DATE(Date sET_DOC_SND_DATE) {
-		SET_DOC_SND_DATE = sET_DOC_SND_DATE;
 	}
 
 	public Date getSET_DOC_ARR_DATE() {
@@ -1413,5 +1365,53 @@ public class AuditDto extends BaseDto {
 
 	public void setAUDIT_STATUS(String aUDIT_STATUS) {
 		AUDIT_STATUS = aUDIT_STATUS;
+	}
+
+	public String getCNTRCT_NO() {
+		return CNTRCT_NO;
+	}
+
+	public void setCNTRCT_NO(String cNTRCT_NO) {
+		CNTRCT_NO = cNTRCT_NO;
+	}
+
+	public String getCNTRCT_NM() {
+		return CNTRCT_NM;
+	}
+
+	public void setCNTRCT_NM(String cNTRCT_NM) {
+		CNTRCT_NM = cNTRCT_NM;
+	}
+
+	public String getPLAN_DOC_SND_TYPE() {
+		return PLAN_DOC_SND_TYPE;
+	}
+
+	public void setPLAN_DOC_SND_TYPE(String pLAN_DOC_SND_TYPE) {
+		PLAN_DOC_SND_TYPE = pLAN_DOC_SND_TYPE;
+	}
+
+	public String getBID_DOC_SND_TYPE() {
+		return BID_DOC_SND_TYPE;
+	}
+
+	public void setBID_DOC_SND_TYPE(String bID_DOC_SND_TYPE) {
+		BID_DOC_SND_TYPE = bID_DOC_SND_TYPE;
+	}
+
+	public String getSIGN_DOC_SND_TYPE() {
+		return SIGN_DOC_SND_TYPE;
+	}
+
+	public void setSIGN_DOC_SND_TYPE(String sIGN_DOC_SND_TYPE) {
+		SIGN_DOC_SND_TYPE = sIGN_DOC_SND_TYPE;
+	}
+
+	public String getSET_DOC_SND_TYPE() {
+		return SET_DOC_SND_TYPE;
+	}
+
+	public void setSET_DOC_SND_TYPE(String sET_DOC_SND_TYPE) {
+		SET_DOC_SND_TYPE = sET_DOC_SND_TYPE;
 	}
 }

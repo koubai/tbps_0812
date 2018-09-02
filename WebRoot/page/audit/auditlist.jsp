@@ -297,6 +297,7 @@
 								<td><s:property value="REPORT_NO"/></td>
 								<td><s:property value="PROJECT_NAME"/></td>
 								<td><s:property value="CNTRCT_NO"/></td>
+								<td><s:property value="PROJECT_MANAGER"/></td>
 								<td align="center"><s:date name="DOC_REC_DATE" format="yyyy/MM/dd" /></td>
 								<td align="center">
 									<s:if test='PROGRESS_STATUS == "1"'>

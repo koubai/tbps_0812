@@ -62,6 +62,18 @@
 			<result name="success">/page/download.jsp</result>
 		</action>
 		
+		<action name="showSelectAuditCntrctAction" class="auditCntrctAction" method="showSelectAuditCntrctAction">
+			<result name="success">/page/auditcntrct/selectauditcntrctlist.jsp</result>
+		</action>
+		
+		<action name="querySelectAuditCntrctAction" class="auditCntrctAction" method="querySelectAuditCntrctAction">
+			<result name="success">/page/auditcntrct/selectauditcntrctlist.jsp</result>
+		</action>
+		
+		<action name="turnSelectAuditCntrctAction" class="auditCntrctAction" method="turnSelectAuditCntrctAction">
+			<result name="success">/page/auditcntrct/selectauditcntrctlist.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>
