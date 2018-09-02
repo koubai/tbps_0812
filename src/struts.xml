@@ -50,6 +50,9 @@
 	<!-- 代理费设定 -->
 	<include file="struts-bidagentcost.xml"/>
 	
+	<!-- 投标项目状态设定 -->
+	<include file="struts-bidprogress.xml"/>
+	
 	<package name="index" extends="struts-default, json-default" namespace="/index">
 		
 		<!-- 验证码 -->

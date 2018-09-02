@@ -115,6 +115,11 @@
 	</rule>
 	
 	<rule>
+		<from>^/showbidprogress.shtml$</from>
+		<to>/bidprogress/showBidProgressAction.action</to>
+	</rule>
+	
+	<rule>
 		<from>^/querybid.shtml$</from>
 		<to>/bid/queryBidList.action</to>
 	</rule>
@@ -907,6 +912,11 @@
 	<outbound-rule>
 		<from>/bid/showBidAction.action$</from>
 		<to>/showbid.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bidprogress/showBidProgressAction.action$</from>
+		<to>/showbidprogress.shtml</to>
 	</outbound-rule>
 	
 	<outbound-rule>

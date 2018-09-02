@@ -13,6 +13,9 @@
 			<ref bean="bidCntrctService" />
 		</property>
 	</bean>
+	
+	<bean id="bidProgressAction" class="com.cn.tbps.action.BidProgressAction" scope="session">
+	</bean>
 
 	<!-- 保证金汇总 -->
 	<bean id="bondAction" class="com.cn.tbps.action.BondAction" scope="session">
