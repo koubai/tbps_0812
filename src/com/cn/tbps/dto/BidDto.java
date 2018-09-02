@@ -42,10 +42,11 @@ public class BidDto extends BaseDto {
 	private String CNTRCT_ST_DATE;
 	//合同结束时间
 	private String CNTRCT_ED_DATE;
-	//委托单位ID
-	private String BID_COMP_NO;
-	//委托单位名称
-	private String BID_COMP_NAME;
+	
+	//报名单位列表
+	private List<BidCompDto> joinBidCompList;
+	//缴纳保证金单位列表
+	private List<BidCompDto> bondBidCompList;
 
 	/**
 	 * 承接项目日期：
@@ -1755,27 +1756,27 @@ public class BidDto extends BaseDto {
 		CNTRCT_ED_DATE = cNTRCT_ED_DATE;
 	}
 
-	public String getBID_COMP_NO() {
-		return BID_COMP_NO;
-	}
-
-	public void setBID_COMP_NO(String bID_COMP_NO) {
-		BID_COMP_NO = bID_COMP_NO;
-	}
-
-	public String getBID_COMP_NAME() {
-		return BID_COMP_NAME;
-	}
-
-	public void setBID_COMP_NAME(String bID_COMP_NAME) {
-		BID_COMP_NAME = bID_COMP_NAME;
-	}
-
 	public String getCNTRCT_NAME() {
 		return CNTRCT_NAME;
 	}
 
 	public void setCNTRCT_NAME(String cNTRCT_NAME) {
 		CNTRCT_NAME = cNTRCT_NAME;
+	}
+
+	public List<BidCompDto> getJoinBidCompList() {
+		return joinBidCompList;
+	}
+
+	public void setJoinBidCompList(List<BidCompDto> joinBidCompList) {
+		this.joinBidCompList = joinBidCompList;
+	}
+
+	public List<BidCompDto> getBondBidCompList() {
+		return bondBidCompList;
+	}
+
+	public void setBondBidCompList(List<BidCompDto> bondBidCompList) {
+		this.bondBidCompList = bondBidCompList;
 	}
 }

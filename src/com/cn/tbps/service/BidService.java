@@ -18,7 +18,22 @@ import com.cn.tbps.dto.ExpertLibDto;
  */
 public interface BidService {
 	
-	public Page queryBidAndBidCntrctByPage(String CNTRCT_YEAR, String CNTRCT_NO, String BID_COMP_NO,
+	/**
+	 * 查询bid列表（新）
+	 * @param PROJECT_NAME
+	 * @param BID_NO_LOW
+	 * @param BID_NO_HIGH
+	 * @param CNTRCT_YEAR
+	 * @param CNTRCT_NO
+	 * @param BID_COMP_NO
+	 * @param CNTRCT_NAME
+	 * @param CNTRCT_TYPE
+	 * @param CNTRCT_ST_DATE
+	 * @param CNTRCT_ED_DATE
+	 * @param page
+	 * @return
+	 */
+	public Page queryBidAndBidCntrctByPage(String PROJECT_NAME, String BID_NO_LOW, String BID_NO_HIGH, String CNTRCT_YEAR, String CNTRCT_NO, String BID_COMP_NO,
 			String CNTRCT_NAME, String CNTRCT_TYPE, String CNTRCT_ST_DATE, String CNTRCT_ED_DATE, Page page);
 
 	/**
