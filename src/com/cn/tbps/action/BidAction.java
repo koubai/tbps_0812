@@ -117,6 +117,11 @@ public class BidAction extends BaseAction {
 	private String strBidNoHigh;
 	
 	/**
+	 * 查询条件-项目名称
+	 */
+	private String strPROJECT_NAME;
+	
+	/**
 	 * 查询条件-分类
 	 */
 	private String strProjectType;
@@ -1274,6 +1279,8 @@ public class BidAction extends BaseAction {
 			strBidStatus = "123";
 			strBidNoLow = "";
 			strBidNoHigh = "";
+			strPROJECT_NAME = "";
+			
 			strProjectType = "";
 			strOpenDateLow = "";
 			strOpenDateHigh = "";
@@ -1820,8 +1827,8 @@ public class BidAction extends BaseAction {
 		}
 		//翻页查询所有招标
 		this.page.setStartIndex(startIndex);
-		page = bidService.queryBidByPage(strBidNoLow, strBidNoHigh, strProjectType,
-				strOpenDateLow, strOpenDateHigh, strAgentNo, strAgentName, strBidCoName, strReceipt1No, page, strBidStatus);
+		bidService.queryBidAndBidCntrctByPage(strPROJECT_NAME, strBidNoLow, strBidNoHigh,
+				"", "", "", "", "", "", "", page);
 		listBid = (List<BidDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
@@ -3638,6 +3645,14 @@ public class BidAction extends BaseAction {
 
 	public void setListProjectMg(List<BidDto> listProjectMg) {
 		this.listProjectMg = listProjectMg;
+	}
+
+	public String getStrPROJECT_NAME() {
+		return strPROJECT_NAME;
+	}
+
+	public void setStrPROJECT_NAME(String strPROJECT_NAME) {
+		this.strPROJECT_NAME = strPROJECT_NAME;
 	}
 	
 }

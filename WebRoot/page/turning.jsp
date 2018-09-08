@@ -21,3 +21,10 @@
 		<a href="javascript:void(0);" onclick="changePage('${page.totalPage - 1}');">&raquo;</a>
 	</li>
 </ul>
+<div class="gotoPage">
+	<label class="info" for="">第${page.startIndex + 1}页/共${page.totalPage==0?1:page.totalPage}页&nbsp;&nbsp;&nbsp;&nbsp;共${page.totalCount}条记录</label>
+	<label for="">跳转到</label>
+	<input class="num" id="pagenum" maxlength="6" type="text">
+	<label for="">页</label>
+	<button type="button" class="btn btn-success" onclick="javascript:turnPage();">GO</button>
+</div>

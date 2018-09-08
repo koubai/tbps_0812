@@ -136,16 +136,12 @@
 	
 	<resultMap id="BidDto1" class="com.cn.tbps.dto.BidDto">
 		<result property="BID_NO" column="BID_NO" />
-		<result property="BID_STATUS" column="BID_STATUS" />
-		<result property="BID_VALUE_DATE" column="BID_VALUE_DATE" />
 		<result property="CNTRCT_NO" column="CNTRCT_NO" />
 		<result property="CNTRCT_NAME" column="CNTRCT_NAME" />
 		<result property="CNTRCT_TYPE" column="CNTRCT_TYPE" />
 		<result property="CNTRCT_YEAR" column="CNTRCT_YEAR" />
 		<result property="CNTRCT_ST_DATE" column="CNTRCT_ST_DATE" />
 		<result property="CNTRCT_ED_DATE" column="CNTRCT_ED_DATE" />
-		<result property="BID_COMP_NO" column="BID_COMP_NO" />
-		<result property="BID_COMP_NAME" column="BID_COMP_NAME" />
 		<result property="PROJECT_DEVIEW_DATE" column="PROJECT_DEVIEW_DATE" />
 		<result property="CNTRCT_TYPE" column="CNTRCT_TYPE" />
 		<result property="PROJECT_NAME" column="PROJECT_NAME" />
@@ -268,7 +264,6 @@
 		<result property="UPDATE_USER" column="UPDATE_USER" />
 		<result property="INSERT_DATE" column="INSERT_DATE" />
 		<result property="UPDATE_DATE" column="UPDATE_DATE" />
-		<result property="BID_WIN_PRICE" column="BID_WIN_PRICE" />
 	</resultMap>
 	
 	<select id="queryBidAndBidCntrctCountByPage" resultClass="int" parameterClass="java.util.Map">
@@ -297,6 +292,15 @@
 		<isNotEmpty prepend="and" property="CNTRCT_ED_DATE">
 			B.CNTRCT_ED_DATE <![CDATA[<=]]> #CNTRCT_ED_DATE#
 		</isNotEmpty>
+		<isNotEmpty prepend="and" property="PROJECT_NAME">
+			B.PROJECT_NAME like '%$PROJECT_NAME$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="BID_NO_LOW">
+			B.BID_NO <![CDATA[>=]]> #BID_NO_LOW#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="BID_NO_HIGH">
+			B.BID_NO <![CDATA[<=]]> #BID_NO_HIGH#
+		</isNotEmpty>
 	</select>
 	
 	<select id="queryBidAndBidCntrctByPage" parameterClass="java.util.Map" resultMap="BidDto1">
@@ -324,6 +328,15 @@
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="CNTRCT_ED_DATE">
 			B.CNTRCT_ED_DATE <![CDATA[<=]]> #CNTRCT_ED_DATE#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="PROJECT_NAME">
+			B.PROJECT_NAME like '%$PROJECT_NAME$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="BID_NO_LOW">
+			B.BID_NO <![CDATA[>=]]> #BID_NO_LOW#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="BID_NO_HIGH">
+			B.BID_NO <![CDATA[<=]]> #BID_NO_HIGH#
 		</isNotEmpty>
 		order by B.CNTRCT_NO desc,B.UPDATE_DATE desc
 		LIMIT #start#, #end#

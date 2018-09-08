@@ -22,9 +22,13 @@ import com.cn.tbps.dto.BidHistDto;
 public class BidDaoImpl extends BaseDao implements BidDao {
 	
 	@Override
-	public int queryBidAndBidCntrctCountByPage(String CNTRCT_YEAR, String CNTRCT_NO, String BID_COMP_NO,
-			String CNTRCT_NAME, String CNTRCT_TYPE, String CNTRCT_ST_DATE, String CNTRCT_ED_DATE) {
+	public int queryBidAndBidCntrctCountByPage(String PROJECT_NAME, String BID_NO_LOW, String BID_NO_HIGH,
+			String CNTRCT_YEAR, String CNTRCT_NO, String BID_COMP_NO, String CNTRCT_NAME, String CNTRCT_TYPE,
+			String CNTRCT_ST_DATE, String CNTRCT_ED_DATE) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("PROJECT_NAME", PROJECT_NAME);
+		paramMap.put("BID_NO_LOW", BID_NO_LOW);
+		paramMap.put("BID_NO_HIGH", BID_NO_HIGH);
 		paramMap.put("CNTRCT_YEAR", CNTRCT_YEAR);
 		paramMap.put("CNTRCT_NO", CNTRCT_NO);
 		paramMap.put("BID_COMP_NO", BID_COMP_NO);
@@ -36,9 +40,13 @@ public class BidDaoImpl extends BaseDao implements BidDao {
 	}
 
 	@Override
-	public List<BidDto> queryBidAndBidCntrctByPage(String CNTRCT_YEAR, String CNTRCT_NO, String BID_COMP_NO,
-			String CNTRCT_NAME, String CNTRCT_TYPE, String CNTRCT_ST_DATE, String CNTRCT_ED_DATE, int start, int end) {
+	public List<BidDto> queryBidAndBidCntrctByPage(String PROJECT_NAME, String BID_NO_LOW, String BID_NO_HIGH,
+			String CNTRCT_YEAR, String CNTRCT_NO, String BID_COMP_NO, String CNTRCT_NAME, String CNTRCT_TYPE,
+			String CNTRCT_ST_DATE, String CNTRCT_ED_DATE, int start, int end) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("PROJECT_NAME", PROJECT_NAME);
+		paramMap.put("BID_NO_LOW", BID_NO_LOW);
+		paramMap.put("BID_NO_HIGH", BID_NO_HIGH);
 		paramMap.put("CNTRCT_YEAR", CNTRCT_YEAR);
 		paramMap.put("CNTRCT_NO", CNTRCT_NO);
 		paramMap.put("BID_COMP_NO", BID_COMP_NO);
