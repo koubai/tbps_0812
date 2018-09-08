@@ -19,21 +19,23 @@ public class PoiAuditCover extends Poi2007Base {
 	@Override
 	public void writeData(Workbook workbook) {
 		AuditDto auditDto = (AuditDto) datas.get(0);
-		Sheet sheet = workbook.getSheetAt(4);
+		Sheet sheet = workbook.getSheetAt(0);
 		//项目名称
 		Row row = sheet.getRow((short) 2);
 		Cell cell = row.getCell((short) 1);
-		StringBuffer projectName = new StringBuffer("（");
-		projectName.append(auditDto.getPROJECT_NAME());
-		projectName.append("）");	
-		cell.setCellValue(projectName.toString());
+		String projectName = "";
+		if(null != auditDto.getPROJECT_NAME()) {
+			projectName = auditDto.getPROJECT_NAME();
+		}
+		cell.setCellValue(projectName);
 		//报告文号
 		row = sheet.getRow((short) 6);
 		cell = row.getCell((short) 3);
-		StringBuffer reportNo = new StringBuffer("（");
-		reportNo.append(auditDto.getREPORT_NO());
-		reportNo.append("）");
-		cell.setCellValue(reportNo.toString());
+		String reportNo = "";
+		if(null != auditDto.getREPORT_NO()) {
+			reportNo = auditDto.getREPORT_NO();
+		}
+		cell.setCellValue(reportNo);
 		//当前时间
 		row = sheet.getRow((short) 7);
 		cell = row.getCell((short) 3);

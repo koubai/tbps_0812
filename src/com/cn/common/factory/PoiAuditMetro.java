@@ -22,58 +22,65 @@ public class PoiAuditMetro extends Poi2007Base {
 		Sheet sheet = workbook.getSheetAt(0);
 		//项目名称
 		Row row = sheet.getRow((short) 3);
-		Cell cell = row.getCell((short) 1);
-		StringBuffer projectName = new StringBuffer("（");
-		projectName.append(auditDto.getPROJECT_NAME());
-		projectName.append("）会议");	
-		cell.setCellValue(projectName.toString());
+		Cell cell = row.getCell((short) 3);
+		String projectName = "";
+		if(null != auditDto.getPROJECT_NAME()) {
+			projectName = auditDto.getPROJECT_NAME();
+		}
+		cell.setCellValue(projectName);
 		//报告文号
 		row = sheet.getRow((short) 3);
-		cell = row.getCell((short) 3);
-		StringBuffer reportNo = new StringBuffer("（");
-		reportNo.append(auditDto.getREPORT_NO());
-		reportNo.append("）");
-		cell.setCellValue(reportNo.toString());
+		cell = row.getCell((short) 14);
+		String reportNo = "";
+		if(null != auditDto.getREPORT_NO()) {
+			reportNo = auditDto.getREPORT_NO();
+		}
+		cell.setCellValue(reportNo);
 		//委托单位
 		row = sheet.getRow((short) 4);
-		cell = row.getCell((short) 1);
-		StringBuffer agentCoName = new StringBuffer("（");
-		agentCoName.append(auditDto.getAGENT_CO_NAME());
-		agentCoName.append("）");
-		cell.setCellValue(agentCoName.toString());
+		cell = row.getCell((short) 3);
+		String agentCoName ="";
+		if(null != auditDto.getAGENT_CO_NAME()) {
+			agentCoName = auditDto.getAGENT_CO_NAME();
+		}
+		cell.setCellValue(agentCoName);
 		//承揽单位
 		row = sheet.getRow((short) 4);
-		cell = row.getCell((short) 3);
-		StringBuffer contractCoName = new StringBuffer("（");
-		contractCoName.append(auditDto.getCONTRACT_CO_NAME());
-		contractCoName.append("）");
-		cell.setCellValue(contractCoName.toString());
+		cell = row.getCell((short) 14);
+		String contractCoName = "";
+		if(null != auditDto.getCONTRACT_CO_NAME()) {
+			contractCoName = auditDto.getCONTRACT_CO_NAME();
+		}
+		cell.setCellValue(contractCoName);
 		//当前时间
 		row = sheet.getRow((short) 5);
-		cell = row.getCell((short) 3);
+		cell = row.getCell((short) 14);
 		Calendar c = Calendar.getInstance();
 		cell.setCellValue(DateUtil.dateToShortStr(c.getTime()));
 		//送审价
-		row = sheet.getRow((short) 5);
-		cell = row.getCell((short) 1);
-		StringBuffer ssj = new StringBuffer("（");
-		ssj.append(auditDto.getVERIFY_PER_AMOUNT());
-		ssj.append("）");
-		cell.setCellValue(ssj.toString());
-		//审核价
-		row = sheet.getRow((short) 5);
+		row = sheet.getRow((short) 6);
 		cell = row.getCell((short) 3);
-		StringBuffer shj = new StringBuffer("（");
-		shj.append(auditDto.getVERIFY_AMOUNT());
-		shj.append("）");
-		cell.setCellValue(shj.toString());
+		String ssj = "";
+		if(null != auditDto.getVERIFY_PER_AMOUNT()) {
+			ssj = auditDto.getVERIFY_PER_AMOUNT().toString();
+		}
+		cell.setCellValue(ssj);
+		//审核价
+		row = sheet.getRow((short) 6);
+		cell = row.getCell((short) 14);
+		String shj = "";
+		if(null != auditDto.getVERIFY_AMOUNT()) {
+			shj = auditDto.getVERIFY_AMOUNT().toString();
+		}
+		cell.setCellValue(shj);
 		//净核减额
 		row = sheet.getRow((short) 7);
-		cell = row.getCell((short) 8);
-		StringBuffer jhje = new StringBuffer("（");
-		jhje.append(auditDto.getVERIFY_DIFF());
-		jhje.append("）");
-		cell.setCellValue(jhje.toString());
+		cell = row.getCell((short) 17);
+		String jhje = "";
+		if(null != auditDto.getVERIFY_DIFF()) {
+			jhje = auditDto.getVERIFY_DIFF().toString();
+		}
+		cell.setCellValue(jhje);
 	}
 	
 	public static void main(String[] args) {

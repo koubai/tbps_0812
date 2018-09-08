@@ -653,6 +653,80 @@
 	function goAuditCntrctList() {
 		window.location.href = '<c:url value="/auditcntrct/queryAuditCntrctList.action"></c:url>';
 	}
+	
+	function showByUserRank(){
+		var userRank="<%=session.getAttribute("user_rank")%>";
+		if(userRank == "A"){
+			disableB();
+			disableC();
+		} else if(userRank == "B"){
+			disableC();
+		}
+	}
+	
+	function disableB(){
+		$('#ESTIMATE_COST').attr('disabled',"true");
+		$('#ESTIMATE_CONSTRUCT_SAFE_COST').attr('disabled',"true");
+		$('#PRE_CONSTRUCT_SAFE_COST').attr('disabled',"true");
+		$('#constructStDate').attr('disabled',"disabled");
+		$('#planConstructEdDate').attr('disabled',"disabled");
+		$('#CONSTRUCT_AREA').attr('disabled',"true");
+		$('#EXCUTE_AMOUNT').attr('disabled',"true");
+		$('#CONSTRUCT_SAFE_COUNT').attr('disabled',"true");
+		$('#CONSTRUCT_SAFE_CNTRCT_COST').attr('disabled',"true");
+		$('#CONSTRUCT_SAFE_CNTRCT_COST_PAID').attr('disabled',"true");
+		$('#CONSTRUCT_SAFE_CNTRCT_COST_CTRL').attr('disabled',"true");
+		$('#BUDGETARY_OVERRUN_RISK').attr('disabled',"true");
+		$('#MONTHLY_REPORT_CNT').attr('disabled',"true");
+		$('#SUGGEST_REPORT_CNT').attr('disabled',"true");
+		$('#COMM_REPORT_CNT').attr('disabled',"true");
+		$('#FINISH_AUDIT_CNT').attr('disabled',"true");
+		$('#PROJ_PROGRESS_MEET_CNT').attr('disabled',"true");
+		$('#PROGRESS_STATUS').attr('disabled',"true");
+	}
+	
+	function disableC(){
+		$('#CNTRCT_BELONG').attr('disabled',"true");
+		$('#CNTRCT_NO').attr('disabled',"true");
+		$('#CNTRCT_NAME').attr('disabled',"true");
+		$('#CNTRCT_NM').attr('disabled',"true");
+		$('#CNTRCT_TYPE').attr('disabled',"true");
+		$('#agentCoName').attr('disabled',"true");
+		$('#agentInfo').attr('disabled',"true");
+		$('#agentButton').attr('disabled',"true");
+		$('#CNTRCT_INFO_0').attr('disabled',"disabled");
+		$('#CNTRCT_INFO_1').attr('disabled',"disabled");
+		$('#CNTRCT_INFO_2').attr('disabled',"disabled");
+		$('#CNTRCT_INFO_3').attr('disabled',"disabled");
+		$('#CNTRCT_INFO_4').attr('disabled',"disabled");
+		$('#cntrctStDate').attr('disabled',"disabled");
+		$('#cntrctEdDate').attr('disabled',"disabled");
+		$('#CNTRCT_INFO').attr('disabled',"true");
+		$('#CNTRCT_RATE_1').attr('disabled',"true");
+		$('#CNTRCT_RATE_2').attr('disabled',"true");
+		$('#CNTRCT_RATE_4').attr('disabled',"true");
+		$('#CNTRCT_RATE_5').attr('disabled',"true");
+		$('#CNTRCT_RATE_6').attr('disabled',"true");
+		$('#CNTRCT_RATE_7').attr('disabled',"true");
+		$('#CNTRCT_RATE_8').attr('disabled',"true");
+		$('#CNTRCT_RATE_9').attr('disabled',"true");
+		$('#CNTRCT_RATE_10').attr('disabled',"true");
+		$('#CNTRCT_AMOUNT_1').attr('disabled',"true");
+		$('#CNTRCT_AMOUNT_2').attr('disabled',"true");
+		$('#CNTRCT_AMOUNT_3').attr('disabled',"true");
+		$('#CNTRCT_AMOUNT_4').attr('disabled',"true");
+		$('#CNTRCT_AMOUNT_5').attr('disabled',"true");
+		$('#CNTRCT_AMOUNT_6').attr('disabled',"true");
+		$('#CNTRCT_AMOUNT_7').attr('disabled',"true");
+		$('#CNTRCT_AMOUNT_8').attr('disabled',"true");
+		$('#CNTRCT_AMOUNT_9').attr('disabled',"true");
+		$('#CNTRCT_AMOUNT_10').attr('disabled',"true");
+		$('#CNTRCT_TOTAL_AMOUNT').attr('disabled',"true");
+		$('#CNTRCT_ALL_AMOUNT').attr('disabled',"true");
+		$('#CNTRCT_UNPAY_AMOUNT').attr('disabled',"true");
+		$('#TRIP_TOTAL_AMOUNT').attr('disabled',"true");
+		$('#PROJECT_SENIOR_MANAGER').attr('disabled',"true");
+	}
 </script>
 </head>
 <body>
@@ -721,7 +795,7 @@
 				<input id="CONSTRUCT_ST_DATE_OLD" type="hidden" value="<s:date name="updAuditCntrctDtoOld.CONSTRUCT_ST_DATE" format="yyyy-MM-dd"/>"/>
 				<input id="PLAN_CONSTRUCT_ED_DATE_OLD" type="hidden" value="<s:date name="updAuditCntrctDtoOld.PLAN_CONSTRUCT_ED_DATE" format="yyyy-MM-dd"/>"/>
 				
-					<h3 class="title"><label for="" class="col-lg-2 form-label">合同</label><a class="backHome" href="#" onclick="goAuditList();"><i class="fa fa-home" aria-hidden="true"></i>返回</a></h3>
+					<h3 class="title"><label for="" class="col-lg-2 form-label">合同更新</label><a class="backHome" href="#" onclick="goAuditList();"><i class="fa fa-home" aria-hidden="true"></i>返回</a></h3>
 					<div class="row">
 						<div class="col-lg-12 form-group">
 							<label for="" class="col-lg-2 form-label">合同归属</label>
@@ -792,14 +866,12 @@
 						<div class="col-lg-12 form-group">
 							<label for="" class="col-lg-2 form-label">委托单位</label>
 							<div class="col-lg-4">
-								<input type="hidden" id="agentNo" value=""/>
-								<input type="hidden" id="agentCoManager" value=""/>
-								<input type="hidden" id="agentCoManagerTel" value=""/>
-								<input type="hidden" id="agentCoPostAddress" value=""/>
-								<input type="hidden" id="agent_mail_pr" value=""/>
-								<input type="hidden" id="agent_mail_suffix" value=""/>
-								<input type="hidden" id="AGENT_CO_MAIL" value=""/>
-								<s:textfield id="agentCoName" cssClass="form-control" maxlength="40" theme="simple"></s:textfield>
+								<input type="hidden" id="agentNo" value="<s:property value="updAuditDto.AUDIT_COMP_NO"/>"/>
+								<input type="hidden" id="agentCoManager" value="<s:property value="updAuditDto.CO_MANAGER1"/>"/>
+								<input type="hidden" id="agentCoManagerTel" value="<s:property value="updAuditDto.CO_MANAGER_TEL1"/>"/>
+								<input type="hidden" id="agentCoPostAddress" value="<s:property value="updAuditDto.CO_ADDRESS1"/>"/>
+								<input type="hidden" id="agentCoMail" value=""/>
+								<s:textfield id="agentCoName" cssClass="form-control" value="%{updAuditCntrctDto.AUDIT_COMP_NAME}" maxlength="40" theme="simple"></s:textfield>
 							</div>
 							<div class="col-lg-1">
 								<button class="btn btn-success form-control" type="button" onclick="selectAgentComp();">检索</button>
@@ -808,7 +880,7 @@
 						<div class="col-lg-12 form-group">
 							<label for="" class="col-lg-2 form-label">联系人及联系方式</label>
 							<div class="col-lg-5">
-								<s:textfield id="agentInfo" cssClass="form-control" maxlength="100" theme="simple"></s:textfield>
+								<s:textfield id="agentInfo" cssClass="form-control" value="%{updAuditCntrctDto.CO_MANAGER_ADDRESS1}" maxlength="100" theme="simple"></s:textfield>
 							</div>
 						</div>
 						<div class="col-lg-12 form-group">
@@ -1138,6 +1210,7 @@
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.min.js"></script>
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.zh-CN.min.js"></script>
 <script>
+	showByUserRank();
 	$('.datepicker').parent().datepicker({
 		"autoclose":true,"format":"yyyy-mm-dd","language":"zh-CN"
 	});

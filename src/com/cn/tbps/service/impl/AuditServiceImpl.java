@@ -361,4 +361,24 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 	public void setConfigTabDao(ConfigTabDao configTabDao) {
 		this.configTabDao = configTabDao;
 	}
+
+	@Override
+	public List<AuditDto> queryAuditAuth(String projectManager, String startDate, String endDate) {
+		return auditDao.queryAuditAuth(projectManager, startDate, endDate);
+	}
+
+	@Override
+	public List<AuditDto> queryAuditStatistics(String projectManager, String startDate, String endDate) {
+		return auditDao.queryAuditStatistics(projectManager, startDate, endDate);
+	}
+
+	@Override
+	public List<AuditDto> queryAuditStatCost(String projectManager, String startDate, String endDate) {
+		return auditDao.queryAuditStatCost(projectManager, startDate, endDate);
+	}
+
+	@Override
+	public List<AuditDto> queryAuditStatPaid(String projectManager, String startDate, String endDate) {
+		return auditDao.queryAuditStatPaid(projectManager, startDate, endDate);
+	}
 }

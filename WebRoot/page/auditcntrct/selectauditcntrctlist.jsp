@@ -137,25 +137,26 @@
 					<s:hidden name="startIndex" id="startIndex"/>
 					<div class="row">
 						<div class="col-lg-12 form-group">
-							<label for="" class="col-lg-1 form-label">开始日</label>
-							<div class="col-lg-2">
+							<label for="" class="col-xs-1 form-label">开始日</label>
+							<div class="col-xs-3">
 								<div class="input-group date" data-provide="datepicker">
-									<input type="text" class="form-control datepicker" readonly id="cntrctStDate" value="<s:date format="yyyy-MM-dd" name="addAuditDto.CNTRCT_ST_DATE"/>" maxlength="10" />
+									<input type="text" class="form-control datepicker" readonly id="strCntrctStDate" maxlength="10" />
 									<div class="input-group-addon">
 										<span class="glyphicon glyphicon-th"></span>
 									</div>
 								</div>
 							</div>
-							<label for="" class="col-lg-1 form-label">终了日</label>
-							<div class="col-lg-2">
+							<label for="" class="col-xs-1 form-label to">---</label>
+							<label for="" class="col-xs-1 form-label">终了日</label>
+							<div class="col-xs-3">
 								<div class="input-group date" data-provide="datepicker">
-									<input type="text" class="form-control datepicker" readonly id="cntrctEdDate" value="<s:date format="yyyy-MM-dd" name="addAuditDto.CNTRCT_ED_DATE"/>" maxlength="10" />
+									<input type="text" class="form-control datepicker" readonly id="strCntrctEdDate" maxlength="10" />
 									<div class="input-group-addon">
 										<span class="glyphicon glyphicon-th"></span>
 									</div>
 								</div>
 							</div>
-							<div class="col-lg-2 form-group">
+							<div class="col-xs-2 form-group">
 								<button type="button" class="btn btn-success form-control" onclick="queryList();">检索</button>
 							</div>
 						</div>

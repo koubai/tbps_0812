@@ -19,13 +19,15 @@ public class PoiAuditSummary extends Poi2007Base {
 	@Override
 	public void writeData(Workbook workbook) {
 		AuditDto auditDto = (AuditDto) datas.get(0);
-		Sheet sheet = workbook.getSheetAt(3);
+		Sheet sheet = workbook.getSheetAt(0);
 		//项目名称
 		Row row = sheet.getRow((short) 3);
 		Cell cell = row.getCell((short) 1);
-		StringBuffer projectName = new StringBuffer("（");
-		projectName.append(auditDto.getPROJECT_NAME());
-		projectName.append("）会议");	
+		StringBuffer projectName = new StringBuffer("");
+		if(null != auditDto.getPROJECT_NAME()) {
+			projectName.append(auditDto.getPROJECT_NAME());
+		}
+		projectName.append("会议");	
 		cell.setCellValue(projectName.toString());
 		//当前时间
 		row = sheet.getRow((short) 5);
@@ -35,17 +37,19 @@ public class PoiAuditSummary extends Poi2007Base {
 		//委托单位
 		row = sheet.getRow((short) 28);
 		cell = row.getCell((short) 1);
-		StringBuffer agentCoName = new StringBuffer("（");
-		agentCoName.append(auditDto.getAGENT_CO_NAME());
-		agentCoName.append("）");
-		cell.setCellValue(agentCoName.toString());
+		String agentCoName ="";
+		if(null != auditDto.getAGENT_CO_NAME()) {
+			agentCoName = auditDto.getAGENT_CO_NAME();
+		}
+		cell.setCellValue(agentCoName);
 		//承揽单位
-		row = sheet.getRow((short) 28);
+		row = sheet.getRow((short) 30);
 		cell = row.getCell((short) 1);
-		StringBuffer contractCoName = new StringBuffer("（");
-		contractCoName.append(auditDto.getCONTRACT_CO_NAME());
-		contractCoName.append("）");
-		cell.setCellValue(contractCoName.toString());
+		String contractCoName = "";
+		if(null != auditDto.getCONTRACT_CO_NAME()) {
+			contractCoName = auditDto.getCONTRACT_CO_NAME();
+		}
+		cell.setCellValue(contractCoName);
 	}
 	
 	public static void main(String[] args) {

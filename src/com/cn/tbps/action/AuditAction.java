@@ -214,6 +214,9 @@ public class AuditAction extends BaseAction {
 	 */
 	private String strAuditStatus;
 	
+	private String strStartDate;
+	private String strEndDate;
+	
 	
 	//审价履历
 	/**
@@ -378,7 +381,7 @@ public class AuditAction extends BaseAction {
 	public String exportAuditMetroAction() {
 		try {
 			this.clearMessages();
-			String filename = "page/audittemplate.xlsx";
+			String filename = "page/auditmetro.xlsx";
 			String name =  StringUtil.createFileName(Constants.EXCEL_TYPE_SJSDD);
 			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
 			response.setContentType("application/vnd.ms-excel");
@@ -406,7 +409,7 @@ public class AuditAction extends BaseAction {
 	public String exportAuditNoMetroAction() {
 		try {
 			this.clearMessages();
-			String filename = "page/audittemplate.xlsx";
+			String filename = "page/auditnometro.xlsx";
 			String name =  StringUtil.createFileName(Constants.EXCEL_TYPE_SJSDD2);
 			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
 			response.setContentType("application/vnd.ms-excel");
@@ -434,7 +437,7 @@ public class AuditAction extends BaseAction {
 	public String exportAuditRegisterAction() {
 		try {
 			this.clearMessages();
-			String filename = "page/audittemplate.xlsx";
+			String filename = "page/auditregister.xlsx";
 			String name =  StringUtil.createFileName(Constants.EXCEL_TYPE_SJDJ);
 			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
 			response.setContentType("application/vnd.ms-excel");
@@ -462,7 +465,7 @@ public class AuditAction extends BaseAction {
 	public String exportAuditSummaryAction() {
 		try {
 			this.clearMessages();
-			String filename = "page/audittemplate.xlsx";
+			String filename = "page/auditsummary.xlsx";
 			String name =  StringUtil.createFileName(Constants.EXCEL_TYPE_HSJY);
 			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
 			response.setContentType("application/vnd.ms-excel");
@@ -490,7 +493,7 @@ public class AuditAction extends BaseAction {
 	public String exportAuditCoverAction() {
 		try {
 			this.clearMessages();
-			String filename = "page/audittemplate.xlsx";
+			String filename = "page/auditcover.xlsx";
 			String name =  StringUtil.createFileName(Constants.EXCEL_TYPE_COVER);
 			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
 			response.setContentType("application/vnd.ms-excel");
@@ -518,7 +521,7 @@ public class AuditAction extends BaseAction {
 	public String exportAuditSignAction() {
 		try {
 			this.clearMessages();
-			String filename = "page/audittemplate.xlsx";
+			String filename = "page/auditsign.xlsx";
 			String name =  StringUtil.createFileName(Constants.EXCEL_TYPE_SIGN);
 			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
 			response.setContentType("application/vnd.ms-excel");
@@ -739,6 +742,162 @@ public class AuditAction extends BaseAction {
 			listUserInfo.add(userinfo);
 			System.out.println("listUserInfo" + listUserInfo.size());
 		} catch(Exception e) {
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+
+	/**
+	 * 显示项目情况检查页面
+	 * @return
+	 */
+	public String showAuditAuth() {
+		try {
+			this.clearMessages();
+			strProjectManager = "";
+			strStartDate = "";
+			strEndDate = "";
+			listAudit = new ArrayList<AuditDto>();
+			
+			listUserInfo = userInfoService.queryAllUser();
+			UserInfoDto userinfo = new UserInfoDto();
+			userinfo.setLOGIN_NAME("");
+			listUserInfo.add(userinfo);
+			System.out.println("listUserInfo" + listUserInfo.size());
+		} catch(Exception e) {
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询项目情况检查
+	 * @return
+	 */
+	public String queryAuditAuth() {
+		try {
+			this.clearMessages();
+			listAudit = new ArrayList<AuditDto>();
+			listAudit = auditService.queryAuditAuth(strProjectManager, strStartDate, strEndDate);
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+
+	/**
+	 * 显示统计界面
+	 * @return
+	 */
+	public String showAuditStatistics() {
+		try {
+			this.clearMessages();
+			strProjectManager = "";
+			strStartDate = "";
+			strEndDate = "";
+			listAudit = new ArrayList<AuditDto>();
+			
+			listUserInfo = userInfoService.queryAllUser();
+			UserInfoDto userinfo = new UserInfoDto();
+			userinfo.setLOGIN_NAME("");
+			listUserInfo.add(userinfo);
+			System.out.println("listUserInfo" + listUserInfo.size());
+		} catch(Exception e) {
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询统计界面
+	 * @return
+	 */
+	public String queryAuditStatistics() {
+		try {
+			this.clearMessages();
+			listAudit = new ArrayList<AuditDto>();
+			listAudit = auditService.queryAuditStatistics(strProjectManager, strStartDate, strEndDate);
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+
+	/**
+	 * 显示项目收费统计输出
+	 * @return
+	 */
+	public String showAuditStatCost() {
+		try {
+			this.clearMessages();
+			strProjectManager = "";
+			strStartDate = "";
+			strEndDate = "";
+			listAudit = new ArrayList<AuditDto>();
+			
+			listUserInfo = userInfoService.queryAllUser();
+			UserInfoDto userinfo = new UserInfoDto();
+			userinfo.setLOGIN_NAME("");
+			listUserInfo.add(userinfo);
+			System.out.println("listUserInfo" + listUserInfo.size());
+		} catch(Exception e) {
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询项目收费统计输出
+	 * @return
+	 */
+	public String queryAuditStatCost() {
+		try {
+			this.clearMessages();
+			listAudit = new ArrayList<AuditDto>();
+			listAudit = auditService.queryAuditStatCost(strProjectManager, strStartDate, strEndDate);
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+
+	/**
+	 * 显示到账统计页面
+	 * @return
+	 */
+	public String showAuditStatPaid() {
+		try {
+			this.clearMessages();
+			strProjectManager = "";
+			strStartDate = "";
+			strEndDate = "";
+			listAudit = new ArrayList<AuditDto>();
+			
+			listUserInfo = userInfoService.queryAllUser();
+			UserInfoDto userinfo = new UserInfoDto();
+			userinfo.setLOGIN_NAME("");
+			listUserInfo.add(userinfo);
+			System.out.println("listUserInfo" + listUserInfo.size());
+		} catch(Exception e) {
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询显示到账统计页面
+	 * @return
+	 */
+	public String queryAuditStatPaid() {
+		try {
+			this.clearMessages();
+			listAudit = new ArrayList<AuditDto>();
+			listAudit = auditService.queryAuditStatPaid(strProjectManager, strStartDate, strEndDate);
+		} catch(Exception e) {
+			log.error(e);
 			return ERROR;
 		}
 		return SUCCESS;
@@ -1131,6 +1290,22 @@ public class AuditAction extends BaseAction {
 
 	public void setAuditCntrctDto(AuditCntrctDto auditCntrctDto) {
 		this.auditCntrctDto = auditCntrctDto;
+	}
+
+	public String getStrStartDate() {
+		return strStartDate;
+	}
+
+	public void setStrStartDate(String strStartDate) {
+		this.strStartDate = strStartDate;
+	}
+
+	public String getStrEndDate() {
+		return strEndDate;
+	}
+
+	public void setStrEndDate(String strEndDate) {
+		this.strEndDate = strEndDate;
 	}
 
 }

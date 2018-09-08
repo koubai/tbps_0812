@@ -38,6 +38,42 @@ public interface AuditService {
 			String contractName, String strProjectName);
 	
 	/**
+	 * 项目情况检查
+	 * @param projectManager
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	public List<AuditDto> queryAuditAuth(String projectManager, String startDate, String endDate);
+	
+	/**
+	 * 统计界面
+	 * @param projectManager
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	public List<AuditDto> queryAuditStatistics(String projectManager, String startDate, String endDate);
+	
+	/**
+	 * 项目收费统计输出
+	 * @param projectManager
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	public List<AuditDto> queryAuditStatCost(String projectManager, String startDate, String endDate);
+	
+	/**
+	 * 到账统计
+	 * @param projectManager
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	public List<AuditDto> queryAuditStatPaid(String projectManager, String startDate, String endDate);
+	
+	/**
 	 * 查询审价（导出数据用）
 	 * @param auditNoLow
 	 * @param auditNoHigh

@@ -103,16 +103,7 @@
 			window.dialogArguments.document.getElementById("agentCoManager").value = LXR_NAME;
 			window.dialogArguments.document.getElementById("agentCoManagerTel").value = LXR_TEL;
 			window.dialogArguments.document.getElementById("agentCoPostAddress").value = LXR_ADDR;
-			window.dialogArguments.document.getElementById("AGENT_CO_MAIL").value = LXR_MAIL;
-			if(LXR_MAIL != "") {
-				var mail_pr = LXR_MAIL.substring(0, LXR_MAIL.indexOf("@"));
-				var mail_suffix = LXR_MAIL.substring(LXR_MAIL.indexOf("@") + 1, LXR_MAIL.length);
-				window.dialogArguments.document.getElementById("agent_mail_pr").value = mail_pr;
-				window.dialogArguments.document.getElementById("agent_mail_suffix").value = mail_suffix;
-			} else {
-				window.dialogArguments.document.getElementById("agent_mail_pr").value = "";
-				window.dialogArguments.document.getElementById("agent_mail_suffix").value = "";
-			}
+			window.dialogArguments.document.getElementById("agentCoMail").value = LXR_MAIL;
 			var agent_info = LXR_NAME + "/ " + LXR_TEL + "/ " + LXR_ADDR + "/ " + LXR_MAIL;
 			window.dialogArguments.document.getElementById("agentInfo").value = agent_info;
 			
@@ -134,12 +125,6 @@
 				window.dialogArguments.document.getElementById("prof_mail_pr").value = "";
 				window.dialogArguments.document.getElementById("prof_mail_suffix").value = "";
 			}
-			//window.dialogArguments.document.getElementById("PROF_NO").value = ANGENT_COMP_NO;
-			//window.dialogArguments.document.getElementById("PROF_CO_NAME").value = ANGENT_COMP_NAME;
-			//window.dialogArguments.document.getElementById("PROF_CO_MANAGER").value = LXR_NAME;
-			//window.dialogArguments.document.getElementById("PROF_CO_MANAGER_TEL").value = LXR_TEL;
-			//window.dialogArguments.document.getElementById("PROF_CO_POST_ADDRESS").value = LXR_ADDR;
-			//window.dialogArguments.document.getElementById("PROF_CO_MAIL").value = LXR_MAIL;
 		} else if (agentAddFlag == "11") {
 			//合同公司甲方
 			window.dialogArguments.document.getElementById("AUDIT_COMP_CLIENTID").value = ANGENT_COMP_NO;
@@ -151,7 +136,7 @@
 			window.dialogArguments.document.getElementById("contractCoManager").value = LXR_NAME;
 			window.dialogArguments.document.getElementById("contractCoManagerTel").value = LXR_TEL;
 			window.dialogArguments.document.getElementById("contractCoPostAddress").value = LXR_ADDR;
-			//window.dialogArguments.document.getElementById("contractCoMail").value = LXR_MAIL;
+			window.dialogArguments.document.getElementById("contractCoMail").value = LXR_MAIL;
 			var contract_info = LXR_NAME + "/ " + LXR_TEL + "/ " + LXR_ADDR + "/ " + LXR_MAIL;
 			window.dialogArguments.document.getElementById("contractCoInfo").value = contract_info;
 			window.dialogArguments.document.getElementById("contractCoId").value = ANGENT_COMP_NO;

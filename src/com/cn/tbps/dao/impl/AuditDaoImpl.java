@@ -214,4 +214,28 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 	public void insertAuditHist(AuditHistDto auditHist) {
 		getSqlMapClientTemplate().insert("insertAuditHist", auditHist);
 	}
+
+	@Override
+	public List<AuditDto> queryAuditAuth(String projectManager, String startDate, String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<AuditDto> queryAuditStatistics(String projectManager, String startDate, String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<AuditDto> queryAuditStatPaid(String projectManager, String startDate, String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<AuditDto> queryAuditStatCost(String projectManager, String startDate, String endDate) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

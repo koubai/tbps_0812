@@ -252,19 +252,13 @@
 								<button class="btn btn-success form-control" type="button" onclick="queryList();">检索</button>
 							</div>
 						</div>
-						<div class="col-lg-8">
-						</div>
-						<div class="col-lg-1 form-group">
-							<button class="btn btn-success form-control" type="button" onclick="del();">删除</button>
-						</div>
-						<div class="col-lg-1">
-						</div>
-						<div class="col-lg-1 form-group">
-							<button class="btn btn-success form-control" type="button" onclick="add();">增加</button>
-						</div>
-						<div class="col-lg-1 form-group">
-							<button class="btn btn-success form-control" type="button" onclick="upd();">编辑</button>
-						</div>
+					</div>
+					<div class="btns">
+						<ul>
+							<li><a href="#" onclick="add();"><i class="fa fa-plus" aria-hidden="true"></i>新增</a></li>
+							<li><a href="#" onclick="upd();"><i class="fa fa-pencil" aria-hidden="true"></i>修改</a>
+							<li><a href="#" onclick="del();"><i class="fa fa-trash" aria-hidden="true"></i>删除</a></li>
+						</ul>
 					</div>
 					<table class="table table-bordered">
 						<tr>
@@ -328,45 +322,12 @@
 							</tr>
 						</s:iterator>
 					</table>
-					<div class="pages">
-						<ul>
-							<li>第<strong>${page.startIndex + 1}</strong>页/共<strong>${page.totalPage==0?1:page.totalPage}</strong>页/共<strong>${page.totalCount}</strong>条记录</li>
-							<li class="mgl15">跳转到
-								<input type="text" id="pagenum" class="text" maxlength="4" size="4"/>
-								<input type="button" value="GO" onclick="javascript:turnPage();"/>
-							</li>
-							<li class="mgl15">
-								<a class="first" href="#" onclick="changePage(0);">首页</a>
-							</li>
-							<li>
-								<s:if test="%{page.startIndex <= 0}">
-									<a class="last" href="#">上一页</a>
-								</s:if>
-								<s:else>
-									<a class="next" href="#" onclick="changePage('${page.previousIndex}');">上一页</a>
-								</s:else>
-							</li>
-							<li>
-								<s:if test="%{page.nextIndex > page.totalPage - 1}">
-									<a class="last" href="#">下一页</a>
-								</s:if>
-								<s:else>
-									<a class="next" href="#" onclick="changePage('${page.nextIndex}');">下一页</a>
-								</s:else>
-							</li>
-							<li>
-								<a class="next" href="#" onclick="changePage('${page.totalPage - 1}');">末页</a>
-							</li>
-						</ul>
+					<jsp:include page="../turning.jsp" flush="true" />
+					<div class="operationBtns">
+						<button class="btn btn-success" type="button" onclick="exportExcel();">导出</button>
 					</div>
 				</s:form>
 			</div>
-		</div>
-		<div class="operationBtns addBtns mgt15 btn3" style="width: 300px;">
-			<button class="btn btn-success" onclick="showAuditDetail();">详细</button>
-			<button class="btn btn-success" onclick="showHis();">履历</button>
-			<button class="btn btn-success" onclick="exportAudit();">下载</button>
-			<button class="btn btn-success" onclick="exportAuditReceipt();">下载(发票)</button>
 		</div>
 	</div>
 <!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
@@ -376,6 +337,9 @@
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.min.js"></script>
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.zh-CN.min.js"></script>
 <script>
+	$(function () { $('#collapseThree').collapse('toggle')});
+	$(function () { $('#collapseOne').collapse('toggle')});
+	
 	$('.datepicker').parent().datepicker({
 		"autoclose":true,"format":"yyyy-mm-dd","language":"zh-CN"
 	});

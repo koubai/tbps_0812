@@ -142,22 +142,16 @@
 		$("#AGENT_CO_MANAGER").attr("value", $("#agentCoManager").val());
 		$("#AGENT_CO_MANAGER_TEL").attr("value", $("#agentCoManagerTel").val());
 		$("#AGENT_CO_POST_ADDRESS").attr("value", $("#agentCoPostAddress").val());
-		var agent_mail_pr = $("#agent_mail_pr").val();
-		var agent_mail_suffix = $("#agent_mail_suffix").val();
-		if(agent_mail_pr != "" || agent_mail_suffix != "") {
-			$("#AGENT_CO_MAIL").attr("value", agent_mail_pr + "@" + agent_mail_suffix);
-		} else {
-			$("#AGENT_CO_MAIL").attr("value", "");
-		}
+		$("#AGENT_CO_MAIL").attr("value", $("#agentCoMail").val());
 		$("#AGENT_INFO").attr("value", $("#agentInfo").val());
 		
 		//专业公司
-		$("#PROF_NO").attr("value", $("#profNo").val());
-		$("#PROF_CO_NAME").attr("value", $("#profCoName").val());
-		$("#PROF_CO_MANAGER").attr("value", $("#profCoManager").val());
-		$("#PROF_CO_MANAGER_TEL").attr("value", $("#profCoManagerTel").val());
-		$("#PROF_CO_POST_ADDRESS").attr("value", $("#profCoPostAddress").val());
-		$("#PROF_CO_MAIL").attr("value", $("#profCoMail").val());
+		//$("#PROF_NO").attr("value", $("#profNo").val());
+		//$("#PROF_CO_NAME").attr("value", $("#profCoName").val());
+		//$("#PROF_CO_MANAGER").attr("value", $("#profCoManager").val());
+		//$("#PROF_CO_MANAGER_TEL").attr("value", $("#profCoManagerTel").val());
+		//$("#PROF_CO_POST_ADDRESS").attr("value", $("#profCoPostAddress").val());
+		//$("#PROF_CO_MAIL").attr("value", $("#profCoMail").val());
 		
 		//承包公司
 		$("#CONTRACT_CO_NO").attr("value", $("#contractCoNo").val());
@@ -548,6 +542,7 @@
 	//计算净核减=送审金额 - 审定金额
 	function calcVERIFY_DIFF() {
 		var tmp = 0;
+		var tmp2 = 0;
 		//送审金额
 		var VERIFY_PER_AMOUNT = $("#VERIFY_PER_AMOUNT").val();
 		if(isReal2(VERIFY_PER_AMOUNT)) {
@@ -561,7 +556,11 @@
 		tmp = tmp.toFixed(2);
 		//净核减=送审金额 - 审定金额
 		$("#VERIFY_DIFF").attr("value", tmp);
-		//$("#verifyDiff").attr("value", tmp);
+		//净核减率=净核减/送审金额
+		if(isReal2(VERIFY_PER_AMOUNT)) {
+			tmp2 = tmp / parseFloat(VERIFY_PER_AMOUNT);
+		}
+		$("#VERIFY_DIFF_RATE").attr("value", tmp2);
 		//计算核减
 		calcVERIFY_DECREASE();
 	}
@@ -582,7 +581,6 @@
 		tmp = tmp.toFixed(2);
 		//核减=净核减  + 核增
 		$("#VERIFY_DECREASE").attr("value", tmp);
-		//$("#verifyDecrease").attr("value", tmp);
 	}
 	
 	function goAuditList() {
@@ -1032,9 +1030,8 @@
 								<input type="hidden" id="agentCoManager" value=""/>
 								<input type="hidden" id="agentCoManagerTel" value=""/>
 								<input type="hidden" id="agentCoPostAddress" value=""/>
-								<input type="hidden" id="agent_mail_pr" value=""/>
-								<input type="hidden" id="agent_mail_suffix" value=""/>
-								<s:textfield name="" id="agentInfo" disabled="true" cssClass="col-lg-10 form-control" value="" maxlength="200" theme="simple"></s:textfield>
+								<input type="hidden" id="agentCoMail" value=""/>
+								<s:textfield name="" id="agentInfo" disabled="true" cssClass="col-lg-10 form-control" value="%{addAuditDto.AGENT_INFO}" maxlength="200" theme="simple"></s:textfield>
 							</div>
 							<div class="col-lg-1">
 								<button class="btn btn-success form-control" type="button" id="selectAgent" onclick="selectAgentComp();">选择</button>
@@ -1049,7 +1046,8 @@
 								<input type="hidden" id="contractCoManager" value=""/>
 								<input type="hidden" id="contractCoManagerTel" value=""/>
 								<input type="hidden" id="contractCoPostAddress" value=""/>
-								<s:textfield name="" id="contractCoInfo" disabled="true" cssClass="col-lg-10 form-control" value="" maxlength="200" theme="simple"></s:textfield>
+								<input type="hidden" id="contractCoMail" value=""/>
+								<s:textfield name="" id="contractCoInfo" disabled="true" cssClass="col-lg-10 form-control" value="%{addAuditDto.CONTRACT_CO_INFO}" maxlength="200" theme="simple"></s:textfield>
 							</div>
 							
 							<div class="col-lg-1">
@@ -1057,7 +1055,7 @@
 							</div>
 							<label for="" class="col-lg-1 form-label colorGold">承揽单位</label>
 							<div class="col-lg-2">
-								<s:textfield name="" id="contractCoId" disabled="true" cssClass="col-lg-10 form-control" value="" maxlength="20" theme="simple"></s:textfield>
+								<s:textfield name="" id="contractCoId" disabled="true" cssClass="col-lg-10 form-control" value="%{addAuditDto.CONTRACT_CO_ID}" maxlength="20" theme="simple"></s:textfield>
 							</div>
 						</div>
 						<div class="col-lg-12 form-group" id="verify">
@@ -1283,15 +1281,6 @@
 									</div>
 								</div>
 							</div>
-							<label for="" class="col-lg-1 form-label colorGray">报告敲章日期</label>
-							<div class="col-lg-2">
-								<div class="input-group date" data-provide="datepicker">
-									<input type="text" class="form-control datepicker" readonly id="reportSealDate2" value="<s:date format="yyyy-MM-dd" name="addAuditDto.REPORT_SEAL_DATE"/>" maxlength="10" />
-									<div class="input-group-addon">
-										<span class="glyphicon glyphicon-th"></span>
-									</div>
-								</div>
-							</div>
 							<label for="" class="col-lg-1 form-label colorGold">报告出具时间</label>
 							<div class="col-lg-2">
 								<div class="input-group date" data-provide="datepicker">
@@ -1464,31 +1453,7 @@
 						</div>
 						</div>
 						<div class="col-lg-12 form-group">
-							<div class="col-lg-2">
-							</div>
-							<div class="col-lg-2">
-								<button class="btn btn-success form-control" type="button" onclick="exportAudit();">审定单</button>
-							</div>
-							<div class="col-lg-2">
-								<button class="btn btn-success form-control" type="button" onclick="exportAuditRegister();">资料登记表</button>
-							</div>
-							<div class="col-lg-2">
-								<button class="btn btn-success form-control" type="button" onclick="exportAuditSummary();">会商纪要</button>
-							</div>
-						</div>
-						<div class="col-lg-12 form-group">
-							<div class="col-lg-2">
-							</div>
-							<div class="col-lg-2">
-								<button class="btn btn-success form-control" type="button" onclick="exportAuditCover();">审价报告封面</button>
-							</div>
-							<div class="col-lg-2">
-								<button class="btn btn-success form-control" type="button" onclick="exportAuditSign();">签署页</button>
-							</div>
-							<div class="col-lg-2">
-								<button class="btn btn-success form-control" type="button" onclick="exportAuditReport();">审价报告文字稿</button>
-							</div>
-							<div class="col-lg-2">
+							<div class="col-lg-10">
 							</div>
 							<div class="col-lg-1">
 								<button class="btn btn-success form-control" type="button" onclick="goAuditList();">取消</button>
@@ -1510,20 +1475,15 @@
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.zh-CN.min.js"></script>
 <script>
 	showByUserRank();
-	/* 
-	$('#agentNo').bind('input propertychange', function() {  
-		var agentCoManager = $('#agentCoManager').val();
-		var agentCoManagerTel = $('#agentCoManagerTel').val();
-		var agentCoPostAddress = $('#agentCoPostAddress').val();
-		var agent_mail_pr = $("#agent_mail_pr").val();
-		var agent_mail_suffix = $("#agent_mail_suffix").val();
-		var agent_mail = '';
-		if(agent_mail_pr != "" || agent_mail_suffix != "") {
-			agent_mail = agent_mail_pr + "@" + agent_mail_suffix;
-		}
-		var agent_info = agentCoManager + "/ " + agentCoManagerTel + "/ " + agentCoPostAddress + "/ " + agent_mail;
-	    $('#AGENT_INFO').val(agent_info);  
-	});  */
+	$('#VERIFY_PER_AMOUNT').bind('input propertychange', function() {  
+		calcVERIFY_DIFF();
+	});
+	$('#VERIFY_AMOUNT').bind('input propertychange', function() {  
+		calcVERIFY_DIFF(); 
+	});
+	$('#VERIFY_INCREASE').bind('input propertychange', function() {  
+		calcVERIFY_DIFF(); 
+	});
 	
 	$('.datepicker').parent().datepicker({
 		"autoclose":true,"format":"yyyy-mm-dd","language":"zh-CN"

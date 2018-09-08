@@ -5,7 +5,7 @@ import com.cn.tbps.dto.AuditCntrctDto;
 
 public interface AuditCntrctService {
 	public Page queryAuditCntrctByPage(String strCntrctBelong, String strCntrctNO, String strCntrctType,
-			String strCntrctName, String strCntrctStDateLow, String strCntrctStDateHigh, Page page);
+			String strCntrctName, String strCntrctStDate, String strCntrctEdDate, Page page);
 	
 	public AuditCntrctDto queryAuditCntrctByID(String CNTRCT_NO);
 	
