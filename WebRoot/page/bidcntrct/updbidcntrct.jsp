@@ -8,7 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-<title>招标项目信息输入</title>
+<title>招标项目信息更新</title>
 <!-- Bootstrap -->
 <link href="<%=request.getContextPath()%>/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/node_modules/font-awesome/css/font-awesome.min.css">
@@ -24,8 +24,8 @@
 <script type="text/javascript">
 	function add() {
 		if(checkdata()) {
-			if(confirm("确定追加吗？")) {
-				document.mainform.action = '<c:url value="/bidcntrct/addBidCntrct.action"></c:url>';
+			if(confirm("确定修改吗？")) {
+				document.mainform.action = '<c:url value="/bidcntrct/updBidCntrct.action"></c:url>';
 				document.mainform.submit();
 			}
 		}
@@ -126,14 +126,14 @@
 	<div class="container-fluid">
 		<jsp:include page="../info.jsp" flush="true" />
 		<s:form id="mainform" name="mainform" method="POST">
-			<s:hidden name="addBidCntrctDto.CNTRCT_ST_DATE" id="CNTRCT_ST_DATE"></s:hidden>
-			<s:hidden name="addBidCntrctDto.CNTRCT_ED_DATE" id="CNTRCT_ED_DATE"></s:hidden>
-			<s:hidden name="addBidCntrctDto.BID_COMP_NO" id="BID_COMP_NO"></s:hidden>
-			<s:hidden name="addBidCntrctDto.BID_COMP_NAME" id="BID_COMP_NAME"></s:hidden>
-			<s:hidden name="addBidCntrctDto.CO_MANAGER1" id="CO_MANAGER1"></s:hidden>
-			<s:hidden name="addBidCntrctDto.CO_MANAGER_TEL1" id="CO_MANAGER_TEL1"></s:hidden>
-			<s:hidden name="addBidCntrctDto.CO_ADDRESS1" id="CO_ADDRESS1"></s:hidden>
-			<s:hidden name="addBidCntrctDto.CO_MANAGER_EMAIL1" id="CO_MANAGER_EMAIL1"></s:hidden>
+			<s:hidden name="updBidCntrctDto.CNTRCT_ST_DATE" id="CNTRCT_ST_DATE"></s:hidden>
+			<s:hidden name="updBidCntrctDto.CNTRCT_ED_DATE" id="CNTRCT_ED_DATE"></s:hidden>
+			<s:hidden name="updBidCntrctDto.BID_COMP_NO" id="BID_COMP_NO"></s:hidden>
+			<s:hidden name="updBidCntrctDto.BID_COMP_NAME" id="BID_COMP_NAME"></s:hidden>
+			<s:hidden name="updBidCntrctDto.CO_MANAGER1" id="CO_MANAGER1"></s:hidden>
+			<s:hidden name="updBidCntrctDto.CO_MANAGER_TEL1" id="CO_MANAGER_TEL1"></s:hidden>
+			<s:hidden name="updBidCntrctDto.CO_ADDRESS1" id="CO_ADDRESS1"></s:hidden>
+			<s:hidden name="updBidCntrctDto.CO_MANAGER_EMAIL1" id="CO_MANAGER_EMAIL1"></s:hidden>
 			<div class="row">
 				<div class="container-fluid">
 					<s:if test="hasActionMessages()">
@@ -145,20 +145,20 @@
 						<div class="col-lg-3 form-group">
 							<label for="" class="col-lg-3 form-label"><span class="red">*</span>合同编号</label>
 							<div class="col-lg-9">
-								<s:textfield name="addBidCntrctDto.CNTRCT_NO" id="CNTRCT_NO" cssClass="form-control" maxlength="20" theme="simple"></s:textfield>
+								<s:textfield name="updBidCntrctDto.CNTRCT_NO" disabled="true" id="CNTRCT_NO" cssClass="form-control" maxlength="20" theme="simple"></s:textfield>
 							</div>
 						</div>
 						<div class="col-lg-3 form-group">
 							<label for="" class="col-lg-3 form-label"><span class="red">*</span>年份</label>
 							<div class="col-lg-9">
-								<s:textfield name="addBidCntrctDto.CNTRCT_YEAR" id="CNTRCT_YEAR" cssClass="form-control" maxlength="20" theme="simple"></s:textfield>
+								<s:textfield name="updBidCntrctDto.CNTRCT_YEAR" id="CNTRCT_YEAR" cssClass="form-control" maxlength="20" theme="simple"></s:textfield>
 							</div>
 						</div>
 						<div class="col-lg-6 form-group">
 							<label for="" class="col-lg-2 form-label"><span class="red">*</span>合同期限</label>
 							<div class="col-lg-4">
 								<div class="input-group date" data-provide="datepicker">
-									<input id="tmpCNTRCT_ST_DATE" value="<s:date name="addBidCntrctDto.CNTRCT_ST_DATE" format="yyyy-MM-dd"/>" maxlength="10" type="text" class="form-control datepicker" readonly>
+									<input id="tmpCNTRCT_ST_DATE" value="<s:date name="updBidCntrctDto.CNTRCT_ST_DATE" format="yyyy-MM-dd"/>" maxlength="10" type="text" class="form-control datepicker" readonly>
 									<div class="input-group-addon">
 										<span class="glyphicon glyphicon-th"></span>
 									</div>
@@ -167,7 +167,7 @@
 							<label for="" class="col-lg-1 form-label to">---</label>
 							<div class="col-lg-4">
 								<div class="input-group date" data-provide="datepicker">
-									<input id="tmpCNTRCT_ED_DATE" value="<s:date name="addBidCntrctDto.CNTRCT_ED_DATE" format="yyyy-MM-dd"/>" maxlength="10" type="text" class="form-control datepicker" readonly>
+									<input id="tmpCNTRCT_ED_DATE" value="<s:date name="updBidCntrctDto.CNTRCT_ED_DATE" format="yyyy-MM-dd"/>" maxlength="10" type="text" class="form-control datepicker" readonly>
 									<div class="input-group-addon">
 										<span class="glyphicon glyphicon-th"></span>
 									</div>
@@ -177,13 +177,13 @@
 						<div class="col-lg-3 form-group">
 							<label for="" class="col-lg-3 form-label"><span class="red">*</span>合同类别</label>
 							<div class="col-lg-9">
-								<select name="addBidCntrctDto.CNTRCT_TYPE" id="CNTRCT_TYPE" class="form-control">
+								<select name="updBidCntrctDto.CNTRCT_TYPE" id="CNTRCT_TYPE" class="form-control">
 									<option value="">请选择</option>
-									<s:if test='addBidCntrctDto.CNTRCT_TYPE == "1"'>
+									<s:if test='updBidCntrctDto.CNTRCT_TYPE == "1"'>
 										<option value="1" selected="selected">竞价</option>
 										<option value="2">招标</option>
 									</s:if>
-									<s:elseif test='addBidCntrctDto.CNTRCT_TYPE == "2"'>
+									<s:elseif test='updBidCntrctDto.CNTRCT_TYPE == "2"'>
 										<option value="1">竞价</option>
 										<option value="2" selected="selected">招标</option>
 									</s:elseif>
@@ -202,38 +202,38 @@
 								<div class="row">
 									<label class="col-lg-4 form-label">代码</label>
 									<div class="col-lg-5">
-										<input type="text" id="agentNo" disabled="disabled" maxlength="4" class="form-control" value="<s:property value="addBidCntrctDto.BID_COMP_NO" />" />
+										<input type="text" id="agentNo" disabled="disabled" maxlength="4" class="form-control" value="<s:property value="updBidCntrctDto.BID_COMP_NO" />" />
 									</div>
 									<div class="col-lg-3"><button type="button" class="btn btn-success form-control" onclick="selectAgentComp()">检索</button></div>
 								</div>
 								<div class="row">
 									<label class="col-lg-4 form-label">单位名称</label>
 									<div class="col-lg-8">
-										<input type="text" id="agentCoName" disabled="disabled" maxlength="40" class="form-control" value="<s:property value="addBidCntrctDto.BID_COMP_NAME" />" />
+										<input type="text" id="agentCoName" disabled="disabled" maxlength="40" class="form-control" value="<s:property value="updBidCntrctDto.BID_COMP_NAME" />" />
 									</div>
 								</div>
 								<div class="row">
 									<label class="col-lg-4 form-label">联系人</label>
 									<div class="col-lg-8">
-										<input type="text" id="agentCoManager" maxlength="6" class="form-control" value="<s:property value="addBidCntrctDto.CO_MANAGER1" />" />
+										<input type="text" id="agentCoManager" maxlength="6" class="form-control" value="<s:property value="updBidCntrctDto.CO_MANAGER1" />" />
 									</div>
 								</div>
 								<div class="row">
 									<label class="col-lg-4 form-label">联系方式</label>
 									<div class="col-lg-8">
-										<input type="text" id="agentCoManagerTel" maxlength="30" class="form-control" value="<s:property value="addBidCntrctDto.CO_MANAGER_TEL1" />" />
+										<input type="text" id="agentCoManagerTel" maxlength="30" class="form-control" value="<s:property value="updBidCntrctDto.CO_MANAGER_TEL1" />" />
 									</div>
 								</div>
 								<div class="row">
 									<label class="col-lg-4 form-label">地址</label>
 									<div class="col-lg-8">
-										<input type="text" id="agentCoPostAddress" maxlength="80" class="form-control" value="<s:property value="addBidCntrctDto.CO_ADDRESS1" />" />
+										<input type="text" id="agentCoPostAddress" maxlength="80" class="form-control" value="<s:property value="updBidCntrctDto.CO_ADDRESS1" />" />
 									</div>
 								</div>
 								<div class="row">
 									<label class="col-lg-4 form-label">邮箱</label>
 									<div class="col-lg-8">
-										<input type="text" id="AGENT_CO_MAIL" maxlength="100" class="form-control" value="<s:property value="addBidCntrctDto.CO_MANAGER_EMAIL1" />" />
+										<input type="text" id="AGENT_CO_MAIL" maxlength="100" class="form-control" value="<s:property value="updBidCntrctDto.CO_MANAGER_EMAIL1" />" />
 										<input type="hidden" id="agent_mail_pr">
 										<input type="hidden" id="agent_mail_suffix">
 									</div>
@@ -241,7 +241,7 @@
 								<div class="row">
 									<label class="col-lg-4 form-label">开票信息</label>
 									<div class="col-lg-8">
-										<s:textfield name="addBidCntrctDto.CO_TAX" id="CO_TAX" cssClass="form-control" maxlength="80" theme="simple"></s:textfield>
+										<s:textfield name="updBidCntrctDto.CO_TAX" id="CO_TAX" cssClass="form-control" maxlength="80" theme="simple"></s:textfield>
 									</div>
 								</div>
 							</div>

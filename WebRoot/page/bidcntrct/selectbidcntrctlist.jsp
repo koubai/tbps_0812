@@ -8,7 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-<title>招标合同管理一览</title>
+<title>招标合同一览</title>
 <!-- Bootstrap -->
 <link href="<%=request.getContextPath()%>/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/node_modules/font-awesome/css/font-awesome.min.css">
@@ -22,35 +22,54 @@
 <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 <script type="text/javascript">
-	function upd() {
-		var id = getSelectedID();
-		if(id == "") {
-			alert("请选择一条记录！");
-			return;
-		} else {
-			$("#strUpdCNTRCT_NO").val(id);
-			document.mainform.action = '<c:url value="/bidcntrct/showUpdBidCntrct.action"></c:url>';
-			document.mainform.submit();
-		}
-	}
-
-	function add() {
-		document.mainform.action = '<c:url value="/bidcntrct/showAddBidCntrct.action"></c:url>';
-		document.mainform.submit();
-	}
-	
-	function getSelectedID() {
+	function selectCntrct() {
+		var obj = null;
 		var id = "";
 		var list = document.getElementsByName("radioKey");
 		for(var i = 0; i < list.length; i++) {
 			if(list[i].checked) {
+				obj = list[i];
 				id = list[i].value;
 				break;
 			}
 		}
-		return id;
+		if(obj == null) {
+			alert("请选择一条记录！");
+			return;
+		}
+		//添加产品信息
+		var tr = obj.parentNode.parentNode;
+		var tds = tr.getElementsByTagName("td");
+		var inputs = tds[0].getElementsByTagName("input");
+		
+		var CNTRCT_NO = inputs[0].value;
+		var CNTRCT_YEAR = inputs[1].value;
+		var CNTRCT_ST_DATE = inputs[2].value;
+		var CNTRCT_ED_DATE = inputs[3].value;
+		var BID_COMP_NO = inputs[4].value;
+		var BID_COMP_NAME = inputs[5].value;
+		var CO_MANAGER1 = inputs[6].value;
+		var CO_MANAGER_TEL1 = inputs[7].value;
+		var CO_ADDRESS1 = inputs[8].value;
+		var CO_MANAGER_EMAIL1 = inputs[9].value;
+		var CO_TAX = inputs[10].value;
+		
+		var id = getSelectedID();
+		window.dialogArguments.document.getElementById("tmpCNTRCT_NO").value = CNTRCT_NO;
+		window.dialogArguments.document.getElementById("tmpCNTRCT_YEAR").value = CNTRCT_YEAR;
+		window.dialogArguments.document.getElementById("tmpCNTRCT_ST_DATE").value = CNTRCT_ST_DATE;
+		window.dialogArguments.document.getElementById("tmpCNTRCT_ED_DATE").value = CNTRCT_ED_DATE;
+		window.dialogArguments.document.getElementById("tmpBID_COMP_NO").value = BID_COMP_NO;
+		window.dialogArguments.document.getElementById("tmpBID_COMP_NAME").value = BID_COMP_NAME;
+		window.dialogArguments.document.getElementById("tmpCO_MANAGER1").value = CO_MANAGER1;
+		window.dialogArguments.document.getElementById("tmpCO_MANAGER_TEL1").value = CO_MANAGER_TEL1;
+		window.dialogArguments.document.getElementById("tmpCO_ADDRESS1").value = CO_ADDRESS1;
+		window.dialogArguments.document.getElementById("tmpCO_MANAGER_EMAIL1").value = CO_MANAGER_EMAIL1;
+		window.dialogArguments.document.getElementById("tmpCO_TAX").value = CO_TAX;
+		
+		window.close();
 	}
-	
+
 	function setOpenDate() {
 		$("#strCNTRCT_ST_DATE").attr("value", $("#tmpCNTRCT_ST_DATE").val());
 		$("#strCNTRCT_ED_DATE").attr("value", $("#tmpCNTRCT_ED_DATE").val());
@@ -59,7 +78,7 @@
 
 	function queryList() {
 		setOpenDate();
-		document.mainform.action = '<c:url value="/bidcntrct/queryBidCntrctList.action"></c:url>';
+		document.mainform.action = '<c:url value="/bidcntrct/querySelectBidCntrctList.action"></c:url>';
 		document.mainform.submit();
 	}
 	
@@ -67,13 +86,13 @@
 	function changePage(pageNum) {
 		setOpenDate();
 		document.getElementById("startIndex").value = pageNum;
-		document.mainform.action = '<c:url value="/bidcntrct/turnBidCntrctPage.action"></c:url>';
+		document.mainform.action = '<c:url value="/bidcntrct/turnSelectBidCntrctPage.action"></c:url>';
 		document.mainform.submit();
 	}
 
 	//页跳转
 	function turnPage() {
-		var totalPage = "${page.totalPage}";
+		var totalPage = "${page_select.totalPage}";
 		var turnPage = document.getElementById("pagenum").value;
 		//判断是否输入页码
 		if ('' != turnPage) {
@@ -99,39 +118,29 @@
 			return;
 		}	
 	}
-	
-	function queryAgentCommon() {
-		var url = '<c:url value="/agentcomp/showAgentCompCommonAction.action"></c:url>' + '?agentAddFlag=1' + '&strKey=strAgentNo&date=' + new Date();
-		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:1000px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
-		//window.open(url, window, "dialogheight:550px;dialogwidth:1000px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
-	}
 </script>
 </head>
 <body>
-	<jsp:include page="../head.jsp" flush="true" />
 	<div class="container-fluid">
-		<jsp:include page="../info.jsp" flush="true" />
 		<div class="row">
-			<jsp:include page="../menu.jsp" flush="true" />
 			<div class="col-lg-10 right">
-			 	<a class="toggle" href="javascript:;"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
 				<s:form id="mainform" name="mainform" method="POST">
-					<s:hidden name="startIndex" id="startIndex"/>
+					<s:hidden name="startIndex_select" id="startIndex"/>
 					<s:hidden name="strUpdCNTRCT_NO" id="strUpdCNTRCT_NO"/>
 					<s:hidden name="strCNTRCT_ST_DATE" id="strCNTRCT_ST_DATE"/>
 					<s:hidden name="strCNTRCT_ED_DATE" id="strCNTRCT_ED_DATE"/>
 					<s:hidden name="strBID_COMP_NO" id="strBID_COMP_NO"/>
-					<h3 class="title">招标合同管理一览<a class="backHome" href="#" onclick="goHome();"><i class="fa fa-home" aria-hidden="true"></i>返回首页</a></h3>
+					<h3 class="title">招标合同一览</h3>
 					<div class="row">
-						<div class="col-lg-3 form-group">
-							<label for="" class="col-lg-3 form-label">合同年份</label>
-							<div class="col-lg-9">
+						<div class="col-lg-2 form-group">
+							<label for="" class="col-lg-1 form-label">合同年份</label>
+							<div class="col-lg-1">
 								<s:textfield name="strCNTRCT_YEAR" id="strCNTRCT_YEAR" cssClass="form-control" maxlength="4" theme="simple"></s:textfield>
 							</div>
 						</div>
 						<div class="col-lg-6 form-group">
-							<label for="" class="col-lg-2 form-label">合同期限</label>
-							<div class="col-lg-4">
+							<label for="" class="col-lg-1 form-label">合同期限</label>
+							<div class="col-lg-2">
 								<div class="input-group date" data-provide="datepicker">
 									<input id="tmpCNTRCT_ST_DATE" value="<s:property value="strCNTRCT_ST_DATE"/>" maxlength="10" type="text" class="form-control datepicker" readonly>
 									<div class="input-group-addon">
@@ -140,7 +149,7 @@
 								</div>
 							</div>
 							<label for="" class="col-lg-1 form-label to">---</label>
-							<div class="col-lg-4">
+							<div class="col-lg-2">
 								<div class="input-group date" data-provide="datepicker">
 									<input id="tmpCNTRCT_ED_DATE" value="<s:property value="strCNTRCT_ED_DATE"/>" maxlength="10" type="text" class="form-control datepicker" readonly>
 									<div class="input-group-addon">
@@ -155,28 +164,13 @@
 								<s:textfield name="strCNTRCT_NO" id="strCNTRCT_NO" cssClass="form-control" maxlength="20" theme="simple"></s:textfield>
 							</div>
 						</div>
-						<div class="col-lg-5 form-group">
-							<label for="" class="col-lg-3 form-label">委托公司</label>
-							<div class="col-lg-7">
-								<input type="text" id="strAgentNo" class="form-control" value="<s:property value="strBID_COMP_NO"/>">
-							</div>
-							<div class="col-lg-2">
-								<button type="button" class="btn btn-success" onclick="queryAgentCommon();">选择</button>
-							</div>
-						</div>
 						<div class="col-lg-2 form-group">
 							<button type="button" class="btn btn-success form-control" onclick="queryList();">检索</button>
 						</div>
 					</div>
-					<div class="btns">
-						<ul>
-							<li><a href="#" onclick="add();"><i class="fa fa-plus" aria-hidden="true"></i>新增</a></li>
-							<li><a href="#" onclick="upd();"><i class="fa fa-pencil" aria-hidden="true"></i>修改</a></li>
-							<li><a href="#" onclick="del();"><i class="fa fa-trash" aria-hidden="true"></i>删除</a></li>
-						</ul>
-					</div>
 					<table class="table table-bordered">
 						<tr>
+							<th style="display: none;"></th>
 							<th></th>
 							<th>合同年份</th>
 							<th>合同编号</th>
@@ -190,8 +184,21 @@
 							<th>标书费</th>
 							<th>专家费支出</th>
 						</tr>
-						<s:iterator id="listBidCntrct" value="listBidCntrct" status="st1">
+						<s:iterator id="listSelectBidCntrct" value="listSelectBidCntrct" status="st1">
 							<tr>
+								<td style="display: none;">
+									<input type="hidden" value="<s:property value="CNTRCT_NO"/>"/>
+									<input type="hidden" value="<s:property value="CNTRCT_YEAR"/>"/>
+									<input type="hidden" value="<s:property value="CNTRCT_ST_DATE"/>"/>
+									<input type="hidden" value="<s:property value="CNTRCT_ED_DATE"/>"/>
+									<input type="hidden" value="<s:property value="BID_COMP_NO"/>"/>
+									<input type="hidden" value="<s:property value="BID_COMP_NAME"/>"/>
+									<input type="hidden" value="<s:property value="CO_MANAGER1"/>"/>
+									<input type="hidden" value="<s:property value="CO_MANAGER_TEL1"/>"/>
+									<input type="hidden" value="<s:property value="CO_ADDRESS1"/>"/>
+									<input type="hidden" value="<s:property value="CO_MANAGER_EMAIL1"/>"/>
+									<input type="hidden" value="<s:property value="CO_TAX"/>"/>
+								</td>
 								<td><input name="radioKey" type="radio" value="<s:property value="CNTRCT_NO"/>"/></td>
 								<td><s:property value="CNTRCT_YEAR"/></td>
 								<td><s:property value="CNTRCT_NO"/></td>
@@ -207,11 +214,13 @@
 							</tr>
 						</s:iterator>
 					</table>
-					<jsp:include page="../turning.jsp" flush="true" />
+					<jsp:include page="../turning_select.jsp" flush="true" />
 				</s:form>
 			</div>
 		</div>
 		<div class="operationBtns addBtns mgt15 btn3" style="width: 300px;">
+			<button type="button" onclick="selectCntrct();">确定</button>
+			<button type="button" onclick="window.close();">关闭</button>
 		</div>
 	</div>
 	<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->

@@ -98,6 +98,38 @@
 			<result name="success">/page/download.jsp</result>
 		</action>
 		
+		<action name="showAuditAuth" class="auditAction" method="showAuditAuth">
+			<result name="success">/page/audit/auditauth.jsp</result>
+		</action>
+		
+		<action name="queryAuditAuth" class="auditAction" method="queryAuditAuth">
+			<result name="success">/page/audit/auditauth.jsp</result>
+		</action>
+		
+		<action name="showAuditStatistics" class="auditAction" method="showAuditStatistics">
+			<result name="success">/page/audit/auditstatistics.jsp</result>
+		</action>
+		
+		<action name="queryAuditStatistics" class="auditAction" method="queryAuditStatistics">
+			<result name="success">/page/audit/auditstatistics.jsp</result>
+		</action>
+		
+		<action name="showAuditStatCost" class="auditAction" method="showAuditStatCost">
+			<result name="success">/page/audit/auditstatcost.jsp</result>
+		</action>
+		
+		<action name="queryAuditStatCost" class="auditAction" method="queryAuditStatCost">
+			<result name="success">/page/audit/auditstatcost.jsp</result>
+		</action>
+		
+		<action name="showAuditStatPaid" class="auditAction" method="showAuditStatPaid">
+			<result name="success">/page/audit/auditstatpaid.jsp</result>
+		</action>
+		
+		<action name="queryAuditStatPaid" class="auditAction" method="queryAuditStatPaid">
+			<result name="success">/page/audit/auditstatpaid.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

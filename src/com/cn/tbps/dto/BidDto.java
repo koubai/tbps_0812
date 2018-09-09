@@ -33,6 +33,9 @@ public class BidDto extends BaseDto {
 	 */
 	private String CNTRCT_NO;
 	
+	//是否随机
+	private String IS_RANDOM;
+	
 	//关联招标合同字段
 	//合同名称
 	private String CNTRCT_NAME;
@@ -44,8 +47,23 @@ public class BidDto extends BaseDto {
 	private String CNTRCT_ED_DATE;
 	//委托单位ID
 	private String BID_COMP_NO;
-	//委托单位名称
+	//委托单位
 	private String BID_COMP_NAME;
+	//联系人
+	private String CO_MANAGER1;
+	//联系方式(电话)
+	private String CO_MANAGER_TEL1;
+	//联系方式(地址)
+	private String CO_ADDRESS1;
+	//联系人邮箱
+	private String CO_MANAGER_EMAIL1;
+	//开票信息
+	private String CO_TAX;
+	
+	//报名单位列表
+	private List<BidCompDto> joinBidCompList;
+	//缴纳保证金单位列表
+	private List<BidCompDto> bondBidCompList;
 
 	/**
 	 * 承接项目日期：
@@ -1755,6 +1773,30 @@ public class BidDto extends BaseDto {
 		CNTRCT_ED_DATE = cNTRCT_ED_DATE;
 	}
 
+	public String getCNTRCT_NAME() {
+		return CNTRCT_NAME;
+	}
+
+	public void setCNTRCT_NAME(String cNTRCT_NAME) {
+		CNTRCT_NAME = cNTRCT_NAME;
+	}
+
+	public List<BidCompDto> getJoinBidCompList() {
+		return joinBidCompList;
+	}
+
+	public void setJoinBidCompList(List<BidCompDto> joinBidCompList) {
+		this.joinBidCompList = joinBidCompList;
+	}
+
+	public List<BidCompDto> getBondBidCompList() {
+		return bondBidCompList;
+	}
+
+	public void setBondBidCompList(List<BidCompDto> bondBidCompList) {
+		this.bondBidCompList = bondBidCompList;
+	}
+
 	public String getBID_COMP_NO() {
 		return BID_COMP_NO;
 	}
@@ -1771,11 +1813,51 @@ public class BidDto extends BaseDto {
 		BID_COMP_NAME = bID_COMP_NAME;
 	}
 
-	public String getCNTRCT_NAME() {
-		return CNTRCT_NAME;
+	public String getCO_MANAGER1() {
+		return CO_MANAGER1;
 	}
 
-	public void setCNTRCT_NAME(String cNTRCT_NAME) {
-		CNTRCT_NAME = cNTRCT_NAME;
+	public void setCO_MANAGER1(String cO_MANAGER1) {
+		CO_MANAGER1 = cO_MANAGER1;
+	}
+
+	public String getCO_MANAGER_TEL1() {
+		return CO_MANAGER_TEL1;
+	}
+
+	public void setCO_MANAGER_TEL1(String cO_MANAGER_TEL1) {
+		CO_MANAGER_TEL1 = cO_MANAGER_TEL1;
+	}
+
+	public String getCO_ADDRESS1() {
+		return CO_ADDRESS1;
+	}
+
+	public void setCO_ADDRESS1(String cO_ADDRESS1) {
+		CO_ADDRESS1 = cO_ADDRESS1;
+	}
+
+	public String getCO_MANAGER_EMAIL1() {
+		return CO_MANAGER_EMAIL1;
+	}
+
+	public void setCO_MANAGER_EMAIL1(String cO_MANAGER_EMAIL1) {
+		CO_MANAGER_EMAIL1 = cO_MANAGER_EMAIL1;
+	}
+
+	public String getCO_TAX() {
+		return CO_TAX;
+	}
+
+	public void setCO_TAX(String cO_TAX) {
+		CO_TAX = cO_TAX;
+	}
+
+	public String getIS_RANDOM() {
+		return IS_RANDOM;
+	}
+
+	public void setIS_RANDOM(String iS_RANDOM) {
+		IS_RANDOM = iS_RANDOM;
 	}
 }

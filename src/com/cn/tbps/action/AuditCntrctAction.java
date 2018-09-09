@@ -73,14 +73,14 @@ public class AuditCntrctAction extends BaseAction {
 	private String strCntrctName;
 	
 	/**
-	 * 合同开始时间Low
+	 * 合同开始时间
 	 */
-	private String strCntrctStDateLow;
+	private String strCntrctStDate;
 
 	/**
-	 * 合同开始时间High
+	 * 合同开始时间
 	 */
-	private String strCntrctStDateHigh;
+	private String strCntrctEdDate;
 	
 	//删除
 	/**
@@ -295,8 +295,8 @@ public class AuditCntrctAction extends BaseAction {
 			strCntrctNO = "";
 			strCntrctType = "";
 			strCntrctName = "";
-			strCntrctStDateLow = "";
-			strCntrctStDateHigh = "";
+			strCntrctStDate = "";
+			strCntrctEdDate = "";
 			listAuditCntrct = new ArrayList<AuditCntrctDto>();
 			
 			delAuditCntrctNo = "";
@@ -340,7 +340,7 @@ public class AuditCntrctAction extends BaseAction {
 	 * 翻页
 	 * @return
 	 */
-	public String turnAuditPage() {
+	public String turnAuditCntrctPage() {
 		try {
 			this.clearMessages();
 			queryAuditCntrct();
@@ -436,7 +436,7 @@ public class AuditCntrctAction extends BaseAction {
 		//翻页查询所有审价
 		this.page.setStartIndex(startIndex);
 		page = auditCntrctService.queryAuditCntrctByPage(strCntrctBelong, strCntrctNO, strCntrctType,
-				strCntrctName, strCntrctStDateLow, strCntrctStDateHigh, page);
+				strCntrctName, strCntrctStDate, strCntrctEdDate, page);
 		listAuditCntrct = (List<AuditCntrctDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
@@ -527,22 +527,6 @@ public class AuditCntrctAction extends BaseAction {
 
 	public void setStrCntrctName(String strCntrctName) {
 		this.strCntrctName = strCntrctName;
-	}
-
-	public String getStrCntrctStDateLow() {
-		return strCntrctStDateLow;
-	}
-
-	public void setStrCntrctStDateLow(String strCntrctStDateLow) {
-		this.strCntrctStDateLow = strCntrctStDateLow;
-	}
-
-	public String getStrCntrctStDateHigh() {
-		return strCntrctStDateHigh;
-	}
-
-	public void setStrCntrctStDateHigh(String strCntrctStDateHigh) {
-		this.strCntrctStDateHigh = strCntrctStDateHigh;
 	}
 
 	public String getDelAuditCntrctNo() {
@@ -663,6 +647,22 @@ public class AuditCntrctAction extends BaseAction {
 
 	public void setCntrctEdDate(String cntrctEdDate) {
 		this.cntrctEdDate = cntrctEdDate;
+	}
+
+	public String getStrCntrctStDate() {
+		return strCntrctStDate;
+	}
+
+	public void setStrCntrctStDate(String strCntrctStDate) {
+		this.strCntrctStDate = strCntrctStDate;
+	}
+
+	public String getStrCntrctEdDate() {
+		return strCntrctEdDate;
+	}
+
+	public void setStrCntrctEdDate(String strCntrctEdDate) {
+		this.strCntrctEdDate = strCntrctEdDate;
 	}
 
 }

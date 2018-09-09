@@ -8,7 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-<title>审价项目新增</title><!-- Bootstrap -->
+<title>审价项目更新</title><!-- Bootstrap -->
 <link href="<%=request.getContextPath()%>/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/node_modules/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.css">
@@ -116,7 +116,7 @@
 			}
 		}
 		if(VERIFY_INCREASE != "") {
-			if(!numberCheck2(VERIFY_INCREASE)) {
+			if(!isReal(VERIFY_INCREASE)) {
 				alert("核增格式不正确！");
 				$("#VERIFY_INCREASE").focus();
 				return;
@@ -128,11 +128,265 @@
 		$('#VERIFY_DECREASE').removeAttr("disabled");
 		$('#VERIFY_DIFF').removeAttr("disabled");
 		$('#VERIFY_DIFF_RATE').removeAttr("disabled");
-		
-		if(confirm("确定追加吗？")) {
-			document.mainform.action = '<c:url value="/audit/addAuditAction.action"></c:url>';
-			document.mainform.submit();
+
+		//提示修改内容
+		var s = getAuditEditProject();
+		if(s != "") {
+			if(confirm("本次修改的内容有：\n" + s + "\n确定修改吗？")) {
+				document.mainform.action = '<c:url value="/audit/updAuditAction.action"></c:url>';
+				document.mainform.submit();
+			}
+		} else {
+			alert("没有修改内容！");
 		}
+	}
+	function getAuditEditProject() {
+		var CNTRCT_NO_OLD = $("#CNTRCT_NO_OLD").val();
+		var CNTRCT_NM_OLD = $("#CNTRCT_NM_OLD").val();
+		var REPORT_NO_OLD = $("#REPORT_NO_OLD").val();
+		var PROJECT_MANAGER_OLD = $("#PROJECT_MANAGER_OLD").val();
+		var PROJECT_NAME_OLD = $("#PROJECT_NAME_OLD").val();
+		var AGENT_NO_OLD = $("#AGENT_NO_OLD").val();
+		var AGENT_CO_NAME_OLD = $("#AGENT_CO_NAME_OLD").val();
+		var AGENT_CO_MANAGER_OLD = $("#AGENT_CO_MANAGER_OLD").val();
+		var AGENT_CO_MANAGER_TEL_OLD = $("#AGENT_CO_MANAGER_TEL_OLD").val();
+		var AGENT_CO_POST_ADDRESS_OLD = $("#AGENT_CO_POST_ADDRESS_OLD").val();
+		var AGENT_CO_MAIL_OLD = $("#AGENT_CO_MAIL_OLD").val();
+		var PROF_NO_OLD = $("#PROF_NO_OLD").val();
+		var PROF_CO_NAME_OLD = $("#PROF_CO_NAME_OLD").val();
+		var PROF_CO_MANAGER_OLD = $("#PROF_CO_MANAGER_OLD").val();
+		var PROF_CO_MANAGER_TEL_OLD = $("#PROF_CO_MANAGER_TEL_OLD").val();
+		var PROF_CO_POST_ADDRESS_OLD = $("#PROF_CO_POST_ADDRESS_OLD").val();
+		var PROF_CO_MAIL_OLD = $("#PROF_CO_MAIL_OLD").val();
+		var CONTRACT_CO_NO_OLD = $("#CONTRACT_CO_NO_OLD").val();
+		var CONTRACT_CO_NAME_OLD = $("#CONTRACT_CO_NAME_OLD").val();
+		var CONTRACT_CO_MANAGER_OLD = $("#CONTRACT_CO_MANAGER_OLD").val();
+		var CONTRACT_CO_MANAGER_TEL_OLD = $("#CONTRACT_CO_MANAGER_TEL_OLD").val();
+		var CONTRACT_CO_POST_ADDRESS_OLD = $("#CONTRACT_CO_POST_ADDRESS_OLD").val();
+		var CONTRACT_CO_MAIL_OLD = $("#CONTRACT_CO_MAIL_OLD").val();
+		var DOC_REC_DATE_OLD = $("#DOC_REC_DATE_OLD").val();
+		var PROGRESS_STATUS_OLD = $("#PROGRESS_STATUS_OLD").val();
+		var PRE_SET_OLD = $("#PRE_SET_OLD").val();
+		var PRE_PRICE_OLD = $("#PRE_PRICE_OLD").val();
+		var SUPPORT_DOC_DATE_OLD = $("#SUPPORT_DOC_DATE_OLD").val();
+		var DRAFT_DATE_OLD = $("#DRAFT_DATE_OLD").val();
+		var APPROVAL_SND_DATE_OLD = $("#APPROVAL_SND_DATE_OLD").val();
+		var APPROVAL_RCV_DATE_OLD = $("#APPROVAL_RCV_DATE_OLD").val();
+		var DELI_NO_OLD = $("#DELI_NO_OLD").val();
+		var REPORT_RAISE_DATE_OLD = $("#REPORT_RAISE_DATE_OLD").val();
+		var REPORT_SEAL_DATE_OLD = $("#REPORT_SEAL_DATE_OLD").val();
+		var REPORT_ARR_TYPE_OLD = $("#REPORT_ARR_TYPE_OLD").val();
+		var REPORT_ARR_DATE_OLD = $("#REPORT_ARR_DATE_OLD").val();
+		var REG_DATE_OLD = $("#REG_DATE_OLD").val();
+		var AGENT_INFO_OLD = $("#AGENT_INFO_OLD").val();
+		var CONTRACT_CO_ID_OLD = $("#CONTRACT_CO_ID_OLD").val();
+		var CONTRACT_CO_INFO_OLD = $("#CONTRACT_CO_INFO_OLD").val();
+		var VERIFY_PER_AMOUNT_OLD = $("#VERIFY_PER_AMOUNT_OLD").val();
+		var VERIFY_AMOUNT_OLD = $("#VERIFY_AMOUNT_OLD").val();
+		var VERIFY_INCREASE_OLD = $("#VERIFY_INCREASE_OLD").val();
+		var VERIFY_DECREASE_OLD = $("#VERIFY_DECREASE_OLD").val();
+		var VERIFY_DIFF_OLD = $("#VERIFY_DIFF_OLD").val();
+		var VERIFY_DIFF_RATE_OLD = $("#VERIFY_DIFF_RATE_OLD").val();
+		var CNT_PRICE_OLD = $("#CNT_PRICE_OLD").val();
+		var PROJ_PRICE_OLD = $("#PROJ_PRICE_OLD").val();
+		var LIMIT_PRICE_OLD = $("#LIMIT_PRICE_OLD").val();
+		var CNTRCT_PRICE_OLD = $("#CNTRCT_PRICE_OLD").val();
+		var PLAN_DOC_RCV_DATE_OLD = $("#PLAN_DOC_RCV_DATE_OLD").val();
+		var PLAN_DOC_RPT_DATE_OLD = $("#PLAN_DOC_RPT_DATE_OLD").val();
+		var PLAN_DOC_SND_TYPE_OLD = $("#PLAN_DOC_SND_TYPE_OLD").val();
+		var PLAN_DOC_ARR_DATE_OLD = $("#PLAN_DOC_ARR_DATE_OLD").val();
+		var BID_DOC_RCV_DATE_OLD = $("#BID_DOC_RCV_DATE_OLD").val();
+		var BID_DOC_RPT_DATE_OLD = $("#BID_DOC_RPT_DATE_OLD").val();
+		var BID_DOC_SND_TYPE_OLD = $("#BID_DOC_SND_TYPE_OLD").val();
+		var BID_DOC_ARR_DATE_OLD = $("#BID_DOC_ARR_DATE_OLD").val();
+		var SIGN_DOC_RCV_DATE_OLD = $("#SIGN_DOC_RCV_DATE_OLD").val();
+		var SIGN_DOC_RPT_DATE_OLD = $("#SIGN_DOC_RPT_DATE_OLD").val();
+		var SIGN_DOC_SND_TYPE_OLD = $("#SIGN_DOC_SND_TYPE_OLD").val();
+		var SIGN_DOC_ARR_DATE_OLD = $("#SIGN_DOC_ARR_DATE_OLD").val();
+		var SET_DOC_RCV_DATE_OLD = $("#SET_DOC_RCV_DATE_OLD").val();
+		var SET_DOC_RPT_DATE_OLD = $("#SET_DOC_RPT_DATE_OLD").val();
+		var SET_DOC_SND_TYPE_OLD = $("#SET_DOC_SND_TYPE_OLD").val();
+		var SET_DOC_ARR_DATE_OLD = $("#SET_DOC_ARR_DATE_OLD").val();
+		var PROGRESS_STATUS_MEMO_OLD = $("#PROGRESS_STATUS_MEMO_OLD").val();
+		var A_AMOUNT_OLD = $("#A_AMOUNT_OLD").val();
+		var A_STATUS_OLD = $("#A_STATUS_OLD").val();
+		var B_TYPE_OLD = $("#B_TYPE_OLD").val();
+		var B_AMOUNT_OLD = $("#B_AMOUNT_OLD").val();
+		var A_INVOICE_DELI_DATE_OLD = $("#A_INVOICE_DELI_DATE_OLD").val();
+		var A_INVOICE_DATE_OLD = $("#A_INVOICE_DATE_OLD").val();
+		var A_INVOICE_NO_OLD = $("#A_INVOICE_NO_OLD").val();
+		var A_SET_DATE_OLD = $("#A_SET_DATE_OLD").val();
+		var B_INVOICE_DELI_DATE_OLD = $("#B_INVOICE_DELI_DATE_OLD").val();
+		var B_INVOICE_DATE_OLD = $("#B_INVOICE_DATE_OLD").val();
+		var B_INVOICE_NO_OLD = $("#B_INVOICE_NO_OLD").val();
+		var B_SET_DATE_OLD = $("#B_SET_DATE_OLD").val();
+		var RESERVE1_OLD = $("#RESERVE1_OLD").val();
+		var RESERVE2_OLD = $("#RESERVE2_OLD").val();
+
+		var CNTRCT_NO = $("#CNTRCT_NO").val();
+		var CNTRCT_NM = $("#CNTRCT_NM").val();
+		var REPORT_NO = $("#REPORT_NO").val();
+		var PROJECT_MANAGER = $("#PROJECT_MANAGER").val();
+		var PROJECT_NAME = $("#PROJECT_NAME").val();
+		var AGENT_NO = $("#AGENT_NO").val();
+		var AGENT_CO_NAME = $("#AGENT_CO_NAME").val();
+		var AGENT_CO_MANAGER = $("#AGENT_CO_MANAGER").val();
+		var AGENT_CO_MANAGER_TEL = $("#AGENT_CO_MANAGER_TEL").val();
+		var AGENT_CO_POST_ADDRESS = $("#AGENT_CO_POST_ADDRESS").val();
+		var AGENT_CO_MAIL = $("#AGENT_CO_MAIL").val();
+		var PROF_NO = $("#PROF_NO").val();
+		var PROF_CO_NAME = $("#PROF_CO_NAME").val();
+		var PROF_CO_MANAGER = $("#PROF_CO_MANAGER").val();
+		var PROF_CO_MANAGER_TEL = $("#PROF_CO_MANAGER_TEL").val();
+		var PROF_CO_POST_ADDRESS = $("#PROF_CO_POST_ADDRESS").val();
+		var PROF_CO_MAIL = $("#PROF_CO_MAIL").val();
+		var CONTRACT_CO_NO = $("#CONTRACT_CO_NO").val();
+		var CONTRACT_CO_NAME = $("#CONTRACT_CO_NAME").val();
+		var CONTRACT_CO_MANAGER = $("#CONTRACT_CO_MANAGER").val();
+		var CONTRACT_CO_MANAGER_TEL = $("#CONTRACT_CO_MANAGER_TEL").val();
+		var CONTRACT_CO_POST_ADDRESS = $("#CONTRACT_CO_POST_ADDRESS").val();
+		var CONTRACT_CO_MAIL = $("#CONTRACT_CO_MAIL").val();
+		var DOC_REC_DATE = $("#DOC_REC_DATE").val();
+		var PROGRESS_STATUS = $("#PROGRESS_STATUS").val();
+		var PRE_SET = $("#PRE_SET").val();
+		var PRE_PRICE = $("#PRE_PRICE").val();
+		var SUPPORT_DOC_DATE = $("#SUPPORT_DOC_DATE").val();
+		var DRAFT_DATE = $("#DRAFT_DATE").val();
+		var APPROVAL_SND_DATE = $("#APPROVAL_SND_DATE").val();
+		var APPROVAL_RCV_DATE = $("#APPROVAL_RCV_DATE").val();
+		var DELI_NO = $("#DELI_NO").val();
+		var REPORT_RAISE_DATE = $("#REPORT_RAISE_DATE").val();
+		var REPORT_SEAL_DATE = $("#REPORT_SEAL_DATE").val();
+		var REPORT_ARR_TYPE = $("#REPORT_ARR_TYPE").val();
+		var REPORT_ARR_DATE = $("#REPORT_ARR_DATE").val();
+		var REG_DATE = $("#REG_DATE").val();
+		var AGENT_INFO = $("#AGENT_INFO").val();
+		var CONTRACT_CO_ID = $("#CONTRACT_CO_ID").val();
+		var CONTRACT_CO_INFO = $("#CONTRACT_CO_INFO").val();
+		var VERIFY_PER_AMOUNT = $("#VERIFY_PER_AMOUNT").val();
+		var VERIFY_AMOUNT = $("#VERIFY_AMOUNT").val();
+		var VERIFY_INCREASE = $("#VERIFY_INCREASE").val();
+		var VERIFY_DECREASE = $("#VERIFY_DECREASE").val();
+		var VERIFY_DIFF = $("#VERIFY_DIFF").val();
+		var VERIFY_DIFF_RATE = $("#VERIFY_DIFF_RATE").val();
+		var CNT_PRICE = $("#CNT_PRICE").val();
+		var PROJ_PRICE = $("#PROJ_PRICE").val();
+		var LIMIT_PRICE = $("#LIMIT_PRICE").val();
+		var CNTRCT_PRICE = $("#CNTRCT_PRICE").val();
+		var PLAN_DOC_RCV_DATE = $("#PLAN_DOC_RCV_DATE").val();
+		var PLAN_DOC_RPT_DATE = $("#PLAN_DOC_RPT_DATE").val();
+		var PLAN_DOC_SND_TYPE = $("#PLAN_DOC_SND_TYPE").val();
+		var PLAN_DOC_ARR_DATE = $("#PLAN_DOC_ARR_DATE").val();
+		var BID_DOC_RCV_DATE = $("#BID_DOC_RCV_DATE").val();
+		var BID_DOC_RPT_DATE = $("#BID_DOC_RPT_DATE").val();
+		var BID_DOC_SND_TYPE = $("#BID_DOC_SND_TYPE").val();
+		var BID_DOC_ARR_DATE = $("#BID_DOC_ARR_DATE").val();
+		var SIGN_DOC_RCV_DATE = $("#SIGN_DOC_RCV_DATE").val();
+		var SIGN_DOC_RPT_DATE = $("#SIGN_DOC_RPT_DATE").val();
+		var SIGN_DOC_SND_TYPE = $("#SIGN_DOC_SND_TYPE").val();
+		var SIGN_DOC_ARR_DATE = $("#SIGN_DOC_ARR_DATE").val();
+		var SET_DOC_RCV_DATE = $("#SET_DOC_RCV_DATE").val();
+		var SET_DOC_RPT_DATE = $("#SET_DOC_RPT_DATE").val();
+		var SET_DOC_SND_TYPE = $("#SET_DOC_SND_TYPE").val();
+		var SET_DOC_ARR_DATE = $("#SET_DOC_ARR_DATE").val();
+		var PROGRESS_STATUS_MEMO = $("#PROGRESS_STATUS_MEMO").val();
+		var A_AMOUNT = $("#A_AMOUNT").val();
+		var A_STATUS = $("#A_STATUS").val();
+		var B_TYPE = $("#B_TYPE").val();
+		var B_AMOUNT = $("#B_AMOUNT").val();
+		var A_INVOICE_DELI_DATE = $("#A_INVOICE_DELI_DATE").val();
+		var A_INVOICE_DATE = $("#A_INVOICE_DATE").val();
+		var A_INVOICE_NO = $("#A_INVOICE_NO").val();
+		var A_SET_DATE = $("#A_SET_DATE").val();
+		var B_INVOICE_DELI_DATE = $("#B_INVOICE_DELI_DATE").val();
+		var B_INVOICE_DATE = $("#B_INVOICE_DATE").val();
+		var B_INVOICE_NO = $("#B_INVOICE_NO").val();
+		var B_SET_DATE = $("#B_SET_DATE").val();
+		var RESERVE1 = $("#RESERVE1").val();
+		var RESERVE2 = $("#RESERVE2").val();
+		var s="";
+		if(CNTRCT_NO != CNTRCT_NO_OLD) { s += "合同编号\n"; }
+		if(CNTRCT_NM != CNTRCT_NM_OLD) { s += "合同简称\n"; }
+		if(REPORT_NO != REPORT_NO_OLD) { s += "报告文号\n"; }
+		if(PROJECT_MANAGER != PROJECT_MANAGER_OLD) { s += "工程师\n"; }
+		if(PROJECT_NAME != PROJECT_NAME_OLD) { s += "项目名称\n"; }
+		/* if(AGENT_NO != AGENT_NO_OLD) { s += "委托公司代码\n"; }
+		if(AGENT_CO_NAME != AGENT_CO_NAME_OLD) { s += "委托公司名称\n"; }
+		if(AGENT_CO_MANAGER != AGENT_CO_MANAGER_OLD) { s += "委托公司负责人\n"; }
+		if(AGENT_CO_MANAGER_TEL != AGENT_CO_MANAGER_TEL_OLD) { s += "委托公司负责人电话\n"; }
+		if(AGENT_CO_POST_ADDRESS != AGENT_CO_POST_ADDRESS_OLD) { s += "委托公司快递地址\n"; }
+		if(AGENT_CO_MAIL != AGENT_CO_MAIL_OLD) { s += "委托公负责人司邮箱\n"; }
+		if(PROF_NO != PROF_NO_OLD) { s += "专业公司代码\n"; }
+		if(PROF_CO_NAME != PROF_CO_NAME_OLD) { s += "专业公司名称\n"; }
+		if(PROF_CO_MANAGER != PROF_CO_MANAGER_OLD) { s += "专业公司负责人\n"; }
+		if(PROF_CO_MANAGER_TEL != PROF_CO_MANAGER_TEL_OLD) { s += "专业公司负责人电话\n"; }
+		if(PROF_CO_POST_ADDRESS != PROF_CO_POST_ADDRESS_OLD) { s += "专业公司地址\n"; }
+		if(PROF_CO_MAIL != PROF_CO_MAIL_OLD) { s += "专业公司邮箱\n"; }
+		if(CONTRACT_CO_NO != CONTRACT_CO_NO_OLD) { s += "承包公司代码\n"; }
+		if(CONTRACT_CO_NAME != CONTRACT_CO_NAME_OLD) { s += "承包公司名称\n"; }
+		if(CONTRACT_CO_MANAGER != CONTRACT_CO_MANAGER_OLD) { s += "承包公司负责人\n"; }
+		if(CONTRACT_CO_MANAGER_TEL != CONTRACT_CO_MANAGER_TEL_OLD) { s += "承包公司负责人电话\n"; }
+		if(CONTRACT_CO_POST_ADDRESS != CONTRACT_CO_POST_ADDRESS_OLD) { s += "承包公司快递地址\n"; }
+		if(CONTRACT_CO_MAIL != CONTRACT_CO_MAIL_OLD) { s += "承包公司负责人邮箱\n"; } */
+		if(DOC_REC_DATE != DOC_REC_DATE_OLD) { s += "资料收到日期\n"; }
+		if(PROGRESS_STATUS != PROGRESS_STATUS_OLD) { s += "实施情况\n"; }
+		if(PRE_SET != PRE_SET_OLD) { s += "预/结算\n"; }
+		if(PRE_PRICE != PRE_PRICE_OLD) { s += "预算金额\n"; }
+		if(SUPPORT_DOC_DATE != SUPPORT_DOC_DATE_OLD) { s += "补充资料日期\n"; }
+		if(DRAFT_DATE != DRAFT_DATE_OLD) { s += "初稿日期\n"; }
+		if(APPROVAL_SND_DATE != APPROVAL_SND_DATE_OLD) { s += "审定单发出日期\n"; }
+		if(APPROVAL_RCV_DATE != APPROVAL_RCV_DATE_OLD) { s += "审定单收到日期\n"; }
+		if(DELI_NO != DELI_NO_OLD) { s += "快递单号\n"; }
+		if(REPORT_RAISE_DATE != REPORT_RAISE_DATE_OLD) { s += "报告出具日期\n"; }
+		if(REPORT_SEAL_DATE != REPORT_SEAL_DATE_OLD) { s += "报告敲章日期\n"; }
+		if(REPORT_ARR_TYPE != REPORT_ARR_TYPE_OLD) { s += "报告送达方式\n"; }
+		if(REPORT_ARR_DATE != REPORT_ARR_DATE_OLD) { s += "报告送达日期\n"; }
+		if(REG_DATE != REG_DATE_OLD) { s += "入档日期\n"; }
+		if(AGENT_INFO != AGENT_INFO_OLD) { s += "委托方专业联系人及联系方式\n"; }
+		if(CONTRACT_CO_ID != CONTRACT_CO_ID_OLD) { s += "承揽单位\n"; }
+		if(CONTRACT_CO_INFO != CONTRACT_CO_INFO_OLD) { s += "承揽单位联系人及联系方式\n"; }
+		if(VERIFY_PER_AMOUNT != VERIFY_PER_AMOUNT_OLD) { s += "送审价\n"; }
+		if(VERIFY_AMOUNT != VERIFY_AMOUNT_OLD) { s += "审核价\n"; }
+		if(VERIFY_INCREASE != VERIFY_INCREASE_OLD) { s += "核增额\n"; }
+		if(VERIFY_DECREASE != VERIFY_DECREASE_OLD) { s += "核减额\n"; }
+		if(VERIFY_DIFF != VERIFY_DIFF_OLD) { s += "净核减额\n"; }
+		if(VERIFY_DIFF_RATE != VERIFY_DIFF_RATE_OLD) { s += "净核减率\n"; }
+		if(CNT_PRICE != CNT_PRICE_OLD) { s += "控制价金额\n"; }
+		if(PROJ_PRICE != PROJ_PRICE_OLD) { s += "立项金额\n"; }
+		if(LIMIT_PRICE != LIMIT_PRICE_OLD) { s += "限价金额\n"; }
+		if(CNTRCT_PRICE != CNTRCT_PRICE_OLD) { s += "合同金额\n"; }
+		if(PLAN_DOC_RCV_DATE != PLAN_DOC_RCV_DATE_OLD) { s += "资料收到时间（立项阶段）\n"; }
+		if(PLAN_DOC_RPT_DATE != PLAN_DOC_RPT_DATE_OLD) { s += "立项报告时间（立项阶段）\n"; }
+		if(PLAN_DOC_SND_TYPE != PLAN_DOC_SND_TYPE_OLD) { s += "报告送达方式（立项阶段）\n"; }
+		if(PLAN_DOC_ARR_DATE != PLAN_DOC_ARR_DATE_OLD) { s += "报告送达日期（立项阶段）\n"; }
+		if(BID_DOC_RCV_DATE != BID_DOC_RCV_DATE_OLD) { s += "资料收到时间（招标阶段）\n"; }
+		if(BID_DOC_RPT_DATE != BID_DOC_RPT_DATE_OLD) { s += "限价报告时间（招标阶段）\n"; }
+		if(BID_DOC_SND_TYPE != BID_DOC_SND_TYPE_OLD) { s += "报告送达方式（招标阶段）\n"; }
+		if(BID_DOC_ARR_DATE != BID_DOC_ARR_DATE_OLD) { s += "报告送达日期（招标阶段）\n"; }
+		if(SIGN_DOC_RCV_DATE != SIGN_DOC_RCV_DATE_OLD) { s += "资料收到时间（合同签订阶段）\n"; }
+		if(SIGN_DOC_RPT_DATE != SIGN_DOC_RPT_DATE_OLD) { s += "合同审核报告时间（合同签订阶段)\n"; }
+		if(SIGN_DOC_SND_TYPE != SIGN_DOC_SND_TYPE_OLD) { s += "报告送达方式（合同签订阶段)\n"; }
+		if(SIGN_DOC_ARR_DATE != SIGN_DOC_ARR_DATE_OLD) { s += "报告送达日期（合同签订阶段)\n"; }
+		if(SET_DOC_RCV_DATE != SET_DOC_RCV_DATE_OLD) { s += "资料收到时间（结算阶段）\n"; }
+		if(SET_DOC_RPT_DATE != SET_DOC_RPT_DATE_OLD) { s += "结算报告出具时间（结算阶段）\n"; }
+		if(SET_DOC_SND_TYPE != SET_DOC_SND_TYPE_OLD) { s += "报告送达方式（结算阶段）\n"; }
+		if(SET_DOC_ARR_DATE != SET_DOC_ARR_DATE_OLD) { s += "报告送达日期（结算阶段）\n"; }
+		if(PROGRESS_STATUS_MEMO != PROGRESS_STATUS_MEMO_OLD) { s += "项目大致进度简述\n"; }
+		if(A_AMOUNT != A_AMOUNT_OLD) { s += "甲方收费\n"; }
+		if(A_STATUS != A_STATUS_OLD) { s += "收费状态\n"; }
+		if(B_TYPE != B_TYPE_OLD) { s += "乙方收费方式\n"; }
+		if(B_AMOUNT != B_AMOUNT_OLD) { s += "乙方收费\n"; }
+		if(A_INVOICE_DELI_DATE != A_INVOICE_DELI_DATE_OLD) { s += "甲方发票流转单日期\n"; }
+		if(A_INVOICE_DATE != A_INVOICE_DATE_OLD) { s += "甲方开票日期\n"; }
+		if(A_INVOICE_NO != A_INVOICE_NO_OLD) { s += "甲方发票号\n"; }
+		if(A_SET_DATE != A_SET_DATE_OLD) { s += "甲方到账日期\n"; }
+		if(B_INVOICE_DELI_DATE != B_INVOICE_DELI_DATE_OLD) { s += "乙方发票流转单日期\n"; }
+		if(B_INVOICE_DATE != B_INVOICE_DATE_OLD) { s += "乙方开票日期\n"; }
+		if(B_INVOICE_NO != B_INVOICE_NO_OLD) { s += "乙方发票号\n"; }
+		if(B_SET_DATE != B_SET_DATE_OLD) { s += "乙方到账日期\n"; }
+		if(RESERVE1 != RESERVE1_OLD) { s += "委托内容\n"; }
+		if(RESERVE2 != RESERVE2_OLD) { s += "曾用名\n"; }
+		return s;
 	}
 	
 	function setAuditValue() {
@@ -142,22 +396,16 @@
 		$("#AGENT_CO_MANAGER").attr("value", $("#agentCoManager").val());
 		$("#AGENT_CO_MANAGER_TEL").attr("value", $("#agentCoManagerTel").val());
 		$("#AGENT_CO_POST_ADDRESS").attr("value", $("#agentCoPostAddress").val());
-		var agent_mail_pr = $("#agent_mail_pr").val();
-		var agent_mail_suffix = $("#agent_mail_suffix").val();
-		if(agent_mail_pr != "" || agent_mail_suffix != "") {
-			$("#AGENT_CO_MAIL").attr("value", agent_mail_pr + "@" + agent_mail_suffix);
-		} else {
-			$("#AGENT_CO_MAIL").attr("value", "");
-		}
+		$("#AGENT_CO_MAIL").attr("value", $("#agentCoMail").val());
 		$("#AGENT_INFO").attr("value", $("#agentInfo").val());
 		
 		//专业公司
-		$("#PROF_NO").attr("value", $("#profNo").val());
-		$("#PROF_CO_NAME").attr("value", $("#profCoName").val());
-		$("#PROF_CO_MANAGER").attr("value", $("#profCoManager").val());
-		$("#PROF_CO_MANAGER_TEL").attr("value", $("#profCoManagerTel").val());
-		$("#PROF_CO_POST_ADDRESS").attr("value", $("#profCoPostAddress").val());
-		$("#PROF_CO_MAIL").attr("value", $("#profCoMail").val());
+		//$("#PROF_NO").attr("value", $("#profNo").val());
+		//$("#PROF_CO_NAME").attr("value", $("#profCoName").val());
+		//$("#PROF_CO_MANAGER").attr("value", $("#profCoManager").val());
+		//$("#PROF_CO_MANAGER_TEL").attr("value", $("#profCoManagerTel").val());
+		//$("#PROF_CO_POST_ADDRESS").attr("value", $("#profCoPostAddress").val());
+		//$("#PROF_CO_MAIL").attr("value", $("#profCoMail").val());
 		
 		//承包公司
 		$("#CONTRACT_CO_NO").attr("value", $("#contractCoNo").val());
@@ -208,11 +456,11 @@
 		//自动计算：净核减和核减
 		calcVERIFY_DIFF();
 	}
-	
-	//对数字类型的，为空时设为0
+
+	//对decimal类型的，为空时设为0.00
 	function setDefaultValue(id) {
 		if($("#" + id).val() == "") {
-			$("#" + id).prop("value", "0");
+			$("#" + id).prop("value", "0.00");
 		}
 	}
 	
@@ -561,7 +809,11 @@
 		tmp = tmp.toFixed(2);
 		//净核减=送审金额 - 审定金额
 		$("#VERIFY_DIFF").attr("value", tmp);
-		//$("#verifyDiff").attr("value", tmp);
+		//净核减率=净核减/送审金额
+		if(isReal2(VERIFY_PER_AMOUNT)) {
+			tmp2 = tmp / parseFloat(VERIFY_PER_AMOUNT);
+		}
+		$("#VERIFY_DIFF_RATE").attr("value", tmp2);
 		//计算核减
 		calcVERIFY_DECREASE();
 	}
@@ -582,7 +834,6 @@
 		tmp = tmp.toFixed(2);
 		//核减=净核减  + 核增
 		$("#VERIFY_DECREASE").attr("value", tmp);
-		//$("#verifyDecrease").attr("value", tmp);
 	}
 	
 	function goAuditList() {
@@ -591,7 +842,8 @@
 	
 	function exportAudit() {
 		var CNTRCT_TYPE = $("#CNTRCT_TYPE").val();
-		if(CNTRCT_TYPE==1){
+		alert(CNTRCT_TYPE);
+		if(CNTRCT_TYPE == 1){
 			document.mainform.action = '<c:url value="/audit/exportAuditMetroAction.action"></c:url>';
 		} else {
 			document.mainform.action = '<c:url value="/audit/exportAuditNoMetroAction.action"></c:url>';
@@ -685,7 +937,91 @@
 					<s:hidden name="updAuditDto.CONTRACT_CO_ID" id="CONTRACT_CO_ID"/>
 					<s:hidden name="updAuditDto.CONTRACT_CO_INFO" id="CONTRACT_CO_INFO"/>
 					<s:hidden name="updAuditDto.RESERVE1" id="RESERVE1"/>
-					<h3 class="title"><label for="" class="col-lg-2 form-label">审价项目新增</label></h3>
+					<s:hidden name="auditCntrctDto.CNTRCT_TYPE" id="CNTRCT_TYPE"/>
+					
+					<s:hidden name="updAuditDtoOld.CNTRCT_NO" id="CNTRCT_NO_OLD"/>
+					<s:hidden name="updAuditDtoOld.CNTRCT_NM" id="CNTRCT_NM_OLD"/>
+					<s:hidden name="updAuditDtoOld.REPORT_NO" id="REPORT_NO_OLD"/>
+					<s:hidden name="updAuditDtoOld.PROJECT_MANAGER" id="PROJECT_MANAGER_OLD"/>
+					<s:hidden name="updAuditDtoOld.PROJECT_NAME" id="PROJECT_NAME_OLD"/>
+					<s:hidden name="updAuditDtoOld.AGENT_NO" id="AGENT_NO_OLD"/>
+					<s:hidden name="updAuditDtoOld.AGENT_CO_NAME" id="AGENT_CO_NAME_OLD"/>
+					<s:hidden name="updAuditDtoOld.AGENT_CO_MANAGER" id="AGENT_CO_MANAGER_OLD"/>
+					<s:hidden name="updAuditDtoOld.AGENT_CO_MANAGER_TEL" id="AGENT_CO_MANAGER_TEL_OLD"/>
+					<s:hidden name="updAuditDtoOld.AGENT_CO_POST_ADDRESS" id="AGENT_CO_POST_ADDRESS_OLD"/>
+					<s:hidden name="updAuditDtoOld.AGENT_CO_MAIL" id="AGENT_CO_MAIL_OLD"/>
+					<s:hidden name="updAuditDtoOld.PROF_NO" id="PROF_NO_OLD"/>
+					<s:hidden name="updAuditDtoOld.PROF_CO_NAME" id="PROF_CO_NAME_OLD"/>
+					<s:hidden name="updAuditDtoOld.PROF_CO_MANAGER" id="PROF_CO_MANAGER_OLD"/>
+					<s:hidden name="updAuditDtoOld.PROF_CO_MANAGER_TEL" id="PROF_CO_MANAGER_TEL_OLD"/>
+					<s:hidden name="updAuditDtoOld.PROF_CO_POST_ADDRESS" id="PROF_CO_POST_ADDRESS_OLD"/>
+					<s:hidden name="updAuditDtoOld.PROF_CO_MAIL" id="PROF_CO_MAIL_OLD"/>
+					<s:hidden name="updAuditDtoOld.CONTRACT_CO_NO" id="CONTRACT_CO_NO_OLD"/>
+					<s:hidden name="updAuditDtoOld.CONTRACT_CO_NAME" id="CONTRACT_CO_NAME_OLD"/>
+					<s:hidden name="updAuditDtoOld.CONTRACT_CO_MANAGER" id="CONTRACT_CO_MANAGER_OLD"/>
+					<s:hidden name="updAuditDtoOld.CONTRACT_CO_MANAGER_TEL" id="CONTRACT_CO_MANAGER_TEL_OLD"/>
+					<s:hidden name="updAuditDtoOld.CONTRACT_CO_POST_ADDRESS" id="CONTRACT_CO_POST_ADDRESS_OLD"/>
+					<s:hidden name="updAuditDtoOld.CONTRACT_CO_MAIL" id="CONTRACT_CO_MAIL_OLD"/>
+					<s:hidden name="updAuditDtoOld.DOC_REC_DATE" id="DOC_REC_DATE_OLD"/>
+					<s:hidden name="updAuditDtoOld.PROGRESS_STATUS" id="PROGRESS_STATUS_OLD"/>
+					<s:hidden name="updAuditDtoOld.PRE_SET" id="PRE_SET_OLD"/>
+					<s:hidden name="updAuditDtoOld.PRE_PRICE" id="PRE_PRICE_OLD"/>
+					<s:hidden name="updAuditDtoOld.SUPPORT_DOC_DATE" id="SUPPORT_DOC_DATE_OLD"/>
+					<s:hidden name="updAuditDtoOld.DRAFT_DATE" id="DRAFT_DATE_OLD"/>
+					<s:hidden name="updAuditDtoOld.APPROVAL_SND_DATE" id="APPROVAL_SND_DATE_OLD"/>
+					<s:hidden name="updAuditDtoOld.APPROVAL_RCV_DATE" id="APPROVAL_RCV_DATE_OLD"/>
+					<s:hidden name="updAuditDtoOld.DELI_NO" id="DELI_NO_OLD"/>
+					<s:hidden name="updAuditDtoOld.REPORT_RAISE_DATE" id="REPORT_RAISE_DATE_OLD"/>
+					<s:hidden name="updAuditDtoOld.REPORT_SEAL_DATE" id="REPORT_SEAL_DATE_OLD"/>
+					<s:hidden name="updAuditDtoOld.REPORT_ARR_TYPE" id="REPORT_ARR_TYPE_OLD"/>
+					<s:hidden name="updAuditDtoOld.REPORT_ARR_DATE" id="REPORT_ARR_DATE_OLD"/>
+					<s:hidden name="updAuditDtoOld.REG_DATE" id="REG_DATE_OLD"/>
+					<s:hidden name="updAuditDtoOld.AGENT_INFO" id="AGENT_INFO_OLD"/>
+					<s:hidden name="updAuditDtoOld.CONTRACT_CO_ID" id="CONTRACT_CO_ID_OLD"/>
+					<s:hidden name="updAuditDtoOld.CONTRACT_CO_INFO" id="CONTRACT_CO_INFO_OLD"/>
+					<s:hidden name="updAuditDtoOld.VERIFY_PER_AMOUNT" id="VERIFY_PER_AMOUNT_OLD"/>
+					<s:hidden name="updAuditDtoOld.VERIFY_AMOUNT" id="VERIFY_AMOUNT_OLD"/>
+					<s:hidden name="updAuditDtoOld.VERIFY_INCREASE" id="VERIFY_INCREASE_OLD"/>
+					<s:hidden name="updAuditDtoOld.VERIFY_DECREASE" id="VERIFY_DECREASE_OLD"/>
+					<s:hidden name="updAuditDtoOld.VERIFY_DIFF" id="VERIFY_DIFF_OLD"/>
+					<s:hidden name="updAuditDtoOld.VERIFY_DIFF_RATE" id="VERIFY_DIFF_RATE_OLD"/>
+					<s:hidden name="updAuditDtoOld.CNT_PRICE" id="CNT_PRICE_OLD"/>
+					<s:hidden name="updAuditDtoOld.PROJ_PRICE" id="PROJ_PRICE_OLD"/>
+					<s:hidden name="updAuditDtoOld.LIMIT_PRICE" id="LIMIT_PRICE_OLD"/>
+					<s:hidden name="updAuditDtoOld.CNTRCT_PRICE" id="CNTRCT_PRICE_OLD"/>
+					<s:hidden name="updAuditDtoOld.PLAN_DOC_RCV_DATE" id="PLAN_DOC_RCV_DATE_OLD"/>
+					<s:hidden name="updAuditDtoOld.PLAN_DOC_RPT_DATE" id="PLAN_DOC_RPT_DATE_OLD"/>
+					<s:hidden name="updAuditDtoOld.PLAN_DOC_SND_TYPE" id="PLAN_DOC_SND_TYPE_OLD"/>
+					<s:hidden name="updAuditDtoOld.PLAN_DOC_ARR_DATE" id="PLAN_DOC_ARR_DATE_OLD"/>
+					<s:hidden name="updAuditDtoOld.BID_DOC_RCV_DATE" id="BID_DOC_RCV_DATE_OLD"/>
+					<s:hidden name="updAuditDtoOld.BID_DOC_RPT_DATE" id="BID_DOC_RPT_DATE_OLD"/>
+					<s:hidden name="updAuditDtoOld.BID_DOC_SND_TYPE" id="BID_DOC_SND_TYPE_OLD"/>
+					<s:hidden name="updAuditDtoOld.BID_DOC_ARR_DATE" id="BID_DOC_ARR_DATE_OLD"/>
+					<s:hidden name="updAuditDtoOld.SIGN_DOC_RCV_DATE" id="SIGN_DOC_RCV_DATE_OLD"/>
+					<s:hidden name="updAuditDtoOld.SIGN_DOC_RPT_DATE" id="SIGN_DOC_RPT_DATE_OLD"/>
+					<s:hidden name="updAuditDtoOld.SIGN_DOC_SND_TYPE" id="SIGN_DOC_SND_TYPE_OLD"/>
+					<s:hidden name="updAuditDtoOld.SIGN_DOC_ARR_DATE" id="SIGN_DOC_ARR_DATE_OLD"/>
+					<s:hidden name="updAuditDtoOld.SET_DOC_RCV_DATE" id="SET_DOC_RCV_DATE_OLD"/>
+					<s:hidden name="updAuditDtoOld.SET_DOC_RPT_DATE" id="SET_DOC_RPT_DATE_OLD"/>
+					<s:hidden name="updAuditDtoOld.SET_DOC_SND_TYPE" id="SET_DOC_SND_TYPE_OLD"/>
+					<s:hidden name="updAuditDtoOld.SET_DOC_ARR_DATE" id="SET_DOC_ARR_DATE_OLD"/>
+					<s:hidden name="updAuditDtoOld.PROGRESS_STATUS_MEMO" id="PROGRESS_STATUS_MEMO_OLD"/>
+					<s:hidden name="updAuditDtoOld.A_AMOUNT" id="A_AMOUNT_OLD"/>
+					<s:hidden name="updAuditDtoOld.A_STATUS" id="A_STATUS_OLD"/>
+					<s:hidden name="updAuditDtoOld.B_TYPE" id="B_TYPE_OLD"/>
+					<s:hidden name="updAuditDtoOld.B_AMOUNT" id="B_AMOUNT_OLD"/>
+					<s:hidden name="updAuditDtoOld.A_INVOICE_DELI_DATE" id="A_INVOICE_DELI_DATE_OLD"/>
+					<s:hidden name="updAuditDtoOld.A_INVOICE_DATE" id="A_INVOICE_DATE_OLD"/>
+					<s:hidden name="updAuditDtoOld.A_INVOICE_NO" id="A_INVOICE_NO_OLD"/>
+					<s:hidden name="updAuditDtoOld.A_SET_DATE" id="A_SET_DATE_OLD"/>
+					<s:hidden name="updAuditDtoOld.B_INVOICE_DELI_DATE" id="B_INVOICE_DELI_DATE_OLD"/>
+					<s:hidden name="updAuditDtoOld.B_INVOICE_DATE" id="B_INVOICE_DATE_OLD"/>
+					<s:hidden name="updAuditDtoOld.B_INVOICE_NO" id="B_INVOICE_NO_OLD"/>
+					<s:hidden name="updAuditDtoOld.B_SET_DATE" id="B_SET_DATE_OLD"/>
+					<s:hidden name="updAuditDtoOld.RESERVE1" id="RESERVE1_OLD"/>
+					<s:hidden name="updAuditDtoOld.RESERVE2" id="RESERVE2_OLD"/>
+					
+					<h3 class="title"><label for="" class="col-lg-2 form-label">审价项目更新</label></h3>
 					<div class="row">
 						<div class="col-lg-12 form-group">
 							<label for="" class="col-lg-2 form-label">合同归属</label>
@@ -710,13 +1046,13 @@
 							<label for="" class="col-lg-1 form-label">合同性质</label>
 							<div class="col-lg-2">
 								<s:if test='auditCntrctDto.CNTRCT_TYPE == "1"'>
-									<s:textfield name="" id="CNTRCT_TYPE" value="地铁" disabled="true" cssClass="form-control" maxlength="40" theme="simple"></s:textfield>
+									<s:textfield name="CNTRCT_TYPE" id="" value="地铁" disabled="true" cssClass="form-control" maxlength="40" theme="simple"></s:textfield>
 								</s:if>
 								<s:elseif test='auditCntrctDto.CNTRCT_TYPE == "2"'>
-									<s:textfield name="" id="CNTRCT_TYPE" value="非地铁" disabled="true" cssClass="form-control" maxlength="40" theme="simple"></s:textfield>
+									<s:textfield name="CNTRCT_TYPE" id="" value="非地铁" disabled="true" cssClass="form-control" maxlength="40" theme="simple"></s:textfield>
 								</s:elseif>
 								<s:else>
-									<s:textfield name="" id="CNTRCT_TYPE" value="" disabled="true" cssClass="form-control" maxlength="40" theme="simple"></s:textfield>
+									<s:textfield name="CNTRCT_TYPE" id="" value="" disabled="true" cssClass="form-control" maxlength="40" theme="simple"></s:textfield>
 								</s:else>
 							</div>
 						</div>
@@ -837,7 +1173,7 @@
 							<div class="col-lg-2">
 								<select name="updAuditDto.PROJECT_MANAGER" id="PROJECT_MANAGER" class="form-control">
 									<s:iterator id="listUserInfo" value="listUserInfo" status="st1">
-										<option value="<s:property value="LOGIN_NAME"/>" <s:if test="%{updAuditDto.PPROJECT_MANAGER == LOGIN_NAME}">selected</s:if>><s:property value="LOGIN_NAME"/></option>
+										<option value="<s:property value="LOGIN_NAME"/>" <s:if test="%{updAuditDto.PROJECT_MANAGER == LOGIN_NAME}">selected</s:if>><s:property value="LOGIN_NAME"/></option>
 									</s:iterator>
 								</select>
 							</div>
@@ -854,13 +1190,13 @@
 							</div>
 							<label for="" class="col-lg-1 form-label colorBlue">实施情况</label>
 							<div class="col-lg-2">
-								<select id="PROGRESS_STATUS" name="addAuditCntrctDto.PROGRESS_STATUS" class="form-control">
-									<s:if test='addAuditCntrctDto.PROGRESS_STATUS == "1"'>
+								<select id="PROGRESS_STATUS" name="updAuditDto.PROGRESS_STATUS" class="form-control">
+									<s:if test='updAuditDto.PROGRESS_STATUS == "1"'>
 										<option value="">请选择</option>
 										<option value="1" selected="selected">实施</option>
 										<option value="2">中止</option>
 									</s:if>
-									<s:elseif test='addAuditCntrctDto.PROGRESS_STATUS == "2"'>
+									<s:elseif test='updAuditDto.PROGRESS_STATUS == "2"'>
 										<option value="">请选择</option>
 										<option value="1">实施</option>
 										<option value="2" selected="selected">中止</option>
@@ -983,7 +1319,7 @@
 							</div>
 							<label for="" class="col-lg-1 form-label colorGray">报告送达方式</label>
 							<div class="col-lg-2">
-								<select id="REPORT_ARR_TYPE" name="updAuditDto.REPORT_ARR_TYPE" class="form-control" onclick="show();">
+								<select id="REPORT_ARR_TYPE" name="updAuditDto.REPORT_ARR_TYPE" class="form-control">
 									<s:if test='updAuditDto.REPORT_ARR_TYPE == "1"'>
 										<option value="">请选择</option>
 										<option value="1" selected="selected">快递</option>
@@ -1027,13 +1363,12 @@
 							<div class="col-lg-2"></div>
 							<label for="" class="col-lg-2 form-label colorGold">委托方专业联系人及联系方式</label>
 							<div class="col-lg-4">
-								<input type="hidden" id="agentNo" value=""/>
-								<input type="hidden" id="agentCoName" value=""/>
-								<input type="hidden" id="agentCoManager" value=""/>
-								<input type="hidden" id="agentCoManagerTel" value=""/>
-								<input type="hidden" id="agentCoPostAddress" value=""/>
-								<input type="hidden" id="agent_mail_pr" value=""/>
-								<input type="hidden" id="agent_mail_suffix" value=""/>
+								<input type="hidden" id="agentNo" value="<s:property value="updAuditDto.AGENT_NO"/>"/>
+								<input type="hidden" id="agentCoName" value="<s:property value="updAuditDto.AGENT_CO_NAME"/>"/>
+								<input type="hidden" id="agentCoManager" value="<s:property value="updAuditDto.AGENT_CO_MANAGER"/>"/>
+								<input type="hidden" id="agentCoManagerTel" value="<s:property value="updAuditDto.AGENT_CO_MANAGER_TEL"/>"/>
+								<input type="hidden" id="agentCoPostAddress" value="<s:property value="updAuditDto.AGENT_CO_POST_ADDRESS"/>"/>
+								<input type="hidden" id="agentCoMail" value="<s:property value="updAuditDto.AGENT_CO_MAIL"/>"/>
 								<s:textfield name="" id="agentInfo" disabled="true" cssClass="col-lg-10 form-control" value="%{updAuditDto.AGENT_INFO}" maxlength="200" theme="simple"></s:textfield>
 							</div>
 							<div class="col-lg-1">
@@ -1044,11 +1379,12 @@
 							<div class="col-lg-2"></div>
 							<label for="" class="col-lg-2 form-label colorGold">承揽单位联系人及联系方式</label>
 							<div class="col-lg-4">
-								<input type="hidden" id="contractCoNo" value=""/>
-								<input type="hidden" id="contractCoName" value=""/>
-								<input type="hidden" id="contractCoManager" value=""/>
-								<input type="hidden" id="contractCoManagerTel" value=""/>
-								<input type="hidden" id="contractCoPostAddress" value=""/>
+								<input type="hidden" id="contractCoNo" value="<s:property value="updAuditDto.CONTRACT_CO_NO"/>"/>
+								<input type="hidden" id="contractCoName" value="<s:property value="updAuditDto.CONTRACT_CO_NAME"/>"/>
+								<input type="hidden" id="contractCoManager" value="<s:property value="updAuditDto.CONTRACT_CO_MANAGER"/>"/>
+								<input type="hidden" id="contractCoManagerTel" value="<s:property value="updAuditDto.CONTRACT_CO_MANAGER_TEL"/>"/>
+								<input type="hidden" id="contractCoPostAddress" value="<s:property value="updAuditDto.CONTRACT_CO_POST_ADDRESS"/>"/>
+								<input type="hidden" id="contractCoMail" value="<s:property value="updAuditDto.CONTRACT_CO_MAIL"/>"/>
 								<s:textfield name="" id="contractCoInfo" disabled="true" cssClass="col-lg-10 form-control" value="%{updAuditDto.CONTRACT_CO_INFO}" maxlength="200" theme="simple"></s:textfield>
 							</div>
 							<div class="col-lg-1">
@@ -1282,15 +1618,6 @@
 									</div>
 								</div>
 							</div>
-							<label for="" class="col-lg-1 form-label colorGray">报告敲章日期</label>
-							<div class="col-lg-2">
-								<div class="input-group date" data-provide="datepicker">
-									<input type="text" class="form-control datepicker" readonly id="reportSealDate2" value="<s:date format="yyyy-MM-dd" name="updAuditDto.REPORT_SEAL_DATE"/>" maxlength="10" />
-									<div class="input-group-addon">
-										<span class="glyphicon glyphicon-th"></span>
-									</div>
-								</div>
-							</div>
 							<label for="" class="col-lg-1 form-label colorGold">报告出具时间</label>
 							<div class="col-lg-2">
 								<div class="input-group date" data-provide="datepicker">
@@ -1509,20 +1836,18 @@
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.zh-CN.min.js"></script>
 <script>
 	showByUserRank();
-	/* 
-	$('#agentNo').bind('input propertychange', function() {  
-		var agentCoManager = $('#agentCoManager').val();
-		var agentCoManagerTel = $('#agentCoManagerTel').val();
-		var agentCoPostAddress = $('#agentCoPostAddress').val();
-		var agent_mail_pr = $("#agent_mail_pr").val();
-		var agent_mail_suffix = $("#agent_mail_suffix").val();
-		var agent_mail = '';
-		if(agent_mail_pr != "" || agent_mail_suffix != "") {
-			agent_mail = agent_mail_pr + "@" + agent_mail_suffix;
-		}
-		var agent_info = agentCoManager + "/ " + agentCoManagerTel + "/ " + agentCoPostAddress + "/ " + agent_mail;
-	    $('#AGENT_INFO').val(agent_info);  
-	});  */
+	
+	showByCntrctInfo();
+	
+	$('#VERIFY_PER_AMOUNT').bind('input propertychange', function() {  
+		calcVERIFY_DIFF();
+	});
+	$('#VERIFY_AMOUNT').bind('input propertychange', function() {  
+		calcVERIFY_DIFF(); 
+	});
+	$('#VERIFY_INCREASE').bind('input propertychange', function() {  
+		calcVERIFY_DIFF(); 
+	});
 	
 	$('.datepicker').parent().datepicker({
 		"autoclose":true,"format":"yyyy-mm-dd","language":"zh-CN"

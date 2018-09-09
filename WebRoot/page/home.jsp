@@ -61,7 +61,7 @@
 	}
 	
 	function showBidCntrctAction() {
-		window.location.href = '<c:url value="/bidcntrct/showBidCntrcPage.action"></c:url>';
+		window.location.href = '<c:url value="/bidcntrct/showBidCntrctPage.action"></c:url>';
 	}
 	
 	function showBidAgentCostAction() {

@@ -52,12 +52,14 @@ public class BidServiceImpl extends BaseService implements BidService {
 	private ConfigTabDao configTabDao;
 	
 	@Override
-	public Page queryBidAndBidCntrctByPage(String CNTRCT_YEAR, String CNTRCT_NO, String BID_COMP_NO, String CNTRCT_NAME,
-			String CNTRCT_TYPE, String CNTRCT_ST_DATE, String CNTRCT_ED_DATE, Page page) {
+	public Page queryBidAndBidCntrctByPage(String PROJECT_NAME, String BID_NO_LOW, String BID_NO_HIGH,
+			String CNTRCT_YEAR, String CNTRCT_NO, String BID_COMP_NO, String CNTRCT_NAME, String CNTRCT_TYPE,
+			String CNTRCT_ST_DATE, String CNTRCT_ED_DATE, Page page) {
+		PROJECT_NAME = StringUtil.replaceDatabaseKeyword_mysql(PROJECT_NAME);
 		CNTRCT_NAME = StringUtil.replaceDatabaseKeyword_mysql(CNTRCT_NAME);
 		//查询总记录数
-		int totalCount = bidDao.queryBidAndBidCntrctCountByPage(CNTRCT_YEAR, CNTRCT_NO,
-				BID_COMP_NO, CNTRCT_NAME, CNTRCT_TYPE, CNTRCT_ST_DATE, CNTRCT_ED_DATE);
+		int totalCount = bidDao.queryBidAndBidCntrctCountByPage(PROJECT_NAME, BID_NO_LOW, BID_NO_HIGH,
+				CNTRCT_YEAR, CNTRCT_NO, BID_COMP_NO, CNTRCT_NAME, CNTRCT_TYPE, CNTRCT_ST_DATE, CNTRCT_ED_DATE);
 		page.setTotalCount(totalCount);
 		if(totalCount % page.getPageSize() > 0) {
 			page.setTotalPage(totalCount / page.getPageSize() + 1);
@@ -65,10 +67,19 @@ public class BidServiceImpl extends BaseService implements BidService {
 			page.setTotalPage(totalCount / page.getPageSize());
 		}
 		//翻页查询记录
-		List<BidDto> list = bidDao.queryBidAndBidCntrctByPage(CNTRCT_YEAR, CNTRCT_NO,
-				BID_COMP_NO, CNTRCT_NAME, CNTRCT_TYPE, CNTRCT_ST_DATE, CNTRCT_ED_DATE,
+		List<BidDto> list = bidDao.queryBidAndBidCntrctByPage(PROJECT_NAME, BID_NO_LOW, BID_NO_HIGH,
+				CNTRCT_YEAR, CNTRCT_NO, BID_COMP_NO, CNTRCT_NAME, CNTRCT_TYPE, CNTRCT_ST_DATE, CNTRCT_ED_DATE,
 				page.getStartIndex() * page.getPageSize(), page.getPageSize());
 		//查询各个合同对应的招标数量以及对应状态、金额等
+		if(list != null && list.size() > 0) {
+			for(BidDto bid : list) {
+				List<BidCompDto> bondList = new ArrayList<BidCompDto>();
+				BidCompDto bidComp = new BidCompDto();
+				bondList.add(bidComp);
+				bid.setBondBidCompList(bondList);
+			}
+		}
+		
 		page.setItems(list);
 		return page;
 	}

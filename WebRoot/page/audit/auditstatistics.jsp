@@ -8,7 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-<title>审计一览</title>
+<title>统计界面</title>
 <!-- Bootstrap -->
 <link href="<%=request.getContextPath()%>/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/node_modules/font-awesome/css/font-awesome.min.css">
@@ -166,76 +166,35 @@
 				<a class="toggle" href="javascript:;"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
 				<s:form id="mainform" name="mainform" method="POST">
 					<s:hidden name="startIndex" id="startIndex"/>
-					<s:hidden name="strCntrctStDate" id="strCntrctStDate"/>
-					<s:hidden name="strCntrctEdDate" id="strCntrctEdDate"/>
-					<h3 class="title">审计一览<a class="backHome" href="#" onclick="goHome();"><i class="fa fa-home" aria-hidden="true"></i>返回首页</a></h3>
+					<s:hidden name="strStartDate" id="strStartDate"/>
+					<s:hidden name="strEndDate" id="strEndDate"/>
+					<h3 class="title">统计界面<a class="backHome" href="#" onclick="goHome();"><i class="fa fa-home" aria-hidden="true"></i>返回首页</a></h3>
 					<div class="row">
 						<div class="col-lg-12 form-group">
-							<label for="" class="col-lg-1 form-label">合同归属</label>
+							<label for="" class="col-lg-1 form-label">工程师</label>
 							<div class="col-lg-2">
-								<select id="strCntrctBelong" name="strCntrctBelong" class="form-control">
-									<s:if test='strCntrctBelong == "1"'>
-										<option value="">请选择</option>
-										<option value="1" selected="selected">联合</option>
-										<option value="2">XX</option>
-									</s:if>
-									<s:elseif test='strCntrctBelong == "2"'>
-										<option value="">请选择</option>
-										<option value="1">联合</option>
-										<option value="2" selected="selected">XX</option>
-									</s:elseif>
-									<s:else>
-										<option value="" selected="selected">请选择</option>
-										<option value="1">联合</option>
-										<option value="2">XX</option>
-									</s:else>
-								</select>
-							</div>
-							<label for="" class="col-lg-1 form-label">合同编号</label>
-							<div class="col-lg-2">
-								<s:textfield name="strCntrctNO" id="strCntrctNO" cssClass="form-control" maxlength="20" theme="simple"></s:textfield>
-							</div>
-							<label for="" class="col-lg-1 form-label">合同性质</label>
-							<div class="col-lg-2">
-								<select id="strCntrctType" name="strCntrctType" class="form-control">
-									<s:if test='strCntrctType == "1"'>
-										<option value="">请选择</option>
-										<option value="1" selected="selected">地铁</option>
-										<option value="2">非地铁</option>
-									</s:if>
-									<s:elseif test='strCntrctType == "2"'>
-										<option value="">请选择</option>
-										<option value="1">地铁</option>
-										<option value="2" selected="selected">非地铁</option>
-									</s:elseif>
-									<s:else>
-										<option value="" selected="selected">请选择</option>
-										<option value="1">地铁</option>
-										<option value="2">非地铁</option>
-									</s:else>
+								<select name="addAuditDto.PROJECT_MANAGER" id="PROJECT_MANAGER" class="form-control">
+									<s:iterator id="listUserInfo" value="listUserInfo" status="st1">
+										<option value="<s:property value="LOGIN_NAME"/>" <s:if test="%{addAuditDto.PPROJECT_MANAGER == LOGIN_NAME}">selected</s:if>><s:property value="LOGIN_NAME"/></option>
+									</s:iterator>
 								</select>
 							</div>
 						</div>
 						<div class="col-lg-12 form-group">
-							<label for="" class="col-lg-1 form-label">合同名称</label>
-							<div class="col-lg-5">
-								<s:textfield name="strCntrctName" id="strCntrctName" cssClass="form-control" maxlength="40" theme="simple"></s:textfield>
-							</div>
-						</div>
-						<div class="col-lg-12 form-group">
-							<label for="" class="col-lg-1 form-label">合同开始时间</label>
+							<label for="" class="col-lg-1 form-label">开始时间</label>
 							<div class="col-lg-2">
 								<div class="input-group date" data-provide="datepicker">
-									<input type="text" class="form-control datepicker" readonly id="cntrctStDate" value="<s:property value="strCntrctStDate"/>" maxlength="10" />
+									<input type="text" class="form-control datepicker" readonly id="startDate" value="<s:property value="strStartDate"/>" maxlength="10" />
 									<div class="input-group-addon">
 										<span class="glyphicon glyphicon-th"></span>
 									</div>
 								</div>
 							</div>
-							<label for="" class="col-lg-1 form-label">合同完成时间</label>
+							<label for="" class="col-lg-1 form-label to">-</label>
+							<label for="" class="col-lg-1 form-label">终了时间</label>
 							<div class="col-lg-2">
 								<div class="input-group date" data-provide="datepicker">
-									<input type="text" class="form-control datepicker" readonly id="cntrctEdDate" value="<s:property value="strCntrctEdDate"/>" maxlength="10" />
+									<input type="text" class="form-control datepicker" readonly id="endDate" value="<s:property value="strEndDate"/>" maxlength="10" />
 									<div class="input-group-addon">
 										<span class="glyphicon glyphicon-th"></span>
 									</div>
@@ -247,68 +206,96 @@
 							</div>
 						</div>
 					</div>
-					<div class="btns">
-						<ul>
-							<li><a href="#" onclick="add();"><i class="fa fa-plus" aria-hidden="true"></i>新增</a></li>
-							<li><a href="#" onclick="upd();"><i class="fa fa-pencil" aria-hidden="true"></i>修改</a>
-							<li><a href="#" onclick="del();"><i class="fa fa-trash" aria-hidden="true"></i>删除</a></li>
-						</ul>
-					</div>
 					<table class="table table-bordered">
 						<tr>
-							<th></th>
-							<th>合同归属</th>
-							<th>合同编号</th>
-							<th>合同名称</th>
-							<th>合同简称</th>
-							<th>合同性质</th>
-							<th>负责工程师</th>
-							<th>委托单位</th>
-							<th>联系人及联系方式</th>
-							<th>合同开始时间</th>
-							<th>合同完成时间</th>
-							<th>委托内容</th>
-							<th>委托方收费</th>
+							<td width="300">委托任务：审价</td>
+							<td width="100">承担个数</td>
+							<td></td>
 						</tr>
-						<s:iterator id="listAuditCntrct" value="listAuditCntrct" status="st1">
-							<tr>
-								<td><input name="radioKey" type="radio" value="<s:property value="CNTRCT_NO"/>"/></td>
-								<td align="center">
-									<s:if test='CNTRCT_BELONG == "1"'>
-										联合
-									</s:if>
-									<s:elseif test='CNTRCT_BELONG == "2"'>
-										XX
-									</s:elseif>
-									<s:else>
-										<s:property value="CNTRCT_BELONG"/>
-									</s:else>
-								</td>
-								<td><s:property value="CNTRCT_NO"/></td>
-								<td align="center"><s:property value="CNTRCT_NAME"/></td>
-								<td align="center"><s:property value="CNTRCT_NM"/></td>
-								<td align="center">
-									<s:if test='CNTRCT_TYPE == "1"'>
-										地铁
-									</s:if>
-									<s:elseif test='CNTRCT_TYPE == "2"'>
-										非地铁
-									</s:elseif>
-									<s:else>
-										<s:property value="CNTRCT_TYPE"/>
-									</s:else>
-								</td>
-								<td align="center"><s:property value="PROJECT_SENIOR_MANAGER"/></td>
-								<td align="center"><s:property value="AUDIT_COMP_NAME"/></td>
-								<td align="center"><s:property value="CO_MANAGER_ADDRESS1"/></td>
-								<td align="center"><s:date name="CNTRCT_ST_DATE" format="yyyy/MM/dd" /></td>
-								<td align="center"><s:date name="CNTRCT_ED_DATE" format="yyyy/MM/dd" /></td>
-								<td align="center"><s:property value="CNTRCT_INFO"/></td>
-								<td align="center"><s:property value="CNTRCT_TOTAL_AMOUNT"/></td>
-							</tr>
-						</s:iterator>
+						<tr>
+							<td>未完成个数</td>
+							<td colspan="2"><s:property value=""/></td>
+						</tr>
+						<tr>
+							<td>未完成审核（5天以上）</td>
+							<td colspan="2"><s:property value=""/></td>
+						</tr>
+						<tr>
+							<td>未收到审定单（21天以上）</td>
+							<td colspan="2"><s:property value=""/></td>
+						</tr>
+						<tr>
+							<td>未出具审价报告（1天以上）</td>
+							<td colspan="2"><s:property value=""/></td>
+						</tr>
+						<tr>
+							<td>未开票（30天以上）</td>
+							<td colspan="2"><s:property value=""/></td>
+						</tr>
+						<tr>
+							<td>未收款（30天以上）</td>
+							<td colspan="2"><s:property value=""/></td>
+						</tr>
+						<tr>
+							<td>未归档（60天以上）</td>
+							<td colspan="2"><s:property value=""/></td>
+						</tr>
+						<tr>
+							<td>表格未填完整</td>
+							<td colspan="2"><s:property value=""/></td>
+						</tr>
 					</table>
-					<jsp:include page="../turning.jsp" flush="true" />
+					<table class="table table-bordered">
+						<tr>
+							<td width="300">委托任务：咨询项目</td>
+							<td width="100">承担个数</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>未完成个数</td>
+							<td colspan="2"><s:property value=""/></td>
+						</tr>
+						<tr>
+							<td>未完成审核（5天以上）</td>
+							<td colspan="2"><s:property value=""/></td>
+						</tr>
+						<tr>
+							<td>未归档（60天以上）</td>
+							<td colspan="2"><s:property value=""/></td>
+						</tr>
+						<tr>
+							<td>表格未填完整</td>
+							<td colspan="2"><s:property value=""/></td>
+						</tr>
+					</table>
+					<table class="table table-bordered">
+						<tr>
+							<td width="300">委托任务：控制价编制项目</td>
+							<td width="100">承担个数</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td>未完成个数</td>
+							<td colspan="2"><s:property value=""/></td>
+						</tr>
+						<tr>
+							<td>未完成审核（7天以上）</td>
+							<td colspan="2"><s:property value=""/></td>
+						</tr>
+						<tr>
+							<td>未归档（60天以上）</td>
+							<td colspan="2"><s:property value=""/></td>
+						</tr>
+						<tr>
+							<td>表格未填完整</td>
+							<td colspan="2"><s:property value=""/></td>
+						</tr>
+					</table>
+					<table class="table table-bordered">
+						<tr>
+							<td>注："实施情况"为"中止"，一概不统计</td>
+						</tr>
+					</table>
 				</s:form>
 			</div>
 		</div>
@@ -326,6 +313,8 @@
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.min.js"></script>
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.zh-CN.min.js"></script>
 <script>
+$(function () { $('#collapseThree').collapse('toggle')});
+$(function () { $('#collapseOne').collapse('toggle')});
 	$('.datepicker').parent().datepicker({
 		"autoclose":true,"format":"yyyy-mm-dd","language":"zh-CN"
 	});

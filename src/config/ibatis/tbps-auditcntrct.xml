@@ -94,11 +94,11 @@
 		<isNotEmpty prepend="and" property="CNTRCT_NAME">
 			T.CNTRCT_NAME like '%$CNTRCT_NAME$%'
 		</isNotEmpty>
-		<isNotEmpty prepend="and" property="CNTRCT_ST_DATE_LOW">
-			T.CNTRCT_ST_DATE <![CDATA[>=]]> #CNTRCT_ST_DATE_LOW#
+		<isNotEmpty prepend="and" property="CNTRCT_ST_DATE">
+			T.CNTRCT_ST_DATE <![CDATA[>=]]> #CNTRCT_ST_DATE#
 		</isNotEmpty>
-		<isNotEmpty prepend="and" property="CNTRCT_ST_DATE_HIGH">
-			T.CNTRCT_ST_DATE <![CDATA[<=]]> #CNTRCT_ST_DATE_HIGH#
+		<isNotEmpty prepend="and" property="CNTRCT_ED_DATE">
+			T.CNTRCT_ED_DATE <![CDATA[<=]]> #CNTRCT_ED_DATE#
 		</isNotEmpty>
 	</select>
 	
@@ -117,11 +117,11 @@
 		<isNotEmpty prepend="and" property="CNTRCT_NAME">
 			T.CNTRCT_NAME like '%$CNTRCT_NAME$%'
 		</isNotEmpty>
-		<isNotEmpty prepend="and" property="CNTRCT_ST_DATE_LOW">
-			T.CNTRCT_ST_DATE <![CDATA[>=]]> #CNTRCT_ST_DATE_LOW#
+		<isNotEmpty prepend="and" property="CNTRCT_ST_DATE">
+			T.CNTRCT_ST_DATE <![CDATA[>=]]> #CNTRCT_ST_DATE#
 		</isNotEmpty>
-		<isNotEmpty prepend="and" property="CNTRCT_ST_DATE_HIGH">
-			T.CNTRCT_ST_DATE <![CDATA[<=]]> #CNTRCT_ST_DATE_HIGH#
+		<isNotEmpty prepend="and" property="CNTRCT_ED_DATE">
+			T.CNTRCT_ED_DATE <![CDATA[<=]]> #CNTRCT_ED_DATE#
 		</isNotEmpty>
 		order by CNTRCT_NO desc
 		LIMIT #start#, #end#

@@ -6,25 +6,46 @@
 
 	<package name="bidcntrct" extends="struts-tbps" namespace="/bidcntrct">
 	
-		<action name="showBidCntrcPage" class="bidCntrctAction" method="showBidCntrcPage">
+		<action name="showSelectBidCntrctPage" class="bidCntrctAction" method="showSelectBidCntrctPage">
+			<result name="success">/page/bidcntrct/selectbidcntrctlist.jsp</result>
+		</action>
+		
+		<action name="querySelectBidCntrctList" class="bidCntrctAction" method="querySelectBidCntrctList">
+			<result name="success">/page/bidcntrct/selectbidcntrctlist.jsp</result>
+		</action>
+		
+		<action name="turnSelectBidCntrctPage" class="bidCntrctAction" method="turnSelectBidCntrctPage">
+			<result name="success">/page/bidcntrct/selectbidcntrctlist.jsp</result>
+		</action>
+	
+		<action name="showBidCntrctPage" class="bidCntrctAction" method="showBidCntrctPage">
 			<result name="success">/page/bidcntrct/bidcntrctlist.jsp</result>
 		</action>
 		
-		<action name="queryBidCntrcList" class="bidCntrctAction" method="queryBidCntrcList">
+		<action name="queryBidCntrctList" class="bidCntrctAction" method="queryBidCntrctList">
 			<result name="success">/page/bidcntrct/bidcntrctlist.jsp</result>
 		</action>
 		
-		<action name="turnBidCntrcPage" class="bidCntrctAction" method="turnBidCntrcPage">
+		<action name="turnBidCntrctPage" class="bidCntrctAction" method="turnBidCntrctPage">
 			<result name="success">/page/bidcntrct/bidcntrctlist.jsp</result>
 		</action>
 		
-		<action name="showAddBidCntrc" class="bidCntrctAction" method="showAddBidCntrc">
+		<action name="showAddBidCntrct" class="bidCntrctAction" method="showAddBidCntrct">
 			<result name="success">/page/bidcntrct/addbidcntrct.jsp</result>
 		</action>
 		
-		<action name="addBidCntrc" class="bidCntrctAction" method="addBidCntrc">
+		<action name="addBidCntrct" class="bidCntrctAction" method="addBidCntrct">
 			<result name="success">/page/bidcntrct/addbidcntrct.jsp</result>
 			<result name="checkerror">/page/bidcntrct/addbidcntrct.jsp</result>
+		</action>
+		
+		<action name="showUpdBidCntrct" class="bidCntrctAction" method="showUpdBidCntrct">
+			<result name="success">/page/bidcntrct/updbidcntrct.jsp</result>
+		</action>
+		
+		<action name="updBidCntrct" class="bidCntrctAction" method="updBidCntrct">
+			<result name="success">/page/bidcntrct/updbidcntrct.jsp</result>
+			<result name="checkerror">/page/bidcntrct/updbidcntrct.jsp</result>
 		</action>
 		
 	</package>

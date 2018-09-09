@@ -45,7 +45,7 @@ h3.title a.backHome i.fa{ margin-right: 5px; font-size: 16px; }
 .steps li.active a,.steps li:hover a{ background: #516f89; color:#fff; }
 .btn3{ width:212px; }
 .panel-group{ margin:15px -15px 20px -10px;}
-.panel-default>.panel-heading{background:#516f89; paddtoing:0; height: 34px;}
+.panel-default>.panel-heading{background:#516f89; padding:0; height: 34px;}
 .panel-title{ width:100%; height: 100%; }
 .panel-title>a{ width:100%; height: 100%; display: block; text-decoration: none; color:#fff; line-height: 34px; padding:0 15px;}
 .panel-body{ padding:10px; }
@@ -54,14 +54,20 @@ h3.title a.backHome i.fa{ margin-right: 5px; font-size: 16px; }
 .right{ position: relative; }
 .toggle{ position: absolute; left:5px; top:15px; font-size: 18px; }
 .w100{ width:100%; }
-.colorGold{ background-color: #FFF0AC; }
-.colorGray{ background-color: #DCDCDC; }
-.colorBlue{ background-color: #ACD6FF; }
-
-.pages{ float:right; padding-top:10px;}
+.pages{ float:right; margin-bottom: 20px;}
 .pages ul{ margin:0; padding:0;}
 .pages ul li{ float:left; height:24px; line-height:24px;}
+.pages ul li.go{ padding:0 15px; }
+.pages ul li input{ height: 24px; vertical-align: middle;}
+.pages ul li input.btn{ padding: 0 15px;}
 .pages ul li a{ display:block; border:1px solid #ddd; line-height:24px; padding:0 10px;color:#438BCA;}
 .pages ul li a:hover{ background:#4B6A86; color:#fff;}
 .pages ul li a.last{ color:#ccc;}
 .pages ul li a.last:hover{ color:#ccc; background:none;}
+.operationBtns{ margin-bottom: 20px; }
+.gotoPage{ float: right; margin-right: 15px; }
+.gotoPage label{ font-weight: normal; line-height: 34px;}
+.gotoPage label.info{ margin-right: 15px; }
+.gotoPage .num{ width:50px; height: 34px; border:1px solid #ccc;}
+.modal label{ padding-right: 0; }
+.table td a{ margin:0 10px; }
