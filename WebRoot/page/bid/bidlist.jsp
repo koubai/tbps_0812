@@ -83,20 +83,6 @@
 		}
 	}
 	
-	//设置投标状态
-	function setBidStatus() {
-		var bidstatus = "";
-		var list = document.getElementsByName("bidStatus");
-		for(var i = 1; i < list.length + 1; i++) {
-			if(list[i - 1].checked) {
-				bidstatus += "" + i;
-			} else {
-				bidstatus += "0";
-			}
-		}
-		$("#strBidStatus").attr("value", bidstatus);
-	}
-	
 	function showHis() {
 		var id = getSelectedID();
 		if(id == "") {
@@ -134,7 +120,6 @@
 	function setOpenDate() {
 		$("#strOpenDateLow").attr("value", $("#openDateLow").val());
 		$("#strOpenDateHigh").attr("value", $("#openDateHigh").val());
-		setBidStatus();
 	}
 
 	function queryList() {
@@ -225,11 +210,7 @@
 			 	<a class="toggle" href="javascript:;"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
 				<s:form id="mainform" name="mainform" method="POST">
 					<s:hidden name="startIndex" id="startIndex"/>
-					<s:hidden name="strOpenDateLow" id="strOpenDateLow"/>
-					<s:hidden name="strOpenDateHigh" id="strOpenDateHigh"/>
-					<s:hidden name="strBidStatus" id="strBidStatus"/>
 					<s:hidden name="updateBidNo" id="updateBidNo"/>
-					<s:hidden name="tmpBidStatus" id="tmpBidStatus"/>
 					<h3 class="title">招标项目检索和一览<a class="backHome" href="#" onclick="goHome();"><i class="fa fa-home" aria-hidden="true"></i>返回首页</a></h3>
 					<div class="row">
 						<div class="col-lg-6 form-group">
@@ -245,7 +226,7 @@
 						<div class="col-lg-3 form-group">
 							<label for="" class="col-lg-3 form-label">项目名称</label>
 							<div class="col-lg-9">
-								<s:textfield name="strPROJECT_NAME" id="strPROJECT_NAME" cssClass="form-control" maxlength="30" theme="simple"></s:textfield>
+								<s:textfield name="strProjectName" id="strProjectName" cssClass="form-control" maxlength="30" theme="simple"></s:textfield>
 							</div>
 						</div>
 						<div class="col-lg-2 form-group">
@@ -254,9 +235,9 @@
 					</div>
 					<div class="btns">
 						<ul>
-							<li><a href="#" onclick="add();"><i class="fa fa-plus" aria-hidden="true"></i>新增</a></li>
-							<li><a href="#" onclick="upd();"><i class="fa fa-pencil" aria-hidden="true"></i>修改</a></li>
-							<li><a href="#" onclick="del();"><i class="fa fa-trash" aria-hidden="true"></i>删除</a></li>
+							<li><a href="javascript:;" onclick="add();"><i class="fa fa-plus" aria-hidden="true"></i>新增</a></li>
+							<li><a href="javascript:;" onclick="upd();"><i class="fa fa-pencil" aria-hidden="true"></i>修改</a></li>
+							<li><a href="javascript:;" onclick="del();"><i class="fa fa-trash" aria-hidden="true"></i>删除</a></li>
 						</ul>
 					</div>
 					<table class="table table-bordered">

@@ -490,53 +490,53 @@
 	</rule>
 	
 	<rule>
-		<from>^/showbidcntrcpage.shtml$</from>
-		<to>/bidcntrct/showBidCntrcPage.action</to>
+		<from>^/showbidcntrctpage.shtml$</from>
+		<to>/bidcntrct/showBidCntrctPage.action</to>
 	</rule>
 	
 	<rule>
-		<from>^/querybidcntrclist.shtml$</from>
-		<to>/bidcntrct/queryBidCntrcList.action</to>
+		<from>^/querybidcntrctlist.shtml$</from>
+		<to>/bidcntrct/queryBidCntrctList.action</to>
 	</rule>
 	
 	<rule>
-		<from>^/turnbidcntrcpage.shtml$</from>
-		<to>/bidcntrct/turnBidCntrcPage.action</to>
+		<from>^/turnbidcntrctpage.shtml$</from>
+		<to>/bidcntrct/turnBidCntrctPage.action</to>
 	</rule>
 	
 	<rule>
-		<from>^/addbidcntrc.shtml$</from>
-		<to>/bidcntrct/addBidCntrc.action</to>
+		<from>^/addbidcntrct.shtml$</from>
+		<to>/bidcntrct/addBidCntrct.action</to>
 	</rule>
 	
 	<rule>
-		<from>^/showaddbidcntrc.shtml$</from>
-		<to>/bidcntrct/showAddBidCntrc.action</to>
+		<from>^/showaddbidcntrct.shtml$</from>
+		<to>/bidcntrct/showAddBidCntrct.action</to>
 	</rule>
 	
 	<outbound-rule>
-		<from>/bidcntrct/showAddBidCntrc.action$</from>
-		<to>/showaddbidcntrc.shtml</to>
+		<from>/bidcntrct/showAddBidCntrct.action$</from>
+		<to>/showaddbidcntrct.shtml</to>
 	</outbound-rule>
 	
 	<outbound-rule>
-		<from>/bidcntrct/addBidCntrc.action$</from>
-		<to>/addbidcntrc.shtml</to>
+		<from>/bidcntrct/addBidCntrct.action$</from>
+		<to>/addbidcntrct.shtml</to>
 	</outbound-rule>
 	
 	<outbound-rule>
-		<from>/bidcntrct/turnBidCntrcPage.action$</from>
-		<to>/turnbidcntrcpage.shtml</to>
+		<from>/bidcntrct/turnBidCntrctPage.action$</from>
+		<to>/turnbidcntrctpage.shtml</to>
 	</outbound-rule>
 	
 	<outbound-rule>
-		<from>/bidcntrct/queryBidCntrcList.action$</from>
-		<to>/querybidcntrclist.shtml</to>
+		<from>/bidcntrct/queryBidCntrctList.action$</from>
+		<to>/querybidcntrctlist.shtml</to>
 	</outbound-rule>
 	
 	<outbound-rule>
-		<from>/bidcntrct/showBidCntrcPage.action$</from>
-		<to>/showbidcntrcpage.shtml</to>
+		<from>/bidcntrct/showBidCntrctPage.action$</from>
+		<to>/showbidcntrctpage.shtml</to>
 	</outbound-rule>
 	
 	<outbound-rule>

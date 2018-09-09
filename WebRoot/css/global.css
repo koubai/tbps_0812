@@ -69,3 +69,5 @@ h3.title a.backHome i.fa{ margin-right: 5px; font-size: 16px; }
 .gotoPage label{ font-weight: normal; line-height: 34px;}
 .gotoPage label.info{ margin-right: 15px; }
 .gotoPage .num{ width:50px; height: 34px; border:1px solid #ccc;}
+.modal label{ padding-right: 0; }
+.table td a{ margin:0 10px; }
