@@ -120,6 +120,16 @@
 	</rule>
 	
 	<rule>
+		<from>^/showbidprogressutil.shtml$</from>
+		<to>/bidprogress/showBidProgressUtilAction.action</to>
+	</rule>
+	
+	<rule>
+		<from>^/uploadbidprogressutil.shtml$</from>
+		<to>/bidprogress/uploadBidProgressUtilAction.action</to>
+	</rule>
+	
+	<rule>
 		<from>^/querybid.shtml$</from>
 		<to>/bid/queryBidList.action</to>
 	</rule>
@@ -917,6 +927,16 @@
 	<outbound-rule>
 		<from>/bidprogress/showBidProgressAction.action$</from>
 		<to>/showbidprogress.shtml</to>
+	</outbound-rule>
+
+	<outbound-rule>
+		<from>/bidprogress/showBidProgressUtilAction.action$</from>
+		<to>/showbidprogressutil.shtml</to>
+	</outbound-rule>
+	
+	<outbound-rule>
+		<from>/bidprogress/uploadBidProgressUtilAction.action$</from>
+		<to>/uploadbidprogressutil.shtml</to>
 	</outbound-rule>
 	
 	<outbound-rule>
