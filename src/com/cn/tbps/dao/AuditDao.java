@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cn.tbps.dto.AuditDto;
 import com.cn.tbps.dto.AuditHistDto;
+import com.cn.tbps.dto.AuditStatisticsDto;
 
 /**
  * @name AuditDao.java
@@ -74,7 +75,7 @@ public interface AuditDao {
 	 * @param endDate
 	 * @return
 	 */
-	public List<AuditDto> queryAuditStatistics(String projectManager, String startDate, String endDate);
+	public AuditStatisticsDto queryAuditStatistics(String projectManager, String startDate, String endDate);
 	
 	/**
 	 * 到账统计

@@ -17,6 +17,7 @@ import com.cn.tbps.dto.AuditCntrctDto;
 import com.cn.tbps.dto.AuditCompDto;
 import com.cn.tbps.dto.AuditDto;
 import com.cn.tbps.dto.AuditHistDto;
+import com.cn.tbps.dto.AuditStatisticsDto;
 import com.cn.tbps.dto.UserInfoDto;
 import com.cn.tbps.service.AuditCntrctService;
 import com.cn.tbps.service.AuditCompService;
@@ -216,6 +217,7 @@ public class AuditAction extends BaseAction {
 	
 	private String strStartDate;
 	private String strEndDate;
+	private AuditStatisticsDto auditStatistics;
 	
 	
 	//审价履历
@@ -796,7 +798,7 @@ public class AuditAction extends BaseAction {
 			strProjectManager = "";
 			strStartDate = "";
 			strEndDate = "";
-			listAudit = new ArrayList<AuditDto>();
+			auditStatistics = new AuditStatisticsDto();
 			
 			listUserInfo = userInfoService.queryAllUser();
 			UserInfoDto userinfo = new UserInfoDto();
@@ -816,8 +818,8 @@ public class AuditAction extends BaseAction {
 	public String queryAuditStatistics() {
 		try {
 			this.clearMessages();
-			listAudit = new ArrayList<AuditDto>();
-			listAudit = auditService.queryAuditStatistics(strProjectManager, strStartDate, strEndDate);
+			auditStatistics = new AuditStatisticsDto();
+			auditStatistics = auditService.queryAuditStatistics(strProjectManager, strStartDate, strEndDate);
 		} catch(Exception e) {
 			log.error(e);
 			return ERROR;
@@ -1306,6 +1308,14 @@ public class AuditAction extends BaseAction {
 
 	public void setStrEndDate(String strEndDate) {
 		this.strEndDate = strEndDate;
+	}
+
+	public AuditStatisticsDto getAuditStatistics() {
+		return auditStatistics;
+	}
+
+	public void setAuditStatistics(AuditStatisticsDto auditStatistics) {
+		this.auditStatistics = auditStatistics;
 	}
 
 }

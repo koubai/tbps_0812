@@ -11,6 +11,7 @@
 <title>统计界面</title>
 <!-- Bootstrap -->
 <link href="<%=request.getContextPath()%>/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/node_modules/bootstrap/dist/css/bootstrap-select.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/node_modules/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/global.css">
@@ -23,71 +24,6 @@
 <![endif]-->
 <script type="text/javascript">
 	
-	function add() {
-		document.mainform.action = '<c:url value="/auditcntrct/showAddAuditCntrctAction.action"></c:url>';
-		document.mainform.submit();
-	}
-	
-	function upd() {
-		var id = getSelectedID();
-		if(id == "") {
-			alert("请选择一条记录！");
-			return;
-		} else {
-			var url = '<c:url value="/auditcntrct/showUpdAuditCntrctAction.action"></c:url>' + "?updAuditCntrctNo=" + id;
-			document.mainform.action = url;
-			document.mainform.submit();
-		}
-	}
-	
-	function del() {
-		var id = getSelectedID();
-		if(id == "") {
-			alert("请选择一条记录！");
-			return;
-		} else {
-			if(confirm("确定删除该记录吗？")) {
-				setQueryDate();
-				document.mainform.action = '<c:url value="/auditcntrct/delAuditCntrctAction.action"></c:url>' + "?delAuditCntrctNo=" + id;
-				document.mainform.submit();
-			}
-		}
-	}
-	
-	function showHis() {
-		var id = getSelectedID();
-		if(id == "") {
-			alert("请选择一条记录！");
-			return;
-		} else {
-			var url = '<c:url value="/audit/showAllAuditCntrctHisAction.action"></c:url>' + "?strAuditCntrctNoHist=" + id + "&date=" + new Date();
-			window.showModalDialog(url, window, "dialogheight:500px;dialogwidth:1000px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
-		}
-	}
-	
-	function showAuditCntrctDetail() {
-		var id = getSelectedID();
-		if(id == "") {
-			alert("请选择一条记录！");
-			return;
-		} else {
-			var url = '<c:url value="/audit/showAuditCntrctDetail.action"></c:url>' + "?detailAuditNo=" + id + "&date=" + new Date();
-			window.showModalDialog(url, window, "dialogheight:600px;dialogwidth:1024px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
-		}
-	}
-	
-	function getSelectedID() {
-		var id = "";
-		var list = document.getElementsByName("radioKey");
-		for(var i = 0; i < list.length; i++) {
-			if(list[i].checked) {
-				id = list[i].value;
-				break;
-			}
-		}
-		return id;
-	}
-	
 	function setQueryDate() {
 		$("#strCntrctStDate").attr("value", $("#cntrctStDate").val());
 		$("#strCntrctEdDate").attr("value", $("#cntrctEdDate").val());
@@ -95,7 +31,7 @@
 
 	function queryList() {
 		setQueryDate();
-		document.mainform.action = '<c:url value="/auditcntrct/queryAuditCntrctList.action"></c:url>';
+		document.mainform.action = '<c:url value="/audit/queryAuditStatistics.action"></c:url>';
 		document.mainform.submit();
 	}
 
@@ -173,7 +109,7 @@
 						<div class="col-lg-12 form-group">
 							<label for="" class="col-lg-1 form-label">工程师</label>
 							<div class="col-lg-2">
-								<select name="addAuditDto.PROJECT_MANAGER" id="PROJECT_MANAGER" class="form-control">
+								<select multiple id="strProjectManager" class="selectpicker form-control">
 									<s:iterator id="listUserInfo" value="listUserInfo" status="st1">
 										<option value="<s:property value="LOGIN_NAME"/>" <s:if test="%{addAuditDto.PPROJECT_MANAGER == LOGIN_NAME}">selected</s:if>><s:property value="LOGIN_NAME"/></option>
 									</s:iterator>
@@ -208,92 +144,126 @@
 					</div>
 					<table class="table table-bordered">
 						<tr>
-							<td width="300">委托任务：审价</td>
-							<td width="100">承担个数</td>
+							<td>委托内容</td>
+							<td>工程师</td>
+							<td>时间</td>
+							<td>新增个数</td>
+							<s:iterator id="listAuditCntrctNM" value="auditStatistics.listAuditCntrctNM" status="st1">
+								<td><s:property /></td>
+							</s:iterator>
+						</tr>
+						<s:iterator id="listAudit1" value="auditStatistics.listAudit1">
+						<tr>
+							<td width="100">审价</td>
+							<td><s:property value="PROJECT_MANAGER"/></td>
+							<td><s:property value="DOC_REC_DATE"/></td>
+							<td><s:property value="MONTH_ALL_COUNT"/></td>
+							<s:iterator id="auditCount" value="listAuditCount">
+								<td><s:property value="CNTRCT_NM_COUNT"/></td>
+							</s:iterator>
+						</tr>
+						</s:iterator>
+						<tr>
+							<td width="100"></td>
 							<td></td>
-						</tr>
-						<tr>
-							<td>未完成个数</td>
-							<td colspan="2"><s:property value=""/></td>
-						</tr>
-						<tr>
-							<td>未完成审核（5天以上）</td>
-							<td colspan="2"><s:property value=""/></td>
-						</tr>
-						<tr>
-							<td>未收到审定单（21天以上）</td>
-							<td colspan="2"><s:property value=""/></td>
-						</tr>
-						<tr>
-							<td>未出具审价报告（1天以上）</td>
-							<td colspan="2"><s:property value=""/></td>
-						</tr>
-						<tr>
-							<td>未开票（30天以上）</td>
-							<td colspan="2"><s:property value=""/></td>
-						</tr>
-						<tr>
-							<td>未收款（30天以上）</td>
-							<td colspan="2"><s:property value=""/></td>
-						</tr>
-						<tr>
-							<td>未归档（60天以上）</td>
-							<td colspan="2"><s:property value=""/></td>
-						</tr>
-						<tr>
-							<td>表格未填完整</td>
-							<td colspan="2"><s:property value=""/></td>
+							<td>合计</td>
+							<td><s:property value="auditStatistics.count1.allCount"/></td>
+							<s:iterator id="count" value="auditStatistics.count1.listCount">
+								<td><s:property value="CNTRCT_NM_COUNT"/></td>
+							</s:iterator>
 						</tr>
 					</table>
 					<table class="table table-bordered">
 						<tr>
-							<td width="300">委托任务：咨询项目</td>
-							<td width="100">承担个数</td>
+							<td>委托内容</td>
+							<td>工程师</td>
+							<td>时间</td>
+							<td>新增个数</td>
+							<s:iterator id="listAuditCntrctNM" value="auditStatistics.listAuditCntrctNM" status="st1">
+								<td><s:property /></td>
+							</s:iterator>
+						</tr>
+						<s:iterator id="listAudit2" value="auditStatistics.listAudit2">
+						<tr>
+							<td width="100">咨询</td>
+							<td><s:property value="PROJECT_MANAGER"/></td>
+							<td><s:property value="DOC_REC_DATE"/></td>
+							<td><s:property value="MONTH_ALL_COUNT"/></td>
+							<s:iterator id="auditCount" value="listAuditCount">
+								<td><s:property value="CNTRCT_NM_COUNT"/></td>
+							</s:iterator>
+						</tr>
+						</s:iterator>
+						<tr>
+							<td width="100"></td>
 							<td></td>
-						</tr>
-						<tr>
-							<td>未完成个数</td>
-							<td colspan="2"><s:property value=""/></td>
-						</tr>
-						<tr>
-							<td>未完成审核（5天以上）</td>
-							<td colspan="2"><s:property value=""/></td>
-						</tr>
-						<tr>
-							<td>未归档（60天以上）</td>
-							<td colspan="2"><s:property value=""/></td>
-						</tr>
-						<tr>
-							<td>表格未填完整</td>
-							<td colspan="2"><s:property value=""/></td>
+							<td>合计</td>
+							<td><s:property value="auditStatistics.count2.allCount"/></td>
+							<s:iterator id="count" value="auditStatistics.count2.listCount">
+								<td><s:property value="CNTRCT_NM_COUNT"/></td>
+							</s:iterator>
 						</tr>
 					</table>
 					<table class="table table-bordered">
 						<tr>
-							<td width="300">委托任务：控制价编制项目</td>
-							<td width="100">承担个数</td>
+							<td>委托内容</td>
+							<td>工程师</td>
+							<td>时间</td>
+							<td>新增个数</td>
+							<s:iterator id="listAuditCntrctNM" value="auditStatistics.listAuditCntrctNM" status="st1">
+								<td><s:property /></td>
+							</s:iterator>
+						</tr>
+						<s:iterator id="listAudit4" value="auditStatistics.listAudit4">
+						<tr>
+							<td width="100">控制价编制</td>
+							<td><s:property value="PROJECT_MANAGER"/></td>
+							<td><s:property value="DOC_REC_DATE"/></td>
+							<td><s:property value="MONTH_ALL_COUNT"/></td>
+							<s:iterator id="auditCount" value="listAuditCount">
+								<td><s:property value="CNTRCT_NM_COUNT"/></td>
+							</s:iterator>
+						</tr>
+						</s:iterator>
+						<tr>
+							<td width="100"></td>
 							<td></td>
-						</tr>
-						<tr>
-							<td>未完成个数</td>
-							<td colspan="2"><s:property value=""/></td>
-						</tr>
-						<tr>
-							<td>未完成审核（7天以上）</td>
-							<td colspan="2"><s:property value=""/></td>
-						</tr>
-						<tr>
-							<td>未归档（60天以上）</td>
-							<td colspan="2"><s:property value=""/></td>
-						</tr>
-						<tr>
-							<td>表格未填完整</td>
-							<td colspan="2"><s:property value=""/></td>
+							<td>合计</td>
+							<td><s:property value="auditStatistics.count4.allCount"/></td>
+							<s:iterator id="count" value="auditStatistics.count4.listCount">
+								<td><s:property value="CNTRCT_NM_COUNT"/></td>
+							</s:iterator>
 						</tr>
 					</table>
 					<table class="table table-bordered">
 						<tr>
-							<td>注："实施情况"为"中止"，一概不统计</td>
+							<td>委托内容</td>
+							<td>工程师</td>
+							<td>时间</td>
+							<td>新增个数</td>
+							<s:iterator id="listAuditCntrctNM" value="auditStatistics.listAuditCntrctNM" status="st1">
+								<td><s:property /></td>
+							</s:iterator>
+						</tr>
+						<tr>
+						<s:iterator id="listAudit5" value="auditStatistics.listAudit5">
+							<td width="100">投资监理</td>
+							<td><s:property value="PROJECT_MANAGER"/></td>
+							<td><s:property value="DOC_REC_DATE"/></td>
+							<td><s:property value="MONTH_ALL_COUNT"/></td>
+							<s:iterator id="auditCount" value="listAuditCount">
+								<td><s:property value="CNTRCT_NM_COUNT"/></td>
+							</s:iterator>
+						</tr>
+						</s:iterator>
+						<tr>
+							<td width="100"></td>
+							<td></td>
+							<td>合计</td>
+							<td><s:property value="auditStatistics.count5.allCount"/></td>
+							<s:iterator id="count" value="auditStatistics.count5.listCount">
+								<td><s:property value="CNTRCT_NM_COUNT"/></td>
+							</s:iterator>
 						</tr>
 					</table>
 				</s:form>
@@ -310,6 +280,7 @@
 <script src="<%=request.getContextPath()%>/node_modules/jquery/dist/jquery.min.js"></script>
 <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="<%=request.getContextPath()%>/node_modules/bootstrap/dist/js/bootstrap-select.min.js"></script>
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.min.js"></script>
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.zh-CN.min.js"></script>
 <script>
