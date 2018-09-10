@@ -24,6 +24,7 @@ public class BidProgressAction extends BaseAction {
 	private String Date1;
 	private String Member1;
 	private String uploadFile;   //上传文件
+	private String UTIL_TYP;     //ProgressUtil window type
 
 	private String Status0101;   //新项目登记
 	private String Status0102;   //招标公告发布
@@ -1119,5 +1120,12 @@ public class BidProgressAction extends BaseAction {
 		this.uploadFile = uploadFile;
 	}
 
+	public String getUTIL_TYP() {
+		return UTIL_TYP;
+	}
+
+	public void setUTIL_TYP(String uTIL_TYP) {
+		UTIL_TYP = uTIL_TYP;
+	}
 
 }

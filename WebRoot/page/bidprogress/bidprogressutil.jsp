@@ -64,7 +64,7 @@
 </script>
 </head>
 <body>
-	<div class="container-fluid">
+	<div class="container-fluid1">
 		<div class="row">
 		<s:if test="hasActionMessages()">
 			<div class="row">
@@ -98,6 +98,7 @@
 								<td>
 								</td>
 							</tr>
+							<s:if test='UTIL_TYP == "2" || UTIL_TYP == "3"'>
 							<tr>
 								<td>
 								<div class="col-lg-8 form-group">
@@ -113,6 +114,8 @@
 								<td>
 								</td>
 							</tr>
+							</s:if>								
+							<s:if test='UTIL_TYP == "3"'>
 							<tr>
 								<td>
 								<div class="col-lg-7 form-group">
@@ -203,6 +206,7 @@
 								</div>						
 							</td>
 						</tr>
+						</s:if>								
 						<tr>
 							<td>
 							<div class="col-lg-8 form-group">
