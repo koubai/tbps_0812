@@ -9,7 +9,15 @@
 		<action name="showBidProgressAction" class="bidProgressAction" method="showBidProgressAction">
 			<result name="success">/page/bidprogress/bidprogress.jsp</result>
 		</action>
-				
+		<action name="showBidProgressUtilAction" class="bidProgressAction" method="showBidProgressUtilAction">
+			<result name="success">/page/bidprogress/bidprogressutil.jsp</result>
+		</action>
+		<action name="saveBidProgressUtilAction" class="bidProgressAction" method="saveBidProgressUtilAction">
+			<result name="success">/page/bidprogress/bidprogressutil.jsp</result>
+		</action>
+		<action name="uploadBidProgressUtilAction" class="bidProgressAction" method="uploadBidProgressUtilAction">
+			<result name="success">/page/bidprogress/bidprogressutil.jsp</result>
+		</action>
 	</package>
 
 </struts>

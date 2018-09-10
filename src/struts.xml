@@ -8,6 +8,11 @@
 
 	<constant name="struts.objectFactory" value="spring"/>
 	
+	<!-- 文件上传最大10M -->
+	<constant name="struts.multipart.maxSize" value="10240000"></constant>
+	
+	<constant name="struts.multipart.saveDir" value="/tmp"/>
+	
 	<!-- 登录 -->
 	<include file="struts-login.xml"/>
 	

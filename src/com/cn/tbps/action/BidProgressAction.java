@@ -1,21 +1,30 @@
 package com.cn.tbps.action;
 
+import java.io.File;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import com.cn.common.action.BaseAction;
+import com.cn.common.util.Constants;
+import com.cn.common.util.FileUtil;
+import com.cn.common.util.PropertiesConfig;
 import com.cn.tbps.dto.BidDto;
 import com.cn.tbps.service.BidService;
 
 public class BidProgressAction extends BaseAction {
 	
-	private static final long serialVersionUID = -2501840176312926947L;
+	private static final long serialVersionUID = -3978949083772586172L;
 
 	private static final Logger log = LogManager.getLogger(BidAction.class);
 	
 	private String strBID_NO;    //招标编号
 	private BidService bidService;
-	
+	private String BTN_NO; 	 //按钮编号
+	private String Date1;
+	private String Member1;
+	private String uploadFile;   //上传文件
+
 	private String Status0101;   //新项目登记
 	private String Status0102;   //招标公告发布
 	private String Status0103;   //发送答疑、补充文件
@@ -80,7 +89,15 @@ public class BidProgressAction extends BaseAction {
 	private String Status0806;
 	private String Status0807;
 	private String Status0808;
-	
+	private BidDto bidDto;
+
+	public BidDto getBidDto() {
+		return bidDto;
+	}
+
+	public void setBidDto(BidDto bidDto) {
+		this.bidDto = bidDto;
+	}
 
 	/**
 	 * 显示项目状态信息
@@ -91,10 +108,164 @@ public class BidProgressAction extends BaseAction {
 			System.out.println("showBidProgressAction");
 			System.out.println("招标编号：" + strBID_NO);
 			BidDto bidDto= new BidDto(); 
-			//bidDto = bidService.queryBidByID(strBID_NO);
+//			bidDto = bidService.queryBidByID(strBID_NO);
 			bidDto.setPROGRESS_STATUS("92000000000000000000000000000000000000000000000000");
 			if (bidDto != null){
 				setBidProgressStatus(bidDto);
+			}
+			this.clearMessages();
+		} catch(Exception e) {
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 显示项目状态信息
+	 * @return
+	 */
+	public String showBidProgressUtilAction() {
+		try {
+			Date1 = "";
+			Member1 = "";
+			System.out.println("showBidProgressUtilAction");
+			System.out.println("招标编号：" + strBID_NO);
+			System.out.println("按钮编号：" + BTN_NO);
+			this.clearMessages();
+		} catch(Exception e) {
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	
+	public String saveBidProgressUtilAction() throws Exception {
+		String strMember1 = new String(Member1.getBytes("iso-8859-1"),"utf-8");
+		System.out.println("saveBidProgressUtilAction");
+		System.out.println("招标编号：" + strBID_NO);
+		System.out.println("按钮编号：" + BTN_NO);
+		System.out.println("日期：" + Date1);
+		System.out.println("姓名：" + strMember1);
+		
+		return SUCCESS;
+		
+	}
+	
+	public String uploadBidProgressUtilAction() throws Exception {
+		System.out.println("uploadBidProgressUtilAction");
+		System.out.println("招标编号：" + strBID_NO);
+		System.out.println("按钮编号：" + BTN_NO);
+		System.out.println("日期：" + Date1);
+		System.out.println("姓名：" + Member1);
+		try {
+			this.clearMessages();
+			String filename = getUploadFile();
+			System.out.println("filename:"+ filename);
+			if (filename.equals(""))
+				return ERROR;
+
+	        //得到文件名
+			String file_path = PropertiesConfig.getPropertiesValueByKey(Constants.PROPERTIES_FILE_PATH);
+			System.out.println("file_path:"+ file_path);
+			File file = new File(filename);
+			System.out.println("filename:"+ filename);
+	        String fname=file.getName();        		
+	        System.out.println("fname:"+ fname);
+			String newfile = FileUtil.uploadFile(file, file_path, fname);
+		    File ff = new File(file_path + newfile);
+		    System.out.println("ff:"+ file_path + newfile);
+			
+			this.addActionMessage("文件上传成功！");
+		} catch(Exception e) {
+			System.out.println("uploadBidProgressUtilAction error:" + e);
+			return ERROR;
+		}	
+		return SUCCESS;
+	}
+	
+	
+	/**
+	 * 保存项目状态信息
+	 * @return
+	 */
+	public String saveBidProgress() {
+		try {
+			System.out.println("saveBidProgressAction");
+			System.out.println("招标编号：" + strBID_NO);
+			System.out.println("按钮编号：" + BTN_NO);
+			
+			String bidStatusInfo = "";
+			//新项目登记
+			bidStatusInfo += getStatus0101().substring(0,1);
+			//招标公告发布
+			bidStatusInfo += getStatus0102().substring(0,1);
+			//发送答疑、补充文件
+			bidStatusInfo += getStatus0103().substring(0,1);
+			//专家抽取、通知
+			bidStatusInfo += getStatus0104().substring(0,1);
+			//招投标文件送至甲方
+			bidStatusInfo += getStatus0105().substring(0,1);
+			//招标文件编制
+			bidStatusInfo += getStatus0201().substring(0,1);
+			//报名登记表编制
+			bidStatusInfo += getStatus0202().substring(0,1);
+			bidStatusInfo += getStatus0204().substring(0,1);
+			//专家费申请
+			bidStatusInfo += getStatus0204().substring(0,1);
+			//中标通知书签收
+			bidStatusInfo += getStatus0205().substring(0,1);
+			//统稿
+			bidStatusInfo += getStatus0301().substring(0,1);
+			//投标单位录入
+			bidStatusInfo += getStatus0302().substring(0,1);
+			bidStatusInfo += getStatus0303().substring(0,1);
+			//开标完成
+			bidStatusInfo += getStatus0304().substring(0,1);
+			//评标报告装订扫描
+			bidStatusInfo += getStatus0305().substring(0,1);
+			//招标公告、文件校对
+			bidStatusInfo += getStatus0401().substring(0,1);
+			//二次公告
+			bidStatusInfo += getStatus0402().substring(0,1);
+			bidStatusInfo += getStatus0403().substring(0,1);
+			//评标完成
+			bidStatusInfo += getStatus0404().substring(0,1);
+			//评标报告送至甲方
+			bidStatusInfo += getStatus0405().substring(0,1);
+			//招标文件定稿
+			bidStatusInfo += getStatus0501().substring(0,1);
+			//报名审核表编制
+			bidStatusInfo += getStatus0502().substring(0,1);
+			bidStatusInfo += getStatus0503().substring(0,1);
+			//中标公告发布
+			bidStatusInfo += getStatus0504().substring(0,1);
+			//中标投标文件扫描
+			bidStatusInfo += getStatus0505().substring(0,1);
+			bidStatusInfo += getStatus0601().substring(0,1);
+			//标书费收取
+			bidStatusInfo += getStatus0602().substring(0,1);
+			bidStatusInfo += getStatus0603().substring(0,1);
+			bidStatusInfo += getStatus0604().substring(0,1);
+			//标书费开票完成
+			bidStatusInfo += getStatus0605().substring(0,1);
+			bidStatusInfo += getStatus0701().substring(0,1);
+			//保证金收取
+			bidStatusInfo += getStatus0702().substring(0,1);
+			bidStatusInfo += getStatus0703().substring(0,1);
+			bidStatusInfo += getStatus0704().substring(0,1);
+			//退保证金完成
+			bidStatusInfo += getStatus0705().substring(0,1);
+			bidStatusInfo += getStatus0801().substring(0,1);
+			//招标文件装订
+			bidStatusInfo += getStatus0802().substring(0,1);
+			bidStatusInfo += getStatus0803().substring(0,1);
+			bidStatusInfo += getStatus0804().substring(0,1);
+			bidStatusInfo += getStatus0805().substring(0,1);
+			
+			BidDto bidDto= new BidDto(); 
+			bidDto = bidService.queryBidByID(strBID_NO);
+			if (bidDto != null){
+				bidDto.setPROGRESS_STATUS(bidStatusInfo);
 			}
 			this.clearMessages();
 		} catch(Exception e) {
@@ -915,5 +1086,38 @@ public class BidProgressAction extends BaseAction {
 	public void setBidService(BidService bidService) {
 		this.bidService = bidService;
 	}
+
+	public String getBTN_NO() {
+		return BTN_NO;
+	}
+
+	public void setBTN_NO(String bTN_NO) {
+		BTN_NO = bTN_NO;
+	}
+
+	public String getDate1() {
+		return Date1;
+	}
+
+	public void setDate1(String date1) {
+		Date1 = date1;
+	}
+
+	public String getMember1() {
+		return Member1;
+	}
+
+	public void setMember1(String member1) {
+		Member1 = member1;
+	}
+
+	public String getUploadFile() {
+		return uploadFile;
+	}
+
+	public void setUploadFile(String uploadFile) {
+		this.uploadFile = uploadFile;
+	}
+
 
 }

@@ -293,4 +293,9 @@ public class Constants {
 	 */
 	public final static String DOC_TYPE_REPORT = "SJ_REPORT";
 	
+	/**
+	 * 上传文件路径
+	 */
+	public final static String PROPERTIES_FILE_PATH = "file_path";
+	
 }
