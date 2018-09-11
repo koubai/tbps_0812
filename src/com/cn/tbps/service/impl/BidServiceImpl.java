@@ -190,6 +190,114 @@ public class BidServiceImpl extends BaseService implements BidService {
 	}
 	
 	@Override
+	public String insertBidNew(BidDto bidDto) {
+		//招标编号
+		String bidNo = "";
+		
+		if("3".equals(bidDto.getCNTRCT_TYPE())) {
+			//招标办
+			bidNo = bidDto.getBID_NO();
+		} else {
+			//非招标办
+			if("1".equals(bidDto.getIS_RANDOM())) {
+				//自动生产招标编号
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy");
+				String key = sdf.format(new Date());
+				int newValue = 1;
+				ConfigTabDto config = null;
+				if("1".equals(bidDto.getCNTRCT_TYPE())) {
+					//类型=招标
+					config = configTabDao.queryConfigTabByKey(key, Constants.CONFIG_TAB_BID_ZB_SEQ);
+				} else if("2".equals(bidDto.getCNTRCT_TYPE())) {
+					//类型=比选
+					config = configTabDao.queryConfigTabByKey(key, Constants.CONFIG_TAB_BID_BX_SEQ);
+				} else if("4".equals(bidDto.getCNTRCT_TYPE())) {
+					//类型=竞价
+					config = configTabDao.queryConfigTabByKey(key, Constants.CONFIG_TAB_BID_JJ_SEQ);
+				}
+				if(config == null) {
+					newValue = 1;
+				} else {
+					newValue = Integer.valueOf(config.getCONFIG_VAL()) + 1;
+				}
+				
+				while(true) {
+					if("1".equals(bidDto.getCNTRCT_TYPE())) {
+						//招标编号，类型=招标
+						bidNo = "LHZB-" + key.substring(2, 4) + "-" + StringUtil.replenishStr("" + newValue, 3);
+					} else if("2".equals(bidDto.getCNTRCT_TYPE())) {
+						//招标编号，类型=比选
+						bidNo = "LHBX-" + key.substring(2, 4) + "-" + StringUtil.replenishStr("" + newValue, 3);
+					} else if("4".equals(bidDto.getCNTRCT_TYPE())) {
+						//招标编号，类型=竞价
+						bidNo = "LHJJ-" + key.substring(2, 4) + "-" + StringUtil.replenishStr("" + newValue, 3);
+					}
+
+					//验证自动生成的招标编号是否已存在
+					BidDto b = bidDao.queryAllBidByID(bidNo);
+					//循环生成招标编号，直到招标编号不存在为止
+					if(b == null) {
+						//招标编号不存在，则更新配置标，并跳出循环
+						if(config == null) {
+							//新增配置表记录
+							ConfigTabDto newConfig = new ConfigTabDto();
+							if("1".equals(bidDto.getCNTRCT_TYPE())) {
+								//类型=招标
+								newConfig.setCONFIG_TYPE(Constants.CONFIG_TAB_BID_ZB_SEQ);
+							} else if("2".equals(bidDto.getCNTRCT_TYPE())) {
+								//类型=比选
+								newConfig.setCONFIG_TYPE(Constants.CONFIG_TAB_BID_BX_SEQ);
+							} else if("4".equals(bidDto.getCNTRCT_TYPE())) {
+								//类型=竞价
+								newConfig.setCONFIG_TYPE(Constants.CONFIG_TAB_BID_JJ_SEQ);
+							}
+							newConfig.setCONFIG_KEY(key);
+							//新增时默认为1
+							newConfig.setCONFIG_VAL("" + newValue);
+							configTabDao.insertConfigTab(newConfig);
+						} else {
+							//更新配置
+							config.setCONFIG_VAL("" + newValue);
+							configTabDao.updateConfigTab(config);
+						}
+						break;
+					}
+					newValue++;
+					//判断编号是否大于999
+					if(newValue > 999) {
+						throw new RuntimeException("自动生成的招标编号已超过999，请联系系统管理员！");
+					}
+				}
+				bidDto.setBID_NO(bidNo);
+			} else {
+				//验证用户自己填的招标编号是否存在
+				bidNo = bidDto.getBID_NO();
+				int i = 1;
+				while(true) {
+					BidDto b = bidDao.queryAllBidByID(bidNo);
+					if(b == null) {
+						break;
+					} else {
+						//该招标编号存在，则将招标编号转化为XXXX-YY-NNN-A格式
+						bidNo = bidDto.getBID_NO();
+						bidNo = bidNo + "-" + i;
+					}
+					if(i > 9) {
+						throw new RuntimeException(bidDto.getBID_NO() + "已存在，并且" + bidDto.getBID_NO() + "-1~" + bidDto.getBID_NO() + "-9" + "也已存在！");
+					}
+					i++;
+				}
+				bidDto.setBID_NO(bidNo);
+			}
+		}
+		
+		bidDao.insertBid(bidDto);
+		//插入招标履历
+		insertBidHistNew(bidDto);
+		return bidNo;
+	}
+	
+	@Override
 	public String insertBid(BidDto bidDto) {
 		//招标编号
 		String bidNo = "";
@@ -835,6 +943,19 @@ public class BidServiceImpl extends BaseService implements BidService {
 	@Override
 	public void insertBidComp(BidCompDto bidCompDto) {
 		bidCompDao.insertBidComp(bidCompDto);
+	}
+	
+	/**
+	 * 插入招标履历
+	 * @param bid
+	 */
+	private void insertBidHistNew(BidDto bid) {
+		BidDto bidDto = bidDao.queryAllBidByID(bid.getBID_NO());
+		if(bidDto != null) {
+			BidHistDto bidHistDto = Bid2BidHist(bidDto);
+			//插入招标履历
+			bidDao.insertBidHist(bidHistDto);
+		}
 	}
 	
 	/**

@@ -34,6 +34,7 @@
 	function checkdata() {
 		setBidValue();
 		var CNTRCT_NO = $("#CNTRCT_NO").val();
+		var CNTRCT_TYPE = $("#CNTRCT_TYPE").val();
 		var CNTRCT_YEAR = $("#CNTRCT_YEAR").val();
 		var CNTRCT_ST_DATE = $("#CNTRCT_ST_DATE").val();
 		var CNTRCT_ED_DATE = $("#CNTRCT_ED_DATE").val();
@@ -45,35 +46,14 @@
 		
 		var PROJECT_NAME = $("#PROJECT_NAME").val();
 		var PROJECT_MANAGER = $("#PROJECT_MANAGER").val();
-		//委托公司信息
-		var AGENT_NO = $("#AGENT_NO").val();
-		var ANGENT_COMP_NAME = $("#ANGENT_COMP_NAME").val();
-		var AGENT_CO_MANAGER = $("#AGENT_CO_MANAGER").val();
-		var AGENT_CO_MANAGER_TEL = $("#AGENT_CO_MANAGER_TEL").val();
-		var AGENT_CO_POST_ADDRESS = $("#AGENT_CO_POST_ADDRESS").val();
-		var AGENT_CO_MAIL = $("#AGENT_CO_MAIL").val();
-		//专业公司信息
-		var PROF_NO = $("#PROF_NO").val();
-		var PROF_CO_NAME = $("#PROF_CO_NAME").val();
-		var PROF_CO_MANAGER = $("#PROF_CO_MANAGER").val();
-		var PROF_CO_MANAGER_TEL = $("#PROF_CO_MANAGER_TEL").val();
-		var PROF_CO_POST_ADDRESS = $("#PROF_CO_POST_ADDRESS").val();
-		var PROF_CO_MAIL = $("#PROF_CO_MAIL").val();
 		
-		//计划价格
-		var PROJ_PLAN_PRICE = $("#PROJ_PLAN_PRICE").val();
-		//限价
-		var PROJ_ASTRICT_PRICE = $("#PROJ_ASTRICT_PRICE").val();
-		//招标代理支付方  
-		var BID_AGENT_PAY = $("#BID_AGENT_PAY").val();
-		var BID_NEED_MATERIAL_PRICE = $("#BID_NEED_MATERIAL_PRICE").val();
+		if(CNTRCT_NO == "") {
+			alert("请选择合同编号！");
+			$("#CNTRCT_NO").focus();
+			return false;
+		}
 		
-		//批文
-		var tmpPROJ_APPROVAL = $("#tmpPROJ_APPROVAL").val();
-		$("#PROJ_APPROVAL").attr("value", tmpPROJ_APPROVAL);
-		var PROJ_APPROVAL = $("#PROJ_APPROVAL").val();
-		
-		if(PROJECT_TYPE == "3" || PROJECT_TYPE == "4" ) {
+		if(CNTRCT_TYPE == "3" || CNTRCT_TYPE == "4" ) {
 			//分类=招标办 or 分类=竞价,招标编号为自己输入
 			if(BID_NO == "") {
 				alert("招标编号不能为空！");
@@ -91,30 +71,25 @@
 				}
 			}
 		}
-		if(PROJECT_TYPE == "") {
-			alert("请选择分类！");
-			$("#radioProjectType").focus();
-			return false;
-		}
 		
 		if(IS_RANDOM == "0") {
 			//非随机生成招标编号时
 			//分类=比选,招标时，招标编号不能为空
-			if(PROJECT_TYPE == "1") {
+			if(CNTRCT_TYPE == "1") {
 				//验证招标编号格式是否正确
 				if(!isZB(BID_NO)) {
 					alert("招标编号格式不正确，应为：LHZB-YY-NNN！");
 					$("#BID_NO").focus();
 					return false;
 				}
-			} else if(PROJECT_TYPE == "2") {
+			} else if(CNTRCT_TYPE == "2") {
 				//验证招标编号格式是否正确
 				if(!isBX(BID_NO)) {
 					alert("招标编号格式不正确，应为：LHBX-YY-NNN！");
 					$("#BID_NO").focus();
 					return false;
 				}
-			} else if(PROJECT_TYPE == "4") {
+			} else if(CNTRCT_TYPE == "4") {
 				//验证招标编号格式是否正确
 				if(!isJJ(BID_NO)) {
 					alert("招标编号格式不正确，应为：LHJJ-YY-NNN！");
@@ -123,93 +98,16 @@
 				}
 			}
 		}
-		
-		if(PROJECT_MANAGER.length > 6) {
-			alert("工程师不能超过6个字！");
+		if(PROJECT_MANAGER == "") {
+			alert("请选择工程师！");
 			$("#PROJECT_MANAGER").focus();
 			return false;
 		}
-		
 		if(PROJECT_NAME == "") {
 			alert("项目名称不能为空！");
 			$("#PROJECT_NAME").focus();
 			return false;
 		}
-		//if(AGENT_CO_MANAGER_TEL != "" && !isMobile(AGENT_CO_MANAGER_TEL) && !isTelephone(AGENT_CO_MANAGER_TEL)) {
-		//	alert("请输入正确的委托公司电话！");
-		//	$("#AGENT_CO_MANAGER_TEL").focus();
-		//	return false;
-		//}
-		
-		var agentCoManager = $("#agentCoManager").val();
-		if(agentCoManager.length > 6) {
-			alert("委托公司联系人不能超过6个字！");
-			$("#agentCoManager").focus();
-			return false;
-		}
-		
-		if(AGENT_CO_MAIL != "" && !isMail(AGENT_CO_MAIL)) {
-			alert("请输入正确的委托公司邮箱！");
-			$("#AGENT_CO_MAIL").focus();
-			//$("#agent_mail_pr").focus();
-			return false;
-		}
-		//专业公司信息
-		//if(PROF_CO_MANAGER_TEL != "" && !isMobile(PROF_CO_MANAGER_TEL) && !isTelephone(PROF_CO_MANAGER_TEL)) {
-		//	alert("请输入正确的专业公司电话！");
-		//	$("#PROF_CO_MANAGER_TEL").focus();
-		//	return false;
-		//}
-		
-		var profCoManager = $("#profCoManager").val();
-		if(profCoManager.length > 6) {
-			alert("专业公司联系人不能超过6个字！");
-			$("#profCoManager").focus();
-			return false;
-		}
-		
-		if(PROF_CO_MAIL != "" && !isMail(PROF_CO_MAIL)) {
-			alert("请输入正确的专业公司邮箱！");
-			//$("#prof_mail_pr").focus();
-			$("#PROF_CO_MAIL").focus();
-			return false;
-		}
-		if(PROJ_APPROVAL.length > 60) {
-			alert("批文不能超过60个字！");
-			$("#tmpPROJ_APPROVAL").focus();
-			return false;
-		}
-		if(PROJ_PLAN_PRICE != "" && !numberCheck(PROJ_PLAN_PRICE)) {
-			alert("计划价格格式不正确！");
-			$("#PROJ_PLAN_PRICE").focus();
-			return false;
-		}
-		if(PROJ_ASTRICT_PRICE != "" && !numberCheck(PROJ_ASTRICT_PRICE)) {
-			alert("限价格式不正确！");
-			$("#PROJ_ASTRICT_PRICE").focus();
-			return false;
-		}
-		if(BID_AGENT_PAY == "") {
-			alert("请选择招标代理支付方！");
-			$("#BID_AGENT_PAY").focus();
-			return false;
-		}
-		if($("#BID_AGENT_PAY").val() != "其他") {
-			$("#BID_AGENT_PAY2").attr("value", "");
-		}
-
-		//金额一律默认为0
-		if(PROJ_PLAN_PRICE == "") {
-			$("#PROJ_PLAN_PRICE").attr("value", 0);
-		}
-		if(PROJ_ASTRICT_PRICE == "") {
-			$("#PROJ_ASTRICT_PRICE").attr("value", 0);
-		}
-		
-		$("#RECEIPT1_AGENT_COMMISSION").val("0");
-		$("#BID_COMMISION").val("0");
-		$("#FINISH_NOTE").val("");
-		$("#BID_AGENT_PRICE").val("0");
 		return true;
 	}
 	
@@ -222,6 +120,8 @@
 		}
 		
 		$("#CNTRCT_NO").val($("#tmpCNTRCT_NO").val());
+		$("#CNTRCT_TYPE").val($("#tmpCNTRCT_TYPE").val());
+		
 		$("#CNTRCT_YEAR").val($("#tmpCNTRCT_YEAR").val());
 		$("#CNTRCT_ST_DATE").val($("#tmpCNTRCT_ST_DATE").val());
 		$("#CNTRCT_ED_DATE").val($("#tmpCNTRCT_ED_DATE").val());
@@ -287,8 +187,14 @@
 			<s:hidden name="addBidDto.CO_ADDRESS1" id="CO_ADDRESS1"/>
 			<s:hidden name="addBidDto.CO_MANAGER_EMAIL1" id="CO_MANAGER_EMAIL1"/>
 			<s:hidden name="addBidDto.CO_TAX" id="CO_TAX"/>
+			<s:hidden name="addBidDto.CNTRCT_TYPE" id="CNTRCT_TYPE"/>
 			<div class="row">
 				<div class="col-lg-10 right w100">
+					<s:if test="hasActionMessages()">
+						<div class="row">
+							<span style="color:red; text-align:center;"><s:actionmessage /></span>
+						</div>
+					</s:if>
 					<h3 class="title">项目信息<a class="backHome" href="#" onclick="goBidList();"><i class="fa fa-arrow-left" aria-hidden="true"></i>返回</a></h3>
 					<div class="row">
 						<div class="col-lg-3 form-group">
@@ -309,11 +215,11 @@
 						 <div class="col-lg-6 form-group">
 						 	<label for="" class="col-lg-2 form-label">合同期限</label>
 						 	<div class="col-lg-4">
-						 		<input id="tmpCNTRCT_ST_DATE" value="<s:date name="addBidDto.CNTRCT_ST_DATE" format="yyyy-MM-dd"/>" maxlength="10" type="text" class="form-control" readonly>
+						 		<input id="tmpCNTRCT_ST_DATE" value="<s:property value="addBidDto.CNTRCT_ST_DATE"/>" maxlength="10" type="text" class="form-control" readonly>
 						 	</div>
 						 	<label for="" class="col-lg-1 form-label to">---</label>
 						 	<div class="col-lg-4">
-						 		<input id="tmpCNTRCT_ED_DATE" value="<s:date name="addBidDto.CNTRCT_ED_DATE" format="yyyy-MM-dd"/>" maxlength="10" type="text" class="form-control" readonly>
+						 		<input id="tmpCNTRCT_ED_DATE" value="<s:property value="addBidDto.CNTRCT_ED_DATE"/>" maxlength="10" type="text" class="form-control" readonly>
 						 	</div>
 						 </div>
 						 <h5>委托合同信息</h5>
@@ -357,7 +263,7 @@
 						 <div class="col-lg-6 form-group">
 						 	<label for="" class="col-lg-2 form-label">招标编号</label>
 						 	<div class="col-lg-8">
-						 		<s:if test='addBidDto.PROJECT_TYPE != "3" && addBidDto.PROJECT_TYPE != "4" && addBidDto.IS_RANDOM == "1"'>
+						 		<s:if test='addBidDto.CNTRCT_TYPE != "3" && addBidDto.CNTRCT_TYPE != "4" && addBidDto.IS_RANDOM == "1"'>
 									<s:textfield name="addBidDto.BID_NO" id="BID_NO" disabled="true" cssClass="form-control" maxlength="13" theme="simple"></s:textfield>
 								</s:if>
 								<s:else>
@@ -376,21 +282,16 @@
 						<div class="col-lg-6 form-group">
 						 	<label for="" class="col-lg-2 form-label">分类</label>
 						 	<div class="col-lg-10">
-						 		<select name="addBidDto.PROJECT_TYPE" id="PROJECT_TYPE" class="form-control">
-									<option value="" selected="selected">请选择</option>
-									<s:if test='addBidDto.PROJECT_TYPE == "1"'>
-										<option value="1" selected="selected">招标</option>
-										<option value="4">竞价</option>
-									</s:if>
-									<s:elseif test='addBidDto.PROJECT_TYPE == "4"'>
-										<option value="1">招标</option>
-										<option value="4" selected="selected">竞价</option>
-									</s:elseif>
-									<s:else>
-										<option value="1">招标</option>
-										<option value="4">竞价</option>
-									</s:else>
-								</select>
+						 		<input id="tmpCNTRCT_TYPE" value="<s:property value="addBidDto.CNTRCT_TYPE"/>" type="hidden" class="form-control">
+						 		<s:if test='addBidDto.CNTRCT_TYPE == "1"'>
+						 			<input id="tmpCNTRCT_TYPE_NAME" value="招标" maxlength="80" type="text" class="form-control" readonly>
+						 		</s:if>
+						 		<s:elseif test='addBidDto.CNTRCT_TYPE == "4"'>
+						 			<input id="tmpCNTRCT_TYPE_NAME" value="竞价" maxlength="80" type="text" class="form-control" readonly>
+						 		</s:elseif>
+						 		<s:else>
+						 			<input id="tmpCNTRCT_TYPE_NAME" value="" maxlength="80" type="text" class="form-control" readonly>
+						 		</s:else>
 						 	</div>
 						</div>
 						<div class="col-lg-4 form-group">
@@ -445,15 +346,12 @@
 									<label for="" class="col-lg-3 form-label">会审监管人</label>
 									<div class="col-lg-9">
 										<select class="form-control">
-											<s:iterator id="listUserInfo" value="listUserInfo" status="st1">
-												<option value="<s:property value="LOGIN_NAME"/>" <s:if test="%{addBidDto.PROJECT_MANAGER == LOGIN_NAME}">selected</s:if>><s:property value="LOGIN_NAME"/></option>
-											</s:iterator>
 										</select>
 									</div>
 								</div>
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-3 form-label">代理费支付方</label>
-									<div class="col-lg-7">
+									<div class="col-lg-9">
 										<select class="form-control">
 											<option value="" selected="selected">请选择</option>
 											<option value="1">委托单位</option>
@@ -461,9 +359,6 @@
 											<option value="3">申通集团</option>
 											<option value="4">维保公司</option>
 										</select>
-									</div>
-									<div class="col-lg-2">
-										<button type="button" class="btn btn-success" onclick="">委托单位选择</button>
 									</div>
 								</div>
 								<div class="col-lg-4 form-group">

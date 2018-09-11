@@ -53,6 +53,7 @@
 		var CO_ADDRESS1 = inputs[8].value;
 		var CO_MANAGER_EMAIL1 = inputs[9].value;
 		var CO_TAX = inputs[10].value;
+		var CNTRCT_TYPE = inputs[11].value;
 		
 		var id = getSelectedID();
 		window.dialogArguments.document.getElementById("tmpCNTRCT_NO").value = CNTRCT_NO;
@@ -66,6 +67,14 @@
 		window.dialogArguments.document.getElementById("tmpCO_ADDRESS1").value = CO_ADDRESS1;
 		window.dialogArguments.document.getElementById("tmpCO_MANAGER_EMAIL1").value = CO_MANAGER_EMAIL1;
 		window.dialogArguments.document.getElementById("tmpCO_TAX").value = CO_TAX;
+		window.dialogArguments.document.getElementById("tmpCNTRCT_TYPE").value = CNTRCT_TYPE;
+		if(CNTRCT_TYPE == "1") {
+			window.dialogArguments.document.getElementById("tmpCNTRCT_TYPE_NAME").value = "招标";
+		} else if(CNTRCT_TYPE == "4") {
+			window.dialogArguments.document.getElementById("tmpCNTRCT_TYPE_NAME").value = "竞价";
+		} else {
+			window.dialogArguments.document.getElementById("tmpCNTRCT_TYPE_NAME").value = "";
+		}
 		
 		window.close();
 	}
@@ -198,6 +207,7 @@
 									<input type="hidden" value="<s:property value="CO_ADDRESS1"/>"/>
 									<input type="hidden" value="<s:property value="CO_MANAGER_EMAIL1"/>"/>
 									<input type="hidden" value="<s:property value="CO_TAX"/>"/>
+									<input type="hidden" value="<s:property value="CNTRCT_TYPE"/>"/>
 								</td>
 								<td><input name="radioKey" type="radio" value="<s:property value="CNTRCT_NO"/>"/></td>
 								<td><s:property value="CNTRCT_YEAR"/></td>
