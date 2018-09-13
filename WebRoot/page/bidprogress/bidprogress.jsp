@@ -36,10 +36,10 @@
 				window.open(url, window, "height=600px;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
 			}
 			if (util_typ == 2){
-				window.open(url, window, "height=300px;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");				
+				window.open(url, window, "height=400px;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");				
 			}
 			if (util_typ == 1){
-				window.open(url, window, "height=200px;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");				
+				window.open(url, window, "height=400px;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");				
 			}
 //		}
 	}
