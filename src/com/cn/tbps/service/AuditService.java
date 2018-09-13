@@ -5,6 +5,7 @@ import java.util.List;
 import com.cn.common.util.Page;
 import com.cn.tbps.dto.AuditDto;
 import com.cn.tbps.dto.AuditHistDto;
+import com.cn.tbps.dto.AuditStatisticsDto;
 
 /**
  * @name AuditService.java
@@ -53,7 +54,7 @@ public interface AuditService {
 	 * @param endDate
 	 * @return
 	 */
-	public List<AuditDto> queryAuditStatistics(String projectManager, String startDate, String endDate);
+	public AuditStatisticsDto queryAuditStatistics(String projectManager, String startDate, String endDate);
 	
 	/**
 	 * 项目收费统计输出

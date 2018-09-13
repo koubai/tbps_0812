@@ -10,7 +10,9 @@ import com.cn.common.action.BaseAction;
 import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
+import com.cn.tbps.dto.BidCompDto;
 import com.cn.tbps.dto.BidDto;
+import com.cn.tbps.dto.ExpertLibDto;
 import com.cn.tbps.dto.UserInfoDto;
 import com.cn.tbps.service.AgentCompService;
 import com.cn.tbps.service.BidCompApplyService;
@@ -101,6 +103,15 @@ public class BidAction extends BaseAction {
 	 */
 	private BidDto addBidDto;
 	
+	//投标公司列表
+	private List<BidCompDto> listBidComp;
+	//评审专家列表
+	private List<ExpertLibDto> listExpertLib;
+	//投标公司列表（临时）
+	private List<BidCompDto> listBidCompTmp;
+	//评审专家列表（临时）
+	private List<ExpertLibDto> listExpertLibTmp;
+	
 	//修改
 	/**
 	 * 修改招标编号
@@ -132,8 +143,28 @@ public class BidAction extends BaseAction {
 	public String showAddBidAction() {
 		try {
 			this.clearMessages();
+			listBidComp = new ArrayList<BidCompDto>();
+			listExpertLib = new ArrayList<ExpertLibDto>();
+			listBidCompTmp = new ArrayList<BidCompDto>();
+			listExpertLibTmp = new ArrayList<ExpertLibDto>();
+			
 			listUserInfo = userInfoService.queryAllUser();
 			addBidDto = new BidDto();
+			
+			//测试数据
+			addBidDto.setCNTRCT_NO("10021");
+			addBidDto.setCNTRCT_TYPE("1");
+			addBidDto.setCNTRCT_YEAR("2018");
+			addBidDto.setCNTRCT_ST_DATE("2018-08-01");
+			addBidDto.setCNTRCT_ED_DATE("2018-09-01");
+			addBidDto.setBID_COMP_NO("1");
+			addBidDto.setBID_COMP_NAME("上海招标公司");
+			addBidDto.setCO_MANAGER1("王经理");
+			addBidDto.setCO_MANAGER_TEL1("13312121123");
+			addBidDto.setCO_ADDRESS1("宝山区");
+			addBidDto.setCO_MANAGER_EMAIL1("wang@tbps.com");
+			addBidDto.setCO_TAX("200012");
+			
 			//默认为不随机
 //			addBidDto.setIS_RANDOM("0");
 			addBidDto.setSTATUS("0");
@@ -155,7 +186,16 @@ public class BidAction extends BaseAction {
 			if(!checkUpdData(addBidDto)) {
 				return "checkerror";
 			}
-			System.out.println("addBidAction start:");
+			
+			//保存数据
+			addBidDto.setDELETE_FLG(Constants.IS_DELETE_NORMAL);
+			//投标状态=报名
+			addBidDto.setSTATUS("10");
+			String username = (String) ActionContext.getContext().getSession().get(Constants.USER_NAME);
+			addBidDto.setUPDATE_USER(username);
+			
+			String bidNo = bidService.insertBidNew(addBidDto);
+			this.addActionMessage("新增招标记录成功！招标编号：" + bidNo);
 		} catch(RuntimeException e) {
 			//运行异常
 			this.addActionMessage(e.getMessage());
@@ -600,5 +640,37 @@ public class BidAction extends BaseAction {
 
 	public void setListUserInfo(List<UserInfoDto> listUserInfo) {
 		this.listUserInfo = listUserInfo;
+	}
+
+	public List<BidCompDto> getListBidComp() {
+		return listBidComp;
+	}
+
+	public void setListBidComp(List<BidCompDto> listBidComp) {
+		this.listBidComp = listBidComp;
+	}
+
+	public List<ExpertLibDto> getListExpertLib() {
+		return listExpertLib;
+	}
+
+	public void setListExpertLib(List<ExpertLibDto> listExpertLib) {
+		this.listExpertLib = listExpertLib;
+	}
+
+	public List<BidCompDto> getListBidCompTmp() {
+		return listBidCompTmp;
+	}
+
+	public void setListBidCompTmp(List<BidCompDto> listBidCompTmp) {
+		this.listBidCompTmp = listBidCompTmp;
+	}
+
+	public List<ExpertLibDto> getListExpertLibTmp() {
+		return listExpertLibTmp;
+	}
+
+	public void setListExpertLibTmp(List<ExpertLibDto> listExpertLibTmp) {
+		this.listExpertLibTmp = listExpertLibTmp;
 	}
 }

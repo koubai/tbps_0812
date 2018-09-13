@@ -85,6 +85,13 @@ public interface BidService {
 	public String insertBid(BidDto bidDto);
 	
 	/**
+	 * 新增招标(新)
+	 * @param bidDto
+	 * @return
+	 */
+	public String insertBidNew(BidDto bidDto);
+	
+	/**
 	 * 新增招标
 	 * @param bidDto
 	 * @param listBidComp

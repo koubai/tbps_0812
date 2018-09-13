@@ -180,16 +180,16 @@
 								<select name="updBidCntrctDto.CNTRCT_TYPE" id="CNTRCT_TYPE" class="form-control">
 									<option value="">请选择</option>
 									<s:if test='updBidCntrctDto.CNTRCT_TYPE == "1"'>
-										<option value="1" selected="selected">竞价</option>
-										<option value="2">招标</option>
+										<option value="1" selected="selected">招标</option>
+										<option value="4">竞价</option>
 									</s:if>
-									<s:elseif test='updBidCntrctDto.CNTRCT_TYPE == "2"'>
-										<option value="1">竞价</option>
-										<option value="2" selected="selected">招标</option>
+									<s:elseif test='updBidCntrctDto.CNTRCT_TYPE == "4"'>
+										<option value="1">招标</option>
+										<option value="4" selected="selected">竞价</option>
 									</s:elseif>
 									<s:else>
-										<option value="1">竞价</option>
-										<option value="2">招标</option>
+										<option value="1">招标</option>
+										<option value="4">竞价</option>
 									</s:else>
 								</select>
 							</div>
