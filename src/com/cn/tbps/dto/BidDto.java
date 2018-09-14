@@ -42,9 +42,9 @@ public class BidDto extends BaseDto {
 	//合同年份
 	private String CNTRCT_YEAR;
 	//合同开始时间
-	private String CNTRCT_ST_DATE;
+	private Date CNTRCT_ST_DATE;
 	//合同结束时间
-	private String CNTRCT_ED_DATE;
+	private Date CNTRCT_ED_DATE;
 	//委托单位ID
 	private String BID_COMP_NO;
 	//委托单位
@@ -1757,22 +1757,6 @@ public class BidDto extends BaseDto {
 		CNTRCT_YEAR = cNTRCT_YEAR;
 	}
 
-	public String getCNTRCT_ST_DATE() {
-		return CNTRCT_ST_DATE;
-	}
-
-	public void setCNTRCT_ST_DATE(String cNTRCT_ST_DATE) {
-		CNTRCT_ST_DATE = cNTRCT_ST_DATE;
-	}
-
-	public String getCNTRCT_ED_DATE() {
-		return CNTRCT_ED_DATE;
-	}
-
-	public void setCNTRCT_ED_DATE(String cNTRCT_ED_DATE) {
-		CNTRCT_ED_DATE = cNTRCT_ED_DATE;
-	}
-
 	public String getCNTRCT_NAME() {
 		return CNTRCT_NAME;
 	}
@@ -1859,5 +1843,21 @@ public class BidDto extends BaseDto {
 
 	public void setIS_RANDOM(String iS_RANDOM) {
 		IS_RANDOM = iS_RANDOM;
+	}
+
+	public Date getCNTRCT_ST_DATE() {
+		return CNTRCT_ST_DATE;
+	}
+
+	public void setCNTRCT_ST_DATE(Date cNTRCT_ST_DATE) {
+		CNTRCT_ST_DATE = cNTRCT_ST_DATE;
+	}
+
+	public Date getCNTRCT_ED_DATE() {
+		return CNTRCT_ED_DATE;
+	}
+
+	public void setCNTRCT_ED_DATE(Date cNTRCT_ED_DATE) {
+		CNTRCT_ED_DATE = cNTRCT_ED_DATE;
 	}
 }
