@@ -12,6 +12,7 @@ import com.cn.tbps.dao.AuditDao;
 import com.cn.tbps.dao.ConfigTabDao;
 import com.cn.tbps.dto.AuditDto;
 import com.cn.tbps.dto.AuditHistDto;
+import com.cn.tbps.dto.AuditStatCostDto;
 import com.cn.tbps.dto.AuditStatisticsDto;
 import com.cn.tbps.dto.ConfigTabDto;
 import com.cn.tbps.service.AuditService;
@@ -374,7 +375,7 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 	}
 
 	@Override
-	public List<AuditDto> queryAuditStatCost(String projectManager, String startDate, String endDate) {
+	public AuditStatCostDto queryAuditStatCost(String projectManager, String startDate, String endDate) {
 		return auditDao.queryAuditStatCost(projectManager, startDate, endDate);
 	}
 
