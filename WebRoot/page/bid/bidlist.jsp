@@ -40,18 +40,7 @@
     }
 	*/
 	function add() {
-		//var url = '<c:url value="/bid/showAddBidAction.action"></c:url>' + "?date=" + new Date();
-		//window.showModalDialog(url, window, "dialogheight:500px;dialogwidth:1000px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
 		document.mainform.action = '<c:url value="/bid/showAddBidAction.action"></c:url>';
-		document.mainform.submit();
-	}
-	
-	//投标更新
-	function updbidstatus(bidno, bidstatus) {
-		$("#updateBidNo").val(bidno);
-		$("#tmpBidStatus").val(bidstatus);
-		var url = '<c:url value="/bid/showUpdBidStatusAction.action"></c:url>';
-		document.mainform.action = url;
 		document.mainform.submit();
 	}
 	
@@ -62,8 +51,7 @@
 			return;
 		} else {
 			$("#updateBidNo").val(id);
-			var url = '<c:url value="/bid/showUpdBidStatusAction.action"></c:url>';
-			//var url = '<c:url value="/bid/showUpdBidAction.action"></c:url>' + "?updateBidNo=" + id;
+			var url = '<c:url value="/bid/showUpdBidAction.action"></c:url>';
 			document.mainform.action = url;
 			document.mainform.submit();
 		}
@@ -80,28 +68,6 @@
 				document.mainform.action = '<c:url value="/bid/delBidAction.action"></c:url>' + "?delBidNo=" + id;
 				document.mainform.submit();
 			}
-		}
-	}
-	
-	function showHis() {
-		var id = getSelectedID();
-		if(id == "") {
-			alert("请选择一条记录！");
-			return;
-		} else {
-			var url = '<c:url value="/bid/showAllBidHisAction.action"></c:url>' + "?strBidNoHist=" + id + "&date=" + new Date();
-			window.showModalDialog(url, window, "dialogheight:500px;dialogwidth:1000px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
-		}
-	}
-	
-	function showBidDetail() {
-		var id = getSelectedID();
-		if(id == "") {
-			alert("请选择一条记录！");
-			return;
-		} else {
-			var url = '<c:url value="/bid/showBidDetailAction.action"></c:url>' + "?detailBidNo=" + id + "&date=" + new Date();
-			window.showModalDialog(url, window, "dialogheight:600px;dialogwidth:1024px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
 		}
 	}
 	

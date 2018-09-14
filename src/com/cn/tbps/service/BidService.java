@@ -87,9 +87,11 @@ public interface BidService {
 	/**
 	 * 新增招标(新)
 	 * @param bidDto
+	 * @param listBidComp
+	 * @param listExpertLib
 	 * @return
 	 */
-	public String insertBidNew(BidDto bidDto);
+	public String insertBidNew(BidDto bidDto, List<BidCompDto> listBidComp, List<ExpertLibDto> listExpertLib);
 	
 	/**
 	 * 新增招标
@@ -99,6 +101,14 @@ public interface BidService {
 	 * @return
 	 */
 	public String insertBid(BidDto bidDto, List<BidCompDto> listBidComp, List<ExpertLibDto> listExpertLib) throws RuntimeException;
+	
+	/**
+	 * 修改招标
+	 * @param bidDto
+	 * @param listBidComp
+	 * @param listExpertLib
+	 */
+	public void updateBidNew(BidDto bidDto, List<BidCompDto> listBidComp, List<ExpertLibDto> listExpertLib);
 	
 	/**
 	 * 修改招标
