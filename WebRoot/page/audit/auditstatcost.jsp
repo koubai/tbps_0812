@@ -11,6 +11,7 @@
 <title>项目收费统计输出</title>
 <!-- Bootstrap -->
 <link href="<%=request.getContextPath()%>/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/node_modules/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/node_modules/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/global.css">
@@ -23,135 +24,16 @@
 <![endif]-->
 <script type="text/javascript">
 	
-	function add() {
-		document.mainform.action = '<c:url value="/auditcntrct/showAddAuditCntrctAction.action"></c:url>';
-		document.mainform.submit();
-	}
-	
-	function upd() {
-		var id = getSelectedID();
-		if(id == "") {
-			alert("请选择一条记录！");
-			return;
-		} else {
-			var url = '<c:url value="/auditcntrct/showUpdAuditCntrctAction.action"></c:url>' + "?updAuditCntrctNo=" + id;
-			document.mainform.action = url;
-			document.mainform.submit();
-		}
-	}
-	
-	function del() {
-		var id = getSelectedID();
-		if(id == "") {
-			alert("请选择一条记录！");
-			return;
-		} else {
-			if(confirm("确定删除该记录吗？")) {
-				setQueryDate();
-				document.mainform.action = '<c:url value="/auditcntrct/delAuditCntrctAction.action"></c:url>' + "?delAuditCntrctNo=" + id;
-				document.mainform.submit();
-			}
-		}
-	}
-	
-	function showHis() {
-		var id = getSelectedID();
-		if(id == "") {
-			alert("请选择一条记录！");
-			return;
-		} else {
-			var url = '<c:url value="/audit/showAllAuditCntrctHisAction.action"></c:url>' + "?strAuditCntrctNoHist=" + id + "&date=" + new Date();
-			window.showModalDialog(url, window, "dialogheight:500px;dialogwidth:1000px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
-		}
-	}
-	
-	function showAuditCntrctDetail() {
-		var id = getSelectedID();
-		if(id == "") {
-			alert("请选择一条记录！");
-			return;
-		} else {
-			var url = '<c:url value="/audit/showAuditCntrctDetail.action"></c:url>' + "?detailAuditNo=" + id + "&date=" + new Date();
-			window.showModalDialog(url, window, "dialogheight:600px;dialogwidth:1024px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
-		}
-	}
-	
-	function getSelectedID() {
-		var id = "";
-		var list = document.getElementsByName("radioKey");
-		for(var i = 0; i < list.length; i++) {
-			if(list[i].checked) {
-				id = list[i].value;
-				break;
-			}
-		}
-		return id;
-	}
-	
 	function setQueryDate() {
-		$("#strCntrctStDate").attr("value", $("#cntrctStDate").val());
-		$("#strCntrctEdDate").attr("value", $("#cntrctEdDate").val());
+		$("#strStartDate").attr("value", $("#startDate").val());
+		$("#strEndDate").attr("value", $("#endDate").val());
+		$("#strProjectManager").attr("value", $("#projectManager").val());
 	}
 
 	function queryList() {
 		setQueryDate();
-		document.mainform.action = '<c:url value="/auditcntrct/queryAuditCntrctList.action"></c:url>';
+		document.mainform.action = '<c:url value="/audit/queryAuditStatCost.action"></c:url>';
 		document.mainform.submit();
-	}
-
-	//翻页
-	function changePage(pageNum) {
-		setQueryDate();
-		document.getElementById("startIndex").value = pageNum;
-		document.mainform.action = '<c:url value="/auditcntrct/turnAuditCntrctPage.action"></c:url>';
-		document.mainform.submit();
-	}
-
-	//页跳转
-	function turnPage() {
-		var totalPage = "${page.totalPage}";
-		var turnPage = document.getElementById("pagenum").value;
-		//判断是否输入页码
-		if ('' != turnPage) {
-			//判断页码是否是大于0的数字
-			if(!iscInteger(turnPage)){
-				alert("页码必须是大于0的整数！");
-				return;
-			}
-			turnPage = parseInt(turnPage);
-			if(turnPage < 1){
-				alert("页码必须是大于0的整数！");
-				return;
-			}
-			//判断页码大小是否正确
-			if(turnPage > parseInt(totalPage)){
-				alert("页码不能超过最大页数！");
-				return;
-			}
-			//换页
-			changePage(turnPage - 1);
-		} else {
-			alert("页码不能为空！");
-			return;
-		}	
-	}
-	
-	function exportAudit() {
-		setQueryDate();
-		document.mainform.action = '<c:url value="/auditcntrct/exportAuditCntrctListAction.action"></c:url>';
-		document.mainform.submit();
-	}
-	
-	function queryAgentCommon() {
-		setQueryDate();
-		var url = '<c:url value="/agentcomp/showAgentCompCommonAction.action"></c:url>' + "?strKey=strAgentName&agentAddFlag=1&date=" + new Date();
-		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:1000px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
-	}
-	
-	function queryContractCommon() {
-		setQueryDate();
-		var url = '<c:url value="/agentcomp/showAgentCompCommonAction.action"></c:url>' + "?strKey=strContractName&agentAddFlag=3&date=" + new Date();
-		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:1000px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
 	}
 	
 </script>
@@ -168,14 +50,15 @@
 					<s:hidden name="startIndex" id="startIndex"/>
 					<s:hidden name="strStartDate" id="strStartDate"/>
 					<s:hidden name="strEndDate" id="strEndDate"/>
+					<s:hidden name="strProjectManager" id="strProjectManager"/>
 					<h3 class="title">项目收费统计输出<a class="backHome" href="#" onclick="goHome();"><i class="fa fa-home" aria-hidden="true"></i>返回首页</a></h3>
 					<div class="row">
 						<div class="col-lg-12 form-group">
 							<label for="" class="col-lg-1 form-label">工程师</label>
 							<div class="col-lg-2">
-								<select name="addAuditDto.PROJECT_MANAGER" id="PROJECT_MANAGER" class="form-control">
+								<select multiple name="projectManager" id="projectManager" class="selectpicker form-control" data-live-search="true">
 									<s:iterator id="listUserInfo" value="listUserInfo" status="st1">
-										<option value="<s:property value="LOGIN_NAME"/>" <s:if test="%{addAuditDto.PPROJECT_MANAGER == LOGIN_NAME}">selected</s:if>><s:property value="LOGIN_NAME"/></option>
+										<option value="<s:property value="LOGIN_NAME"/>"><s:property value="LOGIN_NAME"/></option>
 									</s:iterator>
 								</select>
 							</div>
@@ -208,92 +91,108 @@
 					</div>
 					<table class="table table-bordered">
 						<tr>
-							<td width="300">委托任务：审价</td>
-							<td width="100">承担个数</td>
+							<td rowspan="2">委托内容</td>
+							<td rowspan="2">工程师</td>
+							<td colspan="2">汇总</td>
+							<s:iterator id="listAuditCntrctNM" value="auditStatCost.listAuditCntrctNM" status="st1">
+								<td colspan="7"><s:property /></td>
+							</s:iterator>
+						</tr>
+						<tr>
+							<td>应收</td>
+							<td>实收</td>
+							<s:iterator id="listAuditCntrctNM" value="auditStatCost.listAuditCntrctNM" status="st1">
+								<td>项目个数</td>
+								<td>金额</td>
+								<td>甲方应收</td>
+								<td>甲方实收</td>
+								<td>乙方应收</td>
+								<td>乙方实收</td>
+								<td>乙方收费率</td>
+							</s:iterator>
+						</tr>
+						<s:iterator id="listAudit1" value="auditStatCost.listAudit1" status="st1">
+						<tr>
+							<td>审价</td>
+							<td><s:property value="PROJECT_MANAGER"/></td>
+							<td><s:property value="ALL_PER_AMOUNT"/></td>
+							<td><s:property value="ALL_AMOUNT"/></td>
+							<s:iterator id="auditCostCount" value="listAuditCostCount" status="st1">
+							<td><s:property value="CNTRCT_NM_COUNT"/></td>
+							<td><s:property value="VERIFY_PER_AMOUNT"/></td>
+							<td><s:property value="A_PER_AMOUNT"/></td>
+							<td><s:property value="A_AMOUNT"/></td>
+							<td><s:property value="B_PER_AMOUNT"/></td>
+							<td><s:property value="B_AMOUNT"/></td>
+							<td><s:property value="B_AMOUNT_RATE"/></td>
+							</s:iterator>
+						</tr>
+						</s:iterator>
+						<s:iterator id="listAudit2" value="auditStatCost.listAudit2" status="st1">
+						<tr>
+							<td>咨询</td>
+							<td><s:property value="PROJECT_MANAGER"/></td>
+							<td><s:property value="ALL_PER_AMOUNT"/></td>
+							<td><s:property value="ALL_AMOUNT"/></td>
+							<s:iterator id="auditCostCount" value="listAuditCostCount" status="st1">
+							<td><s:property value="CNTRCT_NM_COUNT"/></td>
+							<td><s:property value="VERIFY_PER_AMOUNT"/></td>
+							<td><s:property value="A_PER_AMOUNT"/></td>
+							<td><s:property value="A_AMOUNT"/></td>
+							<td><s:property value="B_PER_AMOUNT"/></td>
+							<td><s:property value="B_AMOUNT"/></td>
+							<td><s:property value="B_AMOUNT_RATE"/></td>
+							</s:iterator>
+						</tr>
+						</s:iterator>
+						<s:iterator id="listAudit4" value="auditStatCost.listAudit4" status="st1">
+						<tr>
+							<td>控制价编制</td>
+							<td><s:property value="PROJECT_MANAGER"/></td>
+							<td><s:property value="ALL_PER_AMOUNT"/></td>
+							<td><s:property value="ALL_AMOUNT"/></td>
+							<s:iterator id="auditCostCount" value="listAuditCostCount" status="st1">
+							<td><s:property value="CNTRCT_NM_COUNT"/></td>
+							<td><s:property value="VERIFY_PER_AMOUNT"/></td>
+							<td><s:property value="A_PER_AMOUNT"/></td>
+							<td><s:property value="A_AMOUNT"/></td>
+							<td><s:property value="B_PER_AMOUNT"/></td>
+							<td><s:property value="B_AMOUNT"/></td>
+							<td><s:property value="B_AMOUNT_RATE"/></td>
+							</s:iterator>
+						</tr>
+						</s:iterator>
+						<s:iterator id="listAudit5" value="auditStatCost.listAudit5" status="st1">
+						<tr>
+							<td>投资监理</td>
+							<td><s:property value="PROJECT_MANAGER"/></td>
+							<td><s:property value="ALL_PER_AMOUNT"/></td>
+							<td><s:property value="ALL_AMOUNT"/></td>
+							<s:iterator id="auditCostCount" value="listAuditCostCount" status="st1">
+							<td><s:property value="CNTRCT_NM_COUNT"/></td>
+							<td><s:property value="VERIFY_PER_AMOUNT"/></td>
+							<td><s:property value="A_PER_AMOUNT"/></td>
+							<td><s:property value="A_AMOUNT"/></td>
+							<td><s:property value="B_PER_AMOUNT"/></td>
+							<td><s:property value="B_AMOUNT"/></td>
+							<td><s:property value="B_AMOUNT_RATE"/></td>
+							</s:iterator>
+						</tr>
+						</s:iterator>
+						<tr>
+							<td>合计</td>
 							<td></td>
-						</tr>
-						<tr>
-							<td>未完成个数</td>
-							<td colspan="2"><s:property value=""/></td>
-						</tr>
-						<tr>
-							<td>未完成审核（5天以上）</td>
-							<td colspan="2"><s:property value=""/></td>
-						</tr>
-						<tr>
-							<td>未收到审定单（21天以上）</td>
-							<td colspan="2"><s:property value=""/></td>
-						</tr>
-						<tr>
-							<td>未出具审价报告（1天以上）</td>
-							<td colspan="2"><s:property value=""/></td>
-						</tr>
-						<tr>
-							<td>未开票（30天以上）</td>
-							<td colspan="2"><s:property value=""/></td>
-						</tr>
-						<tr>
-							<td>未收款（30天以上）</td>
-							<td colspan="2"><s:property value=""/></td>
-						</tr>
-						<tr>
-							<td>未归档（60天以上）</td>
-							<td colspan="2"><s:property value=""/></td>
-						</tr>
-						<tr>
-							<td>表格未填完整</td>
-							<td colspan="2"><s:property value=""/></td>
-						</tr>
-					</table>
-					<table class="table table-bordered">
-						<tr>
-							<td width="300">委托任务：咨询项目</td>
-							<td width="100">承担个数</td>
+							<td><s:property value="auditStatCost.count.ALL_PER_AMOUNT"/></td>
+							<td><s:property value="auditStatCost.count.ALL_AMOUNT"/></td>
+							<s:iterator id="auditCostAllCount" value="auditStatCost.count.listCount" status="st1">
 							<td></td>
-						</tr>
-						<tr>
-							<td>未完成个数</td>
-							<td colspan="2"><s:property value=""/></td>
-						</tr>
-						<tr>
-							<td>未完成审核（5天以上）</td>
-							<td colspan="2"><s:property value=""/></td>
-						</tr>
-						<tr>
-							<td>未归档（60天以上）</td>
-							<td colspan="2"><s:property value=""/></td>
-						</tr>
-						<tr>
-							<td>表格未填完整</td>
-							<td colspan="2"><s:property value=""/></td>
-						</tr>
-					</table>
-					<table class="table table-bordered">
-						<tr>
-							<td width="300">委托任务：控制价编制项目</td>
-							<td width="100">承担个数</td>
 							<td></td>
-						</tr>
-						<tr>
-							<td>未完成个数</td>
-							<td colspan="2"><s:property value=""/></td>
-						</tr>
-						<tr>
-							<td>未完成审核（7天以上）</td>
-							<td colspan="2"><s:property value=""/></td>
-						</tr>
-						<tr>
-							<td>未归档（60天以上）</td>
-							<td colspan="2"><s:property value=""/></td>
-						</tr>
-						<tr>
-							<td>表格未填完整</td>
-							<td colspan="2"><s:property value=""/></td>
-						</tr>
-					</table>
-					<table class="table table-bordered">
-						<tr>
-							<td>注："实施情况"为"中止"，一概不统计</td>
+							<td><s:property value="A_PER_AMOUNT"/></td>
+							<td><s:property value="A_AMOUNT"/></td>
+							<td><s:property value="B_PER_AMOUNT"/></td>
+							<td><s:property value="B_AMOUNT"/></td>
+							<td></td>
+							</s:iterator>
 						</tr>
 					</table>
 				</s:form>
@@ -310,11 +209,20 @@
 <script src="<%=request.getContextPath()%>/node_modules/jquery/dist/jquery.min.js"></script>
 <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="<%=request.getContextPath()%>/node_modules/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.min.js"></script>
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.zh-CN.min.js"></script>
 <script>
-$(function () { $('#collapseThree').collapse('toggle')});
-$(function () { $('#collapseOne').collapse('toggle')});
+	$(function () { $('#collapseThree').collapse('toggle')});
+	$(function () { $('#collapseOne').collapse('toggle')});
+	$(function () { 
+		$(".selectpicker").selectpicker({
+			noneSelectedText : '请选择'//默认显示内容
+		});
+		var str = $("#strProjectManager").val();
+	    var arr = str.split(',');
+	    $('#projectManager').selectpicker('val', arr);
+	});
 	$('.datepicker').parent().datepicker({
 		"autoclose":true,"format":"yyyy-mm-dd","language":"zh-CN"
 	});

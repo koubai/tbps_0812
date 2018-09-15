@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 import com.cn.common.action.BaseAction;
 import com.cn.common.util.Constants;
+import com.cn.common.util.DateUtil;
 import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
 import com.cn.tbps.dto.BidCompDto;
@@ -152,18 +153,18 @@ public class BidAction extends BaseAction {
 			addBidDto = new BidDto();
 			
 			//测试数据
-			addBidDto.setCNTRCT_NO("10021");
-			addBidDto.setCNTRCT_TYPE("1");
-			addBidDto.setCNTRCT_YEAR("2018");
-			addBidDto.setCNTRCT_ST_DATE("2018-08-01");
-			addBidDto.setCNTRCT_ED_DATE("2018-09-01");
-			addBidDto.setBID_COMP_NO("1");
-			addBidDto.setBID_COMP_NAME("上海招标公司");
-			addBidDto.setCO_MANAGER1("王经理");
-			addBidDto.setCO_MANAGER_TEL1("13312121123");
-			addBidDto.setCO_ADDRESS1("宝山区");
-			addBidDto.setCO_MANAGER_EMAIL1("wang@tbps.com");
-			addBidDto.setCO_TAX("200012");
+//			addBidDto.setCNTRCT_NO("10021");
+//			addBidDto.setCNTRCT_TYPE("1");
+//			addBidDto.setCNTRCT_YEAR("2018");
+//			addBidDto.setCNTRCT_ST_DATE(DateUtil.strToDate("2018-08-01", DateUtil.DATE_FORMAT_SHORT));
+//			addBidDto.setCNTRCT_ED_DATE(DateUtil.strToDate("2018-09-01", DateUtil.DATE_FORMAT_SHORT));
+//			addBidDto.setBID_COMP_NO("1");
+//			addBidDto.setBID_COMP_NAME("上海招标公司");
+//			addBidDto.setCO_MANAGER1("王经理");
+//			addBidDto.setCO_MANAGER_TEL1("13312121123");
+//			addBidDto.setCO_ADDRESS1("宝山区");
+//			addBidDto.setCO_MANAGER_EMAIL1("wang@tbps.com");
+//			addBidDto.setCO_TAX("200012");
 			
 			//默认为不随机
 //			addBidDto.setIS_RANDOM("0");
@@ -182,9 +183,33 @@ public class BidAction extends BaseAction {
 		try {
 			this.clearMessages();
 			listUserInfo = userInfoService.queryAllUser();
+			
+			listBidComp = listBidCompTmp;
+			listExpertLib = listExpertLibTmp;
+			listBidCompTmp = new ArrayList<BidCompDto>();
+			listExpertLibTmp = new ArrayList<ExpertLibDto>();
 			//数据校验
 			if(!checkUpdData(addBidDto)) {
 				return "checkerror";
+			}
+			
+			//分类=招标办/竞价，则校验招标编号是否存在
+			if("3".equals(addBidDto.getCNTRCT_TYPE()) || "4".equals(addBidDto.getCNTRCT_TYPE())) {
+				//分类=招标办，则校验招标编号是否存在
+				BidDto bid = bidService.queryAllBidByID(addBidDto.getBID_NO());
+				if(bid != null) {
+					this.addActionMessage("招标编号" + addBidDto.getBID_NO() + "已经存在！");
+					return "checkerror";
+				}
+			} else {
+				if("0".equals(addBidDto.getIS_RANDOM())) {
+					//非随机生成招标编号
+					BidDto bid = bidService.queryAllBidByID(addBidDto.getBID_NO());
+					if(bid != null) {
+						this.addActionMessage("招标编号" + addBidDto.getBID_NO() + "已经存在！");
+						return "checkerror";
+					}
+				}
 			}
 			
 			//保存数据
@@ -194,8 +219,12 @@ public class BidAction extends BaseAction {
 			String username = (String) ActionContext.getContext().getSession().get(Constants.USER_NAME);
 			addBidDto.setUPDATE_USER(username);
 			
-			String bidNo = bidService.insertBidNew(addBidDto);
+			String bidNo = bidService.insertBidNew(addBidDto, listBidComp, listExpertLib);
 			this.addActionMessage("新增招标记录成功！招标编号：" + bidNo);
+			//初始化数据
+			addBidDto = new BidDto();
+			listBidComp = new ArrayList<BidCompDto>();
+			listExpertLib = new ArrayList<ExpertLibDto>();
 		} catch(RuntimeException e) {
 			//运行异常
 			this.addActionMessage(e.getMessage());
@@ -216,11 +245,20 @@ public class BidAction extends BaseAction {
 	public String showUpdBidAction() {
 		try {
 			this.clearMessages();
-			updateBidDto = bidService.queryBidByID(updateBidNo);
+			updateBidDto = bidService.queryAllBidByID(updateBidNo);
 			if(updateBidDto == null) {
 				this.addActionMessage("该数据不存在！");
 				return "checkerror";
 			}
+			
+			listBidCompTmp = new ArrayList<BidCompDto>();
+			listExpertLibTmp = new ArrayList<ExpertLibDto>();
+			listUserInfo = userInfoService.queryAllUser();
+			
+			//查询招标公司列表
+			listBidComp = bidCompService.queryAllBidCompExport(updateBidNo, "", "");
+			//查询专家列表
+			listExpertLib = expertLibService.queryExpertLibByIds(updateBidDto.getBID_EXPERT_LIST());
 		} catch(Exception e) {
 			this.addActionMessage("系统错误，查询招标异常！");
 			log.error("showUpdBidAction error:" + e);
@@ -236,6 +274,12 @@ public class BidAction extends BaseAction {
 	public String updBidAction() {
 		try {
 			this.clearMessages();
+			listUserInfo = userInfoService.queryAllUser();
+			listBidComp = listBidCompTmp;
+			listExpertLib = listExpertLibTmp;
+			listBidCompTmp = new ArrayList<BidCompDto>();
+			listExpertLibTmp = new ArrayList<ExpertLibDto>();
+			
 			//数据校验
 			if(!checkUpdData(updateBidDto)) {
 				return "checkerror";
@@ -243,9 +287,14 @@ public class BidAction extends BaseAction {
 			//修改数据
 			String username = (String) ActionContext.getContext().getSession().get(Constants.USER_NAME);
 			updateBidDto.setUPDATE_USER(username);
-			bidService.updateBid(updateBidDto, null, null);
+			bidService.updateBidNew(updateBidDto, listBidComp, listExpertLib);
 			this.addActionMessage("修改招标成功！");
-			updateBidDtoOld = bidService.queryBidByID(updateBidNo);
+			updateBidDtoOld = bidService.queryAllBidByID(updateBidNo);
+			
+			//查询招标公司列表
+			listBidComp = bidCompService.queryBidCompByIds(updateBidDto.getBID_CO_LIST());
+			//查询专家列表
+			listExpertLib = expertLibService.queryExpertLibByIds(updateBidDto.getBID_EXPERT_LIST());
 		} catch(Exception e) {
 			this.addActionMessage("系统异常，修改招标失败！");
 			log.error("updBidAction error:" + e);
@@ -364,17 +413,25 @@ public class BidAction extends BaseAction {
 	 * @return
 	 */
 	private boolean checkUpdData(BidDto bid) {
-//		if("3".equals(bid.getPROJECT_TYPE())) {
-//			//分类=招标办,招标编号为自己输入
-//			if(StringUtil.isBlank(bid.getBID_NO())) {
-//				this.addActionMessage("招标编号不能为空！");
-//				return false;
-//			}
-//		}
-//		if(StringUtil.isBlank(bid.getPROJECT_TYPE())) {
-//			this.addActionMessage("请选择分类！");
-//			return false;
-//		}
+		if(StringUtil.isBlank(bid.getCNTRCT_NO())) {
+			this.addActionMessage("合同编号不能为空！");
+			return false;
+		}
+		if("3".equals(bid.getCNTRCT_TYPE()) || "4".equals(bid.getCNTRCT_TYPE())) {
+			//分类=招标办,招标编号为自己输入
+			if(StringUtil.isBlank(bid.getBID_NO())) {
+				this.addActionMessage("招标编号不能为空！");
+				return false;
+			}
+		} else {
+			if("0".equals(bid.getIS_RANDOM())) {
+				//非随机生成招标编号
+				if(StringUtil.isBlank(bid.getBID_NO())) {
+					this.addActionMessage("招标编号不能为空！");
+					return false;
+				}
+			}
+		}
 		if(StringUtil.isBlank(bid.getPROJECT_NAME())) {
 			this.addActionMessage("项目名称不能为空！");
 			return false;

@@ -11,7 +11,7 @@
 <title>统计界面</title>
 <!-- Bootstrap -->
 <link href="<%=request.getContextPath()%>/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="<%=request.getContextPath()%>/node_modules/bootstrap/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+<link href="<%=request.getContextPath()%>/node_modules/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/node_modules/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/global.css">
@@ -25,69 +25,15 @@
 <script type="text/javascript">
 	
 	function setQueryDate() {
-		$("#strCntrctStDate").attr("value", $("#cntrctStDate").val());
-		$("#strCntrctEdDate").attr("value", $("#cntrctEdDate").val());
+		$("#strStartDate").attr("value", $("#startDate").val());
+		$("#strEndDate").attr("value", $("#endDate").val());
+		$("#strProjectManager").attr("value", $("#projectManager").val());
 	}
 
 	function queryList() {
 		setQueryDate();
 		document.mainform.action = '<c:url value="/audit/queryAuditStatistics.action"></c:url>';
 		document.mainform.submit();
-	}
-
-	//翻页
-	function changePage(pageNum) {
-		setQueryDate();
-		document.getElementById("startIndex").value = pageNum;
-		document.mainform.action = '<c:url value="/auditcntrct/turnAuditCntrctPage.action"></c:url>';
-		document.mainform.submit();
-	}
-
-	//页跳转
-	function turnPage() {
-		var totalPage = "${page.totalPage}";
-		var turnPage = document.getElementById("pagenum").value;
-		//判断是否输入页码
-		if ('' != turnPage) {
-			//判断页码是否是大于0的数字
-			if(!iscInteger(turnPage)){
-				alert("页码必须是大于0的整数！");
-				return;
-			}
-			turnPage = parseInt(turnPage);
-			if(turnPage < 1){
-				alert("页码必须是大于0的整数！");
-				return;
-			}
-			//判断页码大小是否正确
-			if(turnPage > parseInt(totalPage)){
-				alert("页码不能超过最大页数！");
-				return;
-			}
-			//换页
-			changePage(turnPage - 1);
-		} else {
-			alert("页码不能为空！");
-			return;
-		}	
-	}
-	
-	function exportAudit() {
-		setQueryDate();
-		document.mainform.action = '<c:url value="/auditcntrct/exportAuditCntrctListAction.action"></c:url>';
-		document.mainform.submit();
-	}
-	
-	function queryAgentCommon() {
-		setQueryDate();
-		var url = '<c:url value="/agentcomp/showAgentCompCommonAction.action"></c:url>' + "?strKey=strAgentName&agentAddFlag=1&date=" + new Date();
-		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:1000px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
-	}
-	
-	function queryContractCommon() {
-		setQueryDate();
-		var url = '<c:url value="/agentcomp/showAgentCompCommonAction.action"></c:url>' + "?strKey=strContractName&agentAddFlag=3&date=" + new Date();
-		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:1000px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
 	}
 	
 </script>
@@ -104,14 +50,15 @@
 					<s:hidden name="startIndex" id="startIndex"/>
 					<s:hidden name="strStartDate" id="strStartDate"/>
 					<s:hidden name="strEndDate" id="strEndDate"/>
+					<s:hidden name="strProjectManager" id="strProjectManager"/>
 					<h3 class="title">统计界面<a class="backHome" href="#" onclick="goHome();"><i class="fa fa-home" aria-hidden="true"></i>返回首页</a></h3>
 					<div class="row">
 						<div class="col-lg-12 form-group">
 							<label for="" class="col-lg-1 form-label">工程师</label>
-							<div class="col-lg-2">
-								<select multiple id="strProjectManager" class="selectpicker form-control">
+							<div class="col-lg-4">
+								<select multiple name="projectManager" id="projectManager" class="selectpicker form-control" data-live-search="true">
 									<s:iterator id="listUserInfo" value="listUserInfo" status="st1">
-										<option value="<s:property value="LOGIN_NAME"/>" <s:if test="%{addAuditDto.PPROJECT_MANAGER == LOGIN_NAME}">selected</s:if>><s:property value="LOGIN_NAME"/></option>
+										<option value="<s:property value="LOGIN_NAME"/>"><s:property value="LOGIN_NAME"/></option>
 									</s:iterator>
 								</select>
 							</div>
@@ -280,12 +227,21 @@
 <script src="<%=request.getContextPath()%>/node_modules/jquery/dist/jquery.min.js"></script>
 <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="<%=request.getContextPath()%>/node_modules/bootstrap/dist/js/bootstrap-select.min.js"></script>
+<script src="<%=request.getContextPath()%>/node_modules/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.min.js"></script>
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.zh-CN.min.js"></script>
 <script>
-$(function () { $('#collapseThree').collapse('toggle')});
-$(function () { $('#collapseOne').collapse('toggle')});
+	$(function () { $('#collapseThree').collapse('toggle')});
+	$(function () { $('#collapseOne').collapse('toggle')});
+	$(function () { 
+		$(".selectpicker").selectpicker({
+			noneSelectedText : '请选择'//默认显示内容
+		});
+		var str = $("#strProjectManager").val();
+	    var arr = str.split(',');
+	    $('#projectManager').selectpicker('val', arr);
+	});
+
 	$('.datepicker').parent().datepicker({
 		"autoclose":true,"format":"yyyy-mm-dd","language":"zh-CN"
 	});

@@ -128,6 +128,23 @@
 		<result property="CNTRCT_NM" column="CNTRCT_NM" />
 		<result property="CNTRCT_NM_COUNT" column="CNTRCT_NM_COUNT" />
 	</resultMap>
+
+	<resultMap id="AuditStatCostDetailDto" class="com.cn.tbps.dto.AuditStatCostDetailDto">
+		<result property="PROJECT_MANAGER" column="PROJECT_MANAGER" />
+		<result property="CNTRCT_NM" column="CNTRCT_NM" />
+		<result property="CNTRCT_NM_COUNT" column="CNTRCT_NM_COUNT" />
+		<result property="VERIFY_PER_AMOUNT" column="VERIFY_PER_AMOUNT" />
+		<result property="A_PER_AMOUNT" column="A_PER_AMOUNT" />
+		<result property="A_AMOUNT" column="A_AMOUNT" />
+		<result property="B_PER_AMOUNT" column="B_PER_AMOUNT" />
+		<result property="B_AMOUNT" column="B_AMOUNT" />
+	</resultMap>
+
+	<resultMap id="AuditStatCostDetailDto1" class="com.cn.tbps.dto.AuditStatCostDetailDto">
+		<result property="PROJECT_MANAGER" column="PROJECT_MANAGER" />
+		<result property="ALL_PER_AMOUNT" column="ALL_PER_AMOUNT" />
+		<result property="ALL_AMOUNT" column="ALL_AMOUNT" />
+	</resultMap>
 	
 	<select id="queryAuditCountByPage" resultClass="int" parameterClass="java.util.Map">
 		select count(*) from (
@@ -1168,6 +1185,102 @@
 			order by PROJECT_MANAGER, DOC_REC_DATE
 	</select>
 	
+	<select id="queryAuditStatCost" parameterClass="java.util.Map" resultMap="AuditStatCostDetailDto">
+		select PROJECT_MANAGER, 
+				CNTRCT_NM AS CNTRCT_NM, 
+				COUNT(CNTRCT_NM) AS CNTRCT_NM_COUNT,
+				SUM(case when RESERVE1=4 then CNT_PRICE else VERIFY_PER_AMOUNT end) as VERIFY_PER_AMOUNT,
+				SUM(A_AMOUNT) as A_PER_AMOUNT,
+				SUM(case when A_SET_DATE is not null then A_AMOUNT else 0 end) as A_AMOUNT,
+				SUM(B_AMOUNT) as B_PER_AMOUNT,
+				SUM(case when B_SET_DATE is not null then B_AMOUNT else 0 end) as B_AMOUNT
+			from audit where DELETE_FLG = '1'
+			<isNotEmpty prepend="and" property="RESERVE1">
+				RESERVE1 = #RESERVE1#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				DOC_REC_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				DOC_REC_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+			and DOC_REC_DATE is not null
+			group by PROJECT_MANAGER, CNTRCT_NM
+			order by PROJECT_MANAGER, CNTRCT_NM
+	</select>
+	
+	<select id="queryAuditStatCostByManager" parameterClass="java.util.Map" resultMap="AuditStatCostDetailDto1">
+		select PROJECT_MANAGER, 
+				SUM(A_AMOUNT) + SUM(B_AMOUNT) as ALL_PER_AMOUNT,
+				SUM(case when A_SET_DATE is not null then A_AMOUNT else 0 end) + SUM(case when B_SET_DATE is not null then B_AMOUNT else 0 end) as ALL_AMOUNT
+			from audit where DELETE_FLG = '1'
+			<isNotEmpty prepend="and" property="RESERVE1">
+				RESERVE1 = #RESERVE1#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				DOC_REC_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				DOC_REC_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+			and DOC_REC_DATE is not null
+			group by PROJECT_MANAGER
+			order by PROJECT_MANAGER
+	</select>
+	
+	<select id="queryAuditStatCostAllCount" parameterClass="java.util.Map" resultMap="AuditStatCostDetailDto1">
+		select "" as PROJECT_MANAGER, 
+				SUM(A_AMOUNT) + SUM(B_AMOUNT) as ALL_PER_AMOUNT,
+				SUM(case when A_SET_DATE is not null then A_AMOUNT else 0 end) + SUM(case when B_SET_DATE is not null then B_AMOUNT else 0 end) as ALL_AMOUNT
+			from audit where DELETE_FLG = '1'
+			<isNotEmpty prepend="and" property="RESERVE1">
+				RESERVE1 = #RESERVE1#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				DOC_REC_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				DOC_REC_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+			and DOC_REC_DATE is not null
+	</select>
+	
+	<select id="queryAuditStatCostCount" parameterClass="java.util.Map" resultMap="AuditStatCostDetailDto">
+		select "" as PROJECT_MANAGER, 
+				CNTRCT_NM AS CNTRCT_NM, 
+				"" AS CNTRCT_NM_COUNT,
+				"" as VERIFY_PER_AMOUNT,
+				SUM(A_AMOUNT) as A_PER_AMOUNT,
+				SUM(case when A_SET_DATE is not null then A_AMOUNT else 0 end) as A_AMOUNT,
+				SUM(B_AMOUNT) as B_PER_AMOUNT,
+				SUM(case when B_SET_DATE is not null then B_AMOUNT else 0 end) as B_AMOUNT
+			from audit where DELETE_FLG = '1'
+			<isNotEmpty prepend="and" property="RESERVE1">
+				RESERVE1 = #RESERVE1#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				DOC_REC_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				DOC_REC_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+			and DOC_REC_DATE is not null
+			group by CNTRCT_NM
+			order by CNTRCT_NM
+	</select>
+	
 	<select id="queryAuditStatisticsAllCount" parameterClass="java.util.Map" resultClass="Integer">
 		select COUNT(CNTRCT_NM)
 			from audit where DELETE_FLG = '1'
@@ -1202,6 +1315,89 @@
 				DOC_REC_DATE <![CDATA[<=]]> #END_DATE#
 			</isNotEmpty>
 			and DOC_REC_DATE is not null
+			group by CNTRCT_NM
+			order by CNTRCT_NM
+	</select>
+	
+	<select id="queryAuditStatistics5" parameterClass="java.util.Map" resultMap="AuditStatisticsDetailDto">
+		select PROJECT_MANAGER, 
+				DATE_FORMAT(PLAN_DOC_RCV_DATE,'%Y.%m') AS DOC_REC_DATE, 
+				CNTRCT_NM AS CNTRCT_NM, 
+				COUNT(CNTRCT_NM) AS CNTRCT_NM_COUNT
+			from audit where DELETE_FLG = '1'
+			<isNotEmpty prepend="and" property="RESERVE1">
+				RESERVE1 = #RESERVE1#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				PLAN_DOC_RCV_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				PLAN_DOC_RCV_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+			and PLAN_DOC_RCV_DATE is not null
+			group by PROJECT_MANAGER, PLAN_DOC_RCV_DATE, CNTRCT_NM
+			order by PROJECT_MANAGER, PLAN_DOC_RCV_DATE, CNTRCT_NM
+	</select>
+	
+	<select id="queryAuditStatisticsByMonth5" parameterClass="java.util.Map" resultMap="AuditStatisticsDetailDto1">
+		select PROJECT_MANAGER, 
+				DATE_FORMAT(PLAN_DOC_RCV_DATE,'%Y.%m') AS DOC_REC_DATE, 
+				COUNT(CNTRCT_NM) AS MONTH_ALL_COUNT
+			from audit where DELETE_FLG = '1'
+			<isNotEmpty prepend="and" property="RESERVE1">
+				RESERVE1 = #RESERVE1#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				PLAN_DOC_RCV_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				PLAN_DOC_RCV_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+			and PLAN_DOC_RCV_DATE is not null
+			group by PROJECT_MANAGER, PLAN_DOC_RCV_DATE
+			order by PROJECT_MANAGER, PLAN_DOC_RCV_DATE
+	</select>
+	
+	<select id="queryAuditStatisticsAllCount5" parameterClass="java.util.Map" resultClass="Integer">
+		select COUNT(CNTRCT_NM)
+			from audit where DELETE_FLG = '1'
+			<isNotEmpty prepend="and" property="RESERVE1">
+				RESERVE1 = #RESERVE1#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				PLAN_DOC_RCV_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				PLAN_DOC_RCV_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+			and PLAN_DOC_RCV_DATE is not null
+	</select>
+	
+	<select id="queryAuditStatisticsCount5" parameterClass="java.util.Map" resultMap="AuditCountDto">
+		select CNTRCT_NM, COUNT(CNTRCT_NM) AS CNTRCT_NM_COUNT
+			from audit where DELETE_FLG = '1'
+			<isNotEmpty prepend="and" property="RESERVE1">
+				RESERVE1 = #RESERVE1#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				PLAN_DOC_RCV_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				PLAN_DOC_RCV_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+			and PLAN_DOC_RCV_DATE is not null
 			group by CNTRCT_NM
 			order by CNTRCT_NM
 	</select>

@@ -17,6 +17,7 @@ import com.cn.tbps.dto.AuditCntrctDto;
 import com.cn.tbps.dto.AuditCompDto;
 import com.cn.tbps.dto.AuditDto;
 import com.cn.tbps.dto.AuditHistDto;
+import com.cn.tbps.dto.AuditStatCostDto;
 import com.cn.tbps.dto.AuditStatisticsDto;
 import com.cn.tbps.dto.UserInfoDto;
 import com.cn.tbps.service.AuditCntrctService;
@@ -217,8 +218,10 @@ public class AuditAction extends BaseAction {
 	
 	private String strStartDate;
 	private String strEndDate;
+	//统计界面
 	private AuditStatisticsDto auditStatistics;
-	
+	//项目收费统计输出
+	private AuditStatCostDto auditStatCost;
 	
 	//审价履历
 	/**
@@ -837,7 +840,7 @@ public class AuditAction extends BaseAction {
 			strProjectManager = "";
 			strStartDate = "";
 			strEndDate = "";
-			listAudit = new ArrayList<AuditDto>();
+			auditStatCost = new AuditStatCostDto();
 			
 			listUserInfo = userInfoService.queryAllUser();
 			UserInfoDto userinfo = new UserInfoDto();
@@ -857,8 +860,8 @@ public class AuditAction extends BaseAction {
 	public String queryAuditStatCost() {
 		try {
 			this.clearMessages();
-			listAudit = new ArrayList<AuditDto>();
-			listAudit = auditService.queryAuditStatCost(strProjectManager, strStartDate, strEndDate);
+			auditStatCost = new AuditStatCostDto();
+			auditStatCost = auditService.queryAuditStatCost(strProjectManager, strStartDate, strEndDate);
 		} catch(Exception e) {
 			log.error(e);
 			return ERROR;
@@ -1316,6 +1319,14 @@ public class AuditAction extends BaseAction {
 
 	public void setAuditStatistics(AuditStatisticsDto auditStatistics) {
 		this.auditStatistics = auditStatistics;
+	}
+
+	public AuditStatCostDto getAuditStatCost() {
+		return auditStatCost;
+	}
+
+	public void setAuditStatCost(AuditStatCostDto auditStatCost) {
+		this.auditStatCost = auditStatCost;
 	}
 
 }

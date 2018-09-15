@@ -5,6 +5,7 @@ import java.util.List;
 import com.cn.common.util.Page;
 import com.cn.tbps.dto.AuditDto;
 import com.cn.tbps.dto.AuditHistDto;
+import com.cn.tbps.dto.AuditStatCostDto;
 import com.cn.tbps.dto.AuditStatisticsDto;
 
 /**
@@ -63,7 +64,7 @@ public interface AuditService {
 	 * @param endDate
 	 * @return
 	 */
-	public List<AuditDto> queryAuditStatCost(String projectManager, String startDate, String endDate);
+	public AuditStatCostDto queryAuditStatCost(String projectManager, String startDate, String endDate);
 	
 	/**
 	 * 到账统计

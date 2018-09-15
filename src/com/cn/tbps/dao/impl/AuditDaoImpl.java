@@ -1,15 +1,22 @@
 package com.cn.tbps.dao.impl;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.cn.common.dao.BaseDao;
+import com.cn.common.util.StringUtil;
 import com.cn.tbps.dao.AuditDao;
+import com.cn.tbps.dto.AuditCostCountDto;
 import com.cn.tbps.dto.AuditCountDto;
 import com.cn.tbps.dto.AuditDto;
 import com.cn.tbps.dto.AuditHistDto;
+import com.cn.tbps.dto.AuditStatCostCountDto;
+import com.cn.tbps.dto.AuditStatCostDetailDto;
+import com.cn.tbps.dto.AuditStatCostDto;
 import com.cn.tbps.dto.AuditStatisticsCountDto;
 import com.cn.tbps.dto.AuditStatisticsDetailDto;
 import com.cn.tbps.dto.AuditStatisticsDto;
@@ -230,7 +237,12 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 	public AuditStatisticsDto queryAuditStatistics(String projectManager, String startDate, String endDate) {
 		AuditStatisticsDto auditStatisticsDto= new AuditStatisticsDto();
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("PROJECT_MANAGER", projectManager);
+		String pm = projectManager;
+		if(StringUtil.isNotBlank(pm)) {
+			pm = pm.replace(",", "','");
+			pm = "'" + pm + "'";
+		}
+		paramMap.put("PROJECT_MANAGER", pm);
 		paramMap.put("START_DATE", startDate);
 		paramMap.put("END_DATE", endDate);
 		//合同列表
@@ -382,9 +394,9 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 		//投资监理
 		paramMap.put("RESERVE1", "5");
 		@SuppressWarnings("unchecked")
-		List<AuditStatisticsDetailDto> listAudit5 = getSqlMapClientTemplate().queryForList("queryAuditStatistics", paramMap);
+		List<AuditStatisticsDetailDto> listAudit5 = getSqlMapClientTemplate().queryForList("queryAuditStatistics5", paramMap);
 		@SuppressWarnings("unchecked")
-		List<AuditStatisticsDetailDto> listAuditByMonth5 = getSqlMapClientTemplate().queryForList("queryAuditStatisticsByMonth", paramMap);
+		List<AuditStatisticsDetailDto> listAuditByMonth5 = getSqlMapClientTemplate().queryForList("queryAuditStatisticsByMonth5", paramMap);
 		for(AuditStatisticsDetailDto dtoByMonth5 : listAuditByMonth5) {
 			List<AuditCountDto> listAuditCount5 = new ArrayList<AuditCountDto>();
 			for(String s : listAuditCntrctNM) {
@@ -406,10 +418,10 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 		auditStatisticsDto.setListAudit5(listAuditByMonth5);
 		//投资监理合计
 		AuditStatisticsCountDto auditStatisticsCountDto5 = new AuditStatisticsCountDto();
-		int allCount5 = (Integer)getSqlMapClientTemplate().queryForObject("queryAuditStatisticsAllCount", paramMap);
+		int allCount5 = (Integer)getSqlMapClientTemplate().queryForObject("queryAuditStatisticsAllCount5", paramMap);
 		auditStatisticsCountDto5.setAllCount(allCount5);
 		@SuppressWarnings("unchecked")
-		List<AuditCountDto> listAuditCount5 = getSqlMapClientTemplate().queryForList("queryAuditStatisticsCount", paramMap);
+		List<AuditCountDto> listAuditCount5 = getSqlMapClientTemplate().queryForList("queryAuditStatisticsCount5", paramMap);
 		List<AuditCountDto> listCount5 = new ArrayList<AuditCountDto>();
 		for(String s : listAuditCntrctNM) {
 			AuditCountDto auditCountDto = new AuditCountDto();
@@ -436,8 +448,207 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 	}
 
 	@Override
-	public List<AuditDto> queryAuditStatCost(String projectManager, String startDate, String endDate) {
-		// TODO Auto-generated method stub
-		return null;
+	public AuditStatCostDto queryAuditStatCost(String projectManager, String startDate, String endDate) {
+		AuditStatCostDto auditStatCostDto= new AuditStatCostDto();
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		String pm = projectManager;
+		if(StringUtil.isNotBlank(pm)) {
+			pm = pm.replace(",", "','");
+			pm = "'" + pm + "'";
+		}
+		paramMap.put("PROJECT_MANAGER", pm);
+		paramMap.put("START_DATE", startDate);
+		paramMap.put("END_DATE", endDate);
+		//合同列表
+		@SuppressWarnings("unchecked")
+		List<String> listAuditCntrctNM = getSqlMapClientTemplate().queryForList("queryAuditCntrctNM", paramMap);
+		auditStatCostDto.setListAuditCntrctNM(listAuditCntrctNM);
+		
+		//合计
+		AuditStatCostCountDto auditStatCostCountDto = new AuditStatCostCountDto();
+		AuditStatCostDetailDto allCount = (AuditStatCostDetailDto) getSqlMapClientTemplate().queryForObject("queryAuditStatCostAllCount", paramMap);
+		auditStatCostCountDto.setALL_PER_AMOUNT(allCount.getALL_PER_AMOUNT());
+		auditStatCostCountDto.setALL_AMOUNT(allCount.getALL_AMOUNT());
+		@SuppressWarnings("unchecked")
+		List<AuditStatCostDetailDto> listAuditCostCount = getSqlMapClientTemplate().queryForList("queryAuditStatCostCount", paramMap);
+		List<AuditCostCountDto> listCount = new ArrayList<AuditCostCountDto>();
+		for(String s : listAuditCntrctNM) {
+			AuditCostCountDto auditCostCountDto = new AuditCostCountDto();
+			auditCostCountDto.setCNTRCT_NM(s);
+			auditCostCountDto.setA_PER_AMOUNT(new BigDecimal("0.00"));
+			auditCostCountDto.setA_AMOUNT(new BigDecimal("0.00"));
+			auditCostCountDto.setB_PER_AMOUNT(new BigDecimal("0.00"));
+			auditCostCountDto.setB_AMOUNT(new BigDecimal("0.00"));
+			for(AuditStatCostDetailDto dto : listAuditCostCount) {
+				if(s.equals(dto.getCNTRCT_NM())) {
+					auditCostCountDto.setA_PER_AMOUNT(dto.getA_PER_AMOUNT());
+					auditCostCountDto.setA_AMOUNT(dto.getA_AMOUNT());
+					auditCostCountDto.setB_PER_AMOUNT(dto.getB_PER_AMOUNT());
+					auditCostCountDto.setB_AMOUNT(dto.getB_AMOUNT());
+					break;
+				}
+			}
+			listCount.add(auditCostCountDto);
+		}
+		auditStatCostCountDto.setListCount(listCount);
+		auditStatCostDto.setCount(auditStatCostCountDto);
+		
+		//审价
+		paramMap.put("RESERVE1", "1");
+		@SuppressWarnings("unchecked")
+		List<AuditStatCostDetailDto> listAudit1 = getSqlMapClientTemplate().queryForList("queryAuditStatCost", paramMap);
+		@SuppressWarnings("unchecked")
+		List<AuditStatCostDetailDto> listAuditByManager1 = getSqlMapClientTemplate().queryForList("queryAuditStatCostByManager", paramMap);
+		for(AuditStatCostDetailDto dtoByManager1 : listAuditByManager1) {
+			List<AuditCostCountDto> listAuditCostCount1 = new ArrayList<AuditCostCountDto>();
+			for(String s : listAuditCntrctNM) {
+				AuditCostCountDto auditCountDto = new AuditCostCountDto();
+				auditCountDto.setCNTRCT_NM(s);
+				auditCountDto.setCNTRCT_NM_COUNT(0);
+				auditCountDto.setVERIFY_PER_AMOUNT(new BigDecimal("0.00"));
+				auditCountDto.setA_PER_AMOUNT(new BigDecimal("0.00"));
+				auditCountDto.setA_AMOUNT(new BigDecimal("0.00"));
+				auditCountDto.setB_PER_AMOUNT(new BigDecimal("0.00"));
+				auditCountDto.setB_AMOUNT(new BigDecimal("0.00"));
+				auditCountDto.setB_AMOUNT_RATE(new BigDecimal("0.00"));
+				for(AuditStatCostDetailDto dto1 : listAudit1) {
+					if(s.equals(dto1.getCNTRCT_NM()) && dto1.getPROJECT_MANAGER().equals(dtoByManager1.getPROJECT_MANAGER())) {
+						auditCountDto.setCNTRCT_NM_COUNT(dto1.getCNTRCT_NM_COUNT());
+						auditCountDto.setVERIFY_PER_AMOUNT(dto1.getVERIFY_PER_AMOUNT());
+						auditCountDto.setA_PER_AMOUNT(dto1.getA_PER_AMOUNT());
+						auditCountDto.setA_AMOUNT(dto1.getA_AMOUNT());
+						auditCountDto.setB_PER_AMOUNT(dto1.getB_PER_AMOUNT());
+						auditCountDto.setB_AMOUNT(dto1.getB_AMOUNT());
+						if(!(dto1.getB_PER_AMOUNT().compareTo(BigDecimal.ZERO) == 0)) {
+							BigDecimal rate = dto1.getB_PER_AMOUNT().divide(dto1.getVERIFY_PER_AMOUNT(), 2, RoundingMode.HALF_UP);
+							auditCountDto.setB_AMOUNT_RATE(rate);
+						}
+						break;
+					}
+				}
+				listAuditCostCount1.add(auditCountDto);
+			}
+			dtoByManager1.setListAuditCostCount(listAuditCostCount1);;
+		}
+		auditStatCostDto.setListAudit1(listAuditByManager1);
+		
+		//咨询
+		paramMap.put("RESERVE1", "2");
+		@SuppressWarnings("unchecked")
+		List<AuditStatCostDetailDto> listAudit2 = getSqlMapClientTemplate().queryForList("queryAuditStatCost", paramMap);
+		@SuppressWarnings("unchecked")
+		List<AuditStatCostDetailDto> listAuditByManager2 = getSqlMapClientTemplate().queryForList("queryAuditStatCostByManager", paramMap);
+		for(AuditStatCostDetailDto dtoByManager2 : listAuditByManager2) {
+			List<AuditCostCountDto> listAuditCostCount2 = new ArrayList<AuditCostCountDto>();
+			for(String s : listAuditCntrctNM) {
+				AuditCostCountDto auditCountDto = new AuditCostCountDto();
+				auditCountDto.setCNTRCT_NM(s);
+				auditCountDto.setCNTRCT_NM_COUNT(0);
+				auditCountDto.setVERIFY_PER_AMOUNT(new BigDecimal("0.00"));
+				auditCountDto.setA_PER_AMOUNT(new BigDecimal("0.00"));
+				auditCountDto.setA_AMOUNT(new BigDecimal("0.00"));
+				auditCountDto.setB_PER_AMOUNT(new BigDecimal("0.00"));
+				auditCountDto.setB_AMOUNT(new BigDecimal("0.00"));
+				auditCountDto.setB_AMOUNT_RATE(new BigDecimal("0.00"));
+				for(AuditStatCostDetailDto dto2 : listAudit2) {
+					if(s.equals(dto2.getCNTRCT_NM()) && dto2.getPROJECT_MANAGER().equals(dtoByManager2.getPROJECT_MANAGER())) {
+						auditCountDto.setCNTRCT_NM_COUNT(dto2.getCNTRCT_NM_COUNT());
+						auditCountDto.setVERIFY_PER_AMOUNT(dto2.getVERIFY_PER_AMOUNT());
+						auditCountDto.setA_PER_AMOUNT(dto2.getA_PER_AMOUNT());
+						auditCountDto.setA_AMOUNT(dto2.getA_AMOUNT());
+						auditCountDto.setB_PER_AMOUNT(dto2.getB_PER_AMOUNT());
+						auditCountDto.setB_AMOUNT(dto2.getB_AMOUNT());
+						if(!(dto2.getB_PER_AMOUNT().compareTo(BigDecimal.ZERO) == 0)) {
+							BigDecimal rate = dto2.getB_PER_AMOUNT().divide(dto2.getVERIFY_PER_AMOUNT(), 2, RoundingMode.HALF_UP);
+							auditCountDto.setB_AMOUNT_RATE(rate);
+						}
+						break;
+					}
+				}
+				listAuditCostCount2.add(auditCountDto);
+			}
+			dtoByManager2.setListAuditCostCount(listAuditCostCount2);;
+		}
+		auditStatCostDto.setListAudit2(listAuditByManager2);
+		
+		//控制价编制
+		paramMap.put("RESERVE1", "4");
+		@SuppressWarnings("unchecked")
+		List<AuditStatCostDetailDto> listAudit4 = getSqlMapClientTemplate().queryForList("queryAuditStatCost", paramMap);
+		@SuppressWarnings("unchecked")
+		List<AuditStatCostDetailDto> listAuditByManager4 = getSqlMapClientTemplate().queryForList("queryAuditStatCostByManager", paramMap);
+		for(AuditStatCostDetailDto dtoByManager4 : listAuditByManager4) {
+			List<AuditCostCountDto> listAuditCostCount4 = new ArrayList<AuditCostCountDto>();
+			for(String s : listAuditCntrctNM) {
+				AuditCostCountDto auditCountDto = new AuditCostCountDto();
+				auditCountDto.setCNTRCT_NM(s);
+				auditCountDto.setCNTRCT_NM_COUNT(0);
+				auditCountDto.setVERIFY_PER_AMOUNT(new BigDecimal("0.00"));
+				auditCountDto.setA_PER_AMOUNT(new BigDecimal("0.00"));
+				auditCountDto.setA_AMOUNT(new BigDecimal("0.00"));
+				auditCountDto.setB_PER_AMOUNT(new BigDecimal("0.00"));
+				auditCountDto.setB_AMOUNT(new BigDecimal("0.00"));
+				auditCountDto.setB_AMOUNT_RATE(new BigDecimal("0.00"));
+				for(AuditStatCostDetailDto dto4 : listAudit4) {
+					if(s.equals(dto4.getCNTRCT_NM()) && dto4.getPROJECT_MANAGER().equals(dtoByManager4.getPROJECT_MANAGER())) {
+						auditCountDto.setCNTRCT_NM_COUNT(dto4.getCNTRCT_NM_COUNT());
+						auditCountDto.setVERIFY_PER_AMOUNT(dto4.getVERIFY_PER_AMOUNT());
+						auditCountDto.setA_PER_AMOUNT(dto4.getA_PER_AMOUNT());
+						auditCountDto.setA_AMOUNT(dto4.getA_AMOUNT());
+						auditCountDto.setB_PER_AMOUNT(dto4.getB_PER_AMOUNT());
+						auditCountDto.setB_AMOUNT(dto4.getB_AMOUNT());
+						if(!(dto4.getB_PER_AMOUNT().compareTo(BigDecimal.ZERO) == 0)) {
+							BigDecimal rate = dto4.getB_PER_AMOUNT().divide(dto4.getVERIFY_PER_AMOUNT(), 2, RoundingMode.HALF_UP);
+							auditCountDto.setB_AMOUNT_RATE(rate);
+						}
+						break;
+					}
+				}
+				listAuditCostCount4.add(auditCountDto);
+			}
+			dtoByManager4.setListAuditCostCount(listAuditCostCount4);;
+		}
+		auditStatCostDto.setListAudit4(listAuditByManager4);
+		
+		//投资监理
+		paramMap.put("RESERVE1", "5");
+		@SuppressWarnings("unchecked")
+		List<AuditStatCostDetailDto> listAudit5 = getSqlMapClientTemplate().queryForList("queryAuditStatCost", paramMap);
+		@SuppressWarnings("unchecked")
+		List<AuditStatCostDetailDto> listAuditByManager5 = getSqlMapClientTemplate().queryForList("queryAuditStatCostByManager", paramMap);
+		for(AuditStatCostDetailDto dtoByManager5 : listAuditByManager5) {
+			List<AuditCostCountDto> listAuditCostCount5 = new ArrayList<AuditCostCountDto>();
+			for(String s : listAuditCntrctNM) {
+				AuditCostCountDto auditCountDto = new AuditCostCountDto();
+				auditCountDto.setCNTRCT_NM(s);
+				auditCountDto.setCNTRCT_NM_COUNT(0);
+				auditCountDto.setVERIFY_PER_AMOUNT(new BigDecimal("0.00"));
+				auditCountDto.setA_PER_AMOUNT(new BigDecimal("0.00"));
+				auditCountDto.setA_AMOUNT(new BigDecimal("0.00"));
+				auditCountDto.setB_PER_AMOUNT(new BigDecimal("0.00"));
+				auditCountDto.setB_AMOUNT(new BigDecimal("0.00"));
+				auditCountDto.setB_AMOUNT_RATE(new BigDecimal("0.00"));
+				for(AuditStatCostDetailDto dto5 : listAudit5) {
+					if(s.equals(dto5.getCNTRCT_NM()) && dto5.getPROJECT_MANAGER().equals(dtoByManager5.getPROJECT_MANAGER())) {
+						auditCountDto.setCNTRCT_NM_COUNT(dto5.getCNTRCT_NM_COUNT());
+						auditCountDto.setVERIFY_PER_AMOUNT(dto5.getVERIFY_PER_AMOUNT());
+						auditCountDto.setA_PER_AMOUNT(dto5.getA_PER_AMOUNT());
+						auditCountDto.setA_AMOUNT(dto5.getA_AMOUNT());
+						auditCountDto.setB_PER_AMOUNT(dto5.getB_PER_AMOUNT());
+						auditCountDto.setB_AMOUNT(dto5.getB_AMOUNT());
+						if(!(dto5.getB_PER_AMOUNT().compareTo(BigDecimal.ZERO) == 0)) {
+							BigDecimal rate = dto5.getB_PER_AMOUNT().divide(dto5.getVERIFY_PER_AMOUNT(), 2, RoundingMode.HALF_UP);
+							auditCountDto.setB_AMOUNT_RATE(rate);
+						}
+						break;
+					}
+				}
+				listAuditCostCount5.add(auditCountDto);
+			}
+			dtoByManager5.setListAuditCostCount(listAuditCostCount5);;
+		}
+		auditStatCostDto.setListAudit5(listAuditByManager5);
+		
+		return auditStatCostDto;
 	}
 }
