@@ -1,5 +1,5 @@
 ul,li{ list-style: none; }
-.top { height: 180px; background: #516f89 }
+.top { height: 80px; background: #516f89 }
 .top-l { padding-top: 60px; }
 .top-r { padding-top: 50px; }
 .loginBox { width: 400px; margin: 50px auto; }
@@ -71,3 +71,4 @@ h3.title a.backHome i.fa{ margin-right: 5px; font-size: 16px; }
 .gotoPage .num{ width:50px; height: 34px; border:1px solid #ccc;}
 .modal label{ padding-right: 0; }
 .table td a{ margin:0 10px; }
+#table tbody tr td { border:0px; }

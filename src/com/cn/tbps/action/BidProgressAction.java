@@ -1,12 +1,15 @@
 package com.cn.tbps.action;
 
 import java.io.File;
+import java.math.BigDecimal;
+import java.util.Date;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import com.cn.common.action.BaseAction;
 import com.cn.common.util.Constants;
+import com.cn.common.util.DateUtil;
 import com.cn.common.util.FileUtil;
 import com.cn.common.util.PropertiesConfig;
 import com.cn.common.util.StringUtil;
@@ -108,6 +111,96 @@ public class BidProgressAction extends BaseAction {
 			BidDto bidDto= new BidDto(); 
 //			bidDto = bidService.queryBidByID(strBID_NO);
 			bidDto.setPROGRESS_STATUS("92000000000000000000000000000000000000000000000000");
+			
+			//新项目登记
+			bidDto.setBID_NO("TEST20180914001");
+			bidDto.setPROJECT_NAME("test project 001");
+			
+			//招标公告发布
+			bidDto.setREGISTE_ST_DATE1(DateUtil.strToDate("2018-01-01","YYYY-MM-DD"));
+			bidDto.setREGISTE_ED_DATE1(DateUtil.strToDate("2018-01-02","YYYY-MM-DD"));
+			
+			//发送答疑、补充文件
+			bidDto.setSUPPORT_DOC_DATE(DateUtil.strToDate("2018-01-03","YYYY-MM-DD"));
+			
+			//专家抽取、通知
+			bidDto.setBID_EXPERT_LIST("001");
+			
+			//招投标文件送至甲方
+			bidDto.setBID_DOC_DELI_DATE1(DateUtil.strToDate("2018-01-04","YYYY-MM-DD"));
+			
+			//招标文件编制
+			bidDto.setAPPLY_FORM_EDIT_DATE(DateUtil.strToDate("2018-01-05","YYYY-MM-DD"));
+			
+			//报名登记表编制
+			bidDto.setGEN_REGISTE_RPT_DATE(DateUtil.strToDate("2018-01-06","YYYY-MM-DD"));
+			
+			//专家费申请
+			bidDto.setBID_EXPERT_COMMISION_APPLY_DATE(DateUtil.strToDate("2018-01-07","YYYY-MM-DD"));
+			
+			//中标通知书签收
+			bidDto.setBID_INFORM_RCV_DATE(DateUtil.strToDate("2018-01-08","YYYY-MM-DD"));
+			
+			//统稿
+			bidDto.setAPPLY_FORM_COLLECT_DATE(DateUtil.strToDate("2018-01-09","YYYY-MM-DD"));
+			
+			//投标单位录入
+			bidDto.setBID_CO_LIST("001,002,003");
+			
+			//开标完成
+			bidDto.setBID_WIN_PRICE(new BigDecimal(1000));
+			
+			//评标报告装订扫描
+			bidDto.setBID_VER_DOC_SCAN_DATE(DateUtil.strToDate("2018-01-10","YYYY-MM-DD"));
+			
+			//招标公告、文件校对
+			bidDto.setAPPLY_FORM_VERIFY_DATE(DateUtil.strToDate("2018-01-11","YYYY-MM-DD"));
+			
+			//二次公告
+			bidDto.setREGISTE_ST_DATE2(DateUtil.strToDate("2018-01-12","YYYY-MM-DD"));
+			
+			//评标完成
+			bidDto.setBID_WIN_PRICE(new BigDecimal(2000));
+			
+			//评标报告送至甲方
+			bidDto.setBID_VER_DOC_DELI_DATE1(DateUtil.strToDate("2018-01-13","YYYY-MM-DD"));
+			
+			//招标文件定稿
+			bidDto.setAPPLY_FORM_FIX_DATE(DateUtil.strToDate("2018-01-14","YYYY-MM-DD"));
+			
+			//报名审核表编制
+			bidDto.setAPPLY_FORM_EDIT_DATE(DateUtil.strToDate("2018-01-15","YYYY-MM-DD"));
+			
+			//中标公告发布
+			bidDto.setBID_NOTICE_ST_DATE(DateUtil.strToDate("2018-01-16","YYYY-MM-DD"));
+			bidDto.setBID_NOTICE_ED_DATE(DateUtil.strToDate("2018-01-16","YYYY-MM-DD"));
+			
+			//中标投标文件扫描
+			bidDto.setBID_VER_DOC_SCAN("1");
+			
+			//标书费收取
+			// if 招标单位的标书费入账日期=0为0, 0<X<3 为2, >=3为9
+			
+//			setStatus0602(bidStatusInfo.substring(27,28));
+//			setStatus0603(bidStatusInfo.substring(28,29));
+//			setStatus0604(bidStatusInfo.substring(29,30));
+
+			//标书费开票完成			
+			// if 招标单位的标书费开票日期=0为0, 0<X<3 为2, >=3为9
+//			setStatus0605(bidStatusInfo.substring(30,31));
+//			setStatus0701(bidStatusInfo.substring(31,32));
+			//保证金收取
+			// if 招标单位的保证金入账日期=0为0, 0<X<3 为2, >=3为9
+//			setStatus0702(bidStatusInfo.substring(32,33));
+//			setStatus0703(bidStatusInfo.substring(33,34));
+//			setStatus0704(bidStatusInfo.substring(34,35));
+			//退保证金完成
+			// if 招标单位的退定日期=0为0, 0<X<3 为2, >=3为9
+//			setStatus0705(bidStatusInfo.substring(35,36));
+//			setStatus0801(bidStatusInfo.substring(36,37));
+			//招标文件装订
+			bidDto.setBID_VER_DOC_SCAN_DATE(DateUtil.strToDate("2018-01-17","YYYY-MM-DD"));
+			
 			if (bidDto != null){
 				setBidProgressStatus(bidDto);
 			}

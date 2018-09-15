@@ -293,7 +293,7 @@ public class BidDto extends BaseDto {
 	/**
 	 * 专家费申请日期
 	 */
-	private String BID_EXPERT_COMMISION_APPLY_DATE;
+	private Date BID_EXPERT_COMMISION_APPLY_DATE;
 	
 	/**
 	 * 招标文件编制日期
@@ -1892,12 +1892,12 @@ public class BidDto extends BaseDto {
 		GEN_VERIFY_RPT_DATE = gEN_VERIFY_RPT_DATE;
 	}
 
-	public String getBID_EXPERT_COMMISION_APPLY_DATE() {
+	public Date getBID_EXPERT_COMMISION_APPLY_DATE() {
 		return BID_EXPERT_COMMISION_APPLY_DATE;
 	}
 
 	public void setBID_EXPERT_COMMISION_APPLY_DATE(
-			String bID_EXPERT_COMMISION_APPLY_DATE) {
+			Date bID_EXPERT_COMMISION_APPLY_DATE) {
 		BID_EXPERT_COMMISION_APPLY_DATE = bID_EXPERT_COMMISION_APPLY_DATE;
 	}
 

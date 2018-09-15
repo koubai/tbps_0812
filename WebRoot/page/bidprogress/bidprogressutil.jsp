@@ -79,7 +79,7 @@
 							<span style="color:red; text-align:center;"><s:actionmessage /></span>
 						</div>
 					</s:if>
-						<table class="table table-bordered">
+						<table class="table table-striped">
 							<tr>
 								<td>
 								<div class="col-lg-8 form-group">

@@ -46,6 +46,12 @@
 	
 </script>
 </head>
+<style type="text/css">
+th { 
+	text-align:center;
+	vertical-align:middle;
+}
+</style>
 <body>
 	<jsp:include page="../head.jsp" flush="true" />
 	<div class="container-fluid">
@@ -91,7 +97,7 @@
 						</div>
 					</div>
 					<BR/>
-					<table class="table table-bordered">
+					<table class="table table-striped">
 						<tr>
 							<th></th>
 							<th>项目承接</th>
