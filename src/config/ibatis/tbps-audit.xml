@@ -145,6 +145,34 @@
 		<result property="ALL_PER_AMOUNT" column="ALL_PER_AMOUNT" />
 		<result property="ALL_AMOUNT" column="ALL_AMOUNT" />
 	</resultMap>
+
+	<resultMap id="AuditStatPaidDto" class="com.cn.tbps.dto.AuditStatPaidDto">
+		<result property="PER_AMOUNT" column="PER_AMOUNT" />
+		<result property="AMOUNT" column="AMOUNT" />
+		<result property="ACT_AMOUNT" column="ACT_AMOUNT" />
+	</resultMap>
+
+	<resultMap id="AuditAuthDto" class="com.cn.tbps.dto.AuditAuthDto">
+		<result property="COUNT1" column="COUNT1" />
+		<result property="COUNT_NULL1" column="COUNT_NULL1" />
+		<result property="APPROVAL_SND_DATE_NULL1" column="APPROVAL_SND_DATE_NULL1" />
+		<result property="APPROVAL_RCV_DATE_NULL1" column="APPROVAL_RCV_DATE_NULL1" />
+		<result property="REPORT_RAISE_DATE_NULL1" column="REPORT_RAISE_DATE_NULL1" />
+		<result property="B_INVOICE_DATE_NULL1" column="B_INVOICE_DATE_NULL1" />
+		<result property="B_SET_DATE_NULL1" column="B_SET_DATE_NULL1" />
+		<result property="REG_DATE_NULL1" column="REG_DATE_NULL1" />
+		<result property="CONTRACT_CO_ID_NULL1" column="CONTRACT_CO_ID_NULL1" />
+		<result property="COUNT_NULL2" column="COUNT_NULL2" />
+		<result property="COUNT2" column="COUNT2" />
+		<result property="REPORT_RAISE_DATE_NULL2" column="REPORT_RAISE_DATE_NULL2" />
+		<result property="REG_DATE_NULL2" column="REG_DATE_NULL2" />
+		<result property="CONTRACT_CO_ID_NULL2" column="CONTRACT_CO_ID_NULL2" />
+		<result property="COUNT_NULL4" column="COUNT_NULL4" />
+		<result property="COUNT4" column="COUNT4" />
+		<result property="REPORT_RAISE_DATE_NULL4" column="REPORT_RAISE_DATE_NULL4" />
+		<result property="REG_DATE_NULL4" column="REG_DATE_NULL4" />
+		<result property="REPORT_SEAL_DATE_NULL4" column="REPORT_SEAL_DATE_NULL4" />
+	</resultMap>
 	
 	<select id="queryAuditCountByPage" resultClass="int" parameterClass="java.util.Map">
 		select count(*) from (
@@ -1400,6 +1428,781 @@
 			and PLAN_DOC_RCV_DATE is not null
 			group by CNTRCT_NM
 			order by CNTRCT_NM
+	</select>
+	
+	<select id="queryAuditAuth" parameterClass="java.util.Map" resultMap="AuditAuthDto">
+		select SUM(COUNT1) AS COUNT1,
+				SUM(COUNT_NULL1) AS COUNT_NULL1,
+				GROUP_CONCAT(DISTINCT APPROVAL_SND_DATE_NULL1) AS APPROVAL_SND_DATE_NULL1,
+				GROUP_CONCAT(DISTINCT APPROVAL_RCV_DATE_NULL1) AS APPROVAL_RCV_DATE_NULL1,
+				GROUP_CONCAT(DISTINCT REPORT_RAISE_DATE_NULL1) AS REPORT_RAISE_DATE_NULL1,
+				GROUP_CONCAT(DISTINCT B_INVOICE_DATE_NULL1) AS B_INVOICE_DATE_NULL1,
+				GROUP_CONCAT(DISTINCT B_SET_DATE_NULL1) AS B_SET_DATE_NULL1,
+				GROUP_CONCAT(DISTINCT REG_DATE_NULL1) AS REG_DATE_NULL1,
+				GROUP_CONCAT(DISTINCT CONTRACT_CO_ID_NULL1) AS CONTRACT_CO_ID_NULL1,
+				SUM(COUNT2) AS COUNT2,
+				SUM(COUNT_NULL2) AS COUNT_NULL2,
+				GROUP_CONCAT(DISTINCT REPORT_RAISE_DATE_NULL2) AS REPORT_RAISE_DATE_NULL2,
+				GROUP_CONCAT(DISTINCT REG_DATE_NULL2) AS REG_DATE_NULL2,
+				GROUP_CONCAT(DISTINCT CONTRACT_CO_ID_NULL2) AS CONTRACT_CO_ID_NULL2,
+				SUM(COUNT4) AS COUNT4,
+				SUM(COUNT_NULL4) AS COUNT_NULL4,
+				GROUP_CONCAT(DISTINCT REPORT_RAISE_DATE_NULL4) AS REPORT_RAISE_DATE_NULL4,
+				GROUP_CONCAT(DISTINCT REG_DATE_NULL4) AS REG_DATE_NULL4,
+				GROUP_CONCAT(DISTINCT REPORT_SEAL_DATE_NULL4) AS REPORT_SEAL_DATE_NULL4
+		from (
+			select COUNT(*) as COUNT1, 
+				0 AS COUNT_NULL1,
+				"" AS APPROVAL_SND_DATE_NULL1,
+				"" AS APPROVAL_RCV_DATE_NULL1,
+				"" AS REPORT_RAISE_DATE_NULL1,
+				"" AS B_INVOICE_DATE_NULL1,
+				"" AS B_SET_DATE_NULL1,
+				"" AS REG_DATE_NULL1,
+				"" AS CONTRACT_CO_ID_NULL1,
+				0 AS COUNT2,
+				0 AS COUNT_NULL2,
+				"" AS REPORT_RAISE_DATE_NULL2,
+				"" AS REG_DATE_NULL2,
+				"" AS CONTRACT_CO_ID_NULL2,
+				0 AS COUNT4,
+				0 AS COUNT_NULL4,
+				"" AS REPORT_RAISE_DATE_NULL4,
+				"" AS REG_DATE_NULL4,
+				"" AS REPORT_SEAL_DATE_NULL4 
+			from audit where DELETE_FLG = '1'
+			and PROGRESS_STATUS <![CDATA[<>]]> '2'
+			and RESERVE1 = '1'
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				DOC_REC_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				DOC_REC_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+			union all
+			select 0 as COUNT1, 
+				COUNT(*) AS COUNT_NULL1,
+				"" AS APPROVAL_SND_DATE_NULL1,
+				"" AS APPROVAL_RCV_DATE_NULL1,
+				"" AS REPORT_RAISE_DATE_NULL1,
+				"" AS B_INVOICE_DATE_NULL1,
+				"" AS B_SET_DATE_NULL1,
+				"" AS REG_DATE_NULL1,
+				"" AS CONTRACT_CO_ID_NULL1,
+				0 AS COUNT2,
+				0 AS COUNT_NULL2,
+				"" AS REPORT_RAISE_DATE_NULL2,
+				"" AS REG_DATE_NULL2,
+				"" AS CONTRACT_CO_ID_NULL2,
+				0 AS COUNT4,
+				0 AS COUNT_NULL4,
+				"" AS REPORT_RAISE_DATE_NULL4,
+				"" AS REG_DATE_NULL4,
+				"" AS REPORT_SEAL_DATE_NULL4 
+			from audit where DELETE_FLG = '1'
+			and PROGRESS_STATUS <![CDATA[<>]]> '2'
+			and RESERVE1 = '1'
+			and (REG_DATE is null or B_SET_DATE is null)
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				DOC_REC_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				DOC_REC_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+			union all
+			select 0 as COUNT1, 
+				0 AS COUNT_NULL1,
+				REPORT_NO AS APPROVAL_SND_DATE_NULL1,
+				"" AS APPROVAL_RCV_DATE_NULL1,
+				"" AS REPORT_RAISE_DATE_NULL1,
+				"" AS B_INVOICE_DATE_NULL1,
+				"" AS B_SET_DATE_NULL1,
+				"" AS REG_DATE_NULL1,
+				"" AS CONTRACT_CO_ID_NULL1,
+				0 AS COUNT2,
+				0 AS COUNT_NULL2,
+				"" AS REPORT_RAISE_DATE_NULL2,
+				"" AS REG_DATE_NULL2,
+				"" AS CONTRACT_CO_ID_NULL2,
+				0 AS COUNT4,
+				0 AS COUNT_NULL4,
+				"" AS REPORT_RAISE_DATE_NULL4,
+				"" AS REG_DATE_NULL4,
+				"" AS REPORT_SEAL_DATE_NULL4 
+			from audit where DELETE_FLG = '1'
+			and PROGRESS_STATUS <![CDATA[<>]]> '2'
+			and RESERVE1 = '1'
+			and APPROVAL_SND_DATE is null
+			and datediff(curdate(), DOC_REC_DATE) <![CDATA[>=]]> 5
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				DOC_REC_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				DOC_REC_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+			union all
+			select 0 as COUNT1, 
+				0 AS COUNT_NULL1,
+				"" AS APPROVAL_SND_DATE_NULL1,
+				REPORT_NO AS APPROVAL_RCV_DATE_NULL1,
+				"" AS REPORT_RAISE_DATE_NULL1,
+				"" AS B_INVOICE_DATE_NULL1,
+				"" AS B_SET_DATE_NULL1,
+				"" AS REG_DATE_NULL1,
+				"" AS CONTRACT_CO_ID_NULL1,
+				0 AS COUNT2,
+				0 AS COUNT_NULL2,
+				"" AS REPORT_RAISE_DATE_NULL2,
+				"" AS REG_DATE_NULL2,
+				"" AS CONTRACT_CO_ID_NULL2,
+				0 AS COUNT4,
+				0 AS COUNT_NULL4,
+				"" AS REPORT_RAISE_DATE_NULL4,
+				"" AS REG_DATE_NULL4,
+				"" AS REPORT_SEAL_DATE_NULL4 
+			from audit where DELETE_FLG = '1'
+			and PROGRESS_STATUS <![CDATA[<>]]> '2'
+			and RESERVE1 = '1'
+			and APPROVAL_RCV_DATE is null
+			and datediff(curdate(), APPROVAL_SND_DATE) <![CDATA[>=]]> 21
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				DOC_REC_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				DOC_REC_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+			union all
+			select 0 as COUNT1, 
+				0 AS COUNT_NULL1,
+				"" AS APPROVAL_SND_DATE_NULL1,
+				"" AS APPROVAL_RCV_DATE_NULL1,
+				REPORT_NO AS REPORT_RAISE_DATE_NULL1,
+				"" AS B_INVOICE_DATE_NULL1,
+				"" AS B_SET_DATE_NULL1,
+				"" AS REG_DATE_NULL1,
+				"" AS CONTRACT_CO_ID_NULL1,
+				0 AS COUNT2,
+				0 AS COUNT_NULL2,
+				"" AS REPORT_RAISE_DATE_NULL2,
+				"" AS REG_DATE_NULL2,
+				"" AS CONTRACT_CO_ID_NULL2,
+				0 AS COUNT4,
+				0 AS COUNT_NULL4,
+				"" AS REPORT_RAISE_DATE_NULL4,
+				"" AS REG_DATE_NULL4,
+				"" AS REPORT_SEAL_DATE_NULL4 
+			from audit where DELETE_FLG = '1'
+			and PROGRESS_STATUS <![CDATA[<>]]> '2'
+			and RESERVE1 = '1'
+			and REPORT_RAISE_DATE is null
+			and datediff(curdate(), APPROVAL_RCV_DATE) <![CDATA[>=]]> 1
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				DOC_REC_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				DOC_REC_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+			union all
+			select 0 as COUNT1, 
+				0 AS COUNT_NULL1,
+				"" AS APPROVAL_SND_DATE_NULL1,
+				"" AS APPROVAL_RCV_DATE_NULL1,
+				"" AS REPORT_RAISE_DATE_NULL1,
+				REPORT_NO AS B_INVOICE_DATE_NULL1,
+				"" AS B_SET_DATE_NULL1,
+				"" AS REG_DATE_NULL1,
+				"" AS CONTRACT_CO_ID_NULL1,
+				0 AS COUNT2,
+				0 AS COUNT_NULL2,
+				"" AS REPORT_RAISE_DATE_NULL2,
+				"" AS REG_DATE_NULL2,
+				"" AS CONTRACT_CO_ID_NULL2,
+				0 AS COUNT4,
+				0 AS COUNT_NULL4,
+				"" AS REPORT_RAISE_DATE_NULL4,
+				"" AS REG_DATE_NULL4,
+				"" AS REPORT_SEAL_DATE_NULL4 
+			from audit where DELETE_FLG = '1'
+			and PROGRESS_STATUS <![CDATA[<>]]> '2'
+			and RESERVE1 = '1'
+			and B_INVOICE_DATE is null
+			and datediff(curdate(), APPROVAL_SND_DATE) <![CDATA[>=]]> 30
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				DOC_REC_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				DOC_REC_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+			union all
+			select 0 as COUNT1, 
+				0 AS COUNT_NULL1,
+				"" AS APPROVAL_SND_DATE_NULL1,
+				"" AS APPROVAL_RCV_DATE_NULL1,
+				"" AS REPORT_RAISE_DATE_NULL1,
+				"" AS B_INVOICE_DATE_NULL1,
+				REPORT_NO AS B_SET_DATE_NULL1,
+				"" AS REG_DATE_NULL1,
+				"" AS CONTRACT_CO_ID_NULL1,
+				0 AS COUNT2,
+				0 AS COUNT_NULL2,
+				"" AS REPORT_RAISE_DATE_NULL2,
+				"" AS REG_DATE_NULL2,
+				"" AS CONTRACT_CO_ID_NULL2,
+				0 AS COUNT4,
+				0 AS COUNT_NULL4,
+				"" AS REPORT_RAISE_DATE_NULL4,
+				"" AS REG_DATE_NULL4,
+				"" AS REPORT_SEAL_DATE_NULL4 
+			from audit where DELETE_FLG = '1'
+			and PROGRESS_STATUS <![CDATA[<>]]> '2'
+			and RESERVE1 = '1'
+			and B_SET_DATE is null
+			and datediff(curdate(), B_INVOICE_DATE) <![CDATA[>=]]> 30
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				DOC_REC_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				DOC_REC_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+			union all
+			select 0 as COUNT1, 
+				0 AS COUNT_NULL1,
+				"" AS APPROVAL_SND_DATE_NULL1,
+				"" AS APPROVAL_RCV_DATE_NULL1,
+				"" AS REPORT_RAISE_DATE_NULL1,
+				"" AS B_INVOICE_DATE_NULL1,
+				"" AS B_SET_DATE_NULL1,
+				REPORT_NO AS REG_DATE_NULL1,
+				"" AS CONTRACT_CO_ID_NULL1,
+				0 AS COUNT2,
+				0 AS COUNT_NULL2,
+				"" AS REPORT_RAISE_DATE_NULL2,
+				"" AS REG_DATE_NULL2,
+				"" AS CONTRACT_CO_ID_NULL2,
+				0 AS COUNT4,
+				0 AS COUNT_NULL4,
+				"" AS REPORT_RAISE_DATE_NULL4,
+				"" AS REG_DATE_NULL4,
+				"" AS REPORT_SEAL_DATE_NULL4 
+			from audit where DELETE_FLG = '1'
+			and PROGRESS_STATUS <![CDATA[<>]]> '2'
+			and RESERVE1 = '1'
+			and REG_DATE is null
+			and datediff(curdate(), REPORT_SEAL_DATE) <![CDATA[>=]]> 60
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				DOC_REC_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				DOC_REC_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+			union all
+			select 0 as COUNT1, 
+				0 AS COUNT_NULL1,
+				"" AS APPROVAL_SND_DATE_NULL1,
+				"" AS APPROVAL_RCV_DATE_NULL1,
+				"" AS REPORT_RAISE_DATE_NULL1,
+				"" AS B_INVOICE_DATE_NULL1,
+				"" AS B_SET_DATE_NULL1,
+				"" AS REG_DATE_NULL1,
+				REPORT_NO AS CONTRACT_CO_ID_NULL1,
+				0 AS COUNT2,
+				0 AS COUNT_NULL2,
+				"" AS REPORT_RAISE_DATE_NULL2,
+				"" AS REG_DATE_NULL2,
+				"" AS CONTRACT_CO_ID_NULL2,
+				0 AS COUNT4,
+				0 AS COUNT_NULL4,
+				"" AS REPORT_RAISE_DATE_NULL4,
+				"" AS REG_DATE_NULL4,
+				"" AS REPORT_SEAL_DATE_NULL4 
+			from audit where DELETE_FLG = '1'
+			and PROGRESS_STATUS <![CDATA[<>]]> '2'
+			and RESERVE1 = '1'
+			and (CONTRACT_CO_ID = '' 
+					or (APPROVAL_SND_DATE is not null and VERIFY_AMOUNT = '0.00')
+					or (B_INVOICE_DATE is not null and B_AMOUNT = '0.00')
+				)
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				DOC_REC_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				DOC_REC_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+			union all
+			select 0 as COUNT1, 
+				0 AS COUNT_NULL1,
+				"" AS APPROVAL_SND_DATE_NULL1,
+				"" AS APPROVAL_RCV_DATE_NULL1,
+				"" AS REPORT_RAISE_DATE_NULL1,
+				"" AS B_INVOICE_DATE_NULL1,
+				"" AS B_SET_DATE_NULL1,
+				"" AS REG_DATE_NULL1,
+				"" AS CONTRACT_CO_ID_NULL1,
+				COUNT(*) AS COUNT2,
+				0 AS COUNT_NULL2,
+				"" AS REPORT_RAISE_DATE_NULL2,
+				"" AS REG_DATE_NULL2,
+				"" AS CONTRACT_CO_ID_NULL2,
+				0 AS COUNT4,
+				0 AS COUNT_NULL4,
+				"" AS REPORT_RAISE_DATE_NULL4,
+				"" AS REG_DATE_NULL4,
+				"" AS REPORT_SEAL_DATE_NULL4 
+			from audit where DELETE_FLG = '1'
+			and PROGRESS_STATUS <![CDATA[<>]]> '2'
+			and RESERVE1 = '2'
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				DOC_REC_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				DOC_REC_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+			union all
+			select 0 as COUNT1, 
+				0 AS COUNT_NULL1,
+				"" AS APPROVAL_SND_DATE_NULL1,
+				"" AS APPROVAL_RCV_DATE_NULL1,
+				"" AS REPORT_RAISE_DATE_NULL1,
+				"" AS B_INVOICE_DATE_NULL1,
+				"" AS B_SET_DATE_NULL1,
+				"" AS REG_DATE_NULL1,
+				"" AS CONTRACT_CO_ID_NULL1,
+				0 AS COUNT2,
+				COUNT(*) AS COUNT_NULL2,
+				"" AS REPORT_RAISE_DATE_NULL2,
+				"" AS REG_DATE_NULL2,
+				"" AS CONTRACT_CO_ID_NULL2,
+				0 AS COUNT4,
+				0 AS COUNT_NULL4,
+				"" AS REPORT_RAISE_DATE_NULL4,
+				"" AS REG_DATE_NULL4,
+				"" AS REPORT_SEAL_DATE_NULL4 
+			from audit where DELETE_FLG = '1'
+			and PROGRESS_STATUS <![CDATA[<>]]> '2'
+			and RESERVE1 = '2'
+			and REG_DATE is null
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				DOC_REC_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				DOC_REC_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+			union all
+			select 0 as COUNT1, 
+				0 AS COUNT_NULL1,
+				"" AS APPROVAL_SND_DATE_NULL1,
+				"" AS APPROVAL_RCV_DATE_NULL1,
+				"" AS REPORT_RAISE_DATE_NULL1,
+				"" AS B_INVOICE_DATE_NULL1,
+				"" AS B_SET_DATE_NULL1,
+				"" AS REG_DATE_NULL1,
+				"" AS CONTRACT_CO_ID_NULL1,
+				0 AS COUNT2,
+				0 AS COUNT_NULL2,
+				REPORT_NO AS REPORT_RAISE_DATE_NULL2,
+				"" AS REG_DATE_NULL2,
+				"" AS CONTRACT_CO_ID_NULL2,
+				0 AS COUNT4,
+				0 AS COUNT_NULL4,
+				"" AS REPORT_RAISE_DATE_NULL4,
+				"" AS REG_DATE_NULL4,
+				"" AS REPORT_SEAL_DATE_NULL4 
+			from audit where DELETE_FLG = '1'
+			and PROGRESS_STATUS <![CDATA[<>]]> '2'
+			and RESERVE1 = '2'
+			and REPORT_RAISE_DATE is null
+			and datediff(curdate(), DOC_REC_DATE) <![CDATA[>=]]> 5
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				DOC_REC_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				DOC_REC_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+			union all
+			select 0 as COUNT1, 
+				0 AS COUNT_NULL1,
+				"" AS APPROVAL_SND_DATE_NULL1,
+				"" AS APPROVAL_RCV_DATE_NULL1,
+				"" AS REPORT_RAISE_DATE_NULL1,
+				"" AS B_INVOICE_DATE_NULL1,
+				"" AS B_SET_DATE_NULL1,
+				"" AS REG_DATE_NULL1,
+				"" AS CONTRACT_CO_ID_NULL1,
+				0 AS COUNT2,
+				0 AS COUNT_NULL2,
+				"" AS REPORT_RAISE_DATE_NULL2,
+				REPORT_NO AS REG_DATE_NULL2,
+				"" AS CONTRACT_CO_ID_NULL2,
+				0 AS COUNT4,
+				0 AS COUNT_NULL4,
+				"" AS REPORT_RAISE_DATE_NULL4,
+				"" AS REG_DATE_NULL4,
+				"" AS REPORT_SEAL_DATE_NULL4 
+			from audit where DELETE_FLG = '1'
+			and PROGRESS_STATUS <![CDATA[<>]]> '2'
+			and RESERVE1 = '2'
+			and REG_DATE is null
+			and datediff(curdate(), REPORT_SEAL_DATE) <![CDATA[>=]]> 60
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				DOC_REC_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				DOC_REC_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+			union all
+			select 0 as COUNT1, 
+				0 AS COUNT_NULL1,
+				"" AS APPROVAL_SND_DATE_NULL1,
+				"" AS APPROVAL_RCV_DATE_NULL1,
+				"" AS REPORT_RAISE_DATE_NULL1,
+				"" AS B_INVOICE_DATE_NULL1,
+				"" AS B_SET_DATE_NULL1,
+				"" AS REG_DATE_NULL1,
+				"" AS CONTRACT_CO_ID_NULL1,
+				0 AS COUNT2,
+				0 AS COUNT_NULL2,
+				"" AS REPORT_RAISE_DATE_NULL2,
+				"" AS REG_DATE_NULL2,
+				REPORT_NO AS CONTRACT_CO_ID_NULL2,
+				0 AS COUNT4,
+				0 AS COUNT_NULL4,
+				"" AS REPORT_RAISE_DATE_NULL4,
+				"" AS REG_DATE_NULL4,
+				"" AS REPORT_SEAL_DATE_NULL4 
+			from audit where DELETE_FLG = '1'
+			and PROGRESS_STATUS <![CDATA[<>]]> '2'
+			and RESERVE1 = '2'
+			and (CONTRACT_CO_ID = '' 
+					or VERIFY_PER_AMOUNT = '0.00'
+					or (REPORT_SEAL_DATE is not null and VERIFY_AMOUNT = '0.00')
+				)
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				DOC_REC_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				DOC_REC_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+			union all
+			select 0 as COUNT1, 
+				0 AS COUNT_NULL1,
+				"" AS APPROVAL_SND_DATE_NULL1,
+				"" AS APPROVAL_RCV_DATE_NULL1,
+				"" AS REPORT_RAISE_DATE_NULL1,
+				"" AS B_INVOICE_DATE_NULL1,
+				"" AS B_SET_DATE_NULL1,
+				"" AS REG_DATE_NULL1,
+				"" AS CONTRACT_CO_ID_NULL1,
+				0 AS COUNT2,
+				0 AS COUNT_NULL2,
+				"" AS REPORT_RAISE_DATE_NULL2,
+				"" AS REG_DATE_NULL2,
+				"" AS CONTRACT_CO_ID_NULL2,
+				COUNT(*) AS COUNT4,
+				0 AS COUNT_NULL4,
+				"" AS REPORT_RAISE_DATE_NULL4,
+				"" AS REG_DATE_NULL4,
+				"" AS REPORT_SEAL_DATE_NULL4 
+			from audit where DELETE_FLG = '1'
+			and PROGRESS_STATUS <![CDATA[<>]]> '2'
+			and RESERVE1 = '4'
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				DOC_REC_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				DOC_REC_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+			union all
+			select 0 as COUNT1, 
+				0 AS COUNT_NULL1,
+				"" AS APPROVAL_SND_DATE_NULL1,
+				"" AS APPROVAL_RCV_DATE_NULL1,
+				"" AS REPORT_RAISE_DATE_NULL1,
+				"" AS B_INVOICE_DATE_NULL1,
+				"" AS B_SET_DATE_NULL1,
+				"" AS REG_DATE_NULL1,
+				"" AS CONTRACT_CO_ID_NULL1,
+				0 AS COUNT2,
+				0 AS COUNT_NULL2,
+				"" AS REPORT_RAISE_DATE_NULL2,
+				"" AS REG_DATE_NULL2,
+				"" AS CONTRACT_CO_ID_NULL2,
+				0 AS COUNT4,
+				COUNT(*) AS COUNT_NULL4,
+				"" AS REPORT_RAISE_DATE_NULL4,
+				"" AS REG_DATE_NULL4,
+				"" AS REPORT_SEAL_DATE_NULL4 
+			from audit where DELETE_FLG = '1'
+			and PROGRESS_STATUS <![CDATA[<>]]> '2'
+			and RESERVE1 = '4'
+			and REG_DATE is null
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				DOC_REC_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				DOC_REC_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+			union all
+			select 0 as COUNT1, 
+				0 AS COUNT_NULL1,
+				"" AS APPROVAL_SND_DATE_NULL1,
+				"" AS APPROVAL_RCV_DATE_NULL1,
+				"" AS REPORT_RAISE_DATE_NULL1,
+				"" AS B_INVOICE_DATE_NULL1,
+				"" AS B_SET_DATE_NULL1,
+				"" AS REG_DATE_NULL1,
+				"" AS CONTRACT_CO_ID_NULL1,
+				0 AS COUNT2,
+				0 AS COUNT_NULL2,
+				"" AS REPORT_RAISE_DATE_NULL2,
+				"" AS REG_DATE_NULL2,
+				"" AS CONTRACT_CO_ID_NULL2,
+				0 AS COUNT4,
+				0 AS COUNT_NULL4,
+				REPORT_NO AS REPORT_RAISE_DATE_NULL4,
+				"" AS REG_DATE_NULL4,
+				"" AS REPORT_SEAL_DATE_NULL4 
+			from audit where DELETE_FLG = '1'
+			and PROGRESS_STATUS <![CDATA[<>]]> '2'
+			and RESERVE1 = '4'
+			and REPORT_RAISE_DATE is null
+			and datediff(curdate(), DOC_REC_DATE) <![CDATA[>=]]> 7
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				DOC_REC_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				DOC_REC_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+			union all
+			select 0 as COUNT1, 
+				0 AS COUNT_NULL1,
+				"" AS APPROVAL_SND_DATE_NULL1,
+				"" AS APPROVAL_RCV_DATE_NULL1,
+				"" AS REPORT_RAISE_DATE_NULL1,
+				"" AS B_INVOICE_DATE_NULL1,
+				"" AS B_SET_DATE_NULL1,
+				"" AS REG_DATE_NULL1,
+				"" AS CONTRACT_CO_ID_NULL1,
+				0 AS COUNT2,
+				0 AS COUNT_NULL2,
+				"" AS REPORT_RAISE_DATE_NULL2,
+				"" AS REG_DATE_NULL2,
+				"" AS CONTRACT_CO_ID_NULL2,
+				0 AS COUNT4,
+				0 AS COUNT_NULL4,
+				"" AS REPORT_RAISE_DATE_NULL4,
+				REPORT_NO AS REG_DATE_NULL4,
+				"" AS REPORT_SEAL_DATE_NULL4 
+			from audit where DELETE_FLG = '1'
+			and PROGRESS_STATUS <![CDATA[<>]]> '2'
+			and RESERVE1 = '4'
+			and REG_DATE is null
+			and datediff(curdate(), REPORT_SEAL_DATE) <![CDATA[>=]]> 60
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				DOC_REC_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				DOC_REC_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+			union all
+			select 0 as COUNT1, 
+				0 AS COUNT_NULL1,
+				"" AS APPROVAL_SND_DATE_NULL1,
+				"" AS APPROVAL_RCV_DATE_NULL1,
+				"" AS REPORT_RAISE_DATE_NULL1,
+				"" AS B_INVOICE_DATE_NULL1,
+				"" AS B_SET_DATE_NULL1,
+				"" AS REG_DATE_NULL1,
+				"" AS CONTRACT_CO_ID_NULL1,
+				0 AS COUNT2,
+				0 AS COUNT_NULL2,
+				"" AS REPORT_RAISE_DATE_NULL2,
+				"" AS REG_DATE_NULL2,
+				"" AS CONTRACT_CO_ID_NULL2,
+				0 AS COUNT4,
+				0 AS COUNT_NULL4,
+				"" AS REPORT_RAISE_DATE_NULL4,
+				"" AS REG_DATE_NULL4,
+				REPORT_NO AS REPORT_SEAL_DATE_NULL4 
+			from audit where DELETE_FLG = '1'
+			and PROGRESS_STATUS <![CDATA[<>]]> '2'
+			and RESERVE1 = '4'
+			and REPORT_SEAL_DATE is not null 
+			and CNT_PRICE = '0.00'
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				DOC_REC_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				DOC_REC_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+		) T
+	</select>
+	
+	<select id="queryAuditStatPaid" parameterClass="java.util.Map" resultMap="AuditStatPaidDto">
+		select SUM(A_PER_AMOUNT) + SUM(B_PER_AMOUNT) AS PER_AMOUNT,
+						SUM(A_AMOUNT) + SUM(B_AMOUNT) AS AMOUNT,
+						SUM(A_ACT_AMOUNT) + SUM(B_ACT_AMOUNT) AS ACT_AMOUNT
+		from (
+			select SUM(A_AMOUNT) as A_PER_AMOUNT, 
+					0 as B_PER_AMOUNT,
+					0 as A_AMOUNT, 
+					0 as B_AMOUNT, 
+					0 as A_ACT_AMOUNT, 
+					0 as B_ACT_AMOUNT 
+			from audit where DELETE_FLG = '1'
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				A_INVOICE_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				A_INVOICE_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+			union all
+			select 0 as A_PER_AMOUNT, 
+					SUM(B_AMOUNT) as B_PER_AMOUNT,
+					0 as A_AMOUNT, 
+					0 as B_AMOUNT, 
+					0 as A_ACT_AMOUNT, 
+					0 as B_ACT_AMOUNT 
+			from audit where DELETE_FLG = '1'
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				B_INVOICE_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				B_INVOICE_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+			union all
+			select 0 as A_PER_AMOUNT, 
+					0 as B_PER_AMOUNT,
+					SUM(A_AMOUNT) as A_AMOUNT, 
+					0 as B_AMOUNT, 
+					0 as A_ACT_AMOUNT, 
+					0 as B_ACT_AMOUNT 
+			from audit where DELETE_FLG = '1'
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				A_INVOICE_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				A_INVOICE_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+			AND A_SET_DATE IS NOT NULL
+			union all
+			select 0 as A_PER_AMOUNT, 
+					0 as B_PER_AMOUNT,
+					0 as A_AMOUNT, 
+					SUM(B_AMOUNT) as B_AMOUNT, 
+					0 as A_ACT_AMOUNT, 
+					0 as B_ACT_AMOUNT 
+			from audit where DELETE_FLG = '1'
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				B_INVOICE_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				B_INVOICE_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+			AND B_SET_DATE IS NOT NULL
+			union all
+			select 0 as A_PER_AMOUNT, 
+					0 as B_PER_AMOUNT,
+					0 as A_AMOUNT, 
+					0 as B_AMOUNT, 
+					SUM(A_AMOUNT) as A_ACT_AMOUNT, 
+					0 as B_ACT_AMOUNT 
+			from audit where DELETE_FLG = '1'
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				A_SET_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				A_SET_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+			union all
+			select 0 as A_PER_AMOUNT, 
+					0 as B_PER_AMOUNT,
+					0 as A_AMOUNT, 
+					0 as B_AMOUNT, 
+					0 as A_ACT_AMOUNT, 
+					SUM(B_AMOUNT) as B_ACT_AMOUNT 
+			from audit where DELETE_FLG = '1'
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				B_SET_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				B_SET_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+		) T
 	</select>
 	
 	<select id="queryAuditByID" parameterClass="java.util.Map" resultMap="AuditDto">

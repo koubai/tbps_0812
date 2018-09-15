@@ -303,7 +303,7 @@
 								<td align="center"><s:property value="CO_MANAGER_ADDRESS1"/></td>
 								<td align="center"><s:date name="CNTRCT_ST_DATE" format="yyyy/MM/dd" /></td>
 								<td align="center"><s:date name="CNTRCT_ED_DATE" format="yyyy/MM/dd" /></td>
-								<td align="center"><s:property value="CNTRCT_INFO"/></td>
+								<td align="center"><s:property value="CNTRCT_INFO_SHOW"/></td>
 								<td align="center"><s:property value="CNTRCT_TOTAL_AMOUNT"/></td>
 							</tr>
 						</s:iterator>

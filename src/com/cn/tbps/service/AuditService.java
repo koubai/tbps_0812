@@ -3,9 +3,11 @@ package com.cn.tbps.service;
 import java.util.List;
 
 import com.cn.common.util.Page;
+import com.cn.tbps.dto.AuditAuthDto;
 import com.cn.tbps.dto.AuditDto;
 import com.cn.tbps.dto.AuditHistDto;
 import com.cn.tbps.dto.AuditStatCostDto;
+import com.cn.tbps.dto.AuditStatPaidDto;
 import com.cn.tbps.dto.AuditStatisticsDto;
 
 /**
@@ -46,7 +48,7 @@ public interface AuditService {
 	 * @param endDate
 	 * @return
 	 */
-	public List<AuditDto> queryAuditAuth(String projectManager, String startDate, String endDate);
+	public AuditAuthDto queryAuditAuth(String projectManager, String startDate, String endDate);
 	
 	/**
 	 * 统计界面
@@ -73,7 +75,7 @@ public interface AuditService {
 	 * @param endDate
 	 * @return
 	 */
-	public List<AuditDto> queryAuditStatPaid(String projectManager, String startDate, String endDate);
+	public AuditStatPaidDto queryAuditStatPaid(String projectManager, String startDate, String endDate);
 	
 	/**
 	 * 查询审价（导出数据用）

@@ -84,9 +84,9 @@
 						</tr>
 						<tr>
 							<td><span id="times"><s:property value="strStartDate"/> ~ <s:property value="strEndDate"/></span></td>
-							<td><s:property value=""/></td>
-							<td><s:property value=""/></td>
-							<td><s:property value=""/></td>
+							<td><s:property value="auditStatPaid.PER_AMOUNT"/></td>
+							<td><s:property value="auditStatPaid.AMOUNT"/></td>
+							<td><s:property value="auditStatPaid.ACT_AMOUNT"/></td>
 						</tr>
 					</table>
 				</s:form>

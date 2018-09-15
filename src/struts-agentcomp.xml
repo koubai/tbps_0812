@@ -62,15 +62,15 @@
 			<result name="success">/page/agentcomp/agentcommon.jsp</result>
 		</action>
 		
-		<action name="showAgentCompAuditAction" class="agentCompAction" method="showAgentCompCommonAction">
+		<action name="showAgentCompAuditAction" class="agentCompAction" method="showAgentCompAuditAction">
 			<result name="success">/page/agentcomp/agentaudit.jsp</result>
 		</action>
 		
-		<action name="queryAgentCompAuditAction" class="agentCompAction" method="queryAgentCompCommonAction">
+		<action name="queryAgentCompAuditAction" class="agentCompAction" method="queryAgentCompAuditAction">
 			<result name="success">/page/agentcomp/agentaudit.jsp</result>
 		</action>
 		
-		<action name="turnAgentCompAuditAction" class="agentCompAction" method="turnAgentCompCommonAction">
+		<action name="turnAgentCompAuditAction" class="agentCompAction" method="turnAgentCompAuditAction">
 			<result name="success">/page/agentcomp/agentaudit.jsp</result>
 		</action>
 		

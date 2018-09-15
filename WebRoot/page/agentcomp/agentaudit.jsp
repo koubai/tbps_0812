@@ -1,25 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="c" uri="/WEB-INF/c.tld" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-<base target="_self"/>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/css/style.css" />
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+<title>合同选择一览</title>
+<!-- Bootstrap -->
+<link href="<%=request.getContextPath()%>/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/node_modules/font-awesome/css/font-awesome.min.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/global.css">
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/common.js"></script>
-<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.5.1.js"></script>
-<title>
-<s:if test='agentAddFlag == "1"'>
-委托公司一览
-</s:if>
-<s:elseif test='agentAddFlag == "2"'>
-专业公司一览
-</s:elseif>
-<s:else>
-承包公司一览
-</s:else>
-</title>
+<!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
+<!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
+<!--[if lt IE 9]>
+<script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
 <script type="text/javascript">
 	$(function() {
 	});
@@ -158,20 +159,20 @@
 	}
 	
 	function queryList() {
-		document.mainform.action = '<c:url value="/bid/queryAddBidAgentCompAction.action"></c:url>';
+		document.mainform.action = '<c:url value="/agentcomp/queryAgentCompAuditAction.action"></c:url>';
 		document.mainform.submit();
 	}
 	
 	//翻页
 	function changePage(pageNum) {
-		document.getElementById("startIndexAgentComp").value = pageNum;
-		document.mainform.action = '<c:url value="/bid/turnAddBidAgentCompAction.action"></c:url>';
+		document.getElementById("startIndex").value = pageNum;
+		document.mainform.action = '<c:url value="/agentcomp/turnAgentCompAuditAction.action"></c:url>';
 		document.mainform.submit();
 	}
-
+	
 	//页跳转
 	function turnPage() {
-		var totalPage = "${pageAgentComp.totalPage}";
+		var totalPage = "${page.totalPage}";
 		var turnPage = document.getElementById("pagenum").value;
 		//判断是否输入页码
 		if ('' != turnPage) {
@@ -199,97 +200,59 @@
 	}
 </script>
 </head>
-<body style="background: url(''); overflow-x:hidden;overflow-y:hidden;">
-<s:form id="mainform" name="mainform" method="POST">
-	<s:hidden name="startIndexAgentComp" id="startIndexAgentComp"/>
-	<s:hidden name="agentAddFlag" id="agentAddFlag"/>
-	<div id="container" style="width: 100%; height: 100%;">
-		<div class="content" style="margin-top: 0px;">
-			<div class="tittle">
-				<div class="icons"></div>
-				<div class="tittle_left">
-				</div>
-				<div class="tittle_center" style="width:150px;">
-					<s:if test='agentAddFlag == "1"'>
-						委托公司信息一览
-					</s:if>
-					<s:elseif test='agentAddFlag == "2"'>
-						专业公司信息一览
-					</s:elseif>
-					<s:else>
-						承包公司信息一览
-					</s:else>
-				</div>
-				<div class="tittle_right">
-				</div>
-			</div>
-		</div>
-		<div class="searchbox">
-			<div class="box1">
-				<label class="pdf10">
-					<s:if test='agentAddFlag == "1"'>
-						委托公司代码
-					</s:if>
-					<s:elseif test='agentAddFlag == "2"'>
-						专业公司代码
-					</s:elseif>
-					<s:else>
-						承包公司代码
-					</s:else>
-				</label>
-				<div class="box1_left"></div>
-				<div class="box1_center">
-					<s:textfield name="agentCompNoLow" id="agentCompNoLow" cssStyle="width:135px;" maxlength="4" theme="simple"></s:textfield>
-				</div>
-				<div class="box1_right"></div>
-				<label>-</label>
-				<div class="box1_left"></div>
-				<div class="box1_center">
-					<s:textfield name="agentCompNoHigh" id="agentCompNoHigh" cssStyle="width:135px;" maxlength="4" theme="simple"></s:textfield>
-				</div>
-				<div class="box1_right"></div>
-			</div>
-			<div class="box1">
-				<label class="pdf10">
-					<s:if test='agentAddFlag == "1"'>
-						委托公司名称
-					</s:if>
-					<s:elseif test='agentAddFlag == "2"'>
-						专业公司名称
-					</s:elseif>
-					<s:else>
-						承包公司名称
-					</s:else>
-				</label>
-				<div class="box1_left"></div>
-				<div class="box1_center">
-					<s:textfield name="agentCompName" id="agentCompName" cssStyle="width:135px;" maxlength="20" theme="simple"></s:textfield>
-				</div>
-				<div class="box1_right"></div>
-			</div>
-			<div class="btn" style="margin-left: 0px;">
-				<div class="box1_left"></div>
-				<div class="box1_center">
-					<input type="button" class="input40" value="检索" onclick="queryList();"/>
-					<input type="hidden" id="LXR_NAME" value=""/>
-					<input type="hidden" id="LXR_TEL" value=""/>
-					<input type="hidden" id="LXR_ADDR" value=""/>
-					<input type="hidden" id="LXR_MAIL" value=""/>
-				</div>
-				<div class="box1_right"></div>
-			</div>
-		</div>
-		<div class="data_table" style="padding:0px;">
-			<div class="tab_tittle">
-				<table width="100%" border="1" cellpadding="5" cellspacing="0">
-				</table>
-			</div>
-			<div class="tab_content">
-				<table class="info_tab" width="100%" border="1" cellpadding="5" cellspacing="0">
-					<tr class="tittle">
-						<td style="display: none;"></td>
-						<td width="50"></td>
-						<td width="90">
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-lg-12 right">
+				<s:form id="mainform" name="mainform" method="POST">
+					<s:hidden name="startIndex" id="startIndex"/>
+					<s:hidden name="agentAddFlag" id="agentAddFlag"/>
+					<div class="row">
+						<div class="col-lg-12 form-group">
+							<label for="" class="col-xs-2 form-label">
+								<s:if test='agentAddFlag == "1"'>
+									委托公司代码
+								</s:if>
+								<s:elseif test='agentAddFlag == "2"'>
+									专业公司代码
+								</s:elseif>
+								<s:else>
+									承包公司代码
+								</s:else>
+							</label>
+							<div class="col-xs-2">
+								<s:textfield name="agentCompNoLow" id="agentCompNoLow" cssClass="form-control" maxlength="4" theme="simple"></s:textfield>
+							</div>
+							<div class="col-xs-2">
+								<s:textfield name="agentCompNoHigh" id="agentCompNoHigh" cssClass="form-control" maxlength="4" theme="simple"></s:textfield>
+							</div>
+							<label for="" class="col-xs-2 form-label">
+								<s:if test='agentAddFlag == "1"'>
+									委托公司名称
+								</s:if>
+								<s:elseif test='agentAddFlag == "2"'>
+									专业公司名称
+								</s:elseif>
+								<s:else>
+									承包公司名称
+								</s:else>
+							</label>
+							<div class="col-xs-2">
+								<s:textfield name="agentCompName" id="agentCompName" cssClass="form-control" maxlength="20" theme="simple"></s:textfield>
+							</div>
+							<div class="col-xs-2 form-group">
+								<button type="button" class="btn btn-success form-control" onclick="queryList();">检索</button>
+								<input type="hidden" id="LXR_NAME" value=""/>
+								<input type="hidden" id="LXR_TEL" value=""/>
+								<input type="hidden" id="LXR_ADDR" value=""/>
+								<input type="hidden" id="LXR_MAIL" value=""/>
+							</div>
+						</div>
+					</div>
+					<table class="table table-bordered">
+						<tr>
+							<th></th>
+							<th>
 							<s:if test='agentAddFlag == "1"'>
 								委托公司代码
 							</s:if>
@@ -299,8 +262,8 @@
 							<s:else>
 								承包公司代码
 							</s:else>
-						</td>
-						<td width="160">
+							</th>
+							<th>
 							<s:if test='agentAddFlag == "1"'>
 								委托公司名称
 							</s:if>
@@ -310,87 +273,52 @@
 							<s:else>
 								承包公司名称
 							</s:else>
-						</td>
-						<td width="400">联系人</td>
-					</tr>
-					<s:iterator id="agentCompList" value="agentCompList" status="st1">
-						<s:if test="#st1.odd==true">
-							<tr class="tr_bg">
-						</s:if>
-						<s:else>
-							<tr>
-						</s:else>
-							<td style="display: none;">
-								<input type="hidden" value="<s:property value="ANGENT_COMP_NO"/>"/>
-								<input type="hidden" value="<s:property value="ANGENT_COMP_NAME"/>"/>
-							</td>
-							<td><input name="radioKey" type="radio" onclick="selectAgent(this, '<s:property value="#st1.index + 1"/>');" value="<s:property value="ANGENT_COMP_NO"/>"/></td>
-							<td><s:property value="ANGENT_COMP_NO"/></td>
-							<td><s:property value="ANGENT_COMP_NAME"/></td>
-							<td>
-								<s:iterator id="listManage" value="listManage" status="st2">
-									<input name="manage_<s:property value="#st1.index + 1"/>" onclick="selectManage(this)" value="<s:property value="value"/>" disabled="disabled" type="radio"/><s:property value="key"/>　
-								</s:iterator>
-							</td>
+							</th>
+							<th>联系人</th>
 						</tr>
-					</s:iterator>
-				</table>
+						<s:iterator id="agentCompList" value="agentCompList" status="st1">
+							<tr>
+								<td style="display: none;">
+									<input type="hidden" value="<s:property value="ANGENT_COMP_NO"/>"/>
+									<input type="hidden" value="<s:property value="ANGENT_COMP_NAME"/>"/>
+								</td>
+								<td><input name="radioKey" type="radio" onclick="selectAgent(this, '<s:property value="#st1.index + 1"/>');" value="<s:property value="ANGENT_COMP_NO"/>"/></td>
+								<td><s:property value="ANGENT_COMP_NO"/></td>
+								<td><s:property value="ANGENT_COMP_NAME"/></td>
+								<td>
+									<s:iterator id="listManage" value="listManage" status="st2">
+										<input name="manage_<s:property value="#st1.index + 1"/>" onclick="selectManage(this)" value="<s:property value="value"/>" disabled="disabled" type="radio"/><s:property value="key"/>　
+									</s:iterator>
+								</td>
+							</tr>
+						</s:iterator>
+					</table>
+					<jsp:include page="../turning.jsp" flush="true" />
+					<div class="operationBtns">
+						<button class="btn btn-success" type="button" onclick="window.close();">取消</button>
+						<button class="btn btn-success" type="button" onclick="addAgent();">确定</button>
+					</div>
+				</s:form>
 			</div>
-			<div class="pages">
-				<ul>
-					<li>第<strong>${pageAgentComp.startIndex + 1}</strong>页/共<strong>${pageAgentComp.totalPage==0?1:pageAgentComp.totalPage}</strong>页/共<strong>${pageAgentComp.totalCount}</strong>条记录</li>
-					<li class="mgl15">跳转到
-						<input type="text" id="pagenum" class="text" maxlength="4" size="4"/>
-						<input type="button" value="GO" onclick="javascript:turnPage();"/>
-					</li>
-					<li class="mgl15">
-						<a class="first" href="#" onclick="changePage(0);">首页</a>
-					</li>
-					<li>
-						<s:if test="%{pageAgentComp.startIndex <= 0}">
-							<a class="last" href="#">上一页</a>
-						</s:if>
-						<s:else>
-							<a class="next" href="#" onclick="changePage('${pageAgentComp.previousIndex}');">上一页</a>
-						</s:else>
-					</li>
-					<li>
-						<s:if test="%{pageAgentComp.nextIndex > pageAgentComp.totalPage - 1}">
-							<a class="last" href="#">下一页</a>
-						</s:if>
-						<s:else>
-							<a class="next" href="#" onclick="changePage('${pageAgentComp.nextIndex}');">下一页</a>
-						</s:else>
-					</li>
-					<li>
-						<a class="next" href="#" onclick="changePage('${pageAgentComp.totalPage - 1}');">末页</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-		<div class="btns" style="margin-top:40px; margin-left: 0px;">
-			<table border="0" style="margin:0 auto;">
-				<tr>
-					<td>
-						<div class="btn">
-							<div class="box1_left"></div>
-							<div class="box1_center">
-								<input type="button" class="input80" value="确定" onclick="addAgent();"/>
-							</div>
-							<div class="box1_right"></div>
-						</div>
-						<div class="btn">
-							<div class="box1_left"></div>
-							<div class="box1_center">
-								<input type="button" class="input80" value="关闭" onclick="window.close();"/>
-							</div>
-							<div class="box1_right"></div>
-						</div>
-					</td>
-				</tr>
-			</table>
 		</div>
 	</div>
-</s:form>
+	<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
+<script src="<%=request.getContextPath()%>/node_modules/jquery/dist/jquery.min.js"></script>
+<!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+<script src="<%=request.getContextPath()%>/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.min.js"></script>
+<script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.zh-CN.min.js"></script>
+<script>
+	$('.datepicker').parent().datepicker({
+		"autoclose":true,"format":"yyyy-mm-dd","language":"zh-CN"
+	});
+	
+	$('.toggle i').click(function(){
+		$('.left').toggle();
+		$(this).toggleClass('fa-angle-double-left');
+		$(this).toggleClass('fa-angle-double-right');
+		$(this).parent().parent('.right').toggleClass('w100');
+	});
+</script>
 </body>
 </html>
