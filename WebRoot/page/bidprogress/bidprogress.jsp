@@ -35,10 +35,10 @@
 			if (util_typ == 3){
 				window.open(url, window, "height=600px;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
 			}
-			if (util_typ == 2){
-				window.open(url, window, "height=400px;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");				
+			if (util_typ == 4){
+				window.open(url, window, "height=500px;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");				
 			}
-			if (util_typ == 1){
+			if (util_typ == 1 || util_typ == 2){
 				window.open(url, window, "height=400px;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");				
 			}
 //		}
@@ -443,16 +443,16 @@ th {
 							<td></td>
 							<td>
 								<s:if test='Status0504 == "9"'>
-									<button class="btn btn-success" id="0504" onclick="showProgressUtil('0504',1);">中标公告发布*&nbsp;&nbsp;&nbsp;</button>
+									<button class="btn btn-success" id="0504" onclick="showProgressUtil('0504',4);">中标公告发布*&nbsp;&nbsp;&nbsp;</button>
 								</s:if>
 								<s:elseif test='Status0504 == "2"'>
-									<button class="btn btn-warning" id="0504" onclick="showProgressUtil('0504',1);">中标公告发布*&nbsp;&nbsp;&nbsp;</button>
+									<button class="btn btn-warning" id="0504" onclick="showProgressUtil('0504',4);">中标公告发布*&nbsp;&nbsp;&nbsp;</button>
 								</s:elseif>
 								<s:elseif test='Status0504 == "0"'>
-									<button class="btn btn-danger" id="0504" onclick="showProgressUtil('0504',1);">中标公告发布*&nbsp;&nbsp;&nbsp;</button>
+									<button class="btn btn-danger" id="0504" onclick="showProgressUtil('0504',4);">中标公告发布*&nbsp;&nbsp;&nbsp;</button>
 								</s:elseif>
 								<s:else>
-									<button class="btn btn-danger" id="0504" onclick="showProgressUtil('0504',1);">中标公告发布*&nbsp;&nbsp;&nbsp;</button>
+									<button class="btn btn-danger" id="0504" onclick="showProgressUtil('0504',4);">中标公告发布*&nbsp;&nbsp;&nbsp;</button>
 								</s:else>
 							</td>
 							<td></td>

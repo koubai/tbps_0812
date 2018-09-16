@@ -2,7 +2,9 @@ package com.cn.tbps.action;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -13,6 +15,8 @@ import com.cn.common.util.DateUtil;
 import com.cn.common.util.FileUtil;
 import com.cn.common.util.PropertiesConfig;
 import com.cn.common.util.StringUtil;
+import com.cn.tbps.dto.BidCompDto;
+import com.cn.tbps.dto.BidCompExportDto;
 import com.cn.tbps.dto.BidDto;
 import com.cn.tbps.service.BidService;
 
@@ -24,12 +28,13 @@ public class BidProgressAction extends BaseAction {
 	
 	private String strBID_NO;    //招标编号
 	private BidService bidService;
-	private String BTN_NO; 	 //按钮编号
 	private String Date1;
+	private String Date2;
 	private String Member1;
 	private String uploadFile;   //上传文件
 	private String UTIL_TYP;     //ProgressUtil window type
 
+	private String BTN_NO; 	 	 //按钮编号
 	private String Status0101;   //新项目登记
 	private String Status0102;   //招标公告发布
 	private String Status0103;   //发送答疑、补充文件
@@ -97,8 +102,18 @@ public class BidProgressAction extends BaseAction {
 	private BidDto bidDto;
 	private String strHead1;
 	private String strHead2;
+	private String strHead3;
 	private String File01;
 	private String File01_URL;
+	private String File02;
+	private String File02_URL;
+	private String File03;
+	private String File03_URL;
+	private String File04;
+	private String File04_URL;
+	private String File05;
+	private String File05_URL;
+	private String upload_fileNo;  //upload file number
 	
 	/**
 	 * 显示项目状态信息
@@ -202,6 +217,7 @@ public class BidProgressAction extends BaseAction {
 			bidDto.setBID_VER_DOC_SCAN_DATE(DateUtil.strToDate("2018-01-17","YYYY-MM-DD"));
 			
 			if (bidDto != null){
+				strBID_NO = bidDto.getBID_NO();
 				setBidProgressStatus(bidDto);
 			}
 			this.clearMessages();
@@ -224,36 +240,47 @@ public class BidProgressAction extends BaseAction {
 			if (BTN_NO.equals("0201")){
 				strHead1 = "招标文件编制";
 				strHead2 = "";
+				strHead3 = "";
 			}else if (BTN_NO.equals("0301")){
 				strHead1 = "统稿";
 				strHead2 = "";
+				strHead3 = "";
 			}else if (BTN_NO.equals("0401")){
 				strHead1 = "招标公告、文件校对";			
-				strHead2 = "招标公告、文件校对";
+				strHead2 = "";
+				strHead3 = "招标公告、文件校对";
 			}else if (BTN_NO.equals("0501")){
 				strHead1 = "招标文件定稿";			
 				strHead2 = "";
+				strHead3 = "";
 			}else if (BTN_NO.equals("0802")){
 				strHead1 = "招标文件装订";			
 				strHead2 = "";
+				strHead3 = "";
 			}else if (BTN_NO.equals("0103")){
 				strHead1 = "发送答疑、补充文件";			
 				strHead2 = "";
+				strHead3 = "";
 			}else if (BTN_NO.equals("0504")){
-				strHead1 = "中标公告发布";			
-				strHead2 = "";
+				strHead1 = "中标公告发布开始";			
+				strHead2 = "中标公告发布终了";
+				strHead3 = "";
 			}else if (BTN_NO.equals("0105")){
 				strHead1 = "文件送至甲方";			
 				strHead2 = "";
+				strHead3 = "";
 			}else if (BTN_NO.equals("0205")){
 				strHead1 = "中标通知书签收";			
 				strHead2 = "";
+				strHead3 = "";
 			}else if (BTN_NO.equals("0305")){
 				strHead1 = "报告装订扫描";			
 				strHead2 = "";
+				strHead3 = "";
 			}else if (BTN_NO.equals("0405")){
 				strHead1 = "报告送至甲方";			
 				strHead2 = "";
+				strHead3 = "";
 			}
 			System.out.println("showBidProgressUtilAction");
 			System.out.println("招标编号：" + strBID_NO);
@@ -273,6 +300,63 @@ public class BidProgressAction extends BaseAction {
 		System.out.println("按钮编号：" + BTN_NO);
 		System.out.println("日期：" + Date1);
 		System.out.println("姓名：" + strMember1);
+		
+		//招标文件编制
+		if (BTN_NO.equals("0201")){
+			bidDto.setAPPLY_FORM_EDIT_DATE(DateUtil.strToDate(Date1,"yyyy-MM-dd"));
+		}
+		//统稿
+		else if (BTN_NO.equals("0301")){
+			bidDto.setAPPLY_FORM_COLLECT_DATE(DateUtil.strToDate(Date1,"yyyy-MM-dd"));
+		}
+		//招标公告、文件校对
+		else if (BTN_NO.equals("0401")){
+			bidDto.setAPPLY_FORM_VERIFY_DATE(DateUtil.strToDate(Date1,"yyyy-MM-dd"));
+			bidDto.setAPPLY_FORM_VERIFY(strMember1);
+		}
+		//招标文件定稿
+		else if (BTN_NO.equals("0501")){
+			bidDto.setAPPLY_FORM_FIX_DATE(DateUtil.strToDate(Date1,"yyyy-MM-dd"));
+		}
+		//招标文件装订
+		else if (BTN_NO.equals("0802")){
+			bidDto.setAPPLY_FORM_BOX_DATE(DateUtil.strToDate(Date1,"yyyy-MM-dd"));
+		}
+		//发送答疑、补充文件
+		else if (BTN_NO.equals("0103")){
+			bidDto.setSUPPORT_DOC_DATE(DateUtil.strToDate(Date1,"yyyy-MM-dd"));
+		}
+		//中标公告发布
+		else if (BTN_NO.equals("0504")){
+			bidDto.setBID_NOTICE_ST_DATE(DateUtil.strToDate(Date1,"yyyy-MM-dd"));
+			bidDto.setBID_NOTICE_ED_DATE(DateUtil.strToDate(Date2,"yyyy-MM-dd"));
+		}
+		//文件送至甲方
+		else if (BTN_NO.equals("0105")){
+			bidDto.setBID_DOC_DELI_DATE1(DateUtil.strToDate(Date1,"yyyy-MM-dd"));
+			bidDto.setBID_DOC_DELI_FILE1(File01 + ";" + File01_URL);
+			bidDto.setBID_DOC_DELI_FILE2(File02 + ";" + File02_URL);
+			bidDto.setBID_DOC_DELI_FILE3(File03 + ";" + File03_URL);
+			bidDto.setBID_DOC_DELI_FILE4(File04 + ";" + File04_URL);
+			bidDto.setBID_DOC_DELI_FILE5(File05 + ";" + File05_URL);
+		}
+		//中标通知书签收
+		else if (BTN_NO.equals("0205")){
+			bidDto.setBID_INFORM_RCV_DATE(DateUtil.strToDate(Date1,"yyyy-MM-dd"));
+		}
+		//报告装订扫描
+		else if (BTN_NO.equals("0305")){
+			bidDto.setBID_VER_DOC_SCAN_DATE(DateUtil.strToDate(Date1,"yyyy-MM-dd"));
+		}
+		//报告送至甲方
+		else if (BTN_NO.equals("0405")){
+			bidDto.setBID_VER_DOC_DELI_DATE1(DateUtil.strToDate(Date1,"yyyy-MM-dd"));
+			bidDto.setBID_VER_DOC_DELI_FILE1(File01 + ";" + File01_URL);
+			bidDto.setBID_VER_DOC_DELI_FILE2(File02 + ";" + File02_URL);
+			bidDto.setBID_VER_DOC_DELI_FILE3(File03 + ";" + File03_URL);
+			bidDto.setBID_VER_DOC_DELI_FILE4(File04 + ";" + File04_URL);
+			bidDto.setBID_VER_DOC_DELI_FILE5(File05 + ";" + File05_URL);
+		}
 		
 		return SUCCESS;
 		
@@ -302,10 +386,23 @@ public class BidProgressAction extends BaseAction {
 	        //server file new name
 			String newfile = FileUtil.uploadFile(file, file_path, fname);
 //		    File ff = new File(file_path + newfile);
-			File01 = fname;
-			File01_URL = newfile;
-		    System.out.println("ff:"+ file_path + newfile);
-		    
+			if 	(upload_fileNo.equals("1")) {
+				File01 = fname;
+				File01_URL = file_path + newfile;
+			} else if (upload_fileNo.equals("2")) {
+				File02 = fname;
+				File02_URL = file_path + newfile;
+			} else if (upload_fileNo.equals("3")) {
+				File03 = fname;
+				File03_URL = file_path + newfile;
+			} else if (upload_fileNo.equals("4")) {
+				File04 = fname;
+				File04_URL = file_path + newfile;
+			} else if (upload_fileNo.equals("5")) {
+				File05 = fname;
+				File05_URL = file_path + newfile;
+			} 
+		    System.out.println("ff:"+ file_path + newfile);		    
 			this.addActionMessage("文件上传成功！");
 		} catch(Exception e) {
 			System.out.println("uploadBidProgressUtilAction error:" + e);
@@ -420,7 +517,7 @@ public class BidProgressAction extends BaseAction {
 			
 			//招标公告发布
 //			setStatus0102(bidStatusInfo.substring(1,2));
-			if (StringUtil.isNotBlank(bidDto.getREGISTE_ST_DATE1().toString()) && StringUtil.isNotBlank(bidDto.getREGISTE_ED_DATE1().toString())){
+			if (bidDto.getREGISTE_ST_DATE1()!= null && StringUtil.isNotBlank(bidDto.getREGISTE_ST_DATE1().toString()) && StringUtil.isNotBlank(bidDto.getREGISTE_ED_DATE1().toString())){
 				setStatus0102("9");
 			}else{
 				setStatus0102("0");
@@ -428,7 +525,7 @@ public class BidProgressAction extends BaseAction {
 			
 			//发送答疑、补充文件
 //			setStatus0103(bidStatusInfo.substring(2,3));
-			if (StringUtil.isNotBlank(bidDto.getSUPPORT_DOC_DATE().toString())){
+			if (bidDto.getSUPPORT_DOC_DATE()!= null && StringUtil.isNotBlank(bidDto.getSUPPORT_DOC_DATE().toString())){
 				setStatus0103("9");
 			}else{
 				setStatus0103("0");
@@ -444,7 +541,7 @@ public class BidProgressAction extends BaseAction {
 			
 			//招投标文件送至甲方
 //			setStatus0105(bidStatusInfo.substring(5,6));
-			if (StringUtil.isNotBlank(bidDto.getBID_DOC_DELI_DATE1().toString())){
+			if (bidDto.getBID_DOC_DELI_DATE1()!= null && StringUtil.isNotBlank(bidDto.getBID_DOC_DELI_DATE1().toString())){
 				setStatus0105("9");
 				setFile01(bidDto.getBID_DOC_DELI_FILE1());
 			}else{
@@ -453,7 +550,7 @@ public class BidProgressAction extends BaseAction {
 			
 			//招标文件编制
 //			setStatus0201(bidStatusInfo.substring(6,7));
-			if (StringUtil.isNotBlank(bidDto.getAPPLY_FORM_EDIT_DATE().toString())){
+			if (bidDto.getAPPLY_FORM_EDIT_DATE() != null && StringUtil.isNotBlank(bidDto.getAPPLY_FORM_EDIT_DATE().toString())){
 				setStatus0201("9");
 			}else{
 				setStatus0201("0");
@@ -462,7 +559,7 @@ public class BidProgressAction extends BaseAction {
 			//报名登记表编制
 //			setStatus0202(bidStatusInfo.substring(7,8));
 //			setStatus0203(bidStatusInfo.substring(8,9));
-			if (StringUtil.isNotBlank(bidDto.getGEN_REGISTE_RPT_DATE().toString())){
+			if (bidDto.getGEN_REGISTE_RPT_DATE() != null && StringUtil.isNotBlank(bidDto.getGEN_REGISTE_RPT_DATE().toString())){
 				setStatus0203("9");
 			}else{
 				setStatus0203("0");
@@ -470,7 +567,7 @@ public class BidProgressAction extends BaseAction {
 			
 			//专家费申请
 //			setStatus0204(bidStatusInfo.substring(9,10));
-			if (StringUtil.isNotBlank(bidDto.getBID_EXPERT_COMMISION_APPLY_DATE().toString())){
+			if (bidDto.getBID_EXPERT_COMMISION_APPLY_DATE() != null && StringUtil.isNotBlank(bidDto.getBID_EXPERT_COMMISION_APPLY_DATE().toString())){
 				setStatus0204("9");
 			}else{
 				setStatus0204("0");
@@ -478,7 +575,7 @@ public class BidProgressAction extends BaseAction {
 			
 			//中标通知书签收
 //			setStatus0205(bidStatusInfo.substring(10,11));		
-			if (StringUtil.isNotBlank(bidDto.getBID_INFORM_RCV_DATE().toString())){
+			if (bidDto.getBID_INFORM_RCV_DATE() != null && StringUtil.isNotBlank(bidDto.getBID_INFORM_RCV_DATE().toString())){
 				setStatus0205("9");
 			}else{
 				setStatus0205("0");
@@ -486,7 +583,7 @@ public class BidProgressAction extends BaseAction {
 			
 			//统稿
 //			setStatus0301(bidStatusInfo.substring(11,12));
-			if (StringUtil.isNotBlank(bidDto.getAPPLY_FORM_COLLECT_DATE().toString())){
+			if (bidDto.getAPPLY_FORM_COLLECT_DATE() != null && StringUtil.isNotBlank(bidDto.getAPPLY_FORM_COLLECT_DATE().toString())){
 				setStatus0301("9");
 			}else{
 				setStatus0301("0");
@@ -507,7 +604,7 @@ public class BidProgressAction extends BaseAction {
 			
 			//开标完成
 //			setStatus0304(bidStatusInfo.substring(14,15));
-			if (StringUtil.isNotBlank(bidDto.getBID_WIN_PRICE().toString())){
+			if (bidDto.getBID_WIN_PRICE()!= null && StringUtil.isNotBlank(bidDto.getBID_WIN_PRICE().toString())){
 				setStatus0304("9");
 			}else{
 				setStatus0304("0");
@@ -515,7 +612,7 @@ public class BidProgressAction extends BaseAction {
 			
 			//评标报告装订扫描
 //			setStatus0305(bidStatusInfo.substring(15,16));
-			if (StringUtil.isNotBlank(bidDto.getBID_VER_DOC_SCAN_DATE().toString())){
+			if (bidDto.getBID_VER_DOC_SCAN_DATE() != null && StringUtil.isNotBlank(bidDto.getBID_VER_DOC_SCAN_DATE().toString())){
 				setStatus0305("9");
 			}else{
 				setStatus0305("0");
@@ -523,7 +620,7 @@ public class BidProgressAction extends BaseAction {
 			
 			//招标公告、文件校对
 //			setStatus0401(bidStatusInfo.substring(16,17));
-			if (StringUtil.isNotBlank(bidDto.getAPPLY_FORM_VERIFY_DATE().toString())&&StringUtil.isNotBlank(bidDto.getAPPLY_FORM_VERIFY()) ){
+			if (bidDto.getAPPLY_FORM_VERIFY_DATE() != null && StringUtil.isNotBlank(bidDto.getAPPLY_FORM_VERIFY_DATE().toString())&&StringUtil.isNotBlank(bidDto.getAPPLY_FORM_VERIFY()) ){
 				setStatus0401("9");
 			}else{
 				setStatus0401("0");
@@ -532,10 +629,10 @@ public class BidProgressAction extends BaseAction {
 			//二次公告
 //			setStatus0402(bidStatusInfo.substring(17,18));
 //			setStatus0403(bidStatusInfo.substring(18,19));
-			if (StringUtil.isNotBlank(bidDto.getREGISTE_ST_DATE2().toString())||
-					StringUtil.isNotBlank(bidDto.getREGISTE_ST_DATE3().toString())||
-					StringUtil.isNotBlank(bidDto.getREGISTE_ST_DATE4().toString())||
-					StringUtil.isNotBlank(bidDto.getREGISTE_ST_DATE5().toString())){
+			if ((bidDto.getREGISTE_ST_DATE2()!=null && StringUtil.isNotBlank(bidDto.getREGISTE_ST_DATE2().toString()))||
+					(bidDto.getREGISTE_ST_DATE3()!=null && StringUtil.isNotBlank(bidDto.getREGISTE_ST_DATE3().toString()))||
+					(bidDto.getREGISTE_ST_DATE4()!=null && StringUtil.isNotBlank(bidDto.getREGISTE_ST_DATE4().toString()))||
+					(bidDto.getREGISTE_ST_DATE5()!=null && StringUtil.isNotBlank(bidDto.getREGISTE_ST_DATE5().toString()))){
 				setStatus0402("9");
 			}else{
 				setStatus0402("0");
@@ -551,7 +648,7 @@ public class BidProgressAction extends BaseAction {
 			
 			//评标报告送至甲方
 //			setStatus0405(bidStatusInfo.substring(20,21));
-			if (StringUtil.isNotBlank(bidDto.getBID_VER_DOC_DELI_DATE1().toString())){
+			if (bidDto.getBID_VER_DOC_DELI_DATE1() != null && StringUtil.isNotBlank(bidDto.getBID_VER_DOC_DELI_DATE1().toString())){
 				setStatus0405("9");
 			}else{
 				setStatus0405("0");
@@ -559,7 +656,7 @@ public class BidProgressAction extends BaseAction {
 			
 			//招标文件定稿
 //			setStatus0501(bidStatusInfo.substring(21,22));
-			if (StringUtil.isNotBlank(bidDto.getAPPLY_FORM_FIX_DATE().toString())){
+			if (bidDto.getAPPLY_FORM_FIX_DATE()!= null && StringUtil.isNotBlank(bidDto.getAPPLY_FORM_FIX_DATE().toString())){
 				setStatus0501("9");
 			}else{
 				setStatus0501("0");
@@ -568,7 +665,7 @@ public class BidProgressAction extends BaseAction {
 			//报名审核表编制
 //			setStatus0502(bidStatusInfo.substring(22,23));
 //			setStatus0503(bidStatusInfo.substring(23,24));
-			if (StringUtil.isNotBlank(bidDto.getAPPLY_FORM_EDIT_DATE().toString())){
+			if (bidDto.getAPPLY_FORM_EDIT_DATE() != null && StringUtil.isNotBlank(bidDto.getAPPLY_FORM_EDIT_DATE().toString())){
 				setStatus0502("9");
 			}else{
 				setStatus0502("0");
@@ -576,7 +673,7 @@ public class BidProgressAction extends BaseAction {
 			
 			//中标公告发布
 //			setStatus0504(bidStatusInfo.substring(24,25));
-			if (StringUtil.isNotBlank(bidDto.getBID_NOTICE_ST_DATE().toString()) && StringUtil.isNotBlank(bidDto.getBID_NOTICE_ED_DATE().toString())){
+			if (bidDto.getBID_NOTICE_ST_DATE()!= null && bidDto.getBID_NOTICE_ED_DATE()!= null && StringUtil.isNotBlank(bidDto.getBID_NOTICE_ST_DATE().toString()) && StringUtil.isNotBlank(bidDto.getBID_NOTICE_ED_DATE().toString())){
 				setStatus0504("9");
 			}else{
 				setStatus0504("0");
@@ -585,47 +682,69 @@ public class BidProgressAction extends BaseAction {
 			//中标投标文件扫描
 //			setStatus0505(bidStatusInfo.substring(25,26));
 //			setStatus0601(bidStatusInfo.substring(26,27));
-			if (StringUtil.isNotBlank(bidDto.getBID_VER_DOC_SCAN()) && StringUtil.isNotBlank(bidDto.getBID_VER_DOC_SCAN_DATE().toString())){
+			if (bidDto.getBID_VER_DOC_SCAN_DATE()!= null && StringUtil.isNotBlank(bidDto.getBID_VER_DOC_SCAN()) && StringUtil.isNotBlank(bidDto.getBID_VER_DOC_SCAN_DATE().toString())){
 				setStatus0505("9");
 			}else{
 				setStatus0505("0");
 			}
 			
-			//标书费收取
-			// if 招标单位的标书费入账日期=0为0, 0<X<3 为2, >=3为9
-			
-			setStatus0602(bidStatusInfo.substring(27,28));
-			setStatus0603(bidStatusInfo.substring(28,29));
-			setStatus0604(bidStatusInfo.substring(29,30));
-
-			//标书费开票完成			
-			// if 招标单位的标书费开票日期=0为0, 0<X<3 为2, >=3为9
-			setStatus0605(bidStatusInfo.substring(30,31));
-			setStatus0701(bidStatusInfo.substring(31,32));
-			//保证金收取
-			// if 招标单位的保证金入账日期=0为0, 0<X<3 为2, >=3为9
-			setStatus0702(bidStatusInfo.substring(32,33));
-			setStatus0703(bidStatusInfo.substring(33,34));
-			setStatus0704(bidStatusInfo.substring(34,35));
-			//退保证金完成
-			// if 招标单位的退定日期=0为0, 0<X<3 为2, >=3为9
-			setStatus0705(bidStatusInfo.substring(35,36));
-			setStatus0801(bidStatusInfo.substring(36,37));
+			List<BidCompDto> complist = bidService.queryBidComp(bidDto); 
+			if (complist.size() > 0) {
+				int cnt1=0; //标书费入账日期
+				int cnt2=0; //标书费开票日期
+				int cnt3=0; //保证金入账日期
+				int cnt4=0; //退定日期
+				for (int z =0; z<complist.size(); z++) {
+					if (complist.get(z).getBID_APPLY_PRICE_DATE()!= null && StringUtil.isNotBlank(complist.get(z).getBID_APPLY_PRICE_DATE().toString()))
+						cnt1 += 1;
+					if (complist.get(z).getINVOICE_DATE()!= null && StringUtil.isNotBlank(complist.get(z).getINVOICE_DATE().toString()))
+						cnt2 += 1;
+					if (complist.get(z).getBID_VALUE_DATE() != null && StringUtil.isNotBlank(complist.get(z).getBID_VALUE_DATE().toString()))
+						cnt3 += 1;
+					if (complist.get(z).getREFOUND_DEPOSIT_DATE() != null && StringUtil.isNotBlank(complist.get(z).getREFOUND_DEPOSIT_DATE().toString()))
+						cnt4 += 1;
+				}
+				if (cnt1 < 3)
+					setStatus0602("2");
+				else
+					setStatus0602("9");
+				if (cnt2 < 3)
+					setStatus0605("2");
+				else
+					setStatus0605("9");
+				if (cnt3 < 3)
+					setStatus0702("2");
+				else
+					setStatus0702("9");					
+				if (cnt4 < 3)
+					setStatus0705("2");
+				else
+					setStatus0705("9");					
+				
+			}else {
+				//标书费收取
+				// if 招标单位的标书费入账日期=0为0, 0<X<3 为2, >=3为9
+				setStatus0602("0");
+				//标书费开票完成			
+				// if 招标单位的标书费开票日期=0为0, 0<X<3 为2, >=3为9
+				setStatus0605("0");
+				//保证金收取
+				// if 招标单位的保证金入账日期=0为0, 0<X<3 为2, >=3为9
+				setStatus0702("0");
+				//退保证金完成
+				// if 招标单位的退定日期=0为0, 0<X<3 为2, >=3为9
+				setStatus0705("0");				
+			}
+						
 			//招标文件装订
-//			setStatus0802(bidStatusInfo.substring(37,38));
-//			setStatus0803(bidStatusInfo.substring(38,39));
-//			setStatus0804(bidStatusInfo.substring(39,40));
-//			setStatus0805(bidStatusInfo.substring(40,41));
-			if (StringUtil.isNotBlank(bidDto.getBID_VER_DOC_SCAN_DATE().toString())){
-				setStatus0505("9");
+			if (bidDto.getAPPLY_FORM_BOX_DATE() != null && StringUtil.isNotBlank(bidDto.getAPPLY_FORM_BOX_DATE().toString())){
+				setStatus0802("9");
 			}else{
-				setStatus0505("0");
+				setStatus0802("0");
 			}
 			
 		}		
 	}
-	
-
 
 	public String getStatus0101() {
 		return Status0101;
@@ -1405,22 +1524,6 @@ public class BidProgressAction extends BaseAction {
 		UTIL_TYP = uTIL_TYP;
 	}
 
-	public String getFile01() {
-		return File01;
-	}
-
-	public void setFile01(String file01) {
-		File01 = file01;
-	}
-
-	public String getFile01_URL() {
-		return File01_URL;
-	}
-
-	public void setFile01_URL(String file01_URL) {
-		File01_URL = file01_URL;
-	}
-
 	public BidDto getBidDto() {
 		return bidDto;
 	}
@@ -1443,6 +1546,110 @@ public class BidProgressAction extends BaseAction {
 
 	public void setStrHead2(String strHead2) {
 		this.strHead2 = strHead2;
+	}
+
+	public String getStrHead3() {
+		return strHead3;
+	}
+
+	public void setStrHead3(String strHead3) {
+		this.strHead3 = strHead3;
+	}
+
+	public String getDate2() {
+		return Date2;
+	}
+
+	public void setDate2(String date2) {
+		Date2 = date2;
+	}
+
+	public String getFile01() {
+		return File01;
+	}
+
+	public void setFile01(String file01) {
+		File01 = file01;
+	}
+
+	public String getFile01_URL() {
+		return File01_URL;
+	}
+
+	public void setFile01_URL(String file01_URL) {
+		File01_URL = file01_URL;
+	}
+
+	public String getFile02() {
+		return File02;
+	}
+
+	public void setFile02(String file02) {
+		File02 = file02;
+	}
+
+	public String getFile02_URL() {
+		return File02_URL;
+	}
+
+	public void setFile02_URL(String file02_URL) {
+		File02_URL = file02_URL;
+	}
+
+	public String getFile03() {
+		return File03;
+	}
+
+	public void setFile03(String file03) {
+		File03 = file03;
+	}
+
+	public String getFile03_URL() {
+		return File03_URL;
+	}
+
+	public void setFile03_URL(String file03_URL) {
+		File03_URL = file03_URL;
+	}
+
+	public String getFile04() {
+		return File04;
+	}
+
+	public void setFile04(String file04) {
+		File04 = file04;
+	}
+
+	public String getFile04_URL() {
+		return File04_URL;
+	}
+
+	public void setFile04_URL(String file04_URL) {
+		File04_URL = file04_URL;
+	}
+
+	public String getFile05() {
+		return File05;
+	}
+
+	public void setFile05(String file05) {
+		File05 = file05;
+	}
+
+	public String getFile05_URL() {
+		return File05_URL;
+	}
+
+	public void setFile05_URL(String file05_URL) {
+		File05_URL = file05_URL;
+	}
+
+	public String getUpload_fileNo() {
+		return upload_fileNo;
+	}
+
+	public void setUpload_fileNo(String upload_fileNo) {
+		this.upload_fileNo = upload_fileNo;
 	}
 
 }

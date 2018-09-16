@@ -1859,7 +1859,6 @@ public class BidDto extends BaseDto {
 	public void setIS_RANDOM(String iS_RANDOM) {
 		IS_RANDOM = iS_RANDOM;
 	}
-<<<<<<< HEAD
 	
 	public Date getGEN_REGISTE_RPT_DATE() {
 		return GEN_REGISTE_RPT_DATE;
@@ -1886,8 +1885,6 @@ public class BidDto extends BaseDto {
 		BID_EXPERT_COMMISION_APPLY_DATE = bID_EXPERT_COMMISION_APPLY_DATE;
 	}
 
-=======
-
 	public Date getCNTRCT_ST_DATE() {
 		return CNTRCT_ST_DATE;
 	}
@@ -1903,5 +1900,4 @@ public class BidDto extends BaseDto {
 	public void setCNTRCT_ED_DATE(Date cNTRCT_ED_DATE) {
 		CNTRCT_ED_DATE = cNTRCT_ED_DATE;
 	}
->>>>>>> 45de176822a57fbfc76128da0fbecd3079f83e2e
 }

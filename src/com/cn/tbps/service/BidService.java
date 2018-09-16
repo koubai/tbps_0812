@@ -196,6 +196,13 @@ public interface BidService {
 	public List<BidCompExportDto> queryAllBidCompExport(String bidNoLow, String bidNoHigh, String projectType,
 			String openDateLow, String openDateHigh, String agentNo, String agentName, String bidCoName, String receipt1No);
 	
+	/**
+	 * 查询所有的招标公司信息
+	 * @param bidNo
+	 * @return
+	 */
+	public List<BidCompDto> queryBidComp(BidDto bid);
+	
 	/** 投标履历 **/
 	
 	/**
