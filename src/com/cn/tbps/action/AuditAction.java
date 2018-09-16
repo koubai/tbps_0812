@@ -13,11 +13,13 @@ import com.cn.common.factory.PoiFactory;
 import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
+import com.cn.tbps.dto.AuditAuthDto;
 import com.cn.tbps.dto.AuditCntrctDto;
 import com.cn.tbps.dto.AuditCompDto;
 import com.cn.tbps.dto.AuditDto;
 import com.cn.tbps.dto.AuditHistDto;
 import com.cn.tbps.dto.AuditStatCostDto;
+import com.cn.tbps.dto.AuditStatPaidDto;
 import com.cn.tbps.dto.AuditStatisticsDto;
 import com.cn.tbps.dto.UserInfoDto;
 import com.cn.tbps.service.AuditCntrctService;
@@ -218,10 +220,14 @@ public class AuditAction extends BaseAction {
 	
 	private String strStartDate;
 	private String strEndDate;
+	//项目情况检查
+	private AuditAuthDto auditAuth;
 	//统计界面
 	private AuditStatisticsDto auditStatistics;
 	//项目收费统计输出
 	private AuditStatCostDto auditStatCost;
+	//到账统到账统计计
+	private AuditStatPaidDto auditStatPaid;
 	
 	//审价履历
 	/**
@@ -596,6 +602,11 @@ public class AuditAction extends BaseAction {
 	public String showUpdAuditAction() {
 		try {
 			this.clearMessages();
+			listUserInfo = userInfoService.queryAllUser();
+			UserInfoDto userinfo = new UserInfoDto();
+			userinfo.setLOGIN_NAME("");
+			listUserInfo.add(userinfo);
+			System.out.println("listUserInfo" + listUserInfo.size());
 			updAuditDto = auditService.queryAuditByID(updAuditNo);
 			auditCntrctDto = auditCntrctService.queryAuditCntrctByID(updAuditDto.getCNTRCT_NO());
 			if(updAuditDto == null) {
@@ -651,6 +662,11 @@ public class AuditAction extends BaseAction {
 			this.clearMessages();
 			addAuditDto = new AuditDto();
 			auditCntrctDto = new AuditCntrctDto();
+			listUserInfo = userInfoService.queryAllUser();
+			UserInfoDto userinfo = new UserInfoDto();
+			userinfo.setLOGIN_NAME("");
+			listUserInfo.add(userinfo);
+			System.out.println("listUserInfo" + listUserInfo.size());
 		} catch(Exception e) {
 			return ERROR;
 		}
@@ -762,7 +778,7 @@ public class AuditAction extends BaseAction {
 			strProjectManager = "";
 			strStartDate = "";
 			strEndDate = "";
-			listAudit = new ArrayList<AuditDto>();
+			auditAuth = new AuditAuthDto();
 			
 			listUserInfo = userInfoService.queryAllUser();
 			UserInfoDto userinfo = new UserInfoDto();
@@ -782,8 +798,8 @@ public class AuditAction extends BaseAction {
 	public String queryAuditAuth() {
 		try {
 			this.clearMessages();
-			listAudit = new ArrayList<AuditDto>();
-			listAudit = auditService.queryAuditAuth(strProjectManager, strStartDate, strEndDate);
+			auditAuth = new AuditAuthDto();
+			auditAuth = auditService.queryAuditAuth(strProjectManager, strStartDate, strEndDate);
 		} catch(Exception e) {
 			log.error(e);
 			return ERROR;
@@ -879,7 +895,7 @@ public class AuditAction extends BaseAction {
 			strProjectManager = "";
 			strStartDate = "";
 			strEndDate = "";
-			listAudit = new ArrayList<AuditDto>();
+			auditStatPaid = new AuditStatPaidDto();
 			
 			listUserInfo = userInfoService.queryAllUser();
 			UserInfoDto userinfo = new UserInfoDto();
@@ -899,8 +915,8 @@ public class AuditAction extends BaseAction {
 	public String queryAuditStatPaid() {
 		try {
 			this.clearMessages();
-			listAudit = new ArrayList<AuditDto>();
-			listAudit = auditService.queryAuditStatPaid(strProjectManager, strStartDate, strEndDate);
+			auditStatPaid = new AuditStatPaidDto();
+			auditStatPaid = auditService.queryAuditStatPaid(strProjectManager, strStartDate, strEndDate);
 		} catch(Exception e) {
 			log.error(e);
 			return ERROR;
@@ -1327,6 +1343,22 @@ public class AuditAction extends BaseAction {
 
 	public void setAuditStatCost(AuditStatCostDto auditStatCost) {
 		this.auditStatCost = auditStatCost;
+	}
+
+	public AuditAuthDto getAuditAuth() {
+		return auditAuth;
+	}
+
+	public void setAuditAuth(AuditAuthDto auditAuth) {
+		this.auditAuth = auditAuth;
+	}
+
+	public AuditStatPaidDto getAuditStatPaid() {
+		return auditStatPaid;
+	}
+
+	public void setAuditStatPaid(AuditStatPaidDto auditStatPaid) {
+		this.auditStatPaid = auditStatPaid;
 	}
 
 }

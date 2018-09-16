@@ -23,135 +23,16 @@
 <![endif]-->
 <script type="text/javascript">
 	
-	function add() {
-		document.mainform.action = '<c:url value="/auditcntrct/showAddAuditCntrctAction.action"></c:url>';
-		document.mainform.submit();
-	}
-	
-	function upd() {
-		var id = getSelectedID();
-		if(id == "") {
-			alert("请选择一条记录！");
-			return;
-		} else {
-			var url = '<c:url value="/auditcntrct/showUpdAuditCntrctAction.action"></c:url>' + "?updAuditCntrctNo=" + id;
-			document.mainform.action = url;
-			document.mainform.submit();
-		}
-	}
-	
-	function del() {
-		var id = getSelectedID();
-		if(id == "") {
-			alert("请选择一条记录！");
-			return;
-		} else {
-			if(confirm("确定删除该记录吗？")) {
-				setQueryDate();
-				document.mainform.action = '<c:url value="/auditcntrct/delAuditCntrctAction.action"></c:url>' + "?delAuditCntrctNo=" + id;
-				document.mainform.submit();
-			}
-		}
-	}
-	
-	function showHis() {
-		var id = getSelectedID();
-		if(id == "") {
-			alert("请选择一条记录！");
-			return;
-		} else {
-			var url = '<c:url value="/audit/showAllAuditCntrctHisAction.action"></c:url>' + "?strAuditCntrctNoHist=" + id + "&date=" + new Date();
-			window.showModalDialog(url, window, "dialogheight:500px;dialogwidth:1000px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
-		}
-	}
-	
-	function showAuditCntrctDetail() {
-		var id = getSelectedID();
-		if(id == "") {
-			alert("请选择一条记录！");
-			return;
-		} else {
-			var url = '<c:url value="/audit/showAuditCntrctDetail.action"></c:url>' + "?detailAuditNo=" + id + "&date=" + new Date();
-			window.showModalDialog(url, window, "dialogheight:600px;dialogwidth:1024px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
-		}
-	}
-	
-	function getSelectedID() {
-		var id = "";
-		var list = document.getElementsByName("radioKey");
-		for(var i = 0; i < list.length; i++) {
-			if(list[i].checked) {
-				id = list[i].value;
-				break;
-			}
-		}
-		return id;
-	}
-	
 	function setQueryDate() {
-		$("#strCntrctStDate").attr("value", $("#cntrctStDate").val());
-		$("#strCntrctEdDate").attr("value", $("#cntrctEdDate").val());
+		$("#strStartDate").attr("value", $("#startDate").val());
+		$("#strEndDate").attr("value", $("#endDate").val());
+		$("#strProjectManager").attr("value", $("#projectManager").val());
 	}
 
 	function queryList() {
 		setQueryDate();
-		document.mainform.action = '<c:url value="/auditcntrct/queryAuditCntrctList.action"></c:url>';
+		document.mainform.action = '<c:url value="/audit/queryAuditAuth.action"></c:url>';
 		document.mainform.submit();
-	}
-
-	//翻页
-	function changePage(pageNum) {
-		setQueryDate();
-		document.getElementById("startIndex").value = pageNum;
-		document.mainform.action = '<c:url value="/auditcntrct/turnAuditCntrctPage.action"></c:url>';
-		document.mainform.submit();
-	}
-
-	//页跳转
-	function turnPage() {
-		var totalPage = "${page.totalPage}";
-		var turnPage = document.getElementById("pagenum").value;
-		//判断是否输入页码
-		if ('' != turnPage) {
-			//判断页码是否是大于0的数字
-			if(!iscInteger(turnPage)){
-				alert("页码必须是大于0的整数！");
-				return;
-			}
-			turnPage = parseInt(turnPage);
-			if(turnPage < 1){
-				alert("页码必须是大于0的整数！");
-				return;
-			}
-			//判断页码大小是否正确
-			if(turnPage > parseInt(totalPage)){
-				alert("页码不能超过最大页数！");
-				return;
-			}
-			//换页
-			changePage(turnPage - 1);
-		} else {
-			alert("页码不能为空！");
-			return;
-		}	
-	}
-	
-	function exportAudit() {
-		setQueryDate();
-		document.mainform.action = '<c:url value="/auditcntrct/exportAuditCntrctListAction.action"></c:url>';
-		document.mainform.submit();
-	}
-	
-	function queryAgentCommon() {
-		setQueryDate();
-		var url = '<c:url value="/agentcomp/showAgentCompCommonAction.action"></c:url>' + "?strKey=strAgentName&agentAddFlag=1&date=" + new Date();
-		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:1000px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
-	}
-	
-	function queryContractCommon() {
-		setQueryDate();
-		var url = '<c:url value="/agentcomp/showAgentCompCommonAction.action"></c:url>' + "?strKey=strContractName&agentAddFlag=3&date=" + new Date();
-		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:1000px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
 	}
 	
 </script>
@@ -168,14 +49,15 @@
 					<s:hidden name="startIndex" id="startIndex"/>
 					<s:hidden name="strStartDate" id="strStartDate"/>
 					<s:hidden name="strEndDate" id="strEndDate"/>
+					<s:hidden name="strProjectManager" id="strProjectManager"/>
 					<h3 class="title">项目情况检查<a class="backHome" href="#" onclick="goHome();"><i class="fa fa-home" aria-hidden="true"></i>返回首页</a></h3>
 					<div class="row">
 						<div class="col-lg-12 form-group">
 							<label for="" class="col-lg-1 form-label">工程师</label>
 							<div class="col-lg-2">
-								<select name="addAuditDto.PROJECT_MANAGER" id="PROJECT_MANAGER" class="form-control">
+								<select name="projectManager" id="projectManager" class="form-control">
 									<s:iterator id="listUserInfo" value="listUserInfo" status="st1">
-										<option value="<s:property value="LOGIN_NAME"/>" <s:if test="%{addAuditDto.PPROJECT_MANAGER == LOGIN_NAME}">selected</s:if>><s:property value="LOGIN_NAME"/></option>
+										<option value="<s:property value="LOGIN_NAME"/>" <s:if test="%{strProjectManager == LOGIN_NAME}">selected</s:if>><s:property value="LOGIN_NAME"/></option>
 									</s:iterator>
 								</select>
 							</div>
@@ -210,85 +92,85 @@
 						<tr>
 							<td width="300">委托任务：审价</td>
 							<td width="100">承担个数</td>
-							<td></td>
+							<td><s:property value="auditAuth.COUNT1"/></td>
 						</tr>
 						<tr>
 							<td>未完成个数</td>
-							<td colspan="2"><s:property value=""/></td>
+							<td colspan="2"><s:property value="auditAuth.COUNT_NULL1"/></td>
 						</tr>
 						<tr>
 							<td>未完成审核（5天以上）</td>
-							<td colspan="2"><s:property value=""/></td>
+							<td colspan="2"><s:property value="auditAuth.APPROVAL_SND_DATE_NULL1"/></td>
 						</tr>
 						<tr>
 							<td>未收到审定单（21天以上）</td>
-							<td colspan="2"><s:property value=""/></td>
+							<td colspan="2"><s:property value="auditAuth.APPROVAL_RCV_DATE_NULL1"/></td>
 						</tr>
 						<tr>
 							<td>未出具审价报告（1天以上）</td>
-							<td colspan="2"><s:property value=""/></td>
+							<td colspan="2"><s:property value="auditAuth.REPORT_RAISE_DATE_NULL1"/></td>
 						</tr>
 						<tr>
 							<td>未开票（30天以上）</td>
-							<td colspan="2"><s:property value=""/></td>
+							<td colspan="2"><s:property value="auditAuth.B_INVOICE_DATE_NULL1"/></td>
 						</tr>
 						<tr>
 							<td>未收款（30天以上）</td>
-							<td colspan="2"><s:property value=""/></td>
+							<td colspan="2"><s:property value="auditAuth.B_SET_DATE_NULL1"/></td>
 						</tr>
 						<tr>
 							<td>未归档（60天以上）</td>
-							<td colspan="2"><s:property value=""/></td>
+							<td colspan="2"><s:property value="auditAuth.REG_DATE_NULL1"/></td>
 						</tr>
 						<tr>
 							<td>表格未填完整</td>
-							<td colspan="2"><s:property value=""/></td>
+							<td colspan="2"><s:property value="auditAuth.CONTRACT_CO_ID_NULL1"/></td>
 						</tr>
 					</table>
 					<table class="table table-bordered">
 						<tr>
 							<td width="300">委托任务：咨询项目</td>
 							<td width="100">承担个数</td>
-							<td></td>
+							<td><s:property value="auditAuth.COUNT2"/></td>
 						</tr>
 						<tr>
 							<td>未完成个数</td>
-							<td colspan="2"><s:property value=""/></td>
+							<td colspan="2"><s:property value="auditAuth.COUNT_NULL2"/></td>
 						</tr>
 						<tr>
 							<td>未完成审核（5天以上）</td>
-							<td colspan="2"><s:property value=""/></td>
+							<td colspan="2"><s:property value="auditAuth.REPORT_RAISE_DATE_NULL2"/></td>
 						</tr>
 						<tr>
 							<td>未归档（60天以上）</td>
-							<td colspan="2"><s:property value=""/></td>
+							<td colspan="2"><s:property value="auditAuth.REG_DATE_NULL2"/></td>
 						</tr>
 						<tr>
 							<td>表格未填完整</td>
-							<td colspan="2"><s:property value=""/></td>
+							<td colspan="2"><s:property value="auditAuth.CONTRACT_CO_ID_NULL2"/></td>
 						</tr>
 					</table>
 					<table class="table table-bordered">
 						<tr>
 							<td width="300">委托任务：控制价编制项目</td>
 							<td width="100">承担个数</td>
-							<td></td>
+							<td><s:property value="auditAuth.COUNT4"/></td>
 						</tr>
 						<tr>
 							<td>未完成个数</td>
-							<td colspan="2"><s:property value=""/></td>
+							<td colspan="2"><s:property value="auditAuth.COUNT_NULL4"/></td>
 						</tr>
 						<tr>
 							<td>未完成审核（7天以上）</td>
-							<td colspan="2"><s:property value=""/></td>
+							<td colspan="2"><s:property value="auditAuth.REPORT_RAISE_DATE_NULL4"/></td>
 						</tr>
 						<tr>
 							<td>未归档（60天以上）</td>
-							<td colspan="2"><s:property value=""/></td>
+							<td colspan="2"><s:property value="auditAuth.REG_DATE_NULL4"/></td>
 						</tr>
 						<tr>
 							<td>表格未填完整</td>
-							<td colspan="2"><s:property value=""/></td>
+							<td colspan="2"><s:property value="auditAuth.REPORT_SEAL_DATE_NULL4"/></td>
 						</tr>
 					</table>
 					<table class="table table-bordered">

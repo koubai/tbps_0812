@@ -175,6 +175,74 @@ public class AgentCompAction extends BaseAction {
 	}
 	
 	/**
+	 * 查询委托公司（选择委托公司）
+	 * @return
+	 */
+	public String showAgentCompAuditAction() {
+		try {
+			this.clearMessages();
+			//查询评审专家信息
+			log.info("agentAddFlag=" + agentAddFlag);
+			agentCompNoLow = "";
+			agentCompNoHigh = "";
+			agentCompName = "";
+			agentCompList = new ArrayList<AgentCompDto>();
+			page = new Page();
+			startIndex = 0;
+			queryAgentAudit();
+		} catch(Exception e) {
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询委托公司信息（选择委托公司）
+	 * @return
+	 */
+	public String queryAgentCompAuditAction() {
+		try {
+			this.clearMessages();
+			//查询评审专家信息
+			startIndex = 0;
+			queryAgentAudit();
+		} catch(Exception e) {
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 委托公司信息翻页（选择委托公司）
+	 * @return
+	 */
+	public String turnAgentCompAuditAction() {
+		try {
+			this.clearMessages();
+			//查询委托公司信息
+			queryAgentAudit();
+		} catch(Exception e) {
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void queryAgentAudit() {
+		agentCompList = new ArrayList<AgentCompDto>();
+		if(page == null) {
+			page = new Page();
+		}
+		//翻页查询所有招标
+		this.page.setStartIndex(startIndex);
+		//这里只查询委托公司：J打头的
+		//pageAgentComp = agentCompService.queryAgentCompByPage(pageAgentComp, agentCompNoLow, agentCompNoHigh, "1", agentCompName);
+		page = agentCompService.queryAgentCompByPage(page, agentCompNoLow, agentCompNoHigh, agentAddFlag, agentCompName);
+		agentCompList = (List<AgentCompDto>) page.getItems();
+		this.setStartIndex(page.getStartIndex());
+	}
+	
+	/**
 	 * ajax查询
 	 * @return
 	 * @throws IOException 

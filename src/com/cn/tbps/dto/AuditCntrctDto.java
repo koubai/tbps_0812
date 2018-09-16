@@ -78,6 +78,12 @@ public class AuditCntrctDto extends BaseDto {
 	 * 委托内容
 	 */
 	private String CNTRCT_INFO;
+	
+	/**
+	 * 委托内容（显示用）
+	 */
+	@SuppressWarnings("unused")
+	private String CNTRCT_INFO_SHOW;
 
 	/**
 	 * 委托内容费率1(审价)
@@ -947,6 +953,38 @@ public class AuditCntrctDto extends BaseDto {
 
 	public void setUPDATE_DATE(Date uPDATE_DATE) {
 		UPDATE_DATE = uPDATE_DATE;
+	}
+
+	public String getCNTRCT_INFO_SHOW() {
+		String[] arr = this.CNTRCT_INFO.split("");
+		StringBuffer tmp = new StringBuffer("");
+		if("1".equals(arr[0])) {
+			tmp.append(";审价");
+		}
+		if("1".equals(arr[1])) {
+			tmp.append(";咨询");
+		}
+		if("1".equals(arr[2])) {
+			tmp.append(";清单编制");
+		}
+		if("1".equals(arr[3])) {
+			tmp.append(";控制价编制");
+		}
+		if("1".equals(arr[4])) {
+			tmp.append(";全过程投资监理");
+		}
+		String cntrctInfoShow = tmp.toString();
+		if("".equals(cntrctInfoShow)) {
+			cntrctInfoShow = "无";
+		} else {
+			cntrctInfoShow = cntrctInfoShow.substring(1);
+		}
+		
+		return cntrctInfoShow;
+	}
+
+	public void setCNTRCT_INFO_SHOW(String cNTRCT_INFO_SHOW) {
+		CNTRCT_INFO_SHOW = cNTRCT_INFO_SHOW;
 	}
 
 }

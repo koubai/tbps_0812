@@ -418,6 +418,19 @@
 		$("#CONTRACT_CO_ID").attr("value", $("#contractCoId").val());
 		
 		//各类日期
+		$("#DOC_REC_DATE").attr("value", $("#docRecDate").val());
+		$("#SUPPORT_DOC_DATE").attr("value", $("#supportDocDate").val());
+		$("#DRAFT_DATE").attr("value", $("#draftDate").val());
+		$("#APPROVAL_SND_DATE").attr("value", $("#approvalSndDate").val());
+		$("#APPROVAL_RCV_DATE").attr("value", $("#approvalRcvDate").val());
+		$("#REPORT_RAISE_DATE").attr("value", $("#reportRaiseDate").val());
+		var RESERVE1 = $("#RESERVE1").val();
+		if(RESERVE1 == 5){
+			$("#REPORT_SEAL_DATE").attr("value", $("#reportSealDate2").val());
+		} else {
+			$("#REPORT_SEAL_DATE").attr("value", $("#reportSealDate").val());
+		}
+		$("#REPORT_ARR_DATE").attr("value", $("#reportArrDate").val());
 		$("#REG_DATE").attr("value", $("#regDate").val());
 		$("#PLAN_DOC_RCV_DATE").attr("value", $("#planDocRcvDate").val());
 		$("#PLAN_DOC_RPT_DATE").attr("value", $("#planDocRptDate").val());
@@ -438,7 +451,7 @@
 		$("#B_INVOICE_DATE").attr("value", $("#bInvoiceDate").val());
 		$("#B_SET_DATE").attr("value", $("#bSetDate").val());
 		
-		setDefaultValue("PRE_SET");
+		//setDefaultValue("PRE_SET");
 		setDefaultValue("PRE_PRICE");
 		setDefaultValue("VERIFY_PER_AMOUNT");
 		setDefaultValue("VERIFY_AMOUNT");
@@ -612,6 +625,11 @@
 			document.getElementById('prePrice').style.display='block';
 			document.getElementById('prePriceLabel').style.display='none';
 			document.getElementById('prePriceLabel2').style.display='block';
+			//送审价等
+			document.getElementById('verify').style.display='block';
+			document.getElementById('verify2').style.display='block';
+			//甲乙方
+			document.getElementById('ab').style.display='block';
 			
 		} else {//审价
 			//项目大致进度简述
@@ -810,9 +828,15 @@
 		//净核减=送审金额 - 审定金额
 		$("#VERIFY_DIFF").attr("value", tmp);
 		//净核减率=净核减/送审金额
-		if(isReal2(VERIFY_PER_AMOUNT)) {
-			tmp2 = tmp / parseFloat(VERIFY_PER_AMOUNT);
+		var tmp2 = 0;
+		if(VERIFY_PER_AMOUNT == '0.00'){
+			tmp2 = parseFloat('0.00');
+		} else {
+			if(isReal2(VERIFY_PER_AMOUNT)) {
+				tmp2 = tmp / parseFloat(VERIFY_PER_AMOUNT);
+			}
 		}
+		tmp2 = tmp2.toFixed(2);
 		$("#VERIFY_DIFF_RATE").attr("value", tmp2);
 		//计算核减
 		calcVERIFY_DECREASE();
@@ -1235,7 +1259,24 @@
 							<div id="preSet">
 							<label for="" class="col-lg-2 form-label colorGold">预/结算</label>
 							<div class="col-lg-2">
-								<s:textfield name="updAuditDto.PRE_SET" id="PRE_SET" cssClass="col-lg-10 form-control" maxlength="14" theme="simple"></s:textfield>
+								<%-- <s:textfield name="updAuditDto.PRE_SET" id="PRE_SET" cssClass="col-lg-10 form-control" maxlength="14" theme="simple"></s:textfield> --%>
+								<select id="PRE_SET" name="updAuditDto.PRE_SET" class="form-control">
+									<s:if test='updAuditDto.PRE_SET == "1"'>
+										<option value="">请选择</option>
+										<option value="1" selected="selected">预算</option>
+										<option value="2">结算</option>
+									</s:if>
+									<s:elseif test='updAuditDto.PRE_SET == "2"'>
+										<option value="">请选择</option>
+										<option value="1">预算</option>
+										<option value="2" selected="selected">结算</option>
+									</s:elseif>
+									<s:else>
+										<option value="" selected="selected">请选择</option>
+										<option value="1">预算</option>
+										<option value="2">结算</option>
+									</s:else>
+								</select>
 							</div>
 							</div>
 							<div id="prePrice">
@@ -1323,17 +1364,37 @@
 									<s:if test='updAuditDto.REPORT_ARR_TYPE == "1"'>
 										<option value="">请选择</option>
 										<option value="1" selected="selected">快递</option>
-										<option value="2">其他</option>
+										<option value="2">自送</option>
+										<option value="3">自取</option>
+										<option value="4">附带</option>
 									</s:if>
 									<s:elseif test='updAuditDto.REPORT_ARR_TYPE == "2"'>
 										<option value="">请选择</option>
 										<option value="1">快递</option>
-										<option value="2" selected="selected">其他</option>
+										<option value="2" selected="selected">自送</option>
+										<option value="3">自取</option>
+										<option value="4">附带</option>
+									</s:elseif>
+									<s:elseif test='updAuditDto.REPORT_ARR_TYPE == "3"'>
+										<option value="">请选择</option>
+										<option value="1">快递</option>
+										<option value="2">其他</option>
+										<option value="3" selected="selected">自取</option>
+										<option value="4">附带</option>
+									</s:elseif>
+									<s:elseif test='updAuditDto.REPORT_ARR_TYPE == "4"'>
+										<option value="">请选择</option>
+										<option value="1">快递</option>
+										<option value="2">其他</option>
+										<option value="3">自取</option>
+										<option value="4" selected="selected">附带</option>
 									</s:elseif>
 									<s:else>
 										<option value="" selected="selected">请选择</option>
 										<option value="1">快递</option>
 										<option value="2">其他</option>
+										<option value="3">自取</option>
+										<option value="4">附带</option>
 									</s:else>
 								</select>
 							</div>
@@ -1380,7 +1441,7 @@
 							<label for="" class="col-lg-2 form-label colorGold">承揽单位联系人及联系方式</label>
 							<div class="col-lg-4">
 								<input type="hidden" id="contractCoNo" value="<s:property value="updAuditDto.CONTRACT_CO_NO"/>"/>
-								<input type="hidden" id="contractCoName" value="<s:property value="updAuditDto.CONTRACT_CO_NAME"/>"/>
+								<input type="hidden" id="contractCoId" value="<s:property value="updAuditDto.CONTRACT_CO_ID"/>"/>
 								<input type="hidden" id="contractCoManager" value="<s:property value="updAuditDto.CONTRACT_CO_MANAGER"/>"/>
 								<input type="hidden" id="contractCoManagerTel" value="<s:property value="updAuditDto.CONTRACT_CO_MANAGER_TEL"/>"/>
 								<input type="hidden" id="contractCoPostAddress" value="<s:property value="updAuditDto.CONTRACT_CO_POST_ADDRESS"/>"/>
@@ -1392,7 +1453,7 @@
 							</div>
 							<label for="" class="col-lg-1 form-label colorGold">承揽单位</label>
 							<div class="col-lg-2">
-								<s:textfield name="" id="contractCoId" disabled="true" cssClass="col-lg-10 form-control" value="%{updAuditDto.CONTRACT_CO_ID}" maxlength="20" theme="simple"></s:textfield>
+								<s:textfield name="" id="contractCoName" disabled="true" cssClass="col-lg-10 form-control" value="%{updAuditDto.CONTRACT_CO_NAME}" maxlength="20" theme="simple"></s:textfield>
 							</div>
 						</div>
 						<div class="col-lg-12 form-group" id="verify">
@@ -1467,17 +1528,37 @@
 									<s:if test='updAuditDto.PLAN_DOC_SND_TYPE == "1"'>
 										<option value="">请选择</option>
 										<option value="1" selected="selected">快递</option>
-										<option value="2">其他</option>
+										<option value="2">自送</option>
+										<option value="3">自取</option>
+										<option value="4">附带</option>
 									</s:if>
 									<s:elseif test='updAuditDto.PLAN_DOC_SND_TYPE == "2"'>
 										<option value="">请选择</option>
 										<option value="1">快递</option>
-										<option value="2" selected="selected">其他</option>
+										<option value="2" selected="selected">自送</option>
+										<option value="3">自取</option>
+										<option value="4">附带</option>
+									</s:elseif>
+									<s:elseif test='updAuditDto.PLAN_DOC_SND_TYPE == "3"'>
+										<option value="">请选择</option>
+										<option value="1">快递</option>
+										<option value="2">其他</option>
+										<option value="3" selected="selected">自取</option>
+										<option value="4">附带</option>
+									</s:elseif>
+									<s:elseif test='updAuditDto.PLAN_DOC_SND_TYPE == "4"'>
+										<option value="">请选择</option>
+										<option value="1">快递</option>
+										<option value="2">其他</option>
+										<option value="3">自取</option>
+										<option value="4" selected="selected">附带</option>
 									</s:elseif>
 									<s:else>
 										<option value="" selected="selected">请选择</option>
 										<option value="1">快递</option>
 										<option value="2">其他</option>
+										<option value="3">自取</option>
+										<option value="4">附带</option>
 									</s:else>
 								</select>
 							</div>
@@ -1525,17 +1606,37 @@
 									<s:if test='updAuditDto.BID_DOC_SND_TYPE == "1"'>
 										<option value="">请选择</option>
 										<option value="1" selected="selected">快递</option>
-										<option value="2">其他</option>
+										<option value="2">自送</option>
+										<option value="3">自取</option>
+										<option value="4">附带</option>
 									</s:if>
 									<s:elseif test='updAuditDto.BID_DOC_SND_TYPE == "2"'>
 										<option value="">请选择</option>
 										<option value="1">快递</option>
-										<option value="2" selected="selected">其他</option>
+										<option value="2" selected="selected">自送</option>
+										<option value="3">自取</option>
+										<option value="4">附带</option>
+									</s:elseif>
+									<s:elseif test='updAuditDto.BID_DOC_SND_TYPE == "3"'>
+										<option value="">请选择</option>
+										<option value="1">快递</option>
+										<option value="2">其他</option>
+										<option value="3" selected="selected">自取</option>
+										<option value="4">附带</option>
+									</s:elseif>
+									<s:elseif test='updAuditDto.BID_DOC_SND_TYPE == "4"'>
+										<option value="">请选择</option>
+										<option value="1">快递</option>
+										<option value="2">其他</option>
+										<option value="3">自取</option>
+										<option value="4" selected="selected">附带</option>
 									</s:elseif>
 									<s:else>
 										<option value="" selected="selected">请选择</option>
 										<option value="1">快递</option>
 										<option value="2">其他</option>
+										<option value="3">自取</option>
+										<option value="4">附带</option>
 									</s:else>
 								</select>
 							</div>
@@ -1583,17 +1684,37 @@
 									<s:if test='updAuditDto.SIGN_DOC_SND_TYPE == "1"'>
 										<option value="">请选择</option>
 										<option value="1" selected="selected">快递</option>
-										<option value="2">其他</option>
+										<option value="2">自送</option>
+										<option value="3">自取</option>
+										<option value="4">附带</option>
 									</s:if>
 									<s:elseif test='updAuditDto.SIGN_DOC_SND_TYPE == "2"'>
 										<option value="">请选择</option>
 										<option value="1">快递</option>
-										<option value="2" selected="selected">其他</option>
+										<option value="2" selected="selected">自送</option>
+										<option value="3">自取</option>
+										<option value="4">附带</option>
+									</s:elseif>
+									<s:elseif test='updAuditDto.SIGN_DOC_SND_TYPE == "3"'>
+										<option value="">请选择</option>
+										<option value="1">快递</option>
+										<option value="2">其他</option>
+										<option value="3" selected="selected">自取</option>
+										<option value="4">附带</option>
+									</s:elseif>
+									<s:elseif test='updAuditDto.SIGN_DOC_SND_TYPE == "4"'>
+										<option value="">请选择</option>
+										<option value="1">快递</option>
+										<option value="2">其他</option>
+										<option value="3">自取</option>
+										<option value="4" selected="selected">附带</option>
 									</s:elseif>
 									<s:else>
 										<option value="" selected="selected">请选择</option>
 										<option value="1">快递</option>
 										<option value="2">其他</option>
+										<option value="3">自取</option>
+										<option value="4">附带</option>
 									</s:else>
 								</select>
 							</div>
@@ -1618,6 +1739,15 @@
 									</div>
 								</div>
 							</div>
+							<label for="" class="col-lg-1 form-label colorGray">报告敲章日期</label>
+							<div class="col-lg-2">
+								<div class="input-group date" data-provide="datepicker">
+									<input type="text" class="form-control datepicker" readonly id="reportSealDate2" value="<s:date format="yyyy-MM-dd" name="updAuditDto.REPORT_SEAL_DATE"/>" maxlength="10" />
+									<div class="input-group-addon">
+										<span class="glyphicon glyphicon-th"></span>
+									</div>
+								</div>
+							</div>
 							<label for="" class="col-lg-1 form-label colorGold">报告出具时间</label>
 							<div class="col-lg-2">
 								<div class="input-group date" data-provide="datepicker">
@@ -1637,17 +1767,37 @@
 									<s:if test='updAuditDto.SET_DOC_SND_TYPE == "1"'>
 										<option value="">请选择</option>
 										<option value="1" selected="selected">快递</option>
-										<option value="2">其他</option>
+										<option value="2">自送</option>
+										<option value="3">自取</option>
+										<option value="4">附带</option>
 									</s:if>
 									<s:elseif test='updAuditDto.SET_DOC_SND_TYPE == "2"'>
 										<option value="">请选择</option>
 										<option value="1">快递</option>
-										<option value="2" selected="selected">其他</option>
+										<option value="2" selected="selected">自送</option>
+										<option value="3">自取</option>
+										<option value="4">附带</option>
+									</s:elseif>
+									<s:elseif test='updAuditDto.SET_DOC_SND_TYPE == "3"'>
+										<option value="">请选择</option>
+										<option value="1">快递</option>
+										<option value="2">其他</option>
+										<option value="3" selected="selected">自取</option>
+										<option value="4">附带</option>
+									</s:elseif>
+									<s:elseif test='updAuditDto.SET_DOC_SND_TYPE == "4"'>
+										<option value="">请选择</option>
+										<option value="1">快递</option>
+										<option value="2">其他</option>
+										<option value="3">自取</option>
+										<option value="4" selected="selected">附带</option>
 									</s:elseif>
 									<s:else>
 										<option value="" selected="selected">请选择</option>
 										<option value="1">快递</option>
 										<option value="2">其他</option>
+										<option value="3">自取</option>
+										<option value="4">附带</option>
 									</s:else>
 								</select>
 							</div>

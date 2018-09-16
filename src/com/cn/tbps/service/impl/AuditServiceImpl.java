@@ -10,9 +10,11 @@ import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
 import com.cn.tbps.dao.AuditDao;
 import com.cn.tbps.dao.ConfigTabDao;
+import com.cn.tbps.dto.AuditAuthDto;
 import com.cn.tbps.dto.AuditDto;
 import com.cn.tbps.dto.AuditHistDto;
 import com.cn.tbps.dto.AuditStatCostDto;
+import com.cn.tbps.dto.AuditStatPaidDto;
 import com.cn.tbps.dto.AuditStatisticsDto;
 import com.cn.tbps.dto.ConfigTabDto;
 import com.cn.tbps.service.AuditService;
@@ -365,7 +367,7 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 	}
 
 	@Override
-	public List<AuditDto> queryAuditAuth(String projectManager, String startDate, String endDate) {
+	public AuditAuthDto queryAuditAuth(String projectManager, String startDate, String endDate) {
 		return auditDao.queryAuditAuth(projectManager, startDate, endDate);
 	}
 
@@ -380,7 +382,7 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 	}
 
 	@Override
-	public List<AuditDto> queryAuditStatPaid(String projectManager, String startDate, String endDate) {
+	public AuditStatPaidDto queryAuditStatPaid(String projectManager, String startDate, String endDate) {
 		return auditDao.queryAuditStatPaid(projectManager, startDate, endDate);
 	}
 }

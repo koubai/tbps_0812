@@ -183,7 +183,17 @@
 									<input type="hidden" value="<s:property value="CNTRCT_ED_DATE"/>"/>
 								</td>
 								<td><input name="radioKey" type="radio" value="<s:property value="CNTRCT_NO"/>"/></td>
-								<td><s:property value="CNTRCT_BELONG"/></td>
+								<td>
+									<s:if test='CNTRCT_BELONG == "1"'>
+										联合
+									</s:if>
+									<s:elseif test='CNTRCT_BELONG == "2"'>
+										XX
+									</s:elseif>
+									<s:else>
+										<s:property value="CNTRCT_BELONG"/>
+									</s:else>
+								</td>
 								<td><s:property value="CNTRCT_NO"/></td>
 								<td><s:property value="CNTRCT_NM"/></td>
 								<td><s:property value="AUDIT_COMP_NAME"/></td>

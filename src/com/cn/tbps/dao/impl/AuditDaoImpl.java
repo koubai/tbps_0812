@@ -10,6 +10,7 @@ import java.util.Map;
 import com.cn.common.dao.BaseDao;
 import com.cn.common.util.StringUtil;
 import com.cn.tbps.dao.AuditDao;
+import com.cn.tbps.dto.AuditAuthDto;
 import com.cn.tbps.dto.AuditCostCountDto;
 import com.cn.tbps.dto.AuditCountDto;
 import com.cn.tbps.dto.AuditDto;
@@ -17,6 +18,7 @@ import com.cn.tbps.dto.AuditHistDto;
 import com.cn.tbps.dto.AuditStatCostCountDto;
 import com.cn.tbps.dto.AuditStatCostDetailDto;
 import com.cn.tbps.dto.AuditStatCostDto;
+import com.cn.tbps.dto.AuditStatPaidDto;
 import com.cn.tbps.dto.AuditStatisticsCountDto;
 import com.cn.tbps.dto.AuditStatisticsDetailDto;
 import com.cn.tbps.dto.AuditStatisticsDto;
@@ -228,9 +230,36 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 	}
 
 	@Override
-	public List<AuditDto> queryAuditAuth(String projectManager, String startDate, String endDate) {
-		// TODO Auto-generated method stub
-		return null;
+	public AuditAuthDto queryAuditAuth(String projectManager, String startDate, String endDate) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		String pm = projectManager;
+		if(StringUtil.isNotBlank(pm)) {
+			pm = pm.replace(",", "','");
+			pm = "'" + pm + "'";
+		}
+		paramMap.put("PROJECT_MANAGER", pm);
+		paramMap.put("START_DATE", startDate);
+		paramMap.put("END_DATE", endDate);
+		return (AuditAuthDto) getSqlMapClientTemplate().queryForObject("queryAuditAuth", paramMap);
+	}
+
+	@Override
+	public AuditStatPaidDto queryAuditStatPaid(String projectManager, String startDate, String endDate) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		String pm = projectManager;
+		if(StringUtil.isNotBlank(pm)) {
+			pm = pm.replace(",", "','");
+			pm = "'" + pm + "'";
+		}
+		paramMap.put("PROJECT_MANAGER", pm);
+		paramMap.put("START_DATE", startDate);
+		paramMap.put("END_DATE", endDate);
+		@SuppressWarnings("unchecked")
+		List<AuditStatPaidDto> list = getSqlMapClientTemplate().queryForList("queryAuditStatPaid", paramMap);
+		AuditStatPaidDto dto = new AuditStatPaidDto();
+		if(null != list && list.size() > 0)
+			dto = list.get(0);
+		return dto;
 	}
 
 	@Override
@@ -439,12 +468,6 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 		auditStatisticsCountDto5.setListCount(listCount5);
 		auditStatisticsDto.setCount5(auditStatisticsCountDto5);
 		return auditStatisticsDto;
-	}
-
-	@Override
-	public List<AuditDto> queryAuditStatPaid(String projectManager, String startDate, String endDate) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
