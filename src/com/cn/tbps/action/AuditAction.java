@@ -1,7 +1,9 @@
 package com.cn.tbps.action;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.LogManager;
@@ -228,6 +230,21 @@ public class AuditAction extends BaseAction {
 	private AuditStatCostDto auditStatCost;
 	//到账统到账统计计
 	private AuditStatPaidDto auditStatPaid;
+	
+	//审价
+	private String[][] arrAuditShow1;
+	//咨询
+	private String[][] arrAuditShow2;
+	//清单编制
+	private String[][] arrAuditShow3;
+	//控制价编制
+	private String[][] arrAuditShow4;
+	//全过程投资监理
+	private String[][] arrAuditShow5;
+	//项目文号
+	private String strReportNo;
+	//委托内容
+	private String strCntrctInfo;
 	
 	//审价履历
 	/**
@@ -762,6 +779,27 @@ public class AuditAction extends BaseAction {
 			userinfo.setLOGIN_NAME("");
 			listUserInfo.add(userinfo);
 			System.out.println("listUserInfo" + listUserInfo.size());
+			
+			strReportNo = "";
+			strProjectName = "";
+			strCntrctInfo = "";
+			//审价
+			arrAuditShow1 = new String[][]{{"PROJECT_MANAGER","工程师"},{"REPORT_NO", "项目文号"},{"PROJECT_NAME", "项目名称"},
+				{"DOC_REC_DATE", "资料收到日期"},{"APPROVAL_SND_DATE", "审定单发出日期"},{"REPORT_RAISE_DATE", "报告出具日期"},
+				{"VERIFY_PER_AMOUNT", "送审价"},{"VERIFY_AMOUNT", "审核价"}};
+			//咨询
+			arrAuditShow2 = new String[][]{{"PROJECT_MANAGER","工程师"},{"REPORT_NO", "项目文号"},{"PROJECT_NAME", "项目名称"},
+				{"DOC_REC_DATE", "资料收到日期"},{"REPORT_RAISE_DATE", "报告出具日期"},
+				{"VERIFY_PER_AMOUNT", "送审价"},{"VERIFY_AMOUNT", "审核价"}};
+			//清单编制
+			arrAuditShow3 = new String[][]{{"PROJECT_MANAGER","工程师"},{"REPORT_NO", "项目文号"},{"PROJECT_NAME", "项目名称"},
+				{"DOC_REC_DATE", "资料收到日期"},{"REPORT_RAISE_DATE", "报告出具日期"}};
+			//控制价编制
+			arrAuditShow4 = new String[][]{{"PROJECT_MANAGER","工程师"},{"REPORT_NO", "项目文号"},{"PROJECT_NAME", "项目名称"},
+				{"DOC_REC_DATE", "资料收到日期"},{"REPORT_RAISE_DATE", "报告出具日期"},{"CNT_PRICE", "控制价金额"}};
+			//全过程投资监理
+			arrAuditShow5 = new String[][]{{"PROJECT_MANAGER","工程师"},{"REPORT_NO", "项目文号"},{"PROJECT_NAME", "项目名称"},
+				{"PRE_PRICE", "预算金额"},{"PROGRESS_STATUS_MEMO", "项目大致进程简述"}};
 		} catch(Exception e) {
 			return ERROR;
 		}
@@ -1004,7 +1042,8 @@ public class AuditAction extends BaseAction {
 		page = auditService.queryAuditByPage(strAuditNoLow, strAuditNoHigh, strProjectStatus,
 				strProjectManager, strValueDateLow, strValueDateHigh, strAgentNo,
 				strPreReport, strReportLow, strReportHigh, page, strAuditStatus, 
-				strProjectClass, strDocArrDateLow, strDocArrDateHigh, strAgentName, strContractName, strProjectName);
+				strProjectClass, strDocArrDateLow, strDocArrDateHigh, strAgentName, strContractName, 
+				strReportNo, strProjectName, strCntrctInfo);
 		listAudit = (List<AuditDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
@@ -1359,6 +1398,62 @@ public class AuditAction extends BaseAction {
 
 	public void setAuditStatPaid(AuditStatPaidDto auditStatPaid) {
 		this.auditStatPaid = auditStatPaid;
+	}
+
+	public String[][] getArrAuditShow1() {
+		return arrAuditShow1;
+	}
+
+	public void setArrAuditShow1(String[][] arrAuditShow1) {
+		this.arrAuditShow1 = arrAuditShow1;
+	}
+
+	public String[][] getArrAuditShow2() {
+		return arrAuditShow2;
+	}
+
+	public void setArrAuditShow2(String[][] arrAuditShow2) {
+		this.arrAuditShow2 = arrAuditShow2;
+	}
+
+	public String[][] getArrAuditShow3() {
+		return arrAuditShow3;
+	}
+
+	public void setArrAuditShow3(String[][] arrAuditShow3) {
+		this.arrAuditShow3 = arrAuditShow3;
+	}
+
+	public String[][] getArrAuditShow4() {
+		return arrAuditShow4;
+	}
+
+	public void setArrAuditShow4(String[][] arrAuditShow4) {
+		this.arrAuditShow4 = arrAuditShow4;
+	}
+
+	public String[][] getArrAuditShow5() {
+		return arrAuditShow5;
+	}
+
+	public void setArrAuditShow5(String[][] arrAuditShow5) {
+		this.arrAuditShow5 = arrAuditShow5;
+	}
+
+	public String getStrReportNo() {
+		return strReportNo;
+	}
+
+	public void setStrReportNo(String strReportNo) {
+		this.strReportNo = strReportNo;
+	}
+
+	public String getStrCntrctInfo() {
+		return strCntrctInfo;
+	}
+
+	public void setStrCntrctInfo(String strCntrctInfo) {
+		this.strCntrctInfo = strCntrctInfo;
 	}
 
 }

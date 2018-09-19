@@ -38,7 +38,7 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 			String valueDateHigh, String agentNo, String reportNoComp,
 			String reportNoLow, String reportNoHigh, Page page, String auditStatus, 
 			String projectClass, String docArrDateLow, String docArrDateHigh, String agentName, 
-			String contractName, String projectName) {
+			String contractName, String reportNo, String projectName, String cntrctInfo) {
 		
 		System.out.println("queryAuditByPage  auditStatus: "+auditStatus);
 
@@ -80,10 +80,11 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 		*/
 
 		projectManager = StringUtil.replaceDatabaseKeyword_mysql(projectManager);
+		projectName = StringUtil.replaceDatabaseKeyword_mysql(projectName);
 		//查询总记录数
 		int totalCount = auditDao.queryAuditCountByPage(auditNoLow, auditNoHigh, projectStatus,
 				projectManager, valueDateLow, valueDateHigh, agentNo, comp, reportlow, reporthigh, auditStatus, 
-				projectClass, docArrDateLow, docArrDateHigh, agentName, contractName, projectName);
+				projectClass, docArrDateLow, docArrDateHigh, agentName, contractName, reportNo, projectName, cntrctInfo);
 		page.setTotalCount(totalCount);
 		if(totalCount % page.getPageSize() > 0) {
 			page.setTotalPage(totalCount / page.getPageSize() + 1);
@@ -93,7 +94,7 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 		//翻页查询记录
 		List<AuditDto> list = auditDao.queryAuditByPage(auditNoLow, auditNoHigh, projectStatus, projectManager,
 				valueDateLow, valueDateHigh, agentNo, comp, reportlow, reporthigh, auditStatus,
-				projectClass, docArrDateLow, docArrDateHigh, agentName, contractName, projectName,
+				projectClass, docArrDateLow, docArrDateHigh, agentName, contractName, reportNo, projectName, cntrctInfo,
 				page.getStartIndex() * page.getPageSize(), page.getPageSize());
 		page.setItems(list);
 		return page;

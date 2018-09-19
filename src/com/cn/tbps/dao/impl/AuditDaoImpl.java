@@ -37,7 +37,7 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 			String projectStatus, String projectManager, String valueDateLow,
 			String valueDateHigh, String agentNo, String reportNoComp, String reportNoLow, String reportNoHigh, String auditStatus, 
 			String projectClass, String docArrDateLow, String docArrDateHigh, String agentName, 
-			String contractName, String projectName) {
+			String contractName, String reportNo, String projectName, String cntrctInfo) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("AUDIT_NO_LOW", auditNoLow);
 		paramMap.put("AUDIT_NO_HIGH", auditNoHigh);
@@ -55,7 +55,7 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 		//审价状态
 		paramMap.put("AUDIT_STATUS", auditStatus);
 		//项目分类
-		paramMap.put("RESERVE1", projectClass);
+		//paramMap.put("RESERVE1", projectClass);
 		//资料到达日期
 		paramMap.put("DOC_ARR_DATE_LOW", docArrDateLow);
 		paramMap.put("DOC_ARR_DATE_HIGH", docArrDateHigh);
@@ -63,8 +63,12 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 		paramMap.put("AGENT_CO_NAME", agentName);
 		//承揽公司名称
 		paramMap.put("CONTRACT_CO_NAME", contractName);
+		//项目文号
+		paramMap.put("REPORT_NO", reportNo);
 		//项目名称
 		paramMap.put("PROJECT_NAME", projectName);
+		//委托内容
+		paramMap.put("RESERVE1", cntrctInfo);
 		
 		return (Integer) getSqlMapClientTemplate().queryForObject("queryAuditCountByPage", paramMap);
 	}
@@ -75,7 +79,7 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 			String valueDateLow, String valueDateHigh, String agentNo,
 			String reportNoComp, String reportNoLow, String reportNoHigh, String auditStatus, 
 			String projectClass, String docArrDateLow, String docArrDateHigh, String agentName,
-			String contractName, String projectName, int start, int end) {
+			String contractName, String reportNo, String projectName, String cntrctInfo, int start, int end) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("AUDIT_NO_LOW", auditNoLow);
 		paramMap.put("AUDIT_NO_HIGH", auditNoHigh);
@@ -93,7 +97,7 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 		//审价状态
 		paramMap.put("AUDIT_STATUS", auditStatus);
 		//项目分类
-		paramMap.put("RESERVE1", projectClass);
+		//paramMap.put("RESERVE1", projectClass);
 		//资料到达日期
 		paramMap.put("DOC_ARR_DATE_LOW", docArrDateLow);
 		paramMap.put("DOC_ARR_DATE_HIGH", docArrDateHigh);
@@ -101,8 +105,12 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 		paramMap.put("AGENT_CO_NAME", agentName);
 		//承揽公司名称
 		paramMap.put("CONTRACT_CO_NAME", contractName);
+		//项目文号
+		paramMap.put("REPORT_NO", reportNo);
 		//项目名称
 		paramMap.put("PROJECT_NAME", projectName);
+		//委托内容
+		paramMap.put("RESERVE1", cntrctInfo);
 				
 		paramMap.put("start", start);
 		paramMap.put("end", end);
