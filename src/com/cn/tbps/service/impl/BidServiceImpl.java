@@ -147,6 +147,19 @@ public class BidServiceImpl extends BaseService implements BidService {
 	}
 	
 	@Override
+	public List<BidCompDto> queryBidComp(BidDto bid){
+		List<BidCompDto> bidCompList = null;
+		
+		//查询投标公司
+		String compids = bid.getBID_CO_LIST();
+		if(StringUtil.isNotBlank(compids)) {
+			compids = compids.substring(0, compids.length() - 1);
+			bidCompList = bidCompDao.queryBidCompByIds(compids);		
+		}
+		return bidCompList;
+	}
+	
+	@Override
 	public Page queryBidByPage(String bidNoLow, String bidNoHigh,
 			String projectType, String openDateLow, String openDateHigh,
 			String agentNo, String agentName, String bidCoName, String receipt1No, Page page, String bidStatus) {

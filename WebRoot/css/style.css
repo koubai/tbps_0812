@@ -18,8 +18,8 @@ input,img,label{ vertical-align:middle;}
 #container{ width:1324px; margin:0 auto; background:#fff;}
 #top{ height:90px; background:#52708a; padding-top:25px; position:relative;}
 .logobox{ position:absolute; right:100px;}
-.logo_tittle{ float:left; width:600px; height:80px; background:url(../images/logo_tittle.png) no-repeat;}
-.logo{ float:left; width:120px; height:90px; margin-top:-10px; background:url(../images/logo.png) no-repeat; margin-left:140px;}
+.logo_tittle{ float:left; width:600px; height:30px; background:url(../images/logo_tittle.png) no-repeat;}
+.logo{ float:left; width:120px; height:50px; margin-top:-10px; background:url(../images/logo.png) no-repeat; margin-left:140px;}
 .content{ position:relative;}
 .user{ float:right; margin-top:10px; background:#fff; margin-right:10px;}
 .user span{ padding-left:25px; color:#333;}

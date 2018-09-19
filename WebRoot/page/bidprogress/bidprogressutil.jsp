@@ -27,7 +27,7 @@
 	function save() {		
 		alert($("#Date1").val()); 
 		var form = document.getElementById('mainform');
-	    form.action='<c:url value="/bidprogress/saveBidProgressUtilAction.action"></c:url>' + "?Date1=" + $("#Date1").val()+ "&Member1=" + $("#Member1").val() + "&date=" + new Date();
+	    form.action='<c:url value="/bidprogress/saveBidProgressUtilAction.action"></c:url>' + "?Date1=" + $("#Date1").val() + "&Date2=" + $("#Date2").val()+ "&Member1=" + $("#Member1").val() + "&date=" + new Date();
 	    form.submit();//提交表单
 	    window.close();//关闭窗口
 		
@@ -54,7 +54,7 @@
 			$("#uploadFile").attr("value", filename.value);
 			if (confirm("开始上传文件！"+filename.value)){
 				var form = document.getElementById("mainform");
-				form.action='<c:url value="/bidprogress/uploadBidProgressUtilAction.action"></c:url>';
+				form.action='<c:url value="/bidprogress/uploadBidProgressUtilAction.action"></c:url>' + "?upload_fileNo=" + number + "&date=" + new Date();
 				form.submit();//提交表单
 			}
 		}
@@ -64,27 +64,26 @@
 </script>
 </head>
 <body>
-	<div class="container-fluid">
+	<div class="container-fluid1">
 		<div class="row">
-		<s:if test="hasActionMessages()">
-			<div class="row">
-				<span style="color:red; text-align:center;"><s:actionmessage /></span>
-			</div>
-		</s:if>
 			<div class="col-lg-10 right">
 				<s:form id="mainform" name="mainform" method="POST" enctype="multipart/form-data">
 					<label for="" class="col-lg-3 form-label"><s:property value="BTN_NO" /></label>
 					
 					<s:hidden name="strBID_COMP_NO" id="strBID_COMP_NO"/>
 					<s:hidden name="uploadFile" id="uploadFile"/>
-					<h3 class="title">招标项目状态输入<a class="backHome" href="#" onclick="goHome();"><i class="fa fa-home" aria-hidden="true"></i>返回首页</a></h3>
+					<h3 class="title">招标项目状态输入</h3>
 					<div class="row">
-						<table class="table table-bordered">
+					<s:if test="hasActionMessages()">
+						<div class="row">
+							<span style="color:red; text-align:center;"><s:actionmessage /></span>
+						</div>
+					</s:if>
+						<table class="table table-striped">
 							<tr>
 								<td>
 								<div class="col-lg-8 form-group">
-									<label for="" class="col-lg-3 form-label"><span class="red">*</span><s:property value="strHead1" /></label>
-									<label for="" class="col-lg-3 form-label"><span class="red"></span>日期</label>
+									<label for="" class="col-lg-8 form-label"><span class="red">*</span><s:property value="strHead1" />日期</label>
 								</div>
 								</td>
 								<td>
@@ -98,11 +97,30 @@
 								<td>
 								</td>
 							</tr>
+							<s:if test='UTIL_TYP == "4"'>
 							<tr>
 								<td>
 								<div class="col-lg-8 form-group">
-									<label for="" class="col-lg-3 form-label"><span class="red">*</span><s:property value="strHead2" /></label>
-									<label for="" class="col-lg-3 form-label"><span class="red"></span>者</label>
+									<label for="" class="col-lg-8 form-label"><span class="red">*</span><s:property value="strHead2" />日期</label>
+								</div>
+								</td>
+								<td>
+								<div class="input-group date" data-provide="datepicker">
+									<input id="Date2" name="Date2" value="<s:property value="Date2"/>" maxlength="10" type="text" class="form-control datepicker" readonly>
+									<div class="input-group-addon">
+										<span class="glyphicon glyphicon-th"></span>
+									</div>
+								</div>
+								</td>
+								<td>
+								</td>
+							</tr>
+							</s:if>								
+							<s:if test='UTIL_TYP == "2"'>
+							<tr>
+								<td>
+								<div class="col-lg-8 form-group">
+									<label for="" class="col-lg-8 form-label"><span class="red">*</span><s:property value="strHead3" />者</label>
 								</div>
 								</td>
 								<td>
@@ -113,6 +131,8 @@
 								<td>
 								</td>
 							</tr>
+							</s:if>								
+							<s:if test='UTIL_TYP == "3"'>
 							<tr>
 								<td>
 								<div class="col-lg-7 form-group">
@@ -121,9 +141,16 @@
 								</div>
 								</td>
 								<td>
-								<div>
-									<input type="file" name="uploadFile01" style="width: 400px;" id="uploadFile01"/><br />
-								</div>
+								<s:if test='File01!= null'>
+									<div>
+										<label class="pdf10"><a href=<s:property value="File01_URL" />><s:property value="File01" /></a></label>								
+									</div>
+								</s:if>								
+								<s:else>								
+									<div>
+										<input type="file" name="uploadFile01" style="width: 400px;" id="uploadFile01"/><br />
+									</div>
+								</s:else>			
 								</td>
 								<td>
 								<div>
@@ -139,9 +166,16 @@
 								</div>
 								</td>
 								<td>
-								<div>
-									<input type="file" name="uploadFile02" style="width: 400px;" id="uploadFile02"/><br />
-								</div>
+								<s:if test='File02!= null'>
+									<div>
+										<label class="pdf10"><a href=<s:property value="File02_URL" />><s:property value="File02" /></a></label>								
+									</div>
+								</s:if>								
+								<s:else>								
+									<div>
+										<input type="file" name="uploadFile02" style="width: 400px;" id="uploadFile02"/><br />
+									</div>
+								</s:else>			
 								</td>
 								<td>
 								<div>
@@ -157,9 +191,16 @@
 								</div>
 								</td>
 								<td>
-								<div>
-									<input type="file" name="uploadFile03" style="width: 400px;" id="uploadFile03"/><br />
-								</div>
+								<s:if test='File03!= null'>
+									<div>
+										<label class="pdf10"><a href=<s:property value="File03_URL" />><s:property value="File03" /></a></label>								
+									</div>
+								</s:if>								
+								<s:else>								
+									<div>
+										<input type="file" name="uploadFile03" style="width: 400px;" id="uploadFile03"/><br />
+									</div>
+								</s:else>			
 								</td>
 								<td>
 								<div>
@@ -175,9 +216,16 @@
 								</div>
 								</td>
 								<td>
-								<div>
-									<input type="file" name="uploadFile04" style="width: 400px;" id="uploadFile04"/><br />
-								</div>
+								<s:if test='File04!= null'>
+									<div>
+										<label class="pdf10"><a href=<s:property value="File04_URL" />><s:property value="File04" /></a></label>								
+									</div>
+								</s:if>								
+								<s:else>								
+									<div>
+										<input type="file" name="uploadFile04" style="width: 400px;" id="uploadFile04"/><br />
+									</div>
+								</s:else>			
 								</td>
 								<td>
 								<div>
@@ -193,9 +241,16 @@
 								</div>
 								</td>
 								<td>
-								<div>
-									<input type="file" name="uploadFile05" style="width: 400px;" id="uploadFile05"/><br />
-								</div>
+								<s:if test='File05!= null'>
+									<div>
+										<label class="pdf10"><a href=<s:property value="File05_URL" />><s:property value="File05" /></a></label>								
+									</div>
+								</s:if>								
+								<s:else>								
+									<div>
+										<input type="file" name="uploadFile05" style="width: 400px;" id="uploadFile05"/><br />
+									</div>
+								</s:else>			
 								</td>
 								<td>
 								<div>
@@ -203,6 +258,7 @@
 								</div>						
 							</td>
 						</tr>
+						</s:if>								
 						<tr>
 							<td>
 							<div class="col-lg-8 form-group">

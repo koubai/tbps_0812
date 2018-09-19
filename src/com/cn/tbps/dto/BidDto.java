@@ -191,6 +191,16 @@ public class BidDto extends BaseDto {
 	private BigDecimal BID_BOND;
 
 	/**
+	 * 生成报名表日期
+	 */
+	private Date GEN_REGISTE_RPT_DATE;
+
+	/**
+	 * 生成审核表日期
+	 */
+	private Date GEN_VERIFY_RPT_DATE;
+		
+	/**
 	 * 开标时间
 	 */
 	private Date TENDER_OPEN_DATE;
@@ -281,6 +291,11 @@ public class BidDto extends BaseDto {
 	private String BID_EXPERT_COMMISION_APPLY;
 
 	/**
+	 * 专家费申请日期
+	 */
+	private Date BID_EXPERT_COMMISION_APPLY_DATE;
+	
+	/**
 	 * 招标文件编制日期
 	 */
 	private Date APPLY_FORM_EDIT_DATE;
@@ -319,7 +334,7 @@ public class BidDto extends BaseDto {
 	 * 中标公告日期
 	 */
 	private Date BID_NOTICE_ST_DATE;
-
+	
 	/**
 	 * 中标公告日期2
 	 */
@@ -1843,6 +1858,31 @@ public class BidDto extends BaseDto {
 
 	public void setIS_RANDOM(String iS_RANDOM) {
 		IS_RANDOM = iS_RANDOM;
+	}
+	
+	public Date getGEN_REGISTE_RPT_DATE() {
+		return GEN_REGISTE_RPT_DATE;
+	}
+
+	public void setGEN_REGISTE_RPT_DATE(Date gEN_REGISTE_RPT_DATE) {
+		GEN_REGISTE_RPT_DATE = gEN_REGISTE_RPT_DATE;
+	}
+
+	public Date getGEN_VERIFY_RPT_DATE() {
+		return GEN_VERIFY_RPT_DATE;
+	}
+
+	public void setGEN_VERIFY_RPT_DATE(Date gEN_VERIFY_RPT_DATE) {
+		GEN_VERIFY_RPT_DATE = gEN_VERIFY_RPT_DATE;
+	}
+
+	public Date getBID_EXPERT_COMMISION_APPLY_DATE() {
+		return BID_EXPERT_COMMISION_APPLY_DATE;
+	}
+
+	public void setBID_EXPERT_COMMISION_APPLY_DATE(
+			Date bID_EXPERT_COMMISION_APPLY_DATE) {
+		BID_EXPERT_COMMISION_APPLY_DATE = bID_EXPERT_COMMISION_APPLY_DATE;
 	}
 
 	public Date getCNTRCT_ST_DATE() {
