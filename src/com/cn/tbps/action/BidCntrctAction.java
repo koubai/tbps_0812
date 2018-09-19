@@ -1,18 +1,26 @@
 package com.cn.tbps.action;
 
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
 
 import com.cn.common.action.BaseAction;
 import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
+import com.cn.tbps.dto.AjaxDataDto;
 import com.cn.tbps.dto.BidCntrctDto;
 import com.cn.tbps.service.BidCntrctService;
 import com.opensymphony.xwork2.ActionContext;
+
+import net.sf.json.JSONArray;
 
 public class BidCntrctAction extends BaseAction {
 
@@ -36,13 +44,6 @@ public class BidCntrctAction extends BaseAction {
 	 */
 	private List<BidCntrctDto> listBidCntrct;
 	
-	//选择招标合同页面
-	//页码
-	private int startIndex_select;
-	//翻页
-	private Page page_select;
-	private List<BidCntrctDto> listSelectBidCntrct;
-	
 	//查询条件
 	//合同年份
 	private String strCNTRCT_YEAR;
@@ -54,6 +55,7 @@ public class BidCntrctAction extends BaseAction {
 	private String strCNTRCT_NO;
 	//委托单位
 	private String strBID_COMP_NO;
+	private String strBID_COMP_NAME;
 	
 	//新增
 	private BidCntrctDto addBidCntrctDto;
@@ -61,58 +63,40 @@ public class BidCntrctAction extends BaseAction {
 	private String strUpdCNTRCT_NO;
 	private BidCntrctDto updBidCntrctDto;
 	
-	/**
-	 * 选择页面
-	 * @return
-	 */
-	public String showSelectBidCntrctPage() {
-		try {
-			this.clearMessages();
-			strCNTRCT_YEAR = "";
-			strCNTRCT_ST_DATE = "";
-			strCNTRCT_ED_DATE = "";
-			strCNTRCT_NO = "";
-			strBID_COMP_NO = "";
-			page_select = new Page();
-			startIndex_select = 0;
-			queryData_select();
-		} catch(Exception e) {
-			log.error(e);
-			return ERROR;
-		}
-		return SUCCESS;
-	}
+	//ajax查询数据列表
+	private Integer ajaxTotalCount;
+	private Integer ajaxPageIndex;
 	
 	/**
-	 * 选择招标（查询）
+	 * Ajax翻页查询函数
 	 * @return
+	 * @throws IOException
 	 */
-	public String querySelectBidCntrctList() {
+	public String queryBidCntrctAjax() throws IOException {
+		HttpServletResponse response = ServletActionContext.getResponse();
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out;
+		AjaxDataDto ajaxData = new AjaxDataDto();
 		try {
 			this.clearMessages();
-			page_select = new Page();
-			startIndex_select = 0;
-			queryData_select();
+			Page pp = new Page(8);
+			pp.setTotalCount(ajaxTotalCount);
+			pp.setStartIndex(ajaxPageIndex);
+			pp = bidCntrctService.queryBidCntrctByPage(strCNTRCT_YEAR, strCNTRCT_NO, strBID_COMP_NO, "",
+					"", strCNTRCT_ST_DATE, strCNTRCT_ED_DATE, pp);
+			ajaxData.setData(pp);
 		} catch(Exception e) {
-			log.error(e);
+			ajaxData.setResultCode(-1);
+			ajaxData.setResultMessage("查询数据异常：" + e.getMessage());
 			return ERROR;
 		}
-		return SUCCESS;
-	}
-	
-	/**
-	 * 选择招标（翻页）
-	 * @return
-	 */
-	public String turnSelectBidCntrctPage() {
-		try {
-			this.clearMessages();
-			queryData_select();
-		} catch(Exception e) {
-			log.error(e);
-			return ERROR;
-		}
-		return SUCCESS;
+		out = response.getWriter();
+		String result = JSONArray.fromObject(ajaxData).toString();
+		result = result.substring(1, result.length() - 1);
+		log.info(result);
+		out.write(result);
+		out.flush();
+		return null;
 	}
 	
 	/**
@@ -220,6 +204,7 @@ public class BidCntrctAction extends BaseAction {
 			strCNTRCT_ED_DATE = "";
 			strCNTRCT_NO = "";
 			strBID_COMP_NO = "";
+			strBID_COMP_NAME = "";
 			page = new Page();
 			startIndex = 0;
 		} catch(Exception e) {
@@ -310,20 +295,6 @@ public class BidCntrctAction extends BaseAction {
 				"", strCNTRCT_ST_DATE, strCNTRCT_ED_DATE, page);
 		listBidCntrct = (List<BidCntrctDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
-	}
-	
-	@SuppressWarnings("unchecked")
-	private void queryData_select() {
-		listSelectBidCntrct = new ArrayList<BidCntrctDto>();
-		if(page_select == null) {
-			page_select = new Page();
-		}
-		//翻页查询所有招标
-		this.page_select.setStartIndex(startIndex_select);
-		page_select = bidCntrctService.queryBidCntrctByPage(strCNTRCT_YEAR, strCNTRCT_NO, strBID_COMP_NO, "",
-				"", strCNTRCT_ST_DATE, strCNTRCT_ED_DATE, page_select);
-		listSelectBidCntrct = (List<BidCntrctDto>) page_select.getItems();
-		this.setStartIndex(page_select.getStartIndex());
 	}
 
 	public int getStartIndex() {
@@ -422,27 +393,27 @@ public class BidCntrctAction extends BaseAction {
 		this.updBidCntrctDto = updBidCntrctDto;
 	}
 
-	public int getStartIndex_select() {
-		return startIndex_select;
+	public String getStrBID_COMP_NAME() {
+		return strBID_COMP_NAME;
 	}
 
-	public void setStartIndex_select(int startIndex_select) {
-		this.startIndex_select = startIndex_select;
+	public void setStrBID_COMP_NAME(String strBID_COMP_NAME) {
+		this.strBID_COMP_NAME = strBID_COMP_NAME;
 	}
 
-	public Page getPage_select() {
-		return page_select;
+	public Integer getAjaxTotalCount() {
+		return ajaxTotalCount;
 	}
 
-	public void setPage_select(Page page_select) {
-		this.page_select = page_select;
+	public void setAjaxTotalCount(Integer ajaxTotalCount) {
+		this.ajaxTotalCount = ajaxTotalCount;
 	}
 
-	public List<BidCntrctDto> getListSelectBidCntrct() {
-		return listSelectBidCntrct;
+	public Integer getAjaxPageIndex() {
+		return ajaxPageIndex;
 	}
 
-	public void setListSelectBidCntrct(List<BidCntrctDto> listSelectBidCntrct) {
-		this.listSelectBidCntrct = listSelectBidCntrct;
+	public void setAjaxPageIndex(Integer ajaxPageIndex) {
+		this.ajaxPageIndex = ajaxPageIndex;
 	}
 }

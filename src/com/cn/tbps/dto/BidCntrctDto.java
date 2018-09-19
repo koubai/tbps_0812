@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import com.cn.common.dto.BaseDto;
+import com.cn.common.util.DateUtil;
 
 public class BidCntrctDto extends BaseDto {
 	
@@ -86,11 +87,13 @@ public class BidCntrctDto extends BaseDto {
 	 * 合同开始时间
 	 */
 	private Date CNTRCT_ST_DATE;
+	private String showCNTRCT_ST_DATE;
 
 	/**
 	 * 合同结束时间
 	 */
 	private Date CNTRCT_ED_DATE;
+	private String showCNTRCT_ED_DATE;
 
 	/**
 	 * 委托内容费率1(审价)
@@ -1004,6 +1007,30 @@ public class BidCntrctDto extends BaseDto {
 
 	public void setExpertAmount(BigDecimal expertAmount) {
 		this.expertAmount = expertAmount;
+	}
+
+	public String getShowCNTRCT_ST_DATE() {
+		showCNTRCT_ST_DATE = "";
+		if(CNTRCT_ST_DATE != null) {
+			showCNTRCT_ST_DATE = DateUtil.dateToShortStr(CNTRCT_ST_DATE);
+		}
+		return showCNTRCT_ST_DATE;
+	}
+
+	public void setShowCNTRCT_ST_DATE(String showCNTRCT_ST_DATE) {
+		this.showCNTRCT_ST_DATE = showCNTRCT_ST_DATE;
+	}
+
+	public String getShowCNTRCT_ED_DATE() {
+		showCNTRCT_ED_DATE = "";
+		if(CNTRCT_ED_DATE != null) {
+			showCNTRCT_ED_DATE = DateUtil.dateToShortStr(CNTRCT_ED_DATE);
+		}
+		return showCNTRCT_ED_DATE;
+	}
+
+	public void setShowCNTRCT_ED_DATE(String showCNTRCT_ED_DATE) {
+		this.showCNTRCT_ED_DATE = showCNTRCT_ED_DATE;
 	}
 
 }

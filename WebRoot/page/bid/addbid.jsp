@@ -356,11 +356,163 @@
 		}
 	}
 	
+	function showSelectBidCntrct() {
+		$("#strCNTRCT_YEAR").val("");
+		$("#strCNTRCT_ST_DATE").val("");
+		$("#strCNTRCT_ED_DATE").val("");
+		//查询委托公司
+		querySelectPageAjax("0");
+		//禁用 Bootstrap 模态框(Modal) 点击空白时自动关闭
+		$('#bidCntrctModal').modal({backdrop: 'static', keyboard: false});
+		$('#bidCntrctModal').modal('show');
+	}
+	
+	/**
+	 * 注：翻页函数，每个列表选择模态窗体必须实现这个函数
+	 */
+	function querySelectPageAjax(index) {
+		//各个模块自己的参数
+		var strCNTRCT_YEAR = $("#strCNTRCT_YEAR").val();
+		var strCNTRCT_ST_DATE = $("#strCNTRCT_ST_DATE").val();
+		var strCNTRCT_ED_DATE = $("#strCNTRCT_ED_DATE").val();
+		var param = new Object();
+		param.strCNTRCT_YEAR = strCNTRCT_YEAR;
+		param.strCNTRCT_ST_DATE = strCNTRCT_ST_DATE;
+		param.strCNTRCT_ED_DATE = strCNTRCT_ED_DATE;
+		
+		//-----共通1 start-----
+		//页码
+		param.ajaxPageIndex = index;
+		//总记录数
+		var ajaxTotalCount = $("#ajaxTotalCount").val();
+		if(ajaxTotalCount == "") {
+			ajaxTotalCount = "0";
+		}
+		param.ajaxTotalCount = ajaxTotalCount;
+		//-----共通1 end-----
+		
+		$.getJSON('<%=request.getContextPath()%>/bidcntrct/queryBidCntrctAjax.action', param, function(data) {
+			if(data.resultCode == 0) {
+				var items = data.data.items;
+				//数据列表
+				$("#bidCntrctData").empty();
+				$.each(items, function(i, n) {
+					var html = "";
+					html += '<tr>';
+					html += '	<td><input name="bidCntrctKey" type="radio" value=""/></td>';
+					html += '	<td style="display: none;">';
+					html += '		<input type="hidden" value="' + n.CNTRCT_NO + '">';
+					html += '		<input type="hidden" value="' + n.CNTRCT_YEAR + '">';
+					html += '		<input type="hidden" value="' + n.showCNTRCT_ST_DATE + '">';
+					html += '		<input type="hidden" value="' + n.showCNTRCT_ED_DATE + '">';
+					html += '		<input type="hidden" value="' + n.BID_COMP_NO + '">';
+					html += '		<input type="hidden" value="' + n.BID_COMP_NAME + '">';
+					html += '		<input type="hidden" value="' + n.CO_ADDRESS1 + '">';
+					html += '		<input type="hidden" value="' + n.CO_MANAGER1 + '">';
+					html += '		<input type="hidden" value="' + n.CO_MANAGER_EMAIL1 + '">';
+					html += '		<input type="hidden" value="' + n.CO_MANAGER_TEL1 + '">';
+					html += '		<input type="hidden" value="' + n.CNTRCT_TYPE + '">';
+					html += '		<input type="hidden" value="' + n.CO_TAX + '">';
+					html += '	</td>';
+					html += '	<td>' + n.CNTRCT_YEAR + '</td>';
+					html += '	<td>' + n.CNTRCT_NO + '</td>';
+					html += '	<td>' + n.BID_COMP_NAME + '</td>';
+					html += '</tr>';
+					$("#bidCntrctData").append(html);
+				});
+				
+				//-----共通2 start-----
+				//分页页码
+				$("#ajaxpagenum").val("");
+				var totalPage = data.data.totalPage;
+				//总数据量
+				var totalCount = data.data.totalCount;
+				totalPage = parseInt(totalPage);
+				totalCount = parseInt(totalCount);
+				$("#ajaxTotalPage").val(totalPage);
+				$("#ajaxTotalCount").val(totalCount);
+				//分页
+				var skipList = data.data.skipList;
+				$("#ajaxskiplist").empty();
+				//第一页
+				$("#ajaxskiplist").append('<li><a href="javascript:void(0);" onclick="turningAjaxPage(1);">&laquo;</a></li>');
+				$.each(skipList, function(ii, nn) {
+					if((parseInt(nn) - 1) == parseInt(index)) {
+						$("#ajaxskiplist").append('<li class="active"><a href="javascript:void(0);">' + nn + '</a></li>');
+					} else {
+						$("#ajaxskiplist").append('<li><a href="javascript:void(0);" onclick="turningAjaxPage(' + nn + ');">' + nn + '</a></li>');
+					}
+				});
+				//页信息
+				$("#ajaxPageInfo").empty();
+				var startIndex = data.data.startIndex;
+				startIndex = parseInt(startIndex);
+				if(totalPage == 0) {
+					totalPage = 1;
+				}
+				var ajaxPageInfo = '第' + (startIndex + 1) + '页/共' + totalPage + '页&nbsp;&nbsp;&nbsp;&nbsp;共' + totalCount + '条记录';
+				$("#ajaxPageInfo").append(ajaxPageInfo);
+				//最后一页
+				$("#ajaxskiplist").append('<li><a href="javascript:void(0);" onclick="turningLastPage();">&raquo;</a></li>');
+				//-----共通2 end-----
+			} else {
+				alert(data.resultMessage);
+			}
+		});
+		//agentCompData
+	}
+	
+	//列表页选择确定按钮
 	function selectBidCntrct() {
-		var url = '<c:url value="/bidcntrct/showSelectBidCntrctPage.action"></c:url>';
-		url += "?date=" + new Date();
-		//window.open(url, window, 'height=1000, width=1000, top=5, left=100, status=0,resizable=no,scrollbars=yes');
-		window.showModalDialog(url, window, "dialogheight:850px;dialogwidth:800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+		var obj = null;
+		var list = document.getElementsByName("bidCntrctKey");
+		for(var i = 0; i < list.length; i++) {
+			if(list[i].checked) {
+				obj = list[i];
+				break;
+			}
+		}
+		if(obj != null) {
+			var tr = obj.parentNode.parentNode;
+			var tds = tr.getElementsByTagName("td");
+			//第二列是隐藏列
+			var inputs = tds[1].getElementsByTagName("input");
+			var CNTRCT_NO = inputs[0].value;
+			var CNTRCT_YEAR = inputs[1].value;
+			var showCNTRCT_ST_DATE = inputs[2].value;
+			var showCNTRCT_ED_DATE = inputs[3].value;
+			var BID_COMP_NO = inputs[4].value;
+			var BID_COMP_NAME = inputs[5].value;
+			var CO_ADDRESS1 = inputs[6].value;
+			var CO_MANAGER1 = inputs[7].value;
+			var CO_MANAGER_EMAIL1 = inputs[8].value;
+			var CO_MANAGER_TEL1 = inputs[9].value;
+			var CNTRCT_TYPE = inputs[10].value;
+			var CO_TAX = inputs[11].value;
+			$('#tmpCNTRCT_NO').val(CNTRCT_NO);
+			$('#tmpCNTRCT_YEAR').val(CNTRCT_YEAR);
+			$('#tmpCNTRCT_ST_DATE').val(showCNTRCT_ST_DATE);
+			$('#tmpCNTRCT_ED_DATE').val(showCNTRCT_ED_DATE);
+			$('#tmpBID_COMP_NO').val(BID_COMP_NO);
+			$('#tmpBID_COMP_NAME').val(BID_COMP_NAME);
+			$('#tmpCO_ADDRESS1').val(CO_ADDRESS1);
+			$('#tmpCO_MANAGER1').val(CO_MANAGER1);
+			$('#tmpCO_MANAGER_EMAIL1').val(CO_MANAGER_EMAIL1);
+			$('#tmpCO_MANAGER_TEL1').val(CO_MANAGER_TEL1);
+			$('#tmpCNTRCT_TYPE').val(CNTRCT_TYPE);
+			if(CNTRCT_TYPE == "1") {
+				$('#tmpCNTRCT_TYPE_NAME').val("招标");
+			} else if(CNTRCT_TYPE == "4") {
+				$('#tmpCNTRCT_TYPE_NAME').val("竞价");
+			} else {
+				$('#tmpCNTRCT_TYPE_NAME').val("");
+			}
+			$('#tmpCO_TAX').val(CO_TAX);
+			//隐藏模态窗体
+			$('#bidCntrctModal').modal('hide');
+		} else {
+			alert("请选择一条记录！");
+		}
 	}
 	
 	function deldate(obj) {
@@ -435,6 +587,8 @@
 		$('#tmpBidCompAddress').val("");
 		$('#tmpBidCompPs').val("");
 		$('#tmpBidCompTaxno').val("");
+		//禁用 Bootstrap 模态框(Modal) 点击空白时自动关闭
+		$('#bidCompModal').modal({backdrop: 'static', keyboard: false});
 		$('#bidCompModal').modal('show');
 	}
 	
@@ -469,6 +623,8 @@
 			$('#tmpBidCompAddress').val(BID_CO_ADD);
 			$('#tmpBidCompPs').val(BID_CO_PS);
 			$('#tmpBidCompTaxno').val(TAX_NO);
+			//禁用 Bootstrap 模态框(Modal) 点击空白时自动关闭
+			$('#bidCompModal').modal({backdrop: 'static', keyboard: false});
 			$('#bidCompModal').modal('show');
 		}
 	}
@@ -700,8 +856,8 @@
 							<div class="col-lg-7">
 								<input id="tmpCNTRCT_NO" value="<s:property value="addBidDto.CNTRCT_NO"/>" type="text" class="form-control" readonly>
 							</div>
-							<div class="col-lg-2">
-								<button type="button" class="btn btn-success" onclick="selectBidCntrct();">合同选择</button>
+							<div class="col-lg-2" style="z-index: 1;">
+								<button type="button" class="btn btn-success" onclick="showSelectBidCntrct();">合同选择</button>
 							</div>
 						</div>
 						 <div class="col-lg-3 form-group">
@@ -1565,8 +1721,95 @@
 		</s:form>
 	</div>
 	<!-- 模拟模态框 -->
+	<div class="modal fade" id="bidCntrctModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" style="width: 1000px;">
+			<div class="modal-content">
+				<form class="form-horizontal" role="form">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							合同一览
+						</h4>
+					</div>
+					<div class="modal-body">
+						<div class="col-lg-4 form-group">
+							<label for="" class="col-lg-4 form-label">合同年份</label>
+							<div class="col-lg-8">
+								<div class="input-group">
+									<input id="strCNTRCT_YEAR" maxlength="20" type="text" class="form-control">
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-7 form-group">
+							<label for="" class="col-lg-2 form-label">合同期限</label>
+							<div class="col-lg-4">
+								<div class="input-group date" data-provide="datepicker">
+									<input id="strCNTRCT_ST_DATE" value="" maxlength="10" type="text" class="form-control datepicker" readonly>
+									<div class="input-group-addon">
+										<span class="glyphicon glyphicon-th"></span>
+									</div>
+								</div>
+							</div>
+							<label for="" class="col-lg-1 form-label to">---</label>
+							<div class="col-lg-4">
+								<div class="input-group date" data-provide="datepicker">
+									<input id="strCNTRCT_ED_DATE" value="" maxlength="10" type="text" class="form-control datepicker" readonly>
+									<div class="input-group-addon">
+										<span class="glyphicon glyphicon-th"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-2 form-group" style="z-index: 1;">
+							<button type="button" class="btn btn-success form-control" onclick="querySelectPageAjax(0);">检索</button>
+						</div>
+					</div>
+					<div class="modal-body" style="height: 430px;">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th></th>
+									<th style="display: none;"></th>
+									<th>合同年份</th>
+									<th>合同编号</th>
+									<th>委托单位</th>
+								</tr>
+							</thead>
+							<tbody id="bidCntrctData">
+								<tr>
+									<td><input name="bidCntrctKey" type="radio" value=""/></td>
+									<td style="display: none;">
+										<input type="hidden" value="">
+										<input type="hidden" value="">
+										<input type="hidden" value="">
+										<input type="hidden" value="">
+										<input type="hidden" value="">
+										<input type="hidden" value="">
+										<input type="hidden" value="">
+										<input type="hidden" value="">
+										<input type="hidden" value="">
+										<input type="hidden" value="">
+									</td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+							</tbody>
+						</table>
+						<jsp:include page="../turning_select.jsp" flush="true" />
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" onclick="selectBidCntrct();">确定</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 	<div class="modal fade" id="bidCompModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
+		<div class="modal-dialog" style="width: 700px;">
 			<div class="modal-content">
 				<form class="form-horizontal" role="form">
 					<div class="modal-header">

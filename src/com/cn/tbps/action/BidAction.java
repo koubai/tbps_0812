@@ -8,7 +8,6 @@ import org.apache.log4j.Logger;
 
 import com.cn.common.action.BaseAction;
 import com.cn.common.util.Constants;
-import com.cn.common.util.DateUtil;
 import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
 import com.cn.tbps.dto.BidCompDto;
@@ -151,21 +150,6 @@ public class BidAction extends BaseAction {
 			
 			listUserInfo = userInfoService.queryAllUser();
 			addBidDto = new BidDto();
-			
-			//测试数据
-//			addBidDto.setCNTRCT_NO("10021");
-//			addBidDto.setCNTRCT_TYPE("1");
-//			addBidDto.setCNTRCT_YEAR("2018");
-//			addBidDto.setCNTRCT_ST_DATE(DateUtil.strToDate("2018-08-01", DateUtil.DATE_FORMAT_SHORT));
-//			addBidDto.setCNTRCT_ED_DATE(DateUtil.strToDate("2018-09-01", DateUtil.DATE_FORMAT_SHORT));
-//			addBidDto.setBID_COMP_NO("1");
-//			addBidDto.setBID_COMP_NAME("上海招标公司");
-//			addBidDto.setCO_MANAGER1("王经理");
-//			addBidDto.setCO_MANAGER_TEL1("13312121123");
-//			addBidDto.setCO_ADDRESS1("宝山区");
-//			addBidDto.setCO_MANAGER_EMAIL1("wang@tbps.com");
-//			addBidDto.setCO_TAX("200012");
-			
 			//默认为不随机
 //			addBidDto.setIS_RANDOM("0");
 			addBidDto.setSTATUS("0");
