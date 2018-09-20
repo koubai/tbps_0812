@@ -79,6 +79,9 @@ public class BidCntrctAction extends BaseAction {
 		AjaxDataDto ajaxData = new AjaxDataDto();
 		try {
 			this.clearMessages();
+			//ajax中文乱码处理
+			//strCNTRCT_NO = URLDecoder.decode(strCNTRCT_NO, "UTF-8");
+			//strBID_COMP_NO = URLDecoder.decode(strBID_COMP_NO, "UTF-8");
 			Page pp = new Page(8);
 			pp.setTotalCount(ajaxTotalCount);
 			pp.setStartIndex(ajaxPageIndex);

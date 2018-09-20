@@ -6,6 +6,10 @@
 
 	<package name="expertlib" extends="struts-tbps" namespace="/expertlib">
 	
+		<action name="queryExpertLibAjax" class="expertLibAction" method="queryExpertLibAjax">
+			<result type="json"></result>
+		</action>
+	
 		<action name="showSelectMajorPage" class="expertLibAction" method="showSelectMajorPage">
 			<result name="success">/page/expertlib/selectexpert.jsp</result>
 		</action>

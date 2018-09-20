@@ -131,7 +131,7 @@
 		var param = new Object();
 		param.agentCompNoLow = agentCompNoLow;
 		param.agentCompNoHigh = agentCompNoHigh;
-		param.agentCompName = agentCompName;
+		param.agentCompName = encodeURI(agentCompName,"utf-8");
 		param.agentAddFlag = "1";
 		
 		//-----共通1 start-----

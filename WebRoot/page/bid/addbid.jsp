@@ -356,6 +356,197 @@
 		}
 	}
 	
+	//专辑删除
+	function delExpertLib() {
+		//
+	}
+	
+	//专家选择
+	function showSelectExpertLib() {
+		$("#strExpertName").val("");
+		$("#strExpertMajor").val("");
+		$("#strExpertMajorName").val("");
+		//查询委托公司
+		querySelectPageAjax1("0");
+		//禁用 Bootstrap 模态框(Modal) 点击空白时自动关闭
+		$('#expertLibModal').modal({backdrop: 'static', keyboard: false});
+		$('#expertLibModal').modal('show');
+	}
+	
+	/**
+	 * 注：翻页函数，每个列表选择模态窗体必须实现这个函数
+	 */
+	function querySelectPageAjax1(index) {
+		//各个模块自己的参数
+		var strExpertName = $("#strExpertName").val();
+		var strExpertMajor = $("#strExpertMajor").val();
+		var param = new Object();
+		param.strExpertName = encodeURI(strExpertName,"utf-8");
+		param.strExpertMajor = encodeURI(strExpertMajor,"utf-8");
+		
+		//-----共通1 start-----
+		//页码
+		param.ajaxPageIndex = index;
+		//总记录数
+		var ajaxTotalCount = $("#ajaxTotalCount1").val();
+		if(ajaxTotalCount == "") {
+			ajaxTotalCount = "0";
+		}
+		param.ajaxTotalCount = ajaxTotalCount;
+		//-----共通1 end-----
+		
+		$.getJSON('<%=request.getContextPath()%>/expertlib/queryExpertLibAjax.action', param, function(data) {
+			if(data.resultCode == 0) {
+				var items = data.data.items;
+				//数据列表
+				$("#expertLibData").empty();
+				$.each(items, function(i, n) {
+					var html = "";
+					html += '<tr>';
+					html += '	<td><input name="expertLibKey" type="radio" value=""/></td>';
+					html += '	<td style="display: none;">';
+					html += '		<input type="hidden" value="' + n.EXPERT_SEQ + '">';
+					html += '		<input type="hidden" value="' + n.EXPERT_NAME + '">';
+					html += '		<input type="hidden" value="' + n.EXPERT_COMP + '">';
+					html += '		<input type="hidden" value="' + n.EXPERT_MAJOR + '">';
+					html += '		<input type="hidden" value="' + n.EXPERT_MAJOR_NAME + '">';
+					html += '		<input type="hidden" value="' + n.EXPERT_QULI + '">';
+					html += '		<input type="hidden" value="' + n.EXPERT_TEL1 + '">';
+					html += '	</td>';
+					html += '	<td>' + n.EXPERT_NAME + '</td>';
+					html += '	<td>' + n.EXPERT_MAJOR_NAME + '</td>';
+					html += '	<td>' + n.EXPERT_QULI + '</td>';
+					html += '	<td>' + n.EXPERT_TEL1 + '</td>';
+					if(n.EXPERT_GENDER == "1") {
+						html += '	<td>' + '男' + '</td>';
+					} else {
+						html += '	<td>' + '女' + '</td>';
+					}
+					html += '	<td>' + n.EXPERT_COMP + '</td>';
+					html += '</tr>';
+					$("#expertLibData").append(html);
+				});
+				
+				//-----共通2 start-----
+				//分页页码
+				$("#ajaxpagenum1").val("");
+				var totalPage = data.data.totalPage;
+				//总数据量
+				var totalCount = data.data.totalCount;
+				totalPage = parseInt(totalPage);
+				totalCount = parseInt(totalCount);
+				$("#ajaxTotalPage1").val(totalPage);
+				$("#ajaxTotalCount1").val(totalCount);
+				//分页
+				var skipList = data.data.skipList;
+				$("#ajaxskiplist1").empty();
+				//第一页
+				$("#ajaxskiplist1").append('<li><a href="javascript:void(0);" onclick="turningAjaxPage1(1);">&laquo;</a></li>');
+				$.each(skipList, function(ii, nn) {
+					if((parseInt(nn) - 1) == parseInt(index)) {
+						$("#ajaxskiplist1").append('<li class="active"><a href="javascript:void(0);">' + nn + '</a></li>');
+					} else {
+						$("#ajaxskiplist1").append('<li><a href="javascript:void(0);" onclick="turningAjaxPage1(' + nn + ');">' + nn + '</a></li>');
+					}
+				});
+				//页信息
+				$("#ajaxPageInfo1").empty();
+				var startIndex = data.data.startIndex;
+				startIndex = parseInt(startIndex);
+				if(totalPage == 0) {
+					totalPage = 1;
+				}
+				var ajaxPageInfo = '第' + (startIndex + 1) + '页/共' + totalPage + '页&nbsp;&nbsp;&nbsp;&nbsp;共' + totalCount + '条记录';
+				$("#ajaxPageInfo1").append(ajaxPageInfo);
+				//最后一页
+				$("#ajaxskiplist1").append('<li><a href="javascript:void(0);" onclick="turningLastPage1();">&raquo;</a></li>');
+				//-----共通2 end-----
+			} else {
+				alert(data.resultMessage);
+			}
+		});
+		//agentCompData
+	}
+	
+	//专家列表页选择确定按钮
+	function selectExpertLib() {
+		var obj = null;
+		var list = document.getElementsByName("expertLibKey");
+		for(var i = 0; i < list.length; i++) {
+			if(list[i].checked) {
+				obj = list[i];
+				break;
+			}
+		}
+		if(obj != null) {
+			var tr = obj.parentNode.parentNode;
+			var tds = tr.getElementsByTagName("td");
+			//第二列是隐藏列
+			var inputs = tds[1].getElementsByTagName("input");
+			var EXPERT_SEQ = inputs[0].value;
+			var EXPERT_NAME = inputs[1].value;
+			var EXPERT_COMP = inputs[2].value;
+			var EXPERT_MAJOR = inputs[3].value;
+			var EXPERT_MAJOR_NAME = inputs[4].value;
+			var EXPERT_QULI = inputs[5].value;
+			var EXPERT_TEL1 = inputs[6].value;
+			//新增
+			var bidExpertLibBody = document.getElementById("bidExpertLibBody");
+			//验证专家是否存在
+			var bidExpertLibRadioList = document.getElementsByName("bidExpertLibRadio");
+			for(var j = 0; j < bidExpertLibRadioList.length; j++) {
+				if(bidExpertLibRadioList[j].value == EXPERT_SEQ) {
+					alert("该专家已存在！");
+					return;
+				}
+			}
+			var tr = document.createElement("tr");
+			
+			var td0 = document.createElement("td");
+			//单选框
+			var radio = document.createElement("input");
+			radio.name = "bidExpertLibRadio";
+			radio.type = "radio";
+			radio.value = EXPERT_SEQ;
+			td0.appendChild(radio);
+			tr.appendChild(td0);
+			
+			var td1 = document.createElement("td");
+			td1.style.display = "none";
+			//EXPERT_SEQ
+			var input = createHidden(EXPERT_SEQ);
+			td1.appendChild(input);
+			
+			//序号
+			tr.appendChild(createTd(""));
+			//姓名
+			tr.appendChild(createTd(EXPERT_NAME));
+			//就职公司
+			tr.appendChild(createTd(EXPERT_COMP));
+			//专业
+			tr.appendChild(createTd(EXPERT_MAJOR_NAME));
+			//职称
+			tr.appendChild(createTd(EXPERT_QULI));
+			//联系方式
+			tr.appendChild(createTd(EXPERT_TEL1));
+			
+			bidExpertLibBody.appendChild(tr);
+			
+			//刷新列表序号
+			var rows = document.getElementById("bidExpertLibBody").rows;
+			for(var i = 0; i < rows.length; i++) {
+				var num = i + 1;
+				rows[i].cells[1].innerHTML = num;
+			}
+			
+			//隐藏模态窗体
+			$('#expertLibModal').modal('hide');
+		} else {
+			alert("请选择一条记录！");
+		}
+	}
+	
+	//招标合同选择
 	function showSelectBidCntrct() {
 		$("#strCNTRCT_YEAR").val("");
 		$("#strCNTRCT_ST_DATE").val("");
@@ -1440,6 +1631,7 @@
 								<thead>
 									<tr>
 										<th></th>
+										<th style="display: none;"></th>
 										<th>序号</th>
 										<th>姓名</th>
 										<th>就职公司</th>
@@ -1448,14 +1640,17 @@
 										<th>联系方式</th>
 									</tr>
 								</thead>
-								<tbody>
+								<tbody id="bidExpertLibBody">
 									<s:iterator id="listExpertLib" value="listExpertLib" status="st1">
 										<tr>
-											<td><input type="radio" name="bidExpertLibRadio"></td>
+											<td><input type="radio" name="bidExpertLibRadio" value="<s:property value="EXPERT_SEQ"/>"></td>
+											<td style="display: none;">
+												<input type="hidden" value="<s:property value="EXPERT_SEQ"/>" />
+											</td>
 											<td><s:property value="%{#st1.index + 1}"/></td>
 											<td><s:property value="EXPERT_NAME"/></td>
 											<td><s:property value="EXPERT_COMP"/></td>
-											<td><s:property value="EXPERT_MAJOR"/></td>
+											<td><s:property value="EXPERT_MAJOR_NAME"/></td>
 											<td><s:property value="EXPERT_QULI"/></td>
 											<td><s:property value="EXPERT_TEL1"/></td>
 										</tr>
@@ -1463,8 +1658,8 @@
 								</tbody>
 							</table>
 							<div class="operationBtns">
-								<button type="button" class="btn btn-success">选择专家</button>
-								<button type="button" class="btn btn-danger">删除</button>
+								<button type="button" class="btn btn-success" onclick="showSelectExpertLib();">选择专家</button>
+								<button type="button" class="btn btn-danger" onclick="delExpertLib();">删除</button>
 							</div>
 						</div>
 						<div class="tab-pane fade" id="tab5">
@@ -1721,6 +1916,77 @@
 		</s:form>
 	</div>
 	<!-- 模拟模态框 -->
+	<div class="modal fade" id="expertLibModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" style="width: 1000px;">
+			<div class="modal-content">
+				<form class="form-horizontal" role="form">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							专家一览
+						</h4>
+					</div>
+					<div class="modal-body">
+						<div class="col-lg-4 form-group">
+							<label for="" class="col-lg-4 form-label">姓名</label>
+							<div class="col-lg-8">
+								<div class="input-group">
+									<input id="strExpertName" maxlength="24" type="text" class="form-control">
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-7 form-group" style="z-index: 1;">
+							<label for="" class="col-lg-2 form-label">专业</label>
+							<div class="col-lg-8">
+								<input id="strExpertMajor" type="hidden" class="form-control">
+								<input id="strExpertMajorName" type="text" class="form-control">
+							</div>
+						</div>
+						<div class="col-lg-2 form-group" style="z-index: 1;">
+							<button type="button" class="btn btn-success form-control" onclick="querySelectPageAjax1(0);">检索</button>
+						</div>
+					</div>
+					<div class="modal-body" style="height: 430px;">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th></th>
+									<th style="display: none;"></th>
+									<th>姓名</th>
+									<th>专业</th>
+									<th>职称</th>
+									<th>手机电话</th>
+									<th>性别</th>
+									<th>就职公司</th>
+								</tr>
+							</thead>
+							<tbody id="expertLibData">
+								<tr>
+									<td><input name="expertLibKey" type="radio" value=""/></td>
+									<td style="display: none;">
+										<input type="hidden" value="">
+									</td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+							</tbody>
+						</table>
+						<jsp:include page="../turning_select1.jsp" flush="true" />
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" onclick="selectExpertLib();">确定</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 	<div class="modal fade" id="bidCntrctModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog" style="width: 1000px;">
 			<div class="modal-content">

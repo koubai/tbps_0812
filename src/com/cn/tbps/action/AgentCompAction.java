@@ -2,6 +2,7 @@ package com.cn.tbps.action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -140,6 +141,8 @@ public class AgentCompAction extends BaseAction {
 		AjaxDataDto ajaxData = new AjaxDataDto();
 		try {
 			this.clearMessages();
+			//ajax中文乱码处理
+			agentCompName = URLDecoder.decode(agentCompName, "UTF-8");
 			Page pp = new Page(8);
 			pp.setTotalCount(ajaxTotalCount);
 			pp.setStartIndex(ajaxPageIndex);
