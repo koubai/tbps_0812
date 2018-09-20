@@ -327,6 +327,34 @@
 			tr.appendChild(td);
 			document.getElementById("bidCompListTable").appendChild(tr);
 		}
+		
+		//专家列表
+		$("#expertLibListTable").empty();
+		var rows = document.getElementById("bidExpertLibBody").rows;
+		for(var i = 0; i < rows.length; i++) {
+			var childs = rows[i].cells[1].getElementsByTagName("input");
+			var EXPERT_SEQ = childs[0].value;
+			var EXPERT_NAME = childs[1].value;
+			var EXPERT_COMP = childs[2].value;
+			var EXPERT_MAJOR = childs[3].value;
+			var EXPERT_MAJOR_NAME = childs[4].value;
+			var EXPERT_QULI = childs[5].value;
+			var EXPERT_TEL1 = childs[6].value;
+			
+			var tr = document.createElement("tr");
+			var td = document.createElement("td");
+			
+			td.appendChild(createInput("listExpertLibTmp[" + i + "].EXPERT_SEQ", EXPERT_SEQ));
+			td.appendChild(createInput("listExpertLibTmp[" + i + "].EXPERT_NAME", EXPERT_NAME));
+			td.appendChild(createInput("listExpertLibTmp[" + i + "].EXPERT_COMP", EXPERT_COMP));
+			td.appendChild(createInput("listExpertLibTmp[" + i + "].EXPERT_MAJOR", EXPERT_MAJOR));
+			td.appendChild(createInput("listExpertLibTmp[" + i + "].EXPERT_MAJOR_NAME", EXPERT_MAJOR_NAME));
+			td.appendChild(createInput("listExpertLibTmp[" + i + "].EXPERT_QULI", EXPERT_QULI));
+			td.appendChild(createInput("listExpertLibTmp[" + i + "].EXPERT_TEL1", EXPERT_TEL1));
+			
+			tr.appendChild(td);
+			document.getElementById("expertLibListTable").appendChild(tr);
+		}
 	}
 	
 	function goBidList() {
@@ -358,7 +386,26 @@
 	
 	//专辑删除
 	function delExpertLib() {
-		//
+		var obj = null;
+		var bidExpertLibRadioList = document.getElementsByName("bidExpertLibRadio");
+		for(var j = 0; j < bidExpertLibRadioList.length; j++) {
+			if(bidExpertLibRadioList[j].checked) {
+				obj = bidExpertLibRadioList[j];
+				break;
+			}
+		}
+		if(obj != null) {
+			if(confirm("确定删除吗?")) {
+				obj.parentNode.parentNode.remove();
+				var rows = document.getElementById("bidExpertLibBody").rows;
+				for(var i = 0; i < rows.length; i++) {
+					var num = i + 1;
+					rows[i].cells[2].innerHTML = num;
+				}
+			}
+		} else {
+			alert("请选择一条记录！");
+		}
 	}
 	
 	//专家选择
@@ -465,7 +512,6 @@
 				alert(data.resultMessage);
 			}
 		});
-		//agentCompData
 	}
 	
 	//专家列表页选择确定按钮
@@ -516,6 +562,25 @@
 			//EXPERT_SEQ
 			var input = createHidden(EXPERT_SEQ);
 			td1.appendChild(input);
+			//EXPERT_NAME
+			var input = createHidden(EXPERT_NAME);
+			td1.appendChild(input);
+			//EXPERT_COMP
+			var input = createHidden(EXPERT_COMP);
+			td1.appendChild(input);
+			//EXPERT_MAJOR
+			var input = createHidden(EXPERT_MAJOR);
+			td1.appendChild(input);
+			//EXPERT_MAJOR_NAME
+			var input = createHidden(EXPERT_MAJOR_NAME);
+			td1.appendChild(input);
+			//EXPERT_QULI
+			var input = createHidden(EXPERT_QULI);
+			td1.appendChild(input);
+			//EXPERT_TEL1
+			var input = createHidden(EXPERT_TEL1);
+			td1.appendChild(input);
+			tr.appendChild(td1);
 			
 			//序号
 			tr.appendChild(createTd(""));
@@ -536,7 +601,7 @@
 			var rows = document.getElementById("bidExpertLibBody").rows;
 			for(var i = 0; i < rows.length; i++) {
 				var num = i + 1;
-				rows[i].cells[1].innerHTML = num;
+				rows[i].cells[2].innerHTML = num;
 			}
 			
 			//隐藏模态窗体
@@ -1646,6 +1711,12 @@
 											<td><input type="radio" name="bidExpertLibRadio" value="<s:property value="EXPERT_SEQ"/>"></td>
 											<td style="display: none;">
 												<input type="hidden" value="<s:property value="EXPERT_SEQ"/>" />
+												<input type="hidden" value="<s:property value="EXPERT_NAME"/>" />
+												<input type="hidden" value="<s:property value="EXPERT_COMP"/>" />
+												<input type="hidden" value="<s:property value="EXPERT_MAJOR"/>" />
+												<input type="hidden" value="<s:property value="EXPERT_MAJOR_NAME"/>" />
+												<input type="hidden" value="<s:property value="EXPERT_QULI"/>" />
+												<input type="hidden" value="<s:property value="EXPERT_TEL1"/>" />
 											</td>
 											<td><s:property value="%{#st1.index + 1}"/></td>
 											<td><s:property value="EXPERT_NAME"/></td>
