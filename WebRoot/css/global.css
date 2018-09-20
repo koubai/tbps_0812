@@ -72,3 +72,13 @@ h3.title a.backHome i.fa{ margin-right: 5px; font-size: 16px; }
 .modal label{ padding-right: 0; }
 .table td a{ margin:0 10px; }
 #table tbody tr td { border:0px; }
+
+.session_txt{ margin:0; padding:0; padding-top:155px; font-size:36px; color:#f7b667; text-align:center;}
+.session_txt a{ color:#0087ce; text-decoration:underline;}
+
+#commoncontainer{ margin:0 auto; background:#fff;}
+#commontop{ height:90px; background:#52708a; padding-top:25px; position:relative;}
+.commonlogobox{ position:absolute; right:100px;}
+.commonlogo_tittle{ height:30px; background:url(../images/logo_tittle.png) no-repeat;}
+.commonlogo{ width:120px; height:50px; margin-top:-10px; background:url(../images/logo.png) no-repeat;}
+.commoncontent{ position:relative;}
