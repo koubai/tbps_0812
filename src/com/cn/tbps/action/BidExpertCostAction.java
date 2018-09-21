@@ -12,16 +12,15 @@ import com.cn.tbps.dto.BidDto;
 import com.cn.tbps.service.BidService;
 
 /**
- * 招标代理费设定
- * @author Frank
+ * 专家费设定
  * @version 1.0
- * @createtime 2018年8月30日 上午7:14:34
+ * @createtime 2018年9月21日 下午4:15:16
  */
-public class BidAgentCostAction extends BaseAction {
+public class BidExpertCostAction extends BaseAction {
 
-	private static final long serialVersionUID = -8524399330846182774L;
+	private static final long serialVersionUID = 2614134238899107450L;
 
-	private static final Logger log = LogManager.getLogger(BidAgentCostAction.class);
+	private static final Logger log = LogManager.getLogger(BidExpertCostAction.class);
 	
 	private BidService bidService;
 	
@@ -57,7 +56,7 @@ public class BidAgentCostAction extends BaseAction {
 	 * 显示招标代理费设定页面
 	 * @return
 	 */
-	public String showBidAgentCostAction() {
+	public String showBidExpertCostAction() {
 		try {
 			this.clearMessages();
 			listBid = new ArrayList<BidDto>();
@@ -70,7 +69,7 @@ public class BidAgentCostAction extends BaseAction {
 			page = new Page();
 			startIndex = 0;
 		} catch(Exception e) {
-			log.error("showBidAgentCostAction:" + e);
+			log.error("showBidExpertCostAction:" + e);
 			return ERROR;
 		}
 		return SUCCESS;
@@ -80,7 +79,7 @@ public class BidAgentCostAction extends BaseAction {
 	 * 查询招标列表
 	 * @return
 	 */
-	public String queryBidAgentCostList() {
+	public String queryBidExpertCostList() {
 		try {
 			this.clearMessages();
 			page = new Page();
@@ -97,7 +96,7 @@ public class BidAgentCostAction extends BaseAction {
 	 * 翻页
 	 * @return
 	 */
-	public String turnBidAgentCostPage() {
+	public String turnBidExpertCostPage() {
 		try {
 			this.clearMessages();
 			queryData();
@@ -128,6 +127,30 @@ public class BidAgentCostAction extends BaseAction {
 
 	public void setBidService(BidService bidService) {
 		this.bidService = bidService;
+	}
+
+	public int getStartIndex() {
+		return startIndex;
+	}
+
+	public void setStartIndex(int startIndex) {
+		this.startIndex = startIndex;
+	}
+
+	public Page getPage() {
+		return page;
+	}
+
+	public void setPage(Page page) {
+		this.page = page;
+	}
+
+	public List<BidDto> getListBid() {
+		return listBid;
+	}
+
+	public void setListBid(List<BidDto> listBid) {
+		this.listBid = listBid;
 	}
 
 	public String getStrCNTRCT_YEAR() {
@@ -168,30 +191,6 @@ public class BidAgentCostAction extends BaseAction {
 
 	public void setStrBID_COMP_NO(String strBID_COMP_NO) {
 		this.strBID_COMP_NO = strBID_COMP_NO;
-	}
-
-	public int getStartIndex() {
-		return startIndex;
-	}
-
-	public void setStartIndex(int startIndex) {
-		this.startIndex = startIndex;
-	}
-
-	public Page getPage() {
-		return page;
-	}
-
-	public void setPage(Page page) {
-		this.page = page;
-	}
-
-	public List<BidDto> getListBid() {
-		return listBid;
-	}
-
-	public void setListBid(List<BidDto> listBid) {
-		this.listBid = listBid;
 	}
 
 	public String getStrBID_COMP_NAME() {

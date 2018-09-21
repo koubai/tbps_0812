@@ -68,6 +68,10 @@
 		window.location.href = '<c:url value="/bidagentcost/showBidAgentCostAction.action"></c:url>';
 	}
 	
+	function showBidExpertCostAction() {
+		window.location.href = '<c:url value="/bidexpertcost/showBidExpertCostAction.action"></c:url>';
+	}
+	
 	function showBidProgressAction() {
 		window.location.href = '<c:url value="/bidprogress/showBidProgressAction.action"></c:url>';
 	}
@@ -128,6 +132,9 @@
 			</div>
 			<div class="col-lg-6">
 				<a class="btn btn-primary" href="#" onclick="showBidAgentCostAction();">代理费设定</a>
+			</div>
+			<div class="col-lg-6">
+				<a class="btn btn-primary" href="#" onclick="showBidExpertCostAction();">专家费设定</a>
 			</div>
 			<div class="col-lg-6">
 				<a class="btn btn-primary" href="#" onclick="showBidProgressAction();">项目进度</a>

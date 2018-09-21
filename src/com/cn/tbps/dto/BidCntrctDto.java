@@ -47,6 +47,10 @@ public class BidCntrctDto extends BaseDto {
 	private BigDecimal bidAmount;
 	//专家费
 	private BigDecimal expertAmount;
+	//应收代理费
+	private BigDecimal BID_AGENT_PRICE;
+	//实收代理费
+	private BigDecimal BID_AGENT_PRICE_ACT;
 	
 	/**
 	 * 委托单位ID
@@ -1033,4 +1037,19 @@ public class BidCntrctDto extends BaseDto {
 		this.showCNTRCT_ED_DATE = showCNTRCT_ED_DATE;
 	}
 
+	public BigDecimal getBID_AGENT_PRICE() {
+		return BID_AGENT_PRICE;
+	}
+
+	public void setBID_AGENT_PRICE(BigDecimal bID_AGENT_PRICE) {
+		BID_AGENT_PRICE = bID_AGENT_PRICE;
+	}
+
+	public BigDecimal getBID_AGENT_PRICE_ACT() {
+		return BID_AGENT_PRICE_ACT;
+	}
+
+	public void setBID_AGENT_PRICE_ACT(BigDecimal bID_AGENT_PRICE_ACT) {
+		BID_AGENT_PRICE_ACT = bID_AGENT_PRICE_ACT;
+	}
 }

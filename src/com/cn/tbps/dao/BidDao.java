@@ -22,6 +22,13 @@ public interface BidDao {
 			String CNTRCT_ST_DATE, String CNTRCT_ED_DATE, int start, int end);
 	
 	/**
+	 * 根据合同编号查询招标记录
+	 * @param CNTRCT_NO
+	 * @return
+	 */
+	public List<BidDto> queryAllBidByCntrctNo(String CNTRCT_NO);
+	
+	/**
 	 * 翻页查询投标
 	 * @param bidNoLow
 	 * @param bidNoHigh

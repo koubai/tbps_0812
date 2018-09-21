@@ -1663,10 +1663,10 @@
 											<td><s:property value="%{#st1.index + 1}"/></td>
 											<td><s:property value="BID_CO_NAME"/></td>
 											<td>
-												<input name="tmpBidPrice" type="text" value="<s:property value="BID_PRICE"/>">
+												<input name="tmpBidPrice" type="text" value="<s:property value="BID_PRICE"/>" class="form-control">
 											</td>
 											<td>
-												<input name="tmpBidCheckPrice" type="text" value="<s:property value="BID_CHECK_PRICE"/>">
+												<input name="tmpBidCheckPrice" type="text" value="<s:property value="BID_CHECK_PRICE"/>" class="form-control">
 											</td>
 											<td>
 												<s:if test='%{BID_RESULT == "1"}'>
@@ -1677,7 +1677,7 @@
 												</s:else>
 											</td>
 											<td>
-												<input name="tmpBidWinPrice" type="text" value="<s:property value="BID_WIN_PRICE"/>">
+												<input name="tmpBidWinPrice" type="text" value="<s:property value="BID_WIN_PRICE"/>" class="form-control">
 											</td>
 										</tr>
 									</s:iterator>
@@ -1757,11 +1757,98 @@
 											<td><s:property value="%{#st1.index + 1}"/></td>
 											<td><s:property value="BID_CO_NAME"/></td>
 											<td>
-												<s:date name="BID_VALUE_DATE" format="yyyy-MM-dd"/>
+												<div class="input-group date" data-provide="datepicker">
+													<input type="text" name="tmpBID_VALUE_DATE" value="<s:date name="BID_VALUE_DATE" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
+													<div class="input-group-addon">
+														<span class="glyphicon glyphicon-th"></span>
+													</div>
+												</div>
 											</td>
-											<td><s:property value="BID_PAYMENT_TYPE"/></td>
-											<td><s:property value="REFOUND_BOND_STATUS"/></td>
-											<td><s:date name="REFOUND_DEPOSIT_DATE" format="yyyy-MM-dd"/></td>
+											<td>
+												<select name="tmpBID_PAYMENT_TYPE" class="form-control">
+													<s:if test='BID_PAYMENT_TYPE == "1"'>
+														<option value="1" selected="selected">现金</option>
+														<option value="2">支票</option>
+														<option value="3">转账</option>
+														<option value="4">汇票</option>
+														<option value="5">保函</option>
+														<option value="6">现金2</option>
+													</s:if>
+													<s:elseif test='BID_PAYMENT_TYPE == "2"'>
+														<option value="1">现金</option>
+														<option value="2" selected="selected">支票</option>
+														<option value="3">转账</option>
+														<option value="4">汇票</option>
+														<option value="5">保函</option>
+														<option value="6">现金2</option>
+													</s:elseif>
+													<s:elseif test='BID_PAYMENT_TYPE == "3"'>
+														<option value="1">现金</option>
+														<option value="2">支票</option>
+														<option value="3" selected="selected">转账</option>
+														<option value="4">汇票</option>
+														<option value="5">保函</option>
+														<option value="6">现金2</option>
+													</s:elseif>
+													<s:elseif test='BID_PAYMENT_TYPE == "4"'>
+														<option value="1">现金</option>
+														<option value="2">支票</option>
+														<option value="3">转账</option>
+														<option value="4" selected="selected">汇票</option>
+														<option value="5">保函</option>
+														<option value="6">现金2</option>
+													</s:elseif>
+													<s:elseif test='BID_PAYMENT_TYPE == "5"'>
+														<option value="1">现金</option>
+														<option value="2">支票</option>
+														<option value="3">转账</option>
+														<option value="4">汇票</option>
+														<option value="5" selected="selected">保函</option>
+														<option value="6">现金2</option>
+													</s:elseif>
+													<s:elseif test='BID_PAYMENT_TYPE == "6"'>
+														<option value="1">现金</option>
+														<option value="2">支票</option>
+														<option value="3">转账</option>
+														<option value="4">汇票</option>
+														<option value="5">保函</option>
+														<option value="6" selected="selected">现金2</option>
+													</s:elseif>
+													<s:else>
+														<option selected="selected" value="1">现金</option>
+														<option value="2">支票</option>
+														<option value="3">转账</option>
+														<option value="4">汇票</option>
+														<option value="5">保函</option>
+														<option value="6">现金2</option>
+													</s:else>
+												</select>
+											</td>
+											<td>
+												<select name="tmpREFOUND_BOND_STATUS" class="form-control">
+													<option value="0">请选择</option>
+													<s:if test='REFOUND_BOND_STATUS == "1"'>
+														<option value="1" selected="selected">11</option>
+														<option value="2">22</option>
+													</s:if>
+													<s:elseif test='REFOUND_BOND_STATUS == "2"'>
+														<option value="1">11</option>
+														<option value="2" selected="selected">22</option>
+													</s:elseif>
+													<s:else>
+														<option value="1">11</option>
+														<option value="2">22</option>
+													</s:else>
+												</select>
+											</td>
+											<td>
+												<div class="input-group date" data-provide="datepicker">
+													<input type="text" name="tmpREFOUND_DEPOSIT_DATE" value="<s:date name="REFOUND_DEPOSIT_DATE" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
+													<div class="input-group-addon">
+														<span class="glyphicon glyphicon-th"></span>
+													</div>
+												</div>
+											</td>
 											<td>
 												<a href="">上传</a><a href="">预览</a>
 											</td>
@@ -1798,11 +1885,37 @@
 										<tr>
 											<td><s:property value="%{#st1.index + 1}"/></td>
 											<td><s:property value="BID_CO_NAME"/></td>
-											<td><s:date name="BID_APPLY_PRICE_DATE" format="yyyy-MM-dd"/></td>
-											<td><s:property value="BID_PAYMENT_TYPE"/></td>
-											<td><s:property value="INVOICE_TYPE"/></td>
-											<td><s:date name="INVOICE_DATE" format="yyyy-MM-dd"/></td>
-											<td><s:property value="BID_RECEIPT_NO"/></td>
+											<td>
+												<div class="input-group date" data-provide="datepicker">
+													<input type="text" name="tmpBID_APPLY_PRICE_DATE" value="<s:date name="BID_APPLY_PRICE_DATE" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
+													<div class="input-group-addon">
+														<span class="glyphicon glyphicon-th"></span>
+													</div>
+												</div>
+											</td>
+											<td>
+												<s:if test='BID_PAYMENT_TYPE == "1"'>现金</s:if>
+												<s:elseif test='BID_PAYMENT_TYPE == "2"'>支票</s:elseif>
+												<s:elseif test='BID_PAYMENT_TYPE == "3"'>转账</s:elseif>
+												<s:elseif test='BID_PAYMENT_TYPE == "4"'>汇票</s:elseif>
+												<s:elseif test='BID_PAYMENT_TYPE == "5"'>保函</s:elseif>
+												<s:elseif test='BID_PAYMENT_TYPE == "6"'>现金2</s:elseif>
+											</td>
+											<td>
+												<!-- INVOICE_TYPE发票信息? -->
+												<input name="tmpTAX_NO" type="text" value="<s:property value="TAX_NO"/>" class="form-control">
+											</td>
+											<td>
+												<div class="input-group date" data-provide="datepicker">
+													<input type="text" name="tmpINVOICE_DATE" value="<s:date name="INVOICE_DATE" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
+													<div class="input-group-addon">
+														<span class="glyphicon glyphicon-th"></span>
+													</div>
+												</div>
+											</td>
+											<td>
+												<input name="tmpBID_RECEIPT_NO" type="text" value="<s:property value="BID_RECEIPT_NO"/>" class="form-control">
+											</td>
 										</tr>
 									</s:iterator>
 								</tbody>

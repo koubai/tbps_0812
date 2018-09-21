@@ -139,6 +139,10 @@
 		<result property="CNTRCT_YEAR" column="CNTRCT_YEAR" />
 		<result property="CNTRCT_ST_DATE" column="CNTRCT_ST_DATE" />
 		<result property="CNTRCT_ED_DATE" column="CNTRCT_ED_DATE" />
+		
+		<result property="BID_COMP_NO" column="BID_COMP_NO" />
+		<result property="BID_COMP_NAME" column="BID_COMP_NAME" />
+		
 		<result property="PROJECT_DEVIEW_DATE" column="PROJECT_DEVIEW_DATE" />
 		<result property="CNTRCT_TYPE" column="CNTRCT_TYPE" />
 		<result property="PROJECT_NAME" column="PROJECT_NAME" />
@@ -265,7 +269,7 @@
 	
 	<select id="queryBidAndBidCntrctCountByPage" resultClass="int" parameterClass="java.util.Map">
 		select count(*) from (
-			select C.BID_COMP_NO,C.CNTRCT_YEAR,C.CNTRCT_NAME,C.CNTRCT_ST_DATE,C.CNTRCT_ED_DATE,
+			select C.BID_COMP_NO,C.CNTRCT_YEAR,C.CNTRCT_NAME,C.CNTRCT_ST_DATE,C.CNTRCT_ED_DATE,C.BID_COMP_NAME,
 				T.* from bid T left join bidcntrct C on C.CNTRCT_NO = T.CNTRCT_NO
 		) B where 1 = 1 and B.DELETE_FLG = '1'
 		<isNotEmpty prepend="and" property="CNTRCT_YEAR">
@@ -302,7 +306,7 @@
 	
 	<select id="queryBidAndBidCntrctByPage" parameterClass="java.util.Map" resultMap="BidDto1">
 		select * from (
-			select C.BID_COMP_NO,C.CNTRCT_YEAR,C.CNTRCT_NAME,C.CNTRCT_ST_DATE,C.CNTRCT_ED_DATE,
+			select C.BID_COMP_NO,C.CNTRCT_YEAR,C.CNTRCT_NAME,C.CNTRCT_ST_DATE,C.CNTRCT_ED_DATE,C.BID_COMP_NAME,
 				T.* from bid T left join bidcntrct C on C.CNTRCT_NO = T.CNTRCT_NO
 		) B where 1 = 1 and B.DELETE_FLG = '1'
 		<isNotEmpty prepend="and" property="CNTRCT_YEAR">
@@ -339,9 +343,13 @@
 		LIMIT #start#, #end#
 	</select>
 	
+	<select id="queryAllBidByCntrctNo" parameterClass="java.util.Map" resultMap="BidDto">
+		select * from bid B where 1 = 1 and CNTRCT_NO = #CNTRCT_NO# and B.DELETE_FLG = '1'
+	</select>
+	
 	<select id="queryAllBidByID" parameterClass="java.util.Map" resultMap="BidDto1">
 		select * from (
-			select C.BID_COMP_NO,C.CNTRCT_YEAR,C.CNTRCT_NAME,C.CNTRCT_ST_DATE,C.CNTRCT_ED_DATE,
+			select C.BID_COMP_NO,C.CNTRCT_YEAR,C.CNTRCT_NAME,C.CNTRCT_ST_DATE,C.CNTRCT_ED_DATE,C.BID_COMP_NAME,
 				T.* from bid T left join bidcntrct C on C.CNTRCT_NO = T.CNTRCT_NO
 		) B where 1 = 1 and BID_NO = #BID_NO# and B.DELETE_FLG = '1'
 	</select>

@@ -1,5 +1,6 @@
 package com.cn.tbps.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.cn.common.service.BaseService;
@@ -10,6 +11,7 @@ import com.cn.tbps.dao.BidCntrctHisDao;
 import com.cn.tbps.dao.BidDao;
 import com.cn.tbps.dto.BidCntrctDto;
 import com.cn.tbps.dto.BidCntrctHisDto;
+import com.cn.tbps.dto.BidDto;
 import com.cn.tbps.service.BidCntrctService;
 
 public class BidCntrctServiceImpl extends BaseService implements BidCntrctService {
@@ -37,6 +39,56 @@ public class BidCntrctServiceImpl extends BaseService implements BidCntrctServic
 				CNTRCT_NAME, CNTRCT_TYPE, CNTRCT_ST_DATE, CNTRCT_ED_DATE,
 				page.getStartIndex() * page.getPageSize(), page.getPageSize());
 		//查询各个合同对应的招标数量以及对应状态、金额等
+		if(list != null && list.size() > 0) {
+			for(BidCntrctDto bidCntrct : list) {
+				//项目总数量
+				int totalProject = 0;
+				//完成项目数量
+				int finishProject = 0;
+				//进行中项目数量
+				int buildingProject = 0;
+				//失败项目数量
+				int failProject = 0;
+				//标书费
+				BigDecimal bidAmount = new BigDecimal(0);
+				//专家费
+				BigDecimal expertAmount = new BigDecimal(0);
+				//应收代理费
+				BigDecimal BID_AGENT_PRICE = new BigDecimal(0);
+				//实收代理费
+				BigDecimal BID_AGENT_PRICE_ACT = new BigDecimal(0);
+				List<BidDto> bidList = bidDao.queryAllBidByCntrctNo(bidCntrct.getCNTRCT_NO());
+				if(bidList != null && bidList.size() > 0) {
+					for(BidDto bid : bidList) {
+						//项目数量计算----按什么方式计算？ TODO
+						//标书费
+						if(bid.getBID_APPLY_PRICE() != null) {
+							bidAmount = bidAmount.add(bid.getBID_APPLY_PRICE());
+						}
+						//专家费
+						if(bid.getBID_EXPERT_COMMISION() != null) {
+							expertAmount = expertAmount.add(bid.getBID_EXPERT_COMMISION());
+						}
+						//应收代理费
+						if(bid.getBID_AGENT_PRICE() != null) {
+							BID_AGENT_PRICE = BID_AGENT_PRICE.add(bid.getBID_AGENT_PRICE());
+						}
+						//实收代理费
+						if(bid.getBID_AGENT_PRICE_ACT() != null) {
+							BID_AGENT_PRICE_ACT = BID_AGENT_PRICE_ACT.add(bid.getBID_AGENT_PRICE_ACT());
+						}
+					}
+				}
+				bidCntrct.setTotalProject(totalProject);
+				bidCntrct.setFinishProject(finishProject);
+				bidCntrct.setBuildingProject(buildingProject);
+				bidCntrct.setFailProject(failProject);
+				bidCntrct.setBidAmount(bidAmount);
+				bidCntrct.setExpertAmount(expertAmount);
+				bidCntrct.setBID_AGENT_PRICE(BID_AGENT_PRICE);
+				bidCntrct.setBID_AGENT_PRICE_ACT(BID_AGENT_PRICE_ACT);
+			}
+		}
 		page.setItems(list);
 		return page;
 	}

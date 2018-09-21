@@ -202,6 +202,11 @@ public class BidServiceImpl extends BaseService implements BidService {
 	public BidDto queryBidByID(String bidNo) {
 		return bidDao.queryBidByID(bidNo);
 	}
+	
+	@Override
+	public List<BidDto> queryAllBidByCntrctNo(String CNTRCT_NO) {
+		return bidDao.queryAllBidByCntrctNo(CNTRCT_NO);
+	}
 
 	@Override
 	public BidDto queryAllBidByID(String bidNo) {

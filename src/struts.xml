@@ -55,6 +55,9 @@
 	<!-- 代理费设定 -->
 	<include file="struts-bidagentcost.xml"/>
 	
+	<!-- 专家费设定 -->
+	<include file="struts-bidexpertcost.xml"/>
+	
 	<!-- 投标项目状态设定 -->
 	<include file="struts-bidprogress.xml"/>
 	

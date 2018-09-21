@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="bidexpertcost" extends="struts-tbps" namespace="/bidexpertcost">
+	
+		<action name="showBidExpertCostAction" class="bidExpertCostAction" method="showBidExpertCostAction">
+			<result name="success">/page/bidexpertcost/bidexpertcostlist.jsp</result>
+		</action>
+		
+		<action name="queryBidExpertCostList" class="bidExpertCostAction" method="queryBidExpertCostList">
+			<result name="success">/page/bidexpertcost/bidexpertcostlist.jsp</result>
+		</action>
+		
+		<action name="turnBidExpertCostPage" class="bidExpertCostAction" method="turnBidExpertCostPage">
+			<result name="success">/page/bidexpertcost/bidexpertcostlist.jsp</result>
+		</action>
+		
+	</package>
+
+</struts>
