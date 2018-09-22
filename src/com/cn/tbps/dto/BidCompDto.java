@@ -116,6 +116,11 @@ public class BidCompDto extends BaseDto {
 	 * 标书费
 	 */
 	private BigDecimal BID_APPLY_PRICE;
+	
+	/**
+	 * 标书费支付形式
+	 */
+	private String BID_APPLY_PAYMENT_TYPE;
 
 	/**
 	 * 保证金
@@ -768,5 +773,13 @@ public class BidCompDto extends BaseDto {
 
 	public void setBID_APPLY_PRICE_STATUS(String bID_APPLY_PRICE_STATUS) {
 		BID_APPLY_PRICE_STATUS = bID_APPLY_PRICE_STATUS;
+	}
+
+	public String getBID_APPLY_PAYMENT_TYPE() {
+		return BID_APPLY_PAYMENT_TYPE;
+	}
+
+	public void setBID_APPLY_PAYMENT_TYPE(String bID_APPLY_PAYMENT_TYPE) {
+		BID_APPLY_PAYMENT_TYPE = bID_APPLY_PAYMENT_TYPE;
 	}
 }

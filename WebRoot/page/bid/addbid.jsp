@@ -60,7 +60,7 @@
 		var BID_APPLY_PRICE = $("#BID_APPLY_PRICE").val();
 		//#tab7
 		var BID_AGENT_PRICE_ACT = $("#BID_AGENT_PRICE_ACT").val();
-		var BID_PRICE = $("#BID_PRICE").val();
+		//var BID_PRICE = $("#BID_PRICE").val();
 		//#tab8
 		var BID_EXPERT_COMMISION_PRE = $("#BID_EXPERT_COMMISION_PRE").val();
 		var BID_EXPERT_COMMISION_ACT = $("#BID_EXPERT_COMMISION_ACT").val();
@@ -209,13 +209,6 @@
 			$("#BID_APPLY_PRICE").focus();
 			return false;
 		}
-		if(BID_PRICE != "" && !isReal(BID_PRICE)) {
-			showtab("7");
-			alert("中标金额格式不正确！");
-			$("#BID_PRICE").focus();
-			return false;
-		}
-		
 		if(BID_EXPERT_COMMISION_PRE != "" && !isReal(BID_EXPERT_COMMISION_PRE)) {
 			showtab("8");
 			alert("预借费用格式不正确！");
@@ -1674,10 +1667,17 @@
 											<td><s:property value="%{#st1.index + 1}"/></td>
 											<td><s:property value="BID_CO_NAME"/></td>
 											<td>
-												<input name="tmpBidPrice" type="text" value="<s:property value="BID_PRICE"/>" class="form-control">
+												<input name="tmpBID_CO_NO1" type="hidden" value="<s:property value="BID_CO_NO"/>">
+												<div class="col-lg-8">
+													<input name="tmpBidPrice" type="text" value="<s:property value="BID_PRICE"/>" class="form-control">
+												</div>
+												<label for="" class="col-lg-1 form-label">万元</label>
 											</td>
 											<td>
-												<input name="tmpBidCheckPrice" type="text" value="<s:property value="BID_CHECK_PRICE"/>" class="form-control">
+												<div class="col-lg-8">
+													<input name="tmpBidCheckPrice" type="text" value="<s:property value="BID_CHECK_PRICE"/>" class="form-control">
+												</div>
+												<label for="" class="col-lg-1 form-label">万元</label>
 											</td>
 											<td>
 												<s:if test='%{BID_RESULT == "1"}'>
@@ -1688,7 +1688,10 @@
 												</s:else>
 											</td>
 											<td>
-												<input name="tmpBidWinPrice" type="text" value="<s:property value="BID_WIN_PRICE"/>" class="form-control">
+												<div class="col-lg-8">
+													<input name="tmpBidWinPrice" type="text" value="<s:property value="BID_WIN_PRICE"/>" class="form-control">
+												</div>
+												<label for="" class="col-lg-1 form-label">万元</label>
 											</td>
 										</tr>
 									</s:iterator>
@@ -1767,7 +1770,10 @@
 									<s:iterator id="listBidComp" value="listBidComp" status="st1">
 										<tr>
 											<td><s:property value="%{#st1.index + 1}"/></td>
-											<td><s:property value="BID_CO_NAME"/></td>
+											<td>
+												<input name="tmpBID_CO_NO2" type="hidden" value="<s:property value="BID_CO_NO"/>">
+												<s:property value="BID_CO_NAME"/>
+											</td>
 											<td>
 												<div class="input-group date" data-provide="datepicker">
 													<input type="text" name="tmpBID_VALUE_DATE" value="<s:date name="BID_VALUE_DATE" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
@@ -1838,18 +1844,18 @@
 											</td>
 											<td>
 												<select name="tmpREFOUND_BOND_STATUS" class="form-control">
-													<option value="0">请选择</option>
+													<option value="">请选择</option>
 													<s:if test='REFOUND_BOND_STATUS == "1"'>
-														<option value="1" selected="selected">11</option>
-														<option value="2">22</option>
+														<option value="1" selected="selected">审批</option>
+														<option value="2">审批完了</option>
 													</s:if>
 													<s:elseif test='REFOUND_BOND_STATUS == "2"'>
-														<option value="1">11</option>
-														<option value="2" selected="selected">22</option>
+														<option value="1">审批</option>
+														<option value="2" selected="selected">审批完了</option>
 													</s:elseif>
 													<s:else>
-														<option value="1">11</option>
-														<option value="2">22</option>
+														<option value="1">审批</option>
+														<option value="2">审批完了</option>
 													</s:else>
 												</select>
 											</td>
@@ -1897,7 +1903,10 @@
 									<s:iterator id="listBidComp" value="listBidComp" status="st1">
 										<tr>
 											<td><s:property value="%{#st1.index + 1}"/></td>
-											<td><s:property value="BID_CO_NAME"/></td>
+											<td>
+												<input name="tmpBID_CO_NO3" type="hidden" value="<s:property value="BID_CO_NO"/>">
+												<s:property value="BID_CO_NAME"/>
+											</td>
 											<td>
 												<div class="input-group date" data-provide="datepicker">
 													<input type="text" name="tmpBID_APPLY_PRICE_DATE" value="<s:date name="BID_APPLY_PRICE_DATE" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
@@ -1907,16 +1916,40 @@
 												</div>
 											</td>
 											<td>
-												<s:if test='BID_PAYMENT_TYPE == "1"'>现金</s:if>
-												<s:elseif test='BID_PAYMENT_TYPE == "2"'>支票</s:elseif>
-												<s:elseif test='BID_PAYMENT_TYPE == "3"'>转账</s:elseif>
-												<s:elseif test='BID_PAYMENT_TYPE == "4"'>汇票</s:elseif>
-												<s:elseif test='BID_PAYMENT_TYPE == "5"'>保函</s:elseif>
-												<s:elseif test='BID_PAYMENT_TYPE == "6"'>现金2</s:elseif>
+												<select name="tmpBID_APPLY_PAYMENT_TYPE" class="form-control">
+													<s:if test='BID_APPLY_PAYMENT_TYPE == "1"'>
+														<option value="0">未支付</option>
+														<option value="1" selected="selected">现金</option>
+														<option value="3">转账</option>
+													</s:if>
+													<s:elseif test='BID_APPLY_PAYMENT_TYPE == "3"'>
+														<option value="0">未支付</option>
+														<option value="1">现金</option>
+														<option value="3" selected="selected">转账</option>
+													</s:elseif>
+													<s:else>
+														<option value="0" selected="selected">未支付</option>
+														<option value="1">现金</option>
+														<option value="3">转账</option>
+													</s:else>
+												</select>
 											</td>
 											<td>
-												<!-- INVOICE_TYPE发票信息? -->
-												<input name="tmpTAX_NO" type="text" value="<s:property value="TAX_NO"/>" class="form-control">
+												<select name="tmpINVOICE_TYPE" class="form-control">
+													<option value="0">请选择</option>
+													<s:if test='INVOICE_TYPE == "1"'>
+														<option value="1" selected="selected">专票</option>
+														<option value="2">普票</option>
+													</s:if>
+													<s:elseif test='INVOICE_TYPE == "2"'>
+														<option value="1">专票</option>
+														<option value="2" selected="selected">普票</option>
+													</s:elseif>
+													<s:else>
+														<option value="1">专票</option>
+														<option value="2">普票</option>
+													</s:else>
+												</select>
 											</td>
 											<td>
 												<div class="input-group date" data-provide="datepicker">
@@ -2014,7 +2047,7 @@
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-4 form-label">中标单位</label>
 									<div class="col-lg-8">
-										<s:textfield name="addBidDto.BID_CO_NAME" id="BID_CO_NAME" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
+										<s:textfield name="addBidDto.BID_CO_NAME" id="BID_CO_NAME" cssClass="form-control" disabled="true" theme="simple"></s:textfield>
 									</div>
 								</div>
 								<div class="col-lg-4 form-group">
@@ -2038,7 +2071,7 @@
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-4 form-label">中标金额</label>
 									<div class="col-lg-7">
-										<s:textfield name="addBidDto.BID_PRICE" id="BID_PRICE" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
+										<s:textfield name="addBidDto.BID_PRICE_LIST" id="BID_PRICE_LIST" disabled="true" cssClass="form-control" theme="simple"></s:textfield>
 									</div>
 									<label for="" class="col-lg-1 form-label" style="text-align:left;">万元</label>
 								</div>
@@ -2115,6 +2148,7 @@
 					</div>
 					<div class="operationBtns addBtns mgt15 btn3">
 						<button type="button" class="btn btn-success" onclick="add();">保存</button>
+						<button type="button" class="btn btn-success" onclick="goBidList();">返回</button>
 					</div>
 				</div>
 			</div>

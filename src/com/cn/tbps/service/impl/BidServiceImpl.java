@@ -347,12 +347,12 @@ public class BidServiceImpl extends BaseService implements BidService {
 				
 				if("1".equals(bidcomp.getBID_RESULT())) {
 					BID_PRICE_LIST += bidcomp.getBID_WIN_PRICE() + ";";
+					bidCompName += bidcomp.getBID_CO_NAME() + ";";
 				}
 				
 				bidCompDao.insertBidComp(bidcomp);
 				
 				bidCompIds += bidcomp.getBID_CO_NO() + ",";
-				bidCompName += bidcomp.getBID_CO_NAME() + ";";
 			}
 		}
 		bidDto.setBID_CO_LIST(bidCompIds);
@@ -394,12 +394,12 @@ public class BidServiceImpl extends BaseService implements BidService {
 				
 				if("1".equals(bidcomp.getBID_RESULT())) {
 					BID_PRICE_LIST += bidcomp.getBID_WIN_PRICE() + ";";
+					bidCompName += bidcomp.getBID_CO_NAME() + ";";
 				}
 				
 				bidCompDao.insertBidComp(bidcomp);
 				
 				bidCompIds += bidcomp.getBID_CO_NO() + ",";
-				bidCompName += bidcomp.getBID_CO_NAME() + ";";
 			}
 		}
 		

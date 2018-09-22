@@ -3,11 +3,11 @@
 #top-l { padding-top: 60px; }
 #top-r { padding-top: 50px; }
 .loginBox { width: 400px; margin: 50px auto; }
-#code { font-family: Arial, 螳倶ｽ�; font-style: italic; color: green; border: 1px solid #eee; background: #e2e2e2; padding: 2px 3px; letter-spacing: 3px; font-weight: bolder; }
+#code { font-family: Arial, 宋体; font-style: italic; color: green; border: 1px solid #eee; background: #e2e2e2; padding: 2px 3px; letter-spacing: 3px; font-weight: bolder; }
 .bottom{ height: 120px; background: #516f89; }
 .login{ position: relative; }
 .login .bottom{ position: fixed; bottom:0; width:100%;}
-#nav{ color�ｼ�#333; background:#e2e2e2; border-bottom: 1px solid #eee; padding:10px 0; }
+.nav{ color:#333; background:#e2e2e2; border-bottom: 1px solid #eee; padding:10px 0; }
 .loginInfo{ float: right; margin-bottom: 0;}
 .loginInfo li{ float:left; margin-right: 25px;}
 .loginInfo li i{ color:#999; margin-right: 5px; }
@@ -78,11 +78,18 @@ h3.title a.backHome i.fa{ margin-right: 5px; font-size: 16px; }
 .table td a{ margin:0 10px; }
 #table tbody tr td { border:0px; }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 41bdc14513c151fc555008177f3724c9292a0e5c
 /*阴影*/
 #fa{display: inline-block;top: 27px;left: 6px;position: relative;color: #ccc;}
 #input[type="text"],input[type="password"]{padding-left:26px;}
 #checkbox{padding-left:21px;}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 41bdc14513c151fc555008177f3724c9292a0e5c
 .session_txt{ margin:0; padding:0; padding-top:155px; font-size:36px; color:#f7b667; text-align:center;}
 .session_txt a{ color:#0087ce; text-decoration:underline;}
 
