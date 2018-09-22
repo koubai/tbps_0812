@@ -358,6 +358,8 @@ public class BidProgressAction extends BaseAction {
 			bidDto.setBID_VER_DOC_DELI_FILE5(File05 + ";" + File05_URL);
 		}
 		
+		bidService.updateBid(bidDto);
+		
 		return SUCCESS;
 		
 	}

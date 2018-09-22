@@ -56,6 +56,7 @@
 				var form = document.getElementById("mainform");
 				form.action='<c:url value="/bidprogress/uploadBidProgressUtilAction.action"></c:url>' + "?upload_fileNo=" + number + "&date=" + new Date();
 				form.submit();//提交表单
+				form.reset();
 			}
 		}
 		
@@ -141,7 +142,7 @@
 								</div>
 								</td>
 								<td>
-								<s:if test='File01!= null'>
+								<s:if test='%{File01!= null}'>
 									<div>
 										<label class="pdf10"><a href=<s:property value="File01_URL" />><s:property value="File01" /></a></label>								
 									</div>
@@ -158,7 +159,7 @@
 								</div>
 								</td>
 							</tr>
-							<tr>
+ 				 			<tr>
 								<td>
 								<div class="col-lg-7 form-group">
 									<label class="pdf10">上传文件2</label>
@@ -166,7 +167,7 @@
 								</div>
 								</td>
 								<td>
-								<s:if test='File02!= null'>
+								<s:if test='%{File02!= null}'>
 									<div>
 										<label class="pdf10"><a href=<s:property value="File02_URL" />><s:property value="File02" /></a></label>								
 									</div>
@@ -191,7 +192,7 @@
 								</div>
 								</td>
 								<td>
-								<s:if test='File03!= null'>
+								<s:if test='%{File03!= null}'>
 									<div>
 										<label class="pdf10"><a href=<s:property value="File03_URL" />><s:property value="File03" /></a></label>								
 									</div>
@@ -216,7 +217,7 @@
 								</div>
 								</td>
 								<td>
-								<s:if test='File04!= null'>
+								<s:if test='%{File04!= null}'>
 									<div>
 										<label class="pdf10"><a href=<s:property value="File04_URL" />><s:property value="File04" /></a></label>								
 									</div>
@@ -241,7 +242,7 @@
 								</div>
 								</td>
 								<td>
-								<s:if test='File05!= null'>
+								<s:if test='%{File05!= null}'>
 									<div>
 										<label class="pdf10"><a href=<s:property value="File05_URL" />><s:property value="File05" /></a></label>								
 									</div>

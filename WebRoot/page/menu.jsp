@@ -3,11 +3,12 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="c" uri="/WEB-INF/c.tld"%>
 <div class="col-lg-2 left">
+	<ul class="nav navbar-nav side-nav">
 	<div class="panel-group" id="accordion">
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h4 class="panel-title">
-					<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"> 合同 </a>
+					<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><i class="fa fa-list-ul"></i> 合同 </a>
 				</h4>
 			</div>
 			<div id="collapseOne" class="panel-collapse collapse">
@@ -25,7 +26,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h4 class="panel-title">
-					<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"> 招标 </a>
+					<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"><i class="fa fa-list-ul"></i> 招标 </a>
 				</h4>
 			</div>
 			<div id="collapseTwo" class="panel-collapse collapse">
@@ -40,7 +41,7 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h4 class="panel-title">
-					<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"> 项目 </a>
+					<a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"><i class="fa fa-list-ul"></i> 项目 </a>
 				</h4>
 			</div>
 			<div id="collapseThree" class="panel-collapse collapse in">
@@ -62,4 +63,5 @@
 			</div>
 		</div>
 	</div>
+	</ul>
 </div>

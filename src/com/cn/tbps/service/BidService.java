@@ -110,6 +110,13 @@ public interface BidService {
 	 */
 	public void updateBidNew(BidDto bidDto, List<BidCompDto> listBidComp, List<ExpertLibDto> listExpertLib);
 	
+	
+	/**
+	 * 修改招标
+	 * @param bidDto
+	 */
+	public void updateBid(BidDto bidDto);
+
 	/**
 	 * 修改招标
 	 * @param bidDto

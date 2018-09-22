@@ -664,7 +664,16 @@ public class BidServiceImpl extends BaseService implements BidService {
 		insertBidHist(bidDto);
 		return bidNo;
 	}
-
+	
+	@Override
+	public void updateBid(BidDto bidDto) {
+		//更新招标
+		bidDao.updateBid(bidDto);
+		//插入招标履历
+		insertBidHist(bidDto);
+	}
+	
+	
 	@Override
 	public void updateBid(BidDto bidDto, List<BidCompDto> listBidComp, List<ExpertLibDto> listExpertLib) {
 		//先删除所有投标公司
