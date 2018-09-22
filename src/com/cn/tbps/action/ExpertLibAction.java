@@ -2,12 +2,11 @@ package com.cn.tbps.action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
-
-import net.sf.json.JSONArray;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -19,11 +18,14 @@ import com.cn.common.factory.PoiFactory;
 import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
+import com.cn.tbps.dto.AjaxDataDto;
 import com.cn.tbps.dto.ExpertLibDto;
 import com.cn.tbps.dto.MajorDto;
 import com.cn.tbps.service.ExpertLibService;
 import com.cn.tbps.service.MajorService;
 import com.opensymphony.xwork2.ActionContext;
+
+import net.sf.json.JSONArray;
 
 /**
  * @name ExpertLibAction.java
@@ -146,6 +148,44 @@ public class ExpertLibAction extends BaseAction {
 	
 	private String strParentMajorCode;
 	private String strParentMajorType;
+	
+	//ajax查询数据列表
+	private Integer ajaxTotalCount;
+	private Integer ajaxPageIndex;
+	
+	/**
+	 * Ajax翻页查询函数
+	 * @return
+	 * @throws IOException
+	 */
+	public String queryExpertLibAjax() throws IOException {
+		HttpServletResponse response = ServletActionContext.getResponse();
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out;
+		AjaxDataDto ajaxData = new AjaxDataDto();
+		try {
+			this.clearMessages();
+			//ajax中文乱码处理
+			strExpertName = URLDecoder.decode(strExpertName, "UTF-8");
+			strExpertMajor = URLDecoder.decode(strExpertMajor, "UTF-8");
+			Page pp = new Page(8);
+			pp.setTotalCount(ajaxTotalCount);
+			pp.setStartIndex(ajaxPageIndex);
+			pp = expertLibService.queryExpertLibByPageNew(strExpertName, strExpertMajor, pp);
+			ajaxData.setData(pp);
+		} catch(Exception e) {
+			ajaxData.setResultCode(-1);
+			ajaxData.setResultMessage("查询数据异常：" + e.getMessage());
+			return ERROR;
+		}
+		out = response.getWriter();
+		String result = JSONArray.fromObject(ajaxData).toString();
+		result = result.substring(1, result.length() - 1);
+		log.info(result);
+		out.write(result);
+		out.flush();
+		return null;
+	}
 	
 	/**
 	 * 显示专业选择页面
@@ -1248,5 +1288,21 @@ public class ExpertLibAction extends BaseAction {
 
 	public void setStrExpertMajorName(String strExpertMajorName) {
 		this.strExpertMajorName = strExpertMajorName;
+	}
+
+	public Integer getAjaxTotalCount() {
+		return ajaxTotalCount;
+	}
+
+	public void setAjaxTotalCount(Integer ajaxTotalCount) {
+		this.ajaxTotalCount = ajaxTotalCount;
+	}
+
+	public Integer getAjaxPageIndex() {
+		return ajaxPageIndex;
+	}
+
+	public void setAjaxPageIndex(Integer ajaxPageIndex) {
+		this.ajaxPageIndex = ajaxPageIndex;
 	}
 }

@@ -202,6 +202,11 @@ public class BidServiceImpl extends BaseService implements BidService {
 	public BidDto queryBidByID(String bidNo) {
 		return bidDao.queryBidByID(bidNo);
 	}
+	
+	@Override
+	public List<BidDto> queryAllBidByCntrctNo(String CNTRCT_NO) {
+		return bidDao.queryAllBidByCntrctNo(CNTRCT_NO);
+	}
 
 	@Override
 	public BidDto queryAllBidByID(String bidNo) {
@@ -260,13 +265,13 @@ public class BidServiceImpl extends BaseService implements BidService {
 				while(true) {
 					if("1".equals(bidDto.getCNTRCT_TYPE())) {
 						//招标编号，类型=招标
-						bidNo = "LHZB-" + key.substring(2, 4) + "-" + StringUtil.replenishStr("" + newValue, 3);
+						bidNo = "LHZB-" + key.substring(0, 4) + "-" + StringUtil.replenishStr("" + newValue, 4);
 					} else if("2".equals(bidDto.getCNTRCT_TYPE())) {
 						//招标编号，类型=比选
-						bidNo = "LHBX-" + key.substring(2, 4) + "-" + StringUtil.replenishStr("" + newValue, 3);
+						bidNo = "LHBX-" + key.substring(0, 4) + "-" + StringUtil.replenishStr("" + newValue, 4);
 					} else if("4".equals(bidDto.getCNTRCT_TYPE())) {
 						//招标编号，类型=竞价
-						bidNo = "LHJJ-" + key.substring(2, 4) + "-" + StringUtil.replenishStr("" + newValue, 3);
+						bidNo = "LHJJ-" + key.substring(0, 4) + "-" + StringUtil.replenishStr("" + newValue, 4);
 					}
 
 					//验证自动生成的招标编号是否已存在
@@ -314,7 +319,7 @@ public class BidServiceImpl extends BaseService implements BidService {
 					if(b == null) {
 						break;
 					} else {
-						//该招标编号存在，则将招标编号转化为XXXX-YY-NNN-A格式
+						//该招标编号存在，则将招标编号转化为XXXX-YYYY-NNNN-A格式
 						bidNo = bidDto.getBID_NO();
 						bidNo = bidNo + "-" + i;
 					}
@@ -331,6 +336,8 @@ public class BidServiceImpl extends BaseService implements BidService {
 
 		String bidCompName = "";
 		String bidCompIds = "";
+		//中标金额一览
+		String BID_PRICE_LIST = "";
 		//保存招标公司信息
 		if(listBidComp != null && listBidComp.size() > 0) {
 			for(BidCompDto bidcomp : listBidComp) {
@@ -338,14 +345,19 @@ public class BidServiceImpl extends BaseService implements BidService {
 				bidcomp.setDELETE_FLG(Constants.IS_DELETE_NORMAL);
 				bidcomp.setUPDATE_USER(bidDto.getUPDATE_USER());
 				
+				if("1".equals(bidcomp.getBID_RESULT())) {
+					BID_PRICE_LIST += bidcomp.getBID_WIN_PRICE() + ";";
+				}
+				
 				bidCompDao.insertBidComp(bidcomp);
 				
 				bidCompIds += bidcomp.getBID_CO_NO() + ",";
-				bidCompName += bidcomp.getBID_CO_NAME() + ",";
+				bidCompName += bidcomp.getBID_CO_NAME() + ";";
 			}
 		}
 		bidDto.setBID_CO_LIST(bidCompIds);
 		bidDto.setBID_CO_NAME(bidCompName);
+		bidDto.setBID_PRICE_LIST(BID_PRICE_LIST);
 		
 		//专家列表
 		String expertLibIds = "";
@@ -371,6 +383,8 @@ public class BidServiceImpl extends BaseService implements BidService {
 		//更新投标公司
 		String bidCompName = "";
 		String bidCompIds = "";
+		//中标金额一览
+		String BID_PRICE_LIST = "";
 		if(listBidComp != null && listBidComp.size() > 0) {
 			for(BidCompDto bidcomp : listBidComp) {
 				bidcomp.setBID_CO_NO(null);
@@ -378,15 +392,20 @@ public class BidServiceImpl extends BaseService implements BidService {
 				bidcomp.setDELETE_FLG(Constants.IS_DELETE_NORMAL);
 				bidcomp.setUPDATE_USER(bidDto.getUPDATE_USER());
 				
+				if("1".equals(bidcomp.getBID_RESULT())) {
+					BID_PRICE_LIST += bidcomp.getBID_WIN_PRICE() + ";";
+				}
+				
 				bidCompDao.insertBidComp(bidcomp);
 				
 				bidCompIds += bidcomp.getBID_CO_NO() + ",";
-				bidCompName += bidcomp.getBID_CO_NAME() + ",";
+				bidCompName += bidcomp.getBID_CO_NAME() + ";";
 			}
 		}
 		
 		bidDto.setBID_CO_LIST(bidCompIds);
 		bidDto.setBID_CO_NAME(bidCompName);
+		bidDto.setBID_PRICE_LIST(BID_PRICE_LIST);
 		
 		//专家列表
 		String expertLibIds = "";
@@ -1304,6 +1323,7 @@ public class BidServiceImpl extends BaseService implements BidService {
 		bidHist.setBID_EXPERT_COMMISION_DIFF_DATE(bid.getBID_EXPERT_COMMISION_DIFF_DATE());
 		bidHist.setBID_APPLY_PRICE(bid.getBID_APPLY_PRICE());
 		bidHist.setBID_EXPERT_COMMISION_APPLY(bid.getBID_EXPERT_COMMISION_APPLY());
+		bidHist.setBID_EXPERT_COMMISION_APPLY_DATE(bid.getBID_EXPERT_COMMISION_APPLY_DATE());
 		bidHist.setAPPLY_FORM_EDIT_DATE(bid.getAPPLY_FORM_EDIT_DATE());
 		bidHist.setAPPLY_FORM_COLLECT_DATE(bid.getAPPLY_FORM_COLLECT_DATE());
 		bidHist.setAPPLY_FORM_VERIFY_DATE(bid.getAPPLY_FORM_VERIFY_DATE());
@@ -1360,6 +1380,7 @@ public class BidServiceImpl extends BaseService implements BidService {
 		bidHist.setBID_VER_DOC_DELI_FILE10(bid.getBID_VER_DOC_DELI_FILE10());
 		bidHist.setPROGRESS_STATUS(bid.getPROGRESS_STATUS());
 		bidHist.setFINISH_STATUS(bid.getFINISH_STATUS());
+		bidHist.setFINISH_DATE(bid.getFINISH_DATE());
 		bidHist.setFINISH_NOTE(bid.getFINISH_NOTE());
 		bidHist.setSTATUS(bid.getSTATUS());
 		bidHist.setMEMO1(bid.getMEMO1());

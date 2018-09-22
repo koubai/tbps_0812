@@ -6,6 +6,10 @@
 
 	<package name="agentcomp" extends="struts-tbps" namespace="/agentcomp">
 	
+		<action name="queryAgentCompAjax" class="agentCompAction" method="queryAgentCompAjax">
+			<result type="json"></result>
+		</action>
+		
 		<action name="showAgentCompAction" class="agentCompAction" method="showAgentCompAction">
 			<result name="success">/page/agentcomp/agentcomplist.jsp</result>
 		</action>

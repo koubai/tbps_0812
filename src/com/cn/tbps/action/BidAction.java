@@ -1,6 +1,7 @@
 package com.cn.tbps.action;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.LogManager;
@@ -8,12 +9,12 @@ import org.apache.log4j.Logger;
 
 import com.cn.common.action.BaseAction;
 import com.cn.common.util.Constants;
-import com.cn.common.util.DateUtil;
 import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
 import com.cn.tbps.dto.BidCompDto;
 import com.cn.tbps.dto.BidDto;
 import com.cn.tbps.dto.ExpertLibDto;
+import com.cn.tbps.dto.SuperviseLibDto;
 import com.cn.tbps.dto.UserInfoDto;
 import com.cn.tbps.service.AgentCompService;
 import com.cn.tbps.service.BidCompApplyService;
@@ -22,6 +23,7 @@ import com.cn.tbps.service.BidService;
 import com.cn.tbps.service.ConfigTabService;
 import com.cn.tbps.service.ExpertLibService;
 import com.cn.tbps.service.MajorService;
+import com.cn.tbps.service.SuperviseLibService;
 import com.cn.tbps.service.UserInfoService;
 import com.opensymphony.xwork2.ActionContext;
 
@@ -38,6 +40,8 @@ public class BidAction extends BaseAction {
 	private static final Logger log = LogManager.getLogger(BidAction.class);
 	
 	private BidService bidService;
+	
+	private SuperviseLibService superviseLibService;
 	
 	private BidCompService bidCompService;
 	
@@ -121,6 +125,8 @@ public class BidAction extends BaseAction {
 	
 	private List<UserInfoDto> listUserInfo;
 	
+	private List<SuperviseLibDto> listSuperviseLib;
+	
 	/**
 	 * 修改招标DTO
 	 */
@@ -150,25 +156,18 @@ public class BidAction extends BaseAction {
 			listExpertLibTmp = new ArrayList<ExpertLibDto>();
 			
 			listUserInfo = userInfoService.queryAllUser();
+			listSuperviseLib = superviseLibService.queryAllSuperviseLib();
 			addBidDto = new BidDto();
-			
-			//测试数据
-//			addBidDto.setCNTRCT_NO("10021");
-//			addBidDto.setCNTRCT_TYPE("1");
-//			addBidDto.setCNTRCT_YEAR("2018");
-//			addBidDto.setCNTRCT_ST_DATE(DateUtil.strToDate("2018-08-01", DateUtil.DATE_FORMAT_SHORT));
-//			addBidDto.setCNTRCT_ED_DATE(DateUtil.strToDate("2018-09-01", DateUtil.DATE_FORMAT_SHORT));
-//			addBidDto.setBID_COMP_NO("1");
-//			addBidDto.setBID_COMP_NAME("上海招标公司");
-//			addBidDto.setCO_MANAGER1("王经理");
-//			addBidDto.setCO_MANAGER_TEL1("13312121123");
-//			addBidDto.setCO_ADDRESS1("宝山区");
-//			addBidDto.setCO_MANAGER_EMAIL1("wang@tbps.com");
-//			addBidDto.setCO_TAX("200012");
-			
 			//默认为不随机
 //			addBidDto.setIS_RANDOM("0");
 			addBidDto.setSTATUS("0");
+			//承接项目日期默认=当天
+			addBidDto.setPROJECT_DEVIEW_DATE(new Date());
+			String userid = (String) ActionContext.getContext().getSession().get(Constants.USER_ID);
+			//默认专家费申请人=当前用户
+			addBidDto.setBID_EXPERT_COMMISION_APPLY(userid);
+			//默认评审人=当前用户
+			addBidDto.setBID_AUTH(userid);
 		} catch(Exception e) {
 			return ERROR;
 		}
@@ -183,6 +182,7 @@ public class BidAction extends BaseAction {
 		try {
 			this.clearMessages();
 			listUserInfo = userInfoService.queryAllUser();
+			listSuperviseLib = superviseLibService.queryAllSuperviseLib();
 			
 			listBidComp = listBidCompTmp;
 			listExpertLib = listExpertLibTmp;
@@ -193,8 +193,8 @@ public class BidAction extends BaseAction {
 				return "checkerror";
 			}
 			
-			//分类=招标办/竞价，则校验招标编号是否存在
-			if("3".equals(addBidDto.getCNTRCT_TYPE()) || "4".equals(addBidDto.getCNTRCT_TYPE())) {
+			//分类=招标办，则校验招标编号是否存在
+			if("3".equals(addBidDto.getCNTRCT_TYPE())) {
 				//分类=招标办，则校验招标编号是否存在
 				BidDto bid = bidService.queryAllBidByID(addBidDto.getBID_NO());
 				if(bid != null) {
@@ -216,6 +216,8 @@ public class BidAction extends BaseAction {
 			addBidDto.setDELETE_FLG(Constants.IS_DELETE_NORMAL);
 			//投标状态=报名
 			addBidDto.setSTATUS("10");
+			//默认状态=20进行中
+			addBidDto.setFINISH_STATUS(Constants.FINISH_STATUS_IN_PROCESS);
 			String username = (String) ActionContext.getContext().getSession().get(Constants.USER_NAME);
 			addBidDto.setUPDATE_USER(username);
 			
@@ -254,6 +256,7 @@ public class BidAction extends BaseAction {
 			listBidCompTmp = new ArrayList<BidCompDto>();
 			listExpertLibTmp = new ArrayList<ExpertLibDto>();
 			listUserInfo = userInfoService.queryAllUser();
+			listSuperviseLib = superviseLibService.queryAllSuperviseLib();
 			
 			//查询招标公司列表
 			listBidComp = bidCompService.queryAllBidCompExport(updateBidNo, "", "");
@@ -275,6 +278,7 @@ public class BidAction extends BaseAction {
 		try {
 			this.clearMessages();
 			listUserInfo = userInfoService.queryAllUser();
+			listSuperviseLib = superviseLibService.queryAllSuperviseLib();
 			listBidComp = listBidCompTmp;
 			listExpertLib = listExpertLibTmp;
 			listBidCompTmp = new ArrayList<BidCompDto>();
@@ -417,7 +421,7 @@ public class BidAction extends BaseAction {
 			this.addActionMessage("合同编号不能为空！");
 			return false;
 		}
-		if("3".equals(bid.getCNTRCT_TYPE()) || "4".equals(bid.getCNTRCT_TYPE())) {
+		if("3".equals(bid.getCNTRCT_TYPE())) {
 			//分类=招标办,招标编号为自己输入
 			if(StringUtil.isBlank(bid.getBID_NO())) {
 				this.addActionMessage("招标编号不能为空！");
@@ -729,5 +733,21 @@ public class BidAction extends BaseAction {
 
 	public void setListExpertLibTmp(List<ExpertLibDto> listExpertLibTmp) {
 		this.listExpertLibTmp = listExpertLibTmp;
+	}
+
+	public SuperviseLibService getSuperviseLibService() {
+		return superviseLibService;
+	}
+
+	public void setSuperviseLibService(SuperviseLibService superviseLibService) {
+		this.superviseLibService = superviseLibService;
+	}
+
+	public List<SuperviseLibDto> getListSuperviseLib() {
+		return listSuperviseLib;
+	}
+
+	public void setListSuperviseLib(List<SuperviseLibDto> listSuperviseLib) {
+		this.listSuperviseLib = listSuperviseLib;
 	}
 }

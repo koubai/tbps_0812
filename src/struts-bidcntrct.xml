@@ -6,16 +6,8 @@
 
 	<package name="bidcntrct" extends="struts-tbps" namespace="/bidcntrct">
 	
-		<action name="showSelectBidCntrctPage" class="bidCntrctAction" method="showSelectBidCntrctPage">
-			<result name="success">/page/bidcntrct/selectbidcntrctlist.jsp</result>
-		</action>
-		
-		<action name="querySelectBidCntrctList" class="bidCntrctAction" method="querySelectBidCntrctList">
-			<result name="success">/page/bidcntrct/selectbidcntrctlist.jsp</result>
-		</action>
-		
-		<action name="turnSelectBidCntrctPage" class="bidCntrctAction" method="turnSelectBidCntrctPage">
-			<result name="success">/page/bidcntrct/selectbidcntrctlist.jsp</result>
+		<action name="queryBidCntrctAjax" class="bidCntrctAction" method="queryBidCntrctAjax">
+			<result type="json"></result>
 		</action>
 	
 		<action name="showBidCntrctPage" class="bidCntrctAction" method="showBidCntrctPage">

@@ -424,6 +424,15 @@ public class BidDaoImpl extends BaseDao implements BidDao {
 		List<BidDto> list = getSqlMapClientTemplate().queryForList("queryBidExport", paramMap);
 		return list;
 	}
+	
+	@Override
+	public List<BidDto> queryAllBidByCntrctNo(String CNTRCT_NO) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("CNTRCT_NO", CNTRCT_NO);
+		@SuppressWarnings("unchecked")
+		List<BidDto> list = getSqlMapClientTemplate().queryForList("queryAllBidByCntrctNo", paramMap);
+		return list;
+	}
 
 	/** 招标履历 **/
 	@Override

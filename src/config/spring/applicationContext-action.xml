@@ -2,6 +2,12 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 <beans>
 
+	<bean id="bidExpertCostAction" class="com.cn.tbps.action.BidExpertCostAction" scope="session">
+		<property name="bidService">
+			<ref bean="bidService" />
+		</property>
+	</bean>
+	
 	<bean id="bidAgentCostAction" class="com.cn.tbps.action.BidAgentCostAction" scope="session">
 		<property name="bidService">
 			<ref bean="bidService" />
@@ -11,6 +17,9 @@
 	<bean id="bidCntrctAction" class="com.cn.tbps.action.BidCntrctAction" scope="session">
 		<property name="bidCntrctService">
 			<ref bean="bidCntrctService" />
+		</property>
+		<property name="userInfoService">
+			<ref bean="userInfoService" />
 		</property>
 	</bean>
 	
@@ -99,6 +108,9 @@
 	<bean id="bidAction" class="com.cn.tbps.action.BidAction" scope="session">
 		<property name="bidService">
 			<ref bean="bidService" />
+		</property>
+		<property name="superviseLibService">
+			<ref bean="superviseLibService" />
 		</property>
 		<property name="bidCompService">
 			<ref bean="bidCompService" />

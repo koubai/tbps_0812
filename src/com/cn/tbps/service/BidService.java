@@ -56,6 +56,13 @@ public interface BidService {
 			String bidCoName, String receipt1No, Page page, String bidStatus);
 	
 	/**
+	 * 根据合同编号查询招标记录
+	 * @param CNTRCT_NO
+	 * @return
+	 */
+	public List<BidDto> queryAllBidByCntrctNo(String CNTRCT_NO);
+	
+	/**
 	 * 根据ID查询投标（查询未删除的记录）
 	 * @param bidNo
 	 * @return

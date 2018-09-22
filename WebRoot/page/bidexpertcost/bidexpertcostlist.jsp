@@ -8,7 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-<title>代理费设定</title>
+<title>专家费设定</title>
 <!-- Bootstrap -->
 <link href="<%=request.getContextPath()%>/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/node_modules/font-awesome/css/font-awesome.min.css">
@@ -47,7 +47,7 @@
 
 	function queryList() {
 		setOpenDate();
-		document.mainform.action = '<c:url value="/bidagentcost/queryBidAgentCostList.action"></c:url>';
+		document.mainform.action = '<c:url value="/bidexpertcost/queryBidExpertCostList.action"></c:url>';
 		document.mainform.submit();
 	}
 	
@@ -55,7 +55,7 @@
 	function changePage(pageNum) {
 		setOpenDate();
 		document.getElementById("startIndex").value = pageNum;
-		document.mainform.action = '<c:url value="/bidagentcost/turnBidAgentCostPage.action"></c:url>';
+		document.mainform.action = '<c:url value="/bidexpertcost/turnBidExpertCostPage.action"></c:url>';
 		document.mainform.submit();
 	}
 
@@ -213,22 +213,6 @@
 			alert("请选择一条记录！");
 		}
 	}
-	
-	//代理费计算
-	function calcAmount() {
-		var ids = "";
-		var list = document.getElementsByName("radioKey");
-		for(var i = 0; i < list.length; i++) {
-			if(list[i].checked) {
-				ids = list[i].value + ",";
-			}
-		}
-		if(ids == "") {
-			alert("请选择一条记录！");
-		} else {
-			//弹出代理费计算页面
-		}
-	}
 </script>
 </head>
 <body>
@@ -245,7 +229,7 @@
 					<s:hidden name="strCNTRCT_ED_DATE" id="strCNTRCT_ED_DATE"/>
 					<s:hidden name="strBID_COMP_NO" id="strBID_COMP_NO"/>
 					<s:hidden name="strBID_COMP_NAME" id="strBID_COMP_NAME"/>
-					<h3 class="title">代理费设定<a class="backHome" href="#" onclick="goHome();"><i class="fa fa-home" aria-hidden="true"></i>返回首页</a></h3>
+					<h3 class="title">专家费设定<a class="backHome" href="#" onclick="goHome();"><i class="fa fa-home" aria-hidden="true"></i>返回首页</a></h3>
 					<div class="row">
 						<div class="col-lg-3 form-group">
 							<label for="" class="col-lg-3 form-label">合同年份</label>
@@ -304,28 +288,28 @@
 							<th>委托单位</th>
 							<th>项目进展</th>
 							<th>中标价</th>
-							<th>应收代理费</th>
-							<th>实收代理费</th>
-							<th>代理费支付方</th>
+							<th>专家实际费用</th>
+							<th>专家费申请时间</th>
+							<th>申请人</th>
 						</tr>
 						<s:iterator id="listBid" value="listBid" status="st1">
 							<tr>
-								<td><input name="radioKey" type="checkbox" value="<s:property value="BID_NO"/>"/></td>
+								<td><input name="radioKey" type="radio" value="<s:property value="BID_NO"/>"/></td>
 								<td><s:property value="BID_NO"/></td>
 								<td><s:property value="PROJECT_NAME"/></td>
 								<td><s:property value="BID_CO_NAME"/></td>
 								<td><s:property value="PROGRESS_STATUS"/></td>
 								<td><s:property value="BID_PRICE"/></td>
-								<td><s:property value="BID_AGENT_PRICE"/></td>
-								<td><s:property value="BID_AGENT_PRICE_ACT"/></td>
-								<td><s:property value="BID_AGENT_PAY"/></td>
+								<td></td>
+								<td></td>
+								<td></td>
 							</tr>
 						</s:iterator>
 					</table>
 					<jsp:include page="../turning.jsp" flush="true" />
 					<div class="operationBtns">
 						<!-- <button class="btn btn-success" onclick="save();">保存</button> -->
-						<button type="button" class="btn btn-success" onclick="calcAmount();">代理费计算</button>
+						<button class="btn btn-success" onclick="calcAmount();">专家费计算</button>
 					</div>
 				</s:form>
 			</div>

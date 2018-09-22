@@ -39,7 +39,7 @@ public interface AuditService {
 			String projectManager, String valueDateLow, String valueDateHigh, String agentNo,
 			String reportNoComp, String reportNoLow, String reportNoHigh, Page page, String auditStatus, 
 			String projectClass, String docArrDateLow, String docArrDateHigh, String agentName, 
-			String contractName, String strProjectName);
+			String contractName, String strReportNo, String strProjectName, String strCntrctInfo);
 	
 	/**
 	 * 项目情况检查

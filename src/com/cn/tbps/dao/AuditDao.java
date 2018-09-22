@@ -37,7 +37,7 @@ public interface AuditDao {
 			String projectManager, String valueDateLow, String valueDateHigh, String agentNo,
 			String reportNoComp, String reportNoLow, String reportNoHigh, String auditStatus, 
 			String projectClass, String docArrDateLow, String docArrDateHigh, String agentName, 
-			String contractName, String projectName);
+			String contractName, String reportNo, String projectName, String cntrctInfo);
 	
 	/**
 	 * 翻页查询记录
@@ -60,7 +60,7 @@ public interface AuditDao {
 			String projectManager, String valueDateLow, String valueDateHigh, String agentNo,
 			String reportNoComp, String reportNoLow, String reportNoHigh, String auditStatus, 
 			String projectClass, String docArrDateLow, String docArrDateHigh, String agentName, 
-			String contractName, String projectName, int start, int end);
+			String contractName, String reportNo, String projectName, String cntrctInfo, int start, int end);
 	
 	/**
 	 * 项目情况检查

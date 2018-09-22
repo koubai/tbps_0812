@@ -132,23 +132,35 @@ function regUrl(url) {
 
 //验证招标编号，类型=招标
 function isZB(zbno) {
-	//格式:LHZB-YY-NNN
-	var reg = /^LHZB\-[0-9]{2}\-[0-9]{3}$/;
-	return reg.test(zbno);
+	//格式:LHZB-YYYY-NNNN
+	var reg = /^LHZB\-[0-9]{4}\-[0-9]{4}$/;
+	var reg1 = /^LHZB\-[0-9]{4}\-[0-9]{4}\-[0-9]{2}$/;
+	if(reg.test(zbno) || reg1.test(zbno)) {
+		return true;
+	}
+	return false;
 }
 
 //验证招标编号，类型=比选
 function isBX(zbno) {
-	//格式:LHBX-YY-NNN
-	var reg = /^LHBX\-[0-9]{2}\-[0-9]{3}$/;
-	return reg.test(zbno);
+	//格式:LHBX-YYYY-NNNN
+	var reg = /^LHBX\-[0-9]{4}\-[0-9]{4}$/;
+	var reg1 = /^LHBX\-[0-9]{4}\-[0-9]{4}\-[0-9]{2}$/;
+	if(reg.test(zbno) || reg1.test(zbno)) {
+		return true;
+	}
+	return false;
 }
 
 //验证招标编号，类型=竞价
 function isJJ(zbno) {
-	//格式:LHJJ-YY-NNN
-	var reg = /^LHJJ\-[0-9]{2}\-[0-9]{3}$/;
-	return reg.test(zbno);
+	//格式:LHJJ-YYYY-NNNN
+	var reg = /^LHJJ\-[0-9]{4}\-[0-9]{4}$/;
+	var reg1 = /^LHJJ\-[0-9]{4}\-[0-9]{4}\-[0-9]{2}$/;
+	if(reg.test(zbno) || reg1.test(zbno)) {
+		return true;
+	}
+	return false;
 }
 
 /**

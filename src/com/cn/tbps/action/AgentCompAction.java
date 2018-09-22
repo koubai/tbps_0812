@@ -2,6 +2,7 @@ package com.cn.tbps.action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,8 +19,11 @@ import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
 import com.cn.tbps.dto.AgentCompDto;
+import com.cn.tbps.dto.AjaxDataDto;
 import com.cn.tbps.service.AgentCompService;
 import com.opensymphony.xwork2.ActionContext;
+
+import net.sf.json.JSONArray;
 
 /**
  * 委托公司管理Action
@@ -120,6 +124,43 @@ public class AgentCompAction extends BaseAction {
 	 * 控件ID
 	 */
 	private String strKey;
+	
+	//ajax查询数据列表
+	private Integer ajaxTotalCount;
+	private Integer ajaxPageIndex;
+	
+	/**
+	 * Ajax翻页查询函数
+	 * @return
+	 * @throws IOException
+	 */
+	public String queryAgentCompAjax() throws IOException {
+		HttpServletResponse response = ServletActionContext.getResponse();
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out;
+		AjaxDataDto ajaxData = new AjaxDataDto();
+		try {
+			this.clearMessages();
+			//ajax中文乱码处理
+			agentCompName = URLDecoder.decode(agentCompName, "UTF-8");
+			Page pp = new Page(8);
+			pp.setTotalCount(ajaxTotalCount);
+			pp.setStartIndex(ajaxPageIndex);
+			pp = agentCompService.queryAgentCompByPage(pp, agentCompNoLow, agentCompNoHigh, agentAddFlag, agentCompName);
+			ajaxData.setData(pp);
+		} catch(Exception e) {
+			ajaxData.setResultCode(-1);
+			ajaxData.setResultMessage("查询数据异常：" + e.getMessage());
+			return ERROR;
+		}
+		out = response.getWriter();
+		String result = JSONArray.fromObject(ajaxData).toString();
+		result = result.substring(1, result.length() - 1);
+		log.info(result);
+		out.write(result);
+		out.flush();
+		return null;
+	}
 	
 	/**
 	 * 查询委托公司（选择委托公司）
@@ -707,5 +748,21 @@ public class AgentCompAction extends BaseAction {
 
 	public void setAgentAddFlag(String agentAddFlag) {
 		this.agentAddFlag = agentAddFlag;
+	}
+
+	public Integer getAjaxPageIndex() {
+		return ajaxPageIndex;
+	}
+
+	public void setAjaxPageIndex(Integer ajaxPageIndex) {
+		this.ajaxPageIndex = ajaxPageIndex;
+	}
+
+	public Integer getAjaxTotalCount() {
+		return ajaxTotalCount;
+	}
+
+	public void setAjaxTotalCount(Integer ajaxTotalCount) {
+		this.ajaxTotalCount = ajaxTotalCount;
 	}
 }

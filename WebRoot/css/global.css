@@ -78,8 +78,20 @@ h3.title a.backHome i.fa{ margin-right: 5px; font-size: 16px; }
 .table td a{ margin:0 10px; }
 #table tbody tr td { border:0px; }
 
+<<<<<<< HEAD
 
 /*阴影*/
 #fa{display: inline-block;top: 27px;left: 6px;position: relative;color: #ccc;}
 #input[type="text"],input[type="password"]{padding-left:26px;}
 #checkbox{padding-left:21px;}
+=======
+.session_txt{ margin:0; padding:0; padding-top:155px; font-size:36px; color:#f7b667; text-align:center;}
+.session_txt a{ color:#0087ce; text-decoration:underline;}
+
+#commoncontainer{ margin:0 auto; background:#fff;}
+#commontop{ height:90px; background:#52708a; padding-top:25px; position:relative;}
+.commonlogobox{ position:absolute; right:100px;}
+.commonlogo_tittle{ height:30px; background:url(../images/logo_tittle.png) no-repeat;}
+.commonlogo{ width:120px; height:50px; margin-top:-10px; background:url(../images/logo.png) no-repeat;}
+.commoncontent{ position:relative;}
+>>>>>>> 3502820a03f7b5492977ab11bbf0c604184ea08e

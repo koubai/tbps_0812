@@ -322,6 +322,9 @@
 					T.CONTRACT_CO_NAME like '%$CONTRACT_CO_NAME$%' ESCAPE '/'
 				</isNotEmpty>
 				
+				<isNotEmpty prepend="and" property="REPORT_NO">
+					T.REPORT_NO like '%$REPORT_NO$%' ESCAPE '/'
+				</isNotEmpty>
 				<isNotEmpty prepend="and" property="PROJECT_NAME">
 					T.PROJECT_NAME like '%$PROJECT_NAME$%' ESCAPE '/'
 				</isNotEmpty>
@@ -481,6 +484,9 @@
 					T.CONTRACT_CO_NAME like '%$CONTRACT_CO_NAME$%' ESCAPE '/'
 				</isNotEmpty>
 				
+				<isNotEmpty prepend="and" property="REPORT_NO">
+					T.REPORT_NO like '%$REPORT_NO$%' ESCAPE '/'
+				</isNotEmpty>
 				<isNotEmpty prepend="and" property="PROJECT_NAME">
 					T.PROJECT_NAME like '%$PROJECT_NAME$%' ESCAPE '/'
 				</isNotEmpty>
@@ -647,6 +653,9 @@
 					T.CONTRACT_CO_NAME like '%$CONTRACT_CO_NAME$%' ESCAPE '/'
 				</isNotEmpty>
 				
+				<isNotEmpty prepend="and" property="REPORT_NO">
+					T.REPORT_NO like '%$REPORT_NO$%' ESCAPE '/'
+				</isNotEmpty>
 				<isNotEmpty prepend="and" property="PROJECT_NAME">
 					T.PROJECT_NAME like '%$PROJECT_NAME$%' ESCAPE '/'
 				</isNotEmpty>
@@ -806,6 +815,9 @@
 					T.CONTRACT_CO_NAME like '%$CONTRACT_CO_NAME$%' ESCAPE '/'
 				</isNotEmpty>
 				
+				<isNotEmpty prepend="and" property="REPORT_NO">
+					T.REPORT_NO like '%$REPORT_NO$%' ESCAPE '/'
+				</isNotEmpty>
 				<isNotEmpty prepend="and" property="PROJECT_NAME">
 					T.PROJECT_NAME like '%$PROJECT_NAME$%' ESCAPE '/'
 				</isNotEmpty>
