@@ -3,6 +3,19 @@
 
 <beans>
 
+	<!-- superviseLib -->
+	<bean id="superviseLibService" class="com.cn.tbps.service.impl.SuperviseLibServiceImpl" >
+		<property name="superviseLibDao">
+			<ref local="superviseLibDao"/>
+		</property>
+	</bean>
+	
+	<bean id="superviseLibDao" class="com.cn.tbps.dao.impl.SuperviseLibDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+	
 	<!-- bidcntrct -->
 	<bean id="bidCntrctService" class="com.cn.tbps.service.impl.BidCntrctServiceImpl" >
 		<property name="bidCntrctDao">

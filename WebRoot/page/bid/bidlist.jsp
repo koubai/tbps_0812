@@ -220,7 +220,9 @@
 								<td><input name="radioKey" type="radio" value="<s:property value="BID_NO"/>"/></td>
 								<td><s:property value="BID_NO"/></td>
 								<td><s:property value="PROJECT_NAME"/></td>
-								<td><s:property value="PROGRESS_STATUS"/></td>
+								<td>
+									<s:property value="PROGRESS_STATUS"/>
+								</td>
 								<td>
 									<s:property value="joinBidCompList.size()"/>
 								</td>

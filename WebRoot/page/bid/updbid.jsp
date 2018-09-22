@@ -301,6 +301,29 @@
 		//招标公司
 		$("#bidCompListTable").empty();
 		var rows = document.getElementById("bidCompBody").rows;
+		
+		//开评标
+		var tmpBID_CO_NO1 = $("[name='tmpBID_CO_NO1']");
+		var tmpBidPrice = $("[name='tmpBidPrice']");
+		var tmpBidCheckPrice = $("[name='tmpBidCheckPrice']");
+		//是否中标
+		var tmpBID_RESULT = $("input[name^='tmpBID_RESULT_']");
+		var tmpBidWinPrice = $("[name='tmpBidWinPrice']");
+		
+		//保证金
+		var tmpBID_CO_NO2 = $("[name='tmpBID_CO_NO2']");
+		var tmpBID_VALUE_DATE = $("[name='tmpBID_VALUE_DATE']");
+		var tmpBID_PAYMENT_TYPE = $("[name='tmpBID_PAYMENT_TYPE']");
+		var tmpREFOUND_BOND_STATUS = $("input[name^='tmpREFOUND_BOND_STATUS']");
+		var tmpREFOUND_DEPOSIT_DATE = $("[name='tmpREFOUND_DEPOSIT_DATE']");
+		
+		//标书费
+		var tmpBID_CO_NO3 = $("[name='tmpBID_CO_NO3']");
+		var tmpBID_APPLY_PRICE_DATE = $("[name='tmpBID_APPLY_PRICE_DATE']");
+		var tmpTAX_NO = $("[name='tmpTAX_NO']");
+		var tmpINVOICE_DATE = $("input[name^='tmpINVOICE_DATE']");
+		var tmpBID_RECEIPT_NO = $("[name='tmpBID_RECEIPT_NO']");
+			
 		for(var i = 0; i < rows.length; i++) {
 			var childs = rows[i].cells[1].getElementsByTagName("input");
 			var BID_CO_NO = childs[0].value;
@@ -314,6 +337,47 @@
 			
 			var tr = document.createElement("tr");
 			var td = document.createElement("td");
+			
+			//开评标
+			if(tmpBID_CO_NO1 != null && tmpBID_CO_NO1.length > 0) {
+				for(var j = 0; j< tmpBID_CO_NO1.length; j++) {
+					if(tmpBID_CO_NO1[j].value == BID_CO_NO) {
+						td.appendChild(createInput("listBidCompTmp[" + i + "].BID_PRICE", tmpBidPrice[j]));
+						td.appendChild(createInput("listBidCompTmp[" + i + "].BID_CHECK_PRICE", tmpBidCheckPrice[j]));
+						if(tmpBID_RESULT[j].checked) {
+							td.appendChild(createInput("listBidCompTmp[" + i + "].BID_RESULT", "1"));
+						} else {
+							td.appendChild(createInput("listBidCompTmp[" + i + "].BID_RESULT", "0"));
+						}
+						td.appendChild(createInput("listBidCompTmp[" + i + "].BID_WIN_PRICE", tmpBidWinPrice[j]));
+						break;
+					}
+				}
+			}
+			//保证金
+			if(tmpBID_CO_NO2 != null && tmpBID_CO_NO2.length > 0) {
+				for(var j = 0; j< tmpBID_CO_NO2.length; j++) {
+					if(tmpBID_CO_NO2[j].value == BID_CO_NO) {
+						td.appendChild(createInput("listBidCompTmp[" + i + "].BID_VALUE_DATE", tmpBID_VALUE_DATE[j]));
+						td.appendChild(createInput("listBidCompTmp[" + i + "].BID_PAYMENT_TYPE", tmpBID_PAYMENT_TYPE[j]));
+						td.appendChild(createInput("listBidCompTmp[" + i + "].REFOUND_BOND_STATUS", tmpREFOUND_BOND_STATUS[j]));
+						td.appendChild(createInput("listBidCompTmp[" + i + "].REFOUND_DEPOSIT_DATE", tmpREFOUND_DEPOSIT_DATE[j]));
+						break;
+					}
+				}
+			}
+			//标书费
+			if(tmpBID_CO_NO3 != null && tmpBID_CO_NO3.length > 0) {
+				for(var j = 0; j< tmpBID_CO_NO3.length; j++) {
+					if(tmpBID_CO_NO3[j].value == BID_CO_NO) {
+						td.appendChild(createInput("listBidCompTmp[" + i + "].BID_APPLY_PRICE_DATE", tmpBID_APPLY_PRICE_DATE[j]));
+						td.appendChild(createInput("listBidCompTmp[" + i + "].TAX_NO", tmpTAX_NO[j]));
+						td.appendChild(createInput("listBidCompTmp[" + i + "].INVOICE_DATE", tmpINVOICE_DATE[j]));
+						td.appendChild(createInput("listBidCompTmp[" + i + "].BID_RECEIPT_NO", tmpBID_RECEIPT_NO[j]));
+						break;
+					}
+				}
+			}
 			
 			td.appendChild(createInput("listBidCompTmp[" + i + "].BID_CO_NO", BID_CO_NO));
 			td.appendChild(createInput("listBidCompTmp[" + i + "].BID_CO_NAME", BID_CO_NAME));
@@ -1288,6 +1352,9 @@
 									<div class="col-lg-9">
 										<select class="form-control" name="updateBidDto.PROJECT_AUTH" id="PROJECT_AUTH">
 											<option value="" selected="selected">请选择</option>
+											<s:iterator id="listSuperviseLib" value="listSuperviseLib" status="st1">
+												<option value="<s:property value="SUPERVISE_SEQ"/>" <s:if test="%{updateBidDto.PROJECT_AUTH == SUPERVISE_SEQ}">selected</s:if>><s:property value="SUPERVISE_NAME"/></option>
+											</s:iterator>
 										</select>
 									</div>
 								</div>
@@ -1663,6 +1730,7 @@
 											<td><s:property value="%{#st1.index + 1}"/></td>
 											<td><s:property value="BID_CO_NAME"/></td>
 											<td>
+												<input name="tmpBID_CO_NO1" type="hidden" value="<s:property value="BID_CO_NO"/>">
 												<input name="tmpBidPrice" type="text" value="<s:property value="BID_PRICE"/>" class="form-control">
 											</td>
 											<td>
@@ -1670,10 +1738,10 @@
 											</td>
 											<td>
 												<s:if test='%{BID_RESULT == "1"}'>
-													<input type="checkbox" checked="checked" value="1" />
+													<input name="tmpBID_RESULT_<s:property value="BID_CO_NO"/>" type="checkbox" checked="checked" value="1" />
 												</s:if>
 												<s:else>
-													<input type="checkbox" checked="checked" value="0" />
+													<input name="tmpBID_RESULT_<s:property value="BID_CO_NO"/>" type="checkbox" checked="checked" value="0" />
 												</s:else>
 											</td>
 											<td>
@@ -1755,7 +1823,10 @@
 									<s:iterator id="listBidComp" value="listBidComp" status="st1">
 										<tr>
 											<td><s:property value="%{#st1.index + 1}"/></td>
-											<td><s:property value="BID_CO_NAME"/></td>
+											<td>
+												<input name="tmpBID_CO_NO2" type="hidden" value="<s:property value="BID_CO_NO"/>">
+												<s:property value="BID_CO_NAME"/>
+											</td>
 											<td>
 												<div class="input-group date" data-provide="datepicker">
 													<input type="text" name="tmpBID_VALUE_DATE" value="<s:date name="BID_VALUE_DATE" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
@@ -1884,7 +1955,10 @@
 									<s:iterator id="listBidComp" value="listBidComp" status="st1">
 										<tr>
 											<td><s:property value="%{#st1.index + 1}"/></td>
-											<td><s:property value="BID_CO_NAME"/></td>
+											<td>
+												<input name="tmpBID_CO_NO3" type="hidden" value="<s:property value="BID_CO_NO"/>">
+												<s:property value="BID_CO_NAME"/>
+											</td>
 											<td>
 												<div class="input-group date" data-provide="datepicker">
 													<input type="text" name="tmpBID_APPLY_PRICE_DATE" value="<s:date name="BID_APPLY_PRICE_DATE" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
@@ -1963,7 +2037,12 @@
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-4 form-label">会审监管人</label>
 									<div class="col-lg-8">
-										<input type="text" class="form-control" value="<s:property value="updateBidDto.PROJECT_AUTH"/>" readonly="readonly">
+										<select class="form-control" disabled="disabled">
+											<option value="" selected="selected">请选择</option>
+											<s:iterator id="listSuperviseLib" value="listSuperviseLib" status="st1">
+												<option value="<s:property value="SUPERVISE_SEQ"/>" <s:if test="%{updateBidDto.PROJECT_AUTH == SUPERVISE_SEQ}">selected</s:if>><s:property value="SUPERVISE_NAME"/></option>
+											</s:iterator>
+										</select>
 									</div>
 								</div>
 								<div class="col-lg-4 form-group">
@@ -2041,12 +2120,7 @@
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-4 form-label">开评标日期</label>
 									<div class="col-lg-8">
-										<div class="input-group date" data-provide="datepicker">
-											<input id="" value="" maxlength="10" type="text" class="form-control datepicker" readonly>
-											<div class="input-group-addon">
-												<span class="glyphicon glyphicon-th"></span>
-											</div>
-										</div>
+										<input type="text" value="<s:date name="updateBidDto.TENDER_OPEN_DATE" format="yyyy-MM-dd" />" class="form-control" readonly="readonly">
 									</div>
 								</div>
 								<div class="col-lg-4 form-group">
@@ -2058,12 +2132,7 @@
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-4 form-label">申请日期</label>
 									<div class="col-lg-8">
-										<div class="input-group date" data-provide="datepicker">
-											<input id="" value="" maxlength="10" type="text" class="form-control datepicker" readonly>
-											<div class="input-group-addon">
-												<span class="glyphicon glyphicon-th"></span>
-											</div>
-										</div>
+										<input type="text" value="<s:date name="updateBidDto.TENDER_VERIFY_DATE" format="yyyy-MM-dd" />" class="form-control" readonly="readonly">
 									</div>
 								</div>
 								<div class="col-lg-4 form-group">

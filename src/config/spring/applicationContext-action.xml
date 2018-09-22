@@ -106,6 +106,9 @@
 		<property name="bidService">
 			<ref bean="bidService" />
 		</property>
+		<property name="superviseLibService">
+			<ref bean="superviseLibService" />
+		</property>
 		<property name="bidCompService">
 			<ref bean="bidCompService" />
 		</property>

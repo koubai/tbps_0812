@@ -24,5 +24,6 @@
 	<sqlMap resource="/config/ibatis/tbps-auditcntrcthis.xml" />
 	<sqlMap resource="/config/ibatis/tbps-bidcntrct.xml" />
 	<sqlMap resource="/config/ibatis/tbps-bidcntrcthis.xml" />
+	<sqlMap resource="/config/ibatis/tbps-superviselib.xml" />
 	
 </sqlMapConfig>

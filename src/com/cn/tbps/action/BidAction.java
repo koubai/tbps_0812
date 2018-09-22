@@ -13,6 +13,7 @@ import com.cn.common.util.StringUtil;
 import com.cn.tbps.dto.BidCompDto;
 import com.cn.tbps.dto.BidDto;
 import com.cn.tbps.dto.ExpertLibDto;
+import com.cn.tbps.dto.SuperviseLibDto;
 import com.cn.tbps.dto.UserInfoDto;
 import com.cn.tbps.service.AgentCompService;
 import com.cn.tbps.service.BidCompApplyService;
@@ -21,6 +22,7 @@ import com.cn.tbps.service.BidService;
 import com.cn.tbps.service.ConfigTabService;
 import com.cn.tbps.service.ExpertLibService;
 import com.cn.tbps.service.MajorService;
+import com.cn.tbps.service.SuperviseLibService;
 import com.cn.tbps.service.UserInfoService;
 import com.opensymphony.xwork2.ActionContext;
 
@@ -37,6 +39,8 @@ public class BidAction extends BaseAction {
 	private static final Logger log = LogManager.getLogger(BidAction.class);
 	
 	private BidService bidService;
+	
+	private SuperviseLibService superviseLibService;
 	
 	private BidCompService bidCompService;
 	
@@ -120,6 +124,8 @@ public class BidAction extends BaseAction {
 	
 	private List<UserInfoDto> listUserInfo;
 	
+	private List<SuperviseLibDto> listSuperviseLib;
+	
 	/**
 	 * 修改招标DTO
 	 */
@@ -149,6 +155,7 @@ public class BidAction extends BaseAction {
 			listExpertLibTmp = new ArrayList<ExpertLibDto>();
 			
 			listUserInfo = userInfoService.queryAllUser();
+			listSuperviseLib = superviseLibService.queryAllSuperviseLib();
 			addBidDto = new BidDto();
 			//默认为不随机
 //			addBidDto.setIS_RANDOM("0");
@@ -167,6 +174,7 @@ public class BidAction extends BaseAction {
 		try {
 			this.clearMessages();
 			listUserInfo = userInfoService.queryAllUser();
+			listSuperviseLib = superviseLibService.queryAllSuperviseLib();
 			
 			listBidComp = listBidCompTmp;
 			listExpertLib = listExpertLibTmp;
@@ -238,6 +246,7 @@ public class BidAction extends BaseAction {
 			listBidCompTmp = new ArrayList<BidCompDto>();
 			listExpertLibTmp = new ArrayList<ExpertLibDto>();
 			listUserInfo = userInfoService.queryAllUser();
+			listSuperviseLib = superviseLibService.queryAllSuperviseLib();
 			
 			//查询招标公司列表
 			listBidComp = bidCompService.queryAllBidCompExport(updateBidNo, "", "");
@@ -259,6 +268,7 @@ public class BidAction extends BaseAction {
 		try {
 			this.clearMessages();
 			listUserInfo = userInfoService.queryAllUser();
+			listSuperviseLib = superviseLibService.queryAllSuperviseLib();
 			listBidComp = listBidCompTmp;
 			listExpertLib = listExpertLibTmp;
 			listBidCompTmp = new ArrayList<BidCompDto>();
@@ -713,5 +723,21 @@ public class BidAction extends BaseAction {
 
 	public void setListExpertLibTmp(List<ExpertLibDto> listExpertLibTmp) {
 		this.listExpertLibTmp = listExpertLibTmp;
+	}
+
+	public SuperviseLibService getSuperviseLibService() {
+		return superviseLibService;
+	}
+
+	public void setSuperviseLibService(SuperviseLibService superviseLibService) {
+		this.superviseLibService = superviseLibService;
+	}
+
+	public List<SuperviseLibDto> getListSuperviseLib() {
+		return listSuperviseLib;
+	}
+
+	public void setListSuperviseLib(List<SuperviseLibDto> listSuperviseLib) {
+		this.listSuperviseLib = listSuperviseLib;
 	}
 }

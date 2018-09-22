@@ -213,6 +213,22 @@
 			alert("请选择一条记录！");
 		}
 	}
+	
+	//代理费计算
+	function calcAmount() {
+		var ids = "";
+		var list = document.getElementsByName("radioKey");
+		for(var i = 0; i < list.length; i++) {
+			if(list[i].checked) {
+				ids = list[i].value + ",";
+			}
+		}
+		if(ids == "") {
+			alert("请选择一条记录！");
+		} else {
+			//弹出代理费计算页面
+		}
+	}
 </script>
 </head>
 <body>
@@ -294,7 +310,7 @@
 						</tr>
 						<s:iterator id="listBid" value="listBid" status="st1">
 							<tr>
-								<td><input name="radioKey" type="radio" value="<s:property value="BID_NO"/>"/></td>
+								<td><input name="radioKey" type="checkbox" value="<s:property value="BID_NO"/>"/></td>
 								<td><s:property value="BID_NO"/></td>
 								<td><s:property value="PROJECT_NAME"/></td>
 								<td><s:property value="BID_CO_NAME"/></td>
@@ -309,7 +325,7 @@
 					<jsp:include page="../turning.jsp" flush="true" />
 					<div class="operationBtns">
 						<!-- <button class="btn btn-success" onclick="save();">保存</button> -->
-						<button class="btn btn-success" onclick="calcAmount();">代理费计算</button>
+						<button type="button" class="btn btn-success" onclick="calcAmount();">代理费计算</button>
 					</div>
 				</s:form>
 			</div>

@@ -1288,6 +1288,9 @@
 									<div class="col-lg-9">
 										<select class="form-control" name="addBidDto.PROJECT_AUTH" id="PROJECT_AUTH">
 											<option value="" selected="selected">请选择</option>
+											<s:iterator id="listSuperviseLib" value="listSuperviseLib" status="st1">
+												<option value="<s:property value="SUPERVISE_SEQ"/>" <s:if test="%{addBidDto.PROJECT_AUTH == SUPERVISE_SEQ}">selected</s:if>><s:property value="SUPERVISE_NAME"/></option>
+											</s:iterator>
 										</select>
 									</div>
 								</div>
@@ -1963,7 +1966,12 @@
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-4 form-label">会审监管人</label>
 									<div class="col-lg-8">
-										<input type="text" class="form-control" value="<s:property value="addBidDto.PROJECT_AUTH"/>" readonly="readonly">
+										<select class="form-control" disabled="disabled">
+											<option value="" selected="selected">请选择</option>
+											<s:iterator id="listSuperviseLib" value="listSuperviseLib" status="st1">
+												<option value="<s:property value="SUPERVISE_SEQ"/>" <s:if test="%{addBidDto.PROJECT_AUTH == SUPERVISE_SEQ}">selected</s:if>><s:property value="SUPERVISE_NAME"/></option>
+											</s:iterator>
+										</select>
 									</div>
 								</div>
 								<div class="col-lg-4 form-group">
@@ -2041,12 +2049,7 @@
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-4 form-label">开评标日期</label>
 									<div class="col-lg-8">
-										<div class="input-group date" data-provide="datepicker">
-											<input id="" value="" maxlength="10" type="text" class="form-control datepicker" readonly>
-											<div class="input-group-addon">
-												<span class="glyphicon glyphicon-th"></span>
-											</div>
-										</div>
+										<input type="text" value="<s:date name="addBidDto.TENDER_OPEN_DATE" format="yyyy-MM-dd" />" class="form-control" readonly="readonly">
 									</div>
 								</div>
 								<div class="col-lg-4 form-group">
@@ -2058,12 +2061,7 @@
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-4 form-label">申请日期</label>
 									<div class="col-lg-8">
-										<div class="input-group date" data-provide="datepicker">
-											<input id="" value="" maxlength="10" type="text" class="form-control datepicker" readonly>
-											<div class="input-group-addon">
-												<span class="glyphicon glyphicon-th"></span>
-											</div>
-										</div>
+										<input type="text" value="<s:date name="addBidDto.TENDER_VERIFY_DATE" format="yyyy-MM-dd" />" class="form-control" readonly="readonly">
 									</div>
 								</div>
 								<div class="col-lg-4 form-group">
