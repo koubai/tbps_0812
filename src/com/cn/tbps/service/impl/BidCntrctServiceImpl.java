@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import com.cn.common.service.BaseService;
+import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
 import com.cn.tbps.dao.BidCntrctDao;
@@ -60,7 +61,23 @@ public class BidCntrctServiceImpl extends BaseService implements BidCntrctServic
 				List<BidDto> bidList = bidDao.queryAllBidByCntrctNo(bidCntrct.getCNTRCT_NO());
 				if(bidList != null && bidList.size() > 0) {
 					for(BidDto bid : bidList) {
-						//项目数量计算----按什么方式计算？ TODO
+						//项目数量计算
+						if(Constants.PROGRESS_STATUS_IN_DONE.equals(bid.getPROGRESS_STATUS())) {
+							finishProject++;
+						}
+						if(Constants.PROGRESS_STATUS_IN_PROCESS.equals(bid.getPROGRESS_STATUS())) {
+							buildingProject++;
+						}
+						if(Constants.PROGRESS_STATUS_IN_FAILED1.equals(bid.getPROGRESS_STATUS())
+						|| Constants.PROGRESS_STATUS_IN_FAILED2.equals(bid.getPROGRESS_STATUS())
+						|| Constants.PROGRESS_STATUS_IN_FAILED3.equals(bid.getPROGRESS_STATUS())) {
+							failProject++;
+						}
+						
+						if(!Constants.PROGRESS_STATUS_IN_CANCEL.equals(bid.getPROGRESS_STATUS())) {
+							totalProject++;
+						}
+						
 						//标书费
 						if(bid.getBID_APPLY_PRICE() != null) {
 							bidAmount = bidAmount.add(bid.getBID_APPLY_PRICE());

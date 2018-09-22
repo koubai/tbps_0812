@@ -17,7 +17,9 @@ import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
 import com.cn.tbps.dto.AjaxDataDto;
 import com.cn.tbps.dto.BidCntrctDto;
+import com.cn.tbps.dto.UserInfoDto;
 import com.cn.tbps.service.BidCntrctService;
+import com.cn.tbps.service.UserInfoService;
 import com.opensymphony.xwork2.ActionContext;
 
 import net.sf.json.JSONArray;
@@ -28,6 +30,8 @@ public class BidCntrctAction extends BaseAction {
 	private static final Logger log = LogManager.getLogger(BidCntrctAction.class);
 	
 	private BidCntrctService bidCntrctService;
+	
+	private UserInfoService userInfoService;
 	
 	/**
 	 * 页码
@@ -56,6 +60,8 @@ public class BidCntrctAction extends BaseAction {
 	//委托单位
 	private String strBID_COMP_NO;
 	private String strBID_COMP_NAME;
+	
+	private List<UserInfoDto> listUserInfo;
 	
 	//新增
 	private BidCntrctDto addBidCntrctDto;
@@ -109,6 +115,7 @@ public class BidCntrctAction extends BaseAction {
 	public String showUpdBidCntrct() {
 		try {
 			this.clearMessages();
+			listUserInfo = userInfoService.queryAllUser();
 			updBidCntrctDto = bidCntrctService.queryBidCntrctByID(strUpdCNTRCT_NO);
 		} catch(Exception e) {
 			log.error(e);
@@ -124,6 +131,7 @@ public class BidCntrctAction extends BaseAction {
 	public String updBidCntrct() {
 		try {
 			this.clearMessages();
+			listUserInfo = userInfoService.queryAllUser();
 			//数据校验
 			if(!checkData(updBidCntrctDto)) {
 				return "checkerror";
@@ -144,15 +152,8 @@ public class BidCntrctAction extends BaseAction {
 	public String showAddBidCntrct() {
 		try {
 			this.clearMessages();
+			listUserInfo = userInfoService.queryAllUser();
 			addBidCntrctDto = new BidCntrctDto();
-			//页面调试数据
-//			addBidCntrctDto.setBID_COMP_NO("1");
-//			addBidCntrctDto.setBID_COMP_NAME("上海招标公司");
-//			addBidCntrctDto.setCO_MANAGER1("王经理");
-//			addBidCntrctDto.setCO_MANAGER_TEL1("13312121123");
-//			addBidCntrctDto.setCO_ADDRESS1("宝山区");
-//			addBidCntrctDto.setCO_MANAGER_EMAIL1("wang@tbps.com");
-//			addBidCntrctDto.setCO_TAX("200012");
 		} catch(Exception e) {
 			log.error(e);
 			return ERROR;
@@ -167,6 +168,7 @@ public class BidCntrctAction extends BaseAction {
 	public String addBidCntrct() {
 		try {
 			this.clearMessages();
+			listUserInfo = userInfoService.queryAllUser();
 			//数据校验
 			if(!checkData(addBidCntrctDto)) {
 				return "checkerror";
@@ -418,5 +420,21 @@ public class BidCntrctAction extends BaseAction {
 
 	public void setAjaxPageIndex(Integer ajaxPageIndex) {
 		this.ajaxPageIndex = ajaxPageIndex;
+	}
+
+	public UserInfoService getUserInfoService() {
+		return userInfoService;
+	}
+
+	public void setUserInfoService(UserInfoService userInfoService) {
+		this.userInfoService = userInfoService;
+	}
+
+	public List<UserInfoDto> getListUserInfo() {
+		return listUserInfo;
+	}
+
+	public void setListUserInfo(List<UserInfoDto> listUserInfo) {
+		this.listUserInfo = listUserInfo;
 	}
 }

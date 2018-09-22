@@ -160,6 +160,9 @@ public class BidAction extends BaseAction {
 			//默认为不随机
 //			addBidDto.setIS_RANDOM("0");
 			addBidDto.setSTATUS("0");
+			//默认专家费申请人=当前用户
+			String userid = (String) ActionContext.getContext().getSession().get(Constants.USER_ID);
+			addBidDto.setBID_EXPERT_COMMISION_APPLY(userid);
 		} catch(Exception e) {
 			return ERROR;
 		}
@@ -185,8 +188,8 @@ public class BidAction extends BaseAction {
 				return "checkerror";
 			}
 			
-			//分类=招标办/竞价，则校验招标编号是否存在
-			if("3".equals(addBidDto.getCNTRCT_TYPE()) || "4".equals(addBidDto.getCNTRCT_TYPE())) {
+			//分类=招标办，则校验招标编号是否存在
+			if("3".equals(addBidDto.getCNTRCT_TYPE())) {
 				//分类=招标办，则校验招标编号是否存在
 				BidDto bid = bidService.queryAllBidByID(addBidDto.getBID_NO());
 				if(bid != null) {
@@ -208,6 +211,8 @@ public class BidAction extends BaseAction {
 			addBidDto.setDELETE_FLG(Constants.IS_DELETE_NORMAL);
 			//投标状态=报名
 			addBidDto.setSTATUS("10");
+			//默认状态=20进行中
+			addBidDto.setPROGRESS_STATUS(Constants.PROGRESS_STATUS_IN_PROCESS);
 			String username = (String) ActionContext.getContext().getSession().get(Constants.USER_NAME);
 			addBidDto.setUPDATE_USER(username);
 			
@@ -411,7 +416,7 @@ public class BidAction extends BaseAction {
 			this.addActionMessage("合同编号不能为空！");
 			return false;
 		}
-		if("3".equals(bid.getCNTRCT_TYPE()) || "4".equals(bid.getCNTRCT_TYPE())) {
+		if("3".equals(bid.getCNTRCT_TYPE())) {
 			//分类=招标办,招标编号为自己输入
 			if(StringUtil.isBlank(bid.getBID_NO())) {
 				this.addActionMessage("招标编号不能为空！");

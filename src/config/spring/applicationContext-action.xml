@@ -18,6 +18,9 @@
 		<property name="bidCntrctService">
 			<ref bean="bidCntrctService" />
 		</property>
+		<property name="userInfoService">
+			<ref bean="userInfoService" />
+		</property>
 	</bean>
 	
 	<bean id="bidProgressAction" class="com.cn.tbps.action.BidProgressAction" scope="session">

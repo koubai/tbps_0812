@@ -47,8 +47,9 @@
 		var CNTRCT_ST_DATE = $("#CNTRCT_ST_DATE").val();
 		var CNTRCT_ED_DATE = $("#CNTRCT_ED_DATE").val();
 		var CNTRCT_TYPE = $("#CNTRCT_TYPE").val();
-		var BID_COMP_NO = $("#BID_COMP_NO").val();
+		var PROJECT_SENIOR_MANAGER = $("#PROJECT_SENIOR_MANAGER").val();
 		
+		var BID_COMP_NO = $("#BID_COMP_NO").val();
 		var CO_MANAGER1 = $("#CO_MANAGER1").val();
 		var CO_MANAGER_TEL1 = $("#CO_MANAGER_TEL1").val();
 		var CO_ADDRESS1 = $("#CO_ADDRESS1").val();
@@ -77,6 +78,11 @@
 		if(CNTRCT_TYPE == "") {
 			alert("请选择合同类别！");
 			$("#CNTRCT_TYPE").focus();
+			return false;
+		}
+		if(PROJECT_SENIOR_MANAGER == "") {
+			alert("请选择负责人！");
+			$("#PROJECT_SENIOR_MANAGER").focus();
 			return false;
 		}
 		if(BID_COMP_NO == "") {
@@ -320,6 +326,17 @@
 										<option value="1">招标</option>
 										<option value="4">竞价</option>
 									</s:else>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-3 form-group">
+							<label for="" class="col-lg-3 form-label"><span class="red">*</span>负责人</label>
+							<div class="col-lg-9">
+								<select name="updBidCntrctDto.PROJECT_SENIOR_MANAGER" id="PROJECT_SENIOR_MANAGER" class="form-control">
+									<option value="">请选择</option>
+									<s:iterator id="listUserInfo" value="listUserInfo" status="st1">
+										<option value="<s:property value="LOGIN_ID"/>" <s:if test="%{updBidCntrctDto.PROJECT_SENIOR_MANAGER == LOGIN_ID}">selected</s:if>><s:property value="LOGIN_NAME"/></option>
+									</s:iterator>
 								</select>
 							</div>
 						</div>

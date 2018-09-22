@@ -70,8 +70,8 @@
 			return false;
 		}
 		
-		if(CNTRCT_TYPE == "3" || CNTRCT_TYPE == "4" ) {
-			//分类=招标办 or 分类=竞价,招标编号为自己输入
+		if(CNTRCT_TYPE == "3") {
+			//分类=招标办,招标编号为自己输入
 			if(BID_NO == "") {
 				alert("招标编号不能为空！");
 				$("#BID_NO").focus();
@@ -95,21 +95,21 @@
 			if(CNTRCT_TYPE == "1") {
 				//验证招标编号格式是否正确
 				if(!isZB(BID_NO)) {
-					alert("招标编号格式不正确，应为：LHZB-YY-NNN！");
+					alert("招标编号格式不正确，应为：LHZB-YYYY-NNNNN或LHZB-YYYY-NNNNN-NN！");
 					$("#BID_NO").focus();
 					return false;
 				}
 			} else if(CNTRCT_TYPE == "2") {
 				//验证招标编号格式是否正确
 				if(!isBX(BID_NO)) {
-					alert("招标编号格式不正确，应为：LHBX-YY-NNN！");
+					alert("招标编号格式不正确，应为：LHBX-YYYY-NNNN或LHBX-YYYY-NNNN-NN！");
 					$("#BID_NO").focus();
 					return false;
 				}
 			} else if(CNTRCT_TYPE == "4") {
 				//验证招标编号格式是否正确
 				if(!isJJ(BID_NO)) {
-					alert("招标编号格式不正确，应为：LHJJ-YY-NNN！");
+					alert("招标编号格式不正确，应为：LHJJ-YYYY-NNNN或LHJJ-YYYY-NNNN-NN！");
 					$("#BID_NO").focus();
 					return false;
 				}
@@ -260,8 +260,8 @@
 		
 		$("#RECEIPT1_DATE").attr("value", $("#tmpRECEIPT1_DATE").val());
 		$("#RECEIPT1_VALUE_DATE").attr("value", $("#tmpRECEIPT1_VALUE_DATE").val());
-		
 		$("#BID_EXPERT_COMMISION_DIFF_DATE").attr("value", $("#tmpBID_EXPERT_COMMISION_DIFF_DATE").val());
+		$("#BID_EXPERT_COMMISION_APPLY_DATE").attr("value", $("#tmpBID_EXPERT_COMMISION_APPLY_DATE").val());
 		
 		//默认0
 		if($("#BID_AGENT_PRICE").val() == "") {
@@ -669,6 +669,7 @@
 					html += '		<input type="hidden" value="' + n.CO_MANAGER_TEL1 + '">';
 					html += '		<input type="hidden" value="' + n.CNTRCT_TYPE + '">';
 					html += '		<input type="hidden" value="' + n.CO_TAX + '">';
+					html += '		<input type="hidden" value="' + n.PROJECT_SENIOR_MANAGER + '">';
 					html += '	</td>';
 					html += '	<td>' + n.CNTRCT_YEAR + '</td>';
 					html += '	<td>' + n.CNTRCT_NO + '</td>';
@@ -745,6 +746,7 @@
 			var CO_MANAGER_TEL1 = inputs[9].value;
 			var CNTRCT_TYPE = inputs[10].value;
 			var CO_TAX = inputs[11].value;
+			var PROJECT_SENIOR_MANAGER = inputs[12].value;
 			$('#tmpCNTRCT_NO').val(CNTRCT_NO);
 			$('#tmpCNTRCT_YEAR').val(CNTRCT_YEAR);
 			$('#tmpCNTRCT_ST_DATE').val(showCNTRCT_ST_DATE);
@@ -756,6 +758,8 @@
 			$('#tmpCO_MANAGER_EMAIL1').val(CO_MANAGER_EMAIL1);
 			$('#tmpCO_MANAGER_TEL1').val(CO_MANAGER_TEL1);
 			$('#tmpCNTRCT_TYPE').val(CNTRCT_TYPE);
+			$('#tmpPROJECT_MANAGER').val(PROJECT_SENIOR_MANAGER);
+			$('#PROJECT_MANAGER').val(PROJECT_SENIOR_MANAGER);
 			if(CNTRCT_TYPE == "1") {
 				$('#tmpCNTRCT_TYPE_NAME').val("招标");
 			} else if(CNTRCT_TYPE == "4") {
@@ -1069,6 +1073,7 @@
 			<s:hidden name="addBidDto.CNTRCT_ED_DATE" id="CNTRCT_ED_DATE"/>
 			<s:hidden name="addBidDto.BID_COMP_NO" id="BID_COMP_NO"/>
 			<s:hidden name="addBidDto.BID_COMP_NAME" id="BID_COMP_NAME"/>
+			<s:hidden name="addBidDto.PROJECT_MANAGER" id="PROJECT_MANAGER"/>
 			<s:hidden name="addBidDto.CO_MANAGER1" id="CO_MANAGER1"/>
 			<s:hidden name="addBidDto.CO_MANAGER_TEL1" id="CO_MANAGER_TEL1"/>
 			<s:hidden name="addBidDto.CO_ADDRESS1" id="CO_ADDRESS1"/>
@@ -1090,7 +1095,7 @@
 			<s:hidden name="addBidDto.APPLY_REQUIRE" id="APPLY_REQUIRE"/>
 			<s:hidden name="addBidDto.TENDER_OPEN_DATE" id="TENDER_OPEN_DATE"/>
 			<s:hidden name="addBidDto.TENDER_VERIFY_DATE" id="TENDER_VERIFY_DATE"/>
-			
+			<s:hidden name="addBidDto.BID_EXPERT_COMMISION_APPLY_DATE" id="BID_EXPERT_COMMISION_APPLY_DATE"/>
 			<s:hidden name="addBidDto.RECEIPT1_DATE" id="RECEIPT1_DATE"/>
 			<s:hidden name="addBidDto.RECEIPT1_VALUE_DATE" id="RECEIPT1_VALUE_DATE"/>
 			<s:hidden name="addBidDto.BID_EXPERT_COMMISION_DIFF_DATE" id="BID_EXPERT_COMMISION_DIFF_DATE"/>
@@ -1137,47 +1142,47 @@
 						 	<label for="" class="col-lg-2 form-label">单位名称</label>
 						 	<div class="col-lg-10">
 						 		<input type="hidden" id="tmpBID_COMP_NO" value="<s:property value="addBidDto.BID_COMP_NO"/>">
-								<input id="tmpBID_COMP_NAME" value="<s:property value="addBidDto.BID_COMP_NAME"/>" maxlength="40" type="text" class="form-control">
+								<input id="tmpBID_COMP_NAME" value="<s:property value="addBidDto.BID_COMP_NAME"/>" disabled="disabled" maxlength="40" type="text" class="form-control">
 						 	</div>
 						 </div>
 						 <div class="col-lg-6 form-group">
 						 	<label for="" class="col-lg-2 form-label">地址</label>
 						 	<div class="col-lg-10">
-						 		<input id="tmpCO_ADDRESS1" value="<s:property value="addBidDto.CO_ADDRESS1"/>" maxlength="40" type="text" class="form-control">
+						 		<input id="tmpCO_ADDRESS1" value="<s:property value="addBidDto.CO_ADDRESS1"/>" disabled="disabled" maxlength="40" type="text" class="form-control">
 						 	</div>
 						 </div>
 						 <div class="col-lg-6 form-group">
 						 	<label for="" class="col-lg-2 form-label">联系人</label>
 						 	<div class="col-lg-10">
-						 		<input id="tmpCO_MANAGER1" value="<s:property value="addBidDto.CO_MANAGER1"/>" maxlength="40" type="text" class="form-control">
+						 		<input id="tmpCO_MANAGER1" value="<s:property value="addBidDto.CO_MANAGER1"/>" disabled="disabled" maxlength="40" type="text" class="form-control">
 						 	</div>
 						 </div>
 						 <div class="col-lg-6 form-group">
 						 	<label for="" class="col-lg-2 form-label">邮箱</label>
 						 	<div class="col-lg-10">
-						 		<input id="tmpCO_MANAGER_EMAIL1" value="<s:property value="addBidDto.CO_MANAGER_EMAIL1"/>" maxlength="100" type="text" class="form-control">
+						 		<input id="tmpCO_MANAGER_EMAIL1" value="<s:property value="addBidDto.CO_MANAGER_EMAIL1"/>" disabled="disabled" maxlength="100" type="text" class="form-control">
 						 	</div>
 						 </div>
 						  <div class="col-lg-6 form-group">
 						 	<label for="" class="col-lg-2 form-label">联系方式</label>
 						 	<div class="col-lg-10">
-						 		<input id="tmpCO_MANAGER_TEL1" value="<s:property value="addBidDto.CO_MANAGER_TEL1"/>" maxlength="40" type="text" class="form-control">
+						 		<input id="tmpCO_MANAGER_TEL1" value="<s:property value="addBidDto.CO_MANAGER_TEL1"/>" disabled="disabled" maxlength="40" type="text" class="form-control">
 						 	</div>
 						 </div>
 						  <div class="col-lg-6 form-group">
 						 	<label for="" class="col-lg-2 form-label">开票信息</label>
 						 	<div class="col-lg-10">
-						 		<input id="tmpCO_TAX" value="<s:property value="addBidDto.CO_TAX"/>" maxlength="80" type="text" class="form-control">
+						 		<input id="tmpCO_TAX" value="<s:property value="addBidDto.CO_TAX"/>" disabled="disabled" maxlength="80" type="text" class="form-control">
 						 	</div>
 						 </div>
 						 <div class="col-lg-6 form-group">
 						 	<label for="" class="col-lg-2 form-label">招标编号</label>
 						 	<div class="col-lg-8">
-						 		<s:if test='addBidDto.CNTRCT_TYPE != "3" && addBidDto.CNTRCT_TYPE != "4" && addBidDto.IS_RANDOM == "1"'>
-									<s:textfield name="addBidDto.BID_NO" id="BID_NO" disabled="true" cssClass="form-control" maxlength="13" theme="simple"></s:textfield>
+						 		<s:if test='addBidDto.CNTRCT_TYPE != "3" && addBidDto.IS_RANDOM == "1"'>
+									<s:textfield name="addBidDto.BID_NO" id="BID_NO" disabled="true" cssClass="form-control" maxlength="18" theme="simple"></s:textfield>
 								</s:if>
 								<s:else>
-									<s:textfield name="addBidDto.BID_NO" id="BID_NO" cssClass="form-control" maxlength="13" theme="simple"></s:textfield>
+									<s:textfield name="addBidDto.BID_NO" id="BID_NO" cssClass="form-control" maxlength="18" theme="simple"></s:textfield>
 								</s:else>
 						 	</div>
 						 	<div class="col-lg-2 checkBox">
@@ -1190,26 +1195,27 @@
 							</div>
 						</div>
 						<div class="col-lg-6 form-group">
-						 	<label for="" class="col-lg-2 form-label">分类</label>
+						 	<label for="" class="col-lg-2 form-label">类别</label>
 						 	<div class="col-lg-10">
 						 		<input id="tmpCNTRCT_TYPE" value="<s:property value="addBidDto.CNTRCT_TYPE"/>" type="hidden" class="form-control">
 						 		<s:if test='addBidDto.CNTRCT_TYPE == "1"'>
-						 			<input id="tmpCNTRCT_TYPE_NAME" value="招标" maxlength="80" type="text" class="form-control" readonly>
+						 			<input id="tmpCNTRCT_TYPE_NAME" value="招标" maxlength="80" type="text" class="form-control" disabled="disabled">
 						 		</s:if>
 						 		<s:elseif test='addBidDto.CNTRCT_TYPE == "4"'>
-						 			<input id="tmpCNTRCT_TYPE_NAME" value="竞价" maxlength="80" type="text" class="form-control" readonly>
+						 			<input id="tmpCNTRCT_TYPE_NAME" value="竞价" maxlength="80" type="text" class="form-control" disabled="disabled">
 						 		</s:elseif>
 						 		<s:else>
-						 			<input id="tmpCNTRCT_TYPE_NAME" value="" maxlength="80" type="text" class="form-control" readonly>
+						 			<input id="tmpCNTRCT_TYPE_NAME" value="" maxlength="80" type="text" class="form-control" disabled="disabled">
 						 		</s:else>
 						 	</div>
 						</div>
 						<div class="col-lg-4 form-group">
 						 	<label for="" class="col-lg-3 form-label">工程师</label>
 						 	<div class="col-lg-9">
-						 		<select name="addBidDto.PROJECT_MANAGER" id="PROJECT_MANAGER" class="form-control">
+						 		<select id="tmpPROJECT_MANAGER" class="form-control" disabled="disabled">
+						 			<option value="" selected="selected">请选择</option>
 									<s:iterator id="listUserInfo" value="listUserInfo" status="st1">
-										<option value="<s:property value="LOGIN_NAME"/>" <s:if test="%{addBidDto.PROJECT_MANAGER == LOGIN_NAME}">selected</s:if>><s:property value="LOGIN_NAME"/></option>
+										<option value="<s:property value="LOGIN_ID"/>" <s:if test="%{addBidDto.PROJECT_MANAGER == LOGIN_ID}">selected</s:if>><s:property value="LOGIN_NAME"/></option>
 									</s:iterator>
 								</select>
 						 	</div>
@@ -1673,10 +1679,10 @@
 											</td>
 											<td>
 												<s:if test='%{BID_RESULT == "1"}'>
-													<input type="checkbox" checked="checked" value="1" />
+													<input name="tmpBID_RESULT_<s:property value="BID_CO_NO"/>" type="checkbox" checked="checked" value="1" />
 												</s:if>
 												<s:else>
-													<input type="checkbox" checked="checked" value="0" />
+													<input name="tmpBID_RESULT_<s:property value="BID_CO_NO"/>" type="checkbox" value="0" />
 												</s:else>
 											</td>
 											<td>
@@ -2049,7 +2055,7 @@
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-4 form-label">开评标日期</label>
 									<div class="col-lg-8">
-										<input type="text" value="<s:date name="addBidDto.TENDER_OPEN_DATE" format="yyyy-MM-dd" />" class="form-control" readonly="readonly">
+										<input type="text" value="<s:date name="updateBidDto.TENDER_VERIFY_DATE" format="yyyy-MM-dd" />" class="form-control" readonly="readonly">
 									</div>
 								</div>
 								<div class="col-lg-4 form-group">
@@ -2061,13 +2067,23 @@
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-4 form-label">申请日期</label>
 									<div class="col-lg-8">
-										<input type="text" value="<s:date name="addBidDto.TENDER_VERIFY_DATE" format="yyyy-MM-dd" />" class="form-control" readonly="readonly">
+										<div class="input-group date" data-provide="datepicker">
+											<input id="tmpBID_EXPERT_COMMISION_APPLY_DATE" value="<s:date name="addBidDto.BID_EXPERT_COMMISION_APPLY_DATE" format="yyyy-MM-dd"/>" maxlength="10" type="text" class="form-control datepicker" readonly>
+											<div class="input-group-addon">
+												<span class="glyphicon glyphicon-th"></span>
+											</div>
+										</div>
 									</div>
 								</div>
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-4 form-label">申请人</label>
 									<div class="col-lg-8">
-										<s:textfield name="addBidDto.BID_EXPERT_COMMISION_APPLY" id="BID_EXPERT_COMMISION_APPLY" cssClass="form-control" maxlength="6" theme="simple"></s:textfield>
+										<select name="addBidDto.BID_EXPERT_COMMISION_APPLY" id="BID_EXPERT_COMMISION_APPLY" class="form-control">
+								 			<option value="" selected="selected">请选择</option>
+											<s:iterator id="listUserInfo" value="listUserInfo" status="st1">
+												<option value="<s:property value="LOGIN_ID"/>" <s:if test="%{addBidDto.BID_EXPERT_COMMISION_APPLY == LOGIN_ID}">selected</s:if>><s:property value="LOGIN_NAME"/></option>
+											</s:iterator>
+										</select>
 									</div>
 								</div>
 								<div class="col-lg-4 form-group">
@@ -2229,6 +2245,7 @@
 								<tr>
 									<td><input name="bidCntrctKey" type="radio" value=""/></td>
 									<td style="display: none;">
+										<input type="hidden" value="">
 										<input type="hidden" value="">
 										<input type="hidden" value="">
 										<input type="hidden" value="">

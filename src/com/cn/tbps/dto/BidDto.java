@@ -566,7 +566,7 @@ public class BidDto extends BaseDto {
 	private String BID_VER_DOC_DELI_FILE10;
 
 	/**
-	 * 项目进度情况
+	 * 项目进度情况，10：取消，20：进行中（新建时状态=20），52：失败（报名不满6家）,54:失败（开标不满3家），56：失败（评审失败），70：终止，90：完成
 	 */
 	private String PROGRESS_STATUS;
 

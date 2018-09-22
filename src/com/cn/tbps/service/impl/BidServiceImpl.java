@@ -265,13 +265,13 @@ public class BidServiceImpl extends BaseService implements BidService {
 				while(true) {
 					if("1".equals(bidDto.getCNTRCT_TYPE())) {
 						//招标编号，类型=招标
-						bidNo = "LHZB-" + key.substring(2, 4) + "-" + StringUtil.replenishStr("" + newValue, 3);
+						bidNo = "LHZB-" + key.substring(0, 4) + "-" + StringUtil.replenishStr("" + newValue, 4);
 					} else if("2".equals(bidDto.getCNTRCT_TYPE())) {
 						//招标编号，类型=比选
-						bidNo = "LHBX-" + key.substring(2, 4) + "-" + StringUtil.replenishStr("" + newValue, 3);
+						bidNo = "LHBX-" + key.substring(0, 4) + "-" + StringUtil.replenishStr("" + newValue, 4);
 					} else if("4".equals(bidDto.getCNTRCT_TYPE())) {
 						//招标编号，类型=竞价
-						bidNo = "LHJJ-" + key.substring(2, 4) + "-" + StringUtil.replenishStr("" + newValue, 3);
+						bidNo = "LHJJ-" + key.substring(0, 4) + "-" + StringUtil.replenishStr("" + newValue, 4);
 					}
 
 					//验证自动生成的招标编号是否已存在
@@ -319,7 +319,7 @@ public class BidServiceImpl extends BaseService implements BidService {
 					if(b == null) {
 						break;
 					} else {
-						//该招标编号存在，则将招标编号转化为XXXX-YY-NNN-A格式
+						//该招标编号存在，则将招标编号转化为XXXX-YYYY-NNNN-A格式
 						bidNo = bidDto.getBID_NO();
 						bidNo = bidNo + "-" + i;
 					}

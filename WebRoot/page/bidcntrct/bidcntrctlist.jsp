@@ -224,6 +224,14 @@
 			alert("请选择一条记录！");
 		}
 	}
+	
+	function showBidAgentCostAction() {
+		window.location.href = '<c:url value="/bidagentcost/showBidAgentCostAction.action"></c:url>';
+	}
+	
+	function showBidExpertCostAction() {
+		window.location.href = '<c:url value="/bidexpertcost/showBidExpertCostAction.action"></c:url>';
+	}
 </script>
 </head>
 <body>
@@ -328,10 +336,12 @@
 						</s:iterator>
 					</table>
 					<jsp:include page="../turning.jsp" flush="true" />
+					<div class="operationBtns">
+						<button type="button" class="btn btn-success" onclick="showBidAgentCostAction();">代理费设定</button>
+						<button type="button" class="btn btn-success" onclick="showBidExpertCostAction();">专家费设定</button>
+					</div>
 				</s:form>
 			</div>
-		</div>
-		<div class="operationBtns addBtns mgt15 btn3" style="width: 300px;">
 		</div>
 	</div>
 	<div class="modal fade" id="agentCompModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
