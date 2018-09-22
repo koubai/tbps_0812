@@ -121,7 +121,7 @@
 </head>
 <body>
 	<jsp:include page="../head.jsp" flush="true" />	
-		<!-- <jsp:include page="../info.jsp" flush="true" /> -->
+		<jsp:include page="../info.jsp" flush="true" />
 		<div class="row">
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 			<jsp:include page="../menu.jsp" flush="true" />
