@@ -1810,13 +1810,13 @@
 											<td>
 												<input name="tmpBID_CO_NO1" type="hidden" value="<s:property value="BID_CO_NO"/>">
 												<div class="col-lg-8">
-													<input name="tmpBidPrice" type="text" value="<s:property value="BID_PRICE"/>" class="form-control">
+													<input name="tmpBidPrice" type="text" value="<s:property value="BID_PRICE"/>" maxlength="14" class="form-control">
 												</div>
 												<label for="" class="col-lg-1 form-label">万元</label>
 											</td>
 											<td>
 												<div class="col-lg-8">
-													<input name="tmpBidCheckPrice" type="text" value="<s:property value="BID_CHECK_PRICE"/>" class="form-control">
+													<input name="tmpBidCheckPrice" type="text" value="<s:property value="BID_CHECK_PRICE"/>" maxlength="14" class="form-control">
 												</div>
 												<label for="" class="col-lg-1 form-label">万元</label>
 											</td>
@@ -1830,7 +1830,7 @@
 											</td>
 											<td>
 												<div class="col-lg-8">
-													<input name="tmpBidWinPrice" type="text" value="<s:property value="BID_WIN_PRICE"/>" class="form-control">
+													<input name="tmpBidWinPrice" type="text" value="<s:property value="BID_WIN_PRICE"/>" maxlength="14" class="form-control">
 												</div>
 												<label for="" class="col-lg-1 form-label">万元</label>
 											</td>
@@ -1892,7 +1892,9 @@
 						<div class="tab-pane fade" id="tab5">
 							<div class="col-lg-4 form-group" style="margin-top: 20px;">
 								<label for="" class="col-lg-3 form-label">保证金</label>
-								<div class="col-lg-7"><input type="text" class="form-control"></div>
+								<div class="col-lg-7">
+									<input type="text" class="form-control" maxlength="14">
+								</div>
 								<label for="" class="col-lg-1 form-label" style="text-align:left;">万元</label>
 							</div>
 							<table class="table table-bordered">

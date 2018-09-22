@@ -1,5 +1,6 @@
 package com.cn.tbps.action;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -168,6 +169,8 @@ public class BidAction extends BaseAction {
 			addBidDto.setBID_EXPERT_COMMISION_APPLY(userid);
 			//默认评审人=当前用户
 			addBidDto.setBID_AUTH(userid);
+			//标书费金额默认0.1万元
+			addBidDto.setBID_APPLY_PRICE(new BigDecimal(0.1).setScale(2, BigDecimal.ROUND_HALF_UP));
 		} catch(Exception e) {
 			return ERROR;
 		}
@@ -225,6 +228,19 @@ public class BidAction extends BaseAction {
 			this.addActionMessage("新增招标记录成功！招标编号：" + bidNo);
 			//初始化数据
 			addBidDto = new BidDto();
+			//默认为不随机
+//			addBidDto.setIS_RANDOM("0");
+			addBidDto.setSTATUS("0");
+			//承接项目日期默认=当天
+			addBidDto.setPROJECT_DEVIEW_DATE(new Date());
+			String userid = (String) ActionContext.getContext().getSession().get(Constants.USER_ID);
+			//默认专家费申请人=当前用户
+			addBidDto.setBID_EXPERT_COMMISION_APPLY(userid);
+			//默认评审人=当前用户
+			addBidDto.setBID_AUTH(userid);
+			//标书费金额默认0.1万元
+			addBidDto.setBID_APPLY_PRICE(new BigDecimal(0.1).setScale(2, BigDecimal.ROUND_HALF_UP));
+			
 			listBidComp = new ArrayList<BidCompDto>();
 			listExpertLib = new ArrayList<ExpertLibDto>();
 		} catch(RuntimeException e) {
@@ -405,7 +421,7 @@ public class BidAction extends BaseAction {
 		}
 		//翻页查询所有招标
 		this.page.setStartIndex(startIndex);
-		bidService.queryBidAndBidCntrctByPage(strProjectName, strBidNoLow, strBidNoHigh,
+		bidService.queryBidAndBidCntrctByPage("", "", strProjectName, strBidNoLow, strBidNoHigh,
 				"", "", "", "", "", "", "", page);
 		listBid = (List<BidDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());

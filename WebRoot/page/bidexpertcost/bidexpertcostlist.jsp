@@ -23,7 +23,7 @@
 <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 <script type="text/javascript">
-	function add() {
+	function save() {
 		//document.mainform.action = '<c:url value="/bidagentcost/showAddBidCntrc.action"></c:url>';
 		//document.mainform.submit();
 	}
@@ -288,7 +288,6 @@
 							<th>项目名称</th>
 							<th>委托单位</th>
 							<th>项目进展</th>
-							<th>中标价</th>
 							<th>专家实际费用</th>
 							<th>专家费申请时间</th>
 							<th>申请人</th>
@@ -299,18 +298,43 @@
 								<td><s:property value="BID_NO"/></td>
 								<td><s:property value="PROJECT_NAME"/></td>
 								<td><s:property value="BID_CO_NAME"/></td>
-								<td><s:property value="PROGRESS_STATUS"/></td>
-								<td><s:property value="BID_PRICE"/></td>
-								<td></td>
-								<td></td>
-								<td></td>
+								<td>
+									<s:if test='FINISH_STATUS == "10"'>取消</s:if>
+									<s:elseif test='FINISH_STATUS == "20"'>进行中</s:elseif>
+									<s:elseif test='FINISH_STATUS == "52"'>失败（报名不满6家）</s:elseif>
+									<s:elseif test='FINISH_STATUS == "54"'>失败（开标不满3家）</s:elseif>
+									<s:elseif test='FINISH_STATUS == "56"'>失败（评审失败）</s:elseif>
+									<s:elseif test='FINISH_STATUS == "70"'>终止</s:elseif>
+									<s:elseif test='FINISH_STATUS == "90"'>完成</s:elseif>
+									<s:else><s:property value="FINISH_STATUS"/></s:else>
+								</td>
+								<td>
+									<div class="col-lg-10">
+										<input name="tmpBID_EXPERT_COMMISION_ACT" type="text" value="<s:property value="BID_EXPERT_COMMISION_ACT"/>" maxlength="14" class="form-control">
+									</div>
+								</td>
+								<td>
+									<div class="input-group date" data-provide="datepicker">
+										<input type="text" name="tmpBID_EXPERT_COMMISION_APPLY_DATE" value="<s:date name="BID_EXPERT_COMMISION_APPLY_DATE" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
+										<div class="input-group-addon">
+											<span class="glyphicon glyphicon-th"></span>
+										</div>
+									</div>
+								</td>
+								<td>
+									<select name="tmpBID_EXPERT_COMMISION_APPLY" class="form-control">
+										<option value="" selected="selected">请选择</option>
+										<s:iterator id="listUserInfo" value="listUserInfo" status="st1">
+											<option value="<s:property value="LOGIN_ID"/>" <s:if test="%{BID_EXPERT_COMMISION_APPLY == LOGIN_ID}">selected</s:if>><s:property value="LOGIN_NAME"/></option>
+										</s:iterator>
+									</select>
+								</td>
 							</tr>
 						</s:iterator>
 					</table>
 					<jsp:include page="../turning.jsp" flush="true" />
 					<div class="operationBtns">
-						<!-- <button class="btn btn-success" onclick="save();">保存</button> -->
-						<button class="btn btn-success" onclick="calcAmount();">专家费计算</button>
+						<button class="btn btn-success" onclick="save();">保存</button>
 					</div>
 				</s:form>
 			</div>

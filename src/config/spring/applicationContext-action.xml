@@ -6,6 +6,9 @@
 		<property name="bidService">
 			<ref bean="bidService" />
 		</property>
+		<property name="userInfoService">
+			<ref bean="userInfoService" />
+		</property>
 	</bean>
 	
 	<bean id="bidAgentCostAction" class="com.cn.tbps.action.BidAgentCostAction" scope="session">

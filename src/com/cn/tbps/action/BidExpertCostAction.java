@@ -8,8 +8,11 @@ import org.apache.log4j.Logger;
 
 import com.cn.common.action.BaseAction;
 import com.cn.common.util.Page;
+import com.cn.common.util.StringUtil;
 import com.cn.tbps.dto.BidDto;
+import com.cn.tbps.dto.UserInfoDto;
 import com.cn.tbps.service.BidService;
+import com.cn.tbps.service.UserInfoService;
 
 /**
  * 专家费设定
@@ -23,6 +26,8 @@ public class BidExpertCostAction extends BaseAction {
 	private static final Logger log = LogManager.getLogger(BidExpertCostAction.class);
 	
 	private BidService bidService;
+	
+	private UserInfoService userInfoService;
 	
 	/**
 	 * 页码
@@ -39,6 +44,9 @@ public class BidExpertCostAction extends BaseAction {
 	 */
 	private List<BidDto> listBid;
 	
+	//多个合同编号
+	private String strCntrctNos;
+	
 	//合同年份
 	private String strCNTRCT_YEAR;
 	//合同开始时间
@@ -51,6 +59,35 @@ public class BidExpertCostAction extends BaseAction {
 	private String strBID_COMP_NO;
 	//委托单位名
 	private String strBID_COMP_NAME;
+	
+	private List<UserInfoDto> listUserInfo;
+	
+	/**
+	 * 显示招标代理费设定页面（从招标列表进来）
+	 * @return
+	 */
+	public String showBidExpertCostByCntrctAction() {
+		try {
+			this.clearMessages();
+			listBid = new ArrayList<BidDto>();
+			strCNTRCT_YEAR = "";
+			strCNTRCT_ST_DATE = "";
+			strCNTRCT_ED_DATE = "";
+			strCNTRCT_NO = "";
+			strBID_COMP_NO = "";
+			strBID_COMP_NAME = "";
+			page = new Page();
+			startIndex = 0;
+			if(StringUtil.isNotBlank(strCntrctNos)) {
+				//查询招标列表
+				queryData();
+			}
+		} catch(Exception e) {
+			log.error("showBidExpertCostByCntrctAction:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
 	
 	/**
 	 * 显示招标代理费设定页面
@@ -66,6 +103,7 @@ public class BidExpertCostAction extends BaseAction {
 			strCNTRCT_NO = "";
 			strBID_COMP_NO = "";
 			strBID_COMP_NAME = "";
+			strCntrctNos = "";
 			page = new Page();
 			startIndex = 0;
 		} catch(Exception e) {
@@ -82,6 +120,8 @@ public class BidExpertCostAction extends BaseAction {
 	public String queryBidExpertCostList() {
 		try {
 			this.clearMessages();
+			//直接清空
+			strCntrctNos = "";
 			page = new Page();
 			startIndex = 0;
 			queryData();
@@ -109,13 +149,14 @@ public class BidExpertCostAction extends BaseAction {
 	
 	@SuppressWarnings("unchecked")
 	private void queryData() {
+		listUserInfo = userInfoService.queryAllUser();
 		listBid = new ArrayList<BidDto>();
 		if(page == null) {
 			page = new Page();
 		}
 		//翻页查询所有招标
 		this.page.setStartIndex(startIndex);
-		page = bidService.queryBidAndBidCntrctByPage("", "", "", strCNTRCT_YEAR, strCNTRCT_NO, strBID_COMP_NO,
+		page = bidService.queryBidAndBidCntrctByPage(strCntrctNos, "'20','90'", "", "", "", strCNTRCT_YEAR, strCNTRCT_NO, strBID_COMP_NO,
 				"", "", strCNTRCT_ST_DATE, strCNTRCT_ED_DATE, page);
 		listBid = (List<BidDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
@@ -199,5 +240,29 @@ public class BidExpertCostAction extends BaseAction {
 
 	public void setStrBID_COMP_NAME(String strBID_COMP_NAME) {
 		this.strBID_COMP_NAME = strBID_COMP_NAME;
+	}
+
+	public String getStrCntrctNos() {
+		return strCntrctNos;
+	}
+
+	public void setStrCntrctNos(String strCntrctNos) {
+		this.strCntrctNos = strCntrctNos;
+	}
+
+	public UserInfoService getUserInfoService() {
+		return userInfoService;
+	}
+
+	public void setUserInfoService(UserInfoService userInfoService) {
+		this.userInfoService = userInfoService;
+	}
+
+	public List<UserInfoDto> getListUserInfo() {
+		return listUserInfo;
+	}
+
+	public void setListUserInfo(List<UserInfoDto> listUserInfo) {
+		this.listUserInfo = listUserInfo;
 	}
 }

@@ -227,11 +227,29 @@
 	}
 	
 	function showBidAgentCostAction() {
-		window.location.href = '<c:url value="/bidagentcost/showBidAgentCostAction.action"></c:url>';
+		var ids = "";
+		var list = document.getElementsByName("radioKey");
+		for(var i = 0; i < list.length; i++) {
+			if(list[i].checked) {
+				ids += list[i].value + ",";
+			}
+		}
+		$("#strCntrctNos").val(ids);
+		document.mainform.action = '<c:url value="/bidagentcost/showBidAgentCostByCntrctAction.action"></c:url>';
+		document.mainform.submit();
 	}
 	
 	function showBidExpertCostAction() {
-		window.location.href = '<c:url value="/bidexpertcost/showBidExpertCostAction.action"></c:url>';
+		var ids = "";
+		var list = document.getElementsByName("radioKey");
+		for(var i = 0; i < list.length; i++) {
+			if(list[i].checked) {
+				ids += list[i].value + ",";
+			}
+		}
+		$("#strCntrctNos").val(ids);
+		document.mainform.action = '<c:url value="/bidexpertcost/showBidExpertCostByCntrctAction.action"></c:url>';
+		document.mainform.submit();
 	}
 </script>
 </head>
@@ -250,6 +268,7 @@
 					<s:hidden name="strCNTRCT_ED_DATE" id="strCNTRCT_ED_DATE"/>
 					<s:hidden name="strBID_COMP_NO" id="strBID_COMP_NO"/>
 					<s:hidden name="strBID_COMP_NAME" id="strBID_COMP_NAME"/>
+					<s:hidden name="strCntrctNos" id="strCntrctNos"/>
 					<h3 class="title">招标合同管理一览<a class="backHome" href="#" onclick="goHome();"><i class="fa fa-home" aria-hidden="true"></i>返回首页</a></h3>
 					<div class="row">
 						<div class="col-lg-3 form-group">
@@ -321,7 +340,7 @@
 						</tr>
 						<s:iterator id="listBidCntrct" value="listBidCntrct" status="st1">
 							<tr>
-								<td><input name="radioKey" type="radio" value="<s:property value="CNTRCT_NO"/>"/></td>
+								<td><input name="radioKey" type="checkbox" value="<s:property value="CNTRCT_NO"/>"/></td>
 								<td><s:property value="CNTRCT_YEAR"/></td>
 								<td><s:property value="CNTRCT_NO"/></td>
 								<td><s:property value="BID_COMP_NAME"/></td>
@@ -329,8 +348,8 @@
 								<td><s:property value="finishProject"/></td>
 								<td><s:property value="buildingProject"/></td>
 								<td><s:property value="failProject"/></td>
-								<td><s:property value="CNTRCT_ALL_AMOUNT"/></td>
-								<td><s:property value="CNTRCT_UNPAY_AMOUNT"/></td>
+								<td><s:property value="BID_AGENT_PRICE"/></td>
+								<td><s:property value="BID_AGENT_PRICE_ACT"/></td>
 								<td><s:property value="bidAmount"/></td>
 								<td><s:property value="expertAmount"/></td>
 							</tr>

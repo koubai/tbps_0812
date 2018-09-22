@@ -271,78 +271,94 @@
 	
 	<select id="queryBidAndBidCntrctCountByPage" resultClass="int" parameterClass="java.util.Map">
 		select count(*) from (
-			select C.BID_COMP_NO,C.CNTRCT_YEAR,C.CNTRCT_NAME,C.CNTRCT_ST_DATE,C.CNTRCT_ED_DATE,C.BID_COMP_NAME,
-				T.* from bid T left join bidcntrct C on C.CNTRCT_NO = T.CNTRCT_NO
-		) B where 1 = 1 and B.DELETE_FLG = '1'
-		<isNotEmpty prepend="and" property="CNTRCT_YEAR">
-			B.CNTRCT_YEAR = #CNTRCT_YEAR#
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="CNTRCT_TYPE">
-			B.CNTRCT_TYPE = #CNTRCT_TYPE#
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="CNTRCT_NO">
-			B.CNTRCT_NO = #CNTRCT_NO#
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="BID_COMP_NO">
-			B.BID_COMP_NO = #BID_COMP_NO#
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="CNTRCT_NAME">
-			B.CNTRCT_NAME like '%$CNTRCT_NAME$%'
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="CNTRCT_ST_DATE">
-			B.CNTRCT_ST_DATE <![CDATA[>=]]> #CNTRCT_ST_DATE#
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="CNTRCT_ED_DATE">
-			B.CNTRCT_ED_DATE <![CDATA[<=]]> #CNTRCT_ED_DATE#
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="PROJECT_NAME">
-			B.PROJECT_NAME like '%$PROJECT_NAME$%'
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="BID_NO_LOW">
-			B.BID_NO <![CDATA[>=]]> #BID_NO_LOW#
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="BID_NO_HIGH">
-			B.BID_NO <![CDATA[<=]]> #BID_NO_HIGH#
-		</isNotEmpty>
+			select * from (
+				select C.BID_COMP_NO,C.CNTRCT_YEAR,C.CNTRCT_NAME,C.CNTRCT_ST_DATE,C.CNTRCT_ED_DATE,C.BID_COMP_NAME,
+					T.* from bid T left join bidcntrct C on C.CNTRCT_NO = T.CNTRCT_NO
+			) B where 1 = 1 and B.DELETE_FLG = '1'
+			<isNotEmpty prepend="and" property="CNTRCT_YEAR">
+				B.CNTRCT_YEAR = #CNTRCT_YEAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="CNTRCT_TYPE">
+				B.CNTRCT_TYPE = #CNTRCT_TYPE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="CNTRCT_NO">
+				B.CNTRCT_NO = #CNTRCT_NO#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="BID_COMP_NO">
+				B.BID_COMP_NO = #BID_COMP_NO#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="CNTRCT_NAME">
+				B.CNTRCT_NAME like '%$CNTRCT_NAME$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="CNTRCT_ST_DATE">
+				B.CNTRCT_ST_DATE <![CDATA[>=]]> #CNTRCT_ST_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="CNTRCT_ED_DATE">
+				B.CNTRCT_ED_DATE <![CDATA[<=]]> #CNTRCT_ED_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="PROJECT_NAME">
+				B.PROJECT_NAME like '%$PROJECT_NAME$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="BID_NO_LOW">
+				B.BID_NO <![CDATA[>=]]> #BID_NO_LOW#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="BID_NO_HIGH">
+				B.BID_NO <![CDATA[<=]]> #BID_NO_HIGH#
+			</isNotEmpty>
+		) A where 1 = 1
+			<isNotEmpty prepend="and" property="cntrctNos">
+				A.CNTRCT_NO in ($cntrctNos$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="finishStatuss">
+				A.FINISH_STATUS in ($finishStatuss$)
+			</isNotEmpty>
 	</select>
 	
 	<select id="queryBidAndBidCntrctByPage" parameterClass="java.util.Map" resultMap="BidDto1">
-		select * from (
-			select C.BID_COMP_NO,C.CNTRCT_YEAR,C.CNTRCT_NAME,C.CNTRCT_ST_DATE,C.CNTRCT_ED_DATE,C.BID_COMP_NAME,
-				T.* from bid T left join bidcntrct C on C.CNTRCT_NO = T.CNTRCT_NO
-		) B where 1 = 1 and B.DELETE_FLG = '1'
-		<isNotEmpty prepend="and" property="CNTRCT_YEAR">
-			B.CNTRCT_YEAR = #CNTRCT_YEAR#
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="CNTRCT_TYPE">
-			B.CNTRCT_TYPE = #CNTRCT_TYPE#
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="CNTRCT_NO">
-			B.CNTRCT_NO = #CNTRCT_NO#
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="BID_COMP_NO">
-			B.BID_COMP_NO = #BID_COMP_NO#
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="CNTRCT_NAME">
-			B.CNTRCT_NAME like '%$CNTRCT_NAME$%'
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="CNTRCT_ST_DATE">
-			B.CNTRCT_ST_DATE <![CDATA[>=]]> #CNTRCT_ST_DATE#
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="CNTRCT_ED_DATE">
-			B.CNTRCT_ED_DATE <![CDATA[<=]]> #CNTRCT_ED_DATE#
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="PROJECT_NAME">
-			B.PROJECT_NAME like '%$PROJECT_NAME$%'
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="BID_NO_LOW">
-			B.BID_NO <![CDATA[>=]]> #BID_NO_LOW#
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="BID_NO_HIGH">
-			B.BID_NO <![CDATA[<=]]> #BID_NO_HIGH#
-		</isNotEmpty>
-		order by B.CNTRCT_NO desc,B.UPDATE_DATE desc
-		LIMIT #start#, #end#
+		select A.* from (
+			select * from (
+				select C.BID_COMP_NO,C.CNTRCT_YEAR,C.CNTRCT_NAME,C.CNTRCT_ST_DATE,C.CNTRCT_ED_DATE,C.BID_COMP_NAME,
+					T.* from bid T left join bidcntrct C on C.CNTRCT_NO = T.CNTRCT_NO
+			) B where 1 = 1 and B.DELETE_FLG = '1'
+			<isNotEmpty prepend="and" property="CNTRCT_YEAR">
+				B.CNTRCT_YEAR = #CNTRCT_YEAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="CNTRCT_TYPE">
+				B.CNTRCT_TYPE = #CNTRCT_TYPE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="CNTRCT_NO">
+				B.CNTRCT_NO = #CNTRCT_NO#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="BID_COMP_NO">
+				B.BID_COMP_NO = #BID_COMP_NO#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="CNTRCT_NAME">
+				B.CNTRCT_NAME like '%$CNTRCT_NAME$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="CNTRCT_ST_DATE">
+				B.CNTRCT_ST_DATE <![CDATA[>=]]> #CNTRCT_ST_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="CNTRCT_ED_DATE">
+				B.CNTRCT_ED_DATE <![CDATA[<=]]> #CNTRCT_ED_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="PROJECT_NAME">
+				B.PROJECT_NAME like '%$PROJECT_NAME$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="BID_NO_LOW">
+				B.BID_NO <![CDATA[>=]]> #BID_NO_LOW#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="BID_NO_HIGH">
+				B.BID_NO <![CDATA[<=]]> #BID_NO_HIGH#
+			</isNotEmpty>
+		) A where 1 = 1
+			<isNotEmpty prepend="and" property="cntrctNos">
+				A.CNTRCT_NO in ($cntrctNos$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="finishStatuss">
+				A.FINISH_STATUS in ($finishStatuss$)
+			</isNotEmpty>
+			order by A.CNTRCT_NO desc,A.UPDATE_DATE desc
+			LIMIT #start#, #end#
 	</select>
 	
 	<select id="queryAllBidByCntrctNo" parameterClass="java.util.Map" resultMap="BidDto">
