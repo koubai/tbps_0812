@@ -205,10 +205,15 @@ fieldset[disabled] .btn {
   background-color: #ebebeb;
   border-color: rgba(0, 0, 0, 0.1);
 }
-.btn-primary {
+#btn-primary {
   color: #ffffff;
   background-color: #2fa4e7;
   border-color: #2fa4e7;
+}
+.btn-primary {
+  color: #ffffff;
+  background-color: #044c92;
+  border-color: #044C92;
 }
 .btn-primary.disabled,
 .btn-primary[disabled],

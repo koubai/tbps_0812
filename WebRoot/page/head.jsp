@@ -20,7 +20,7 @@
 	            <span class="icon-bar"></span>
 	            <span class="icon-bar"></span>
 	        </button>                	        
-	        <a class="navbar-brand" href="index.html">今天与明天</a>
+	        <a class="navbar-brand" href="index.html">审价和招标管理系统</a>
 	     </div>
               <ul class="nav navbar-nav navbar-right navbar-user">
                   <li class="dropdown messages-dropdown">
