@@ -59,7 +59,7 @@
 		var BID_APPLY_PRICE = $("#BID_APPLY_PRICE").val();
 		//#tab7
 		var BID_AGENT_PRICE_ACT = $("#BID_AGENT_PRICE_ACT").val();
-		var BID_PRICE = $("#BID_PRICE").val();
+		//var BID_PRICE = $("#BID_PRICE").val();
 		//#tab8
 		var BID_EXPERT_COMMISION_PRE = $("#BID_EXPERT_COMMISION_PRE").val();
 		var BID_EXPERT_COMMISION_ACT = $("#BID_EXPERT_COMMISION_ACT").val();
@@ -208,12 +208,6 @@
 			$("#BID_APPLY_PRICE").focus();
 			return false;
 		}
-		if(BID_PRICE != "" && !isReal(BID_PRICE)) {
-			showtab("7");
-			alert("中标金额格式不正确！");
-			$("#BID_PRICE").focus();
-			return false;
-		}
 		
 		//开评标
 		var tmpBID_CO_NO1 = $("[name='tmpBID_CO_NO1']");
@@ -237,6 +231,15 @@
 					tmpBidCheckPrice[j].focus();
 					return false;
 				}
+				if(tmpBID_RESULT[j].checked) {
+					//中标checkbox选中后，中标价格不能为空
+					if(tmpBidWinPrice[j].value == "") {
+						showtab("4");
+						alert("中标价不能为空！");
+						tmpBidWinPrice[j].focus();
+						return false;
+					}
+				}
 				if(tmpBidWinPrice[j].value != "" && !isReal(tmpBidWinPrice[j].value)) {
 					showtab("4");
 					alert("中标价格式不正确！");
@@ -250,14 +253,15 @@
 		var tmpBID_CO_NO2 = $("[name='tmpBID_CO_NO2']");
 		var tmpBID_VALUE_DATE = $("[name='tmpBID_VALUE_DATE']");
 		var tmpBID_PAYMENT_TYPE = $("[name='tmpBID_PAYMENT_TYPE']");
-		var tmpREFOUND_BOND_STATUS = $("input[name^='tmpREFOUND_BOND_STATUS']");
+		var tmpREFOUND_BOND_STATUS = $("[name='tmpREFOUND_BOND_STATUS']");
 		var tmpREFOUND_DEPOSIT_DATE = $("[name='tmpREFOUND_DEPOSIT_DATE']");
 		
 		//标书费
 		var tmpBID_CO_NO3 = $("[name='tmpBID_CO_NO3']");
 		var tmpBID_APPLY_PRICE_DATE = $("[name='tmpBID_APPLY_PRICE_DATE']");
-		var tmpTAX_NO = $("[name='tmpTAX_NO']");
-		var tmpINVOICE_DATE = $("input[name^='tmpINVOICE_DATE']");
+		var tmpBID_APPLY_PAYMENT_TYPE = $("[name='tmpBID_APPLY_PAYMENT_TYPE']");
+		var tmpINVOICE_TYPE = $("[name='tmpINVOICE_TYPE']");
+		var tmpINVOICE_DATE = $("[name='tmpINVOICE_DATE']");
 		var tmpBID_RECEIPT_NO = $("[name='tmpBID_RECEIPT_NO']");
 		
 		
@@ -295,14 +299,15 @@
 		var tmpBID_CO_NO2 = $("[name='tmpBID_CO_NO2']");
 		var tmpBID_VALUE_DATE = $("[name='tmpBID_VALUE_DATE']");
 		var tmpBID_PAYMENT_TYPE = $("[name='tmpBID_PAYMENT_TYPE']");
-		var tmpREFOUND_BOND_STATUS = $("input[name^='tmpREFOUND_BOND_STATUS']");
+		var tmpREFOUND_BOND_STATUS = $("[name='tmpREFOUND_BOND_STATUS']");
 		var tmpREFOUND_DEPOSIT_DATE = $("[name='tmpREFOUND_DEPOSIT_DATE']");
 		
 		//标书费
 		var tmpBID_CO_NO3 = $("[name='tmpBID_CO_NO3']");
 		var tmpBID_APPLY_PRICE_DATE = $("[name='tmpBID_APPLY_PRICE_DATE']");
-		var tmpTAX_NO = $("[name='tmpTAX_NO']");
-		var tmpINVOICE_DATE = $("input[name^='tmpINVOICE_DATE']");
+		var tmpBID_APPLY_PAYMENT_TYPE = $("[name='tmpBID_APPLY_PAYMENT_TYPE']");
+		var tmpINVOICE_TYPE = $("[name='tmpINVOICE_TYPE']");
+		var tmpINVOICE_DATE = $("[name='tmpINVOICE_DATE']");
 		var tmpBID_RECEIPT_NO = $("[name='tmpBID_RECEIPT_NO']");
 			
 		for(var i = 0; i < rows.length; i++) {
@@ -324,10 +329,10 @@
 				for(var j = 0; j< tmpBID_CO_NO1.length; j++) {
 					if(tmpBID_CO_NO1[j].value == BID_CO_NO) {
 						if(tmpBidPrice[j].value != "") {
-							td.appendChild(createInput("listBidCompTmp[" + i + "].BID_PRICE", parseFloat(tmpBidPrice[j])));
+							td.appendChild(createInput("listBidCompTmp[" + i + "].BID_PRICE", parseFloat(tmpBidPrice[j].value)));
 						}
 						if(tmpBidCheckPrice[j].value != "") {
-							td.appendChild(createInput("listBidCompTmp[" + i + "].BID_CHECK_PRICE", parseFloat(tmpBidCheckPrice[j])));
+							td.appendChild(createInput("listBidCompTmp[" + i + "].BID_CHECK_PRICE", parseFloat(tmpBidCheckPrice[j].value)));
 						}
 						if(tmpBID_RESULT[j].checked) {
 							td.appendChild(createInput("listBidCompTmp[" + i + "].BID_RESULT", "1"));
@@ -335,7 +340,7 @@
 							td.appendChild(createInput("listBidCompTmp[" + i + "].BID_RESULT", "0"));
 						}
 						if(tmpBidWinPrice[j].value != "") {
-							td.appendChild(createInput("listBidCompTmp[" + i + "].BID_WIN_PRICE", parseFloat(tmpBidWinPrice[j])));
+							td.appendChild(createInput("listBidCompTmp[" + i + "].BID_WIN_PRICE", parseFloat(tmpBidWinPrice[j].value)));
 						}
 						break;
 					}
@@ -346,12 +351,12 @@
 				for(var j = 0; j< tmpBID_CO_NO2.length; j++) {
 					if(tmpBID_CO_NO2[j].value == BID_CO_NO) {
 						if(tmpBID_VALUE_DATE[j].value != "") {
-							td.appendChild(createInput("listBidCompTmp[" + i + "].BID_VALUE_DATE", tmpBID_VALUE_DATE[j]));
+							td.appendChild(createInput("listBidCompTmp[" + i + "].BID_VALUE_DATE", tmpBID_VALUE_DATE[j].value));
 						}
-						td.appendChild(createInput("listBidCompTmp[" + i + "].BID_PAYMENT_TYPE", tmpBID_PAYMENT_TYPE[j]));
-						td.appendChild(createInput("listBidCompTmp[" + i + "].REFOUND_BOND_STATUS", tmpREFOUND_BOND_STATUS[j]));
+						td.appendChild(createInput("listBidCompTmp[" + i + "].BID_PAYMENT_TYPE", tmpBID_PAYMENT_TYPE[j].value));
+						td.appendChild(createInput("listBidCompTmp[" + i + "].REFOUND_BOND_STATUS", tmpREFOUND_BOND_STATUS[j].value));
 						if(tmpREFOUND_DEPOSIT_DATE[j].value != "") {
-							td.appendChild(createInput("listBidCompTmp[" + i + "].REFOUND_DEPOSIT_DATE", tmpREFOUND_DEPOSIT_DATE[j]));
+							td.appendChild(createInput("listBidCompTmp[" + i + "].REFOUND_DEPOSIT_DATE", tmpREFOUND_DEPOSIT_DATE[j].value));
 						}
 						break;
 					}
@@ -362,13 +367,14 @@
 				for(var j = 0; j< tmpBID_CO_NO3.length; j++) {
 					if(tmpBID_CO_NO3[j].value == BID_CO_NO) {
 						if(tmpBID_APPLY_PRICE_DATE[j].value != "") {
-							td.appendChild(createInput("listBidCompTmp[" + i + "].BID_APPLY_PRICE_DATE", tmpBID_APPLY_PRICE_DATE[j]));
+							td.appendChild(createInput("listBidCompTmp[" + i + "].BID_APPLY_PRICE_DATE", tmpBID_APPLY_PRICE_DATE[j].value));
 						}
-						td.appendChild(createInput("listBidCompTmp[" + i + "].TAX_NO", tmpTAX_NO[j]));
+						td.appendChild(createInput("listBidCompTmp[" + i + "].BID_APPLY_PAYMENT_TYPE", tmpBID_APPLY_PAYMENT_TYPE[j].value));
+						td.appendChild(createInput("listBidCompTmp[" + i + "].INVOICE_TYPE", tmpINVOICE_TYPE[j].value));
 						if(tmpINVOICE_DATE[j].value != "") {
-							td.appendChild(createInput("listBidCompTmp[" + i + "].INVOICE_DATE", tmpINVOICE_DATE[j]));
+							td.appendChild(createInput("listBidCompTmp[" + i + "].INVOICE_DATE", tmpINVOICE_DATE[j].value));
 						}
-						td.appendChild(createInput("listBidCompTmp[" + i + "].BID_RECEIPT_NO", tmpBID_RECEIPT_NO[j]));
+						td.appendChild(createInput("listBidCompTmp[" + i + "].BID_RECEIPT_NO", tmpBID_RECEIPT_NO[j].value));
 						break;
 					}
 				}
@@ -1802,10 +1808,16 @@
 											<td><s:property value="BID_CO_NAME"/></td>
 											<td>
 												<input name="tmpBID_CO_NO1" type="hidden" value="<s:property value="BID_CO_NO"/>">
-												<input name="tmpBidPrice" type="text" value="<s:property value="BID_PRICE"/>" class="form-control">
+												<div class="col-lg-8">
+													<input name="tmpBidPrice" type="text" value="<s:property value="BID_PRICE"/>" class="form-control">
+												</div>
+												<label for="" class="col-lg-1 form-label">万元</label>
 											</td>
 											<td>
-												<input name="tmpBidCheckPrice" type="text" value="<s:property value="BID_CHECK_PRICE"/>" class="form-control">
+												<div class="col-lg-8">
+													<input name="tmpBidCheckPrice" type="text" value="<s:property value="BID_CHECK_PRICE"/>" class="form-control">
+												</div>
+												<label for="" class="col-lg-1 form-label">万元</label>
 											</td>
 											<td>
 												<s:if test='%{BID_RESULT == "1"}'>
@@ -1816,7 +1828,10 @@
 												</s:else>
 											</td>
 											<td>
-												<input name="tmpBidWinPrice" type="text" value="<s:property value="BID_WIN_PRICE"/>" class="form-control">
+												<div class="col-lg-8">
+													<input name="tmpBidWinPrice" type="text" value="<s:property value="BID_WIN_PRICE"/>" class="form-control">
+												</div>
+												<label for="" class="col-lg-1 form-label">万元</label>
 											</td>
 										</tr>
 									</s:iterator>
@@ -1910,6 +1925,7 @@
 											<td>
 												<select name="tmpBID_PAYMENT_TYPE" class="form-control">
 													<s:if test='BID_PAYMENT_TYPE == "1"'>
+														<option value="0">未支付</option>
 														<option value="1" selected="selected">现金</option>
 														<option value="2">支票</option>
 														<option value="3">转账</option>
@@ -1918,6 +1934,7 @@
 														<option value="6">现金2</option>
 													</s:if>
 													<s:elseif test='BID_PAYMENT_TYPE == "2"'>
+														<option value="0">未支付</option>
 														<option value="1">现金</option>
 														<option value="2" selected="selected">支票</option>
 														<option value="3">转账</option>
@@ -1926,6 +1943,7 @@
 														<option value="6">现金2</option>
 													</s:elseif>
 													<s:elseif test='BID_PAYMENT_TYPE == "3"'>
+														<option value="0">未支付</option>
 														<option value="1">现金</option>
 														<option value="2">支票</option>
 														<option value="3" selected="selected">转账</option>
@@ -1934,6 +1952,7 @@
 														<option value="6">现金2</option>
 													</s:elseif>
 													<s:elseif test='BID_PAYMENT_TYPE == "4"'>
+														<option value="0">未支付</option>
 														<option value="1">现金</option>
 														<option value="2">支票</option>
 														<option value="3">转账</option>
@@ -1942,6 +1961,7 @@
 														<option value="6">现金2</option>
 													</s:elseif>
 													<s:elseif test='BID_PAYMENT_TYPE == "5"'>
+														<option value="0">未支付</option>
 														<option value="1">现金</option>
 														<option value="2">支票</option>
 														<option value="3">转账</option>
@@ -1950,6 +1970,7 @@
 														<option value="6">现金2</option>
 													</s:elseif>
 													<s:elseif test='BID_PAYMENT_TYPE == "6"'>
+														<option value="0">未支付</option>
 														<option value="1">现金</option>
 														<option value="2">支票</option>
 														<option value="3">转账</option>
@@ -1958,7 +1979,8 @@
 														<option value="6" selected="selected">现金2</option>
 													</s:elseif>
 													<s:else>
-														<option selected="selected" value="1">现金</option>
+														<option selected="selected" value="0">未支付</option>
+														<option value="1">现金</option>
 														<option value="2">支票</option>
 														<option value="3">转账</option>
 														<option value="4">汇票</option>
@@ -1969,18 +1991,18 @@
 											</td>
 											<td>
 												<select name="tmpREFOUND_BOND_STATUS" class="form-control">
-													<option value="0">请选择</option>
+													<option value="">请选择</option>
 													<s:if test='REFOUND_BOND_STATUS == "1"'>
-														<option value="1" selected="selected">11</option>
-														<option value="2">22</option>
+														<option value="1" selected="selected">审批</option>
+														<option value="2">审批完了</option>
 													</s:if>
 													<s:elseif test='REFOUND_BOND_STATUS == "2"'>
-														<option value="1">11</option>
-														<option value="2" selected="selected">22</option>
+														<option value="1">审批</option>
+														<option value="2" selected="selected">审批完了</option>
 													</s:elseif>
 													<s:else>
-														<option value="1">11</option>
-														<option value="2">22</option>
+														<option value="1">审批</option>
+														<option value="2">审批完了</option>
 													</s:else>
 												</select>
 											</td>
@@ -2041,16 +2063,40 @@
 												</div>
 											</td>
 											<td>
-												<s:if test='BID_PAYMENT_TYPE == "1"'>现金</s:if>
-												<s:elseif test='BID_PAYMENT_TYPE == "2"'>支票</s:elseif>
-												<s:elseif test='BID_PAYMENT_TYPE == "3"'>转账</s:elseif>
-												<s:elseif test='BID_PAYMENT_TYPE == "4"'>汇票</s:elseif>
-												<s:elseif test='BID_PAYMENT_TYPE == "5"'>保函</s:elseif>
-												<s:elseif test='BID_PAYMENT_TYPE == "6"'>现金2</s:elseif>
+												<select name="tmpBID_APPLY_PAYMENT_TYPE" class="form-control">
+													<s:if test='BID_APPLY_PAYMENT_TYPE == "1"'>
+														<option value="0">未支付</option>
+														<option value="1" selected="selected">现金</option>
+														<option value="3">转账</option>
+													</s:if>
+													<s:elseif test='BID_APPLY_PAYMENT_TYPE == "3"'>
+														<option value="0">未支付</option>
+														<option value="1">现金</option>
+														<option value="3" selected="selected">转账</option>
+													</s:elseif>
+													<s:else>
+														<option value="0" selected="selected">未支付</option>
+														<option value="1">现金</option>
+														<option value="3">转账</option>
+													</s:else>
+												</select>
 											</td>
 											<td>
-												<!-- INVOICE_TYPE发票信息? -->
-												<input name="tmpTAX_NO" type="text" value="<s:property value="TAX_NO"/>" class="form-control">
+												<select name="tmpINVOICE_TYPE" class="form-control">
+													<option value="0">请选择</option>
+													<s:if test='INVOICE_TYPE == "1"'>
+														<option value="1" selected="selected">专票</option>
+														<option value="2">普票</option>
+													</s:if>
+													<s:elseif test='INVOICE_TYPE == "2"'>
+														<option value="1">专票</option>
+														<option value="2" selected="selected">普票</option>
+													</s:elseif>
+													<s:else>
+														<option value="1">专票</option>
+														<option value="2">普票</option>
+													</s:else>
+												</select>
 											</td>
 											<td>
 												<div class="input-group date" data-provide="datepicker">
@@ -2148,7 +2194,7 @@
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-4 form-label">中标单位</label>
 									<div class="col-lg-8">
-										<s:textfield name="updateBidDto.BID_CO_NAME" id="BID_CO_NAME" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
+										<s:textfield name="updateBidDto.BID_CO_NAME" id="BID_CO_NAME" disabled="true" cssClass="form-control" theme="simple"></s:textfield>
 									</div>
 								</div>
 								<div class="col-lg-4 form-group">
@@ -2172,7 +2218,7 @@
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-4 form-label">中标金额</label>
 									<div class="col-lg-7">
-										<s:textfield name="updateBidDto.BID_PRICE" id="BID_PRICE" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
+										<s:textfield name="updateBidDto.BID_PRICE_LIST" id="BID_PRICE_LIST" disabled="true" cssClass="form-control" theme="simple"></s:textfield>
 									</div>
 									<label for="" class="col-lg-1 form-label" style="text-align:left;">万元</label>
 								</div>
@@ -2249,6 +2295,7 @@
 					</div>
 					<div class="operationBtns addBtns mgt15 btn3">
 						<button type="button" class="btn btn-success" onclick="upd();">保存</button>
+						<button type="button" class="btn btn-success" onclick="goBidList();">返回</button>
 					</div>
 				</div>
 			</div>
