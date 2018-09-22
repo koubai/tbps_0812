@@ -62,19 +62,19 @@ public class BidCntrctServiceImpl extends BaseService implements BidCntrctServic
 				if(bidList != null && bidList.size() > 0) {
 					for(BidDto bid : bidList) {
 						//项目数量计算
-						if(Constants.PROGRESS_STATUS_IN_DONE.equals(bid.getPROGRESS_STATUS())) {
+						if(Constants.FINISH_STATUS_IN_DONE.equals(bid.getFINISH_STATUS())) {
 							finishProject++;
 						}
-						if(Constants.PROGRESS_STATUS_IN_PROCESS.equals(bid.getPROGRESS_STATUS())) {
+						if(Constants.FINISH_STATUS_IN_PROCESS.equals(bid.getFINISH_STATUS())) {
 							buildingProject++;
 						}
-						if(Constants.PROGRESS_STATUS_IN_FAILED1.equals(bid.getPROGRESS_STATUS())
-						|| Constants.PROGRESS_STATUS_IN_FAILED2.equals(bid.getPROGRESS_STATUS())
-						|| Constants.PROGRESS_STATUS_IN_FAILED3.equals(bid.getPROGRESS_STATUS())) {
+						if(Constants.FINISH_STATUS_IN_FAILED1.equals(bid.getFINISH_STATUS())
+						|| Constants.FINISH_STATUS_IN_FAILED2.equals(bid.getFINISH_STATUS())
+						|| Constants.FINISH_STATUS_IN_FAILED3.equals(bid.getFINISH_STATUS())) {
 							failProject++;
 						}
 						
-						if(!Constants.PROGRESS_STATUS_IN_CANCEL.equals(bid.getPROGRESS_STATUS())) {
+						if(!Constants.FINISH_STATUS_IN_CANCEL.equals(bid.getFINISH_STATUS())) {
 							totalProject++;
 						}
 						

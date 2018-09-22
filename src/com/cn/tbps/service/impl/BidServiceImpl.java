@@ -1300,6 +1300,7 @@ public class BidServiceImpl extends BaseService implements BidService {
 		bidHist.setBID_EXPERT_COMMISION_DIFF_DATE(bid.getBID_EXPERT_COMMISION_DIFF_DATE());
 		bidHist.setBID_APPLY_PRICE(bid.getBID_APPLY_PRICE());
 		bidHist.setBID_EXPERT_COMMISION_APPLY(bid.getBID_EXPERT_COMMISION_APPLY());
+		bidHist.setBID_EXPERT_COMMISION_APPLY_DATE(bid.getBID_EXPERT_COMMISION_APPLY_DATE());
 		bidHist.setAPPLY_FORM_EDIT_DATE(bid.getAPPLY_FORM_EDIT_DATE());
 		bidHist.setAPPLY_FORM_COLLECT_DATE(bid.getAPPLY_FORM_COLLECT_DATE());
 		bidHist.setAPPLY_FORM_VERIFY_DATE(bid.getAPPLY_FORM_VERIFY_DATE());
@@ -1356,6 +1357,7 @@ public class BidServiceImpl extends BaseService implements BidService {
 		bidHist.setBID_VER_DOC_DELI_FILE10(bid.getBID_VER_DOC_DELI_FILE10());
 		bidHist.setPROGRESS_STATUS(bid.getPROGRESS_STATUS());
 		bidHist.setFINISH_STATUS(bid.getFINISH_STATUS());
+		bidHist.setFINISH_DATE(bid.getFINISH_DATE());
 		bidHist.setFINISH_NOTE(bid.getFINISH_NOTE());
 		bidHist.setSTATUS(bid.getSTATUS());
 		bidHist.setMEMO1(bid.getMEMO1());

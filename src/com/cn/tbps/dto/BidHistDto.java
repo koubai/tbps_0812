@@ -244,6 +244,11 @@ public class BidHistDto extends BaseDto {
 	 * 专家费申请人
 	 */
 	private String BID_EXPERT_COMMISION_APPLY;
+	
+	/**
+	 * 专家费申请日期
+	 */
+	private Date BID_EXPERT_COMMISION_APPLY_DATE;
 
 	/**
 	 * 招标文件编制日期
@@ -524,6 +529,11 @@ public class BidHistDto extends BaseDto {
 	 * 项目完成情况
 	 */
 	private String FINISH_STATUS;
+	
+	/**
+	 * 项目完成日期
+	 */
+	private Date FINISH_DATE;
 
 	/**
 	 * 项目完成情况的备注
@@ -1638,5 +1648,21 @@ public class BidHistDto extends BaseDto {
 
 	public void setUPDATE_DATE(Date uPDATE_DATE) {
 		UPDATE_DATE = uPDATE_DATE;
+	}
+
+	public Date getBID_EXPERT_COMMISION_APPLY_DATE() {
+		return BID_EXPERT_COMMISION_APPLY_DATE;
+	}
+
+	public void setBID_EXPERT_COMMISION_APPLY_DATE(Date bID_EXPERT_COMMISION_APPLY_DATE) {
+		BID_EXPERT_COMMISION_APPLY_DATE = bID_EXPERT_COMMISION_APPLY_DATE;
+	}
+
+	public Date getFINISH_DATE() {
+		return FINISH_DATE;
+	}
+
+	public void setFINISH_DATE(Date fINISH_DATE) {
+		FINISH_DATE = fINISH_DATE;
 	}
 }

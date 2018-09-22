@@ -1,6 +1,7 @@
 package com.cn.tbps.action;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.LogManager;
@@ -160,9 +161,13 @@ public class BidAction extends BaseAction {
 			//默认为不随机
 //			addBidDto.setIS_RANDOM("0");
 			addBidDto.setSTATUS("0");
-			//默认专家费申请人=当前用户
+			//承接项目日期默认=当天
+			addBidDto.setPROJECT_DEVIEW_DATE(new Date());
 			String userid = (String) ActionContext.getContext().getSession().get(Constants.USER_ID);
+			//默认专家费申请人=当前用户
 			addBidDto.setBID_EXPERT_COMMISION_APPLY(userid);
+			//默认评审人=当前用户
+			addBidDto.setBID_AUTH(userid);
 		} catch(Exception e) {
 			return ERROR;
 		}
@@ -212,7 +217,7 @@ public class BidAction extends BaseAction {
 			//投标状态=报名
 			addBidDto.setSTATUS("10");
 			//默认状态=20进行中
-			addBidDto.setPROGRESS_STATUS(Constants.PROGRESS_STATUS_IN_PROCESS);
+			addBidDto.setFINISH_STATUS(Constants.FINISH_STATUS_IN_PROCESS);
 			String username = (String) ActionContext.getContext().getSession().get(Constants.USER_NAME);
 			addBidDto.setUPDATE_USER(username);
 			

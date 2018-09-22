@@ -566,14 +566,19 @@ public class BidDto extends BaseDto {
 	private String BID_VER_DOC_DELI_FILE10;
 
 	/**
-	 * 项目进度情况，10：取消，20：进行中（新建时状态=20），52：失败（报名不满6家）,54:失败（开标不满3家），56：失败（评审失败），70：终止，90：完成
+	 * 项目进度情况
 	 */
 	private String PROGRESS_STATUS;
 
 	/**
-	 * 项目完成情况
+	 * 项目完成情况，10：取消，20：进行中（新建时状态=20），52：失败（报名不满6家）,54:失败（开标不满3家），56：失败（评审失败），70：终止，90：完成
 	 */
 	private String FINISH_STATUS;
+	
+	/**
+	 * 项目完成日期
+	 */
+	private Date FINISH_DATE;
 
 	/**
 	 * 项目完成情况的备注
@@ -1899,5 +1904,13 @@ public class BidDto extends BaseDto {
 
 	public void setCNTRCT_ED_DATE(Date cNTRCT_ED_DATE) {
 		CNTRCT_ED_DATE = cNTRCT_ED_DATE;
+	}
+
+	public Date getFINISH_DATE() {
+		return FINISH_DATE;
+	}
+
+	public void setFINISH_DATE(Date fINISH_DATE) {
+		FINISH_DATE = fINISH_DATE;
 	}
 }

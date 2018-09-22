@@ -298,12 +298,12 @@ public class Constants {
 	 */
 	public final static String PROPERTIES_FILE_PATH = "file_path";
 	
-	public final static String PROGRESS_STATUS_IN_CANCEL = "10";//取消
-	public final static String PROGRESS_STATUS_IN_PROCESS = "20";//进行中
-	public final static String PROGRESS_STATUS_IN_FAILED1 = "52";//失败（报名不满6家）
-	public final static String PROGRESS_STATUS_IN_FAILED2 = "54";//失败（开标不满3家）
-	public final static String PROGRESS_STATUS_IN_FAILED3 = "56";//失败（评审失败）
-	public final static String PROGRESS_STATUS_IN_STOP = "70";//终止
-	public final static String PROGRESS_STATUS_IN_DONE = "90";//完成
+	public final static String FINISH_STATUS_IN_CANCEL = "10";//取消
+	public final static String FINISH_STATUS_IN_PROCESS = "20";//进行中
+	public final static String FINISH_STATUS_IN_FAILED1 = "52";//失败（报名不满6家）
+	public final static String FINISH_STATUS_IN_FAILED2 = "54";//失败（开标不满3家）
+	public final static String FINISH_STATUS_IN_FAILED3 = "56";//失败（评审失败）
+	public final static String FINISH_STATUS_IN_STOP = "70";//终止
+	public final static String FINISH_STATUS_IN_DONE = "90";//完成
 	
 }

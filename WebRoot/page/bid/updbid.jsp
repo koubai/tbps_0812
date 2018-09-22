@@ -1677,6 +1677,9 @@
 									<label class="col-lg-1 form-label">万元</label>
 								</div>
 							</div>
+							<div class="operationBtns">
+								<button type="button" class="btn btn-success">生成审核表</button>
+							</div>
 						</div>
 						<div class="tab-pane fade" id="tab3">
 							<div class="row" style="margin-top: 20px;">
@@ -1730,8 +1733,6 @@
 							<div class="operationBtns">
 								<button type="button" class="btn btn-success">生成报名表</button>
 								<button type="button" class="btn btn-success">生成审核表</button>
-								<button type="button" class="btn btn-success">标书费</button>
-								<button type="button" class="btn btn-success">保证金</button>
 							</div>
 						</div>
 						<div class="tab-pane fade" id="tab4">
@@ -1759,7 +1760,7 @@
 										<select class="form-control" id="BID_AUTH" name="updateBidDto.BID_AUTH">
 											<option value="" selected="selected">请选择</option>
 											<s:iterator id="listUserInfo" value="listUserInfo" status="st1">
-												<option value="<s:property value="LOGIN_NAME"/>" <s:if test="%{updateBidDto.BID_AUTH == LOGIN_NAME}">selected</s:if>><s:property value="LOGIN_NAME"/></option>
+												<option value="<s:property value="LOGIN_ID"/>" <s:if test="%{updateBidDto.BID_AUTH == LOGIN_ID}">selected</s:if>><s:property value="LOGIN_NAME"/></option>
 											</s:iterator>
 										</select>
 									</div>
