@@ -336,6 +336,8 @@ public class BidServiceImpl extends BaseService implements BidService {
 
 		String bidCompName = "";
 		String bidCompIds = "";
+		//中标金额一览
+		String BID_PRICE_LIST = "";
 		//保存招标公司信息
 		if(listBidComp != null && listBidComp.size() > 0) {
 			for(BidCompDto bidcomp : listBidComp) {
@@ -343,14 +345,19 @@ public class BidServiceImpl extends BaseService implements BidService {
 				bidcomp.setDELETE_FLG(Constants.IS_DELETE_NORMAL);
 				bidcomp.setUPDATE_USER(bidDto.getUPDATE_USER());
 				
+				if("1".equals(bidcomp.getBID_RESULT())) {
+					BID_PRICE_LIST += bidcomp.getBID_WIN_PRICE() + ";";
+				}
+				
 				bidCompDao.insertBidComp(bidcomp);
 				
 				bidCompIds += bidcomp.getBID_CO_NO() + ",";
-				bidCompName += bidcomp.getBID_CO_NAME() + ",";
+				bidCompName += bidcomp.getBID_CO_NAME() + ";";
 			}
 		}
 		bidDto.setBID_CO_LIST(bidCompIds);
 		bidDto.setBID_CO_NAME(bidCompName);
+		bidDto.setBID_PRICE_LIST(BID_PRICE_LIST);
 		
 		//专家列表
 		String expertLibIds = "";
@@ -376,6 +383,8 @@ public class BidServiceImpl extends BaseService implements BidService {
 		//更新投标公司
 		String bidCompName = "";
 		String bidCompIds = "";
+		//中标金额一览
+		String BID_PRICE_LIST = "";
 		if(listBidComp != null && listBidComp.size() > 0) {
 			for(BidCompDto bidcomp : listBidComp) {
 				bidcomp.setBID_CO_NO(null);
@@ -383,15 +392,20 @@ public class BidServiceImpl extends BaseService implements BidService {
 				bidcomp.setDELETE_FLG(Constants.IS_DELETE_NORMAL);
 				bidcomp.setUPDATE_USER(bidDto.getUPDATE_USER());
 				
+				if("1".equals(bidcomp.getBID_RESULT())) {
+					BID_PRICE_LIST += bidcomp.getBID_WIN_PRICE() + ";";
+				}
+				
 				bidCompDao.insertBidComp(bidcomp);
 				
 				bidCompIds += bidcomp.getBID_CO_NO() + ",";
-				bidCompName += bidcomp.getBID_CO_NAME() + ",";
+				bidCompName += bidcomp.getBID_CO_NAME() + ";";
 			}
 		}
 		
 		bidDto.setBID_CO_LIST(bidCompIds);
 		bidDto.setBID_CO_NAME(bidCompName);
+		bidDto.setBID_PRICE_LIST(BID_PRICE_LIST);
 		
 		//专家列表
 		String expertLibIds = "";

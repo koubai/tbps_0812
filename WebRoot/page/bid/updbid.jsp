@@ -1468,10 +1468,10 @@
 								</div>
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-3 form-label">代理费</label>
-									<div class="col-lg-7">
+									<div class="col-lg-8">
 										<s:textfield name="updateBidDto.BID_AGENT_PRICE" id="BID_AGENT_PRICE" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
 									</div>
-									<label for="" class="col-lg-2 form-label">万元</label>
+									<label for="" class="col-lg-1 form-label">万元</label>
 								</div>
 								<div class="col-lg-12 form-group">
 									<label class="col-lg-1 form-label">工程概况批文</label>
@@ -1671,10 +1671,10 @@
 								</div>
 								<div class="col-lg-12 form-group">
 									<label class="col-lg-1 form-label">保证金</label>
-									<div class="col-lg-10">
+									<div class="col-lg-8">
 										<s:textfield name="updateBidDto.BID_BOND" id="BID_BOND" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
 									</div>
-									<label class="col-lg-1 form-label">万元</label>
+									<label for="" class="col-lg-3 form-label" style="text-align:left;">万元</label>
 								</div>
 							</div>
 							<div class="operationBtns">
@@ -1778,10 +1778,10 @@
 								</div>
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-3 form-label">限价</label>
-									<div class="col-lg-8">
+									<div class="col-lg-7">
 										<s:textfield name="updateBidDto.BID_LIMIT_PRICE" id="BID_LIMIT_PRICE" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
 									</div>
-									<label for="" class="col-lg-1 form-label">万元</label>
+									<label for="" class="col-lg-1 form-label" style="text-align:left;">万元</label>
 								</div>
 							</div>
 							<table class="table table-bordered">
@@ -1825,10 +1825,11 @@
 							<div class="row">
 								<div class="col-lg-7">专家名单</div>
 								<div class="col-lg-5">
-									<label for="" class="col-lg-2 form-label">专家费支出</label>
+									<label for="" class="col-lg-3 form-label">专家费支出</label>
 									<div class="col-lg-6">
 										<input type="text" class="form-control">
 									</div>
+									<label for="" class="col-lg-3 form-label" style="text-align:left;">万元</label>
 								</div>
 							</div>
 							<table class="table table-bordered">
@@ -1875,8 +1876,8 @@
 						<div class="tab-pane fade" id="tab5">
 							<div class="col-lg-4 form-group" style="margin-top: 20px;">
 								<label for="" class="col-lg-3 form-label">保证金</label>
-								<div class="col-lg-6"><input type="text" class="form-control"></div>
-								<label for="" class="col-lg-3 form-label" style="text-align:left;">万元</label>
+								<div class="col-lg-7"><input type="text" class="form-control"></div>
+								<label for="" class="col-lg-1 form-label" style="text-align:left;">万元</label>
 							</div>
 							<table class="table table-bordered">
 								<thead>
@@ -2006,9 +2007,10 @@
 						<div class="tab-pane fade" id="tab6">
 							<div class="col-lg-4 form-group" style="margin-top: 20px;">
 								<label for="" class="col-lg-3 form-label">标书费金额</label>
-								<div class="col-lg-6">
+								<div class="col-lg-7">
 									<s:textfield name="updateBidDto.BID_APPLY_PRICE" id="BID_APPLY_PRICE" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
 								</div>
+								<label for="" class="col-lg-1 form-label" style="text-align:left;">万元</label>
 							</div>
 							<table class="table table-bordered">
 								<thead>
@@ -2074,10 +2076,10 @@
 							<div class="row" style="margin-top: 20px;">
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-4 form-label">保证金</label>
-									<div class="col-lg-6">
+									<div class="col-lg-7">
 										<input type="text" value="<s:property value="updateBidDto.BID_BOND"/>" class="form-control" readonly="readonly">
 									</div>
-									<label for="" class="col-lg-2 form-label">万元</label>
+									<label for="" class="col-lg-1 form-label" style="text-align:left;">万元</label>
 								</div>
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-4 form-label">承接项目日期</label>
@@ -2138,10 +2140,10 @@
 								</div>
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-4 form-label">应收代理费</label>
-									<div class="col-lg-6">
+									<div class="col-lg-7">
 										<input type="text" class="form-control" value="<s:property value="updateBidDto.BID_AGENT_PRICE"/>" readonly="readonly"/>
 									</div>
-									<label for="" class="col-lg-2 form-label">万元</label>
+									<label for="" class="col-lg-1 form-label" style="text-align:left;">万元</label>
 								</div>
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-4 form-label">中标单位</label>
@@ -2162,16 +2164,17 @@
 								</div>
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-4 form-label">实收代理费</label>
-									<div class="col-lg-6">
+									<div class="col-lg-7">
 										<s:textfield name="updateBidDto.BID_AGENT_PRICE_ACT" id="BID_AGENT_PRICE_ACT" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
 									</div>
-									<label for="" class="col-lg-2 form-label">万元</label>
+									<label for="" class="col-lg-1 form-label" style="text-align:left;">万元</label>
 								</div>
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-4 form-label">中标金额</label>
-									<div class="col-lg-8">
+									<div class="col-lg-7">
 										<s:textfield name="updateBidDto.BID_PRICE" id="BID_PRICE" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
 									</div>
+									<label for="" class="col-lg-1 form-label" style="text-align:left;">万元</label>
 								</div>
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-4 form-label">到账日期</label>
@@ -2196,9 +2199,10 @@
 								</div>
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-4 form-label">预借费用</label>
-									<div class="col-lg-8">
+									<div class="col-lg-7">
 										<s:textfield name="updateBidDto.BID_EXPERT_COMMISION_PRE" id="BID_EXPERT_COMMISION_PRE" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
 									</div>
+									<label for="" class="col-lg-1 form-label" style="text-align:left;">万元</label>
 								</div>
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-4 form-label">申请日期</label>
@@ -2224,9 +2228,10 @@
 								</div>
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-4 form-label">实际费用</label>
-									<div class="col-lg-8">
+									<div class="col-lg-7">
 										<s:textfield name="updateBidDto.BID_EXPERT_COMMISION_ACT" id="BID_EXPERT_COMMISION_ACT" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
 									</div>
+									<label for="" class="col-lg-1 form-label" style="text-align:left;">万元</label>
 								</div>
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-4 form-label">差价退还日期</label>
