@@ -37,7 +37,7 @@
 				<div class="panel-body">
 					<ul>
 						<li><a href="<%=request.getContextPath()%>/bidcntrct/showBidCntrctPage.action">招标合同管理一览</a></li>
-						<li><a href="<%=request.getContextPath()%>/bidcntrct/showAddAuditCntrctAction.action">招标合同增加</a></li>
+						<li><a href="<%=request.getContextPath()%>/bidcntrct/showAddBidCntrctAction.action">招标合同增加</a></li>
 						<li><a href="<%=request.getContextPath()%>/bid/showBidAction.action">招标项目检索和一览</a></li>
 						<li><a href="<%=request.getContextPath()%>/bid/showAddBidAction.action">项目信息（新增）</a></li>
 						<li><a href="<%=request.getContextPath()%>/bidagentcost/showBidAgentCostAction.action">代理费计算</a></li>
