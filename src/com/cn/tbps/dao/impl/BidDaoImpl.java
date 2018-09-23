@@ -22,10 +22,12 @@ import com.cn.tbps.dto.BidHistDto;
 public class BidDaoImpl extends BaseDao implements BidDao {
 	
 	@Override
-	public int queryBidAndBidCntrctCountByPage(String PROJECT_NAME, String BID_NO_LOW, String BID_NO_HIGH,
+	public int queryBidAndBidCntrctCountByPage(String cntrctNos, String finishStatuss, String PROJECT_NAME, String BID_NO_LOW, String BID_NO_HIGH,
 			String CNTRCT_YEAR, String CNTRCT_NO, String BID_COMP_NO, String CNTRCT_NAME, String CNTRCT_TYPE,
 			String CNTRCT_ST_DATE, String CNTRCT_ED_DATE) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("cntrctNos", cntrctNos);
+		paramMap.put("finishStatuss", finishStatuss);
 		paramMap.put("PROJECT_NAME", PROJECT_NAME);
 		paramMap.put("BID_NO_LOW", BID_NO_LOW);
 		paramMap.put("BID_NO_HIGH", BID_NO_HIGH);
@@ -40,10 +42,12 @@ public class BidDaoImpl extends BaseDao implements BidDao {
 	}
 
 	@Override
-	public List<BidDto> queryBidAndBidCntrctByPage(String PROJECT_NAME, String BID_NO_LOW, String BID_NO_HIGH,
+	public List<BidDto> queryBidAndBidCntrctByPage(String cntrctNos, String finishStatuss, String PROJECT_NAME, String BID_NO_LOW, String BID_NO_HIGH,
 			String CNTRCT_YEAR, String CNTRCT_NO, String BID_COMP_NO, String CNTRCT_NAME, String CNTRCT_TYPE,
 			String CNTRCT_ST_DATE, String CNTRCT_ED_DATE, int start, int end) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("cntrctNos", cntrctNos);
+		paramMap.put("finishStatuss", finishStatuss);
 		paramMap.put("PROJECT_NAME", PROJECT_NAME);
 		paramMap.put("BID_NO_LOW", BID_NO_LOW);
 		paramMap.put("BID_NO_HIGH", BID_NO_HIGH);
@@ -422,6 +426,15 @@ public class BidDaoImpl extends BaseDao implements BidDao {
 		
 		@SuppressWarnings("unchecked")
 		List<BidDto> list = getSqlMapClientTemplate().queryForList("queryBidExport", paramMap);
+		return list;
+	}
+	
+	@Override
+	public List<BidDto> queryAllBidByCntrctNo(String CNTRCT_NO) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("CNTRCT_NO", CNTRCT_NO);
+		@SuppressWarnings("unchecked")
+		List<BidDto> list = getSqlMapClientTemplate().queryForList("queryAllBidByCntrctNo", paramMap);
 		return list;
 	}
 

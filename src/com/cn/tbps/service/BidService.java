@@ -19,7 +19,16 @@ import com.cn.tbps.dto.ExpertLibDto;
 public interface BidService {
 	
 	/**
+	 * 保存专家费
+	 * @param bidExpertCostList
+	 * @param userid
+	 */
+	public void saveBidExpertCost(List<BidDto> bidExpertCostList, String userid);
+	
+	/**
 	 * 查询bid列表（新）
+	 * @param cntrctNos
+	 * @param finishStatuss
 	 * @param PROJECT_NAME
 	 * @param BID_NO_LOW
 	 * @param BID_NO_HIGH
@@ -33,7 +42,8 @@ public interface BidService {
 	 * @param page
 	 * @return
 	 */
-	public Page queryBidAndBidCntrctByPage(String PROJECT_NAME, String BID_NO_LOW, String BID_NO_HIGH, String CNTRCT_YEAR, String CNTRCT_NO, String BID_COMP_NO,
+	public Page queryBidAndBidCntrctByPage(String cntrctNos, String finishStatuss, String PROJECT_NAME, String BID_NO_LOW,
+			String BID_NO_HIGH, String CNTRCT_YEAR, String CNTRCT_NO, String BID_COMP_NO,
 			String CNTRCT_NAME, String CNTRCT_TYPE, String CNTRCT_ST_DATE, String CNTRCT_ED_DATE, Page page);
 
 	/**
@@ -54,6 +64,13 @@ public interface BidService {
 	public Page queryBidByPage(String bidNoLow, String bidNoHigh, String projectType,
 			String openDateLow, String openDateHigh, String agentNo, String agentName,
 			String bidCoName, String receipt1No, Page page, String bidStatus);
+	
+	/**
+	 * 根据合同编号查询招标记录
+	 * @param CNTRCT_NO
+	 * @return
+	 */
+	public List<BidDto> queryAllBidByCntrctNo(String CNTRCT_NO);
 	
 	/**
 	 * 根据ID查询投标（查询未删除的记录）
@@ -110,6 +127,13 @@ public interface BidService {
 	 */
 	public void updateBidNew(BidDto bidDto, List<BidCompDto> listBidComp, List<ExpertLibDto> listExpertLib);
 	
+	
+	/**
+	 * 修改招标
+	 * @param bidDto
+	 */
+	public void updateBid(BidDto bidDto);
+
 	/**
 	 * 修改招标
 	 * @param bidDto

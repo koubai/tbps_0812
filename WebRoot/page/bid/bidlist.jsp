@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/node_modules/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/global.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/local.css" />
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/common.js"></script>
 <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
 <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
@@ -22,23 +23,6 @@
 <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 <script type="text/javascript">
-	/*	
-    var formId = 'mainform';
-    window.onbeforeunload = function () {
-        //用表单id做键名称
-        $.jStorage.set(formId, $('#' + formId).serializeArray());
-    }
-    //提交成功后记得调用$.jStorage.deleteKey(formId)删除缓存数据
-    window.onload = function () {
-        var o = $.jStorage.get(formId);
-        if (o) {//有缓存数据
-            var elements = document.getElementById(formId).elements;
-            for (var i = 0; i < o.length; i++) {
-                elements[o[i].name].value = o[i].value;
-            }
-        }
-    }
-	*/
 	function add() {
 		document.mainform.action = '<c:url value="/bid/showAddBidAction.action"></c:url>';
 		document.mainform.submit();
@@ -64,7 +48,6 @@
 			return;
 		} else {
 			if(confirm("确定删除该记录吗？")) {
-				setOpenDate();
 				document.mainform.action = '<c:url value="/bid/delBidAction.action"></c:url>' + "?delBidNo=" + id;
 				document.mainform.submit();
 			}
@@ -83,20 +66,13 @@
 		return id;
 	}
 	
-	function setOpenDate() {
-		$("#strOpenDateLow").attr("value", $("#openDateLow").val());
-		$("#strOpenDateHigh").attr("value", $("#openDateHigh").val());
-	}
-
 	function queryList() {
-		setOpenDate();
 		document.mainform.action = '<c:url value="/bid/queryBidList.action"></c:url>';
 		document.mainform.submit();
 	}
 	
 	//翻页
 	function changePage(pageNum) {
-		setOpenDate();
 		document.getElementById("startIndex").value = pageNum;
 		document.mainform.action = '<c:url value="/bid/turnBidPage.action"></c:url>';
 		document.mainform.submit();
@@ -132,51 +108,29 @@
 	}
 	
 	function exportBid() {
-		document.mainform.action = '<c:url value="/bid/exportBidListAction.action"></c:url>';
+		//document.mainform.action = '<c:url value="/bid/exportBidListAction.action"></c:url>';
+		//document.mainform.submit();
+	}
+	
+	function goBidProgress(bidNo) {
+		$("#strBID_NO").val(bidNo);
+		document.mainform.action = '<c:url value="/bidprogress/showBidProgressAction.action"></c:url>';
 		document.mainform.submit();
-	}
-	
-	function exportAllBidInfo() {
-		exportPurchaseListAction
-	}
-	
-	//专家信息下载
-	function exportBidExpert() {
-		var id = getSelectedID();
-		if(id == "") {
-			alert("请选择一条记录！");
-			return;
-		} else {
-			//下载专家信息
-			var url = '<c:url value="/bid/exportBidExpertAction.action"></c:url>' + "?exportExpertBidNo=" + id;
-			document.mainform.action = url;
-			document.mainform.submit();
-		}
-	}
-	
-	function queryAgentCommon() {
-		var url = '<c:url value="/agentcomp/showAgentCompCommonAction.action"></c:url>' + "?strKey=strAgentNo&date=" + new Date();
-		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:1000px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
-	}
-	
-	function exportYear() {
-		var url = '<c:url value="/bid/showExportYearAction.action"></c:url>' + "?date=" + new Date();
-		//window.showModalDialog(url, window, "dialogheight:1000px;dialogwidth:1000px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
-		window.open(url, window, 'height=1000, width=1000, top=5, left=100, status=0,resizable=no,scrollbars=yes');
 	}
 </script>
 </head>
 <body>
-	<jsp:include page="../head.jsp" flush="true" />
-	<div class="container-fluid">
+	<jsp:include page="../head.jsp" flush="true" />	
 		<jsp:include page="../info.jsp" flush="true" />
 		<div class="row">
+			<div class="collapse navbar-collapse navbar-ex1-collapse">
 			<jsp:include page="../menu.jsp" flush="true" />
 			<div class="col-lg-10 right">
 			 	<a class="toggle" href="javascript:;"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
 				<s:form id="mainform" name="mainform" method="POST">
 					<s:hidden name="startIndex" id="startIndex"/>
 					<s:hidden name="updateBidNo" id="updateBidNo"/>
+					<s:hidden name="strBID_NO" id="strBID_NO"/>
 					<h3 class="title">招标项目检索和一览<a class="backHome" href="#" onclick="goHome();"><i class="fa fa-home" aria-hidden="true"></i>返回首页</a></h3>
 					<div class="row">
 						<div class="col-lg-6 form-group">
@@ -218,9 +172,20 @@
 						<s:iterator id="listBid" value="listBid" status="st1">
 							<tr>
 								<td><input name="radioKey" type="radio" value="<s:property value="BID_NO"/>"/></td>
-								<td><s:property value="BID_NO"/></td>
+								<td>
+									<a href="javascript:void(0);" onclick="goBidProgress('<s:property value="BID_NO"/>');"><s:property value="BID_NO"/></a>
+								</td>
 								<td><s:property value="PROJECT_NAME"/></td>
-								<td><s:property value="PROGRESS_STATUS"/></td>
+								<td>
+									<s:if test='FINISH_STATUS == "10"'>取消</s:if>
+									<s:elseif test='FINISH_STATUS == "20"'>进行中</s:elseif>
+									<s:elseif test='FINISH_STATUS == "52"'>失败（报名不满6家）</s:elseif>
+									<s:elseif test='FINISH_STATUS == "54"'>失败（开标不满3家）</s:elseif>
+									<s:elseif test='FINISH_STATUS == "56"'>失败（评审失败）</s:elseif>
+									<s:elseif test='FINISH_STATUS == "70"'>终止</s:elseif>
+									<s:elseif test='FINISH_STATUS == "90"'>完成</s:elseif>
+									<s:else><s:property value="FINISH_STATUS"/></s:else>
+								</td>
 								<td>
 									<s:property value="joinBidCompList.size()"/>
 								</td>

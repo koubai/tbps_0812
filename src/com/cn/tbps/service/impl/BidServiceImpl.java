@@ -56,13 +56,41 @@ public class BidServiceImpl extends BaseService implements BidService {
 	private ConfigTabDao configTabDao;
 	
 	@Override
-	public Page queryBidAndBidCntrctByPage(String PROJECT_NAME, String BID_NO_LOW, String BID_NO_HIGH,
+	public void saveBidExpertCost(List<BidDto> bidExpertCostList, String userid) {
+		if(bidExpertCostList != null && bidExpertCostList.size() > 0) {
+			for(BidDto bid : bidExpertCostList) {
+				if(StringUtil.isNotBlank(bid.getBID_NO())) {
+					BidDto newBid = bidDao.queryAllBidByID(bid.getBID_NO());
+					if(newBid != null) {
+						newBid.setBID_EXPERT_COMMISION_ACT(bid.getBID_EXPERT_COMMISION_ACT());
+						newBid.setBID_EXPERT_COMMISION_APPLY_DATE(bid.getBID_EXPERT_COMMISION_APPLY_DATE());
+						newBid.setBID_EXPERT_COMMISION_APPLY(bid.getBID_EXPERT_COMMISION_APPLY());
+						newBid.setUPDATE_USER(userid);
+						bidDao.updateBid(newBid);
+					}
+				}
+			}
+		}
+	}
+	
+	@Override
+	public Page queryBidAndBidCntrctByPage(String cntrctNos, String finishStatuss, String PROJECT_NAME, String BID_NO_LOW, String BID_NO_HIGH,
 			String CNTRCT_YEAR, String CNTRCT_NO, String BID_COMP_NO, String CNTRCT_NAME, String CNTRCT_TYPE,
 			String CNTRCT_ST_DATE, String CNTRCT_ED_DATE, Page page) {
+		String newCntrctNos = "";
+		if(StringUtil.isNotBlank(cntrctNos)) {
+			String[] cntrctNoList = cntrctNos.split(",");
+			for(String s : cntrctNoList) {
+				if(StringUtil.isNotBlank(s)) {
+					newCntrctNos += "'" + s + "',";
+				}
+			}
+			newCntrctNos = newCntrctNos.substring(0, newCntrctNos.length() - 1);
+		}
 		PROJECT_NAME = StringUtil.replaceDatabaseKeyword_mysql(PROJECT_NAME);
 		CNTRCT_NAME = StringUtil.replaceDatabaseKeyword_mysql(CNTRCT_NAME);
 		//查询总记录数
-		int totalCount = bidDao.queryBidAndBidCntrctCountByPage(PROJECT_NAME, BID_NO_LOW, BID_NO_HIGH,
+		int totalCount = bidDao.queryBidAndBidCntrctCountByPage(newCntrctNos, finishStatuss, PROJECT_NAME, BID_NO_LOW, BID_NO_HIGH,
 				CNTRCT_YEAR, CNTRCT_NO, BID_COMP_NO, CNTRCT_NAME, CNTRCT_TYPE, CNTRCT_ST_DATE, CNTRCT_ED_DATE);
 		page.setTotalCount(totalCount);
 		if(totalCount % page.getPageSize() > 0) {
@@ -71,7 +99,7 @@ public class BidServiceImpl extends BaseService implements BidService {
 			page.setTotalPage(totalCount / page.getPageSize());
 		}
 		//翻页查询记录
-		List<BidDto> list = bidDao.queryBidAndBidCntrctByPage(PROJECT_NAME, BID_NO_LOW, BID_NO_HIGH,
+		List<BidDto> list = bidDao.queryBidAndBidCntrctByPage(newCntrctNos, finishStatuss, PROJECT_NAME, BID_NO_LOW, BID_NO_HIGH,
 				CNTRCT_YEAR, CNTRCT_NO, BID_COMP_NO, CNTRCT_NAME, CNTRCT_TYPE, CNTRCT_ST_DATE, CNTRCT_ED_DATE,
 				page.getStartIndex() * page.getPageSize(), page.getPageSize());
 		//查询各个合同对应的招标数量以及对应状态、金额等
@@ -202,6 +230,11 @@ public class BidServiceImpl extends BaseService implements BidService {
 	public BidDto queryBidByID(String bidNo) {
 		return bidDao.queryBidByID(bidNo);
 	}
+	
+	@Override
+	public List<BidDto> queryAllBidByCntrctNo(String CNTRCT_NO) {
+		return bidDao.queryAllBidByCntrctNo(CNTRCT_NO);
+	}
 
 	@Override
 	public BidDto queryAllBidByID(String bidNo) {
@@ -260,13 +293,13 @@ public class BidServiceImpl extends BaseService implements BidService {
 				while(true) {
 					if("1".equals(bidDto.getCNTRCT_TYPE())) {
 						//招标编号，类型=招标
-						bidNo = "LHZB-" + key.substring(2, 4) + "-" + StringUtil.replenishStr("" + newValue, 3);
+						bidNo = "LHZB-" + key.substring(0, 4) + "-" + StringUtil.replenishStr("" + newValue, 4);
 					} else if("2".equals(bidDto.getCNTRCT_TYPE())) {
 						//招标编号，类型=比选
-						bidNo = "LHBX-" + key.substring(2, 4) + "-" + StringUtil.replenishStr("" + newValue, 3);
+						bidNo = "LHBX-" + key.substring(0, 4) + "-" + StringUtil.replenishStr("" + newValue, 4);
 					} else if("4".equals(bidDto.getCNTRCT_TYPE())) {
 						//招标编号，类型=竞价
-						bidNo = "LHJJ-" + key.substring(2, 4) + "-" + StringUtil.replenishStr("" + newValue, 3);
+						bidNo = "LHJJ-" + key.substring(0, 4) + "-" + StringUtil.replenishStr("" + newValue, 4);
 					}
 
 					//验证自动生成的招标编号是否已存在
@@ -314,7 +347,7 @@ public class BidServiceImpl extends BaseService implements BidService {
 					if(b == null) {
 						break;
 					} else {
-						//该招标编号存在，则将招标编号转化为XXXX-YY-NNN-A格式
+						//该招标编号存在，则将招标编号转化为XXXX-YYYY-NNNN-A格式
 						bidNo = bidDto.getBID_NO();
 						bidNo = bidNo + "-" + i;
 					}
@@ -331,6 +364,8 @@ public class BidServiceImpl extends BaseService implements BidService {
 
 		String bidCompName = "";
 		String bidCompIds = "";
+		//中标金额一览
+		String BID_PRICE_LIST = "";
 		//保存招标公司信息
 		if(listBidComp != null && listBidComp.size() > 0) {
 			for(BidCompDto bidcomp : listBidComp) {
@@ -338,14 +373,19 @@ public class BidServiceImpl extends BaseService implements BidService {
 				bidcomp.setDELETE_FLG(Constants.IS_DELETE_NORMAL);
 				bidcomp.setUPDATE_USER(bidDto.getUPDATE_USER());
 				
+				if("1".equals(bidcomp.getBID_RESULT())) {
+					BID_PRICE_LIST += bidcomp.getBID_WIN_PRICE() + ";";
+					bidCompName += bidcomp.getBID_CO_NAME() + ";";
+				}
+				
 				bidCompDao.insertBidComp(bidcomp);
 				
 				bidCompIds += bidcomp.getBID_CO_NO() + ",";
-				bidCompName += bidcomp.getBID_CO_NAME() + ",";
 			}
 		}
 		bidDto.setBID_CO_LIST(bidCompIds);
 		bidDto.setBID_CO_NAME(bidCompName);
+		bidDto.setBID_PRICE_LIST(BID_PRICE_LIST);
 		
 		//专家列表
 		String expertLibIds = "";
@@ -371,6 +411,8 @@ public class BidServiceImpl extends BaseService implements BidService {
 		//更新投标公司
 		String bidCompName = "";
 		String bidCompIds = "";
+		//中标金额一览
+		String BID_PRICE_LIST = "";
 		if(listBidComp != null && listBidComp.size() > 0) {
 			for(BidCompDto bidcomp : listBidComp) {
 				bidcomp.setBID_CO_NO(null);
@@ -378,15 +420,20 @@ public class BidServiceImpl extends BaseService implements BidService {
 				bidcomp.setDELETE_FLG(Constants.IS_DELETE_NORMAL);
 				bidcomp.setUPDATE_USER(bidDto.getUPDATE_USER());
 				
+				if("1".equals(bidcomp.getBID_RESULT())) {
+					BID_PRICE_LIST += bidcomp.getBID_WIN_PRICE() + ";";
+					bidCompName += bidcomp.getBID_CO_NAME() + ";";
+				}
+				
 				bidCompDao.insertBidComp(bidcomp);
 				
 				bidCompIds += bidcomp.getBID_CO_NO() + ",";
-				bidCompName += bidcomp.getBID_CO_NAME() + ",";
 			}
 		}
 		
 		bidDto.setBID_CO_LIST(bidCompIds);
 		bidDto.setBID_CO_NAME(bidCompName);
+		bidDto.setBID_PRICE_LIST(BID_PRICE_LIST);
 		
 		//专家列表
 		String expertLibIds = "";
@@ -664,7 +711,16 @@ public class BidServiceImpl extends BaseService implements BidService {
 		insertBidHist(bidDto);
 		return bidNo;
 	}
-
+	
+	@Override
+	public void updateBid(BidDto bidDto) {
+		//更新招标
+		bidDao.updateBid(bidDto);
+		//插入招标履历
+		insertBidHist(bidDto);
+	}
+	
+	
 	@Override
 	public void updateBid(BidDto bidDto, List<BidCompDto> listBidComp, List<ExpertLibDto> listExpertLib) {
 		//先删除所有投标公司
@@ -1295,6 +1351,7 @@ public class BidServiceImpl extends BaseService implements BidService {
 		bidHist.setBID_EXPERT_COMMISION_DIFF_DATE(bid.getBID_EXPERT_COMMISION_DIFF_DATE());
 		bidHist.setBID_APPLY_PRICE(bid.getBID_APPLY_PRICE());
 		bidHist.setBID_EXPERT_COMMISION_APPLY(bid.getBID_EXPERT_COMMISION_APPLY());
+		bidHist.setBID_EXPERT_COMMISION_APPLY_DATE(bid.getBID_EXPERT_COMMISION_APPLY_DATE());
 		bidHist.setAPPLY_FORM_EDIT_DATE(bid.getAPPLY_FORM_EDIT_DATE());
 		bidHist.setAPPLY_FORM_COLLECT_DATE(bid.getAPPLY_FORM_COLLECT_DATE());
 		bidHist.setAPPLY_FORM_VERIFY_DATE(bid.getAPPLY_FORM_VERIFY_DATE());
@@ -1351,6 +1408,7 @@ public class BidServiceImpl extends BaseService implements BidService {
 		bidHist.setBID_VER_DOC_DELI_FILE10(bid.getBID_VER_DOC_DELI_FILE10());
 		bidHist.setPROGRESS_STATUS(bid.getPROGRESS_STATUS());
 		bidHist.setFINISH_STATUS(bid.getFINISH_STATUS());
+		bidHist.setFINISH_DATE(bid.getFINISH_DATE());
 		bidHist.setFINISH_NOTE(bid.getFINISH_NOTE());
 		bidHist.setSTATUS(bid.getSTATUS());
 		bidHist.setMEMO1(bid.getMEMO1());

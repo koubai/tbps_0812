@@ -1,0 +1,25 @@
+body{
+    background: url("../images/background2.png");
+    animation-name:myfirst;
+    animation-duration:60s;
+    /*变换时间*/
+    animation-delay:5s;
+    /*动画开始时间*/
+    animation-iteration-count:infinite;
+    /*下一周期循环播放*/
+    animation-play-state:running;
+    /*动画开始运行*/
+}
+       
+    @keyframes myfirst
+{
+    0%   {background:url("../images/background2.png");}
+    20%  {background:url("../images/background3.png");}
+    40%  {background:url("../images/background4.png");}
+    60%  {background:url("../images/background5.png");}
+    70%  {background:url("../images/background6.png");}
+    90%  {background:url("../images/background1.png");}
+100% {background:url("../images/background2.jpg");}
+}
+#form{background: rgba(255,255,255,0.2);width:400px;margin:120px auto;}
+.form{background: url("../images/background2.jpg");}

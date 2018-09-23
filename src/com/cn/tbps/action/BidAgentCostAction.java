@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 
 import com.cn.common.action.BaseAction;
 import com.cn.common.util.Page;
+import com.cn.common.util.StringUtil;
 import com.cn.tbps.dto.BidDto;
 import com.cn.tbps.service.BidService;
 
@@ -21,7 +22,7 @@ public class BidAgentCostAction extends BaseAction {
 
 	private static final long serialVersionUID = -8524399330846182774L;
 
-	private static final Logger log = LogManager.getLogger(BidAction.class);
+	private static final Logger log = LogManager.getLogger(BidAgentCostAction.class);
 	
 	private BidService bidService;
 	
@@ -50,6 +51,38 @@ public class BidAgentCostAction extends BaseAction {
 	private String strCNTRCT_NO;
 	//委托单位
 	private String strBID_COMP_NO;
+	//委托单位名
+	private String strBID_COMP_NAME;
+	
+	//多个合同编号
+	private String strCntrctNos;
+	
+	/**
+	 * 显示招标代理费设定页面
+	 * @return
+	 */
+	public String showBidAgentCostByCntrctAction() {
+		try {
+			this.clearMessages();
+			listBid = new ArrayList<BidDto>();
+			strCNTRCT_YEAR = "";
+			strCNTRCT_ST_DATE = "";
+			strCNTRCT_ED_DATE = "";
+			strCNTRCT_NO = "";
+			strBID_COMP_NO = "";
+			strBID_COMP_NAME = "";
+			page = new Page();
+			startIndex = 0;
+			if(StringUtil.isNotBlank(strCntrctNos)) {
+				//查询招标列表
+				queryData();
+			}
+		} catch(Exception e) {
+			log.error("showBidAgentCostByCntrctAction:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
 	
 	/**
 	 * 显示招标代理费设定页面
@@ -64,6 +97,7 @@ public class BidAgentCostAction extends BaseAction {
 			strCNTRCT_ED_DATE = "";
 			strCNTRCT_NO = "";
 			strBID_COMP_NO = "";
+			strBID_COMP_NAME = "";
 			page = new Page();
 			startIndex = 0;
 		} catch(Exception e) {
@@ -80,6 +114,8 @@ public class BidAgentCostAction extends BaseAction {
 	public String queryBidAgentCostList() {
 		try {
 			this.clearMessages();
+			//直接清空
+			strCntrctNos = "";
 			page = new Page();
 			startIndex = 0;
 			queryData();
@@ -113,7 +149,7 @@ public class BidAgentCostAction extends BaseAction {
 		}
 		//翻页查询所有招标
 		this.page.setStartIndex(startIndex);
-		page = bidService.queryBidAndBidCntrctByPage("", "", "", strCNTRCT_YEAR, strCNTRCT_NO, strBID_COMP_NO,
+		page = bidService.queryBidAndBidCntrctByPage(strCntrctNos, "'20','90'", "", "", "", strCNTRCT_YEAR, strCNTRCT_NO, strBID_COMP_NO,
 				"", "", strCNTRCT_ST_DATE, strCNTRCT_ED_DATE, page);
 		listBid = (List<BidDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
@@ -189,5 +225,21 @@ public class BidAgentCostAction extends BaseAction {
 
 	public void setListBid(List<BidDto> listBid) {
 		this.listBid = listBid;
+	}
+
+	public String getStrBID_COMP_NAME() {
+		return strBID_COMP_NAME;
+	}
+
+	public void setStrBID_COMP_NAME(String strBID_COMP_NAME) {
+		this.strBID_COMP_NAME = strBID_COMP_NAME;
+	}
+
+	public String getStrCntrctNos() {
+		return strCntrctNos;
+	}
+
+	public void setStrCntrctNos(String strCntrctNos) {
+		this.strCntrctNos = strCntrctNos;
 	}
 }

@@ -50,6 +50,7 @@
 		<result property="BID_EXPERT_COMMISION_DIFF_DATE" column="BID_EXPERT_COMMISION_DIFF_DATE" />
 		<result property="BID_APPLY_PRICE" column="BID_APPLY_PRICE" />
 		<result property="BID_EXPERT_COMMISION_APPLY" column="BID_EXPERT_COMMISION_APPLY" />
+		<result property="BID_EXPERT_COMMISION_APPLY_DATE" column="BID_EXPERT_COMMISION_APPLY_DATE" />
 		<result property="APPLY_FORM_EDIT_DATE" column="APPLY_FORM_EDIT_DATE" />
 		<result property="APPLY_FORM_COLLECT_DATE" column="APPLY_FORM_COLLECT_DATE" />
 		<result property="APPLY_FORM_VERIFY_DATE" column="APPLY_FORM_VERIFY_DATE" />
@@ -139,6 +140,10 @@
 		<result property="CNTRCT_YEAR" column="CNTRCT_YEAR" />
 		<result property="CNTRCT_ST_DATE" column="CNTRCT_ST_DATE" />
 		<result property="CNTRCT_ED_DATE" column="CNTRCT_ED_DATE" />
+		
+		<result property="BID_COMP_NO" column="BID_COMP_NO" />
+		<result property="BID_COMP_NAME" column="BID_COMP_NAME" />
+		
 		<result property="PROJECT_DEVIEW_DATE" column="PROJECT_DEVIEW_DATE" />
 		<result property="CNTRCT_TYPE" column="CNTRCT_TYPE" />
 		<result property="PROJECT_NAME" column="PROJECT_NAME" />
@@ -182,6 +187,7 @@
 		<result property="BID_EXPERT_COMMISION_DIFF_DATE" column="BID_EXPERT_COMMISION_DIFF_DATE" />
 		<result property="BID_APPLY_PRICE" column="BID_APPLY_PRICE" />
 		<result property="BID_EXPERT_COMMISION_APPLY" column="BID_EXPERT_COMMISION_APPLY" />
+		<result property="BID_EXPERT_COMMISION_APPLY_DATE" column="BID_EXPERT_COMMISION_APPLY_DATE" />
 		<result property="APPLY_FORM_EDIT_DATE" column="APPLY_FORM_EDIT_DATE" />
 		<result property="APPLY_FORM_COLLECT_DATE" column="APPLY_FORM_COLLECT_DATE" />
 		<result property="APPLY_FORM_VERIFY_DATE" column="APPLY_FORM_VERIFY_DATE" />
@@ -265,83 +271,103 @@
 	
 	<select id="queryBidAndBidCntrctCountByPage" resultClass="int" parameterClass="java.util.Map">
 		select count(*) from (
-			select C.BID_COMP_NO,C.CNTRCT_YEAR,C.CNTRCT_NAME,C.CNTRCT_ST_DATE,C.CNTRCT_ED_DATE,
-				T.* from bid T left join bidcntrct C on C.CNTRCT_NO = T.CNTRCT_NO
-		) B where 1 = 1 and B.DELETE_FLG = '1'
-		<isNotEmpty prepend="and" property="CNTRCT_YEAR">
-			B.CNTRCT_YEAR = #CNTRCT_YEAR#
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="CNTRCT_TYPE">
-			B.CNTRCT_TYPE = #CNTRCT_TYPE#
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="CNTRCT_NO">
-			B.CNTRCT_NO = #CNTRCT_NO#
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="BID_COMP_NO">
-			B.BID_COMP_NO = #BID_COMP_NO#
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="CNTRCT_NAME">
-			B.CNTRCT_NAME like '%$CNTRCT_NAME$%'
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="CNTRCT_ST_DATE">
-			B.CNTRCT_ST_DATE <![CDATA[>=]]> #CNTRCT_ST_DATE#
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="CNTRCT_ED_DATE">
-			B.CNTRCT_ED_DATE <![CDATA[<=]]> #CNTRCT_ED_DATE#
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="PROJECT_NAME">
-			B.PROJECT_NAME like '%$PROJECT_NAME$%'
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="BID_NO_LOW">
-			B.BID_NO <![CDATA[>=]]> #BID_NO_LOW#
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="BID_NO_HIGH">
-			B.BID_NO <![CDATA[<=]]> #BID_NO_HIGH#
-		</isNotEmpty>
+			select * from (
+				select C.BID_COMP_NO,C.CNTRCT_YEAR,C.CNTRCT_NAME,C.CNTRCT_ST_DATE,C.CNTRCT_ED_DATE,C.BID_COMP_NAME,
+					T.* from bid T left join bidcntrct C on C.CNTRCT_NO = T.CNTRCT_NO
+			) B where 1 = 1 and B.DELETE_FLG = '1'
+			<isNotEmpty prepend="and" property="CNTRCT_YEAR">
+				B.CNTRCT_YEAR = #CNTRCT_YEAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="CNTRCT_TYPE">
+				B.CNTRCT_TYPE = #CNTRCT_TYPE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="CNTRCT_NO">
+				B.CNTRCT_NO = #CNTRCT_NO#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="BID_COMP_NO">
+				B.BID_COMP_NO = #BID_COMP_NO#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="CNTRCT_NAME">
+				B.CNTRCT_NAME like '%$CNTRCT_NAME$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="CNTRCT_ST_DATE">
+				B.CNTRCT_ST_DATE <![CDATA[>=]]> #CNTRCT_ST_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="CNTRCT_ED_DATE">
+				B.CNTRCT_ED_DATE <![CDATA[<=]]> #CNTRCT_ED_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="PROJECT_NAME">
+				B.PROJECT_NAME like '%$PROJECT_NAME$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="BID_NO_LOW">
+				B.BID_NO <![CDATA[>=]]> #BID_NO_LOW#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="BID_NO_HIGH">
+				B.BID_NO <![CDATA[<=]]> #BID_NO_HIGH#
+			</isNotEmpty>
+		) A where 1 = 1
+			<isNotEmpty prepend="and" property="cntrctNos">
+				A.CNTRCT_NO in ($cntrctNos$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="finishStatuss">
+				A.FINISH_STATUS in ($finishStatuss$)
+			</isNotEmpty>
 	</select>
 	
 	<select id="queryBidAndBidCntrctByPage" parameterClass="java.util.Map" resultMap="BidDto1">
-		select * from (
-			select C.BID_COMP_NO,C.CNTRCT_YEAR,C.CNTRCT_NAME,C.CNTRCT_ST_DATE,C.CNTRCT_ED_DATE,
-				T.* from bid T left join bidcntrct C on C.CNTRCT_NO = T.CNTRCT_NO
-		) B where 1 = 1 and B.DELETE_FLG = '1'
-		<isNotEmpty prepend="and" property="CNTRCT_YEAR">
-			B.CNTRCT_YEAR = #CNTRCT_YEAR#
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="CNTRCT_TYPE">
-			B.CNTRCT_TYPE = #CNTRCT_TYPE#
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="CNTRCT_NO">
-			B.CNTRCT_NO = #CNTRCT_NO#
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="BID_COMP_NO">
-			B.BID_COMP_NO = #BID_COMP_NO#
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="CNTRCT_NAME">
-			B.CNTRCT_NAME like '%$CNTRCT_NAME$%'
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="CNTRCT_ST_DATE">
-			B.CNTRCT_ST_DATE <![CDATA[>=]]> #CNTRCT_ST_DATE#
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="CNTRCT_ED_DATE">
-			B.CNTRCT_ED_DATE <![CDATA[<=]]> #CNTRCT_ED_DATE#
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="PROJECT_NAME">
-			B.PROJECT_NAME like '%$PROJECT_NAME$%'
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="BID_NO_LOW">
-			B.BID_NO <![CDATA[>=]]> #BID_NO_LOW#
-		</isNotEmpty>
-		<isNotEmpty prepend="and" property="BID_NO_HIGH">
-			B.BID_NO <![CDATA[<=]]> #BID_NO_HIGH#
-		</isNotEmpty>
-		order by B.CNTRCT_NO desc,B.UPDATE_DATE desc
-		LIMIT #start#, #end#
+		select A.* from (
+			select * from (
+				select C.BID_COMP_NO,C.CNTRCT_YEAR,C.CNTRCT_NAME,C.CNTRCT_ST_DATE,C.CNTRCT_ED_DATE,C.BID_COMP_NAME,
+					T.* from bid T left join bidcntrct C on C.CNTRCT_NO = T.CNTRCT_NO
+			) B where 1 = 1 and B.DELETE_FLG = '1'
+			<isNotEmpty prepend="and" property="CNTRCT_YEAR">
+				B.CNTRCT_YEAR = #CNTRCT_YEAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="CNTRCT_TYPE">
+				B.CNTRCT_TYPE = #CNTRCT_TYPE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="CNTRCT_NO">
+				B.CNTRCT_NO = #CNTRCT_NO#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="BID_COMP_NO">
+				B.BID_COMP_NO = #BID_COMP_NO#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="CNTRCT_NAME">
+				B.CNTRCT_NAME like '%$CNTRCT_NAME$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="CNTRCT_ST_DATE">
+				B.CNTRCT_ST_DATE <![CDATA[>=]]> #CNTRCT_ST_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="CNTRCT_ED_DATE">
+				B.CNTRCT_ED_DATE <![CDATA[<=]]> #CNTRCT_ED_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="PROJECT_NAME">
+				B.PROJECT_NAME like '%$PROJECT_NAME$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="BID_NO_LOW">
+				B.BID_NO <![CDATA[>=]]> #BID_NO_LOW#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="BID_NO_HIGH">
+				B.BID_NO <![CDATA[<=]]> #BID_NO_HIGH#
+			</isNotEmpty>
+		) A where 1 = 1
+			<isNotEmpty prepend="and" property="cntrctNos">
+				A.CNTRCT_NO in ($cntrctNos$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="finishStatuss">
+				A.FINISH_STATUS in ($finishStatuss$)
+			</isNotEmpty>
+			order by A.CNTRCT_NO desc,A.BID_NO desc
+			LIMIT #start#, #end#
+	</select>
+	
+	<select id="queryAllBidByCntrctNo" parameterClass="java.util.Map" resultMap="BidDto">
+		select * from bid B where 1 = 1 and CNTRCT_NO = #CNTRCT_NO# and B.DELETE_FLG = '1'
 	</select>
 	
 	<select id="queryAllBidByID" parameterClass="java.util.Map" resultMap="BidDto1">
 		select * from (
-			select C.BID_COMP_NO,C.CNTRCT_YEAR,C.CNTRCT_NAME,C.CNTRCT_ST_DATE,C.CNTRCT_ED_DATE,
+			select C.BID_COMP_NO,C.CNTRCT_YEAR,C.CNTRCT_NAME,C.CNTRCT_ST_DATE,C.CNTRCT_ED_DATE,C.BID_COMP_NAME,
 				T.* from bid T left join bidcntrct C on C.CNTRCT_NO = T.CNTRCT_NO
 		) B where 1 = 1 and BID_NO = #BID_NO# and B.DELETE_FLG = '1'
 	</select>
@@ -352,7 +378,7 @@
 			REGISTE_ED_DATE2,REGISTE_ST_DATE3,REGISTE_ED_DATE3,REGISTE_ST_DATE4,REGISTE_ED_DATE4,REGISTE_ST_DATE5,REGISTE_ED_DATE5,APPLY_REQUIRE,BID_BOND,
 			TENDER_OPEN_DATE,TENDER_OPEN_ADDRESS,TENDER_VERIFY_DATE,BID_AUTH,BID_LIMIT_PRICE,BID_CO_LIST,BID_EXPERT_LIST,BID_CO_SEQ,BID_CO_NAME,BID_CO_PRICE,
 			BID_PRICE,BID_PRICE_LIST,BID_EXPERT_COMMISION,BID_EXPERT_COMMISION_PRE,BID_EXPERT_COMMISION_ACT,BID_EXPERT_COMMISION_DIFF_DATE,BID_APPLY_PRICE,
-			BID_EXPERT_COMMISION_APPLY,APPLY_FORM_EDIT_DATE,APPLY_FORM_COLLECT_DATE,APPLY_FORM_VERIFY_DATE,APPLY_FORM_VERIFY,APPLY_FORM_FIX_DATE,
+			BID_EXPERT_COMMISION_APPLY,BID_EXPERT_COMMISION_APPLY_DATE,APPLY_FORM_EDIT_DATE,APPLY_FORM_COLLECT_DATE,APPLY_FORM_VERIFY_DATE,APPLY_FORM_VERIFY,APPLY_FORM_FIX_DATE,
 			APPLY_FORM_BOX_DATE,SUPPORT_DOC_DATE,BID_NOTICE_ST_DATE,BID_NOTICE_ED_DATE,BID_MESSAGE_DATE,BID_DOC_DELI_DATE1,BID_DOC_DELI_FILE1,BID_DOC_DELI_DATE2,
 			BID_DOC_DELI_FILE2,BID_DOC_DELI_DATE3,BID_DOC_DELI_FILE3,BID_DOC_DELI_DATE4,BID_DOC_DELI_FILE4,BID_DOC_DELI_DATE5,BID_DOC_DELI_FILE5,BID_DOC_DELI_DATE6,
 			BID_DOC_DELI_FILE6,BID_DOC_DELI_DATE7,BID_DOC_DELI_FILE7,BID_DOC_DELI_DATE8,BID_DOC_DELI_FILE8,BID_DOC_DELI_DATE9,BID_DOC_DELI_FILE9,BID_DOC_DELI_DATE10,
@@ -367,7 +393,7 @@
 			#REGISTE_ED_DATE2#,#REGISTE_ST_DATE3#,#REGISTE_ED_DATE3#,#REGISTE_ST_DATE4#,#REGISTE_ED_DATE4#,#REGISTE_ST_DATE5#,#REGISTE_ED_DATE5#,#APPLY_REQUIRE#,#BID_BOND#,
 			#TENDER_OPEN_DATE#,#TENDER_OPEN_ADDRESS#,#TENDER_VERIFY_DATE#,#BID_AUTH#,#BID_LIMIT_PRICE#,#BID_CO_LIST#,#BID_EXPERT_LIST#,#BID_CO_SEQ#,#BID_CO_NAME#,#BID_CO_PRICE#,
 			#BID_PRICE#,#BID_PRICE_LIST#,#BID_EXPERT_COMMISION#,#BID_EXPERT_COMMISION_PRE#,#BID_EXPERT_COMMISION_ACT#,#BID_EXPERT_COMMISION_DIFF_DATE#,#BID_APPLY_PRICE#,
-			#BID_EXPERT_COMMISION_APPLY#,#APPLY_FORM_EDIT_DATE#,#APPLY_FORM_COLLECT_DATE#,#APPLY_FORM_VERIFY_DATE#,#APPLY_FORM_VERIFY#,#APPLY_FORM_FIX_DATE#,
+			#BID_EXPERT_COMMISION_APPLY#,#BID_EXPERT_COMMISION_APPLY_DATE#,#APPLY_FORM_EDIT_DATE#,#APPLY_FORM_COLLECT_DATE#,#APPLY_FORM_VERIFY_DATE#,#APPLY_FORM_VERIFY#,#APPLY_FORM_FIX_DATE#,
 			#APPLY_FORM_BOX_DATE#,#SUPPORT_DOC_DATE#,#BID_NOTICE_ST_DATE#,#BID_NOTICE_ED_DATE#,#BID_MESSAGE_DATE#,#BID_DOC_DELI_DATE1#,#BID_DOC_DELI_FILE1#,#BID_DOC_DELI_DATE2#,
 			#BID_DOC_DELI_FILE2#,#BID_DOC_DELI_DATE3#,#BID_DOC_DELI_FILE3#,#BID_DOC_DELI_DATE4#,#BID_DOC_DELI_FILE4#,#BID_DOC_DELI_DATE5#,#BID_DOC_DELI_FILE5#,#BID_DOC_DELI_DATE6#,
 			#BID_DOC_DELI_FILE6#,#BID_DOC_DELI_DATE7#,#BID_DOC_DELI_FILE7#,#BID_DOC_DELI_DATE8#,#BID_DOC_DELI_FILE8#,#BID_DOC_DELI_DATE9#,#BID_DOC_DELI_FILE9#,#BID_DOC_DELI_DATE10#,
@@ -425,6 +451,7 @@
 			BID_EXPERT_COMMISION_DIFF_DATE = #BID_EXPERT_COMMISION_DIFF_DATE#,
 			BID_APPLY_PRICE = #BID_APPLY_PRICE#,
 			BID_EXPERT_COMMISION_APPLY = #BID_EXPERT_COMMISION_APPLY#,
+			BID_EXPERT_COMMISION_APPLY_DATE = #BID_EXPERT_COMMISION_APPLY_DATE#,
 			APPLY_FORM_EDIT_DATE = #APPLY_FORM_EDIT_DATE#,
 			APPLY_FORM_COLLECT_DATE = #APPLY_FORM_COLLECT_DATE#,
 			APPLY_FORM_VERIFY_DATE = #APPLY_FORM_VERIFY_DATE#,

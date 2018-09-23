@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+        PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="com.cn.tbps">
+
+	<resultMap id="SuperviseLibDto" class="com.cn.tbps.dto.SuperviseLibDto">
+		<result property="SUPERVISE_SEQ" column="SUPERVISE_SEQ" />
+		<result property="SUPERVISE_NAME" column="SUPERVISE_NAME" />
+		<result property="SUPERVISE_TEL1" column="SUPERVISE_TEL1" />
+		<result property="SUPERVISE_TEL2" column="SUPERVISE_TEL2" />
+		<result property="SUPERVISE_GENDER" column="SUPERVISE_GENDER" />
+		<result property="SUPERVISE_BIRTH" column="SUPERVISE_BIRTH" />
+		<result property="SUPERVISE_COMP" column="SUPERVISE_COMP" />
+		<result property="MEMO1" column="MEMO1" />
+		<result property="DELETE_FLG" column="DELETE_FLG" />
+		<result property="UPDATE_USER" column="UPDATE_USER" />
+		<result property="INSERT_DATE" column="INSERT_DATE" />
+		<result property="UPDATE_DATE" column="UPDATE_DATE" />
+		<result property="RESERVE1" column="RESERVE1" />
+		<result property="RESERVE2" column="RESERVE2" />
+		<result property="RESERVE3" column="RESERVE3" />
+		<result property="RESERVE4" column="RESERVE4" />
+		<result property="RESERVE5" column="RESERVE5" />
+	</resultMap>
+
+	<select id="querySuperviseLibByPage" parameterClass="java.util.Map" resultMap="SuperviseLibDto">
+		select T.* from superviselib T where 1 = 1
+		and T.DELETE_FLG = '1'
+		<isNotEmpty prepend="and" property="SUPERVISE_NAME">
+				T.SUPERVISE_NAME like '%$SUPERVISE_NAME$%' ESCAPE '/'
+			</isNotEmpty>
+		order by T.UPDATE_DATE desc
+		LIMIT #start#, #end#
+	</select>
+	
+	<select id="querySuperviseLibCountByPage" resultClass="int" parameterClass="java.util.Map">
+		select count(*) from superviselib T where 1 = 1
+			and T.DELETE_FLG = '1'
+			<isNotEmpty prepend="and" property="SUPERVISE_NAME">
+				T.SUPERVISE_NAME like '%$SUPERVISE_NAME$%' ESCAPE '/'
+			</isNotEmpty>
+	</select>
+	
+	<select id="querySuperviseLibByIds" parameterClass="java.util.Map" resultMap="SuperviseLibDto">
+		select T.* from superviselib T where 1 = 1
+			and T.DELETE_FLG = '1'
+			and T.SUPERVISE_SEQ in ($IDS$)
+			order by T.UPDATE_DATE desc
+	</select>
+	
+	<select id="queryAllSuperviseLib" parameterClass="java.util.Map" resultMap="SuperviseLibDto">
+		select T.* from superviselib T where 1 = 1
+			and T.DELETE_FLG = '1'
+			order by T.UPDATE_DATE desc
+	</select>
+	
+	<select id="querySuperviseLibByID" parameterClass="java.util.Map" resultMap="SuperviseLibDto">
+		select * from superviselib where 
+			SUPERVISE_SEQ = #SUPERVISE_SEQ#
+			and DELETE_FLG = '1'
+	</select>
+	
+	<insert id="insertSuperviseLib" parameterClass="com.cn.tbps.dto.SuperviseLibDto">
+		insert into superviselib(SUPERVISE_NAME,SUPERVISE_TEL1,SUPERVISE_TEL2,SUPERVISE_GENDER,SUPERVISE_BIRTH,SUPERVISE_COMP,
+				MEMO1,DELETE_FLG,UPDATE_USER,INSERT_DATE,UPDATE_DATE,RESERVE1,RESERVE2,RESERVE3,RESERVE4,RESERVE5)
+		values(#SUPERVISE_NAME#,#SUPERVISE_TEL1#,#SUPERVISE_TEL2#,#SUPERVISE_GENDER#,#SUPERVISE_BIRTH#,#SUPERVISE_COMP#,
+				#MEMO1#,#DELETE_FLG#,#UPDATE_USER#,NOW(),NOW(),#RESERVE1#,#RESERVE2#,#RESERVE3#,#RESERVE4#,#RESERVE5#)
+	</insert>
+	
+	<update id="updateSuperviseLib" parameterClass="com.cn.tbps.dto.SuperviseLibDto">
+		update superviselib
+		set SUPERVISE_NAME = #SUPERVISE_NAME#,
+			SUPERVISE_TEL1 = #SUPERVISE_TEL1#,
+			SUPERVISE_TEL2 = #SUPERVISE_TEL2#,
+			SUPERVISE_GENDER = #SUPERVISE_GENDER#,
+			SUPERVISE_BIRTH = #SUPERVISE_BIRTH#,
+			SUPERVISE_COMP = #SUPERVISE_COMP#,
+			MEMO1 = #MEMO1#,
+			DELETE_FLG = #DELETE_FLG#,
+			UPDATE_USER = #UPDATE_USER#,
+			UPDATE_DATE = NOW(),
+			RESERVE1 = #RESERVE1#,
+			RESERVE2 = #RESERVE2#,
+			RESERVE3 = #RESERVE3#,
+			RESERVE4 = #RESERVE4#,
+			RESERVE5 = #RESERVE5#
+		where SUPERVISE_SEQ = #SUPERVISE_SEQ#
+	</update>
+	
+</sqlMap>

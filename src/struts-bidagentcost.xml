@@ -6,6 +6,10 @@
 
 	<package name="bidagentcost" extends="struts-tbps" namespace="/bidagentcost">
 	
+		<action name="showBidAgentCostByCntrctAction" class="bidAgentCostAction" method="showBidAgentCostByCntrctAction">
+			<result name="success">/page/bidagentcost/bidagentcostlist.jsp</result>
+		</action>
+		
 		<action name="showBidAgentCostAction" class="bidAgentCostAction" method="showBidAgentCostAction">
 			<result name="success">/page/bidagentcost/bidagentcostlist.jsp</result>
 		</action>
