@@ -1,5 +1,6 @@
 package com.cn.tbps.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.cn.common.util.Page;
@@ -26,7 +27,20 @@ public interface BidService {
 	public void saveBidExpertCost(List<BidDto> bidExpertCostList, String userid);
 	
 	/**
+	 * 代理费计算
+	 * @param bidAgentCostList
+	 * @param userid
+	 * @param discount
+	 * @param receiptDate
+	 * @param receiptValueDate
+	 */
+	public void saveBidAgentCost(List<BidDto> bidAgentCostList, String userid, String discount, String receiptDate, String receiptValueDate);
+	
+	/**
 	 * 查询bid列表（新）
+	 * @param strBID_AGENT_PRICE_ACT
+	 * @param strRECEIPT1_DATE
+	 * @param strRECEIPT1_VALUE_DATE
 	 * @param cntrctNos
 	 * @param finishStatuss
 	 * @param PROJECT_NAME
@@ -42,7 +56,8 @@ public interface BidService {
 	 * @param page
 	 * @return
 	 */
-	public Page queryBidAndBidCntrctByPage(String cntrctNos, String finishStatuss, String PROJECT_NAME, String BID_NO_LOW,
+	public Page queryBidAndBidCntrctByPage(String strBID_AGENT_PRICE_ACT, String strRECEIPT1_DATE, String strRECEIPT1_VALUE_DATE,
+			String cntrctNos, String finishStatuss, String PROJECT_NAME, String BID_NO_LOW,
 			String BID_NO_HIGH, String CNTRCT_YEAR, String CNTRCT_NO, String BID_COMP_NO,
 			String CNTRCT_NAME, String CNTRCT_TYPE, String CNTRCT_ST_DATE, String CNTRCT_ED_DATE, Page page);
 

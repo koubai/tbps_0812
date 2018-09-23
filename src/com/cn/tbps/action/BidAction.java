@@ -421,7 +421,7 @@ public class BidAction extends BaseAction {
 		}
 		//翻页查询所有招标
 		this.page.setStartIndex(startIndex);
-		bidService.queryBidAndBidCntrctByPage("", "", strProjectName, strBidNoLow, strBidNoHigh,
+		bidService.queryBidAndBidCntrctByPage("", "", "", "", "", strProjectName, strBidNoLow, strBidNoHigh,
 				"", "", "", "", "", "", "", page);
 		listBid = (List<BidDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());

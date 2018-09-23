@@ -216,19 +216,104 @@
 	}
 	
 	//代理费计算
-	function calcAmount() {
+	function showCalcAgentCost() {
 		var ids = "";
+		var agentCost = "0";
+		agentCost = parseFloat(agentCost);
 		var list = document.getElementsByName("radioKey");
 		for(var i = 0; i < list.length; i++) {
 			if(list[i].checked) {
-				ids = list[i].value + ",";
+				var tr = list[i].parentNode.parentNode;
+				var childs = tr.cells[1].getElementsByTagName("input");
+				if(childs[1].value != "" && parseFloat(childs[1].value) > 0) {
+					agentCost += parseFloat(childs[1].value);
+				}
+				ids += list[i].value + ",";
 			}
 		}
 		if(ids == "") {
 			alert("请选择一条记录！");
 		} else {
+			//计算总代理费
+			$("#tmpTotalCost").val(agentCost.toFixed(2));
+			$("#tmpDiscount").val("");
+			$("#tmpDiscountPrice").val("");
+			$("#tmpReceiptDate").val("");
+			$("#tmpReceiptValueDate").val("");
 			//弹出代理费计算页面
+			//禁用 Bootstrap 模态框(Modal) 点击空白时自动关闭
+			$('#calcAgentCostModal').modal({backdrop: 'static', keyboard: false});
+			$('#calcAgentCostModal').modal('show');
 		}
+	}
+	
+	function calcAmount() {
+		if($("#tmpDiscount").val() == "") {
+			alert("折扣率不能为空！");
+			$("#tmpDiscount").focus();
+			return;
+		}
+		if(!isReal($("#tmpDiscount").val())) {
+			alert("折扣率格式不正确！");
+			$("#tmpDiscount").focus();
+			return;
+		}
+		if($("#tmpReceiptDate").val() == "") {
+			alert("请选择开票日期！");
+			$("#tmpReceiptDate").focus();
+			return;
+		}
+		if($("#tmpReceiptValueDate").val() == "") {
+			alert("请选择到账日期！");
+			$("#tmpReceiptValueDate").focus();
+			return;
+		}
+		$("#strDiscount").val($("#tmpDiscount").val());
+		$("#strCommonReceiptDate").val($("#tmpReceiptDate").val());
+		$("#strCommonReceiptValueDate").val($("#tmpReceiptValueDate").val());
+		//组织bidlist
+		$("#agentCostListTable").empty();
+		var list = document.getElementsByName("radioKey");
+		for(var i = 0; i < list.length; i++) {
+			if(list[i].checked) {
+				var tr = document.createElement("tr");
+				var td = document.createElement("td");
+				var ttr = list[i].parentNode.parentNode;
+				var childs = ttr.cells[1].getElementsByTagName("input");
+				td.appendChild(createInput("agentCostBidList[" + i + "].BID_NO", childs[0].value));
+				tr.appendChild(td);
+				document.getElementById("agentCostListTable").appendChild(tr);
+			}
+		}
+		if(confirm("确定提交吗？")) {
+			document.mainform.action = '<c:url value="/bidagentcost/calcBidAgentCostAction.action"></c:url>';
+			document.mainform.submit();
+		}
+	}
+	
+	function createInput(id, value) {
+		var input = document.createElement("input");
+		input.type = "text";
+		input.name = id;
+		input.value = value;
+		return input;
+	}
+	
+	function calcDiscountPrice() {
+		var tmpDiscount = $("#tmpDiscount").val();
+		var tmpTotalCost = $("#tmpTotalCost").val();
+		if(tmpDiscount == "") {
+			alert("折扣率不能为空！");
+			//$("#tmpDiscount").focus();
+			return;
+		}
+		if(!isReal(tmpDiscount)) {
+			alert("折扣率格式不正确！");
+			//$("#tmpDiscount").focus();
+			return;
+		}
+		var tmpDiscountPrice = parseFloat(tmpTotalCost) * parseFloat(tmpDiscount);
+		$("#tmpDiscountPrice").val(tmpDiscountPrice.toFixed(2));
 	}
 </script>
 </head>
@@ -240,21 +325,27 @@
 			<jsp:include page="../menu.jsp" flush="true" />
 			<div class="col-lg-10 right">
 			 	<a class="toggle" href="javascript:;"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
-				<s:form id="mainform" name="mainform" method="POST">
+				<s:form id="mainform" name="mainform" method="POST" theme="simple">
 					<s:hidden name="startIndex" id="startIndex"/>
 					<s:hidden name="strCNTRCT_ST_DATE" id="strCNTRCT_ST_DATE"/>
 					<s:hidden name="strCNTRCT_ED_DATE" id="strCNTRCT_ED_DATE"/>
 					<s:hidden name="strBID_COMP_NO" id="strBID_COMP_NO"/>
 					<s:hidden name="strBID_COMP_NAME" id="strBID_COMP_NAME"/>
+					<s:hidden name="strDiscount" id="strDiscount"/>
+					<s:hidden name="strCommonReceiptDate" id="strCommonReceiptDate"/>
+					<s:hidden name="strCommonReceiptValueDate" id="strCommonReceiptValueDate"/>
+					
 					<h3 class="title">代理费设定<a class="backHome" href="#" onclick="goHome();"><i class="fa fa-home" aria-hidden="true"></i>返回首页</a></h3>
 					<div class="row">
-						<div class="col-lg-3 form-group">
+						<table id="agentCostListTable" style="display: none;">
+						</table>
+						<div class="col-lg-3 form-group" style="display: none;">
 							<label for="" class="col-lg-3 form-label">合同年份</label>
 							<div class="col-lg-9">
 								<s:textfield name="strCNTRCT_YEAR" id="strCNTRCT_YEAR" cssClass="form-control" maxlength="4" theme="simple"></s:textfield>
 							</div>
 						</div>
-						<div class="col-lg-6 form-group">
+						<div class="col-lg-6 form-group" style="display: none;">
 							<label for="" class="col-lg-2 form-label">合同期限</label>
 							<div class="col-lg-4">
 								<div class="input-group date" data-provide="datepicker">
@@ -275,12 +366,88 @@
 							</div>
 						</div>
 						<div class="col-lg-3 form-group">
-							<label for="" class="col-lg-3 form-label">合同编号</label>
-							<div class="col-lg-9">
+							<label for="" class="col-lg-5 form-label">合同编号</label>
+							<div class="col-lg-7">
 								<s:textfield name="strCNTRCT_NO" id="strCNTRCT_NO" cssClass="form-control" maxlength="20" theme="simple"></s:textfield>
 							</div>
 						</div>
-						<div class="col-lg-5 form-group">
+						<div class="col-lg-3 form-group">
+							<label for="" class="col-lg-3 form-label">项目名称</label>
+							<div class="col-lg-9">
+								<s:textfield name="strCNTRCT_NAME" id="strCNTRCT_NAME" cssClass="form-control" maxlength="30" theme="simple"></s:textfield>
+							</div>
+						</div>
+						<div class="col-lg-6 form-group">
+							<label for="" class="col-lg-2 form-label">招标编号</label>
+							<div class="col-lg-4">
+								<s:textfield name="strBidNoLow" id="strBidNoLow" cssClass="form-control" maxlength="18" theme="simple"></s:textfield>
+							</div>
+							<label for="" class="col-lg-1 form-label to">---</label>
+							<div class="col-lg-4">
+								<s:textfield name="strBidNoHigh" id="strBidNoHigh" cssClass="form-control" maxlength="18" theme="simple"></s:textfield>
+							</div>
+						</div>
+						<div class="col-lg-3 form-group">
+							<label for="" class="col-lg-5 form-label">代理费计算情况</label>
+							<div class="col-lg-7">
+								<select class="form-control" name="strBID_AGENT_PRICE_ACT">
+									<option value="" selected="selected">请选择</option>
+									<s:if test='strBID_AGENT_PRICE_ACT == "1"'>
+										<option value="1" selected="selected">已计算</option>
+										<option value="2">未计算</option>
+									</s:if>
+									<s:elseif test='strBID_AGENT_PRICE_ACT == "2"'>
+										<option value="1">已计算</option>
+										<option value="2" selected="selected">未计算</option>
+									</s:elseif>
+									<s:else>
+										<option value="1">已计算</option>
+										<option value="2">未计算</option>
+									</s:else>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-3 form-group">
+							<label for="" class="col-lg-3 form-label">开票情况</label>
+							<div class="col-lg-9">
+								<select class="form-control" name="strRECEIPT1_DATE">
+									<option value="" selected="selected">请选择</option>
+									<s:if test='strRECEIPT1_DATE == "1"'>
+										<option value="1" selected="selected">已开票</option>
+										<option value="2">未开票</option>
+									</s:if>
+									<s:elseif test='strRECEIPT1_DATE == "2"'>
+										<option value="1">已开票</option>
+										<option value="2" selected="selected">未开票</option>
+									</s:elseif>
+									<s:else>
+										<option value="1">已开票</option>
+										<option value="2">未开票</option>
+									</s:else>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-3 form-group">
+							<label for="" class="col-lg-3 form-label">到账情况</label>
+							<div class="col-lg-9">
+								<select class="form-control" name="strRECEIPT1_VALUE_DATE">
+									<option value="" selected="selected">请选择</option>
+									<s:if test='strRECEIPT1_VALUE_DATE == "1"'>
+										<option value="1" selected="selected">已到账</option>
+										<option value="2">未到账</option>
+									</s:if>
+									<s:elseif test='strRECEIPT1_VALUE_DATE == "2"'>
+										<option value="1">已到账</option>
+										<option value="2" selected="selected">未到账</option>
+									</s:elseif>
+									<s:else>
+										<option value="1">已到账</option>
+										<option value="2">未到账</option>
+									</s:else>
+								</select>
+							</div>
+						</div>
+						<div class="col-lg-5 form-group" style="display: none;">
 							<label for="" class="col-lg-3 form-label">委托公司</label>
 							<div class="col-lg-7">
 								<input type="text" id="strAgentName" disabled="disabled" class="form-control" value="<s:property value="strBID_COMP_NAME"/>">
@@ -300,6 +467,7 @@
 					<table class="table table-bordered">
 						<tr>
 							<th></th>
+							<th style="display: none;"></th>
 							<th>招标编号</th>
 							<th>项目名称</th>
 							<th>委托单位</th>
@@ -307,13 +475,18 @@
 							<th>中标价</th>
 							<th>应收代理费</th>
 							<th>实收代理费</th>
+							<th>开票日期</th>
+							<th>到账日期</th>
 							<th>代理费支付方</th>
 						</tr>
 						<s:iterator id="listBid" value="listBid" status="st1">
 							<tr>
 								<td><input name="radioKey" type="checkbox" value="<s:property value="BID_NO"/>"/></td>
+								<td style="display: none;">
+									<input type="hidden" value="<s:property value="BID_NO"/>">
+									<input type="hidden" value="<s:property value="BID_AGENT_PRICE"/>">
+								</td>
 								<td>
-									<input name="tmpBID_NO" type="hidden" value="<s:property value="BID_NO"/>">
 									<s:property value="BID_NO"/>
 								</td>
 								<td><s:property value="PROJECT_NAME"/></td>
@@ -330,15 +503,41 @@
 								</td>
 								<td><s:property value="BID_PRICE"/></td>
 								<td><s:property value="BID_AGENT_PRICE"/></td>
-								<td><s:property value="BID_AGENT_PRICE_ACT"/></td>
-								<td><s:property value="BID_AGENT_PAY"/></td>
+								<td>
+									<div class="col-lg-10" style="width: 140px;">
+										<input name="tmpBID_AGENT_PRICE_ACT" style="width: 130px;" disabled="disabled" type="text" value="<s:property value="BID_AGENT_PRICE_ACT"/>" maxlength="14" class="form-control">
+									</div>
+								</td>
+								<td>
+									<div class="input-group date" style="width: 140px;" data-provide="datepicker">
+										<input type="text" name="tmpRECEIPT1_DATE" value="<s:date name="RECEIPT1_DATE" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
+										<div class="input-group-addon">
+											<span class="glyphicon glyphicon-th"></span>
+										</div>
+									</div>
+								</td>
+								<td>
+									<div class="input-group date" style="width: 140px;" data-provide="datepicker">
+										<input type="text" name="tmpRECEIPT1_VALUE_DATE" value="<s:date name="RECEIPT1_VALUE_DATE" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
+										<div class="input-group-addon">
+											<span class="glyphicon glyphicon-th"></span>
+										</div>
+									</div>
+								</td>
+								<td>
+									<s:if test='BID_AGENT_PAY == "1"'>委托单位</s:if>
+									<s:elseif test='BID_AGENT_PAY == "2"'>中标单位</s:elseif>
+									<s:elseif test='BID_AGENT_PAY == "3"'>申通集团</s:elseif>
+									<s:elseif test='BID_AGENT_PAY == "4"'>维保公司</s:elseif>
+									<s:else><s:property value="BID_AGENT_PAY"/></s:else>
+								</td>
 							</tr>
 						</s:iterator>
 					</table>
 					<jsp:include page="../turning.jsp" flush="true" />
 					<div class="operationBtns">
 						<!-- <button class="btn btn-success" onclick="save();">保存</button> -->
-						<button type="button" class="btn btn-success" onclick="calcAmount();">代理费计算</button>
+						<button type="button" class="btn btn-success" onclick="showCalcAgentCost();">代理费计算</button>
 					</div>
 				</s:form>
 			</div>
@@ -413,6 +612,68 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-primary" onclick="selectAgentComp();">确定</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="calcAgentCostModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" style="width: 700px;">
+			<div class="modal-content">
+				<form class="form-horizontal" role="form">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							代理费计算
+						</h4>
+					</div>
+					<div class="modal-body">
+						<div class="form-group">
+							<label class="col-sm-2 control-label">总计</label>
+							<div class="col-sm-9">
+								<input type="text" id="tmpTotalCost" class="form-control" disabled="disabled" maxlength="18" placeholder="">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">折扣率</label>
+							<div class="col-sm-9">
+								<input type="text" id="tmpDiscount" onblur="calcDiscountPrice();" class="form-control" maxlength="8" placeholder="">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">折后总价</label>
+							<div class="col-sm-9">
+								<input type="text"  id="tmpDiscountPrice" disabled="disabled" class="form-control" maxlength="18" placeholder="">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">开票日期</label>
+							<div class="col-sm-9">
+								<div class="input-group date" data-provide="datepicker">
+									<input type="text" id="tmpReceiptDate" value="" class="form-control datepicker" readonly>
+									<div class="input-group-addon">
+										<span class="glyphicon glyphicon-th"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">到账日期</label>
+							<div class="col-sm-9">
+								<div class="input-group date" data-provide="datepicker">
+									<input type="text" id="tmpReceiptValueDate" value="" class="form-control datepicker" readonly>
+									<div class="input-group-addon">
+										<span class="glyphicon glyphicon-th"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" onclick="calcAmount();">计算</button>
 						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 					</div>
 				</form>

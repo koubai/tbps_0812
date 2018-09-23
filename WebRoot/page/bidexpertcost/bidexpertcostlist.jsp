@@ -278,7 +278,7 @@
 			<jsp:include page="../menu.jsp" flush="true" />
 			<div class="col-lg-10 right">
 			 	<a class="toggle" href="javascript:;"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
-				<s:form id="mainform" name="mainform" method="POST">
+				<s:form id="mainform" name="mainform" method="POST" theme="simple">
 					<s:hidden name="startIndex" id="startIndex"/>
 					<s:hidden name="strCNTRCT_ST_DATE" id="strCNTRCT_ST_DATE"/>
 					<s:hidden name="strCNTRCT_ED_DATE" id="strCNTRCT_ED_DATE"/>

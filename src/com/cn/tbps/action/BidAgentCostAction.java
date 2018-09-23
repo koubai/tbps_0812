@@ -7,10 +7,12 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import com.cn.common.action.BaseAction;
+import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
 import com.cn.tbps.dto.BidDto;
 import com.cn.tbps.service.BidService;
+import com.opensymphony.xwork2.ActionContext;
 
 /**
  * 招标代理费设定
@@ -54,8 +56,46 @@ public class BidAgentCostAction extends BaseAction {
 	//委托单位名
 	private String strBID_COMP_NAME;
 	
+	//查询条件-招标编号（起）
+	private String strBidNoLow;
+	//查询条件-招标编号（终）
+	private String strBidNoHigh;
+	//项目名称
+	private String strCNTRCT_NAME;
+	//代理费计算情况，是否有实收代理费
+	private String strBID_AGENT_PRICE_ACT;
+	//开票情况，是否有开票日期
+	private String strRECEIPT1_DATE;
+	//到账情况，是否有到账日期
+	private String strRECEIPT1_VALUE_DATE;
+	
 	//多个合同编号
 	private String strCntrctNos;
+	
+	//代理费计算
+	private List<BidDto> agentCostBidList;
+	private String strDiscount;
+	//开票日期
+	private String strCommonReceiptDate;
+	private String strCommonReceiptValueDate;
+	
+	/**
+	 * 计算代理费
+	 * @return
+	 */
+	public String calcBidAgentCostAction() {
+		try {
+			this.clearMessages();
+			String username = (String) ActionContext.getContext().getSession().get(Constants.USER_NAME);
+			bidService.saveBidAgentCost(agentCostBidList, username, strDiscount, strCommonReceiptDate, strCommonReceiptValueDate);
+			//刷新页面
+			queryData();
+		} catch(Exception e) {
+			log.error("calcBidAgentCostAction:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
 	
 	/**
 	 * 显示招标代理费设定页面
@@ -65,6 +105,17 @@ public class BidAgentCostAction extends BaseAction {
 		try {
 			this.clearMessages();
 			listBid = new ArrayList<BidDto>();
+			agentCostBidList = new ArrayList<BidDto>();
+			strDiscount = "";
+			strCommonReceiptDate = "";
+			strCommonReceiptValueDate = "";
+			strBidNoLow = "";
+			strBidNoHigh = "";
+			strCNTRCT_NAME = "";
+			strBID_AGENT_PRICE_ACT = "";
+			strRECEIPT1_DATE = "";
+			strRECEIPT1_VALUE_DATE = "";
+			
 			strCNTRCT_YEAR = "";
 			strCNTRCT_ST_DATE = "";
 			strCNTRCT_ED_DATE = "";
@@ -92,6 +143,18 @@ public class BidAgentCostAction extends BaseAction {
 		try {
 			this.clearMessages();
 			listBid = new ArrayList<BidDto>();
+			agentCostBidList = new ArrayList<BidDto>();
+			strDiscount = "";
+			strCommonReceiptDate = "";
+			strCommonReceiptValueDate = "";
+			
+			strBidNoLow = "";
+			strBidNoHigh = "";
+			strCNTRCT_NAME = "";
+			strBID_AGENT_PRICE_ACT = "";
+			strRECEIPT1_DATE = "";
+			strRECEIPT1_VALUE_DATE = "";
+			
 			strCNTRCT_YEAR = "";
 			strCNTRCT_ST_DATE = "";
 			strCNTRCT_ED_DATE = "";
@@ -144,13 +207,18 @@ public class BidAgentCostAction extends BaseAction {
 	@SuppressWarnings("unchecked")
 	private void queryData() {
 		listBid = new ArrayList<BidDto>();
+		agentCostBidList = new ArrayList<BidDto>();
+		strDiscount = "";
+		strCommonReceiptDate = "";
+		strCommonReceiptValueDate = "";
 		if(page == null) {
 			page = new Page();
 		}
 		//翻页查询所有招标
 		this.page.setStartIndex(startIndex);
-		page = bidService.queryBidAndBidCntrctByPage(strCntrctNos, "'20','90'", "", "", "", strCNTRCT_YEAR, strCNTRCT_NO, strBID_COMP_NO,
-				"", "", strCNTRCT_ST_DATE, strCNTRCT_ED_DATE, page);
+		page = bidService.queryBidAndBidCntrctByPage(strBID_AGENT_PRICE_ACT, strRECEIPT1_DATE, strRECEIPT1_VALUE_DATE,
+				strCntrctNos, "'20','90'", "", strBidNoLow, strBidNoHigh, strCNTRCT_YEAR, strCNTRCT_NO, strBID_COMP_NO,
+				strCNTRCT_NAME, "", strCNTRCT_ST_DATE, strCNTRCT_ED_DATE, page);
 		listBid = (List<BidDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
@@ -241,5 +309,85 @@ public class BidAgentCostAction extends BaseAction {
 
 	public void setStrCntrctNos(String strCntrctNos) {
 		this.strCntrctNos = strCntrctNos;
+	}
+
+	public String getStrBidNoLow() {
+		return strBidNoLow;
+	}
+
+	public void setStrBidNoLow(String strBidNoLow) {
+		this.strBidNoLow = strBidNoLow;
+	}
+
+	public String getStrBidNoHigh() {
+		return strBidNoHigh;
+	}
+
+	public void setStrBidNoHigh(String strBidNoHigh) {
+		this.strBidNoHigh = strBidNoHigh;
+	}
+
+	public String getStrCNTRCT_NAME() {
+		return strCNTRCT_NAME;
+	}
+
+	public void setStrCNTRCT_NAME(String strCNTRCT_NAME) {
+		this.strCNTRCT_NAME = strCNTRCT_NAME;
+	}
+
+	public String getStrBID_AGENT_PRICE_ACT() {
+		return strBID_AGENT_PRICE_ACT;
+	}
+
+	public void setStrBID_AGENT_PRICE_ACT(String strBID_AGENT_PRICE_ACT) {
+		this.strBID_AGENT_PRICE_ACT = strBID_AGENT_PRICE_ACT;
+	}
+
+	public String getStrRECEIPT1_DATE() {
+		return strRECEIPT1_DATE;
+	}
+
+	public void setStrRECEIPT1_DATE(String strRECEIPT1_DATE) {
+		this.strRECEIPT1_DATE = strRECEIPT1_DATE;
+	}
+
+	public String getStrRECEIPT1_VALUE_DATE() {
+		return strRECEIPT1_VALUE_DATE;
+	}
+
+	public void setStrRECEIPT1_VALUE_DATE(String strRECEIPT1_VALUE_DATE) {
+		this.strRECEIPT1_VALUE_DATE = strRECEIPT1_VALUE_DATE;
+	}
+
+	public List<BidDto> getAgentCostBidList() {
+		return agentCostBidList;
+	}
+
+	public void setAgentCostBidList(List<BidDto> agentCostBidList) {
+		this.agentCostBidList = agentCostBidList;
+	}
+
+	public String getStrDiscount() {
+		return strDiscount;
+	}
+
+	public void setStrDiscount(String strDiscount) {
+		this.strDiscount = strDiscount;
+	}
+
+	public String getStrCommonReceiptDate() {
+		return strCommonReceiptDate;
+	}
+
+	public void setStrCommonReceiptDate(String strCommonReceiptDate) {
+		this.strCommonReceiptDate = strCommonReceiptDate;
+	}
+
+	public String getStrCommonReceiptValueDate() {
+		return strCommonReceiptValueDate;
+	}
+
+	public void setStrCommonReceiptValueDate(String strCommonReceiptValueDate) {
+		this.strCommonReceiptValueDate = strCommonReceiptValueDate;
 	}
 }

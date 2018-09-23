@@ -305,6 +305,15 @@
 			<isNotEmpty prepend="and" property="BID_NO_HIGH">
 				B.BID_NO <![CDATA[<=]]> #BID_NO_HIGH#
 			</isNotEmpty>
+			<isNotEmpty prepend="and" property="strBID_AGENT_PRICE_ACT">
+				$strBID_AGENT_PRICE_ACT$
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="strRECEIPT1_DATE">
+				$strRECEIPT1_DATE$
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="strRECEIPT1_VALUE_DATE">
+				$strRECEIPT1_VALUE_DATE$
+			</isNotEmpty>
 		) A where 1 = 1
 			<isNotEmpty prepend="and" property="cntrctNos">
 				A.CNTRCT_NO in ($cntrctNos$)
@@ -349,6 +358,15 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="BID_NO_HIGH">
 				B.BID_NO <![CDATA[<=]]> #BID_NO_HIGH#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="strBID_AGENT_PRICE_ACT">
+				$strBID_AGENT_PRICE_ACT$
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="strRECEIPT1_DATE">
+				$strRECEIPT1_DATE$
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="strRECEIPT1_VALUE_DATE">
+				$strRECEIPT1_VALUE_DATE$
 			</isNotEmpty>
 		) A where 1 = 1
 			<isNotEmpty prepend="and" property="cntrctNos">

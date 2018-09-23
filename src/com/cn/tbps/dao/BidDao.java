@@ -13,11 +13,15 @@ import com.cn.tbps.dto.BidHistDto;
  */
 public interface BidDao {
 	
-	public int queryBidAndBidCntrctCountByPage(String cntrctNos, String finishStatuss, String PROJECT_NAME, String BID_NO_LOW, String BID_NO_HIGH,
+	public int queryBidAndBidCntrctCountByPage(
+			String strBID_AGENT_PRICE_ACT, String strRECEIPT1_DATE, String strRECEIPT1_VALUE_DATE,
+			String cntrctNos, String finishStatuss, String PROJECT_NAME, String BID_NO_LOW, String BID_NO_HIGH,
 			String CNTRCT_YEAR, String CNTRCT_NO, String BID_COMP_NO, String CNTRCT_NAME, String CNTRCT_TYPE,
 			String CNTRCT_ST_DATE, String CNTRCT_ED_DATE);
 	
-	public List<BidDto> queryBidAndBidCntrctByPage(String cntrctNos, String finishStatuss, String PROJECT_NAME, String BID_NO_LOW, String BID_NO_HIGH,
+	public List<BidDto> queryBidAndBidCntrctByPage(
+			String strBID_AGENT_PRICE_ACT, String strRECEIPT1_DATE, String strRECEIPT1_VALUE_DATE,
+			String cntrctNos, String finishStatuss, String PROJECT_NAME, String BID_NO_LOW, String BID_NO_HIGH,
 			String CNTRCT_YEAR, String CNTRCT_NO, String BID_COMP_NO, String CNTRCT_NAME, String CNTRCT_TYPE,
 			String CNTRCT_ST_DATE, String CNTRCT_ED_DATE, int start, int end);
 	

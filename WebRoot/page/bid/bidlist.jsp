@@ -136,11 +136,11 @@
 						<div class="col-lg-6 form-group">
 							<label for="" class="col-lg-2 form-label">招标编号</label>
 							<div class="col-lg-4">
-								<s:textfield name="strBidNoLow" id="strBidNoLow" cssClass="form-control" maxlength="13" theme="simple"></s:textfield>
+								<s:textfield name="strBidNoLow" id="strBidNoLow" cssClass="form-control" maxlength="18" theme="simple"></s:textfield>
 							</div>
 							<label for="" class="col-lg-1 form-label to">---</label>
 							<div class="col-lg-4">
-								<s:textfield name="strBidNoHigh" id="strBidNoHigh" cssClass="form-control" maxlength="13" theme="simple"></s:textfield>
+								<s:textfield name="strBidNoHigh" id="strBidNoHigh" cssClass="form-control" maxlength="18" theme="simple"></s:textfield>
 							</div>
 						</div>
 						<div class="col-lg-3 form-group">

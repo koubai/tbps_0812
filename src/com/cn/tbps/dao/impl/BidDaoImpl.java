@@ -22,10 +22,15 @@ import com.cn.tbps.dto.BidHistDto;
 public class BidDaoImpl extends BaseDao implements BidDao {
 	
 	@Override
-	public int queryBidAndBidCntrctCountByPage(String cntrctNos, String finishStatuss, String PROJECT_NAME, String BID_NO_LOW, String BID_NO_HIGH,
+	public int queryBidAndBidCntrctCountByPage(
+			String strBID_AGENT_PRICE_ACT, String strRECEIPT1_DATE, String strRECEIPT1_VALUE_DATE,
+			String cntrctNos, String finishStatuss, String PROJECT_NAME, String BID_NO_LOW, String BID_NO_HIGH,
 			String CNTRCT_YEAR, String CNTRCT_NO, String BID_COMP_NO, String CNTRCT_NAME, String CNTRCT_TYPE,
 			String CNTRCT_ST_DATE, String CNTRCT_ED_DATE) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("strBID_AGENT_PRICE_ACT", strBID_AGENT_PRICE_ACT);
+		paramMap.put("strRECEIPT1_DATE", strRECEIPT1_DATE);
+		paramMap.put("strRECEIPT1_VALUE_DATE", strRECEIPT1_VALUE_DATE);
 		paramMap.put("cntrctNos", cntrctNos);
 		paramMap.put("finishStatuss", finishStatuss);
 		paramMap.put("PROJECT_NAME", PROJECT_NAME);
@@ -42,10 +47,15 @@ public class BidDaoImpl extends BaseDao implements BidDao {
 	}
 
 	@Override
-	public List<BidDto> queryBidAndBidCntrctByPage(String cntrctNos, String finishStatuss, String PROJECT_NAME, String BID_NO_LOW, String BID_NO_HIGH,
+	public List<BidDto> queryBidAndBidCntrctByPage(
+			String strBID_AGENT_PRICE_ACT, String strRECEIPT1_DATE, String strRECEIPT1_VALUE_DATE,
+			String cntrctNos, String finishStatuss, String PROJECT_NAME, String BID_NO_LOW, String BID_NO_HIGH,
 			String CNTRCT_YEAR, String CNTRCT_NO, String BID_COMP_NO, String CNTRCT_NAME, String CNTRCT_TYPE,
 			String CNTRCT_ST_DATE, String CNTRCT_ED_DATE, int start, int end) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("strBID_AGENT_PRICE_ACT", strBID_AGENT_PRICE_ACT);
+		paramMap.put("strRECEIPT1_DATE", strRECEIPT1_DATE);
+		paramMap.put("strRECEIPT1_VALUE_DATE", strRECEIPT1_VALUE_DATE);
 		paramMap.put("cntrctNos", cntrctNos);
 		paramMap.put("finishStatuss", finishStatuss);
 		paramMap.put("PROJECT_NAME", PROJECT_NAME);

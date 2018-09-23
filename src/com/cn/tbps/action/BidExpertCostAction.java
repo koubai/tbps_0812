@@ -182,7 +182,8 @@ public class BidExpertCostAction extends BaseAction {
 		}
 		//翻页查询所有招标
 		this.page.setStartIndex(startIndex);
-		page = bidService.queryBidAndBidCntrctByPage(strCntrctNos, "'20','90'", "", "", "", strCNTRCT_YEAR, strCNTRCT_NO, strBID_COMP_NO,
+		page = bidService.queryBidAndBidCntrctByPage("", "", "",
+				strCntrctNos, "'20','90'", "", "", "", strCNTRCT_YEAR, strCNTRCT_NO, strBID_COMP_NO,
 				"", "", strCNTRCT_ST_DATE, strCNTRCT_ED_DATE, page);
 		listBid = (List<BidDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());

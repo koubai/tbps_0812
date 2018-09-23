@@ -13,8 +13,10 @@ import org.apache.log4j.Logger;
 
 import com.cn.common.service.BaseService;
 import com.cn.common.util.Constants;
+import com.cn.common.util.DateUtil;
 import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
+import com.cn.common.util.TbpsUtil;
 import com.cn.tbps.dao.BidCntrctDao;
 import com.cn.tbps.dao.BidCompApplyDao;
 import com.cn.tbps.dao.BidCompDao;
@@ -56,6 +58,24 @@ public class BidServiceImpl extends BaseService implements BidService {
 	private ConfigTabDao configTabDao;
 	
 	@Override
+	public void saveBidAgentCost(List<BidDto> bidAgentCostList, String userid, String discount, String receiptDate, String receiptValueDate) {
+		if(bidAgentCostList != null && bidAgentCostList.size() > 0) {
+			for(BidDto bid : bidAgentCostList) {
+				if(StringUtil.isNotBlank(bid.getBID_NO())) {
+					BidDto newBid = bidDao.queryAllBidByID(bid.getBID_NO());
+					if(newBid != null) {
+						newBid.setBID_AGENT_PRICE_ACT(TbpsUtil.calcAgentPrice(newBid.getBID_AGENT_PRICE(), new BigDecimal(discount)));
+						newBid.setUPDATE_USER(userid);
+						newBid.setRECEIPT1_DATE(DateUtil.strToDate(receiptDate, DateUtil.DATE_FORMAT_SHORT));
+						newBid.setRECEIPT1_VALUE_DATE(DateUtil.strToDate(receiptValueDate, DateUtil.DATE_FORMAT_SHORT));
+						bidDao.updateBid(newBid);
+					}
+				}
+			}
+		}
+	}
+	
+	@Override
 	public void saveBidExpertCost(List<BidDto> bidExpertCostList, String userid) {
 		if(bidExpertCostList != null && bidExpertCostList.size() > 0) {
 			for(BidDto bid : bidExpertCostList) {
@@ -74,7 +94,8 @@ public class BidServiceImpl extends BaseService implements BidService {
 	}
 	
 	@Override
-	public Page queryBidAndBidCntrctByPage(String cntrctNos, String finishStatuss, String PROJECT_NAME, String BID_NO_LOW, String BID_NO_HIGH,
+	public Page queryBidAndBidCntrctByPage(String strBID_AGENT_PRICE_ACT, String strRECEIPT1_DATE, String strRECEIPT1_VALUE_DATE,
+			String cntrctNos, String finishStatuss, String PROJECT_NAME, String BID_NO_LOW, String BID_NO_HIGH,
 			String CNTRCT_YEAR, String CNTRCT_NO, String BID_COMP_NO, String CNTRCT_NAME, String CNTRCT_TYPE,
 			String CNTRCT_ST_DATE, String CNTRCT_ED_DATE, Page page) {
 		String newCntrctNos = "";
@@ -87,11 +108,33 @@ public class BidServiceImpl extends BaseService implements BidService {
 			}
 			newCntrctNos = newCntrctNos.substring(0, newCntrctNos.length() - 1);
 		}
+		if("1".equals(strBID_AGENT_PRICE_ACT)) {
+			strBID_AGENT_PRICE_ACT = " B.BID_AGENT_PRICE_ACT > 0 ";
+		} else if ("2".equals(strBID_AGENT_PRICE_ACT)) {
+			strBID_AGENT_PRICE_ACT = " (B.BID_AGENT_PRICE_ACT = 0 or B.BID_AGENT_PRICE_ACT is null) ";
+		} else {
+			strBID_AGENT_PRICE_ACT = "";
+		}
+		if("1".equals(strRECEIPT1_DATE)) {
+			strRECEIPT1_DATE = " B.RECEIPT1_DATE is not null ";
+		} else if ("2".equals(strRECEIPT1_DATE)) {
+			strRECEIPT1_DATE = " B.RECEIPT1_DATE is null ";
+		} else {
+			strRECEIPT1_DATE = "";
+		}
+		if("1".equals(strRECEIPT1_VALUE_DATE)) {
+			strRECEIPT1_VALUE_DATE = " B.RECEIPT1_VALUE_DATE is not null ";
+		} else if ("2".equals(strRECEIPT1_VALUE_DATE)) {
+			strRECEIPT1_VALUE_DATE = " B.RECEIPT1_VALUE_DATE is null ";
+		} else {
+			strRECEIPT1_VALUE_DATE = "";
+		}
 		PROJECT_NAME = StringUtil.replaceDatabaseKeyword_mysql(PROJECT_NAME);
 		CNTRCT_NAME = StringUtil.replaceDatabaseKeyword_mysql(CNTRCT_NAME);
 		//查询总记录数
-		int totalCount = bidDao.queryBidAndBidCntrctCountByPage(newCntrctNos, finishStatuss, PROJECT_NAME, BID_NO_LOW, BID_NO_HIGH,
-				CNTRCT_YEAR, CNTRCT_NO, BID_COMP_NO, CNTRCT_NAME, CNTRCT_TYPE, CNTRCT_ST_DATE, CNTRCT_ED_DATE);
+		int totalCount = bidDao.queryBidAndBidCntrctCountByPage(strBID_AGENT_PRICE_ACT,
+				strRECEIPT1_DATE, strRECEIPT1_VALUE_DATE, newCntrctNos, finishStatuss, PROJECT_NAME, BID_NO_LOW,
+				BID_NO_HIGH, CNTRCT_YEAR, CNTRCT_NO, BID_COMP_NO, CNTRCT_NAME, CNTRCT_TYPE, CNTRCT_ST_DATE, CNTRCT_ED_DATE);
 		page.setTotalCount(totalCount);
 		if(totalCount % page.getPageSize() > 0) {
 			page.setTotalPage(totalCount / page.getPageSize() + 1);
@@ -99,8 +142,9 @@ public class BidServiceImpl extends BaseService implements BidService {
 			page.setTotalPage(totalCount / page.getPageSize());
 		}
 		//翻页查询记录
-		List<BidDto> list = bidDao.queryBidAndBidCntrctByPage(newCntrctNos, finishStatuss, PROJECT_NAME, BID_NO_LOW, BID_NO_HIGH,
-				CNTRCT_YEAR, CNTRCT_NO, BID_COMP_NO, CNTRCT_NAME, CNTRCT_TYPE, CNTRCT_ST_DATE, CNTRCT_ED_DATE,
+		List<BidDto> list = bidDao.queryBidAndBidCntrctByPage(strBID_AGENT_PRICE_ACT,
+				strRECEIPT1_DATE, strRECEIPT1_VALUE_DATE, newCntrctNos, finishStatuss, PROJECT_NAME, BID_NO_LOW,
+				BID_NO_HIGH, CNTRCT_YEAR, CNTRCT_NO, BID_COMP_NO, CNTRCT_NAME, CNTRCT_TYPE, CNTRCT_ST_DATE, CNTRCT_ED_DATE,
 				page.getStartIndex() * page.getPageSize(), page.getPageSize());
 		//查询各个合同对应的招标数量以及对应状态、金额等
 		if(list != null && list.size() > 0) {
