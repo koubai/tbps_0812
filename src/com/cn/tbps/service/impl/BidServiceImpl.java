@@ -76,6 +76,24 @@ public class BidServiceImpl extends BaseService implements BidService {
 	}
 	
 	@Override
+	public void saveBidAgentCost(List<BidDto> bidAgentCostList, String userid) {
+		if(bidAgentCostList != null && bidAgentCostList.size() > 0) {
+			for(BidDto bid : bidAgentCostList) {
+				if(StringUtil.isNotBlank(bid.getBID_NO())) {
+					BidDto newBid = bidDao.queryAllBidByID(bid.getBID_NO());
+					if(newBid != null) {
+						newBid.setBID_AGENT_PRICE_ACT(bid.getBID_AGENT_PRICE_ACT());
+						newBid.setUPDATE_USER(userid);
+						newBid.setRECEIPT1_DATE(bid.getRECEIPT1_DATE());
+						newBid.setRECEIPT1_VALUE_DATE(bid.getRECEIPT1_VALUE_DATE());
+						bidDao.updateBid(newBid);
+					}
+				}
+			}
+		}
+	}
+	
+	@Override
 	public void saveBidExpertCost(List<BidDto> bidExpertCostList, String userid) {
 		if(bidExpertCostList != null && bidExpertCostList.size() > 0) {
 			for(BidDto bid : bidExpertCostList) {

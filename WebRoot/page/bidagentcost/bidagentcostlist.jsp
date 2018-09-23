@@ -215,6 +215,38 @@
 		}
 	}
 	
+	function save() {
+		//组织bidlist
+		$("#agentCostListTable").empty();
+		var list = document.getElementsByName("radioKey");
+		var tmpBID_NO = $("[name='tmpBID_NO']");
+		var tmpBID_AGENT_PRICE_ACT = $("[name='tmpBID_AGENT_PRICE_ACT']");
+		var tmpRECEIPT1_DATE = $("[name='tmpRECEIPT1_DATE']");
+		var tmpRECEIPT1_VALUE_DATE = $("[name='tmpRECEIPT1_VALUE_DATE']");
+		if(tmpBID_NO != null && tmpBID_NO.length > 0) {
+			for(var j = 0; j< tmpBID_NO.length; j++) {
+				var tr = document.createElement("tr");
+				var td = document.createElement("td");
+				td.appendChild(createInput("agentCostBidList[" + j + "].BID_NO", tmpBID_NO[j].value));
+				if(tmpBID_AGENT_PRICE_ACT[j].value != "") {
+					td.appendChild(createInput("agentCostBidList[" + j + "].BID_AGENT_PRICE_ACT", tmpBID_AGENT_PRICE_ACT[j].value));
+				}
+				if(tmpRECEIPT1_DATE[j].value != "") {
+					td.appendChild(createInput("agentCostBidList[" + j + "].RECEIPT1_DATE", tmpRECEIPT1_DATE[j].value));
+				}
+				if(tmpRECEIPT1_VALUE_DATE[j].value != "") {
+					td.appendChild(createInput("agentCostBidList[" + j + "].RECEIPT1_VALUE_DATE", tmpRECEIPT1_VALUE_DATE[j].value));
+				}
+				tr.appendChild(td);
+				document.getElementById("agentCostListTable").appendChild(tr);
+			}
+		}
+		if(confirm("确定提交吗？")) {
+			document.mainform.action = '<c:url value="/bidagentcost/calcBidAgentCostAction.action"></c:url>';
+			document.mainform.submit();
+		}
+	}
+	
 	//代理费计算
 	function showCalcAgentCost() {
 		var ids = "";
@@ -248,47 +280,50 @@
 	}
 	
 	function calcAmount() {
-		if($("#tmpDiscount").val() == "") {
+		var tmpDiscount = $("#tmpDiscount").val();
+		var tmpReceiptDate = $("#tmpReceiptDate").val();
+		var tmpReceiptValueDate = $("#tmpReceiptValueDate").val();
+		if(tmpDiscount == "") {
 			alert("折扣率不能为空！");
 			$("#tmpDiscount").focus();
 			return;
 		}
-		if(!isReal($("#tmpDiscount").val())) {
+		if(!isReal(tmpDiscount)) {
 			alert("折扣率格式不正确！");
 			$("#tmpDiscount").focus();
 			return;
 		}
-		if($("#tmpReceiptDate").val() == "") {
+		if(tmpReceiptDate == "") {
 			alert("请选择开票日期！");
 			$("#tmpReceiptDate").focus();
 			return;
 		}
-		if($("#tmpReceiptValueDate").val() == "") {
+		if(tmpReceiptValueDate == "") {
 			alert("请选择到账日期！");
 			$("#tmpReceiptValueDate").focus();
 			return;
 		}
-		$("#strDiscount").val($("#tmpDiscount").val());
-		$("#strCommonReceiptDate").val($("#tmpReceiptDate").val());
-		$("#strCommonReceiptValueDate").val($("#tmpReceiptValueDate").val());
-		//组织bidlist
-		$("#agentCostListTable").empty();
+		//计算并赋值
 		var list = document.getElementsByName("radioKey");
 		for(var i = 0; i < list.length; i++) {
 			if(list[i].checked) {
-				var tr = document.createElement("tr");
-				var td = document.createElement("td");
 				var ttr = list[i].parentNode.parentNode;
 				var childs = ttr.cells[1].getElementsByTagName("input");
-				td.appendChild(createInput("agentCostBidList[" + i + "].BID_NO", childs[0].value));
-				tr.appendChild(td);
-				document.getElementById("agentCostListTable").appendChild(tr);
+				var price = parseFloat(childs[1].value) * parseFloat(tmpDiscount);
+				price = price.toFixed(2);
+				
+				var pricechilds = ttr.cells[8].getElementsByTagName("input");
+				pricechilds[0].value = price;
+				
+				var date1childs = ttr.cells[9].getElementsByTagName("input");
+				date1childs[0].value = tmpReceiptDate;
+				
+				var date2childs = ttr.cells[10].getElementsByTagName("input");
+				date2childs[0].value = tmpReceiptValueDate;
 			}
 		}
-		if(confirm("确定提交吗？")) {
-			document.mainform.action = '<c:url value="/bidagentcost/calcBidAgentCostAction.action"></c:url>';
-			document.mainform.submit();
-		}
+		//隐藏
+		$('#calcAgentCostModal').modal('hide');
 	}
 	
 	function createInput(id, value) {
@@ -483,7 +518,7 @@
 							<tr>
 								<td><input name="radioKey" type="checkbox" value="<s:property value="BID_NO"/>"/></td>
 								<td style="display: none;">
-									<input type="hidden" value="<s:property value="BID_NO"/>">
+									<input name="tmpBID_NO" type="hidden" value="<s:property value="BID_NO"/>">
 									<input type="hidden" value="<s:property value="BID_AGENT_PRICE"/>">
 								</td>
 								<td>
@@ -536,8 +571,8 @@
 					</table>
 					<jsp:include page="../turning.jsp" flush="true" />
 					<div class="operationBtns">
-						<!-- <button class="btn btn-success" onclick="save();">保存</button> -->
 						<button type="button" class="btn btn-success" onclick="showCalcAgentCost();">代理费计算</button>
+						<button class="btn btn-success" onclick="save();">保存</button>
 					</div>
 				</s:form>
 			</div>

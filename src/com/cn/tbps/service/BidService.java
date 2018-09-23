@@ -27,7 +27,7 @@ public interface BidService {
 	public void saveBidExpertCost(List<BidDto> bidExpertCostList, String userid);
 	
 	/**
-	 * 代理费计算
+	 * 代理费计算（服务端计算代理费）
 	 * @param bidAgentCostList
 	 * @param userid
 	 * @param discount
@@ -35,6 +35,13 @@ public interface BidService {
 	 * @param receiptValueDate
 	 */
 	public void saveBidAgentCost(List<BidDto> bidAgentCostList, String userid, String discount, String receiptDate, String receiptValueDate);
+	
+	/**
+	 * 代理费前端计算完成，这里只做保存
+	 * @param bidAgentCostList
+	 * @param userid
+	 */
+	public void saveBidAgentCost(List<BidDto> bidAgentCostList, String userid);
 	
 	/**
 	 * 查询bid列表（新）

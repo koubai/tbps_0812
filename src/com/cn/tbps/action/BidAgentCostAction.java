@@ -74,6 +74,8 @@ public class BidAgentCostAction extends BaseAction {
 	
 	//代理费计算
 	private List<BidDto> agentCostBidList;
+	
+	//暂时作废不用 update by frank
 	private String strDiscount;
 	//开票日期
 	private String strCommonReceiptDate;
@@ -87,7 +89,7 @@ public class BidAgentCostAction extends BaseAction {
 		try {
 			this.clearMessages();
 			String username = (String) ActionContext.getContext().getSession().get(Constants.USER_NAME);
-			bidService.saveBidAgentCost(agentCostBidList, username, strDiscount, strCommonReceiptDate, strCommonReceiptValueDate);
+			bidService.saveBidAgentCost(agentCostBidList, username);
 			//刷新页面
 			queryData();
 		} catch(Exception e) {
