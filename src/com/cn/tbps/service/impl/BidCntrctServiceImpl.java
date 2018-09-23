@@ -83,8 +83,8 @@ public class BidCntrctServiceImpl extends BaseService implements BidCntrctServic
 							bidAmount = bidAmount.add(bid.getBID_APPLY_PRICE());
 						}
 						//专家费
-						if(bid.getBID_EXPERT_COMMISION() != null) {
-							expertAmount = expertAmount.add(bid.getBID_EXPERT_COMMISION());
+						if(bid.getBID_EXPERT_COMMISION_ACT() != null) {
+							expertAmount = expertAmount.add(bid.getBID_EXPERT_COMMISION_ACT());
 						}
 						//应收代理费
 						if(bid.getBID_AGENT_PRICE() != null) {

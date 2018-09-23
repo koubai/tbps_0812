@@ -19,6 +19,13 @@ import com.cn.tbps.dto.ExpertLibDto;
 public interface BidService {
 	
 	/**
+	 * 保存专家费
+	 * @param bidExpertCostList
+	 * @param userid
+	 */
+	public void saveBidExpertCost(List<BidDto> bidExpertCostList, String userid);
+	
+	/**
 	 * 查询bid列表（新）
 	 * @param cntrctNos
 	 * @param finishStatuss

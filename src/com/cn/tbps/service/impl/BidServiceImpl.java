@@ -56,6 +56,24 @@ public class BidServiceImpl extends BaseService implements BidService {
 	private ConfigTabDao configTabDao;
 	
 	@Override
+	public void saveBidExpertCost(List<BidDto> bidExpertCostList, String userid) {
+		if(bidExpertCostList != null && bidExpertCostList.size() > 0) {
+			for(BidDto bid : bidExpertCostList) {
+				if(StringUtil.isNotBlank(bid.getBID_NO())) {
+					BidDto newBid = bidDao.queryAllBidByID(bid.getBID_NO());
+					if(newBid != null) {
+						newBid.setBID_EXPERT_COMMISION_ACT(bid.getBID_EXPERT_COMMISION_ACT());
+						newBid.setBID_EXPERT_COMMISION_APPLY_DATE(bid.getBID_EXPERT_COMMISION_APPLY_DATE());
+						newBid.setBID_EXPERT_COMMISION_APPLY(bid.getBID_EXPERT_COMMISION_APPLY());
+						newBid.setUPDATE_USER(userid);
+						bidDao.updateBid(newBid);
+					}
+				}
+			}
+		}
+	}
+	
+	@Override
 	public Page queryBidAndBidCntrctByPage(String cntrctNos, String finishStatuss, String PROJECT_NAME, String BID_NO_LOW, String BID_NO_HIGH,
 			String CNTRCT_YEAR, String CNTRCT_NO, String BID_COMP_NO, String CNTRCT_NAME, String CNTRCT_TYPE,
 			String CNTRCT_ST_DATE, String CNTRCT_ED_DATE, Page page) {

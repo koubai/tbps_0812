@@ -7,12 +7,14 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import com.cn.common.action.BaseAction;
+import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
 import com.cn.tbps.dto.BidDto;
 import com.cn.tbps.dto.UserInfoDto;
 import com.cn.tbps.service.BidService;
 import com.cn.tbps.service.UserInfoService;
+import com.opensymphony.xwork2.ActionContext;
 
 /**
  * 专家费设定
@@ -44,6 +46,8 @@ public class BidExpertCostAction extends BaseAction {
 	 */
 	private List<BidDto> listBid;
 	
+	private List<BidDto> expertCostBidList;
+	
 	//多个合同编号
 	private String strCntrctNos;
 	
@@ -63,6 +67,25 @@ public class BidExpertCostAction extends BaseAction {
 	private List<UserInfoDto> listUserInfo;
 	
 	/**
+	 * 保存专家费设定
+	 * @return
+	 */
+	public String saveBidExpertCostAction() {
+		try {
+			this.clearMessages();
+			String username = (String) ActionContext.getContext().getSession().get(Constants.USER_NAME);
+			//保存专家费
+			bidService.saveBidExpertCost(expertCostBidList, username);
+			//刷新页面
+			queryData();
+		} catch(Exception e) {
+			log.error("saveBidExpertCost:" + e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
 	 * 显示招标代理费设定页面（从招标列表进来）
 	 * @return
 	 */
@@ -70,6 +93,7 @@ public class BidExpertCostAction extends BaseAction {
 		try {
 			this.clearMessages();
 			listBid = new ArrayList<BidDto>();
+			expertCostBidList = new ArrayList<BidDto>();
 			strCNTRCT_YEAR = "";
 			strCNTRCT_ST_DATE = "";
 			strCNTRCT_ED_DATE = "";
@@ -97,6 +121,7 @@ public class BidExpertCostAction extends BaseAction {
 		try {
 			this.clearMessages();
 			listBid = new ArrayList<BidDto>();
+			expertCostBidList = new ArrayList<BidDto>();
 			strCNTRCT_YEAR = "";
 			strCNTRCT_ST_DATE = "";
 			strCNTRCT_ED_DATE = "";
@@ -150,6 +175,7 @@ public class BidExpertCostAction extends BaseAction {
 	@SuppressWarnings("unchecked")
 	private void queryData() {
 		listUserInfo = userInfoService.queryAllUser();
+		expertCostBidList = new ArrayList<BidDto>();
 		listBid = new ArrayList<BidDto>();
 		if(page == null) {
 			page = new Page();
@@ -264,5 +290,13 @@ public class BidExpertCostAction extends BaseAction {
 
 	public void setListUserInfo(List<UserInfoDto> listUserInfo) {
 		this.listUserInfo = listUserInfo;
+	}
+
+	public List<BidDto> getExpertCostBidList() {
+		return expertCostBidList;
+	}
+
+	public void setExpertCostBidList(List<BidDto> expertCostBidList) {
+		this.expertCostBidList = expertCostBidList;
 	}
 }

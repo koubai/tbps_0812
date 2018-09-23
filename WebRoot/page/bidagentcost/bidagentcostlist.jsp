@@ -312,9 +312,12 @@
 						<s:iterator id="listBid" value="listBid" status="st1">
 							<tr>
 								<td><input name="radioKey" type="checkbox" value="<s:property value="BID_NO"/>"/></td>
-								<td><s:property value="BID_NO"/></td>
+								<td>
+									<input name="tmpBID_NO" type="hidden" value="<s:property value="BID_NO"/>">
+									<s:property value="BID_NO"/>
+								</td>
 								<td><s:property value="PROJECT_NAME"/></td>
-								<td><s:property value="BID_CO_NAME"/></td>
+								<td><s:property value="BID_COMP_NAME"/></td>
 								<td>
 									<s:if test='FINISH_STATUS == "10"'>取消</s:if>
 									<s:elseif test='FINISH_STATUS == "20"'>进行中</s:elseif>

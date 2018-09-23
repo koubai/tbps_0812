@@ -24,8 +24,62 @@
 <![endif]-->
 <script type="text/javascript">
 	function save() {
-		//document.mainform.action = '<c:url value="/bidagentcost/showAddBidCntrc.action"></c:url>';
-		//document.mainform.submit();
+		//数据验证
+		var tmpBID_NO = $("[name='tmpBID_NO']");
+		var tmpBID_EXPERT_COMMISION_ACT = $("[name='tmpBID_EXPERT_COMMISION_ACT']");
+		var tmpBID_EXPERT_COMMISION_APPLY_DATE = $("[name='tmpBID_EXPERT_COMMISION_APPLY_DATE']");
+		var tmpBID_EXPERT_COMMISION_APPLY = $("[name='tmpBID_EXPERT_COMMISION_APPLY']");
+		if(tmpBID_NO != null && tmpBID_NO.length > 0) {
+			for(var j = 0; j< tmpBID_NO.length; j++) {
+				if(tmpBID_EXPERT_COMMISION_ACT[j].value != "" && parseFloat(tmpBID_EXPERT_COMMISION_ACT[j].value) > 0) {
+					if(!isReal(tmpBID_EXPERT_COMMISION_ACT[j].value)) {
+						alert("实际费用格式不正确！");
+						tmpBID_EXPERT_COMMISION_ACT[j].focus();
+						return false;
+					}
+					if(tmpBID_EXPERT_COMMISION_APPLY_DATE[j].value == "") {
+						alert("请选择专家费申请时间！");
+						tmpBID_EXPERT_COMMISION_APPLY_DATE[j].focus();
+						return false;
+					}
+					if(tmpBID_EXPERT_COMMISION_APPLY[j].value == "") {
+						alert("请选择申请人！");
+						tmpBID_EXPERT_COMMISION_APPLY[j].focus();
+						return false;
+					}
+				}
+			}
+			$("#expertCostListTable").empty();
+			//组织TABLE
+			for(var j = 0; j< tmpBID_NO.length; j++) {
+				var tr = document.createElement("tr");
+				var td = document.createElement("td");
+				td.appendChild(createInput("expertCostBidList[" + j + "].BID_NO", tmpBID_NO[j].value));
+				if(tmpBID_EXPERT_COMMISION_ACT[j].value != "") {
+					td.appendChild(createInput("expertCostBidList[" + j + "].BID_EXPERT_COMMISION_ACT", tmpBID_EXPERT_COMMISION_ACT[j].value));
+				}
+				if(tmpBID_EXPERT_COMMISION_APPLY_DATE[j].value != "") {
+					td.appendChild(createInput("expertCostBidList[" + j + "].BID_EXPERT_COMMISION_APPLY_DATE", tmpBID_EXPERT_COMMISION_APPLY_DATE[j].value));
+				}
+				td.appendChild(createInput("expertCostBidList[" + j + "].BID_EXPERT_COMMISION_APPLY", tmpBID_EXPERT_COMMISION_APPLY[j].value));
+				tr.appendChild(td);
+				document.getElementById("expertCostListTable").appendChild(tr);
+			}
+			if(confirm("确定提交吗？")) {
+				document.mainform.action = '<c:url value="/bidexpertcost/saveBidExpertCostAction.action"></c:url>';
+				document.mainform.submit();
+			}
+		} else {
+			//没有记录，什么都不做
+		}
+	}
+	
+	function createInput(id, value) {
+		var input = document.createElement("input");
+		input.type = "text";
+		input.name = id;
+		input.value = value;
+		return input;
 	}
 	
 	function getSelectedID() {
@@ -232,6 +286,8 @@
 					<s:hidden name="strBID_COMP_NAME" id="strBID_COMP_NAME"/>
 					<h3 class="title">专家费设定<a class="backHome" href="#" onclick="goHome();"><i class="fa fa-home" aria-hidden="true"></i>返回首页</a></h3>
 					<div class="row">
+						<table id="expertCostListTable" style="display: none;">
+						</table>
 						<div class="col-lg-3 form-group">
 							<label for="" class="col-lg-3 form-label">合同年份</label>
 							<div class="col-lg-9">
@@ -295,9 +351,12 @@
 						<s:iterator id="listBid" value="listBid" status="st1">
 							<tr>
 								<td><input name="radioKey" type="radio" value="<s:property value="BID_NO"/>"/></td>
-								<td><s:property value="BID_NO"/></td>
+								<td>
+									<input name="tmpBID_NO" type="hidden" value="<s:property value="BID_NO"/>">
+									<s:property value="BID_NO"/>
+								</td>
 								<td><s:property value="PROJECT_NAME"/></td>
-								<td><s:property value="BID_CO_NAME"/></td>
+								<td><s:property value="BID_COMP_NAME"/></td>
 								<td>
 									<s:if test='FINISH_STATUS == "10"'>取消</s:if>
 									<s:elseif test='FINISH_STATUS == "20"'>进行中</s:elseif>
@@ -334,7 +393,7 @@
 					</table>
 					<jsp:include page="../turning.jsp" flush="true" />
 					<div class="operationBtns">
-						<button class="btn btn-success" onclick="save();">保存</button>
+						<button type="button" class="btn btn-success" onclick="save();">保存</button>
 					</div>
 				</s:form>
 			</div>
