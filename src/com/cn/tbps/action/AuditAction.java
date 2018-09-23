@@ -971,6 +971,23 @@ public class AuditAction extends BaseAction {
 			this.clearMessages();
 			page = new Page();
 			startIndex = 0;
+			//审价
+			arrAuditShow1 = new String[][]{{"PROJECT_MANAGER","工程师"},{"REPORT_NO", "项目文号"},{"PROJECT_NAME", "项目名称"},
+				{"DOC_REC_DATE", "资料收到日期"},{"APPROVAL_SND_DATE", "审定单发出日期"},{"REPORT_RAISE_DATE", "报告出具日期"},
+				{"VERIFY_PER_AMOUNT", "送审价"},{"VERIFY_AMOUNT", "审核价"}};
+			//咨询
+			arrAuditShow2 = new String[][]{{"PROJECT_MANAGER","工程师"},{"REPORT_NO", "项目文号"},{"PROJECT_NAME", "项目名称"},
+				{"DOC_REC_DATE", "资料收到日期"},{"REPORT_RAISE_DATE", "报告出具日期"},
+				{"VERIFY_PER_AMOUNT", "送审价"},{"VERIFY_AMOUNT", "审核价"}};
+			//清单编制
+			arrAuditShow3 = new String[][]{{"PROJECT_MANAGER","工程师"},{"REPORT_NO", "项目文号"},{"PROJECT_NAME", "项目名称"},
+				{"DOC_REC_DATE", "资料收到日期"},{"REPORT_RAISE_DATE", "报告出具日期"}};
+			//控制价编制
+			arrAuditShow4 = new String[][]{{"PROJECT_MANAGER","工程师"},{"REPORT_NO", "项目文号"},{"PROJECT_NAME", "项目名称"},
+				{"DOC_REC_DATE", "资料收到日期"},{"REPORT_RAISE_DATE", "报告出具日期"},{"CNT_PRICE", "控制价金额"}};
+			//全过程投资监理
+			arrAuditShow5 = new String[][]{{"PROJECT_MANAGER","工程师"},{"REPORT_NO", "项目文号"},{"PROJECT_NAME", "项目名称"},
+				{"PRE_PRICE", "预算金额"},{"PROGRESS_STATUS_MEMO", "项目大致进程简述"}};
 			queryAudit();
 		} catch(Exception e) {
 			log.error(e);
@@ -1000,7 +1017,7 @@ public class AuditAction extends BaseAction {
 	 * @return
 	 */
 	private boolean checkData(AuditDto audit) {
-		if(StringUtil.isBlank(audit.getRESERVE1())) {
+		if(StringUtil.isBlank(audit.getCNTRCT_INFO())) {
 			this.addActionMessage("请选委托内容！");
 			return false;
 		}

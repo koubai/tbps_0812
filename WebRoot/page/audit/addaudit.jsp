@@ -54,7 +54,7 @@
 		var PROJECT_MANAGER = $("#PROJECT_MANAGER").val();
 		var CNTRCT_NO = $("#CNTRCT_NO").val();
 		//委托内容
-		var RESERVE1 = $("#RESERVE1").val();
+		var CNTRCT_INFO = $("#CNTRCT_INFO").val();
 		
 		//审定单发出日期
 		var VERIFY_DOC_SEND_DATE = $("#VERIFY_DOC_SEND_DATE").val();
@@ -95,9 +95,9 @@
 			$("#CONTRACT_NO").focus();
 			return;
 		}
-		if(RESERVE1 == "") {
+		if(CNTRCT_INFO == "") {
 			alert("委托内容不能为空！");
-			$("#RESERVE1").focus();
+			$("#CNTRCT_INFO").focus();
 			return;
 		}
 		
@@ -128,6 +128,13 @@
 		$('#VERIFY_DECREASE').removeAttr("disabled");
 		$('#VERIFY_DIFF').removeAttr("disabled");
 		$('#VERIFY_DIFF_RATE').removeAttr("disabled");
+		$('#A_AMOUNT').removeAttr("disabled");
+		$('#B_AMOUNT').removeAttr("disabled");
+		$('#B_RATE').removeAttr("disabled");
+		
+
+		var PROJECT_NAME_PASS = $("#PROJECT_NAME_PASS").val();
+		//alert(PROJECT_NAME_PASS);
 		
 		if(confirm("确定追加吗？")) {
 			document.mainform.action = '<c:url value="/audit/addAuditAction.action"></c:url>';
@@ -170,8 +177,8 @@
 		$("#APPROVAL_SND_DATE").attr("value", $("#approvalSndDate").val());
 		$("#APPROVAL_RCV_DATE").attr("value", $("#approvalRcvDate").val());
 		$("#REPORT_RAISE_DATE").attr("value", $("#reportRaiseDate").val());
-		var RESERVE1 = $("#RESERVE1").val();
-		if(RESERVE1 == 5){
+		var CNTRCT_INFO = $("#CNTRCT_INFO").val();
+		if(CNTRCT_INFO == 5){
 			$("#REPORT_SEAL_DATE").attr("value", $("#reportSealDate2").val());
 		} else {
 			$("#REPORT_SEAL_DATE").attr("value", $("#reportSealDate").val());
@@ -211,6 +218,7 @@
 		setDefaultValue("CNTRCT_PRICE");
 		setDefaultValue("A_AMOUNT");
 		setDefaultValue("B_AMOUNT");
+		setDefaultValue("B_RATE");
 		
 		//自动计算：净核减和核减
 		calcVERIFY_DIFF();
@@ -224,10 +232,10 @@
 	}
 	
 	function getSelectCntrctInfo() {
-		var list = document.getElementsByName("RESERVE1");
+		var list = document.getElementsByName("CNTRCT_INFO");
 		for(var i = 0; i < list.length; i++) {
 			if(list[i].checked) {
-				$("#RESERVE1").val(i+1);
+				$("#CNTRCT_INFO").val(i+1);
 				break;
 			}
 		}
@@ -235,7 +243,7 @@
 	}
 	
 	function showByCntrctInfo() {
-		var cntrctInfo = $("#RESERVE1").val();
+		var cntrctInfo = $("#CNTRCT_INFO").val();
 		if(cntrctInfo == 2) {//咨询
 			//项目大致进度简述
 			document.getElementById('progressStatusMemo').style.display='none';
@@ -269,6 +277,58 @@
 			document.getElementById('verify2').style.display='block';
 			//甲乙方
 			document.getElementById('ab').style.display='block';
+			//报告出具日期列
+			document.getElementById('reportDiv').style.display='block';
+			document.getElementById('reportDiv2').style.display='block';
+			//资料收到时间
+			document.getElementById('docRecDateDiv').style.display='block';
+			//补充资料日期等
+			document.getElementById('supportDocDateDiv').style.display='block';
+
+		} else if(cntrctInfo == 3) {//清单编制
+			//项目大致进度简述
+			document.getElementById('progressStatusMemo').style.display='none';
+			$("#PROGRESS_STATUS_MEMO").prop("value", "");
+			//4个阶段
+			document.getElementById('fourStage').style.display='none';
+			setFourStageBlack();
+			//预结算
+			document.getElementById('preSet').style.display='none';
+			$("#PRE_SET").prop("value", "");
+			//预算金额
+			document.getElementById('prePrice').style.display='none';
+			$("#PRE_PRICE").prop("value", "");
+			//初稿日期
+			document.getElementById('draftDateDiv').style.display='none';
+			$("#draftDate").prop("value", "");
+			//委托方
+			document.getElementById('agent').style.display='none';
+			$("#AGENT_INFO").prop("value", "");
+			//承揽单位
+			document.getElementById('contract').style.display='none';
+			$("#CONTRACT_CO_ID").prop("value", "");
+			$("#CONTRACT_CO_INFO").prop("value", "");
+			//审定单发出日期
+			document.getElementById('approvalDiv').style.display='none';
+			$("#approvalSndDate").prop("value", "");
+			//快递单号
+			document.getElementById('deliNo').style.display='none';
+			$("#DELI_NO").prop("value", "");
+			//送审价等
+			document.getElementById('verify').style.display='none';
+			document.getElementById('verify2').style.display='none';
+			$("#VERIFY_PER_AMOUNT").prop("value", "");
+			$("#VERIFY_AMOUNT").prop("value", "");
+			$("#VERIFY_INCREASE").prop("value", "");
+			$("#VERIFY_DECREASE").prop("value", "");
+			$("#VERIFY_DIFF").prop("value", "");
+			$("#VERIFY_DIFF_RATE").prop("value", "");
+			//控制价金额
+			document.getElementById('cntPrice').style.display='none';
+			$("#CNT_PRICE").prop("value", "");
+			//甲乙方
+			document.getElementById('ab').style.display='none';
+			setABBlack();
 			//报告出具日期列
 			document.getElementById('reportDiv').style.display='block';
 			document.getElementById('reportDiv2').style.display='block';
@@ -451,6 +511,7 @@
 		$("#bInvoiceDate").prop("value", "");
 		$("#B_INVOICE_NO").prop("value", "");
 		$("#bSetDate").prop("value", "");
+		$("#B_RATE").prop("value", "");
 	}
 	
 	function showByUserRank(){
@@ -485,10 +546,11 @@
 		$('#CNTRCT_PRICE').attr('disabled',"true");
 		$('#signDocRptDate').attr('disabled',"disabled");
 		$('#setDocRptDate').attr('disabled',"disabled");
-		$('#A_AMOUNT').attr('disabled',"true");
+		//$('#A_AMOUNT').attr('disabled',"true");
 		$('#A_STATUS').attr('disabled',"true");
 		$('#B_TYPE').attr('disabled',"true");
-		$('#B_AMOUNT').attr('disabled',"true");
+		//$('#B_AMOUNT').attr('disabled',"true");
+		$('#B_RATE').attr('disabled',"true");
 		$('#aInvoiceDeliDate').attr('disabled',"disabled");
 		$('#bInvoiceDeliDate').attr('disabled',"disabled");
 	}
@@ -496,7 +558,7 @@
 	function disableC(){
 		$('#REPORT_NO').attr('disabled',"true");
 		$('#PROJECT_MANAGER').attr('disabled',"true");
-		$('#RESERVE2').attr('disabled',"true");
+		$('#PROJECT_NAME_PASS').attr('disabled',"true");
 		$('#PROJECT_NAME').attr('disabled',"true");
 		$('#PROGRESS_STATUS').attr('disabled',"disabled");
 		$('#docRecDate').attr('disabled',"disabled");
@@ -505,6 +567,14 @@
 		$('#signDocRcvDate').attr('disabled',"disabled");
 		$('#setDocRcvDate').attr('disabled',"disabled");
 		
+	}
+	function showBRate(){
+		var B_TYPE = $("#B_TYPE").val();
+		if(B_TYPE == 1 || B_TYPE == 3){
+			$('#B_RATE').attr('disabled',"true");
+		} else {
+			$('#B_RATE').attr('disabled',"disabled");
+		}
 	}
 	
 	//合同选择
@@ -607,6 +677,96 @@
 		$("#VERIFY_DECREASE").attr("value", tmp);
 	}
 	
+	function showRate(){
+		var B_TYPE = $("#B_TYPE").val();
+		if(B_TYPE == 1){
+			document.getElementById('rate1').style.display='block';
+			document.getElementById('rate2').style.display='none';
+			document.getElementById('rate3').style.display='none';
+		} else if(B_TYPE == 2){
+			document.getElementById('rate1').style.display='none';
+			document.getElementById('rate2').style.display='block';
+			document.getElementById('rate3').style.display='none';
+		} else{
+			document.getElementById('rate1').style.display='none';
+			document.getElementById('rate2').style.display='none';
+			document.getElementById('rate3').style.display='block';
+		}
+	}
+	
+	//计算甲方收费金额
+	function calcA_AMOUNT() {
+		var tmp = 0;
+		//审价费率
+		var CNTRCT_RATE_1 = $("#CNTRCT_RATE_1").val();
+		//咨询费率
+		var CNTRCT_RATE_2 = $("#CNTRCT_RATE_2").val();
+		//控制价编制费率
+		var CNTRCT_RATE_4 = $("#CNTRCT_RATE_4").val();
+		//投资监理费率
+		var CNTRCT_RATE_5 = $("#CNTRCT_RATE_5").val();
+		//送审金额
+		var VERIFY_PER_AMOUNT = $("#VERIFY_PER_AMOUNT").val();
+		//限价金额
+		var LIMIT_PRICE = $("#LIMIT_PRICE").val();
+		//预算金额
+		var PRE_PRICE = $("#PRE_PRICE").val();
+		//委托内容
+		var CNTRCT_INFO = $("#CNTRCT_INFO").val();
+		if(CNTRCT_INFO == 1){
+			if(VERIFY_PER_AMOUNT != '0.00' && CNTRCT_RATE_1 != '0.00'){
+				if(isReal2(VERIFY_PER_AMOUNT)) {
+					tmp = parseFloat(VERIFY_PER_AMOUNT) * parseFloat(CNTRCT_RATE_1) / 100;
+				} else {
+					tmp = parseFloat('0.00');
+				}
+			} else {
+				tmp = parseFloat('0.00');
+			}
+			tmp = tmp.toFixed(2);
+			
+		} else if(CNTRCT_INFO == 2){
+			if(VERIFY_PER_AMOUNT != '0.00' && CNTRCT_RATE_2 != '0.00'){
+				if(isReal2(VERIFY_PER_AMOUNT)) {
+					tmp = parseFloat(VERIFY_PER_AMOUNT) * parseFloat(CNTRCT_RATE_2) / 100;
+				} else {
+					tmp = parseFloat('0.00');
+				}
+			} else {
+				tmp = parseFloat('0.00');
+			}
+			tmp = tmp.toFixed(2);
+			
+		} else if(CNTRCT_INFO == 4){
+			if(LIMIT_PRICE != '0.00' && CNTRCT_RATE_4 != '0.00'){
+				if(isReal2(LIMIT_PRICE)) {
+					tmp = parseFloat(LIMIT_PRICE) * parseFloat(CNTRCT_RATE_4) / 100;
+				} else {
+					tmp = parseFloat('0.00');
+				}
+			} else {
+				tmp = parseFloat('0.00');
+			}
+			tmp = tmp.toFixed(2);
+			
+		} else if(CNTRCT_INFO == 5){
+			if(PRE_PRICE != '0.00' && CNTRCT_RATE_5 != '0.00'){
+				if(isReal2(PRE_PRICE)) {
+					tmp = parseFloat(PRE_PRICE) * parseFloat(CNTRCT_RATE_5) / 100;
+				} else {
+					tmp = parseFloat('0.00');
+				}
+			} else {
+				tmp = parseFloat('0.00');
+			}
+			tmp = tmp.toFixed(2);
+			
+		} else {
+			tmp = parseFloat('0.00');
+		}
+		$("#A_AMOUNT").attr("value", tmp);
+	}
+	
 	function goAuditList() {
 		window.location.href = '<c:url value="/audit/queryAuditList.action"></c:url>';
 	}
@@ -655,6 +815,11 @@
 		</s:if>
 			<div class="col-lg-12 right">
 				<s:form id="mainform" name="mainform" method="POST">
+					<s:hidden name="auditCntrctDto.CNTRCT_RATE_1" id="CNTRCT_RATE_1"/>
+					<s:hidden name="auditCntrctDto.CNTRCT_RATE_2" id="CNTRCT_RATE_2"/>
+					<s:hidden name="auditCntrctDto.CNTRCT_RATE_4" id="CNTRCT_RATE_4"/>
+					<s:hidden name="auditCntrctDto.CNTRCT_RATE_5" id="CNTRCT_RATE_5"/>
+					
 					<s:hidden name="addAuditDto.AGENT_NO" id="AGENT_NO"/>
 					<s:hidden name="addAuditDto.AGENT_CO_NAME" id="AGENT_CO_NAME"/>
 					<s:hidden name="addAuditDto.AGENT_CO_MANAGER" id="AGENT_CO_MANAGER"/>
@@ -706,7 +871,8 @@
 					<s:hidden name="addAuditDto.AGENT_INFO" id="AGENT_INFO"/>
 					<s:hidden name="addAuditDto.CONTRACT_CO_ID" id="CONTRACT_CO_ID"/>
 					<s:hidden name="addAuditDto.CONTRACT_CO_INFO" id="CONTRACT_CO_INFO"/>
-					<s:hidden name="addAuditDto.RESERVE1" id="RESERVE1"/>
+					<s:hidden name="addAuditDto.CNTRCT_INFO" id="CNTRCT_INFO"/>
+					<s:hidden name="addAuditDto.B_AMOUNT" id="B_AMOUNT"/>
 					<h3 class="title"><label for="" class="col-lg-2 form-label">审价项目新增</label></h3>
 					<div class="row">
 						<div class="col-lg-12 form-group">
@@ -787,12 +953,12 @@
 						<div class="col-lg-12 form-group">
 							<label for="" class="col-lg-2 form-label">委托内容</label>
 							<div class="col-lg-5">
-								<s:if test='%{addAuditDto.RESERVE1 == "1"}'>
-									<input name="RESERVE1" type="radio" checked="checked" onclick="getSelectCntrctInfo();"/>
+								<s:if test='%{addAuditDto.CNTRCT_INFO == "2"} || %{addAuditDto.CNTRCT_INFO == "3"} || %{addAuditDto.CNTRCT_INFO == "4"} ||%{addAuditDto.CNTRCT_INFO == "5"}'>
+									<input name="CNTRCT_INFO" type="radio" onclick="getSelectCntrctInfo();"/>
 									<label class="form-label" for="">审价</label>　
 								</s:if>
 								<s:else>
-									<input name="RESERVE1" type="radio" onclick="getSelectCntrctInfo();"/>
+									<input name="CNTRCT_INFO" type="radio" checked="checked" onclick="getSelectCntrctInfo();"/>
 									<label class="form-label" for="">审价</label>　
 								</s:else>
 							</div>
@@ -800,12 +966,12 @@
 						<div class="col-lg-12 form-group">
 							<div class="col-lg-2"></div>
 							<div class="col-lg-5">
-								<s:if test='%{addAuditDto.RESERVE1 == "2"}'>
-									<input name="RESERVE1" type="radio" checked="checked" onclick="getSelectCntrctInfo();"/>
+								<s:if test='%{addAuditDto.CNTRCT_INFO == "2"}'>
+									<input name="CNTRCT_INFO" type="radio" checked="checked" onclick="getSelectCntrctInfo();"/>
 									<label class="form-label" for="">咨询</label>　
 								</s:if>
 								<s:else>
-									<input name="RESERVE1" type="radio" onclick="getSelectCntrctInfo();"/>
+									<input name="CNTRCT_INFO" type="radio" onclick="getSelectCntrctInfo();"/>
 									<label class="form-label" for="">咨询</label>　
 								</s:else>
 							</div>
@@ -813,12 +979,12 @@
 						<div class="col-lg-12 form-group">
 							<div class="col-lg-2"></div>
 							<div class="col-lg-5">
-								<s:if test='%{addAuditDto.RESERVE1 == "3"}'>
-									<input name="RESERVE1" type="radio" checked="checked" onclick="getSelectCntrctInfo();"/>
+								<s:if test='%{addAuditDto.CNTRCT_INFO == "3"}'>
+									<input name="CNTRCT_INFO" type="radio" checked="checked" onclick="getSelectCntrctInfo();"/>
 									<label class="form-label" for="">清单编制</label>　
 								</s:if>
 								<s:else>
-									<input name="RESERVE1" type="radio" onclick="getSelectCntrctInfo();"/>
+									<input name="CNTRCT_INFO" type="radio" onclick="getSelectCntrctInfo();"/>
 									<label class="form-label" for="">清单编制</label>　
 								</s:else>
 							</div>
@@ -826,12 +992,12 @@
 						<div class="col-lg-12 form-group">
 							<div class="col-lg-2"></div>
 							<div class="col-lg-5">
-								<s:if test='%{addAuditDto.RESERVE1 == "4"}'>
-									<input name="RESERVE1" type="radio" checked="checked" onclick="getSelectCntrctInfo();"/>
+								<s:if test='%{addAuditDto.CNTRCT_INFO == "4"}'>
+									<input name="CNTRCT_INFO" type="radio" checked="checked" onclick="getSelectCntrctInfo();"/>
 									<label class="form-label" for="">控制价编制</label>　
 								</s:if>
 								<s:else>
-									<input name="RESERVE1" type="radio" onclick="getSelectCntrctInfo();"/>
+									<input name="CNTRCT_INFO" type="radio" onclick="getSelectCntrctInfo();"/>
 									<label class="form-label" for="">控制价编制</label>　
 								</s:else>
 							</div>
@@ -839,12 +1005,12 @@
 						<div class="col-lg-12 form-group">
 							<div class="col-lg-2"></div>
 							<div class="col-lg-5">
-								<s:if test='%{addAuditDto.RESERVE1 == "5"}'>
-									<input name="RESERVE1" type="radio" checked="checked" onclick="getSelectCntrctInfo();"/>
+								<s:if test='%{addAuditDto.CNTRCT_INFO == "5"}'>
+									<input name="CNTRCT_INFO" type="radio" checked="checked" onclick="getSelectCntrctInfo();"/>
 									<label class="form-label" for="">全过程投资监理</label>　
 								</s:if>
 								<s:else>
-									<input name="RESERVE1" type="radio" onclick="getSelectCntrctInfo();"/>
+									<input name="CNTRCT_INFO" type="radio" onclick="getSelectCntrctInfo();"/>
 									<label class="form-label" for="">全过程投资监理</label>　
 								</s:else>
 							</div>
@@ -865,7 +1031,7 @@
 							</div>
 							<label for="" class="col-lg-1 form-label colorBlue">曾用名</label>
 							<div class="col-lg-2">
-								<s:textfield name="addAuditDto.RESERVE2" id="RESERVE2" cssClass="col-lg-10 form-control" maxlength="80" theme="simple"></s:textfield>
+								<s:textfield name="addAuditDto.PROJECT_NAME_PASS" id="PROJECT_NAME_PASS" cssClass="col-lg-10 form-control" maxlength="80" theme="simple"></s:textfield>
 							</div>
 						</div>
 						<div class="col-lg-12 form-group">
@@ -876,13 +1042,13 @@
 							</div>
 							<label for="" class="col-lg-1 form-label colorBlue">实施情况</label>
 							<div class="col-lg-2">
-								<select id="PROGRESS_STATUS" name="addAuditCntrctDto.PROGRESS_STATUS" class="form-control">
-									<s:if test='addAuditCntrctDto.PROGRESS_STATUS == "1"'>
+								<select id="PROGRESS_STATUS" name="addAuditDto.PROGRESS_STATUS" class="form-control">
+									<s:if test='addAuditDto.PROGRESS_STATUS == "1"'>
 										<option value="">请选择</option>
 										<option value="1" selected="selected">实施</option>
 										<option value="2">中止</option>
 									</s:if>
-									<s:elseif test='addAuditCntrctDto.PROGRESS_STATUS == "2"'>
+									<s:elseif test='addAuditDto.PROGRESS_STATUS == "2"'>
 										<option value="">请选择</option>
 										<option value="1">实施</option>
 										<option value="2" selected="selected">中止</option>
@@ -1479,7 +1645,7 @@
 							<div class="col-lg-2"></div>
 							<label for="" class="col-lg-2 form-label colorGold">甲方收费</label>
 							<div class="col-lg-2">
-								<s:textfield name="addAuditDto.A_AMOUNT" id="A_AMOUNT" cssClass="col-lg-10 form-control" maxlength="14" theme="simple"></s:textfield>
+								<s:textfield name="addAuditDto.A_AMOUNT" id="A_AMOUNT" disabled="true" cssClass="col-lg-10 form-control" maxlength="14" theme="simple"></s:textfield>
 							</div>
 							<label for="" class="col-lg-1 form-label colorGold">收费状态</label>
 							<div class="col-lg-2">
@@ -1507,28 +1673,45 @@
 							<div class="col-lg-2"></div>
 							<label for="" class="col-lg-2 form-label colorGold">乙方收费方式</label>
 							<div class="col-lg-2">
-								<select id="B_TYPE" name="addAuditDto.B_TYPE" class="form-control">
+								<select id="B_TYPE" name="addAuditDto.B_TYPE" class="form-control" onchange="showRate();">
 									<s:if test='addAuditDto.B_TYPE == "1"'>
 										<option value="">请选择</option>
-										<option value="1" selected="selected">转账</option>
-										<option value="2">现金</option>
+										<option value="1" selected="selected">标准收费</option>
+										<option value="2">收费金额</option>
+										<option value="3">送审金额</option>
 									</s:if>
 									<s:elseif test='addAuditDto.B_TYPE == "2"'>
 										<option value="">请选择</option>
-										<option value="1">转账</option>
-										<option value="2" selected="selected">现金</option>
+										<option value="1">标准收费</option>
+										<option value="2" selected="selected">收费金额</option>
+										<option value="3">送审金额</option>
+									</s:elseif>
+									<s:elseif test='addAuditDto.B_TYPE == "3"'>
+										<option value="">请选择</option>
+										<option value="1">标准收费</option>
+										<option value="2">收费金额</option>
+										<option value="3" selected="selected">送审金额</option>
 									</s:elseif>
 									<s:else>
 										<option value="" selected="selected">请选择</option>
-										<option value="1">转账</option>
-										<option value="2">现金</option>
+										<option value="1">标准收费</option>
+										<option value="2">收费金额</option>
+										<option value="3">送审金额</option>
 									</s:else>
 								</select>
 							</div>
+							<label id="rate1" for="" class="col-lg-1 form-label colorGold">乙方折扣率(%)</label>
+							<label id="rate2" for="" class="col-lg-1 form-label colorGold">乙方收费</label>
+							<label id="rate3" for="" class="col-lg-1 form-label colorGold">乙方费率(%)</label>
+							<div class="col-lg-2">
+								<s:textfield name="addAuditDto.B_RATE" id="B_RATE" cssClass="col-lg-10 form-control" maxlength="14" theme="simple"></s:textfield>
+							</div>
+							<!-- 
 							<label for="" class="col-lg-1 form-label colorGold">乙方收费</label>
 							<div class="col-lg-2">
-								<s:textfield name="addAuditDto.B_AMOUNT" id="B_AMOUNT" cssClass="col-lg-10 form-control" maxlength="14" theme="simple"></s:textfield>
+								<s:textfield name="addAuditDto.B_AMOUNT" id="B_AMOUNT" disabled="true" cssClass="col-lg-10 form-control" maxlength="14" theme="simple"></s:textfield>
 							</div>
+							 -->
 						</div>
 						<div class="col-lg-12 form-group">
 							<div class="col-lg-2"></div>
@@ -1625,8 +1808,11 @@
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.zh-CN.min.js"></script>
 <script>
 	showByUserRank();
+	getSelectCntrctInfo();
+	showRate();
 	$('#VERIFY_PER_AMOUNT').bind('input propertychange', function() {  
 		calcVERIFY_DIFF();
+		//calcA_AMOUNT();
 	});
 	$('#VERIFY_AMOUNT').bind('input propertychange', function() {  
 		calcVERIFY_DIFF(); 

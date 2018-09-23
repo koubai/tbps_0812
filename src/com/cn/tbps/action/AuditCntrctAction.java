@@ -350,6 +350,73 @@ public class AuditCntrctAction extends BaseAction {
 		}
 		return SUCCESS;
 	}
+
+	/**
+	 * 显示审计管理页面B
+	 * @return
+	 */
+	public String showAuditCntrctBAction() {
+		try {
+			this.clearMessages();
+			strCntrctBelong = "";
+			strCntrctNO = "";
+			strCntrctType = "";
+			strCntrctName = "";
+			strCntrctStDate = "";
+			strCntrctEdDate = "";
+			listAuditCntrct = new ArrayList<AuditCntrctDto>();
+			
+			delAuditCntrctNo = "";
+			addAuditCntrctDto = new AuditCntrctDto();
+			updAuditCntrctNo = "";
+			updAuditCntrctDto = new AuditCntrctDto();
+			updAuditCntrctDtoOld = new AuditCntrctDto();
+			
+			page = new Page();
+			startIndex = 0;
+			
+			listUserInfo = userInfoService.queryAllUser();
+			UserInfoDto userinfo = new UserInfoDto();
+			userinfo.setLOGIN_NAME("");
+			listUserInfo.add(userinfo);
+			System.out.println("listUserInfo" + listUserInfo.size());
+		} catch(Exception e) {
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询审计列表B
+	 * @return
+	 */
+	public String queryAuditCntrctBList() {
+		try {
+			this.clearMessages();
+			page = new Page();
+			startIndex = 0;
+			queryAuditCntrct();
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 翻页B
+	 * @return
+	 */
+	public String turnAuditCntrctBPage() {
+		try {
+			this.clearMessages();
+			queryAuditCntrct();
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
 	
 	//审计合同选择
 	/**

@@ -16,7 +16,12 @@ public class AuditCntrctDaoImpl extends BaseDao implements AuditCntrctDao {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("CNTRCT_BELONG", strCntrctBelong);
 		paramMap.put("CNTRCT_NO", strCntrctNO);
-		paramMap.put("CNTRCT_TYPE", strCntrctType);
+		if(strCntrctType.equals("B")) {
+			paramMap.put("CNTRCT_TYPE", "2");
+			paramMap.put("CNTRCT_INFO", "5");
+		} else {
+			paramMap.put("CNTRCT_TYPE", strCntrctType);
+		}
 		paramMap.put("CNTRCT_NAME", strCntrctName);
 		paramMap.put("CNTRCT_ST_DATE", strCntrctStDate);
 		paramMap.put("CNTRCT_ED_DATE", strCntrctEdDate);
@@ -29,7 +34,12 @@ public class AuditCntrctDaoImpl extends BaseDao implements AuditCntrctDao {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("CNTRCT_BELONG", strCntrctBelong);
 		paramMap.put("CNTRCT_NO", strCntrctNO);
-		paramMap.put("CNTRCT_TYPE", strCntrctType);
+		if(strCntrctType.equals("B")) {
+			paramMap.put("CNTRCT_TYPE", "2");
+			paramMap.put("CNTRCT_INFO", "5");
+		} else {
+			paramMap.put("CNTRCT_TYPE", strCntrctType);
+		}
 		paramMap.put("CNTRCT_NAME", strCntrctName);
 		paramMap.put("CNTRCT_ST_DATE", strCntrctStDate);
 		paramMap.put("CNTRCT_ED_DATE", strCntrctEdDate);

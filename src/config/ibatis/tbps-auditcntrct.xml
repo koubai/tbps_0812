@@ -91,6 +91,9 @@
 		<isNotEmpty prepend="and" property="CNTRCT_TYPE">
 			T.CNTRCT_TYPE = #CNTRCT_TYPE#
 		</isNotEmpty>
+		<isNotEmpty prepend="and" property="CNTRCT_INFO">
+			SUBSTR(T.CNTRCT_INFO,5) = 1
+		</isNotEmpty>
 		<isNotEmpty prepend="and" property="CNTRCT_NAME">
 			T.CNTRCT_NAME like '%$CNTRCT_NAME$%'
 		</isNotEmpty>
@@ -113,6 +116,9 @@
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="CNTRCT_TYPE">
 			T.CNTRCT_TYPE = #CNTRCT_TYPE#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="CNTRCT_INFO">
+			SUBSTR(T.CNTRCT_INFO,5) = 1
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="CNTRCT_NAME">
 			T.CNTRCT_NAME like '%$CNTRCT_NAME$%'

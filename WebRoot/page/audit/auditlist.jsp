@@ -363,11 +363,11 @@
 										<s:elseif test='#arrAuditShow[0] == "APPROVAL_SND_DATE"'>
 											<td align="center"><s:date name="APPROVAL_SND_DATE" format="yyyy/MM/dd" /></td>
 										</s:elseif> 
-										<s:elseif test='#arrAuditShow[0] == "DOC_REC_DATE"'>
-											<td align="center"><s:date name="DOC_REC_DATE" format="yyyy/MM/dd" /></td>
+										<s:elseif test='#arrAuditShow[0] == "REPORT_RAISE_DATE"'>
+											<td align="center"><s:date name="REPORT_RAISE_DATE" format="yyyy/MM/dd" /></td>
 										</s:elseif>
-										<s:elseif test='#arrAuditShow[0] == "DOC_REC_DATE"'>
-											<td align="center"><s:date name="DOC_REC_DATE" format="yyyy/MM/dd" /></td>
+										<s:elseif test='#arrAuditShow[0] == "REPORT_SEAL_DATE"'>
+											<td align="center"><s:date name="REPORT_SEAL_DATE" format="yyyy/MM/dd" /></td>
 										</s:elseif> 
 										<s:elseif test='#arrAuditShow[0] == "PROGRESS_STATUS"'>
 										<td align="center">
@@ -427,6 +427,9 @@
 										<s:elseif test='#arrAuditShow[0] == "CNTRCT_PRICE"'>
 											<td><s:property value="CNTRCT_PRICE"/></td>
 										</s:elseif> 
+										<s:elseif test='#arrAuditShow[0] == "PROGRESS_STATUS_MEMO"'>
+											<td><s:property value="PROGRESS_STATUS_MEMO"/></td>
+										</s:elseif>
 										<s:else>
 											<td></td>
 										</s:else> 
@@ -452,11 +455,11 @@
 										<s:elseif test='#arrAuditShow[0] == "APPROVAL_SND_DATE"'>
 											<td align="center"><s:date name="APPROVAL_SND_DATE" format="yyyy/MM/dd" /></td>
 										</s:elseif> 
-										<s:elseif test='#arrAuditShow[0] == "DOC_REC_DATE"'>
-											<td align="center"><s:date name="DOC_REC_DATE" format="yyyy/MM/dd" /></td>
+										<s:elseif test='#arrAuditShow[0] == "REPORT_RAISE_DATE"'>
+											<td align="center"><s:date name="REPORT_RAISE_DATE" format="yyyy/MM/dd" /></td>
 										</s:elseif>
-										<s:elseif test='#arrAuditShow[0] == "DOC_REC_DATE"'>
-											<td align="center"><s:date name="DOC_REC_DATE" format="yyyy/MM/dd" /></td>
+										<s:elseif test='#arrAuditShow[0] == "REPORT_SEAL_DATE"'>
+											<td align="center"><s:date name="REPORT_SEAL_DATE" format="yyyy/MM/dd" /></td>
 										</s:elseif> 
 										<s:elseif test='#arrAuditShow[0] == "PROGRESS_STATUS"'>
 										<td align="center">
@@ -516,6 +519,9 @@
 										<s:elseif test='#arrAuditShow[0] == "CNTRCT_PRICE"'>
 											<td><s:property value="CNTRCT_PRICE"/></td>
 										</s:elseif> 
+										<s:elseif test='#arrAuditShow[0] == "PROGRESS_STATUS_MEMO"'>
+											<td><s:property value="PROGRESS_STATUS_MEMO"/></td>
+										</s:elseif>
 										<s:else>
 											<td></td>
 										</s:else> 
@@ -541,11 +547,11 @@
 										<s:elseif test='#arrAuditShow[0] == "APPROVAL_SND_DATE"'>
 											<td align="center"><s:date name="APPROVAL_SND_DATE" format="yyyy/MM/dd" /></td>
 										</s:elseif> 
-										<s:elseif test='#arrAuditShow[0] == "DOC_REC_DATE"'>
-											<td align="center"><s:date name="DOC_REC_DATE" format="yyyy/MM/dd" /></td>
+										<s:elseif test='#arrAuditShow[0] == "REPORT_RAISE_DATE"'>
+											<td align="center"><s:date name="REPORT_RAISE_DATE" format="yyyy/MM/dd" /></td>
 										</s:elseif>
-										<s:elseif test='#arrAuditShow[0] == "DOC_REC_DATE"'>
-											<td align="center"><s:date name="DOC_REC_DATE" format="yyyy/MM/dd" /></td>
+										<s:elseif test='#arrAuditShow[0] == "REPORT_SEAL_DATE"'>
+											<td align="center"><s:date name="REPORT_SEAL_DATE" format="yyyy/MM/dd" /></td>
 										</s:elseif> 
 										<s:elseif test='#arrAuditShow[0] == "PROGRESS_STATUS"'>
 										<td align="center">
@@ -605,6 +611,9 @@
 										<s:elseif test='#arrAuditShow[0] == "CNTRCT_PRICE"'>
 											<td><s:property value="CNTRCT_PRICE"/></td>
 										</s:elseif> 
+										<s:elseif test='#arrAuditShow[0] == "PROGRESS_STATUS_MEMO"'>
+											<td><s:property value="PROGRESS_STATUS_MEMO"/></td>
+										</s:elseif>
 										<s:else>
 											<td></td>
 										</s:else> 
@@ -630,11 +639,11 @@
 										<s:elseif test='#arrAuditShow[0] == "APPROVAL_SND_DATE"'>
 											<td align="center"><s:date name="APPROVAL_SND_DATE" format="yyyy/MM/dd" /></td>
 										</s:elseif> 
-										<s:elseif test='#arrAuditShow[0] == "DOC_REC_DATE"'>
-											<td align="center"><s:date name="DOC_REC_DATE" format="yyyy/MM/dd" /></td>
+										<s:elseif test='#arrAuditShow[0] == "REPORT_RAISE_DATE"'>
+											<td align="center"><s:date name="REPORT_RAISE_DATE" format="yyyy/MM/dd" /></td>
 										</s:elseif>
-										<s:elseif test='#arrAuditShow[0] == "DOC_REC_DATE"'>
-											<td align="center"><s:date name="DOC_REC_DATE" format="yyyy/MM/dd" /></td>
+										<s:elseif test='#arrAuditShow[0] == "REPORT_SEAL_DATE"'>
+											<td align="center"><s:date name="REPORT_SEAL_DATE" format="yyyy/MM/dd" /></td>
 										</s:elseif> 
 										<s:elseif test='#arrAuditShow[0] == "PROGRESS_STATUS"'>
 										<td align="center">
@@ -694,6 +703,9 @@
 										<s:elseif test='#arrAuditShow[0] == "CNTRCT_PRICE"'>
 											<td><s:property value="CNTRCT_PRICE"/></td>
 										</s:elseif> 
+										<s:elseif test='#arrAuditShow[0] == "PROGRESS_STATUS_MEMO"'>
+											<td><s:property value="PROGRESS_STATUS_MEMO"/></td>
+										</s:elseif>
 										<s:else>
 											<td></td>
 										</s:else> 
@@ -719,11 +731,11 @@
 										<s:elseif test='#arrAuditShow[0] == "APPROVAL_SND_DATE"'>
 											<td align="center"><s:date name="APPROVAL_SND_DATE" format="yyyy/MM/dd" /></td>
 										</s:elseif> 
-										<s:elseif test='#arrAuditShow[0] == "DOC_REC_DATE"'>
-											<td align="center"><s:date name="DOC_REC_DATE" format="yyyy/MM/dd" /></td>
+										<s:elseif test='#arrAuditShow[0] == "REPORT_RAISE_DATE"'>
+											<td align="center"><s:date name="REPORT_RAISE_DATE" format="yyyy/MM/dd" /></td>
 										</s:elseif>
-										<s:elseif test='#arrAuditShow[0] == "DOC_REC_DATE"'>
-											<td align="center"><s:date name="DOC_REC_DATE" format="yyyy/MM/dd" /></td>
+										<s:elseif test='#arrAuditShow[0] == "REPORT_SEAL_DATE"'>
+											<td align="center"><s:date name="REPORT_SEAL_DATE" format="yyyy/MM/dd" /></td>
 										</s:elseif> 
 										<s:elseif test='#arrAuditShow[0] == "PROGRESS_STATUS"'>
 										<td align="center">
@@ -783,6 +795,9 @@
 										<s:elseif test='#arrAuditShow[0] == "CNTRCT_PRICE"'>
 											<td><s:property value="CNTRCT_PRICE"/></td>
 										</s:elseif> 
+										<s:elseif test='#arrAuditShow[0] == "PROGRESS_STATUS_MEMO"'>
+											<td><s:property value="PROGRESS_STATUS_MEMO"/></td>
+										</s:elseif>
 										<s:else>
 											<td></td>
 										</s:else> 

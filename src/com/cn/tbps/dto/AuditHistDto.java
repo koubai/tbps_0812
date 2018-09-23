@@ -194,7 +194,7 @@ public class AuditHistDto extends BaseDto {
 	/**
 	 * 预/结算
 	 */
-	private BigDecimal PRE_SET;
+	private String PRE_SET;
 
 	/**
 	 * 预算金额
@@ -492,6 +492,21 @@ public class AuditHistDto extends BaseDto {
 	 * 乙方到账日期
 	 */
 	private Date B_SET_DATE;
+
+	/**
+	 * 乙方费率
+	 */
+	private BigDecimal B_RATE;
+
+	/**
+	 * 委托内容
+	 */
+	private String CNTRCT_INFO;
+
+	/**
+	 * 曾用名
+	 */
+	private String PROJECT_NAME_PASS;
 
 	/**
 	 * 备用1
@@ -832,11 +847,11 @@ public class AuditHistDto extends BaseDto {
 		PROGRESS_STATUS = pROGRESS_STATUS;
 	}
 
-	public BigDecimal getPRE_SET() {
+	public String getPRE_SET() {
 		return PRE_SET;
 	}
 
-	public void setPRE_SET(BigDecimal pRE_SET) {
+	public void setPRE_SET(String pRE_SET) {
 		PRE_SET = pRE_SET;
 	}
 
@@ -1366,5 +1381,29 @@ public class AuditHistDto extends BaseDto {
 
 	public void setCNTRCT_NM(String cNTRCT_NM) {
 		CNTRCT_NM = cNTRCT_NM;
+	}
+
+	public BigDecimal getB_RATE() {
+		return B_RATE;
+	}
+
+	public void setB_RATE(BigDecimal b_RATE) {
+		B_RATE = b_RATE;
+	}
+
+	public String getCNTRCT_INFO() {
+		return CNTRCT_INFO;
+	}
+
+	public void setCNTRCT_INFO(String cNTRCT_INFO) {
+		CNTRCT_INFO = cNTRCT_INFO;
+	}
+
+	public String getPROJECT_NAME_PASS() {
+		return PROJECT_NAME_PASS;
+	}
+
+	public void setPROJECT_NAME_PASS(String pROJECT_NAME_PASS) {
+		PROJECT_NAME_PASS = pROJECT_NAME_PASS;
 	}
 }

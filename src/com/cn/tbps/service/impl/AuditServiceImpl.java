@@ -1,6 +1,8 @@
 package com.cn.tbps.service.impl;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -8,9 +10,13 @@ import com.cn.common.service.BaseService;
 import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
+import com.cn.tbps.dao.AuditCntrctDao;
+import com.cn.tbps.dao.AuditCntrctHisDao;
 import com.cn.tbps.dao.AuditDao;
 import com.cn.tbps.dao.ConfigTabDao;
 import com.cn.tbps.dto.AuditAuthDto;
+import com.cn.tbps.dto.AuditCntrctDto;
+import com.cn.tbps.dto.AuditCntrctHisDto;
 import com.cn.tbps.dto.AuditDto;
 import com.cn.tbps.dto.AuditHistDto;
 import com.cn.tbps.dto.AuditStatCostDto;
@@ -28,6 +34,9 @@ import com.cn.tbps.service.AuditService;
 public class AuditServiceImpl extends BaseService implements AuditService {
 	
 	private AuditDao auditDao;
+	
+	private AuditCntrctDao auditCntrctDao;
+	private AuditCntrctHisDao auditCntrctHisDao;
 	
 	private ConfigTabDao configTabDao;
 
@@ -188,6 +197,8 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 		auditDao.insertAudit(audit);
 		//新增审价履历
 		insertAuditHist(audit);
+		//计算甲方收费，乙方收费，合同委托方收费
+		calcABAmount(audit);
 		return auditNo;
 	}
 
@@ -196,6 +207,354 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 		auditDao.updateAudit(audit);
 		//新增审价履历
 		insertAuditHist(audit);
+		//计算甲方收费，乙方收费，合同委托方收费
+		calcABAmount(audit);
+	}
+	
+	/**
+	 * 计算甲方收费，乙方收费，合同委托方收费
+	 * @param audit
+	 */
+	private void calcABAmount(AuditDto audit) {
+		AuditCntrctDto auditCntrctDto = auditCntrctDao.queryAuditCntrctByID(audit.getCNTRCT_NO());
+		List<AuditDto> listAudit1 = auditDao.queryAllAuditByCntrctNo(audit.getCNTRCT_NO(), "1");
+		List<AuditDto> listAudit2 = auditDao.queryAllAuditByCntrctNo(audit.getCNTRCT_NO(), "2");
+		//List<AuditDto> listAudit3 = auditDao.queryAllAuditByCntrctNo(audit.getCNTRCT_NO(), "3");
+		List<AuditDto> listAudit4 = auditDao.queryAllAuditByCntrctNo(audit.getCNTRCT_NO(), "4");
+		List<AuditDto> listAudit5 = auditDao.queryAllAuditByCntrctNo(audit.getCNTRCT_NO(), "5");
+		BigDecimal bAmountAll = new BigDecimal(0);
+		BigDecimal amountTotal1 = new BigDecimal(0);
+		BigDecimal amountTotal2 = new BigDecimal(0);
+		//BigDecimal amountTotal3 = new BigDecimal(0);
+		BigDecimal amountTotal4 = new BigDecimal(0);
+		BigDecimal amountTotal5 = new BigDecimal(0);
+		
+		//审价送审价合计
+		for(AuditDto auditDto : listAudit1) {
+			amountTotal1 = amountTotal1.add(auditDto.getVERIFY_PER_AMOUNT());
+		}
+		//审价
+		for(AuditDto auditDto : listAudit1) {
+			//甲方收费
+			BigDecimal AAmount = new BigDecimal(0);
+			if(auditDto.getVERIFY_PER_AMOUNT().compareTo(BigDecimal.ZERO) == 1) {
+				if(auditCntrctDto.getCNTRCT_RATE_1().compareTo(BigDecimal.ZERO) == 1) {
+					//1、填写费率，根据费率计算得到
+					AAmount = auditDto.getVERIFY_PER_AMOUNT().multiply(auditCntrctDto.getCNTRCT_RATE_1().divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_UP));
+				} else if(auditCntrctDto.getCNTRCT_AMOUNT_1().compareTo(BigDecimal.ZERO) == 1) {
+					//填写金额，根据“预算金额/本合同下所有项目预算金额合计*金额”计算
+					AAmount = auditDto.getVERIFY_PER_AMOUNT().multiply(auditCntrctDto.getCNTRCT_AMOUNT_1()).divide(amountTotal1, 2, BigDecimal.ROUND_HALF_UP);
+				}
+			}
+			auditDto.setA_AMOUNT(AAmount);
+			
+			//合同委托方收费合计
+			bAmountAll = bAmountAll.add(AAmount);
+			
+			//乙方收费
+			String bType = auditDto.getB_TYPE();
+			if(bType.equals("1")) {
+				//标准收费
+				BigDecimal standard = standardAmountCalc(auditDto);
+				if(standard.compareTo(BigDecimal.ZERO) == 1) {
+					BigDecimal bAmount = auditDto.getB_RATE().multiply(standard).divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_UP);
+					auditDto.setB_AMOUNT(bAmount);
+				}
+			} else if(bType.equals("2")) {
+				//收费金额
+				auditDto.setB_AMOUNT(auditDto.getB_RATE());
+			} else if(bType.equals("3")) {
+				//送审金额
+				BigDecimal verifyPerAmount = auditDto.getVERIFY_PER_AMOUNT();
+				if(verifyPerAmount.compareTo(BigDecimal.ZERO) == 1) {
+					BigDecimal bAmount = auditDto.getB_RATE().multiply(verifyPerAmount).divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_UP);
+					auditDto.setB_AMOUNT(bAmount);
+				}
+			} else {
+				auditDto.setB_AMOUNT(new BigDecimal(0));
+			}
+			auditDao.updateAudit(auditDto);
+			//新增审价履历
+			insertAuditHist(auditDto);
+		}
+		
+		//咨询送审价合计
+		for(AuditDto auditDto : listAudit2) {
+			amountTotal2 = amountTotal2.add(auditDto.getVERIFY_PER_AMOUNT());
+		}
+		//咨询
+		for(AuditDto auditDto : listAudit2) {
+			//甲方收费
+			BigDecimal AAmount = new BigDecimal(0);
+			if(auditDto.getVERIFY_PER_AMOUNT().compareTo(BigDecimal.ZERO) == 1) {
+				if(auditCntrctDto.getCNTRCT_RATE_2().compareTo(BigDecimal.ZERO) == 1) {
+					//1、填写费率，根据费率计算得到
+					AAmount = auditDto.getVERIFY_PER_AMOUNT().multiply(auditCntrctDto.getCNTRCT_RATE_2().divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_UP));
+				} else if(auditCntrctDto.getCNTRCT_AMOUNT_2().compareTo(BigDecimal.ZERO) == 1) {
+					//填写金额，根据“预算金额/本合同下所有项目预算金额合计*金额”计算
+					AAmount = auditDto.getVERIFY_PER_AMOUNT().multiply(auditCntrctDto.getCNTRCT_AMOUNT_2()).divide(amountTotal2, 2, BigDecimal.ROUND_HALF_UP);
+				}
+			}
+			auditDto.setA_AMOUNT(AAmount);
+			
+			//合同委托方收费合计
+			bAmountAll = bAmountAll.add(AAmount);
+			
+			//乙方收费
+			String bType = auditDto.getB_TYPE();
+			if(bType.equals("1")) {
+				//标准收费
+				BigDecimal standard = standardAmountCalc(auditDto);
+				if(standard.compareTo(BigDecimal.ZERO) == 1) {
+					BigDecimal bAmount = auditDto.getB_RATE().multiply(standard).divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_UP);
+					auditDto.setB_AMOUNT(bAmount);
+				}
+			} else if(bType.equals("2")) {
+				//收费金额
+				auditDto.setB_AMOUNT(auditDto.getB_RATE());
+			} else if(bType.equals("3")) {
+				//送审金额
+				BigDecimal verifyPerAmount = auditDto.getVERIFY_PER_AMOUNT();
+				if(verifyPerAmount.compareTo(BigDecimal.ZERO) == 1) {
+					BigDecimal bAmount = auditDto.getB_RATE().multiply(verifyPerAmount).divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_UP);
+					auditDto.setB_AMOUNT(bAmount);
+				}
+			} else {
+				auditDto.setB_AMOUNT(new BigDecimal(0));
+			}
+			auditDao.updateAudit(auditDto);
+			//新增审价履历
+			insertAuditHist(auditDto);
+		}
+		
+		//控制价编制限价金额合计
+		for(AuditDto auditDto : listAudit4) {
+			amountTotal4 = amountTotal4.add(auditDto.getCNT_PRICE());
+		}
+		//控制价编制
+		for(AuditDto auditDto : listAudit4) {
+			//甲方收费
+			BigDecimal AAmount = new BigDecimal(0);
+			if(auditDto.getCNT_PRICE().compareTo(BigDecimal.ZERO) == 1) {
+				if(auditCntrctDto.getCNTRCT_RATE_4().compareTo(BigDecimal.ZERO) == 1) {
+					//1、填写费率，根据费率计算得到
+					AAmount = auditDto.getCNT_PRICE().multiply(auditCntrctDto.getCNTRCT_RATE_4().divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_UP));
+				} else if(auditCntrctDto.getCNTRCT_AMOUNT_4().compareTo(BigDecimal.ZERO) == 1) {
+					//填写金额，根据“预算金额/本合同下所有项目预算金额合计*金额”计算
+					AAmount = auditDto.getCNT_PRICE().multiply(auditCntrctDto.getCNTRCT_AMOUNT_4()).divide(amountTotal4, 2, BigDecimal.ROUND_HALF_UP);
+				}
+			}
+			auditDto.setA_AMOUNT(AAmount);
+			
+			//合同委托方收费合计
+			bAmountAll = bAmountAll.add(AAmount);
+			
+			//乙方收费
+			String bType = auditDto.getB_TYPE();
+			if(bType.equals("1")) {
+				//标准收费
+				BigDecimal standard = standardAmountCalc(auditDto);
+				if(standard.compareTo(BigDecimal.ZERO) == 1) {
+					BigDecimal bAmount = auditDto.getB_RATE().multiply(standard).divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_UP);
+					auditDto.setB_AMOUNT(bAmount);
+				}
+			} else if(bType.equals("2")) {
+				//收费金额
+				auditDto.setB_AMOUNT(auditDto.getB_RATE());
+			} else if(bType.equals("3")) {
+				//送审金额
+				BigDecimal verifyPerAmount = auditDto.getVERIFY_PER_AMOUNT();
+				if(verifyPerAmount.compareTo(BigDecimal.ZERO) == 1) {
+					BigDecimal bAmount = auditDto.getB_RATE().multiply(verifyPerAmount).divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_UP);
+					auditDto.setB_AMOUNT(bAmount);
+				}
+			} else {
+				auditDto.setB_AMOUNT(new BigDecimal(0));
+			}
+			auditDao.updateAudit(auditDto);
+			//新增审价履历
+			insertAuditHist(auditDto);
+		}
+		
+		//投资监理预算金额合计
+		for(AuditDto auditDto : listAudit5) {
+			amountTotal5 = amountTotal5.add(auditDto.getPRE_PRICE());
+		}
+		//投资监理
+		for(AuditDto auditDto : listAudit5) {
+			//甲方收费
+			BigDecimal AAmount = new BigDecimal(0);
+			if(auditDto.getPRE_PRICE().compareTo(BigDecimal.ZERO) == 1) {
+				if(auditCntrctDto.getCNTRCT_RATE_5().compareTo(BigDecimal.ZERO) == 1) {
+					//1、填写费率，根据费率计算得到
+					AAmount = auditDto.getPRE_PRICE().multiply(auditCntrctDto.getCNTRCT_RATE_5().divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_UP));
+				} else if(auditCntrctDto.getCNTRCT_AMOUNT_5().compareTo(BigDecimal.ZERO) == 1) {
+					//填写金额，根据“预算金额/本合同下所有项目预算金额合计*金额”计算
+					AAmount = auditDto.getPRE_PRICE().multiply(auditCntrctDto.getCNTRCT_AMOUNT_5()).divide(amountTotal5, 2, BigDecimal.ROUND_HALF_UP);
+				}
+			}
+			auditDto.setA_AMOUNT(AAmount);
+			
+			//合同委托方收费合计
+			bAmountAll = bAmountAll.add(AAmount);
+			
+			//乙方收费
+			String bType = auditDto.getB_TYPE();
+			if(bType.equals("1")) {
+				//标准收费
+				BigDecimal standard = standardAmountCalc(auditDto);
+				if(standard.compareTo(BigDecimal.ZERO) == 1) {
+					BigDecimal bAmount = auditDto.getB_RATE().multiply(standard).divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_UP);
+					auditDto.setB_AMOUNT(bAmount);
+				}
+			} else if(bType.equals("2")) {
+				//收费金额
+				auditDto.setB_AMOUNT(auditDto.getB_RATE());
+			} else if(bType.equals("3")) {
+				//送审金额
+				BigDecimal verifyPerAmount = auditDto.getVERIFY_PER_AMOUNT();
+				if(verifyPerAmount.compareTo(BigDecimal.ZERO) == 1) {
+					BigDecimal bAmount = auditDto.getB_RATE().multiply(verifyPerAmount).divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_UP);
+					auditDto.setB_AMOUNT(bAmount);
+				}
+			} else {
+				auditDto.setB_AMOUNT(new BigDecimal(0));
+			}
+			auditDao.updateAudit(auditDto);
+			//新增审价履历
+			insertAuditHist(auditDto);
+		}
+		
+		//合同委托方收费
+		auditCntrctDto.setCNTRCT_TOTAL_AMOUNT(bAmountAll);
+		auditCntrctDao.updateAuditCntrct(auditCntrctDto);
+		//新增审价履历
+		insertAuditCntrctHist(auditCntrctDto);
+		
+	}
+	
+	//计算标准价
+	public static BigDecimal standardAmountCalc(AuditDto audit){
+		BigDecimal stdAmount = new BigDecimal(0);
+		if (audit.getVERIFY_PER_AMOUNT()== null ||audit.getVERIFY_AMOUNT()== null||audit.getVERIFY_INCREASE()== null){
+			return stdAmount ;			
+		}
+		
+		// 各阶段的收费费率（%）
+		// 100以下 （含100）	    7.3
+		// 100~500 （含500）	    6.7
+		// 500~1000（含1000）	    5.1
+		// 1000~3000 （含3000）	4
+		// 3000~5000 （含5000）	3.8
+		// 5000~10000 （含10000）	3.6
+		// 10000以上                      	3.2
+		
+		BigDecimal verify_per_amount = audit.getVERIFY_PER_AMOUNT();
+		BigDecimal calc_amount = new BigDecimal(0);
+		BigDecimal left_amount = new BigDecimal(0);
+		BigDecimal tax_calc_amount = new BigDecimal(0);
+		BigDecimal sum_tax_calc_amount = new BigDecimal(0);
+		
+		// 100以下 （含100）	   
+		if (verify_per_amount.compareTo(new BigDecimal(100)) <= 0){
+			calc_amount = verify_per_amount;
+			left_amount = new BigDecimal(0);
+		}else{
+			// 100 以上
+			calc_amount = new BigDecimal(100);
+			left_amount = verify_per_amount.subtract(new BigDecimal(100));
+		}
+		tax_calc_amount = calc_amount.multiply(new BigDecimal(7.3)); 
+		sum_tax_calc_amount=sum_tax_calc_amount.add(tax_calc_amount); 
+		System.out.println("tax_calc_amount" + tax_calc_amount);
+		System.out.println("sum_tax_calc_amount" + sum_tax_calc_amount);
+		
+		// 100~500 （含500）	   
+		if (left_amount.compareTo(new BigDecimal(400)) < 0 ){
+			calc_amount = left_amount ;
+			left_amount = new BigDecimal(0);
+		}else{
+			// 500 以上
+			calc_amount = new BigDecimal(400);
+			left_amount = left_amount.subtract(new BigDecimal(400));
+		}
+		tax_calc_amount = calc_amount.multiply(new BigDecimal(6.7)); 
+		sum_tax_calc_amount=sum_tax_calc_amount.add(tax_calc_amount); 
+		System.out.println("tax_calc_amount" + tax_calc_amount);
+		System.out.println("sum_tax_calc_amount" + sum_tax_calc_amount);
+		
+		// 500~1000 （含1000）	   
+		if (left_amount.compareTo(new BigDecimal(500)) < 0 ){
+			calc_amount = left_amount ;
+			left_amount = new BigDecimal(0);
+		}else{
+			// 1000 以上
+			calc_amount = new BigDecimal(500);
+			left_amount = left_amount.subtract(new BigDecimal(500));
+		}
+		tax_calc_amount = calc_amount.multiply(new BigDecimal(5.1)); 
+		sum_tax_calc_amount=sum_tax_calc_amount.add(tax_calc_amount); 
+		System.out.println("tax_calc_amount" + tax_calc_amount);
+		System.out.println("sum_tax_calc_amount" + sum_tax_calc_amount);
+		
+		// 1000~3000 （含1000）	   
+		if (left_amount.compareTo(new BigDecimal(2000)) < 0 ){
+			calc_amount = left_amount ;
+			left_amount = new BigDecimal(0);
+		}else{
+			// 3000 以上
+			calc_amount = new BigDecimal(2000);
+			left_amount = left_amount.subtract(new BigDecimal(2000));
+		}
+		tax_calc_amount = calc_amount.multiply(new BigDecimal(4)); 
+		sum_tax_calc_amount=sum_tax_calc_amount.add(tax_calc_amount); 
+		System.out.println("tax_calc_amount" + tax_calc_amount);
+		System.out.println("sum_tax_calc_amount" + sum_tax_calc_amount);
+		
+		// 3000~5000 （含5000）	   
+		if (left_amount.compareTo(new BigDecimal(2000)) < 0 ){
+			calc_amount = left_amount ;
+			left_amount = new BigDecimal(0);
+		}else{
+			// 5000 以上
+			calc_amount = new BigDecimal(2000);
+			left_amount = left_amount.subtract(new BigDecimal(2000));
+		}
+		tax_calc_amount = calc_amount.multiply(new BigDecimal(3.8)); 
+		sum_tax_calc_amount=sum_tax_calc_amount.add(tax_calc_amount); 
+		System.out.println("tax_calc_amount" + tax_calc_amount);
+		System.out.println("sum_tax_calc_amount" + sum_tax_calc_amount);
+		
+		// 5000~10000 （含10000）	   
+		if (left_amount.compareTo(new BigDecimal(5000)) < 0 ){
+			calc_amount = left_amount ;
+			left_amount = new BigDecimal(0);
+		}else{
+			// 10000 以上
+			calc_amount = new BigDecimal(5000);
+			left_amount = left_amount.subtract(new BigDecimal(5000));
+		}
+		tax_calc_amount = calc_amount.multiply(new BigDecimal(3.6)); 
+		sum_tax_calc_amount=sum_tax_calc_amount.add(tax_calc_amount); 
+		System.out.println("tax_calc_amount" + tax_calc_amount);
+		System.out.println("sum_tax_calc_amount" + sum_tax_calc_amount);
+
+		// 10000 以上
+		calc_amount = left_amount;
+		tax_calc_amount = calc_amount.multiply(new BigDecimal(3.2)); 
+		sum_tax_calc_amount=sum_tax_calc_amount.add(tax_calc_amount); 
+		System.out.println("tax_calc_amount" + tax_calc_amount);
+		System.out.println("sum_tax_calc_amount" + sum_tax_calc_amount);
+		
+		//折算后税率%
+		BigDecimal ori_rate = sum_tax_calc_amount.divide(verify_per_amount,10,BigDecimal.ROUND_HALF_UP);
+		
+		// 标准收费额计算	（核增额*折算费率+（核减额-送审价*5%）*折算费率）%
+		stdAmount = audit.getVERIFY_INCREASE().multiply(ori_rate).add((audit.getVERIFY_DECREASE().subtract(verify_per_amount.multiply(new BigDecimal(0.05))).multiply(ori_rate))).divide(new BigDecimal(100),2, BigDecimal.ROUND_HALF_UP);
+		System.out.println("ori_rate" + ori_rate);
+		System.out.println("stdAmount" + stdAmount);
+		
+		return stdAmount ;
 	}
 	
 	@Override
@@ -208,6 +567,8 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 			auditDao.updateAudit(audit);
 			//插入审价履历
 			insertAuditHist(audit);
+			//计算甲方收费，乙方收费，合同委托方收费
+			calcABAmount(audit);
 		}
 	}
 
@@ -333,6 +694,9 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 		auditHist.setB_INVOICE_DATE(audit.getB_INVOICE_DATE());
 		auditHist.setB_INVOICE_NO(audit.getB_INVOICE_NO());
 		auditHist.setB_SET_DATE(audit.getB_SET_DATE());
+		auditHist.setB_RATE(audit.getB_RATE());
+		auditHist.setCNTRCT_INFO(audit.getCNTRCT_INFO());
+		auditHist.setPROJECT_NAME_PASS(audit.getPROJECT_NAME_PASS());
 		auditHist.setRESERVE1(audit.getRESERVE1());
 		auditHist.setRESERVE2(audit.getRESERVE2());
 		auditHist.setRESERVE3(audit.getRESERVE3());
@@ -349,6 +713,87 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 		auditHist.setINSERT_DATE(audit.getINSERT_DATE());
 		auditHist.setUPDATE_DATE(audit.getUPDATE_DATE());
 		auditDao.insertAuditHist(auditHist);
+	}
+	
+	/**
+	 * 插入审价履历
+	 * @param auditCntrct
+	 */
+	private void insertAuditCntrctHist(AuditCntrctDto auditCntrct) {
+		AuditCntrctHisDto auditCntrctHist = new AuditCntrctHisDto();
+		auditCntrctHist.setCNTRCT_BELONG(auditCntrct.getCNTRCT_BELONG());
+		auditCntrctHist.setCNTRCT_NO(auditCntrct.getCNTRCT_NO());
+		auditCntrctHist.setCNTRCT_NAME(auditCntrct.getCNTRCT_NAME());
+		auditCntrctHist.setCNTRCT_NM(auditCntrct.getCNTRCT_NM());
+		auditCntrctHist.setCNTRCT_TYPE(auditCntrct.getCNTRCT_TYPE());
+		auditCntrctHist.setAUDIT_COMP_NO(auditCntrct.getAUDIT_COMP_NO());
+		auditCntrctHist.setAUDIT_COMP_NAME(auditCntrct.getAUDIT_COMP_NAME());
+		auditCntrctHist.setCO_MANAGER_ADDRESS1(auditCntrct.getCO_MANAGER_ADDRESS1());
+		auditCntrctHist.setCO_MANAGER1(auditCntrct.getCO_MANAGER1());
+		auditCntrctHist.setCO_MANAGER_TEL1(auditCntrct.getCO_MANAGER_TEL1());
+		auditCntrctHist.setCO_ADDRESS1(auditCntrct.getCO_ADDRESS1());
+		auditCntrctHist.setCNTRCT_ST_DATE(auditCntrct.getCNTRCT_ST_DATE());
+		auditCntrctHist.setCNTRCT_ED_DATE(auditCntrct.getCNTRCT_ED_DATE());
+		auditCntrctHist.setCNTRCT_INFO(auditCntrct.getCNTRCT_INFO());
+		auditCntrctHist.setCNTRCT_RATE_1(auditCntrct.getCNTRCT_RATE_1());
+		auditCntrctHist.setCNTRCT_RATE_2(auditCntrct.getCNTRCT_RATE_2());
+		auditCntrctHist.setCNTRCT_RATE_3(auditCntrct.getCNTRCT_RATE_3());
+		auditCntrctHist.setCNTRCT_RATE_4(auditCntrct.getCNTRCT_RATE_4());
+		auditCntrctHist.setCNTRCT_RATE_5(auditCntrct.getCNTRCT_RATE_5());
+		auditCntrctHist.setCNTRCT_RATE_6(auditCntrct.getCNTRCT_RATE_6());
+		auditCntrctHist.setCNTRCT_RATE_7(auditCntrct.getCNTRCT_RATE_7());
+		auditCntrctHist.setCNTRCT_RATE_8(auditCntrct.getCNTRCT_RATE_8());
+		auditCntrctHist.setCNTRCT_RATE_9(auditCntrct.getCNTRCT_RATE_9());
+		auditCntrctHist.setCNTRCT_RATE_10(auditCntrct.getCNTRCT_RATE_10());
+		auditCntrctHist.setCNTRCT_AMOUNT_1(auditCntrct.getCNTRCT_AMOUNT_1());
+		auditCntrctHist.setCNTRCT_AMOUNT_2(auditCntrct.getCNTRCT_AMOUNT_2());
+		auditCntrctHist.setCNTRCT_AMOUNT_3(auditCntrct.getCNTRCT_AMOUNT_3());
+		auditCntrctHist.setCNTRCT_AMOUNT_4(auditCntrct.getCNTRCT_AMOUNT_4());
+		auditCntrctHist.setCNTRCT_AMOUNT_5(auditCntrct.getCNTRCT_AMOUNT_5());
+		auditCntrctHist.setCNTRCT_AMOUNT_6(auditCntrct.getCNTRCT_AMOUNT_6());
+		auditCntrctHist.setCNTRCT_AMOUNT_7(auditCntrct.getCNTRCT_AMOUNT_7());
+		auditCntrctHist.setCNTRCT_AMOUNT_8(auditCntrct.getCNTRCT_AMOUNT_8());
+		auditCntrctHist.setCNTRCT_AMOUNT_9(auditCntrct.getCNTRCT_AMOUNT_9());
+		auditCntrctHist.setCNTRCT_AMOUNT_10(auditCntrct.getCNTRCT_AMOUNT_10());
+		auditCntrctHist.setCNTRCT_TOTAL_AMOUNT(auditCntrct.getCNTRCT_TOTAL_AMOUNT());
+		auditCntrctHist.setCNTRCT_ALL_AMOUNT(auditCntrct.getCNTRCT_ALL_AMOUNT());
+		auditCntrctHist.setCNTRCT_UNPAY_AMOUNT(auditCntrct.getCNTRCT_UNPAY_AMOUNT());
+		auditCntrctHist.setTRIP_TOTAL_AMOUNT(auditCntrct.getTRIP_TOTAL_AMOUNT());
+		auditCntrctHist.setESTIMATE_COST(auditCntrct.getESTIMATE_COST());
+		auditCntrctHist.setESTIMATE_CONSTRUCT_SAFE_COST(auditCntrct.getESTIMATE_CONSTRUCT_SAFE_COST());
+		auditCntrctHist.setPRE_CONSTRUCT_SAFE_COST(auditCntrct.getPRE_CONSTRUCT_SAFE_COST());
+		auditCntrctHist.setCONSTRUCT_ST_DATE(auditCntrct.getCONSTRUCT_ST_DATE());
+		auditCntrctHist.setPLAN_CONSTRUCT_ED_DATE(auditCntrct.getPLAN_CONSTRUCT_ED_DATE());
+		auditCntrctHist.setCONSTRUCT_AREA(auditCntrct.getCONSTRUCT_AREA());
+		auditCntrctHist.setEXCUTE_AMOUNT(auditCntrct.getEXCUTE_AMOUNT());
+		auditCntrctHist.setCONSTRUCT_SAFE_COUNT(auditCntrct.getCONSTRUCT_SAFE_COUNT());
+		auditCntrctHist.setCONSTRUCT_SAFE_CNTRCT_COST(auditCntrct.getCONSTRUCT_SAFE_CNTRCT_COST());
+		auditCntrctHist.setCONSTRUCT_SAFE_CNTRCT_COST_PAID(auditCntrct.getCONSTRUCT_SAFE_CNTRCT_COST_PAID());
+		auditCntrctHist.setCONSTRUCT_SAFE_CNTRCT_COST_CTRL(auditCntrct.getCONSTRUCT_SAFE_CNTRCT_COST_CTRL());
+		auditCntrctHist.setBUDGETARY_OVERRUN_RISK(auditCntrct.getBUDGETARY_OVERRUN_RISK());
+		auditCntrctHist.setMONTHLY_REPORT_CNT(auditCntrct.getMONTHLY_REPORT_CNT());
+		auditCntrctHist.setSUGGEST_REPORT_CNT(auditCntrct.getSUGGEST_REPORT_CNT());
+		auditCntrctHist.setCOMM_REPORT_CNT(auditCntrct.getCOMM_REPORT_CNT());
+		auditCntrctHist.setFINISH_AUDIT_CNT(auditCntrct.getFINISH_AUDIT_CNT());
+		auditCntrctHist.setPROJ_PROGRESS_MEET_CNT(auditCntrct.getPROJ_PROGRESS_MEET_CNT());
+		auditCntrctHist.setPROGRESS_STATUS(auditCntrct.getPROGRESS_STATUS());
+		auditCntrctHist.setPROJECT_SENIOR_MANAGER(auditCntrct.getPROJECT_SENIOR_MANAGER());
+		auditCntrctHist.setRESERVE1(auditCntrct.getRESERVE1());
+		auditCntrctHist.setRESERVE2(auditCntrct.getRESERVE2());
+		auditCntrctHist.setRESERVE3(auditCntrct.getRESERVE3());
+		auditCntrctHist.setRESERVE4(auditCntrct.getRESERVE4());
+		auditCntrctHist.setRESERVE5(auditCntrct.getRESERVE5());
+		auditCntrctHist.setRESERVE6(auditCntrct.getRESERVE6());
+		auditCntrctHist.setRESERVE7(auditCntrct.getRESERVE7());
+		auditCntrctHist.setRESERVE8(auditCntrct.getRESERVE8());
+		auditCntrctHist.setRESERVE9(auditCntrct.getRESERVE9());
+		auditCntrctHist.setRESERVE10(auditCntrct.getRESERVE10());
+		auditCntrctHist.setLATEST_FLG(auditCntrct.getLATEST_FLG());
+		auditCntrctHist.setDELETE_FLG(auditCntrct.getDELETE_FLG());
+		auditCntrctHist.setUPDATE_USER(auditCntrct.getUPDATE_USER());
+		auditCntrctHist.setINSERT_DATE(auditCntrct.getINSERT_DATE());
+		auditCntrctHist.setUPDATE_DATE(auditCntrct.getUPDATE_DATE());
+		auditCntrctHisDao.insertAuditCntrctHis(auditCntrctHist);
 	}
 
 	public AuditDao getAuditDao() {
@@ -385,5 +830,21 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 	@Override
 	public AuditStatPaidDto queryAuditStatPaid(String projectManager, String startDate, String endDate) {
 		return auditDao.queryAuditStatPaid(projectManager, startDate, endDate);
+	}
+
+	public AuditCntrctDao getAuditCntrctDao() {
+		return auditCntrctDao;
+	}
+
+	public void setAuditCntrctDao(AuditCntrctDao auditCntrctDao) {
+		this.auditCntrctDao = auditCntrctDao;
+	}
+
+	public AuditCntrctHisDao getAuditCntrctHisDao() {
+		return auditCntrctHisDao;
+	}
+
+	public void setAuditCntrctHisDao(AuditCntrctHisDao auditCntrctHisDao) {
+		this.auditCntrctHisDao = auditCntrctHisDao;
 	}
 }

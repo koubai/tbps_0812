@@ -55,7 +55,7 @@
 					<div class="row">
 						<div class="col-lg-12 form-group">
 							<label for="" class="col-lg-1 form-label">工程师</label>
-							<div class="col-lg-2">
+							<div class="col-lg-4">
 								<select multiple name="projectManager" id="projectManager" class="selectpicker form-control" data-live-search="true">
 									<s:iterator id="listUserInfo" value="listUserInfo" status="st1">
 										<option value="<s:property value="LOGIN_NAME"/>"><s:property value="LOGIN_NAME"/></option>

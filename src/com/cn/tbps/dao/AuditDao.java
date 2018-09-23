@@ -63,6 +63,14 @@ public interface AuditDao {
 			String contractName, String reportNo, String projectName, String cntrctInfo, int start, int end);
 	
 	/**
+	 * 查询合同所以项目记录
+	 * @param cntrctNo
+	 * @param cntrctInfo
+	 * @return
+	 */
+	public List<AuditDto> queryAllAuditByCntrctNo(String cntrctNo, String cntrctInfo);
+	
+	/**
 	 * 项目情况检查
 	 * @param projectManager
 	 * @param startDate

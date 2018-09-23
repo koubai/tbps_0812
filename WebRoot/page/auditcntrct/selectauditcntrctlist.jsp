@@ -58,6 +58,10 @@
 		var CO_MANAGER_ADDRESS1 = inputs[6].value;
 		var strCntrctStDate = inputs[7].value;
 		var strCntrctEdDate = inputs[8].value;
+		var CNTRCT_RATE_1 = inputs[9].value;
+		var CNTRCT_RATE_2 = inputs[10].value;
+		var CNTRCT_RATE_4 = inputs[11].value;
+		var CNTRCT_RATE_5 = inputs[12].value;
 		window.dialogArguments.document.getElementById("CNTRCT_BELONG").value = CNTRCT_BELONG;
 		window.dialogArguments.document.getElementById("CNTRCT_NO").value = CNTRCT_NO;
 		window.dialogArguments.document.getElementById("CNTRCT_TYPE").value = CNTRCT_TYPE;
@@ -67,6 +71,11 @@
 		window.dialogArguments.document.getElementById("CO_MANAGER_ADDRESS1").value = CO_MANAGER_ADDRESS1;
 		window.dialogArguments.document.getElementById("strCntrctStDate").value = strCntrctStDate;
 		window.dialogArguments.document.getElementById("strCntrctEdDate").value = strCntrctEdDate;
+		window.dialogArguments.document.getElementById("CNTRCT_RATE_1").value = CNTRCT_RATE_1;
+		window.dialogArguments.document.getElementById("CNTRCT_RATE_2").value = CNTRCT_RATE_2;
+		window.dialogArguments.document.getElementById("CNTRCT_RATE_4").value = CNTRCT_RATE_4;
+		window.dialogArguments.document.getElementById("CNTRCT_RATE_5").value = CNTRCT_RATE_5;
+		
 		window.close();
 	}
 	
@@ -181,6 +190,10 @@
 									<input type="hidden" value="<s:property value="CO_MANAGER_ADDRESS1"/>"/>
 									<input type="hidden" value="<s:property value="CNTRCT_ST_DATE"/>"/>
 									<input type="hidden" value="<s:property value="CNTRCT_ED_DATE"/>"/>
+									<input type="hidden" value="<s:property value="CNTRCT_RATE_1"/>"/>
+									<input type="hidden" value="<s:property value="CNTRCT_RATE_2"/>"/>
+									<input type="hidden" value="<s:property value="CNTRCT_RATE_4"/>"/>
+									<input type="hidden" value="<s:property value="CNTRCT_RATE_5"/>"/>
 								</td>
 								<td><input name="radioKey" type="radio" value="<s:property value="CNTRCT_NO"/>"/></td>
 								<td>

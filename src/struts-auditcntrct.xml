@@ -17,6 +17,18 @@
 		<action name="turnAuditCntrctPage" class="auditCntrctAction" method="turnAuditCntrctPage">
 			<result name="success">/page/auditcntrct/auditcntrctlist.jsp</result>
 		</action>
+	
+		<action name="showAuditCntrctBAction" class="auditCntrctAction" method="showAuditCntrctBAction">
+			<result name="success">/page/auditcntrct/auditcntrctblist.jsp</result>
+		</action>
+		
+		<action name="queryAuditCntrctBList" class="auditCntrctAction" method="queryAuditCntrctBList">
+			<result name="success">/page/auditcntrct/auditcntrctblist.jsp</result>
+		</action>
+		
+		<action name="turnAuditCntrctBPage" class="auditCntrctAction" method="turnAuditCntrctBPage">
+			<result name="success">/page/auditcntrct/auditcntrctblist.jsp</result>
+		</action>
 		
 		<action name="delAuditCntrctAction" class="auditCntrctAction" method="delAuditCntrctAction">
 			<result name="success">/page/auditcntrct/auditcntrctlist.jsp</result>

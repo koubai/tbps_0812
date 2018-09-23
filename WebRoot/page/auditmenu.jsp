@@ -15,6 +15,12 @@
 		document.mainform.submit();
 	}
 	
+	function queryAuditCntrctBList() {
+		setQueryDate();
+		document.mainform.action = '<c:url value="/auditcntrct/showAuditCntrctBAction.action"></c:url>';
+		document.mainform.submit();
+	}
+	
 	function queryAuditList() {
 		setQueryDate();
 		document.mainform.action = '<c:url value="/audit/showAuditAction.action"></c:url>';
@@ -65,6 +71,7 @@
 					<ul>
 						<li><a href="javascript:;" onclick="queryAuditCntrctList()">审计合同一览</a></li>
 						<li><a href="javascript:;" onclick="auditcntrct()">审计合同新增</a></li>
+						<li><a href="javascript:;" onclick="queryAuditCntrctBList()">投资监理B项目一览</a></li>
 					</ul>
 				</div>
 			</div>

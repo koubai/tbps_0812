@@ -23,7 +23,7 @@ public class AuditCntrctServiceImpl extends BaseService implements AuditCntrctSe
 		strCntrctName = StringUtil.replaceDatabaseKeyword_mysql(strCntrctName);
 		
 		//查询总记录数
-		int totalCount = auditCntrctDao.queryAuditCntrctCountByPage(strCntrctBelong, strCntrctName, strCntrctType,
+		int totalCount = auditCntrctDao.queryAuditCntrctCountByPage(strCntrctBelong, strCntrctNO, strCntrctType,
 				strCntrctName, strCntrctStDate, strCntrctEdDate);
 		page.setTotalCount(totalCount);
 		if(totalCount % page.getPageSize() > 0) {
@@ -32,7 +32,7 @@ public class AuditCntrctServiceImpl extends BaseService implements AuditCntrctSe
 			page.setTotalPage(totalCount / page.getPageSize());
 		}
 		//翻页查询记录
-		List<AuditCntrctDto> list = auditCntrctDao.queryAuditCntrctByPage(strCntrctBelong, strCntrctName, strCntrctType,
+		List<AuditCntrctDto> list = auditCntrctDao.queryAuditCntrctByPage(strCntrctBelong, strCntrctNO, strCntrctType,
 				strCntrctName, strCntrctStDate, strCntrctEdDate,
 				page.getStartIndex() * page.getPageSize(), page.getPageSize());
 		page.setItems(list);

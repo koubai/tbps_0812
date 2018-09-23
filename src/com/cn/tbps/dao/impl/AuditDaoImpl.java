@@ -68,7 +68,7 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 		//项目名称
 		paramMap.put("PROJECT_NAME", projectName);
 		//委托内容
-		paramMap.put("RESERVE1", cntrctInfo);
+		paramMap.put("CNTRCT_INFO", cntrctInfo);
 		
 		return (Integer) getSqlMapClientTemplate().queryForObject("queryAuditCountByPage", paramMap);
 	}
@@ -110,7 +110,7 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 		//项目名称
 		paramMap.put("PROJECT_NAME", projectName);
 		//委托内容
-		paramMap.put("RESERVE1", cntrctInfo);
+		paramMap.put("CNTRCT_INFO", cntrctInfo);
 				
 		paramMap.put("start", start);
 		paramMap.put("end", end);
@@ -143,7 +143,7 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 		//审价状态		
 		paramMap.put("AUDIT_STATUS", auditStatus);
 		//项目分类
-		paramMap.put("RESERVE1", projectClass);
+		//paramMap.put("RESERVE1", projectClass);
 		//资料到达日期
 		paramMap.put("DOC_ARR_DATE_LOW", docArrDateLow);
 		paramMap.put("DOC_ARR_DATE_HIGH", docArrDateHigh);
@@ -287,7 +287,7 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 		List<String> listAuditCntrctNM = getSqlMapClientTemplate().queryForList("queryAuditCntrctNM", paramMap);
 		auditStatisticsDto.setListAuditCntrctNM(listAuditCntrctNM);
 		//审价
-		paramMap.put("RESERVE1", "1");
+		paramMap.put("CNTRCT_INFO", "1");
 		@SuppressWarnings("unchecked")
 		List<AuditStatisticsDetailDto> listAudit1 = getSqlMapClientTemplate().queryForList("queryAuditStatistics", paramMap);
 		@SuppressWarnings("unchecked")
@@ -335,7 +335,7 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 		auditStatisticsDto.setCount1(auditStatisticsCountDto);
 		
 		//咨询
-		paramMap.put("RESERVE1", "2");
+		paramMap.put("CNTRCT_INFO", "2");
 		@SuppressWarnings("unchecked")
 		List<AuditStatisticsDetailDto> listAudit2 = getSqlMapClientTemplate().queryForList("queryAuditStatistics", paramMap);
 		@SuppressWarnings("unchecked")
@@ -382,7 +382,7 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 		auditStatisticsCountDto2.setListCount(listCount2);
 		auditStatisticsDto.setCount2(auditStatisticsCountDto2);
 		//控制价编制
-		paramMap.put("RESERVE1", "4");
+		paramMap.put("CNTRCT_INFO", "4");
 		@SuppressWarnings("unchecked")
 		List<AuditStatisticsDetailDto> listAudit4 = getSqlMapClientTemplate().queryForList("queryAuditStatistics", paramMap);
 		@SuppressWarnings("unchecked")
@@ -429,7 +429,7 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 		auditStatisticsCountDto4.setListCount(listCount4);
 		auditStatisticsDto.setCount4(auditStatisticsCountDto4);
 		//投资监理
-		paramMap.put("RESERVE1", "5");
+		paramMap.put("CNTRCT_INFO", "5");
 		@SuppressWarnings("unchecked")
 		List<AuditStatisticsDetailDto> listAudit5 = getSqlMapClientTemplate().queryForList("queryAuditStatistics5", paramMap);
 		@SuppressWarnings("unchecked")
@@ -525,7 +525,7 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 		auditStatCostDto.setCount(auditStatCostCountDto);
 		
 		//审价
-		paramMap.put("RESERVE1", "1");
+		paramMap.put("CNTRCT_INFO", "1");
 		@SuppressWarnings("unchecked")
 		List<AuditStatCostDetailDto> listAudit1 = getSqlMapClientTemplate().queryForList("queryAuditStatCost", paramMap);
 		@SuppressWarnings("unchecked")
@@ -564,7 +564,7 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 		auditStatCostDto.setListAudit1(listAuditByManager1);
 		
 		//咨询
-		paramMap.put("RESERVE1", "2");
+		paramMap.put("CNTRCT_INFO", "2");
 		@SuppressWarnings("unchecked")
 		List<AuditStatCostDetailDto> listAudit2 = getSqlMapClientTemplate().queryForList("queryAuditStatCost", paramMap);
 		@SuppressWarnings("unchecked")
@@ -603,7 +603,7 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 		auditStatCostDto.setListAudit2(listAuditByManager2);
 		
 		//控制价编制
-		paramMap.put("RESERVE1", "4");
+		paramMap.put("CNTRCT_INFO", "4");
 		@SuppressWarnings("unchecked")
 		List<AuditStatCostDetailDto> listAudit4 = getSqlMapClientTemplate().queryForList("queryAuditStatCost", paramMap);
 		@SuppressWarnings("unchecked")
@@ -642,7 +642,7 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 		auditStatCostDto.setListAudit4(listAuditByManager4);
 		
 		//投资监理
-		paramMap.put("RESERVE1", "5");
+		paramMap.put("CNTRCT_INFO", "5");
 		@SuppressWarnings("unchecked")
 		List<AuditStatCostDetailDto> listAudit5 = getSqlMapClientTemplate().queryForList("queryAuditStatCost", paramMap);
 		@SuppressWarnings("unchecked")
@@ -681,5 +681,15 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 		auditStatCostDto.setListAudit5(listAuditByManager5);
 		
 		return auditStatCostDto;
+	}
+
+	@Override
+	public List<AuditDto> queryAllAuditByCntrctNo(String cntrctNo, String cntrctInfo) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("CNTRCT_NO", cntrctNo);
+		paramMap.put("CNTRCT_INFO", cntrctInfo);
+		@SuppressWarnings("unchecked")
+		List<AuditDto> list = getSqlMapClientTemplate().queryForList("queryAllAuditByCntrctNo", paramMap);
+		return list;
 	}
 }

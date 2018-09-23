@@ -111,6 +111,12 @@
 		<property name="configTabDao">
 			<ref local="configTabDao"/>
 		</property>
+		<property name="auditCntrctDao">
+			<ref local="auditCntrctDao"/>
+		</property>
+		<property name="auditCntrctHisDao">
+			<ref local="auditCntrctHisDao"/>
+		</property>
 	</bean>
 	
 	<bean id="auditDao" class="com.cn.tbps.dao.impl.AuditDaoImpl">

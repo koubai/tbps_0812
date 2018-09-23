@@ -94,6 +94,9 @@
 		<result property="B_INVOICE_DATE" column="B_INVOICE_DATE" />
 		<result property="B_INVOICE_NO" column="B_INVOICE_NO" />
 		<result property="B_SET_DATE" column="B_SET_DATE" />
+		<result property="B_RATE" column="B_RATE" />
+		<result property="CNTRCT_INFO" column="CNTRCT_INFO" />
+		<result property="PROJECT_NAME_PASS" column="PROJECT_NAME_PASS" />
 		<result property="RESERVE1" column="RESERVE1" />
 		<result property="RESERVE2" column="RESERVE2" />
 		<result property="RESERVE3" column="RESERVE3" />
@@ -266,6 +269,9 @@
 				T.B_INVOICE_DATE,
 				T.B_INVOICE_NO,
 				T.B_SET_DATE,
+				T.B_RATE,
+				T.CNTRCT_INFO,
+				T.PROJECT_NAME_PASS,
 				T.RESERVE1,
 				T.RESERVE2,
 				T.RESERVE3,
@@ -332,8 +338,8 @@
 				</isNotEmpty>
 				<isNotEmpty prepend="and" property="DOC_ARR_DATE_HIGH">
 				</isNotEmpty>
-				<isNotEmpty prepend="and" property="RESERVE1">
-					T.RESERVE1 = #RESERVE1#
+				<isNotEmpty prepend="and" property="CNTRCT_INFO">
+					T.CNTRCT_INFO = #CNTRCT_INFO#
 				</isNotEmpty>
 			) TT where 1 = 1
 				AND (TT.B_SET_DATE IS NULL OR TT.B_SET_DATE <![CDATA[>]]> NOW())
@@ -428,6 +434,9 @@
 				T.B_INVOICE_DATE,
 				T.B_INVOICE_NO,
 				T.B_SET_DATE,
+				T.B_RATE,
+				T.CNTRCT_INFO,
+				T.PROJECT_NAME_PASS,
 				T.RESERVE1,
 				T.RESERVE2,
 				T.RESERVE3,
@@ -494,8 +503,8 @@
 				</isNotEmpty>
 				<isNotEmpty prepend="and" property="DOC_ARR_DATE_HIGH">
 				</isNotEmpty>
-				<isNotEmpty prepend="and" property="RESERVE1">
-					T.RESERVE1 = #RESERVE1#
+				<isNotEmpty prepend="and" property="CNTRCT_INFO">
+					T.CNTRCT_INFO = #CNTRCT_INFO#
 				</isNotEmpty>
 			) TT where 1 = 1
 				AND TT.B_SET_DATE IS NOT NULL AND TT.B_SET_DATE <![CDATA[<=]]> NOW()
@@ -597,6 +606,9 @@
 				T.B_INVOICE_DATE,
 				T.B_INVOICE_NO,
 				T.B_SET_DATE,
+				T.B_RATE,
+				T.CNTRCT_INFO,
+				T.PROJECT_NAME_PASS,
 				T.RESERVE1,
 				T.RESERVE2,
 				T.RESERVE3,
@@ -663,8 +675,8 @@
 				</isNotEmpty>
 				<isNotEmpty prepend="and" property="DOC_ARR_DATE_HIGH">
 				</isNotEmpty>
-				<isNotEmpty prepend="and" property="RESERVE1">
-					T.RESERVE1 = #RESERVE1#
+				<isNotEmpty prepend="and" property="CNTRCT_INFO">
+					T.CNTRCT_INFO = #CNTRCT_INFO#
 				</isNotEmpty>
 			) TT where 1 = 1
 				AND (TT.B_SET_DATE IS NULL OR TT.B_SET_DATE <![CDATA[>]]> NOW())
@@ -759,6 +771,9 @@
 				T.B_INVOICE_DATE,
 				T.B_INVOICE_NO,
 				T.B_SET_DATE,
+				T.B_RATE,
+				T.CNTRCT_INFO,
+				T.PROJECT_NAME_PASS,
 				T.RESERVE1,
 				T.RESERVE2,
 				T.RESERVE3,
@@ -825,8 +840,8 @@
 				</isNotEmpty>
 				<isNotEmpty prepend="and" property="DOC_ARR_DATE_HIGH">
 				</isNotEmpty>
-				<isNotEmpty prepend="and" property="RESERVE1">
-					T.RESERVE1 = #RESERVE1#
+				<isNotEmpty prepend="and" property="CNTRCT_INFO">
+					T.CNTRCT_INFO = #CNTRCT_INFO#
 				</isNotEmpty>
 			) TT where 1 = 1
 				AND TT.B_SET_DATE IS NOT NULL AND TT.B_SET_DATE <![CDATA[<=]]> NOW()
@@ -930,6 +945,9 @@
 				T.B_INVOICE_DATE,
 				T.B_INVOICE_NO,
 				T.B_SET_DATE,
+				T.B_RATE,
+				T.CNTRCT_INFO,
+				T.PROJECT_NAME_PASS,
 				T.RESERVE1,
 				T.RESERVE2,
 				T.RESERVE3,
@@ -993,8 +1011,8 @@
 				</isNotEmpty>
 				<isNotEmpty prepend="and" property="DOC_ARR_DATE_HIGH">
 				</isNotEmpty>
-				<isNotEmpty prepend="and" property="RESERVE1">
-					T.RESERVE1 = #RESERVE1#
+				<isNotEmpty prepend="and" property="CNTRCT_INFO">
+					T.CNTRCT_INFO = #CNTRCT_INFO#
 				</isNotEmpty>
 			) TT where 1 = 1
 				AND (TT.B_SET_DATE IS NULL OR TT.B_SET_DATE <![CDATA[>]]> NOW())
@@ -1089,6 +1107,9 @@
 				T.B_INVOICE_DATE,
 				T.B_INVOICE_NO,
 				T.B_SET_DATE,
+				T.B_RATE,
+				T.CNTRCT_INFO,
+				T.PROJECT_NAME_PASS,
 				T.RESERVE1,
 				T.RESERVE2,
 				T.RESERVE3,
@@ -1152,8 +1173,8 @@
 				</isNotEmpty>
 				<isNotEmpty prepend="and" property="DOC_ARR_DATE_HIGH">
 				</isNotEmpty>
-				<isNotEmpty prepend="and" property="RESERVE1">
-					T.RESERVE1 = #RESERVE1#
+				<isNotEmpty prepend="and" property="CNTRCT_INFO">
+					T.CNTRCT_INFO = #CNTRCT_INFO#
 				</isNotEmpty>
 			) TT where 1 = 1
 				AND TT.B_SET_DATE IS NOT NULL AND TT.B_SET_DATE <![CDATA[<=]]> NOW()
@@ -1186,8 +1207,8 @@
 				CNTRCT_NM AS CNTRCT_NM, 
 				COUNT(CNTRCT_NM) AS CNTRCT_NM_COUNT
 			from audit where DELETE_FLG = '1'
-			<isNotEmpty prepend="and" property="RESERVE1">
-				RESERVE1 = #RESERVE1#
+			<isNotEmpty prepend="and" property="CNTRCT_INFO">
+				CNTRCT_INFO = #CNTRCT_INFO#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
 				PROJECT_MANAGER in ($PROJECT_MANAGER$)
@@ -1208,8 +1229,8 @@
 				DATE_FORMAT(DOC_REC_DATE,'%Y.%m') AS DOC_REC_DATE, 
 				COUNT(CNTRCT_NM) AS MONTH_ALL_COUNT
 			from audit where DELETE_FLG = '1'
-			<isNotEmpty prepend="and" property="RESERVE1">
-				RESERVE1 = #RESERVE1#
+			<isNotEmpty prepend="and" property="CNTRCT_INFO">
+				CNTRCT_INFO = #CNTRCT_INFO#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
 				PROJECT_MANAGER in ($PROJECT_MANAGER$)
@@ -1229,14 +1250,14 @@
 		select PROJECT_MANAGER, 
 				CNTRCT_NM AS CNTRCT_NM, 
 				COUNT(CNTRCT_NM) AS CNTRCT_NM_COUNT,
-				SUM(case when RESERVE1=4 then CNT_PRICE else VERIFY_PER_AMOUNT end) as VERIFY_PER_AMOUNT,
+				SUM(case when CNTRCT_INFO=4 then CNT_PRICE else VERIFY_PER_AMOUNT end) as VERIFY_PER_AMOUNT,
 				SUM(A_AMOUNT) as A_PER_AMOUNT,
 				SUM(case when A_SET_DATE is not null then A_AMOUNT else 0 end) as A_AMOUNT,
 				SUM(B_AMOUNT) as B_PER_AMOUNT,
 				SUM(case when B_SET_DATE is not null then B_AMOUNT else 0 end) as B_AMOUNT
 			from audit where DELETE_FLG = '1'
-			<isNotEmpty prepend="and" property="RESERVE1">
-				RESERVE1 = #RESERVE1#
+			<isNotEmpty prepend="and" property="CNTRCT_INFO">
+				CNTRCT_INFO = #CNTRCT_INFO#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
 				PROJECT_MANAGER in ($PROJECT_MANAGER$)
@@ -1257,8 +1278,8 @@
 				SUM(A_AMOUNT) + SUM(B_AMOUNT) as ALL_PER_AMOUNT,
 				SUM(case when A_SET_DATE is not null then A_AMOUNT else 0 end) + SUM(case when B_SET_DATE is not null then B_AMOUNT else 0 end) as ALL_AMOUNT
 			from audit where DELETE_FLG = '1'
-			<isNotEmpty prepend="and" property="RESERVE1">
-				RESERVE1 = #RESERVE1#
+			<isNotEmpty prepend="and" property="CNTRCT_INFO">
+				CNTRCT_INFO = #CNTRCT_INFO#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
 				PROJECT_MANAGER in ($PROJECT_MANAGER$)
@@ -1279,8 +1300,8 @@
 				SUM(A_AMOUNT) + SUM(B_AMOUNT) as ALL_PER_AMOUNT,
 				SUM(case when A_SET_DATE is not null then A_AMOUNT else 0 end) + SUM(case when B_SET_DATE is not null then B_AMOUNT else 0 end) as ALL_AMOUNT
 			from audit where DELETE_FLG = '1'
-			<isNotEmpty prepend="and" property="RESERVE1">
-				RESERVE1 = #RESERVE1#
+			<isNotEmpty prepend="and" property="CNTRCT_INFO">
+				CNTRCT_INFO = #CNTRCT_INFO#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
 				PROJECT_MANAGER in ($PROJECT_MANAGER$)
@@ -1304,8 +1325,8 @@
 				SUM(B_AMOUNT) as B_PER_AMOUNT,
 				SUM(case when B_SET_DATE is not null then B_AMOUNT else 0 end) as B_AMOUNT
 			from audit where DELETE_FLG = '1'
-			<isNotEmpty prepend="and" property="RESERVE1">
-				RESERVE1 = #RESERVE1#
+			<isNotEmpty prepend="and" property="CNTRCT_INFO">
+				CNTRCT_INFO = #CNTRCT_INFO#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
 				PROJECT_MANAGER in ($PROJECT_MANAGER$)
@@ -1324,8 +1345,8 @@
 	<select id="queryAuditStatisticsAllCount" parameterClass="java.util.Map" resultClass="Integer">
 		select COUNT(CNTRCT_NM)
 			from audit where DELETE_FLG = '1'
-			<isNotEmpty prepend="and" property="RESERVE1">
-				RESERVE1 = #RESERVE1#
+			<isNotEmpty prepend="and" property="CNTRCT_INFO">
+				CNTRCT_INFO = #CNTRCT_INFO#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
 				PROJECT_MANAGER in ($PROJECT_MANAGER$)
@@ -1342,8 +1363,8 @@
 	<select id="queryAuditStatisticsCount" parameterClass="java.util.Map" resultMap="AuditCountDto">
 		select CNTRCT_NM, COUNT(CNTRCT_NM) AS CNTRCT_NM_COUNT
 			from audit where DELETE_FLG = '1'
-			<isNotEmpty prepend="and" property="RESERVE1">
-				RESERVE1 = #RESERVE1#
+			<isNotEmpty prepend="and" property="CNTRCT_INFO">
+				CNTRCT_INFO = #CNTRCT_INFO#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
 				PROJECT_MANAGER in ($PROJECT_MANAGER$)
@@ -1365,8 +1386,8 @@
 				CNTRCT_NM AS CNTRCT_NM, 
 				COUNT(CNTRCT_NM) AS CNTRCT_NM_COUNT
 			from audit where DELETE_FLG = '1'
-			<isNotEmpty prepend="and" property="RESERVE1">
-				RESERVE1 = #RESERVE1#
+			<isNotEmpty prepend="and" property="CNTRCT_INFO">
+				CNTRCT_INFO = #CNTRCT_INFO#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
 				PROJECT_MANAGER in ($PROJECT_MANAGER$)
@@ -1387,8 +1408,8 @@
 				DATE_FORMAT(PLAN_DOC_RCV_DATE,'%Y.%m') AS DOC_REC_DATE, 
 				COUNT(CNTRCT_NM) AS MONTH_ALL_COUNT
 			from audit where DELETE_FLG = '1'
-			<isNotEmpty prepend="and" property="RESERVE1">
-				RESERVE1 = #RESERVE1#
+			<isNotEmpty prepend="and" property="CNTRCT_INFO">
+				CNTRCT_INFO = #CNTRCT_INFO#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
 				PROJECT_MANAGER in ($PROJECT_MANAGER$)
@@ -1407,8 +1428,8 @@
 	<select id="queryAuditStatisticsAllCount5" parameterClass="java.util.Map" resultClass="Integer">
 		select COUNT(CNTRCT_NM)
 			from audit where DELETE_FLG = '1'
-			<isNotEmpty prepend="and" property="RESERVE1">
-				RESERVE1 = #RESERVE1#
+			<isNotEmpty prepend="and" property="CNTRCT_INFO">
+				CNTRCT_INFO = #CNTRCT_INFO#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
 				PROJECT_MANAGER in ($PROJECT_MANAGER$)
@@ -1425,8 +1446,8 @@
 	<select id="queryAuditStatisticsCount5" parameterClass="java.util.Map" resultMap="AuditCountDto">
 		select CNTRCT_NM, COUNT(CNTRCT_NM) AS CNTRCT_NM_COUNT
 			from audit where DELETE_FLG = '1'
-			<isNotEmpty prepend="and" property="RESERVE1">
-				RESERVE1 = #RESERVE1#
+			<isNotEmpty prepend="and" property="CNTRCT_INFO">
+				CNTRCT_INFO = #CNTRCT_INFO#
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
 				PROJECT_MANAGER in ($PROJECT_MANAGER$)
@@ -1484,7 +1505,7 @@
 				"" AS REPORT_SEAL_DATE_NULL4 
 			from audit where DELETE_FLG = '1'
 			and PROGRESS_STATUS <![CDATA[<>]]> '2'
-			and RESERVE1 = '1'
+			and CNTRCT_INFO = '1'
 			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
 				PROJECT_MANAGER in ($PROJECT_MANAGER$)
 			</isNotEmpty>
@@ -1516,7 +1537,7 @@
 				"" AS REPORT_SEAL_DATE_NULL4 
 			from audit where DELETE_FLG = '1'
 			and PROGRESS_STATUS <![CDATA[<>]]> '2'
-			and RESERVE1 = '1'
+			and CNTRCT_INFO = '1'
 			and (REG_DATE is null or B_SET_DATE is null)
 			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
 				PROJECT_MANAGER in ($PROJECT_MANAGER$)
@@ -1549,7 +1570,7 @@
 				"" AS REPORT_SEAL_DATE_NULL4 
 			from audit where DELETE_FLG = '1'
 			and PROGRESS_STATUS <![CDATA[<>]]> '2'
-			and RESERVE1 = '1'
+			and CNTRCT_INFO = '1'
 			and APPROVAL_SND_DATE is null
 			and datediff(curdate(), DOC_REC_DATE) <![CDATA[>=]]> 5
 			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
@@ -1583,7 +1604,7 @@
 				"" AS REPORT_SEAL_DATE_NULL4 
 			from audit where DELETE_FLG = '1'
 			and PROGRESS_STATUS <![CDATA[<>]]> '2'
-			and RESERVE1 = '1'
+			and CNTRCT_INFO = '1'
 			and APPROVAL_RCV_DATE is null
 			and datediff(curdate(), APPROVAL_SND_DATE) <![CDATA[>=]]> 21
 			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
@@ -1617,7 +1638,7 @@
 				"" AS REPORT_SEAL_DATE_NULL4 
 			from audit where DELETE_FLG = '1'
 			and PROGRESS_STATUS <![CDATA[<>]]> '2'
-			and RESERVE1 = '1'
+			and CNTRCT_INFO = '1'
 			and REPORT_RAISE_DATE is null
 			and datediff(curdate(), APPROVAL_RCV_DATE) <![CDATA[>=]]> 1
 			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
@@ -1651,7 +1672,7 @@
 				"" AS REPORT_SEAL_DATE_NULL4 
 			from audit where DELETE_FLG = '1'
 			and PROGRESS_STATUS <![CDATA[<>]]> '2'
-			and RESERVE1 = '1'
+			and CNTRCT_INFO = '1'
 			and B_INVOICE_DATE is null
 			and datediff(curdate(), APPROVAL_SND_DATE) <![CDATA[>=]]> 30
 			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
@@ -1685,7 +1706,7 @@
 				"" AS REPORT_SEAL_DATE_NULL4 
 			from audit where DELETE_FLG = '1'
 			and PROGRESS_STATUS <![CDATA[<>]]> '2'
-			and RESERVE1 = '1'
+			and CNTRCT_INFO = '1'
 			and B_SET_DATE is null
 			and datediff(curdate(), B_INVOICE_DATE) <![CDATA[>=]]> 30
 			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
@@ -1719,7 +1740,7 @@
 				"" AS REPORT_SEAL_DATE_NULL4 
 			from audit where DELETE_FLG = '1'
 			and PROGRESS_STATUS <![CDATA[<>]]> '2'
-			and RESERVE1 = '1'
+			and CNTRCT_INFO = '1'
 			and REG_DATE is null
 			and datediff(curdate(), REPORT_SEAL_DATE) <![CDATA[>=]]> 60
 			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
@@ -1753,7 +1774,7 @@
 				"" AS REPORT_SEAL_DATE_NULL4 
 			from audit where DELETE_FLG = '1'
 			and PROGRESS_STATUS <![CDATA[<>]]> '2'
-			and RESERVE1 = '1'
+			and CNTRCT_INFO = '1'
 			and (CONTRACT_CO_ID = '' 
 					or (APPROVAL_SND_DATE is not null and VERIFY_AMOUNT = '0.00')
 					or (B_INVOICE_DATE is not null and B_AMOUNT = '0.00')
@@ -1789,7 +1810,7 @@
 				"" AS REPORT_SEAL_DATE_NULL4 
 			from audit where DELETE_FLG = '1'
 			and PROGRESS_STATUS <![CDATA[<>]]> '2'
-			and RESERVE1 = '2'
+			and CNTRCT_INFO = '2'
 			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
 				PROJECT_MANAGER in ($PROJECT_MANAGER$)
 			</isNotEmpty>
@@ -1821,7 +1842,7 @@
 				"" AS REPORT_SEAL_DATE_NULL4 
 			from audit where DELETE_FLG = '1'
 			and PROGRESS_STATUS <![CDATA[<>]]> '2'
-			and RESERVE1 = '2'
+			and CNTRCT_INFO = '2'
 			and REG_DATE is null
 			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
 				PROJECT_MANAGER in ($PROJECT_MANAGER$)
@@ -1854,7 +1875,7 @@
 				"" AS REPORT_SEAL_DATE_NULL4 
 			from audit where DELETE_FLG = '1'
 			and PROGRESS_STATUS <![CDATA[<>]]> '2'
-			and RESERVE1 = '2'
+			and CNTRCT_INFO = '2'
 			and REPORT_RAISE_DATE is null
 			and datediff(curdate(), DOC_REC_DATE) <![CDATA[>=]]> 5
 			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
@@ -1888,7 +1909,7 @@
 				"" AS REPORT_SEAL_DATE_NULL4 
 			from audit where DELETE_FLG = '1'
 			and PROGRESS_STATUS <![CDATA[<>]]> '2'
-			and RESERVE1 = '2'
+			and CNTRCT_INFO = '2'
 			and REG_DATE is null
 			and datediff(curdate(), REPORT_SEAL_DATE) <![CDATA[>=]]> 60
 			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
@@ -1922,7 +1943,7 @@
 				"" AS REPORT_SEAL_DATE_NULL4 
 			from audit where DELETE_FLG = '1'
 			and PROGRESS_STATUS <![CDATA[<>]]> '2'
-			and RESERVE1 = '2'
+			and CNTRCT_INFO = '2'
 			and (CONTRACT_CO_ID = '' 
 					or VERIFY_PER_AMOUNT = '0.00'
 					or (REPORT_SEAL_DATE is not null and VERIFY_AMOUNT = '0.00')
@@ -1958,7 +1979,7 @@
 				"" AS REPORT_SEAL_DATE_NULL4 
 			from audit where DELETE_FLG = '1'
 			and PROGRESS_STATUS <![CDATA[<>]]> '2'
-			and RESERVE1 = '4'
+			and CNTRCT_INFO = '4'
 			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
 				PROJECT_MANAGER in ($PROJECT_MANAGER$)
 			</isNotEmpty>
@@ -1990,7 +2011,7 @@
 				"" AS REPORT_SEAL_DATE_NULL4 
 			from audit where DELETE_FLG = '1'
 			and PROGRESS_STATUS <![CDATA[<>]]> '2'
-			and RESERVE1 = '4'
+			and CNTRCT_INFO = '4'
 			and REG_DATE is null
 			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
 				PROJECT_MANAGER in ($PROJECT_MANAGER$)
@@ -2023,7 +2044,7 @@
 				"" AS REPORT_SEAL_DATE_NULL4 
 			from audit where DELETE_FLG = '1'
 			and PROGRESS_STATUS <![CDATA[<>]]> '2'
-			and RESERVE1 = '4'
+			and CNTRCT_INFO = '4'
 			and REPORT_RAISE_DATE is null
 			and datediff(curdate(), DOC_REC_DATE) <![CDATA[>=]]> 7
 			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
@@ -2057,7 +2078,7 @@
 				"" AS REPORT_SEAL_DATE_NULL4 
 			from audit where DELETE_FLG = '1'
 			and PROGRESS_STATUS <![CDATA[<>]]> '2'
-			and RESERVE1 = '4'
+			and CNTRCT_INFO = '4'
 			and REG_DATE is null
 			and datediff(curdate(), REPORT_SEAL_DATE) <![CDATA[>=]]> 60
 			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
@@ -2091,7 +2112,7 @@
 				REPORT_NO AS REPORT_SEAL_DATE_NULL4 
 			from audit where DELETE_FLG = '1'
 			and PROGRESS_STATUS <![CDATA[<>]]> '2'
-			and RESERVE1 = '4'
+			and CNTRCT_INFO = '4'
 			and REPORT_SEAL_DATE is not null 
 			and CNT_PRICE = '0.00'
 			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
@@ -2307,6 +2328,9 @@
 				T.B_INVOICE_DATE,
 				T.B_INVOICE_NO,
 				T.B_SET_DATE,
+				T.B_RATE,
+				T.CNTRCT_INFO,
+				T.PROJECT_NAME_PASS,
 				T.RESERVE1,
 				T.RESERVE2,
 				T.RESERVE3,
@@ -2416,6 +2440,9 @@
 				T.B_INVOICE_DATE,
 				T.B_INVOICE_NO,
 				T.B_SET_DATE,
+				T.B_RATE,
+				T.CNTRCT_INFO,
+				T.PROJECT_NAME_PASS,
 				T.RESERVE1,
 				T.RESERVE2,
 				T.RESERVE3,
@@ -2434,6 +2461,120 @@
 		from audit T where AUDIT_NO = #AUDIT_NO#
 	</select>
 	
+	<select id="queryAllAuditByCntrctNo" parameterClass="java.util.Map" resultMap="AuditDto">
+		select T.AUDIT_NO,
+				NULL AS AUDIT_STATUS,
+				T.CNTRCT_NO,
+				T.CNTRCT_NM,
+				T.REPORT_NO,
+				T.PROJECT_MANAGER,
+				T.PROJECT_NAME,
+				T.PROJECT_TYPE,
+				T.PROJECT_STATUS,
+				T.AGENT_NO,
+				T.AGENT_CO_NAME,
+				T.AGENT_CO_MANAGER,
+				T.AGENT_CO_MANAGER_TEL,
+				T.AGENT_CO_STAFF,
+				T.AGENT_CO_STAFF_TEL,
+				T.AGENT_CO_POST_ADDRESS,
+				T.AGENT_CO_MAIL,
+				T.PROF_NO,
+				T.PROF_CO_NAME,
+				T.PROF_CO_MANAGER,
+				T.PROF_CO_MANAGER_TEL,
+				T.PROF_CO_STAFF,
+				T.PROF_CO_STAFF_TEL,
+				T.PROF_CO_POST_ADDRESS,
+				T.PROF_CO_MAIL,
+				T.CONTRACT_CO_NO,
+				T.CONTRACT_CO_NAME,
+				T.CONTRACT_CO_MANAGER,
+				T.CONTRACT_CO_MANAGER_TEL,
+				T.CONTRACT_CO_STAFF,
+				T.CONTRACT_CO_STAFF_TEL,
+				T.CONTRACT_CO_POST_ADDRESS,
+				T.CONTRACT_CO_MAIL,
+				T.DOC_REC_DATE,
+				T.PROGRESS_STATUS,
+				T.PRE_SET,
+				T.PRE_PRICE,
+				T.SUPPORT_DOC_DATE,
+				T.DRAFT_DATE,
+				T.APPROVAL_SND_DATE,
+				T.APPROVAL_RCV_DATE,
+				T.DELI_NO,
+				T.REPORT_RAISE_DATE,
+				T.REPORT_SEAL_DATE,
+				T.REPORT_ARR_TYPE,
+				T.REPORT_ARR_DATE,
+				T.REG_DATE,
+				T.AGENT_INFO,
+				T.CONTRACT_CO_ID,
+				T.CONTRACT_CO_INFO,
+				T.VERIFY_PER_AMOUNT,
+				T.VERIFY_AMOUNT,
+				T.VERIFY_INCREASE,
+				T.VERIFY_DECREASE,
+				T.VERIFY_DIFF,
+				T.VERIFY_DIFF_RATE,
+				T.CNT_PRICE,
+				T.PROJ_PRICE,
+				T.LIMIT_PRICE,
+				T.CNTRCT_PRICE,
+				T.PLAN_DOC_RCV_DATE,
+				T.PLAN_DOC_RPT_DATE,
+				T.PLAN_DOC_SND_TYPE,
+				T.PLAN_DOC_ARR_DATE,
+				T.BID_DOC_RCV_DATE,
+				T.BID_DOC_RPT_DATE,
+				T.BID_DOC_SND_TYPE,
+				T.BID_DOC_ARR_DATE,
+				T.SIGN_DOC_RCV_DATE,
+				T.SIGN_DOC_RPT_DATE,
+				T.SIGN_DOC_SND_TYPE,
+				T.SIGN_DOC_ARR_DATE,
+				T.SET_DOC_RCV_DATE,
+				T.SET_DOC_RPT_DATE,
+				T.SET_DOC_SND_TYPE,
+				T.SET_DOC_ARR_DATE,
+				T.PROGRESS_STATUS_MEMO,
+				T.A_AMOUNT,
+				T.A_STATUS,
+				T.B_TYPE,
+				T.B_AMOUNT,
+				T.A_INVOICE_DELI_DATE,
+				T.A_INVOICE_DATE,
+				T.A_INVOICE_NO,
+				T.A_SET_DATE,
+				T.B_INVOICE_DELI_DATE,
+				T.B_INVOICE_DATE,
+				T.B_INVOICE_NO,
+				T.B_SET_DATE,
+				T.B_RATE,
+				T.CNTRCT_INFO,
+				T.PROJECT_NAME_PASS,
+				T.RESERVE1,
+				T.RESERVE2,
+				T.RESERVE3,
+				T.RESERVE4,
+				T.RESERVE5,
+				T.RESERVE6,
+				T.RESERVE7,
+				T.RESERVE8,
+				T.RESERVE9,
+				T.RESERVE10,
+				T.LATEST_FLG,
+				T.DELETE_FLG,
+				T.UPDATE_USER,
+				T.INSERT_DATE,
+				T.UPDATE_DATE
+		from audit T where CNTRCT_NO = #CNTRCT_NO# and DELETE_FLG = '1'
+			<isNotEmpty prepend="and" property="CNTRCT_INFO">
+				CNTRCT_INFO = #CNTRCT_INFO#
+			</isNotEmpty>
+	</select>
+	
 	<insert id="insertAudit" parameterClass="com.cn.tbps.dto.AuditDto">
 		insert into audit(AUDIT_NO,CNTRCT_NO,CNTRCT_NM,REPORT_NO,PROJECT_MANAGER,PROJECT_NAME,PROJECT_TYPE,PROJECT_STATUS,AGENT_NO,AGENT_CO_NAME,AGENT_CO_MANAGER,
 			AGENT_CO_MANAGER_TEL,AGENT_CO_STAFF,AGENT_CO_STAFF_TEL,AGENT_CO_POST_ADDRESS,AGENT_CO_MAIL,PROF_NO,PROF_CO_NAME,PROF_CO_MANAGER,PROF_CO_MANAGER_TEL,
@@ -2444,7 +2585,7 @@
 			LIMIT_PRICE,CNTRCT_PRICE,PLAN_DOC_RCV_DATE,PLAN_DOC_RPT_DATE,PLAN_DOC_SND_TYPE,PLAN_DOC_ARR_DATE,BID_DOC_RCV_DATE,BID_DOC_RPT_DATE,BID_DOC_SND_TYPE,
 			BID_DOC_ARR_DATE,SIGN_DOC_RCV_DATE,SIGN_DOC_RPT_DATE,SIGN_DOC_SND_TYPE,SIGN_DOC_ARR_DATE,SET_DOC_RCV_DATE,SET_DOC_RPT_DATE,SET_DOC_SND_TYPE,
 			SET_DOC_ARR_DATE,PROGRESS_STATUS_MEMO,A_AMOUNT,A_STATUS,B_TYPE,B_AMOUNT,A_INVOICE_DELI_DATE,A_INVOICE_DATE,A_INVOICE_NO,A_SET_DATE,B_INVOICE_DELI_DATE,
-			B_INVOICE_DATE,B_INVOICE_NO,B_SET_DATE,RESERVE1,RESERVE2,RESERVE3,RESERVE4,RESERVE5,RESERVE6,RESERVE7,RESERVE8,RESERVE9,RESERVE10,LATEST_FLG,
+			B_INVOICE_DATE,B_INVOICE_NO,B_SET_DATE,B_RATE,CNTRCT_INFO,PROJECT_NAME_PASS,RESERVE1,RESERVE2,RESERVE3,RESERVE4,RESERVE5,RESERVE6,RESERVE7,RESERVE8,RESERVE9,RESERVE10,LATEST_FLG,
 			DELETE_FLG,UPDATE_USER,INSERT_DATE,UPDATE_DATE)
 		values(#AUDIT_NO#,#CNTRCT_NO#,#CNTRCT_NM#,#REPORT_NO#,#PROJECT_MANAGER#,#PROJECT_NAME#,#PROJECT_TYPE#,#PROJECT_STATUS#,#AGENT_NO#,#AGENT_CO_NAME#,#AGENT_CO_MANAGER#,
 			#AGENT_CO_MANAGER_TEL#,#AGENT_CO_STAFF#,#AGENT_CO_STAFF_TEL#,#AGENT_CO_POST_ADDRESS#,#AGENT_CO_MAIL#,#PROF_NO#,#PROF_CO_NAME#,#PROF_CO_MANAGER#,#PROF_CO_MANAGER_TEL#,
@@ -2455,7 +2596,7 @@
 			#LIMIT_PRICE#,#CNTRCT_PRICE#,#PLAN_DOC_RCV_DATE#,#PLAN_DOC_RPT_DATE#,#PLAN_DOC_SND_TYPE#,#PLAN_DOC_ARR_DATE#,#BID_DOC_RCV_DATE#,#BID_DOC_RPT_DATE#,#BID_DOC_SND_TYPE#,
 			#BID_DOC_ARR_DATE#,#SIGN_DOC_RCV_DATE#,#SIGN_DOC_RPT_DATE#,#SIGN_DOC_SND_TYPE#,#SIGN_DOC_ARR_DATE#,#SET_DOC_RCV_DATE#,#SET_DOC_RPT_DATE#,#SET_DOC_SND_TYPE#,
 			#SET_DOC_ARR_DATE#,#PROGRESS_STATUS_MEMO#,#A_AMOUNT#,#A_STATUS#,#B_TYPE#,#B_AMOUNT#,#A_INVOICE_DELI_DATE#,#A_INVOICE_DATE#,#A_INVOICE_NO#,#A_SET_DATE#,#B_INVOICE_DELI_DATE#,
-			#B_INVOICE_DATE#,#B_INVOICE_NO#,#B_SET_DATE#,#RESERVE1#,#RESERVE2#,#RESERVE3#,#RESERVE4#,#RESERVE5#,#RESERVE6#,#RESERVE7#,#RESERVE8#,#RESERVE9#,#RESERVE10#,#LATEST_FLG#,
+			#B_INVOICE_DATE#,#B_INVOICE_NO#,#B_SET_DATE#,#B_RATE#,#CNTRCT_INFO#,#PROJECT_NAME_PASS#,#RESERVE1#,#RESERVE2#,#RESERVE3#,#RESERVE4#,#RESERVE5#,#RESERVE6#,#RESERVE7#,#RESERVE8#,#RESERVE9#,#RESERVE10#,#LATEST_FLG#,
 			#DELETE_FLG#,#UPDATE_USER#,NOW(),NOW())
 	</insert>
 	
@@ -2549,6 +2690,9 @@
 			B_INVOICE_DATE = #B_INVOICE_DATE#,
 			B_INVOICE_NO = #B_INVOICE_NO#,
 			B_SET_DATE = #B_SET_DATE#,
+			B_RATE = #B_RATE#,
+			CNTRCT_INFO = #CNTRCT_INFO#,
+			PROJECT_NAME_PASS = #PROJECT_NAME_PASS#,
 			RESERVE1 = #RESERVE1#,
 			RESERVE2 = #RESERVE2#,
 			RESERVE3 = #RESERVE3#,
