@@ -19,6 +19,9 @@
 <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 <script type="text/javascript">
+	function goLogoutPage() {
+		window.location.href = '<c:url value="/login/logout.action"></c:url>';
+	}
 </script>
 </head>
 <body bgcolor="#ffffff">
@@ -30,7 +33,7 @@
 			</div>
 		</div>
 		<div class="commoncontent">
-			<p class="session_txt">您的session已经过期，请<a href="<c:url value="/login/logout.action"></c:url>">重新登录</a>！</p>
+			<p class="session_txt">您的session已经过期，请<a href="#" onclick="goLogoutPage();">重新登录</a>！</p>
 		</div>
 	</div>
 </body>

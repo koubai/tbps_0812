@@ -41,7 +41,7 @@
 		turningAjaxPage(ajaxTotalPage);
 	}
 </script>
-<ul class="pagination" id="ajaxskiplist">
+<ul class="pagination" id="ajaxskiplist" style="margin-top: 0px;">
 	<li>
 		<a href="javascript:void(0);" onclick="turningAjaxPage(1);">&laquo;</a>
 	</li>

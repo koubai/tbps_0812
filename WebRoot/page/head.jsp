@@ -1,6 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="c" uri="/WEB-INF/c.tld" %>
+<script type="text/javascript">
+	function logout1() {
+		window.location.href = '<c:url value="/login/logout.action"></c:url>';
+	}
+</script>
 <div class="container-fluid">
 <div class="top">
 	<!-- <div class="container">
@@ -50,7 +55,7 @@
                           <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
                           <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
                           <li class="divider"></li>
-                          <li><a href="#"><i class="fa fa-power-off" onclick="logout();"></i> Log Out</a></li>
+                          <li><a href="#" onclick="logout1();"><i class="fa fa-power-off"></i> Log Out</a></li>
                       </ul>
                   </li>
               </ul>

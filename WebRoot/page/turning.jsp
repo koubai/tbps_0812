@@ -7,7 +7,7 @@
 		changePage(turnPage - 1);
 	}
 </script>
-<ul class="pagination">
+<ul class="pagination" style="margin-top: 0px;">
 	<li><a href="javascript:void(0);" onclick="changePage(0);">&laquo;</a></li>
 	<s:iterator id="skipList" value="page.skipList" status="st5">
 		<s:if test="%{page.startIndex == page.skipList[#st5.index] - 1}">

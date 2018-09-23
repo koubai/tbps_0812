@@ -22,7 +22,7 @@
 <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 <script type="text/javascript">
-	//审计一览
+	//审价一览
 	function auditcntrct() {
 		window.location.href = '<c:url value="/auditcntrct/showAuditCntrctAction.action"></c:url>';
 	}
@@ -87,7 +87,7 @@
 		<!-- <div class="row menuList">  -->
 		<div class="row menuList">
 			<div class="col-lg-6">
-				<a class="btn btn-primary" href="#" onclick="auditcntrct();">审计一览</a>
+				<a class="btn btn-primary" href="#" onclick="auditcntrct();">审价一览</a>
 			</div>
 			<div class="col-lg-6">
 				<a class="btn btn-primary" href="#" onclick="bidcntrct();">招标合同管理一览</a>
