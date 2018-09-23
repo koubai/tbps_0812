@@ -11,12 +11,13 @@
 	}
 </script>
 <div class="row nav">
-	<div class="col-lg-7">2018.8.3 Version</div>
+	<div class="col-lg-7">2018.10.1 Version</div>
 	<div class="col-lg-5">
 		<ul class=loginInfo>
-			<li><i class="fa fa-user-circle-o" aria-hidden="true"></i>用户：<%=session.getAttribute("user_name")%></li>
 			<li><i class="fa fa-clock-o" aria-hidden="true"></i>登录时间：<%=session.getAttribute("login_time")%></li>
-			<li><i class="fa fa-sign-out" aria-hidden="true"></i><a href="#" onclick="logout();">退出</a></li>
+			<!-- <li><i class="fa fa-user-circle-o" aria-hidden="true"></i>用户：<%=session.getAttribute("user_name")%></li>
+			<li><i class="fa fa-clock-o" aria-hidden="true"></i>登录时间：<%=session.getAttribute("login_time")%></li>
+			<li><i class="fa fa-sign-out" aria-hidden="true"></i><a href="#" onclick="logout();">退出</a></li> -->
 		</ul>
 	</div>
 </div>
