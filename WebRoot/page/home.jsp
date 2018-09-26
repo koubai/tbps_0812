@@ -60,7 +60,7 @@
 	}
 	// 委托公司信息
 	function showAgentCompAction() {
-		window.location.href = '<c:url value="/auditcomp/showAuditCompAction.action"></c:url>';
+		window.location.href = '<c:url value="/agentcomp/showAgentCompAction.action"></c:url>';
 	}
 	// 到账统计
 	function accountaccurate() {

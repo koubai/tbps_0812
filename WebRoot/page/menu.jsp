@@ -2,7 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="c" uri="/WEB-INF/c.tld"%>
-<div class="col-lg-2 left">
+<s:if test='#session.toggle_menu_flag == "1"'>
+	<div class="col-lg-2 left" style="display: none;">
+</s:if>
+<s:else>
+	<div class="col-lg-2 left">
+</s:else>
 	<ul class="nav navbar-nav side-nav">
 	<div class="panel-group" id="accordion">
 		<div class="panel panel-default">
@@ -55,7 +60,7 @@
 			<div id="collapseThree" class="panel-collapse collapse">
 				<div class="panel-body">
 					<ul>
-						<li><a href="<%=request.getContextPath()%>/auditcomp/showAuditCompAction.action">委托公司信息</a></li>
+						<li><a href="<%=request.getContextPath()%>/agentcomp/showAgentCompAction.action">委托公司信息</a></li>
 					</ul>
 				</div>
 			</div>

@@ -549,6 +549,7 @@ public class ExpertLibAction extends BaseAction {
 			delExpertLibSeq = "";
 			page = new Page();
 			startIndex = 0;
+			majorAllList = majorService.queryAllMajor("", "");
 			listExpertLib = new ArrayList<ExpertLibDto>();
 		} catch(Exception e) {
 			return ERROR;
@@ -713,6 +714,7 @@ public class ExpertLibAction extends BaseAction {
 	 */
 	@SuppressWarnings("unchecked")
 	private void queryExpertLib() {
+		majorAllList = majorService.queryAllMajor("", "");
 		listExpertLib = new ArrayList<ExpertLibDto>();
 		if(page == null) {
 			page = new Page();
