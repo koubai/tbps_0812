@@ -11,6 +11,7 @@
 <title>Session过期</title> <!-- Bootstrap -->
 <link href="<%=request.getContextPath()%>/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet"/>
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/global.css"/>
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/local.css"/>
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.5.1.js"></script>
 <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
 <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
@@ -25,13 +26,16 @@
 </script>
 </head>
 <body bgcolor="#ffffff">
-	<div id="commoncontainer">
+	<jsp:include page="./head.jsp" flush="true" />
+	<div class="container-fluid">
+		<jsp:include page="./info.jsp" flush="true" />
+	<!-- <div id="commoncontainer">
 		<div id="commontop">
 			<div class="commonlogobox">
 				<div class="commonlogo_tittle"></div>
 				<div class="commonlogo"></div>
 			</div>
-		</div>
+		</div> -->
 		<div class="commoncontent">
 			<p class="session_txt">您的session已经过期，请<a href="#" onclick="goLogoutPage();">重新登录</a>！</p>
 		</div>

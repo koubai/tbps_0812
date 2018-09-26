@@ -33,7 +33,7 @@ h3.title a.backHome i.fa{ margin-right: 5px; font-size: 16px; }
 .form-group { margin-bottom: 5px;}
 .checkBox{ height: 34px; line-height: 34px; }
 .checkBox input[type=checkbox]{ vertical-align: middle; margin:0;}
-.box{ border:1px solid #ddd; margin:0 -10px; margin-bottom: 15px;}
+.box{ border:1px solid #ddd; margin:0 -10px; margin-bottom: 15px; border-radius:5px}
 .box h5{ text-align: center; background: #e2e2e2; border:1px solid #fff; margin:0; height: 40px; line-height: 40px; margin-bottom: 10px;}
 .box .row{ padding:2px 25px 5px 0; }
 .pdl0{ padding-left: 0; }
@@ -58,7 +58,7 @@ h3.title a.backHome i.fa{ margin-right: 5px; font-size: 16px; }
 #panel-default,.panel-default>.panel-heading { border-color: #516f89;}
 .panel-default,.panel-default>.panel-heading { border-color: #044c92;}
 .right{ position: relative; }
-.toggle{ position: absolute; left:10px; top:15px; font-size: 18px; }
+.toggle{ position: absolute; left:10px; top:15px; font-size: 18px; color:#ff7f27}
 .w100{ width:100%; }
 .pages{ float:right; margin-bottom: 20px;}
 .pages ul{ margin:0; padding:0;}
