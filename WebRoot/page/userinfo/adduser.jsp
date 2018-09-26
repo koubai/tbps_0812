@@ -70,8 +70,8 @@
 		document.mainform.submit();
 	}
 	
-	function gUserList() {
-		document.mainform.action = '<c:url value="/userinfo/showUserInfoAction.action"></c:url>';
+	function goUserList() {
+		document.mainform.action = '<c:url value="/userinfo/queryUserInfoAction.action"></c:url>';
 		document.mainform.submit();
 	}
 </script>
@@ -159,7 +159,7 @@
 					</div>
 					<div class="operationBtns addBtns mgt15 btn3">
 						<button type="button" class="btn btn-success" onclick="add();">追加</button>
-						<button type="button" class="btn btn-success" onclick="gUserList();">返回</button>
+						<button type="button" class="btn btn-success" onclick="goUserList();">返回</button>
 					</div>
 				</div>
 			</div>

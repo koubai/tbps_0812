@@ -19,6 +19,9 @@
 <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 <script type="text/javascript">
+	function goHomePage() {
+		window.location.href = '<c:url value="/login/loginAction.action"></c:url>';
+	}
 </script>
 </head>
 <body bgcolor="#ffffff">
@@ -30,7 +33,7 @@
 			</div>
 		</div>
 		<div class="commoncontent">
-			<p class="session_txt">页面未找到，点击<a href="./home.shtml">回到首页</a>。</p>
+			<p class="session_txt">页面未找到，点击<a href="#" onclick="goHomePage();">回到首页</a>。</p>
 		</div>
 	</div>
 </body>

@@ -31,8 +31,8 @@
 	}
 	
 	function add() {
-		var url = '<c:url value="/expertlib/showAddExpertLibAction.action"></c:url>' + "?date=" + new Date();
-		window.showModalDialog(url, window, "dialogheight:500px;dialogwidth:1000px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+		document.mainform.action = '<c:url value="/expertlib/showAddExpertLibAction.action"></c:url>';
+		document.mainform.submit();
 	}
 	
 	function upd() {
@@ -41,10 +41,9 @@
 			alert("请选择一条记录！");
 			return;
 		} else {
-			var url = '<c:url value="/expertlib/showUpdExpertLibAction.action"></c:url>'
-					+ "?updateExpertLibSeq=" + id
-					+ "&date=" + new Date();
-			window.showModalDialog(url, window, "dialogheight:500px;dialogwidth:1000px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+			$("#updateExpertLibSeq").val(id);
+			document.mainform.action = '<c:url value="/expertlib/showUpdExpertLibAction.action"></c:url>';
+			document.mainform.submit();
 		}
 	}
 	
@@ -187,6 +186,8 @@
 			</s:else>
 				<s:form id="mainform" name="mainform" method="POST">
 					<s:hidden name="startIndex" id="startIndex"/>
+					<s:hidden name="updateExpertLibSeq" id="updateExpertLibSeq"/>
+					
 					<s:hidden name="strExpertMajor" id="strExpertMajor"/>
 					<s:hidden name="strExpertMajorName" id="strExpertMajorName"/>
 					<h3 class="title">专家信息一览<a class="backHome" href="#" onclick="goHome();"><i class="fa fa-home" aria-hidden="true"></i>返回首页</a></h3>

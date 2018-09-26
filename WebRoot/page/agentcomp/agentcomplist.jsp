@@ -24,9 +24,8 @@
 <![endif]-->
 <script type="text/javascript">
 	function add() {
-		var url = '<c:url value="/agentcomp/showAddAgentCompAction.action"></c:url>' + "?date=" + new Date();
-		window.open(url);
-		//window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:750px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+		document.mainform.action = '<c:url value="/agentcomp/showAddAgentCompAction.action"></c:url>';
+		document.mainform.submit();
 	}
 	
 	function upd() {
@@ -35,10 +34,9 @@
 			alert("请选择一条记录！");
 			return;
 		} else {
-			var url = '<c:url value="/agentcomp/showUpdAgentCompAction.action"></c:url>'
-					+ "?updateAgentCompNo=" + id
-					+ "&date=" + new Date();
-			window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:750px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+			$("#updateAgentCompNo").val(id);
+			document.mainform.action = '<c:url value="/agentcomp/showUpdAgentCompAction.action"></c:url>';
+			document.mainform.submit();
 		}
 	}
 	
@@ -135,6 +133,7 @@
 			</s:else>
 				<s:form id="mainform" name="mainform" method="POST">
 					<s:hidden name="startIndex" id="startIndex"/>
+					<s:hidden name="updateAgentCompNo" id="updateAgentCompNo"/>
 					<h3 class="title">委托公司信息一览<a class="backHome" href="#" onclick="goHome();"><i class="fa fa-home" aria-hidden="true"></i>返回首页</a></h3>
 					<div class="row">
 						<div class="col-lg-4 form-group">
@@ -173,7 +172,7 @@
 					<div class="btns">
 						<ul>
 							<li><a href="javascript:;" onclick="add();"><i class="fa fa-plus" aria-hidden="true"></i>新增</a></li>
-							<!-- <li><a href="javascript:;" onclick="upd();"><i class="fa fa-pencil" aria-hidden="true"></i>修改</a></li> -->
+							<li><a href="javascript:;" onclick="upd();"><i class="fa fa-pencil" aria-hidden="true"></i>修改</a></li>
 							<li><a href="javascript:;" onclick="del();"><i class="fa fa-trash" aria-hidden="true"></i>删除</a></li>
 						</ul>
 					</div>
