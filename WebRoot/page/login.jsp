@@ -62,25 +62,27 @@
 </script>
 </head>
 <body onload='createCode()' class="login">
+	<label style="margin-left: 600px; margin-top: 20px; text-align: center; color: #fff; font: DFKai-SB, bold; font-size:30px;" >审价招标信息管理系统</label>	
+	<br/><label style="margin-left: 850px; margin-top: 0px; text-align: center; color: #fff; font: DFKai-SB, bold; font-size:12px;" >ver 2019.0.1</label>
 	<div class="container">
 		<div style="position:absolute; margin-left: 430px; margin-top: 10px; text-align: center; color: red;">
 			<s:actionmessage />
 		</div>
 		<s:form id="mainform" name="mainform" cssClass="form-horizontal loginBox" method="POST">
 			<div class="form-group">
-				<label for="userName" class="col-lg-3 control-label">用户名</label>
+				<label for="userName" class="col-lg-3 control-label" style=" color: #fff; font: sans-serif, bold; font-size:16px;">用户名</label>
 				<div class="col-lg-9">
 					<input type="text" name="userLoginDto.LOGIN_ID" class="form-control" maxlength="4" id="LOGIN_ID" placeholder="请输入用户名">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="password" class="col-lg-3 control-label">密码</label>
+				<label for="password" class="col-lg-3 control-label" style=" color: #fff; font: sans-serif, bold; font-size:16px;">密码</label>
 				<div class="col-lg-9">
 					<input type="password" name="userLoginDto.LOGIN_PW" class="form-control" maxlength="16" id="LOGIN_PW" placeholder="请输入密码">
 				</div>
 			</div>
 			<div class="form-group">
-				<label for="code" class="col-lg-3 control-label">验证码</label>
+				<label for="code" class="col-lg-3 control-label" style=" color: #fff; font:LiSu, bold; font-size:16px;">验证码</label>
 				<div class="col-lg-6">
 					<input type="text" name="userLoginDto.verificationcode" class="form-control" id="verificationcode" maxlength="4" value="<s:property value="userLoginDto.verificationcode"/>" placeholder="请输入验证码" />
 				</div>
@@ -89,10 +91,11 @@
 					<!-- <input type="button" class="form-control" id="code" onclick="createCode()" /> -->
 				</div>
 			</div>
+			<br/>
 			<div class="form-group">
 				<div class="col-lg-offset-3 col-lg-9">
 					<button type="submit" class="btn btn-success" onclick="login();">登录</button>
-					<button class="btn btn-default">重置</button>
+					<button class="btn btn-default" style="margin-left: 100px">重置</button>
 				</div>
 			</div>
 		</s:form>

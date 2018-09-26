@@ -11,7 +11,7 @@
 	}
 </script>
 <div class="row nav">
-	<div class="col-lg-7">2018.10.1 Version</div>
+	<div class="col-lg-7">2019.0.1 Version</div>
 	<div class="col-lg-5">
 		<ul class=loginInfo>
 			<li><i class="fa fa-clock-o" aria-hidden="true"></i>登录时间：<%=session.getAttribute("login_time")%></li>

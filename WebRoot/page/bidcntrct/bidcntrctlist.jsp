@@ -303,23 +303,31 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-lg-3 form-group">
-							<label for="" class="col-lg-3 form-label">合同编号</label>
-							<div class="col-lg-9">
-								<s:textfield name="strCNTRCT_NO" id="strCNTRCT_NO" cssClass="form-control" maxlength="20" theme="simple"></s:textfield>
-							</div>
-						</div>
-						<div class="col-lg-5 form-group">
-							<label for="" class="col-lg-3 form-label">委托公司</label>
-							<div class="col-lg-7">
-								<input type="text" id="tmpBID_COMP_NAME" class="form-control" value="<s:property value="strBID_COMP_NAME"/>" disabled="disabled">
-							</div>
-							<div class="col-lg-2">
-								<button type="button" class="btn btn-success" onclick="showAgentComSelect();">选择</button>
-							</div>
-						</div>
 						<div class="col-lg-2 form-group">
 							<button type="button" class="btn btn-success form-control" onclick="queryList();">检索</button>
+						</div>
+						<div class="col-lg-12 form-group">
+							<div class="col-lg-3 form-group">
+								<label for="" class="col-lg-3 form-label">合同编号</label>
+								<div class="col-lg-6">
+									<s:textfield name="strCNTRCT_NO" id="strCNTRCT_NO" cssClass="form-control" maxlength="20" theme="simple"></s:textfield>
+								</div>
+							</div>
+							<div class="col-lg-6 form-group">
+								<div class="col-lg-2">
+									<label for="" class="col-lg3 form-label">委托公司</label>
+								</div>
+								<div class="col-lg-8">
+									<div class="col-lg-6">
+										<input type="text" id="tmpBID_COMP_NAME" class="form-control" value="<s:property value="strBID_COMP_NAME"/>" disabled="disabled">
+									</div>
+									<div class="col-lg-2">
+										<button type="button" class="btn btn-success" onclick="showAgentComSelect();">选择</button>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-3">
+							</div>
 						</div>
 					</div>
 					<div class="btns">

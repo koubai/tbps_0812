@@ -118,7 +118,9 @@ input,img,label{ vertical-align:middle;}
 
 .login_tab{margin:0 auto; margin-top:15px; font-size:12pt; font-family:"宋体"; color:#333;}
 .yzhm{ margin-top:6px; margin-left:5px;}
-#footer{ position:absolute; bottom:0; background:url(../images/footer.gif) no-repeat; width:1024px; height:120px;}
+footer{ position:absolute; bottom:0; background:url(../images/footer.gif) no-repeat; width:1024px; height:120px;}
+
+
 .session_txt{ margin:0; padding:0; padding-top:155px; font-size:36px; color:#f7b667; text-align:center;}
 .session_txt a{ color:#0087ce; text-decoration:underline;}
 .menu_tab{ position:relative; clear:right; margin:0 auto; padding-top:40px;}

@@ -19,7 +19,7 @@ body{
     60%  {background:url("../images/background5.png");}
     70%  {background:url("../images/background6.png");}
     90%  {background:url("../images/background1.png");}
-100% {background:url("../images/background2.jpg");}
+	100% {background:url("../images/background2.jpg");}
 }
-#form{background: rgba(255,255,255,0.2);width:400px;margin:120px auto;}
-.form{background: url("../images/background2.jpg");}
+.form{background: rgba(121,99,197,0.2);width:400px;margin:120px auto;}
+.container{ width:662px; margin-top: 20px; }
