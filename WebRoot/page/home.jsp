@@ -78,6 +78,9 @@
 	function manageUser() {
 		window.location.href = '<c:url value="/userinfo/showUserInfoAction.action"></c:url>';
 	}
+	function manageSuperviselib() {
+		window.location.href = '<c:url value="/superviselib/showSuperviseLibAction.action"></c:url>';
+	}
 </script>
 </head>
 <body>
@@ -127,6 +130,9 @@
 			</div>
 			<div class="col-lg-6">
 				<a class="btn btn-primary" href="#" onclick="manageUser();">用户信息管理</a>
+			</div>
+			<div class="col-lg-6">
+				<a class="btn btn-primary" href="#" onclick="manageSuperviselib();">会审监管人管理</a>
 			</div>
 		</div>
 	</div>

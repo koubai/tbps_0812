@@ -60,6 +60,9 @@
 	<!-- 投标项目状态设定 -->
 	<include file="struts-bidprogress.xml"/>
 	
+	<!-- 会审监管人 -->
+	<include file="struts-superviselib.xml"/>
+	
 	<package name="index" extends="struts-default, json-default" namespace="/index">
 		
 		<!-- 验证码 -->

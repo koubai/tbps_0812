@@ -277,6 +277,11 @@
 					<s:hidden name="strCntrctNos" id="strCntrctNos"/>
 					<h3 class="title">招标合同管理一览<a class="backHome" href="#" onclick="goHome();"><i class="fa fa-home" aria-hidden="true"></i>返回首页</a></h3>
 					<div class="row">
+						<s:if test="hasActionMessages()">
+							<div class="row">
+								<span style="color:red; text-align:center;"><s:actionmessage /></span>
+							</div>
+						</s:if>
 						<div class="col-lg-3 form-group">
 							<label for="" class="col-lg-3 form-label">合同年份</label>
 							<div class="col-lg-9">

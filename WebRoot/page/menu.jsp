@@ -89,6 +89,7 @@
 				<div class="panel-body">
 					<ul>
 						<li><a href="<%=request.getContextPath()%>/userinfo/showUserInfoAction.action">用户信息管理</a></li>
+						<li><a href="<%=request.getContextPath()%>/superviselib/showSuperviseLibAction.action">会审监管人管理</a></li>
 					</ul>
 				</div>
 			</div>

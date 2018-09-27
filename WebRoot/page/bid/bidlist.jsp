@@ -139,6 +139,11 @@
 					<s:hidden name="strBID_NO" id="strBID_NO"/>
 					<h3 class="title">招标项目检索和一览<a class="backHome" href="#" onclick="goHome();"><i class="fa fa-home" aria-hidden="true"></i>返回首页</a></h3>
 					<div class="row">
+						<s:if test="hasActionMessages()">
+							<div class="row">
+								<span style="color:red; text-align:center;"><s:actionmessage /></span>
+							</div>
+						</s:if>
 						<div class="col-lg-6 form-group">
 							<label for="" class="col-lg-2 form-label">招标编号</label>
 							<div class="col-lg-4">

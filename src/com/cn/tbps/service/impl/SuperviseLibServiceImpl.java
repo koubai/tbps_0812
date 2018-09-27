@@ -3,6 +3,7 @@ package com.cn.tbps.service.impl;
 import java.util.List;
 
 import com.cn.common.service.BaseService;
+import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
 import com.cn.tbps.dao.SuperviseLibDao;
@@ -44,6 +45,16 @@ public class SuperviseLibServiceImpl extends BaseService implements SuperviseLib
 	@Override
 	public SuperviseLibDto querySuperviseLibByID(String id) {
 		return superviseLibDao.querySuperviseLibByID(id);
+	}
+	
+	@Override
+	public void deleteSuperviseLib(String id, String userid) {
+		SuperviseLibDto superviseLib = superviseLibDao.querySuperviseLibByID(id);
+		if(superviseLib != null) {
+			superviseLib.setDELETE_FLG(Constants.IS_DELETE_DEL);
+			superviseLib.setUPDATE_USER(userid);
+			superviseLibDao.updateSuperviseLib(superviseLib);
+		}
 	}
 
 	@Override
