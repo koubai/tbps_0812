@@ -383,6 +383,10 @@
 		select * from bid B where 1 = 1 and CNTRCT_NO = #CNTRCT_NO# and B.DELETE_FLG = '1'
 	</select>
 	
+	<select id="queryBidByID" parameterClass="java.util.Map" resultMap="BidDto">
+		select * from bid B where 1 = 1 and BID_NO = #BID_NO# 
+	</select>
+	
 	<select id="queryAllBidByID" parameterClass="java.util.Map" resultMap="BidDto1">
 		select * from (
 			select C.BID_COMP_NO,C.CNTRCT_YEAR,C.CNTRCT_NAME,C.CNTRCT_ST_DATE,C.CNTRCT_ED_DATE,C.BID_COMP_NAME,

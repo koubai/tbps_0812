@@ -81,6 +81,101 @@
 						</div>
 					</s:if>
 						<table class="table table-striped">
+							<s:if test='UTIL_TYP == "5"'>
+							<tr>
+								<td>
+									<label for="" class="col-lg-8 form-label colorBlue">项目完成情况</label>
+								</td>
+								<td>
+									<div class="col-lg-8">
+										<select id="Progress_status" name="Progress_status" class="form-control">
+											<s:if test='Progress_status == "10"'>
+												<option value="">请选择</option>
+												<option value="10" selected="selected">取消</option>
+												<option value="20">进行中</option>
+												<option value="52">失败（报名不满6家）</option>
+												<option value="54">失败（开标不满3家）</option>
+												<option value="56">失败（评审失败）</option>
+												<option value="70">终止</option>
+												<option value="90">完成</option>
+											</s:if>
+											<s:elseif test='Progress_status == "20"'>
+												<option value="">请选择</option>
+												<option value="10">取消</option>
+												<option value="20" selected="selected">进行中</option>
+												<option value="52">失败（报名不满6家）</option>
+												<option value="54">失败（开标不满3家）</option>
+												<option value="56">失败（评审失败）</option>
+												<option value="70">终止</option>
+												<option value="90">完成</option>
+											</s:elseif>
+											<s:elseif test='Progress_status == "52"'>
+												<option value="">请选择</option>
+												<option value="10">取消</option>
+												<option value="20">进行中</option>
+												<option value="52" selected="selected">失败（报名不满6家）</option>
+												<option value="54">失败（开标不满3家）</option>
+												<option value="56">失败（评审失败）</option>
+												<option value="70">终止</option>
+												<option value="90">完成</option>
+											</s:elseif>
+											<s:elseif test='Progress_status == "54"'>
+												<option value="">请选择</option>
+												<option value="10">取消</option>
+												<option value="20">进行中</option>
+												<option value="52">失败（报名不满6家）</option>
+												<option value="54" selected="selected">失败（开标不满3家）</option>
+												<option value="56">失败（评审失败）</option>
+												<option value="70">终止</option>
+												<option value="90">完成</option>
+											</s:elseif>
+											<s:elseif test='Progress_status == "56"'>
+												<option value="">请选择</option>
+												<option value="10">取消</option>
+												<option value="20">进行中</option>
+												<option value="52">失败（报名不满6家）</option>
+												<option value="54">失败（开标不满3家）</option>
+												<option value="56" selected="selected">失败（评审失败）</option>
+												<option value="70">终止</option>
+												<option value="90">完成</option>
+											</s:elseif>
+											<s:elseif test='Progress_status == "70"'>
+												<option value="">请选择</option>
+												<option value="10">取消</option>
+												<option value="20">进行中</option>
+												<option value="52">失败（报名不满6家）</option>
+												<option value="54">失败（开标不满3家）</option>
+												<option value="56">失败（评审失败）</option>
+												<option value="70" selected="selected">终止</option>
+												<option value="90">完成</option>
+											</s:elseif>
+											<s:elseif test='Progress_status == "90"'>
+												<option value="">请选择</option>
+												<option value="10">取消</option>
+												<option value="20">进行中</option>
+												<option value="52">失败（报名不满6家）</option>
+												<option value="54">失败（开标不满3家）</option>
+												<option value="56">失败（评审失败）</option>
+												<option value="70">终止</option>
+												<option value="90" selected="selected">完成</option>
+											</s:elseif>
+											<s:else>
+												<option value="" selected="selected">请选择</option>
+												<option value="10">取消</option>
+												<option value="20">进行中</option>
+												<option value="52">失败（报名不满6家）</option>
+												<option value="54">失败（开标不满3家）</option>
+												<option value="56">失败（评审失败）</option>
+												<option value="70">终止</option>
+												<option value="90">完成</option>
+											</s:else>
+										</select>
+									</div>
+								</td>
+								<td>
+								</td>
+							</tr>
+							</s:if>								
 							<tr>
 								<td>
 								<div class="col-lg-8 form-group">

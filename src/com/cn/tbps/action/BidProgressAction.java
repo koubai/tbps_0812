@@ -1,20 +1,29 @@
 package com.cn.tbps.action;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
+import net.sf.json.JSONArray;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
 
 import com.cn.common.action.BaseAction;
 import com.cn.common.util.Constants;
 import com.cn.common.util.DateUtil;
 import com.cn.common.util.FileUtil;
+import com.cn.common.util.Page;
 import com.cn.common.util.PropertiesConfig;
 import com.cn.common.util.StringUtil;
+import com.cn.tbps.dto.AjaxDataDto;
 import com.cn.tbps.dto.BidCompDto;
 import com.cn.tbps.dto.BidCompExportDto;
 import com.cn.tbps.dto.BidDto;
@@ -33,6 +42,7 @@ public class BidProgressAction extends BaseAction {
 	private String Member1;
 	private String uploadFile;   //上传文件
 	private String UTIL_TYP;     //ProgressUtil window type
+	private String Progress_status;     //Progress
 
 	private String BTN_NO; 	 	 //按钮编号
 	private String Status0101;   //新项目登记
@@ -121,15 +131,20 @@ public class BidProgressAction extends BaseAction {
 	 */
 	public String showBidProgressAction() {
 		try {
+			this.clearMessages();
 			System.out.println("showBidProgressAction");
 			System.out.println("招标编号：" + strBID_NO);
-			BidDto bidDto= new BidDto(); 
-//			bidDto = bidService.queryBidByID(strBID_NO);
-			bidDto.setPROGRESS_STATUS("92000000000000000000000000000000000000000000000000");
+			if (bidService == null){
+				System.out.println("bidService is null");
+			}else{
+				System.out.println("bidService is not Null");
+				bidDto = bidService.queryBidByID(strBID_NO);
+			}
+/*			bidDto.setPROGRESS_STATUS("92000000000000000000000000000000000000000000000000");
 			
 			//新项目登记
-			bidDto.setBID_NO("TEST20180914001");
-			bidDto.setPROJECT_NAME("test project 001");
+			bidDto.setBID_NO("TEST-1001");
+			bidDto.setPROJECT_NAME("ABCDEFG");
 			
 			//招标公告发布
 			bidDto.setREGISTE_ST_DATE1(DateUtil.strToDate("2018-01-01","YYYY-MM-DD"));
@@ -195,32 +210,20 @@ public class BidProgressAction extends BaseAction {
 			
 			//标书费收取
 			// if 招标单位的标书费入账日期=0为0, 0<X<3 为2, >=3为9
-			
-//			setStatus0602(bidStatusInfo.substring(27,28));
-//			setStatus0603(bidStatusInfo.substring(28,29));
-//			setStatus0604(bidStatusInfo.substring(29,30));
 
 			//标书费开票完成			
 			// if 招标单位的标书费开票日期=0为0, 0<X<3 为2, >=3为9
-//			setStatus0605(bidStatusInfo.substring(30,31));
-//			setStatus0701(bidStatusInfo.substring(31,32));
 			//保证金收取
 			// if 招标单位的保证金入账日期=0为0, 0<X<3 为2, >=3为9
-//			setStatus0702(bidStatusInfo.substring(32,33));
-//			setStatus0703(bidStatusInfo.substring(33,34));
-//			setStatus0704(bidStatusInfo.substring(34,35));
 			//退保证金完成
 			// if 招标单位的退定日期=0为0, 0<X<3 为2, >=3为9
-//			setStatus0705(bidStatusInfo.substring(35,36));
-//			setStatus0801(bidStatusInfo.substring(36,37));
 			//招标文件装订
-			bidDto.setBID_VER_DOC_SCAN_DATE(DateUtil.strToDate("2018-01-17","YYYY-MM-DD"));
-			
+//			bidDto.setBID_VER_DOC_SCAN_DATE(DateUtil.strToDate("2018-01-17","YYYY-MM-DD"));
+	*/		
 			if (bidDto != null){
 				strBID_NO = bidDto.getBID_NO();
 				setBidProgressStatus(bidDto);
 			}
-			this.clearMessages();
 		} catch(Exception e) {
 			return ERROR;
 		}
@@ -269,6 +272,10 @@ public class BidProgressAction extends BaseAction {
 				strHead1 = "文件送至甲方";			
 				strHead2 = "";
 				strHead3 = "";
+			}else if (BTN_NO.equals("0106")){
+				strHead1 = "";			
+				strHead2 = "";
+				strHead3 = "";
 			}else if (BTN_NO.equals("0205")){
 				strHead1 = "中标通知书签收";			
 				strHead2 = "";
@@ -301,6 +308,11 @@ public class BidProgressAction extends BaseAction {
 		System.out.println("日期：" + Date1);
 		System.out.println("姓名：" + strMember1);
 		
+		//项目完成情况
+		if (BTN_NO.equals("0106")){
+			bidDto.setFINISH_STATUS(getProgress_status());
+			bidDto.setFINISH_DATE(DateUtil.strToDate(Date1,"yyyy-MM-dd"));
+		}
 		//招标文件编制
 		if (BTN_NO.equals("0201")){
 			bidDto.setAPPLY_FORM_EDIT_DATE(DateUtil.strToDate(Date1,"yyyy-MM-dd"));
@@ -504,7 +516,8 @@ public class BidProgressAction extends BaseAction {
 		return SUCCESS;
 	}
 	
-	public void setBidProgressStatus(BidDto bidDto) {
+	public void setBidProgressStatus(BidDto bidDto) throws IOException {
+		try{
 		if (bidDto != null){
 			String bidStatusInfo = bidDto.getPROGRESS_STATUS();
 			
@@ -745,8 +758,49 @@ public class BidProgressAction extends BaseAction {
 				setStatus0802("0");
 			}
 			
-		}		
+		}	
+		}catch (Exception e){
+			e.printStackTrace();
+		}
 	}
+	
+	/**
+	 * BidProgressAjax查询函数
+	 * @return
+	 * @throws IOException
+	 */
+	public String queryBidProgressAjax() throws IOException {
+/*		HttpServletResponse response = ServletActionContext.getResponse();
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out;
+		AjaxDataDto ajaxData = new AjaxDataDto();
+		try {
+			this.clearMessages();
+			//ajax中文乱码处理
+			//strCNTRCT_NO = URLDecoder.decode(strCNTRCT_NO, "UTF-8");
+			//strBID_COMP_NO = URLDecoder.decode(strBID_COMP_NO, "UTF-8");
+			Page pp = new Page(8);
+			pp.setTotalCount(ajaxTotalCount);
+			pp.setStartIndex(ajaxPageIndex);
+			pp = bidCntrctService.queryBidCntrctByPage(strCNTRCT_YEAR, strCNTRCT_NO, strBID_COMP_NO, "",
+					"", strCNTRCT_ST_DATE, strCNTRCT_ED_DATE, pp);
+			ajaxData.setData(pp);
+		} catch(Exception e) {
+			ajaxData.setResultCode(-1);
+			ajaxData.setResultMessage("查询数据异常：" + e.getMessage());
+			return ERROR;
+		}
+		out = response.getWriter();
+		String result = JSONArray.fromObject(ajaxData).toString();
+		result = result.substring(1, result.length() - 1);
+		log.info(result);
+		out.write(result);
+		out.flush();
+		*/
+		return null;
+		
+	}
+
 
 	public String getStatus0101() {
 		return Status0101;
@@ -1652,6 +1706,14 @@ public class BidProgressAction extends BaseAction {
 
 	public void setUpload_fileNo(String upload_fileNo) {
 		this.upload_fileNo = upload_fileNo;
+	}
+	
+	public String getProgress_status() {
+		return Progress_status;
+	}
+
+	public void setProgress_status(String progress_status) {
+		Progress_status = progress_status;
 	}
 
 }

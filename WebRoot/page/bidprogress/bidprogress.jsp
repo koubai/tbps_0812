@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/node_modules/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/global.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/local.css">
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/common.js"></script>
 <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
 <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
@@ -30,12 +31,16 @@
 //		} else {
 			$("#BTN_NO").attr("value", btn_no);
 			alert($("#BTN_NO").val());
+			alert(util_typ);
 //			var url = '<c:url value="/bidprogress/showBidProgressUtilAction.action"></c:url>' + "?strBID_NO=" + strBID_COMP_NO + "&date=" + new Date();
 			var url = '<c:url value="/bidprogress/showBidProgressUtilAction.action"></c:url>' + "?BTN_NO=" + btn_no + "&UTIL_TYP=" + util_typ + "&date=" + new Date();
 			if (util_typ == 3){
 				window.open(url, window, "height=600px;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
 			}
 			if (util_typ == 4){
+				window.open(url, window, "height=500px;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");				
+			}
+			if (util_typ == 5){
 				window.open(url, window, "height=500px;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");				
 			}
 			if (util_typ == 1 || util_typ == 2){
@@ -192,16 +197,16 @@ th {
 							<td></td>
 							<td>
 								<s:if test='Status0106 == "9"'>
-									<button class="btn btn-success" id="0106" onclick="showProgressUtil('0106',0);">完成</button>
+									<button class="btn btn-success" id="0106" onclick="showProgressUtil('0106',5);">完成</button>
 								</s:if>
 								<s:elseif test='Status0106 == "2"'>
-									<button class="btn btn-warning" id="0106" onclick="showProgressUtil('0106',0);">完成</button>
+									<button class="btn btn-warning" id="0106" onclick="showProgressUtil('0106',5);">完成</button>
 								</s:elseif>
 								<s:elseif test='Status0106 == "0"'>
-									<button class="btn btn-danger" id="0106" onclick="showProgressUtil('0106',0);">完成</button>
+									<button class="btn btn-danger" id="0106" onclick="showProgressUtil('0106',5);">完成</button>
 								</s:elseif>
 								<s:else>
-									<button class="btn btn-danger" id="0106" onclick="showProgressUtil('0106',0);">完成</button>
+									<button class="btn btn-danger" id="0106" onclick="showProgressUtil('0106',5);">完成</button>
 								</s:else>
 							</td>
 							<td></td>
