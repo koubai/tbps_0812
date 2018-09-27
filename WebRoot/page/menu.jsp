@@ -68,10 +68,10 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h4 class="panel-title">
-					<a data-toggle="collapse" data-parent="#accordion" href="#collapseTour"><i class="fa fa-list-ul"></i> 专家库信息 </a>
+					<a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><i class="fa fa-list-ul"></i> 专家库信息 </a>
 				</h4>
 			</div>
-			<div id="collapseTour" class="panel-collapse collapse">
+			<div id="collapseFour" class="panel-collapse collapse">
 				<div class="panel-body">
 					<ul>
 						<li><a href="<%=request.getContextPath()%>/expertlib/showExpertLibAction.action">专家库信息</a></li>

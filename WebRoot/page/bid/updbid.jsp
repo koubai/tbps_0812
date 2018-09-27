@@ -1088,6 +1088,7 @@
 			$("#tmpBidCompManager").focus();
 			return;
 		}
+		/*
 		if(tmpBidCompTel == "") {
 			alert("负责人电话不能为空！");
 			$("#tmpBidCompTel").focus();
@@ -1103,6 +1104,7 @@
 			$("#tmpBidCompPs").focus();
 			return;
 		}
+		//*/
 		if(tmpBidCompTaxno == "") {
 			alert("开票信息不能为空！");
 			$("#tmpBidCompTaxno").focus();
