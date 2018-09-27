@@ -25,10 +25,49 @@
 
 	//保存
 	function save() {		
-		alert($("#Date1").val()); 
-		var form = document.getElementById('mainform');
-	    form.action='<c:url value="/bidprogress/saveBidProgressUtilAction.action"></c:url>' + "?Date1=" + $("#Date1").val() + "&Date2=" + $("#Date2").val()+ "&Member1=" + $("#Member1").val() + "&date=" + new Date();
-	    form.submit();//提交表单
+//		alert($("#Date1").val()); 
+//		var form = document.getElementById('mainform');
+		if ($("#strDate1").val() == null){
+			$("#Date1").val("");
+		}else{
+			$("#Date1").val($("#strDate1").val());
+		}
+		if ($("#strDate2").val() == null)
+			$("#Date2").val("");
+		else
+			$("#Date2").val($("#strDate2").val());
+		if ($("#strProgress_status").val() == null)
+			$("#Progress_status").val("");
+		else
+			$("#Progress_status").val($("#strProgress_status").val());
+		if ($("#strMember1").val() == null){
+			$("#Member1").val("");
+		}
+		else{
+			$("#Member1").val($("#strMember1").val());			
+		}
+		if ($("#strFile01").val() == null)
+			$("#File01").val("");
+		else
+			$("#File01").val($("#strFile01").val());
+		if ($("#strFile02").val() == null)
+			$("#File02").val("");
+		else
+			$("#File02").val($("#strFile02").val());
+		if ($("#strFile03").val() == null)
+			$("#File03").val("");
+		else
+			$("#File03").val($("#strFile03").val());
+		if ($("#strFile04").val() == null)
+			$("#File04").val("");
+		else
+			$("#File04").val($("#strFile04").val());
+		if ($("#strFile05").val() == null)
+			$("#File05").val("");
+		else
+			$("#File05").val($("#strFile05").val());
+		document.mainform.action='<c:url value="/bidprogress/saveBidProgressUtilAction.action"></c:url>' + "?Progress_status=" + $("#Progress_status").val() + "&Date1=" + $("#Date1").val() + "&Date2=" + $("#Date2").val()+ "&Member1=" + $("#Member1").val() + "&date=" + new Date();
+		document.mainform.action();//提交表单
 	    window.close();//关闭窗口
 		
 	}
@@ -72,7 +111,15 @@
 					<label for="" class="col-lg-3 form-label"><s:property value="BTN_NO" /></label>
 					
 					<s:hidden name="strBID_COMP_NO" id="strBID_COMP_NO"/>
-					<s:hidden name="uploadFile" id="uploadFile"/>
+					<s:hidden name="Progress_status" id="Progress_status"/>
+					<s:hidden name="Date1" id="Date1"/>
+					<s:hidden name="Date2" id="Date2"/>
+					<s:hidden name="Member1" id="Member1"/>
+					<s:hidden name="File01" id="File01"/>
+					<s:hidden name="File02" id="File02"/>
+					<s:hidden name="File03" id="File03"/>
+					<s:hidden name="File04" id="File04"/>
+					<s:hidden name="File05" id="File05"/>
 					<h3 class="title">招标项目状态输入</h3>
 					<div class="row">
 					<s:if test="hasActionMessages()">
@@ -184,7 +231,7 @@
 								</td>
 								<td>
 								<div class="input-group date" data-provide="datepicker">
-									<input id="Date1" name="Date1" value="<s:property value="Date1"/>" maxlength="10" type="text" class="form-control datepicker" readonly>
+									<input id="strDate1" name="strDate1" value="<s:property value="Date1"/>" maxlength="10" type="text" class="form-control datepicker" readonly>
 									<div class="input-group-addon">
 										<span class="glyphicon glyphicon-th"></span>
 									</div>
@@ -202,7 +249,7 @@
 								</td>
 								<td>
 								<div class="input-group date" data-provide="datepicker">
-									<input id="Date2" name="Date2" value="<s:property value="Date2"/>" maxlength="10" type="text" class="form-control datepicker" readonly>
+									<input id="strDate2" name="strDate2" value="<s:property value="Date2"/>" maxlength="10" type="text" class="form-control datepicker" readonly>
 									<div class="input-group-addon">
 										<span class="glyphicon glyphicon-th"></span>
 									</div>
@@ -221,7 +268,7 @@
 								</td>
 								<td>
 								<div>
-									<s:textfield name="Member1" id="Member1" cssClass="form-control" maxlength="300" theme="simple"><s:property value="Member1" /></s:textfield>
+									<s:textfield name="strMember1" id="strMember1" cssClass="form-control" maxlength="300" theme="simple"><s:property value="Member1" /></s:textfield>
 								</div>
 								</td>
 								<td>
@@ -244,7 +291,7 @@
 								</s:if>								
 								<s:else>								
 									<div>
-										<input type="file" name="uploadFile01" style="width: 400px;" id="uploadFile01"/><br />
+										<input type="file" name="strFile01" style="width: 400px;" id="strFile01"/><br />
 									</div>
 								</s:else>			
 								</td>
@@ -269,7 +316,7 @@
 								</s:if>								
 								<s:else>								
 									<div>
-										<input type="file" name="uploadFile02" style="width: 400px;" id="uploadFile02"/><br />
+										<input type="file" name="strFile02" style="width: 400px;" id="strFile02"/><br />
 									</div>
 								</s:else>			
 								</td>
@@ -294,7 +341,7 @@
 								</s:if>								
 								<s:else>								
 									<div>
-										<input type="file" name="uploadFile03" style="width: 400px;" id="uploadFile03"/><br />
+										<input type="file" name="strFile03" style="width: 400px;" id="strFile03"/><br />
 									</div>
 								</s:else>			
 								</td>
@@ -319,7 +366,7 @@
 								</s:if>								
 								<s:else>								
 									<div>
-										<input type="file" name="uploadFile04" style="width: 400px;" id="uploadFile04"/><br />
+										<input type="file" name="strFile04" style="width: 400px;" id="strFile04"/><br />
 									</div>
 								</s:else>			
 								</td>
@@ -344,7 +391,7 @@
 								</s:if>								
 								<s:else>								
 									<div>
-										<input type="file" name="uploadFile05" style="width: 400px;" id="uploadFile05"/><br />
+										<input type="file" name="strFile05" style="width: 400px;" id="strFile05"/><br />
 									</div>
 								</s:else>			
 								</td>

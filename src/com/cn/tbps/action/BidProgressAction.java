@@ -236,6 +236,7 @@ public class BidProgressAction extends BaseAction {
 	 */
 	public String showBidProgressUtilAction() {
 		try {
+			Progress_status="";
 			Date1 = "";
 			Member1 = "";
 			strHead1 = "";
@@ -244,50 +245,120 @@ public class BidProgressAction extends BaseAction {
 				strHead1 = "招标文件编制";
 				strHead2 = "";
 				strHead3 = "";
+				if (bidDto.getAPPLY_FORM_EDIT_DATE()!= null)
+					Date1 = bidDto.getAPPLY_FORM_EDIT_DATE().toString();
 			}else if (BTN_NO.equals("0301")){
 				strHead1 = "统稿";
 				strHead2 = "";
 				strHead3 = "";
+				if (bidDto.getAPPLY_FORM_COLLECT_DATE()!= null)
+					Date1 = bidDto.getAPPLY_FORM_COLLECT_DATE().toString();
 			}else if (BTN_NO.equals("0401")){
 				strHead1 = "招标公告、文件校对";			
 				strHead2 = "";
 				strHead3 = "招标公告、文件校对";
+				if (bidDto.getAPPLY_FORM_VERIFY_DATE()!= null)
+					Date1 = bidDto.getAPPLY_FORM_VERIFY_DATE().toString();
+				if (bidDto.getAPPLY_FORM_VERIFY()!=null)
+					Member1 = bidDto.getAPPLY_FORM_VERIFY();
 			}else if (BTN_NO.equals("0501")){
 				strHead1 = "招标文件定稿";			
 				strHead2 = "";
 				strHead3 = "";
+				if (bidDto.getAPPLY_FORM_FIX_DATE()!= null)
+					Date1 = bidDto.getAPPLY_FORM_FIX_DATE().toString();
 			}else if (BTN_NO.equals("0802")){
 				strHead1 = "招标文件装订";			
 				strHead2 = "";
 				strHead3 = "";
+				if (bidDto.getAPPLY_FORM_BOX_DATE()!= null)
+					Date1 = bidDto.getAPPLY_FORM_BOX_DATE().toString();
 			}else if (BTN_NO.equals("0103")){
 				strHead1 = "发送答疑、补充文件";			
 				strHead2 = "";
 				strHead3 = "";
+				if (bidDto.getSUPPORT_DOC_DATE()!= null)
+					Date1 = bidDto.getSUPPORT_DOC_DATE().toString();
 			}else if (BTN_NO.equals("0504")){
 				strHead1 = "中标公告发布开始";			
 				strHead2 = "中标公告发布终了";
 				strHead3 = "";
+				if (bidDto.getBID_NOTICE_ST_DATE()!= null)
+					Date1 = bidDto.getBID_NOTICE_ST_DATE().toString();
+				if (bidDto.getBID_NOTICE_ED_DATE()!= null)
+					Date2 = bidDto.getBID_NOTICE_ED_DATE().toString();
 			}else if (BTN_NO.equals("0105")){
 				strHead1 = "文件送至甲方";			
 				strHead2 = "";
 				strHead3 = "";
+				if (bidDto.getBID_DOC_DELI_DATE1()!= null)
+					Date1 = bidDto.getBID_DOC_DELI_DATE1().toString();
+				if (bidDto.getBID_DOC_DELI_FILE1()!= null){
+					File01 = StringUtil.splitFileName(bidDto.getBID_DOC_DELI_FILE1());
+					File01_URL = StringUtil.splitFileNameURL(bidDto.getBID_DOC_DELI_FILE1());
+				}
+				if (bidDto.getBID_DOC_DELI_FILE2()!=null){
+					File02 = StringUtil.splitFileName(bidDto.getBID_DOC_DELI_FILE2());
+					File02_URL = StringUtil.splitFileNameURL(bidDto.getBID_DOC_DELI_FILE2());
+				}
+				if (bidDto.getBID_DOC_DELI_FILE3()!=null){
+					File03 = StringUtil.splitFileName(bidDto.getBID_DOC_DELI_FILE3());
+					File03_URL = StringUtil.splitFileNameURL(bidDto.getBID_DOC_DELI_FILE3());
+				}
+				if (bidDto.getBID_DOC_DELI_FILE4()!=null){
+					File04 = StringUtil.splitFileName(bidDto.getBID_DOC_DELI_FILE4());
+					File04_URL = StringUtil.splitFileNameURL(bidDto.getBID_DOC_DELI_FILE4());
+				}
+				if (bidDto.getBID_DOC_DELI_FILE5()!=null){
+					File05 = StringUtil.splitFileName(bidDto.getBID_DOC_DELI_FILE5());
+					File05_URL = StringUtil.splitFileNameURL(bidDto.getBID_DOC_DELI_FILE5());
+				}
 			}else if (BTN_NO.equals("0106")){
-				strHead1 = "";			
+				strHead1 = "项目完成情况";			
 				strHead2 = "";
 				strHead3 = "";
+				if (bidDto.getFINISH_STATUS()!= null)
+					Progress_status = bidDto.getFINISH_STATUS();
+				if (bidDto.getFINISH_DATE()!= null)
+					Date1 = bidDto.getFINISH_DATE().toString();
 			}else if (BTN_NO.equals("0205")){
 				strHead1 = "中标通知书签收";			
 				strHead2 = "";
 				strHead3 = "";
+				if (bidDto.getBID_INFORM_RCV_DATE()!= null)
+					Date1 = bidDto.getBID_INFORM_RCV_DATE().toString();
 			}else if (BTN_NO.equals("0305")){
 				strHead1 = "报告装订扫描";			
 				strHead2 = "";
 				strHead3 = "";
+				if (bidDto.getBID_VER_DOC_SCAN_DATE()!= null)
+					Date1 = bidDto.getBID_VER_DOC_SCAN_DATE().toString();
 			}else if (BTN_NO.equals("0405")){
 				strHead1 = "报告送至甲方";			
 				strHead2 = "";
 				strHead3 = "";
+				if (bidDto.getBID_VER_DOC_DELI_DATE1()!= null)
+					Date1 = bidDto.getBID_VER_DOC_DELI_DATE1().toString();
+				if (bidDto.getBID_VER_DOC_DELI_FILE1()!= null ){
+					File01 = StringUtil.splitFileName(bidDto.getBID_VER_DOC_DELI_FILE1());
+					File01_URL = StringUtil.splitFileNameURL(bidDto.getBID_VER_DOC_DELI_FILE1());
+				}
+				if (bidDto.getBID_VER_DOC_DELI_FILE2()!= null ){
+					File02 = StringUtil.splitFileName(bidDto.getBID_VER_DOC_DELI_FILE2());
+					File02_URL = StringUtil.splitFileNameURL(bidDto.getBID_VER_DOC_DELI_FILE2());
+				}
+				if (bidDto.getBID_VER_DOC_DELI_FILE3()!= null ){
+					File03 = StringUtil.splitFileName(bidDto.getBID_VER_DOC_DELI_FILE3());
+					File03_URL = StringUtil.splitFileNameURL(bidDto.getBID_VER_DOC_DELI_FILE3());
+				}
+				if (bidDto.getBID_VER_DOC_DELI_FILE4()!= null ){
+					File04 = StringUtil.splitFileName(bidDto.getBID_VER_DOC_DELI_FILE4());
+					File04_URL = StringUtil.splitFileNameURL(bidDto.getBID_VER_DOC_DELI_FILE4());
+				}
+				if (bidDto.getBID_VER_DOC_DELI_FILE5()!= null ){
+					File05 = StringUtil.splitFileName(bidDto.getBID_VER_DOC_DELI_FILE5());
+					File05_URL = StringUtil.splitFileNameURL(bidDto.getBID_VER_DOC_DELI_FILE5());
+				}
 			}
 			System.out.println("showBidProgressUtilAction");
 			System.out.println("招标编号：" + strBID_NO);
@@ -299,14 +370,13 @@ public class BidProgressAction extends BaseAction {
 		return SUCCESS;
 	}
 	
-	
 	public String saveBidProgressUtilAction() throws Exception {
-		String strMember1 = new String(Member1.getBytes("iso-8859-1"),"utf-8");
+//		String strMember1 = new String(Member1.getBytes("iso-8859-1"),"utf-8");
 		System.out.println("saveBidProgressUtilAction");
 		System.out.println("招标编号：" + strBID_NO);
 		System.out.println("按钮编号：" + BTN_NO);
 		System.out.println("日期：" + Date1);
-		System.out.println("姓名：" + strMember1);
+		System.out.println("姓名：" + Member1);
 		
 		//项目完成情况
 		if (BTN_NO.equals("0106")){
@@ -324,7 +394,7 @@ public class BidProgressAction extends BaseAction {
 		//招标公告、文件校对
 		else if (BTN_NO.equals("0401")){
 			bidDto.setAPPLY_FORM_VERIFY_DATE(DateUtil.strToDate(Date1,"yyyy-MM-dd"));
-			bidDto.setAPPLY_FORM_VERIFY(strMember1);
+			bidDto.setAPPLY_FORM_VERIFY(Member1);
 		}
 		//招标文件定稿
 		else if (BTN_NO.equals("0501")){
@@ -371,7 +441,8 @@ public class BidProgressAction extends BaseAction {
 		}
 		
 		bidService.updateBid(bidDto);
-		
+		this.addActionMessage("保存成功！");
+
 		return SUCCESS;
 		
 	}
@@ -655,7 +726,7 @@ public class BidProgressAction extends BaseAction {
 			
 			//评标完成
 //			setStatus0404(bidStatusInfo.substring(19,20));
-			if (StringUtil.isNotBlank(bidDto.getBID_WIN_PRICE().toString())){
+			if (bidDto.getBID_WIN_PRICE()!= null){
 				setStatus0404("9");
 			}else{
 				setStatus0404("0");
@@ -764,43 +835,6 @@ public class BidProgressAction extends BaseAction {
 		}
 	}
 	
-	/**
-	 * BidProgressAjax查询函数
-	 * @return
-	 * @throws IOException
-	 */
-	public String queryBidProgressAjax() throws IOException {
-/*		HttpServletResponse response = ServletActionContext.getResponse();
-		response.setContentType("text/html; charset=UTF-8");
-		PrintWriter out;
-		AjaxDataDto ajaxData = new AjaxDataDto();
-		try {
-			this.clearMessages();
-			//ajax中文乱码处理
-			//strCNTRCT_NO = URLDecoder.decode(strCNTRCT_NO, "UTF-8");
-			//strBID_COMP_NO = URLDecoder.decode(strBID_COMP_NO, "UTF-8");
-			Page pp = new Page(8);
-			pp.setTotalCount(ajaxTotalCount);
-			pp.setStartIndex(ajaxPageIndex);
-			pp = bidCntrctService.queryBidCntrctByPage(strCNTRCT_YEAR, strCNTRCT_NO, strBID_COMP_NO, "",
-					"", strCNTRCT_ST_DATE, strCNTRCT_ED_DATE, pp);
-			ajaxData.setData(pp);
-		} catch(Exception e) {
-			ajaxData.setResultCode(-1);
-			ajaxData.setResultMessage("查询数据异常：" + e.getMessage());
-			return ERROR;
-		}
-		out = response.getWriter();
-		String result = JSONArray.fromObject(ajaxData).toString();
-		result = result.substring(1, result.length() - 1);
-		log.info(result);
-		out.write(result);
-		out.flush();
-		*/
-		return null;
-		
-	}
-
 
 	public String getStatus0101() {
 		return Status0101;

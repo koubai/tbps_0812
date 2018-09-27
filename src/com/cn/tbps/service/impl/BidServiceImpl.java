@@ -779,7 +779,7 @@ public class BidServiceImpl extends BaseService implements BidService {
 		//更新招标
 		bidDao.updateBid(bidDto);
 		//插入招标履历
-		insertBidHist(bidDto);
+//		insertBidHist(bidDto);
 	}
 	
 	

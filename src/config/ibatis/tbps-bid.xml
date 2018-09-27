@@ -107,6 +107,7 @@
 		<result property="BID_VER_DOC_DELI_FILE10" column="BID_VER_DOC_DELI_FILE10" />
 		<result property="PROGRESS_STATUS" column="PROGRESS_STATUS" />
 		<result property="FINISH_STATUS" column="FINISH_STATUS" />
+		<result property="FINISH_DATE" column="FINISH_DATE" />
 		<result property="FINISH_NOTE" column="FINISH_NOTE" />
 		<result property="STATUS" column="STATUS" />
 		<result property="MEMO1" column="MEMO1" />
@@ -530,6 +531,7 @@
 			BID_VER_DOC_DELI_FILE10 = #BID_VER_DOC_DELI_FILE10#,
 			PROGRESS_STATUS = #PROGRESS_STATUS#,
 			FINISH_STATUS = #FINISH_STATUS#,
+			FINISH_DATE = #FINISH_DATE#,
 			FINISH_NOTE = #FINISH_NOTE#,
 			STATUS = #STATUS#,
 			MEMO1 = #MEMO1#,
