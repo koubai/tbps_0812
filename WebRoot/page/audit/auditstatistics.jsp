@@ -238,6 +238,8 @@
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.min.js"></script>
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.zh-CN.min.js"></script>
 <script>
+	$(function () { $('#collapseOne').collapse('toggle')});
+	
 	$(function () { 
 		$(".selectpicker").selectpicker({
 			noneSelectedText : '请选择'//默认显示内容
