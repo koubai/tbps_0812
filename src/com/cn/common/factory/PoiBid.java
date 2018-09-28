@@ -143,8 +143,8 @@ public class PoiBid extends Poi2007Base {
 			
 			cell0.setCellValue(bid.getBID_NO());
 			cell0.setCellStyle(style);
-//			cell1.setCellValue(bid.getPROJECT_TYPE_NAME());
-//			cell1.setCellStyle(style);
+			cell1.setCellValue(bid.getCNTRCT_TYPE_NAME());
+			cell1.setCellStyle(style);
 			cell2.setCellValue(bid.getPROJECT_NAME());
 			cell2.setCellStyle(style);
 			cell3.setCellValue(bid.getPROJECT_MANAGER());

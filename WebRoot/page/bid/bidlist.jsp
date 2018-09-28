@@ -108,8 +108,8 @@
 	}
 	
 	function exportBid() {
-		//document.mainform.action = '<c:url value="/bid/exportBidListAction.action"></c:url>';
-		//document.mainform.submit();
+		document.mainform.action = '<c:url value="/bid/exportBidListAction.action"></c:url>';
+		document.mainform.submit();
 	}
 	
 	function goBidProgress(bidNo) {
@@ -208,7 +208,7 @@
 					</table>
 					<jsp:include page="../turning.jsp" flush="true" />
 					<div class="operationBtns">
-						<button type="button" class="btn btn-success" onclick="">导出</button>
+						<button type="button" class="btn btn-success" onclick="exportBid();">导出</button>
 					</div>
 				</s:form>
 			</div>

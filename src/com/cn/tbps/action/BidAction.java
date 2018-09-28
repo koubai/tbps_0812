@@ -9,6 +9,8 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import com.cn.common.action.BaseAction;
+import com.cn.common.factory.Poi2007Base;
+import com.cn.common.factory.PoiFactory;
 import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
@@ -143,6 +145,33 @@ public class BidAction extends BaseAction {
 	 * 删除招标编号
 	 */
 	private String delBidNo;
+	
+	//招标数据导出部分
+	/**
+	 * 导出招标信息列表
+	 * @return
+	 */
+	public String exportBidListAction() {
+		try {
+			this.clearMessages();
+			String name = StringUtil.createFileName(Constants.EXCEL_TYPE_ZBYL);
+			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
+			response.setContentType("application/vnd.ms-excel");
+			Poi2007Base base = PoiFactory.getPoi(Constants.EXCEL_TYPE_ZBYL);
+			
+			//查询数据
+			List<BidDto> list = bidService.queryAllBidExport("", "", "", "", "", strProjectName, strBidNoLow, strBidNoHigh,
+					"", "", "", "", "", "", "");
+			
+			base.setDatas(list);
+			base.setSheetName(Constants.EXCEL_TYPE_ZBYL);
+			base.exportExcel(response.getOutputStream());
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
 	
 	/**
 	 * 显示添加招标页面

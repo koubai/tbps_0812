@@ -74,6 +74,11 @@ public class BidDto extends BaseDto {
 	 * 合同类别
 	 */
 	private String CNTRCT_TYPE;
+	
+	/**
+	 * 合同类别名
+	 */
+	private String CNTRCT_TYPE_NAME;
 
 	/**
 	 * 项目名称
@@ -84,6 +89,7 @@ public class BidDto extends BaseDto {
 	 * 项目性质
 	 */
 	private String PROJECT_PROPERTY;
+	private String PROJECT_PROPERTY_NAME;
 
 	/**
 	 * 工程概况批文
@@ -94,11 +100,13 @@ public class BidDto extends BaseDto {
 	 * 会审监管人
 	 */
 	private String PROJECT_AUTH;
+	private String PROJECT_AUTH_NAME;
 
 	/**
 	 * 担当者
 	 */
 	private String PROJECT_MANAGER;
+	private String PROJECT_MANAGER_NAME;
 
 	/**
 	 * 招标代理支付方
@@ -219,6 +227,7 @@ public class BidDto extends BaseDto {
 	 * 评审人
 	 */
 	private String BID_AUTH;
+	private String BID_AUTH_NAME;
 
 	/**
 	 * 限价
@@ -289,6 +298,7 @@ public class BidDto extends BaseDto {
 	 * 专家费申请人
 	 */
 	private String BID_EXPERT_COMMISION_APPLY;
+	private String BID_EXPERT_COMMISION_APPLY_NAME;
 
 	/**
 	 * 专家费申请日期
@@ -1912,5 +1922,73 @@ public class BidDto extends BaseDto {
 
 	public void setFINISH_DATE(Date fINISH_DATE) {
 		FINISH_DATE = fINISH_DATE;
+	}
+
+	public String getCNTRCT_TYPE_NAME() {
+		CNTRCT_TYPE_NAME = CNTRCT_TYPE;
+		if("1".equals(CNTRCT_TYPE)) {
+			CNTRCT_TYPE_NAME = "招标";
+		} else if("2".equals(CNTRCT_TYPE)) {
+			CNTRCT_TYPE_NAME = "比选";
+		} else if("3".equals(CNTRCT_TYPE)) {
+			CNTRCT_TYPE_NAME = "招标办";
+		} else if("4".equals(CNTRCT_TYPE)) {
+			CNTRCT_TYPE_NAME = "竞价";
+		}
+		return CNTRCT_TYPE_NAME;
+	}
+
+	public void setCNTRCT_TYPE_NAME(String cNTRCT_TYPE_NAME) {
+		CNTRCT_TYPE_NAME = cNTRCT_TYPE_NAME;
+	}
+
+	public String getPROJECT_PROPERTY_NAME() {
+		PROJECT_PROPERTY_NAME = PROJECT_PROPERTY;
+		if("1".equals(PROJECT_PROPERTY)) {
+			PROJECT_PROPERTY_NAME = "成本内";
+		} else if("2".equals(PROJECT_PROPERTY)) {
+			PROJECT_PROPERTY_NAME = "成本外";
+		} else if("3".equals(PROJECT_PROPERTY)) {
+			PROJECT_PROPERTY_NAME = "单独立项";
+		} else if("4".equals(PROJECT_PROPERTY)) {
+			PROJECT_PROPERTY_NAME = "其他";
+		}
+		return PROJECT_PROPERTY_NAME;
+	}
+
+	public void setPROJECT_PROPERTY_NAME(String pROJECT_PROPERTY_NAME) {
+		PROJECT_PROPERTY_NAME = pROJECT_PROPERTY_NAME;
+	}
+
+	public String getPROJECT_AUTH_NAME() {
+		return PROJECT_AUTH_NAME;
+	}
+
+	public void setPROJECT_AUTH_NAME(String pROJECT_AUTH_NAME) {
+		PROJECT_AUTH_NAME = pROJECT_AUTH_NAME;
+	}
+
+	public String getPROJECT_MANAGER_NAME() {
+		return PROJECT_MANAGER_NAME;
+	}
+
+	public void setPROJECT_MANAGER_NAME(String pROJECT_MANAGER_NAME) {
+		PROJECT_MANAGER_NAME = pROJECT_MANAGER_NAME;
+	}
+
+	public String getBID_AUTH_NAME() {
+		return BID_AUTH_NAME;
+	}
+
+	public void setBID_AUTH_NAME(String bID_AUTH_NAME) {
+		BID_AUTH_NAME = bID_AUTH_NAME;
+	}
+
+	public String getBID_EXPERT_COMMISION_APPLY_NAME() {
+		return BID_EXPERT_COMMISION_APPLY_NAME;
+	}
+
+	public void setBID_EXPERT_COMMISION_APPLY_NAME(String bID_EXPERT_COMMISION_APPLY_NAME) {
+		BID_EXPERT_COMMISION_APPLY_NAME = bID_EXPERT_COMMISION_APPLY_NAME;
 	}
 }

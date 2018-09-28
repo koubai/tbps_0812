@@ -26,6 +26,31 @@ public interface BidDao {
 			String CNTRCT_ST_DATE, String CNTRCT_ED_DATE, int start, int end);
 	
 	/**
+	 * 查询所有的招标（Excel导出用）
+	 * @param strBID_AGENT_PRICE_ACT
+	 * @param strRECEIPT1_DATE
+	 * @param strRECEIPT1_VALUE_DATE
+	 * @param cntrctNos
+	 * @param finishStatuss
+	 * @param PROJECT_NAME
+	 * @param BID_NO_LOW
+	 * @param BID_NO_HIGH
+	 * @param CNTRCT_YEAR
+	 * @param CNTRCT_NO
+	 * @param BID_COMP_NO
+	 * @param CNTRCT_NAME
+	 * @param CNTRCT_TYPE
+	 * @param CNTRCT_ST_DATE
+	 * @param CNTRCT_ED_DATE
+	 * @return
+	 */
+	public List<BidDto> queryAllBidExport(
+			String strBID_AGENT_PRICE_ACT, String strRECEIPT1_DATE, String strRECEIPT1_VALUE_DATE,
+			String cntrctNos, String finishStatuss, String PROJECT_NAME, String BID_NO_LOW, String BID_NO_HIGH,
+			String CNTRCT_YEAR, String CNTRCT_NO, String BID_COMP_NO, String CNTRCT_NAME, String CNTRCT_TYPE,
+			String CNTRCT_ST_DATE, String CNTRCT_ED_DATE);
+	
+	/**
 	 * 根据合同编号查询招标记录
 	 * @param CNTRCT_NO
 	 * @return
@@ -94,22 +119,6 @@ public interface BidDao {
 	 * @param bidDto
 	 */
 	public void updateBid(BidDto bidDto);
-	
-	/**
-	 * 查询所有的招标（Excel导出用）
-	 * @param bidNoLow
-	 * @param bidNoHigh
-	 * @param projectType
-	 * @param openDateLow
-	 * @param openDateHigh
-	 * @param agentNo
-	 * @param agentName
-	 * @param bidCoName
-	 * @param receipt1No
-	 * @return
-	 */
-	public List<BidDto> queryAllBidExport(String bidNoLow, String bidNoHigh, String projectType,
-			String openDateLow, String openDateHigh, String agentNo, String agentName, String bidCoName, String receipt1No);
 	
 	/**
 	 * 根据年份查询招标（Excel导出用）

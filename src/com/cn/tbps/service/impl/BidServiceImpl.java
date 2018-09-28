@@ -23,6 +23,8 @@ import com.cn.tbps.dao.BidCompDao;
 import com.cn.tbps.dao.BidDao;
 import com.cn.tbps.dao.ConfigTabDao;
 import com.cn.tbps.dao.ExpertLibDao;
+import com.cn.tbps.dao.SuperviseLibDao;
+import com.cn.tbps.dao.UserInfoDao;
 import com.cn.tbps.dto.BidCntrctDto;
 import com.cn.tbps.dto.BidCompApplyDto;
 import com.cn.tbps.dto.BidCompDto;
@@ -31,6 +33,8 @@ import com.cn.tbps.dto.BidDto;
 import com.cn.tbps.dto.BidHistDto;
 import com.cn.tbps.dto.ConfigTabDto;
 import com.cn.tbps.dto.ExpertLibDto;
+import com.cn.tbps.dto.SuperviseLibDto;
+import com.cn.tbps.dto.UserInfoDto;
 import com.cn.tbps.service.BidService;
 
 import net.sf.json.JSONArray;
@@ -54,6 +58,10 @@ public class BidServiceImpl extends BaseService implements BidService {
 	private BidCompApplyDao bidCompApplyDao;
 	
 	private ExpertLibDao expertLibDao;
+	
+	private SuperviseLibDao superviseLibDao;
+	
+	private UserInfoDao userInfoDao;
 	
 	private ConfigTabDao configTabDao;
 	
@@ -181,17 +189,73 @@ public class BidServiceImpl extends BaseService implements BidService {
 	}
 		
 	@Override
-	public List<BidCompExportDto> queryAllBidCompExport(String bidNoLow,
-			String bidNoHigh, String projectType, String openDateLow,
-			String openDateHigh, String agentNo, String agentName, String bidCoName, String receipt1No) {
-		agentName = StringUtil.replaceDatabaseKeyword_mysql(agentName);
-		bidCoName = StringUtil.replaceDatabaseKeyword_mysql(bidCoName);
-		receipt1No = StringUtil.replaceDatabaseKeyword_mysql(receipt1No);
+	public List<BidCompExportDto> queryAllBidCompExport(
+			String strBID_AGENT_PRICE_ACT, String strRECEIPT1_DATE, String strRECEIPT1_VALUE_DATE,
+			String cntrctNos, String finishStatuss, String PROJECT_NAME, String BID_NO_LOW, String BID_NO_HIGH,
+			String CNTRCT_YEAR, String CNTRCT_NO, String BID_COMP_NO, String CNTRCT_NAME, String CNTRCT_TYPE,
+			String CNTRCT_ST_DATE, String CNTRCT_ED_DATE) {
+		String newCntrctNos = "";
+		if(StringUtil.isNotBlank(cntrctNos)) {
+			String[] cntrctNoList = cntrctNos.split(",");
+			for(String s : cntrctNoList) {
+				if(StringUtil.isNotBlank(s)) {
+					newCntrctNos += "'" + s + "',";
+				}
+			}
+			newCntrctNos = newCntrctNos.substring(0, newCntrctNos.length() - 1);
+		}
+		if("1".equals(strBID_AGENT_PRICE_ACT)) {
+			strBID_AGENT_PRICE_ACT = " B.BID_AGENT_PRICE_ACT > 0 ";
+		} else if ("2".equals(strBID_AGENT_PRICE_ACT)) {
+			strBID_AGENT_PRICE_ACT = " (B.BID_AGENT_PRICE_ACT = 0 or B.BID_AGENT_PRICE_ACT is null) ";
+		} else {
+			strBID_AGENT_PRICE_ACT = "";
+		}
+		if("1".equals(strRECEIPT1_DATE)) {
+			strRECEIPT1_DATE = " B.RECEIPT1_DATE is not null ";
+		} else if ("2".equals(strRECEIPT1_DATE)) {
+			strRECEIPT1_DATE = " B.RECEIPT1_DATE is null ";
+		} else {
+			strRECEIPT1_DATE = "";
+		}
+		if("1".equals(strRECEIPT1_VALUE_DATE)) {
+			strRECEIPT1_VALUE_DATE = " B.RECEIPT1_VALUE_DATE is not null ";
+		} else if ("2".equals(strRECEIPT1_VALUE_DATE)) {
+			strRECEIPT1_VALUE_DATE = " B.RECEIPT1_VALUE_DATE is null ";
+		} else {
+			strRECEIPT1_VALUE_DATE = "";
+		}
+		PROJECT_NAME = StringUtil.replaceDatabaseKeyword_mysql(PROJECT_NAME);
+		CNTRCT_NAME = StringUtil.replaceDatabaseKeyword_mysql(CNTRCT_NAME);
 		List<BidCompExportDto> listall = new ArrayList<BidCompExportDto>();
-		List<BidDto> list = bidDao.queryAllBidExport(bidNoLow, bidNoHigh, projectType,
-				openDateLow, openDateHigh, agentNo, agentName, bidCoName, receipt1No);
+		List<BidDto> list = bidDao.queryAllBidExport(strBID_AGENT_PRICE_ACT, strRECEIPT1_DATE, strRECEIPT1_VALUE_DATE,
+				newCntrctNos, finishStatuss, PROJECT_NAME, BID_NO_LOW, BID_NO_HIGH, CNTRCT_YEAR, CNTRCT_NO,
+				BID_COMP_NO, CNTRCT_NAME, CNTRCT_TYPE, CNTRCT_ST_DATE, CNTRCT_ED_DATE);
 		if(list != null && list.size() > 0) {
+			Map<String, String> userMap = new HashMap<String, String>();
+			List<UserInfoDto> userList = userInfoDao.queryAllUser();
+			if(userList != null) {
+				for(UserInfoDto user : userList) {
+					userMap.put(user.getLOGIN_ID(), user.getLOGIN_NAME());
+				}
+			}
+			
 			for(BidDto bid : list) {
+				//会审监管人
+				if(StringUtil.isNotBlank(bid.getPROJECT_AUTH())) {
+					SuperviseLibDto superviseLib = superviseLibDao.querySuperviseLibByID(bid.getPROJECT_AUTH());
+					if(superviseLib != null) {
+						bid.setPROJECT_AUTH_NAME(superviseLib.getSUPERVISE_NAME());
+					}
+				}
+				
+				//专家费申请人
+				bid.setBID_EXPERT_COMMISION_APPLY_NAME(userMap.get(bid.getBID_EXPERT_COMMISION_APPLY()));
+				//担当者
+				bid.setPROJECT_MANAGER_NAME(userMap.get(bid.getPROJECT_MANAGER()));
+				//评审人
+				bid.setBID_AUTH_NAME(userMap.get(bid.getBID_AUTH()));
+				
 				//查询评审专家
 				String expertids = bid.getBID_EXPERT_LIST();
 				if(StringUtil.isNotBlank(expertids)) {
@@ -941,16 +1005,70 @@ public class BidServiceImpl extends BaseService implements BidService {
 	}
 
 	@Override
-	public List<BidDto> queryAllBidExport(String bidNoLow, String bidNoHigh,
-			String projectType, String openDateLow, String openDateHigh,
-			String agentNo, String agentName, String bidCoName, String receipt1No) {
-		agentName = StringUtil.replaceDatabaseKeyword_mysql(agentName);
-		bidCoName = StringUtil.replaceDatabaseKeyword_mysql(bidCoName);
-		receipt1No = StringUtil.replaceDatabaseKeyword_mysql(receipt1No);
-		List<BidDto> list = bidDao.queryAllBidExport(bidNoLow, bidNoHigh, projectType,
-				openDateLow, openDateHigh, agentNo, agentName, bidCoName, receipt1No);
+	public List<BidDto> queryAllBidExport(String strBID_AGENT_PRICE_ACT, String strRECEIPT1_DATE, String strRECEIPT1_VALUE_DATE,
+			String cntrctNos, String finishStatuss, String PROJECT_NAME, String BID_NO_LOW, String BID_NO_HIGH,
+			String CNTRCT_YEAR, String CNTRCT_NO, String BID_COMP_NO, String CNTRCT_NAME, String CNTRCT_TYPE,
+			String CNTRCT_ST_DATE, String CNTRCT_ED_DATE) {
+		String newCntrctNos = "";
+		if(StringUtil.isNotBlank(cntrctNos)) {
+			String[] cntrctNoList = cntrctNos.split(",");
+			for(String s : cntrctNoList) {
+				if(StringUtil.isNotBlank(s)) {
+					newCntrctNos += "'" + s + "',";
+				}
+			}
+			newCntrctNos = newCntrctNos.substring(0, newCntrctNos.length() - 1);
+		}
+		if("1".equals(strBID_AGENT_PRICE_ACT)) {
+			strBID_AGENT_PRICE_ACT = " B.BID_AGENT_PRICE_ACT > 0 ";
+		} else if ("2".equals(strBID_AGENT_PRICE_ACT)) {
+			strBID_AGENT_PRICE_ACT = " (B.BID_AGENT_PRICE_ACT = 0 or B.BID_AGENT_PRICE_ACT is null) ";
+		} else {
+			strBID_AGENT_PRICE_ACT = "";
+		}
+		if("1".equals(strRECEIPT1_DATE)) {
+			strRECEIPT1_DATE = " B.RECEIPT1_DATE is not null ";
+		} else if ("2".equals(strRECEIPT1_DATE)) {
+			strRECEIPT1_DATE = " B.RECEIPT1_DATE is null ";
+		} else {
+			strRECEIPT1_DATE = "";
+		}
+		if("1".equals(strRECEIPT1_VALUE_DATE)) {
+			strRECEIPT1_VALUE_DATE = " B.RECEIPT1_VALUE_DATE is not null ";
+		} else if ("2".equals(strRECEIPT1_VALUE_DATE)) {
+			strRECEIPT1_VALUE_DATE = " B.RECEIPT1_VALUE_DATE is null ";
+		} else {
+			strRECEIPT1_VALUE_DATE = "";
+		}
+		PROJECT_NAME = StringUtil.replaceDatabaseKeyword_mysql(PROJECT_NAME);
+		CNTRCT_NAME = StringUtil.replaceDatabaseKeyword_mysql(CNTRCT_NAME);
+		List<BidDto> list = bidDao.queryAllBidExport(strBID_AGENT_PRICE_ACT, strRECEIPT1_DATE, strRECEIPT1_VALUE_DATE,
+				newCntrctNos, finishStatuss, PROJECT_NAME, BID_NO_LOW, BID_NO_HIGH, CNTRCT_YEAR,
+				CNTRCT_NO, BID_COMP_NO, CNTRCT_NAME, CNTRCT_TYPE, CNTRCT_ST_DATE, CNTRCT_ED_DATE);
 		if(list != null && list.size() > 0) {
+			Map<String, String> userMap = new HashMap<String, String>();
+			List<UserInfoDto> userList = userInfoDao.queryAllUser();
+			if(userList != null) {
+				for(UserInfoDto user : userList) {
+					userMap.put(user.getLOGIN_ID(), user.getLOGIN_NAME());
+				}
+			}
 			for(BidDto bid : list) {
+				//会审监管人
+				if(StringUtil.isNotBlank(bid.getPROJECT_AUTH())) {
+					SuperviseLibDto superviseLib = superviseLibDao.querySuperviseLibByID(bid.getPROJECT_AUTH());
+					if(superviseLib != null) {
+						bid.setPROJECT_AUTH_NAME(superviseLib.getSUPERVISE_NAME());
+					}
+				}
+				
+				//专家费申请人
+				bid.setBID_EXPERT_COMMISION_APPLY_NAME(userMap.get(bid.getBID_EXPERT_COMMISION_APPLY()));
+				//担当者
+				bid.setPROJECT_MANAGER_NAME(userMap.get(bid.getPROJECT_MANAGER()));
+				//评审人
+				bid.setBID_AUTH_NAME(userMap.get(bid.getBID_AUTH()));
+				
 				//查询投标公司
 				String compids = bid.getBID_CO_LIST();
 				if(StringUtil.isNotBlank(compids)) {
@@ -1543,5 +1661,21 @@ public class BidServiceImpl extends BaseService implements BidService {
 
 	public void setBidCntrctDao(BidCntrctDao bidCntrctDao) {
 		this.bidCntrctDao = bidCntrctDao;
+	}
+
+	public SuperviseLibDao getSuperviseLibDao() {
+		return superviseLibDao;
+	}
+
+	public void setSuperviseLibDao(SuperviseLibDao superviseLibDao) {
+		this.superviseLibDao = superviseLibDao;
+	}
+
+	public UserInfoDao getUserInfoDao() {
+		return userInfoDao;
+	}
+
+	public void setUserInfoDao(UserInfoDao userInfoDao) {
+		this.userInfoDao = userInfoDao;
 	}
 }
