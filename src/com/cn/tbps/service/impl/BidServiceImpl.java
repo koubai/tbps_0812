@@ -266,7 +266,7 @@ public class BidServiceImpl extends BaseService implements BidService {
 						for(ExpertLibDto expert : expertList) {
 							BID_EXPERT_NAME_LIST += expert.getEXPERT_NAME() + ",";
 						}
-//						bid.setBID_EXPERT_NAME_LIST(BID_EXPERT_NAME_LIST);
+						bid.setBID_EXPERT_NAME_LIST(BID_EXPERT_NAME_LIST);
 					}
 				}
 				//查询投标公司
@@ -1079,7 +1079,7 @@ public class BidServiceImpl extends BaseService implements BidService {
 						for(BidCompDto bidComp : bidCompList) {
 							BID_CO_NAME_LIST += bidComp.getBID_CO_NAME() + ",";
 						}
-//						bid.setBID_CO_NAME_LIST(BID_CO_NAME_LIST);
+						bid.setBID_CO_NAME_LIST(BID_CO_NAME_LIST);
 					}
 				}
 				//查询评审专家
@@ -1092,7 +1092,7 @@ public class BidServiceImpl extends BaseService implements BidService {
 						for(ExpertLibDto expert : expertList) {
 							BID_EXPERT_NAME_LIST += expert.getEXPERT_NAME() + ",";
 						}
-//						bid.setBID_EXPERT_NAME_LIST(BID_EXPERT_NAME_LIST);
+						bid.setBID_EXPERT_NAME_LIST(BID_EXPERT_NAME_LIST);
 					}
 				}
 			}
@@ -1125,7 +1125,7 @@ public class BidServiceImpl extends BaseService implements BidService {
 								BID_BOND_LIST += bidBondTmp + ",";
 							}
 						}
-//						bid.setBID_CO_NAME_LIST(BID_CO_NAME_LIST);
+						bid.setBID_CO_NAME_LIST(BID_CO_NAME_LIST);
 //						bid.setBID_BOND_LIST(BID_BOND_LIST);
 					}
 				}
@@ -1139,7 +1139,7 @@ public class BidServiceImpl extends BaseService implements BidService {
 						for(ExpertLibDto expert : expertList) {
 							BID_EXPERT_NAME_LIST += expert.getEXPERT_NAME() + ",";
 						}
-//						bid.setBID_EXPERT_NAME_LIST(BID_EXPERT_NAME_LIST);
+						bid.setBID_EXPERT_NAME_LIST(BID_EXPERT_NAME_LIST);
 					}
 				}
 			}
@@ -1198,7 +1198,7 @@ public class BidServiceImpl extends BaseService implements BidService {
 								BID_BOND_LIST += bidBondTmp + ",";
 							}
 						}
-//						bid.setBID_CO_NAME_LIST(BID_CO_NAME_LIST);
+						bid.setBID_CO_NAME_LIST(BID_CO_NAME_LIST);
 //						bid.setBID_BOND_LIST(BID_BOND_LIST);
 					}
 				}
@@ -1212,7 +1212,7 @@ public class BidServiceImpl extends BaseService implements BidService {
 						for(ExpertLibDto expert : expertList) {
 							BID_EXPERT_NAME_LIST += expert.getEXPERT_NAME() + ",";
 						}
-//						bid.setBID_EXPERT_NAME_LIST(BID_EXPERT_NAME_LIST);
+						bid.setBID_EXPERT_NAME_LIST(BID_EXPERT_NAME_LIST);
 					}
 				}
 			}

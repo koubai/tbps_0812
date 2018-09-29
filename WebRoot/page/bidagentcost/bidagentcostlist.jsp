@@ -578,7 +578,7 @@
 					<jsp:include page="../turning.jsp" flush="true" />
 					<div class="operationBtns">
 						<button type="button" class="btn btn-success" onclick="showCalcAgentCost();">代理费计算</button>
-						<button class="btn btn-success" onclick="save();">保存</button>
+						<button type="button" class="btn btn-success" onclick="save();">保存</button>
 					</div>
 				</s:form>
 			</div>

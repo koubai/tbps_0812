@@ -1546,7 +1546,7 @@
 								</div>
 							</div>
 							<div class="operationBtns">
-								<button type="button" class="btn btn-success">生成审核表</button>
+								<!-- <button type="button" class="btn btn-success">生成审核表</button> -->
 							</div>
 						</div>
 						<div class="tab-pane fade" id="tab3">
@@ -1599,8 +1599,8 @@
 								</table>
 							</div>
 							<div class="operationBtns">
-								<button type="button" class="btn btn-success">生成报名表</button>
-								<button type="button" class="btn btn-success">生成审核表</button>
+								<!-- <button type="button" class="btn btn-success">生成报名表</button> -->
+								<!-- <button type="button" class="btn btn-success">生成审核表</button> -->
 							</div>
 						</div>
 						<div class="tab-pane fade" id="tab4">
@@ -1879,8 +1879,8 @@
 								</tbody>
 							</table>
 							<div class="operationBtns">
-								<button type="button" class="btn btn-success">保证金收据</button>
-								<button type="button" class="btn btn-success">退定签收单</button>
+								<!-- <button type="button" class="btn btn-success">保证金收据</button> -->
+								<!-- <button type="button" class="btn btn-success">退定签收单</button> -->
 							</div>
 						</div>
 						<div class="tab-pane fade" id="tab6">
@@ -1971,8 +1971,8 @@
 								</tbody>
 							</table>
 							<div class="operationBtns">
-								<button type="button" class="btn btn-success">标书费收据</button>
-								<button type="button" class="btn btn-success">打印签收单</button>
+								<!-- <button type="button" class="btn btn-success">标书费收据</button> -->
+								<!-- <button type="button" class="btn btn-success">打印签收单</button> -->
 							</div>
 						</div>
 						<div class="tab-pane fade" id="tab7">
