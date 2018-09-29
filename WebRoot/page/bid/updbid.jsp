@@ -1196,6 +1196,41 @@
 		}
 		$('#bidCompModal').modal('hide');
 	}
+	
+	//导出审核表
+	function exportBidAudit() {
+		document.mainform.action = '<c:url value="/bid/exportBidAuditAction.action"></c:url>';
+		document.mainform.submit();
+	}
+	
+	//导出报名表
+	function exportBidRegister() {
+		document.mainform.action = '<c:url value="/bid/exportBidRegisterAction.action"></c:url>';
+		document.mainform.submit();
+	}
+	
+	//导出保证金收据
+	function exportBidDeposit() {
+		document.mainform.action = '<c:url value="/bid/exportBidDepositAction.action"></c:url>';
+		document.mainform.submit();
+	}
+	
+	//导出保证金退订签收单
+	function exportBidCancel() {
+		document.mainform.action = '<c:url value="/bid/exportBidCancelAction.action"></c:url>';
+		document.mainform.submit();
+	}
+	
+	//导出标书费收据
+	function exportBidReceive() {
+		document.mainform.action = '<c:url value="/bid/exportBidReceiveAction.action"></c:url>';
+		document.mainform.submit();
+	}
+	
+	//导出标书费签收单
+	function exportBidSign() {
+		//TODO
+	}
 </script>
 </head>
 <body>
@@ -1687,7 +1722,7 @@
 								</div>
 							</div>
 							<div class="operationBtns">
-								<button type="button" class="btn btn-success">生成审核表</button>
+								<button type="button" class="btn btn-success" onclick="exportBidAudit();">生成审核表</button>
 							</div>
 						</div>
 						<div class="tab-pane fade" id="tab3">
@@ -1740,8 +1775,8 @@
 								</table>
 							</div>
 							<div class="operationBtns">
-								<button type="button" class="btn btn-success">生成报名表</button>
-								<button type="button" class="btn btn-success">生成审核表</button>
+								<button type="button" onclick="exportBidRegister();" class="btn btn-success">生成报名表</button>
+								<button type="button" onclick="exportBidAudit();" class="btn btn-success">生成审核表</button>
 							</div>
 						</div>
 						<div class="tab-pane fade" id="tab4">
@@ -2027,8 +2062,8 @@
 								</tbody>
 							</table>
 							<div class="operationBtns">
-								<button type="button" class="btn btn-success">保证金收据</button>
-								<button type="button" class="btn btn-success">退定签收单</button>
+								<button type="button" onclick="exportBidDeposit();" class="btn btn-success">保证金收据</button>
+								<button type="button" onclick="exportBidCancel();" class="btn btn-success">退定签收单</button>
 							</div>
 						</div>
 						<div class="tab-pane fade" id="tab6">
@@ -2119,8 +2154,8 @@
 								</tbody>
 							</table>
 							<div class="operationBtns">
-								<button type="button" class="btn btn-success">标书费收据</button>
-								<button type="button" class="btn btn-success">打印签收单</button>
+								<button type="button" onclick="exportBidReceive();" class="btn btn-success">标书费收据</button>
+								<button type="button" onclick="exportBidSign();" class="btn btn-success">打印签收单</button>
 							</div>
 						</div>
 						<div class="tab-pane fade" id="tab7">

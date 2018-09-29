@@ -1,9 +1,5 @@
 package com.cn.common.factory;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.ss.usermodel.Cell;
@@ -12,8 +8,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 
-import com.cn.common.util.StringUtil;
-import com.cn.tbps.dto.BidCompDto;
 import com.cn.tbps.dto.BidDto;
 
 public class PoiBidReceive extends Poi2007Base {
