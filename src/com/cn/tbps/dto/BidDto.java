@@ -2055,7 +2055,7 @@ public class BidDto extends BaseDto {
 		//10：取消，20：进行中（新建时状态=20），52：失败（报名不满6家）,54:失败（开标不满3家），56：失败（评审失败），70：终止，90：完成
 		FINISH_STATUS_NAME = "";
 		if("10".equals(FINISH_STATUS)) {
-			FINISH_STATUS_NAME = "取消";
+			FINISH_STATUS_NAME = "暂停";
 		} else if("20".equals(FINISH_STATUS)) {
 			FINISH_STATUS_NAME = "进行中";
 		} else if("52".equals(FINISH_STATUS)) {
@@ -2078,7 +2078,19 @@ public class BidDto extends BaseDto {
 
 	public String getSTATUS_NAME() {
 		STATUS_NAME = "";
-		STATUS_NAME = "" + STATUS;
+		if("10".equals(STATUS)) {
+			STATUS_NAME = "项目信息";
+		} else if("20".equals(STATUS)) {
+			STATUS_NAME = "报名";
+		} else if("30".equals(STATUS)) {
+			STATUS_NAME = "保证金";
+		} else if("40".equals(STATUS)) {
+			STATUS_NAME = "开标评标";
+		} else if("50".equals(STATUS)) {
+			STATUS_NAME = "资料归档";
+		} else {
+			STATUS_NAME = STATUS;
+		}
 		return STATUS_NAME;
 	}
 
