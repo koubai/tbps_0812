@@ -36,10 +36,6 @@
 			$("#Date2").val("");
 		else
 			$("#Date2").val($("#strDate2").val());
-		if ($("#strProgress_status").val() == null)
-			$("#Progress_status").val("");
-		else
-			$("#Progress_status").val($("#strProgress_status").val());
 		if ($("#strMember1").val() == null){
 			$("#Member1").val("");
 		}
@@ -66,7 +62,7 @@
 			$("#File05").val("");
 		else
 			$("#File05").val($("#strFile05").val());
-		document.mainform.action='<c:url value="/bidprogress/saveBidProgressUtilAction.action"></c:url>' + "?Progress_status=" + $("#Progress_status").val() + "&Date1=" + $("#Date1").val() + "&Date2=" + $("#Date2").val()+ "&Member1=" + $("#Member1").val() + "&date=" + new Date();
+		document.mainform.action='<c:url value="/bidprogress/saveBidProgressUtilAction.action"></c:url>' + "?Finish_status=" + $("#Finish_status").val() + "&Date1=" + $("#Date1").val() + "&Date2=" + $("#Date2").val()+ "&Member1=" + $("#Member1").val() + "&date=" + new Date();
 		document.mainform.action();//提交表单
 	    window.close();//关闭窗口
 		
@@ -101,6 +97,13 @@
 		
 	}
 	
+	
+	function goBidProgress() {
+//		window.parent.document.mainform.action = '<c:url value="/bidprogress/showBidProgressAction.action"></c:url>';
+//		window.parent.document.mainform.action();
+	    window.close();//关闭窗口
+	}
+
 </script>
 </head>
 <body>
@@ -110,8 +113,8 @@
 				<s:form id="mainform" name="mainform" method="POST" enctype="multipart/form-data">
 					<label for="" class="col-lg-3 form-label"><s:property value="BTN_NO" /></label>
 					
+					<s:hidden name="strBID_NO" id="strBID_NO"/>
 					<s:hidden name="strBID_COMP_NO" id="strBID_COMP_NO"/>
-					<s:hidden name="Progress_status" id="Progress_status"/>
 					<s:hidden name="Date1" id="Date1"/>
 					<s:hidden name="Date2" id="Date2"/>
 					<s:hidden name="Member1" id="Member1"/>
@@ -131,14 +134,16 @@
 							<s:if test='UTIL_TYP == "5"'>
 							<tr>
 								<td>
-									<label for="" class="col-lg-8 form-label colorBlue">项目完成情况</label>
+									<div class="col-lg-8 form-group">
+										<label for="" class="col-lg-8 form-label"><span class="red">*</span>项目完成情况</label>
+									</div>
 								</td>
 								<td>
-									<div class="col-lg-8">
-										<select id="Progress_status" name="Progress_status" class="form-control">
-											<s:if test='Progress_status == "10"'>
+									<!--  <div class="col-lg-8">  -->
+										<select id="Finish_status" name="Finish_status" class="form-control">
+											<s:if test='Finish_status == "10"'>
 												<option value="">请选择</option>
-												<option value="10" selected="selected">取消</option>
+												<option value="10" selected="selected">暂停</option>
 												<option value="20">进行中</option>
 												<option value="52">失败（报名不满6家）</option>
 												<option value="54">失败（开标不满3家）</option>
@@ -146,9 +151,9 @@
 												<option value="70">终止</option>
 												<option value="90">完成</option>
 											</s:if>
-											<s:elseif test='Progress_status == "20"'>
+											<s:elseif test='Finish_status == "20"'>
 												<option value="">请选择</option>
-												<option value="10">取消</option>
+												<option value="10">暂停</option>
 												<option value="20" selected="selected">进行中</option>
 												<option value="52">失败（报名不满6家）</option>
 												<option value="54">失败（开标不满3家）</option>
@@ -156,9 +161,9 @@
 												<option value="70">终止</option>
 												<option value="90">完成</option>
 											</s:elseif>
-											<s:elseif test='Progress_status == "52"'>
+											<s:elseif test='Finish_status == "52"'>
 												<option value="">请选择</option>
-												<option value="10">取消</option>
+												<option value="10">暂停</option>
 												<option value="20">进行中</option>
 												<option value="52" selected="selected">失败（报名不满6家）</option>
 												<option value="54">失败（开标不满3家）</option>
@@ -166,9 +171,9 @@
 												<option value="70">终止</option>
 												<option value="90">完成</option>
 											</s:elseif>
-											<s:elseif test='Progress_status == "54"'>
+											<s:elseif test='Finish_status == "54"'>
 												<option value="">请选择</option>
-												<option value="10">取消</option>
+												<option value="10">暂停</option>
 												<option value="20">进行中</option>
 												<option value="52">失败（报名不满6家）</option>
 												<option value="54" selected="selected">失败（开标不满3家）</option>
@@ -176,9 +181,9 @@
 												<option value="70">终止</option>
 												<option value="90">完成</option>
 											</s:elseif>
-											<s:elseif test='Progress_status == "56"'>
+											<s:elseif test='Finish_status == "56"'>
 												<option value="">请选择</option>
-												<option value="10">取消</option>
+												<option value="10">暂停</option>
 												<option value="20">进行中</option>
 												<option value="52">失败（报名不满6家）</option>
 												<option value="54">失败（开标不满3家）</option>
@@ -186,9 +191,9 @@
 												<option value="70">终止</option>
 												<option value="90">完成</option>
 											</s:elseif>
-											<s:elseif test='Progress_status == "70"'>
+											<s:elseif test='Finish_status == "70"'>
 												<option value="">请选择</option>
-												<option value="10">取消</option>
+												<option value="10">暂停</option>
 												<option value="20">进行中</option>
 												<option value="52">失败（报名不满6家）</option>
 												<option value="54">失败（开标不满3家）</option>
@@ -196,9 +201,9 @@
 												<option value="70" selected="selected">终止</option>
 												<option value="90">完成</option>
 											</s:elseif>
-											<s:elseif test='Progress_status == "90"'>
+											<s:elseif test='Finish_status == "90"'>
 												<option value="">请选择</option>
-												<option value="10">取消</option>
+												<option value="10">暂停</option>
 												<option value="20">进行中</option>
 												<option value="52">失败（报名不满6家）</option>
 												<option value="54">失败（开标不满3家）</option>
@@ -208,7 +213,7 @@
 											</s:elseif>
 											<s:else>
 												<option value="" selected="selected">请选择</option>
-												<option value="10">取消</option>
+												<option value="10">暂停</option>
 												<option value="20">进行中</option>
 												<option value="52">失败（报名不满6家）</option>
 												<option value="54">失败（开标不满3家）</option>
@@ -217,7 +222,7 @@
 												<option value="90">完成</option>
 											</s:else>
 										</select>
-									</div>
+									<!--  </div>  -->
 								</td>
 								<td>
 								</td>
@@ -231,7 +236,7 @@
 								</td>
 								<td>
 								<div class="input-group date" data-provide="datepicker">
-									<input id="strDate1" name="strDate1" value="<s:property value="Date1"/>" maxlength="10" type="text" class="form-control datepicker" readonly>
+									<input id="strDate1" name="strDate1" value="<s:date name="Date1" format="yyyy-MM-dd"/>" maxlength="10" type="text" class="form-control datepicker" readonly>
 									<div class="input-group-addon">
 										<span class="glyphicon glyphicon-th"></span>
 									</div>
@@ -249,7 +254,7 @@
 								</td>
 								<td>
 								<div class="input-group date" data-provide="datepicker">
-									<input id="strDate2" name="strDate2" value="<s:property value="Date2"/>" maxlength="10" type="text" class="form-control datepicker" readonly>
+									<input id="strDate2" name="strDate2" value="<s:date name="Date2" format="yyyy-MM-dd"/>" maxlength="10" type="text" class="form-control datepicker" readonly>
 									<div class="input-group-addon">
 										<span class="glyphicon glyphicon-th"></span>
 									</div>
@@ -405,7 +410,7 @@
 						<tr>
 							<td>
 							<div class="col-lg-8 form-group">
-								<button class="btn btn-success" id="cancel" onclick="window.close();">取消</button>
+								<button class="btn btn-success" id="cancel" onclick="goBidProgress();">取消</button>
 							</div>
 							</td>
 							<td>

@@ -42,7 +42,7 @@ public class BidProgressAction extends BaseAction {
 	private String Member1;
 	private String uploadFile;   //上传文件
 	private String UTIL_TYP;     //ProgressUtil window type
-	private String Progress_status;     //Progress
+	private String Finish_status;     //Progress
 
 	private String BTN_NO; 	 	 //按钮编号
 	private String Status0101;   //新项目登记
@@ -222,6 +222,8 @@ public class BidProgressAction extends BaseAction {
 	*/		
 			if (bidDto != null){
 				strBID_NO = bidDto.getBID_NO();
+				Finish_status = bidDto.getFINISH_STATUS();
+				System.out.println("bidDto.getFINISH_STATUS:" + bidDto.getFINISH_STATUS());
 				setBidProgressStatus(bidDto);
 			}
 		} catch(Exception e) {
@@ -236,7 +238,7 @@ public class BidProgressAction extends BaseAction {
 	 */
 	public String showBidProgressUtilAction() {
 		try {
-			Progress_status="";
+			Finish_status="";
 			Date1 = "";
 			Member1 = "";
 			strHead1 = "";
@@ -318,7 +320,7 @@ public class BidProgressAction extends BaseAction {
 				strHead2 = "";
 				strHead3 = "";
 				if (bidDto.getFINISH_STATUS()!= null)
-					Progress_status = bidDto.getFINISH_STATUS();
+					Finish_status = bidDto.getFINISH_STATUS();
 				if (bidDto.getFINISH_DATE()!= null)
 					Date1 = bidDto.getFINISH_DATE().toString();
 			}else if (BTN_NO.equals("0205")){
@@ -380,8 +382,9 @@ public class BidProgressAction extends BaseAction {
 		
 		//项目完成情况
 		if (BTN_NO.equals("0106")){
-			bidDto.setFINISH_STATUS(getProgress_status());
+			bidDto.setFINISH_STATUS(getFinish_status());
 			bidDto.setFINISH_DATE(DateUtil.strToDate(Date1,"yyyy-MM-dd"));
+			System.out.println("bidDto.setFINISH_STATUS:" + bidDto.getFINISH_STATUS());
 		}
 		//招标文件编制
 		if (BTN_NO.equals("0201")){
@@ -632,6 +635,13 @@ public class BidProgressAction extends BaseAction {
 				setFile01(bidDto.getBID_DOC_DELI_FILE1());
 			}else{
 				setStatus0105("0");
+			}
+			
+			//项目完成情况
+			if (StringUtil.isNotBlank(bidDto.getFINISH_STATUS()) && bidDto.getFINISH_STATUS().equals("90")){
+				setStatus0106("9");								
+			}else {
+				setStatus0106("0");				
 			}
 			
 			//招标文件编制
@@ -1742,12 +1752,12 @@ public class BidProgressAction extends BaseAction {
 		this.upload_fileNo = upload_fileNo;
 	}
 	
-	public String getProgress_status() {
-		return Progress_status;
+	public String getFinish_status() {
+		return Finish_status;
 	}
 
-	public void setProgress_status(String progress_status) {
-		Progress_status = progress_status;
+	public void setFinish_status(String finish_status) {
+		Finish_status = finish_status;
 	}
 
 }
