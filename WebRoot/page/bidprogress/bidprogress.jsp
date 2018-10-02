@@ -23,6 +23,11 @@
 <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 <script type="text/javascript">	
+	function goBidProgress() {
+		document.mainform.action = '<c:url value="/bidprogress/showBidProgressAction.action"></c:url>';
+		document.mainform.submit();
+	}
+
 	function showProgressUtil(btn_no, util_typ) {
 		$("#BTN_NO").attr("value", btn_no);
 //		alert($("#BTN_NO").val());
@@ -75,12 +80,15 @@ th {
 								</s:else>
 							</div>
 						</div>
-						<!-- <div class="col-lg-6 form-group">  -->
-						<div class="col-lg-9 form-group">
+						<div class="col-lg-6 form-group">
+						<!--  <div class="col-lg-9 form-group">  -->
 							<label for="" class="col-lg-2 form-label">项目名称</label>
 							<div class="col-lg-10">
 								<s:textfield name="bidDto.PROJECT_NAME" id="PROJECT_NAME" cssClass="form-control" maxlength="300" theme="simple"></s:textfield>
 							</div>
+						</div>
+						<div class="col-lg-3 form-group">
+							<button class="btn btn-success" id="refresh" onclick="goBidProgress();">刷新</button>
 						</div>
 						<!-- <div class="col-lg-3 form-group">
 							<label for="" class="col-lg-3 form-label">委托公司</label>

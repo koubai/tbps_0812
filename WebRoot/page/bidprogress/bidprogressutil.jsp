@@ -236,7 +236,7 @@
 								</td>
 								<td>
 								<div class="input-group date" data-provide="datepicker">
-									<input id="strDate1" name="strDate1" value="<s:date name="Date1" format="yyyy-MM-dd"/>" maxlength="10" type="text" class="form-control datepicker" readonly>
+									<input id="strDate1" name="strDate1" value="<s:date name="Date1" format="yyyy-MM-dd"/>" maxlength="10" type="text" class="form-control datepicker" readonly />
 									<div class="input-group-addon">
 										<span class="glyphicon glyphicon-th"></span>
 									</div>
@@ -254,7 +254,7 @@
 								</td>
 								<td>
 								<div class="input-group date" data-provide="datepicker">
-									<input id="strDate2" name="strDate2" value="<s:date name="Date2" format="yyyy-MM-dd"/>" maxlength="10" type="text" class="form-control datepicker" readonly>
+									<input id="strDate2" name="strDate2" value="<s:date name="Date2" format="yyyy-MM-dd"/>" maxlength="10" type="text" class="form-control datepicker" readonly />
 									<div class="input-group-addon">
 										<span class="glyphicon glyphicon-th"></span>
 									</div>
@@ -273,7 +273,13 @@
 								</td>
 								<td>
 								<div>
-									<s:textfield name="strMember1" id="strMember1" cssClass="form-control" maxlength="300" theme="simple"><s:property value="Member1" /></s:textfield>
+									<!-- <s:textfield name="strMember1" id="strMember1" cssClass="form-control" maxlength="300" theme="simple"><s:property value="Member1" /></s:textfield> -->
+									<select name="strMember1" id="strMember1" class="form-control">
+										<option value="">请选择</option>
+										<s:iterator id="listUserInfo" value="listUserInfo" status="st1">
+											<option value="<s:property value="LOGIN_ID"/>" <s:if test="%{Member1 == LOGIN_ID}">selected</s:if>><s:property value="LOGIN_NAME"/></option>
+										</s:iterator>
+									</select>
 								</div>
 								</td>
 								<td>
@@ -410,7 +416,7 @@
 						<tr>
 							<td>
 							<div class="col-lg-8 form-group">
-								<button class="btn btn-success" id="cancel" onclick="goBidProgress();">取消</button>
+								<button class="btn btn-success" id="cancel" onclick="goBidProgress();">关闭</button>
 							</div>
 							</td>
 							<td>
