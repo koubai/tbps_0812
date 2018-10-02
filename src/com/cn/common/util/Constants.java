@@ -55,6 +55,11 @@ public class Constants {
 	public final static String USER_RANK_ADMIN = "L";
 	
 	/**
+	 * 用户安全级别（权限=工程师）
+	 */
+	public final static String USER_RANK_ENGINEER = "B";
+	
+	/**
 	 * 是否隐藏菜单，1为隐藏，其他为不隐藏
 	 */
 	public final static String TOGGLE_MENU_FLAG = "toggle_menu_flag";

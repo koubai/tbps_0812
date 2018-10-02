@@ -150,6 +150,32 @@ public class BidAction extends BaseAction {
 	
 	//招标数据导出部分
 	/**
+	 * 标书费打印签收单
+	 * @return
+	 */
+	public String exportBidSignAction() {
+		try {
+			this.clearMessages();
+			String filename = "page/bidsign.xls";
+			String name =  StringUtil.createFileName2(Constants.EXCEL_TYPE_ZBQS);
+			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
+			response.setContentType("application/vnd.ms-excel");
+			Poi2007Base base = PoiFactory.getPoi(Constants.EXCEL_TYPE_ZBQS);
+			
+			//查询数据
+			List<BidDto> list = new ArrayList<BidDto>();
+			list.add(updateBidDto);
+			base.setDatas(list);
+			base.setFilepath(filename);
+			base.exportExcel2(response.getOutputStream());
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
 	 * 导出标书费收据
 	 * @return
 	 */
@@ -335,7 +361,7 @@ public class BidAction extends BaseAction {
 			addBidDto = new BidDto();
 			//默认为不随机
 //			addBidDto.setIS_RANDOM("0");
-			addBidDto.setSTATUS("0");
+			addBidDto.setSTATUS("10");
 			//承接项目日期默认=当天
 			addBidDto.setPROJECT_DEVIEW_DATE(new Date());
 			String userid = (String) ActionContext.getContext().getSession().get(Constants.USER_ID);

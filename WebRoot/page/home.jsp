@@ -128,12 +128,14 @@
 			<div class="col-lg-6">
 				<a class="btn btn-primary" href="#" onclick="showauditB();">投资监理B项目一览</a>
 			</div>
+			<s:if test='#session.user_rank >= "B"'>
 			<div class="col-lg-6">
 				<a class="btn btn-primary" href="#" onclick="manageUser();">用户信息管理</a>
 			</div>
 			<div class="col-lg-6">
 				<a class="btn btn-primary" href="#" onclick="manageSuperviselib();">会审监管人管理</a>
 			</div>
+			</s:if>
 		</div>
 	</div>
 	<!--  <div class="bottom">
