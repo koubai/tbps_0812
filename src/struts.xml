@@ -63,6 +63,9 @@
 	<!-- 会审监管人 -->
 	<include file="struts-superviselib.xml"/>
 	
+	<!-- 文件上传 -->
+	<include file="struts-fileupload.xml"/>
+	
 	<package name="index" extends="struts-default, json-default" namespace="/index">
 		
 		<!-- 验证码 -->

@@ -1,5 +1,7 @@
 package com.cn.common.factory;
 
+import java.util.List;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
@@ -10,6 +12,7 @@ import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFRichTextString;
 
 import com.cn.common.util.StringUtil;
+import com.cn.tbps.dto.BidCompDto;
 import com.cn.tbps.dto.BidDto;
 
 /**
@@ -28,47 +31,90 @@ public class PoiBidRegister extends Poi2007Base {
 	@Override
 	public void writeData(Workbook workbook) {
 		BidDto bidDto = (BidDto) datas.get(0);
-		Sheet sheet = workbook.getSheetAt(0);
-		//项目编号
-		Row row = sheet.getRow((short) 0);
-		Cell cell = row.getCell((short) 0);
-		String bidNo = bidDto.getBID_NO();
-		String bidNoOld = String.valueOf(cell.getStringCellValue());
-		int startNo = bidNoOld.indexOf("：");
-		String bidNoNew = bidNoOld;
 		
-		bidNoNew = bidNoNew.substring(0, startNo + 1) + bidNo + bidNoNew.substring(startNo + 12, bidNoNew.length());
-		
-		//项目名称
-		int nameStart = bidNoOld.indexOf("=");
-		bidNoNew = bidNoOld.substring(0, nameStart + 1) + bidDto.getPROJECT_NAME() + bidNoNew.substring(nameStart + 2, bidNoOld.length());
-		
-		//cell.setCellValue(bidNoNew.toString());
-		//删除多余下划线
-		XSSFCellStyle style = (XSSFCellStyle ) cell.getCellStyle();
-		Font fontOld = style.getFont();
-		Font font = workbook.createFont();
-		font.setUnderline(Font.U_NONE); //下划线
-		PoiBidReply.copyFont(fontOld, font);
-		XSSFRichTextString  richString = null;
-		richString = new XSSFRichTextString (bidNoNew.toString());
-		richString.applyFont(richString.length() - 5, richString.length(), font);
-		cell.setCellValue(richString);
-		//报名要求
-		if(StringUtil.isNotBlank(bidDto.getAPPLY_REQUIRE())){
-			String applyRequire = bidDto.getAPPLY_REQUIRE();
-			System.out.println("applyRequire: " + applyRequire);
-			String[] applyRequireList = applyRequire.split("\n");
-			System.out.println("applyRequireList.length: " + applyRequireList.length);
-			if(applyRequireList.length > 10){
-				insertRow(workbook, sheet, 17, applyRequireList.length-10, 3);
+		List<BidCompDto> bidCoList = (List<BidCompDto>) datas.get(1);
+		if(bidCoList != null && bidCoList.size() > 0){
+			for(int i=0; i<bidCoList.size()-1; i++){
+				workbook.cloneSheet(0);
 			}
-			for(int i = 0; i < applyRequireList.length; i++){
-				row = sheet.getRow((short) i+8);
-				cell = row.getCell((short) 0);
-				if(StringUtil.isNotBlank(applyRequireList[i])){
-					cell.setCellValue(applyRequireList[i]);
+			int n = 0;
+			for(BidCompDto bidComp : bidCoList) {
+				Sheet sheet = workbook.getSheetAt(n);
+				
+				//项目编号
+				Row row = sheet.getRow((short) 0);
+				Cell cell = row.getCell((short) 0);
+				String bidNo = bidDto.getBID_NO();
+				String bidNoOld = String.valueOf(cell.getStringCellValue());
+				int startNo = bidNoOld.indexOf("：");
+				String bidNoNew = bidNoOld;
+				
+				bidNoNew = bidNoNew.substring(0, startNo + 1) + bidNo + bidNoNew.substring(startNo + 12, bidNoNew.length());
+				
+				//项目名称
+				int nameStart = bidNoOld.indexOf("=");
+				bidNoNew = bidNoOld.substring(0, nameStart + 1) + bidDto.getPROJECT_NAME() + bidNoNew.substring(nameStart + 2, bidNoOld.length());
+				
+				//cell.setCellValue(bidNoNew.toString());
+				//删除多余下划线
+				XSSFCellStyle style = (XSSFCellStyle ) cell.getCellStyle();
+				Font fontOld = style.getFont();
+				Font font = workbook.createFont();
+				font.setUnderline(Font.U_NONE); //下划线
+				PoiBidReply.copyFont(fontOld, font);
+				XSSFRichTextString  richString = null;
+				richString = new XSSFRichTextString (bidNoNew.toString());
+				richString.applyFont(richString.length() - 5, richString.length(), font);
+				cell.setCellValue(richString);
+				
+				//报名要求
+				if(StringUtil.isNotBlank(bidDto.getAPPLY_REQUIRE())){
+					String applyRequire = bidDto.getAPPLY_REQUIRE();
+					System.out.println("applyRequire: " + applyRequire);
+					String[] applyRequireList = applyRequire.split("\n");
+					System.out.println("applyRequireList.length: " + applyRequireList.length);
+					if(applyRequireList.length > 10){
+						insertRow(workbook, sheet, 17, applyRequireList.length-10, 3);
+					}
+					for(int i = 0; i < applyRequireList.length; i++){
+						row = sheet.getRow((short) i+8);
+						cell = row.getCell((short) 0);
+						if(StringUtil.isNotBlank(applyRequireList[i])){
+							cell.setCellValue(applyRequireList[i]);
+						}
+					}
 				}
+				
+				//报名单位
+				row = sheet.getRow((short) 2);
+				cell = row.getCell((short) 1);
+				cell.setCellValue(bidComp.getBID_CO_NAME());
+				
+				row = sheet.getRow((short) 3);
+				cell = row.getCell((short) 1);
+				cell.setCellValue(bidComp.getRESERVE2());
+				cell = row.getCell((short) 3);
+				cell.setCellValue(bidComp.getRESERVE3());
+				
+				row = sheet.getRow((short) 4);
+				cell = row.getCell((short) 1);
+				cell.setCellValue(bidComp.getBID_CO_MANAGER());
+				cell = row.getCell((short) 3);
+				cell.setCellValue(bidComp.getBID_CO_TEL());
+				
+				row = sheet.getRow((short) 5);
+				cell = row.getCell((short) 1);
+				cell.setCellValue(bidComp.getRESERVE5());
+				cell = row.getCell((short) 3);
+				cell.setCellValue(bidComp.getRESERVE6());
+
+				row = sheet.getRow((short) 6);
+				cell = row.getCell((short) 1);
+				cell.setCellValue(bidComp.getBID_CO_PS());
+				cell = row.getCell((short) 3);
+				cell.setCellValue(bidComp.getRESERVE4());
+				
+				n++;
 			}
 		}
 	}

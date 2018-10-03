@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.cn.common.dto.BaseDto;
+import com.cn.common.util.PropertiesConfig;
 import com.cn.common.util.StringUtil;
 
 /**
@@ -151,6 +152,9 @@ public class BidCompDto extends BaseDto {
 	 * 上传文件1
 	 */
 	private String RECEPT_UL_FILE1;
+	
+	//文件地址
+	private String file_url;
 
 	/**
 	 * 上传文件2
@@ -781,5 +785,14 @@ public class BidCompDto extends BaseDto {
 
 	public void setBID_APPLY_PAYMENT_TYPE(String bID_APPLY_PAYMENT_TYPE) {
 		BID_APPLY_PAYMENT_TYPE = bID_APPLY_PAYMENT_TYPE;
+	}
+
+	public String getFile_url() {
+		file_url = PropertiesConfig.getPropertiesValueByKey("file_url");
+		return file_url;
+	}
+
+	public void setFile_url(String file_url) {
+		this.file_url = file_url;
 	}
 }

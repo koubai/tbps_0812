@@ -26,6 +26,7 @@
 	function upd() {
 		if(checkdata()) {
 			if(confirm("确定修改吗？")) {
+				$("#uploadFileName").val("");
 				document.mainform.action = '<c:url value="/bid/updBidAction.action"></c:url>';
 				document.mainform.submit();
 			}
@@ -258,6 +259,7 @@
 		var tmpBID_PAYMENT_TYPE = $("[name='tmpBID_PAYMENT_TYPE']");
 		var tmpREFOUND_BOND_STATUS = $("[name='tmpREFOUND_BOND_STATUS']");
 		var tmpREFOUND_DEPOSIT_DATE = $("[name='tmpREFOUND_DEPOSIT_DATE']");
+		var tmpRECEPT_UL_FILE1 = $("[name='tmpRECEPT_UL_FILE1']");
 		
 		//标书费
 		var tmpBID_CO_NO3 = $("[name='tmpBID_CO_NO3']");
@@ -304,6 +306,7 @@
 		var tmpBID_PAYMENT_TYPE = $("[name='tmpBID_PAYMENT_TYPE']");
 		var tmpREFOUND_BOND_STATUS = $("[name='tmpREFOUND_BOND_STATUS']");
 		var tmpREFOUND_DEPOSIT_DATE = $("[name='tmpREFOUND_DEPOSIT_DATE']");
+		var tmpRECEPT_UL_FILE1 = $("[name='tmpRECEPT_UL_FILE1']");
 		
 		//标书费
 		var tmpBID_CO_NO3 = $("[name='tmpBID_CO_NO3']");
@@ -361,6 +364,7 @@
 						if(tmpREFOUND_DEPOSIT_DATE[j].value != "") {
 							td.appendChild(createInput("listBidCompTmp[" + i + "].REFOUND_DEPOSIT_DATE", tmpREFOUND_DEPOSIT_DATE[j].value));
 						}
+						td.appendChild(createInput("listBidCompTmp[" + i + "].RECEPT_UL_FILE1", tmpRECEPT_UL_FILE1[j].value));
 						break;
 					}
 				}
@@ -1205,9 +1209,27 @@
 		document.mainform.submit();
 	}
 	
-	//导出报名表
+	//导出所有公司报名表
 	function exportBidRegister() {
 		document.mainform.action = '<c:url value="/bid/exportBidRegisterAction.action"></c:url>';
+		document.mainform.submit();
+	}
+	
+	//导出单个公司报名表
+	function exportSingleBidRegister(compNo) {
+		document.mainform.action = '<c:url value="/bid/exportSingleBidRegisterAction.action"></c:url>?strCompNo=' + compNo;
+		document.mainform.submit();
+	}
+	
+	//导出单个公司报名内容
+	function exportSingleBidRegisterContent(compNo) {
+		//document.mainform.action = '<c:url value="/bid/exportSingleBidRegisterAction.action"></c:url>?strCompNo=' + compNo;
+		//document.mainform.submit();
+	}
+	
+	//导出单个公司报名回执
+	function exportSingleBidRegisterReturn(compNo) {
+		document.mainform.action = '<c:url value="/bid/exportBidReplyAction.action"></c:url>?strCompNo=' + compNo;
 		document.mainform.submit();
 	}
 	
@@ -1233,6 +1255,65 @@
 	function exportBidSign() {
 		document.mainform.action = '<c:url value="/bid/exportBidSignAction.action"></c:url>';
 		document.mainform.submit();
+	}
+	
+	function showUploadModel(obj, compNo) {
+		//禁用 Bootstrap 模态框(Modal) 点击空白时自动关闭
+		$("#uploadFileName").val("");
+		$("#uploadFileCompNo").val(compNo);
+		$('#uploadFileModal').modal({backdrop: 'static', keyboard: false});
+		$('#uploadFileModal').modal('show');
+	}
+	
+	function uploadFile() {
+		var uploadFileCompNo = $("#uploadFileCompNo").val();
+		var uploadFileName = $("#uploadFileName").val();
+		
+		if(uploadFileName == "") {
+			alert("请选择文件！");
+			$("#uploadFileName").focus();
+			return;
+		}
+		if(confirm("确定上传吗？")) {
+			//解决重复上传错误
+			/* var formId = 'jUploadFrame' + 'uploadFileName';
+			var test1 = jQuery('#' + formId);
+			var test2 = $("iframe[id^='jUpload']");
+			alert("test1.length=" + test1.length + "," + "test2.length=" + test2.length);
+			if(test1.length > 0) {
+				test1.remove();
+			} */
+			
+			$.ajaxFileUpload({
+				url:'<c:url value="/fileupload/uploadFileAction.action"></c:url>?time=' + new Date(),
+				secureuri:false,
+				fileElementId:"uploadFileName",
+				dataType:"json",
+				data:{
+					"uploadFileName":uploadFileName,
+					"fileNamePre":"comp"
+				},
+				success:function(data) {
+					if(data.resultCode == 0) {
+						//上传成功
+						var fileurl = data.data.fileurl;
+						var filename = data.data.filename;
+						//alert(fileurl + filename);
+						$("#tmpRECEPT_UL_FILE1_" + uploadFileCompNo).val(filename);
+						$("#preview_" + uploadFileCompNo).attr("href", fileurl + filename);
+						//隐藏模态窗体
+						$('#uploadFileModal').modal('hide');
+						$("#uploadFileName").val("");
+					} else {
+						alert("文件上传失败：" + data.resultMessage);
+						return;
+					}
+				},
+				error:function(XMLHttpRequest, textStatus, errorThrown) {
+					alert(errorThrown);
+				}
+			});
+		}
 	}
 </script>
 </head>
@@ -1952,7 +2033,13 @@
 												<td><s:property value="BID_CO_TEL"/></td>
 												<td><s:property value="BID_CO_ADD"/></td>
 												<td><s:property value="BID_CO_PS"/></td>
-												<td></td>
+												<td>
+													<s:if test="BID_CO_NO != null">
+														<button type="button" onclick="exportSingleBidRegisterContent('<s:property value="BID_CO_NO"/>');" class="btn btn-success">报名内容</button>
+														<button type="button" onclick="exportSingleBidRegister('<s:property value="BID_CO_NO"/>');" class="btn btn-success">打印报名表</button>
+														<button type="button" onclick="exportSingleBidRegisterReturn('<s:property value="BID_CO_NO"/>');" class="btn btn-success">打印报名回执</button>
+													</s:if>
+												</td>
 											</tr>
 										</s:iterator>
 									</tbody>
@@ -2239,7 +2326,16 @@
 												</div>
 											</td>
 											<td>
-												<a href="">上传</a><a href="">预览</a>
+												<input name="tmpRECEPT_UL_FILE1" id="tmpRECEPT_UL_FILE1_<s:property value="BID_CO_NO"/>" type="hidden" value="<s:property value="RECEPT_UL_FILE1"/>">
+												<s:if test="BID_CO_NO != null">
+													<a href="javascript:void(0);" onclick="showUploadModel(this, '<s:property value="BID_CO_NO"/>');">文件上传</a>
+													<s:if test='RECEPT_UL_FILE1 != null && RECEPT_UL_FILE1 != ""'>
+														<a id="preview_<s:property value="BID_CO_NO"/>" target="_blank" href="<s:property value="file_url"/><s:property value="RECEPT_UL_FILE1"/>">预览</a>
+													</s:if>
+													<s:else>
+														<a id="preview_<s:property value="BID_CO_NO"/>" target="_blank" href="javascript:void(0);">预览</a>
+													</s:else>
+												</s:if>
 											</td>
 										</tr>
 									</s:iterator>
@@ -2745,8 +2841,38 @@
 			</div>
 		</div>
 	</div>
+	<div class="modal fade" id="uploadFileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" style="width: 700px;">
+			<div class="modal-content">
+				<form id="file_form" name="file_form" enctype="multipart/form-data" method="post">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							文件上传
+						</h4>
+					</div>
+					<div class="modal-body" style="height: 100px;">
+						<div class="form-group">
+							<label class="col-sm-2 control-label">文件</label>
+							<div class="col-sm-9">
+								<input type="hidden" id="uploadFileCompNo">
+								<input type="file" name="uploadFileObj" id="uploadFileName" class="form-control">
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" onclick="uploadFile();">上传</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 	<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
 <script src="<%=request.getContextPath()%>/node_modules/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/ajaxfileupload.js"></script>
 <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.min.js"></script>
