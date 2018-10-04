@@ -1317,6 +1317,8 @@
 	
 	function showUploadModel(obj, compNo) {
 		$("#uploadFileName").val("");
+		$("#uploadFileObj").val("");
+		$("#fileNamePre").val("");
 		$("#uploadFileCompNo").val(compNo);
 		//禁用 Bootstrap 模态框(Modal) 点击空白时自动关闭
 		$('#uploadFileModal').modal({backdrop: 'static', keyboard: false});
@@ -1325,14 +1327,17 @@
 	
 	function uploadFile() {
 		var uploadFileCompNo = $("#uploadFileCompNo").val();
-		var uploadFileName = $("#uploadFileName").val();
+		var uploadFileObj = $("#uploadFileObj").val();
 		
-		if(uploadFileName == "") {
+		if(uploadFileObj == "") {
 			alert("请选择文件！");
-			$("#uploadFileName").focus();
+			$("#uploadFileObj").focus();
 			return;
 		}
 		if(confirm("确定上传吗？")) {
+			$("#uploadFileName").val(uploadFileObj);
+			//前缀
+			$("#fileNamePre").val("comp");
 			//解决重复上传错误
 			/* var formId = 'jUploadFrame' + 'uploadFileName';
 			var test1 = jQuery('#' + formId);
@@ -1342,6 +1347,33 @@
 				test1.remove();
 			} */
 			
+			var formData = new FormData($("#file_form")[0]);
+			$.ajax({
+				url: '<c:url value="/fileupload/uploadFileAction.action"></c:url>',
+				type: 'POST',
+				data: formData,
+				async: false,
+				cache: false,
+				contentType: false,
+				processData: false,
+				success: function (data) {
+					if(data.resultCode == 0) {
+						//上传成功
+						var fileurl = data.data.fileurl;
+						var filename = data.data.filename;
+						$("#tmpRECEPT_UL_FILE1_" + uploadFileCompNo).val(filename);
+						$("#preview_" + uploadFileCompNo).attr("href", fileurl + filename);
+						//隐藏模态窗体
+						$('#uploadFileModal').modal('hide');
+						$("#uploadFileName").val("");
+					} else {
+						alert("文件上传失败：" + data.resultMessage);
+						return;
+					}
+				}
+			});
+			
+			/*
 			$.ajaxFileUpload({
 				url:'<c:url value="/fileupload/uploadFileAction.action"></c:url>?time=' + new Date(),
 				secureuri:false,
@@ -1370,7 +1402,7 @@
 				error:function(XMLHttpRequest, textStatus, errorThrown) {
 					alert(errorThrown);
 				}
-			});
+			});//*/
 		}
 	}
 </script>
@@ -2918,7 +2950,9 @@
 							<label class="col-sm-2 control-label">文件</label>
 							<div class="col-sm-9">
 								<input type="hidden" id="uploadFileCompNo">
-								<input type="file" name="uploadFileObj" id="uploadFileName" class="form-control">
+								<input type="hidden" id="fileNamePre" name="fileNamePre" value="">
+								<input type="hidden" id="uploadFileName" name="uploadFileName">
+								<input type="file" name="uploadFileObj" id="uploadFileObj" class="form-control">
 							</div>
 						</div>
 					</div>
