@@ -27,38 +27,41 @@
 	function save() {		
 //		alert($("#Date1").val()); 
 //		var form = document.getElementById('mainform');
-		if ($("#strDate1").val() == null){
+		if ($("#strDate1").val() == null && $("#Date1").val() == null){
 			$("#Date1").val("");
 		}else{
 			$("#Date1").val($("#strDate1").val());
 		}
-		if ($("#strDate2").val() == null)
+		if ($("#strDate2").val() == null && $("#Date2").val() == null)
 			$("#Date2").val("");
 		else
 			$("#Date2").val($("#strDate2").val());
-		if ($("#strMember1").val() == null){
+		if ($("#strMember1").val() == null && $("#Member1").val() == null){
 			$("#Member1").val("");
 		}
 		else{
 			$("#Member1").val($("#strMember1").val());			
 		}
-		if ($("#strFile01").val() == null)
+		if ($("#strFile01").val() == null && $("#File01").val() == null){
 			$("#File01").val("");
-		else
+			alert("strFile01 is null");
+		} else{
 			$("#File01").val($("#strFile01").val());
-		if ($("#strFile02").val() == null)
+			alert("strFile01 is :" + $("#strFile01").val());
+		}
+		if ($("#strFile02").val() == null && $("#File02").val() == null)
 			$("#File02").val("");
 		else
 			$("#File02").val($("#strFile02").val());
-		if ($("#strFile03").val() == null)
+		if ($("#strFile03").val() == null && $("#File03").val() == null)
 			$("#File03").val("");
 		else
 			$("#File03").val($("#strFile03").val());
-		if ($("#strFile04").val() == null)
+		if ($("#strFile04").val() == null && $("#File04").val() == null)
 			$("#File04").val("");
 		else
 			$("#File04").val($("#strFile04").val());
-		if ($("#strFile05").val() == null)
+		if ($("#strFile05").val() == null && $("#File05").val() == null)
 			$("#File05").val("");
 		else
 			$("#File05").val($("#strFile05").val());
@@ -91,7 +94,7 @@
 				var form = document.getElementById("mainform");
 				form.action='<c:url value="/bidprogress/uploadBidProgressUtilAction.action"></c:url>' + "?upload_fileNo=" + number + "&date=" + new Date();
 				form.submit();//提交表单
-				form.reset();
+//				form.reset();
 			}
 		}
 		
