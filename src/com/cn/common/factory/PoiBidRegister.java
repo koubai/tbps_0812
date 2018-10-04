@@ -1,6 +1,8 @@
 package com.cn.common.factory;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Font;
@@ -67,11 +69,22 @@ public class PoiBidRegister extends Poi2007Base {
 				richString.applyFont(richString.length() - 5, richString.length(), font);
 				cell.setCellValue(richString);
 				
+				String showBidCompApply = bidComp.getShowBidCompApply();
+				Map<String, String> map = new HashMap<String, String>();
+				if(StringUtil.isNotBlank(showBidCompApply)) {
+					String ll[] = showBidCompApply.split("####");
+					for(String s : ll) {
+						String lll[] = s.split("@@@@");
+						String require = lll[1];
+						map.put(require, s);
+					}
+				}
+				
 				//报名要求
 				if(StringUtil.isNotBlank(bidDto.getAPPLY_REQUIRE())){
 					String applyRequire = bidDto.getAPPLY_REQUIRE();
 					System.out.println("applyRequire: " + applyRequire);
-					String[] applyRequireList = applyRequire.split("\n");
+					String[] applyRequireList = applyRequire.split("\r\n");
 					System.out.println("applyRequireList.length: " + applyRequireList.length);
 					if(applyRequireList.length > 10){
 						insertRow(workbook, sheet, 17, applyRequireList.length-10, 3);
@@ -81,6 +94,17 @@ public class PoiBidRegister extends Poi2007Base {
 						cell = row.getCell((short) 0);
 						if(StringUtil.isNotBlank(applyRequireList[i])){
 							cell.setCellValue(applyRequireList[i]);
+						}
+						//报名内容
+						if(map.containsKey(applyRequireList[i])) {
+							cell = row.getCell((short) 3);
+							//该报名要求存在
+							String lll[] = map.get(applyRequireList[i]).split("@@@@");
+							String note = "";
+							if(lll.length == 3) {
+								note = lll[2];
+							}
+							cell.setCellValue(note);
 						}
 					}
 				}

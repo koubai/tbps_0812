@@ -648,6 +648,7 @@ public class BidServiceImpl extends BaseService implements BidService {
 						apply.setBID_CO_NO(bidcomp.getBID_CO_NO());
 						bidCompApplyDao.insertBidCompApply(apply);
 					}
+					sort++;
 				}
 				//删除所有无效的数据
 				bidCompApplyDao.delBidCompApplyByBidCoNo(bidDto.getBID_NO(), "" + bidcomp.getBID_CO_NO());

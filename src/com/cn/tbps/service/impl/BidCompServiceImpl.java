@@ -83,7 +83,13 @@ public class BidCompServiceImpl extends BaseService implements BidCompService {
 
 	@Override
 	public BidCompDto queryAllBidCompByID(String bidCoNo) {
-		return bidCompDao.queryAllBidCompByID(bidCoNo);
+		
+		BidCompDto bidComp = bidCompDao.queryAllBidCompByID(bidCoNo);
+		if(bidComp != null) {
+			//查询报名内容
+			bidComp.setListBidCompApply(bidCompApplyDao.queryBidCompApplyByBidCoNo("" + bidComp.getBID_CO_NO()));
+		}
+		return bidComp;
 	}
 	
 	@Override
