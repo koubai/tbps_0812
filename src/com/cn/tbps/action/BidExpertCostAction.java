@@ -78,6 +78,7 @@ public class BidExpertCostAction extends BaseAction {
 			bidService.saveBidExpertCost(expertCostBidList, username);
 			//刷新页面
 			queryData();
+			this.addActionMessage("专家费设定完成！");
 		} catch(Exception e) {
 			log.error("saveBidExpertCost:" + e);
 			return ERROR;

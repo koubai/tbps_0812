@@ -169,6 +169,16 @@ public class BidHistDto extends BaseDto {
 	 * 评标时间
 	 */
 	private Date TENDER_VERIFY_DATE;
+	
+	/**
+	 * 生成报名表日期
+	 */
+	private Date GEN_REGISTE_RPT_DATE;
+
+	/**
+	 * 生成审核表日期
+	 */
+	private Date GEN_VERIFY_RPT_DATE;
 
 	/**
 	 * 评审人
@@ -1664,5 +1674,21 @@ public class BidHistDto extends BaseDto {
 
 	public void setFINISH_DATE(Date fINISH_DATE) {
 		FINISH_DATE = fINISH_DATE;
+	}
+
+	public Date getGEN_REGISTE_RPT_DATE() {
+		return GEN_REGISTE_RPT_DATE;
+	}
+
+	public void setGEN_REGISTE_RPT_DATE(Date gEN_REGISTE_RPT_DATE) {
+		GEN_REGISTE_RPT_DATE = gEN_REGISTE_RPT_DATE;
+	}
+
+	public Date getGEN_VERIFY_RPT_DATE() {
+		return GEN_VERIFY_RPT_DATE;
+	}
+
+	public void setGEN_VERIFY_RPT_DATE(Date gEN_VERIFY_RPT_DATE) {
+		GEN_VERIFY_RPT_DATE = gEN_VERIFY_RPT_DATE;
 	}
 }

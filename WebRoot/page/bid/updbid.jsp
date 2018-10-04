@@ -2211,7 +2211,7 @@
 								<div class="col-lg-5">
 									<label for="" class="col-lg-3 form-label">专家费支出</label>
 									<div class="col-lg-6">
-										<input type="text" class="form-control">
+										<input type="text" disabled="disabled" class="form-control" value="<s:property value="updateBidDto.BID_EXPERT_COMMISION_ACT" />">
 									</div>
 									<label for="" class="col-lg-3 form-label" style="text-align:left;">万元</label>
 								</div>

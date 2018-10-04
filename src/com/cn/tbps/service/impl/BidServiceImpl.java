@@ -558,6 +558,12 @@ public class BidServiceImpl extends BaseService implements BidService {
 	
 	@Override
 	public void updateBidNew(BidDto bidDto, List<BidCompDto> listBidComp, List<ExpertLibDto> listExpertLib) {
+		BidDto oldbid = bidDao.queryBidByID(bidDto.getBID_NO());
+		if(oldbid != null) {
+			bidDto.setGEN_VERIFY_RPT_DATE(oldbid.getGEN_VERIFY_RPT_DATE());
+			bidDto.setGEN_REGISTE_RPT_DATE(oldbid.getGEN_REGISTE_RPT_DATE());
+		}
+		
 		//先删除所有投标公司
 		bidCompDao.delBidCompByBidNo(bidDto.getBID_NO(), bidDto.getUPDATE_USER());
 		
@@ -941,7 +947,7 @@ public class BidServiceImpl extends BaseService implements BidService {
 		//更新招标
 		bidDao.updateBid(bidDto);
 		//插入招标履历
-		insertBidHist(bidDto);
+		insertBidHistNew(bidDto);
 	}
 	
 	
@@ -1614,6 +1620,8 @@ public class BidServiceImpl extends BaseService implements BidService {
 		bidHist.setTENDER_OPEN_DATE(bid.getTENDER_OPEN_DATE());
 		bidHist.setTENDER_OPEN_ADDRESS(bid.getTENDER_OPEN_ADDRESS());
 		bidHist.setTENDER_VERIFY_DATE(bid.getTENDER_VERIFY_DATE());
+		bidHist.setGEN_REGISTE_RPT_DATE(bid.getGEN_REGISTE_RPT_DATE());
+		bidHist.setGEN_VERIFY_RPT_DATE(bid.getGEN_VERIFY_RPT_DATE());
 		bidHist.setBID_AUTH(bid.getBID_AUTH());
 		bidHist.setBID_LIMIT_PRICE(bid.getBID_LIMIT_PRICE());
 		bidHist.setBID_CO_LIST(bid.getBID_CO_LIST());

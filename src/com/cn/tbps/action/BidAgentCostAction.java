@@ -92,6 +92,7 @@ public class BidAgentCostAction extends BaseAction {
 			bidService.saveBidAgentCost(agentCostBidList, username);
 			//刷新页面
 			queryData();
+			this.addActionMessage("代理费设定完成！");
 		} catch(Exception e) {
 			log.error("calcBidAgentCostAction:" + e);
 			return ERROR;

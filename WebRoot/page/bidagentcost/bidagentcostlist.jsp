@@ -378,6 +378,11 @@
 					
 					<h3 class="title">代理费设定<a class="backHome" href="#" onclick="goHome();"><i class="fa fa-home" aria-hidden="true"></i>返回首页</a></h3>
 					<div class="row">
+						<s:if test="hasActionMessages()">
+							<div class="row">
+								<span style="color:red; text-align:center;"><s:actionmessage /></span>
+							</div>
+						</s:if>
 						<table id="agentCostListTable" style="display: none;">
 						</table>
 						<div class="col-lg-3 form-group" style="display: none;">

@@ -289,6 +289,10 @@ public class BidAction extends BaseAction {
 			base.setDatas(list);
 			base.setFilepath(filename);
 			base.exportExcel2(response.getOutputStream());
+			
+			//更新报名表日期
+			updateBidDto.setGEN_REGISTE_RPT_DATE(new Date());
+			bidService.updateBid(updateBidDto);
 		} catch(Exception e) {
 			log.error(e);
 			return ERROR;
@@ -346,6 +350,10 @@ public class BidAction extends BaseAction {
 			base.setDatas(list);
 			base.setFilepath(filename);
 			base.exportExcel2(response.getOutputStream());
+			
+			//更新报名表日期
+			updateBidDto.setGEN_REGISTE_RPT_DATE(new Date());
+			bidService.updateBid(updateBidDto);
 		} catch(Exception e) {
 			log.error(e);
 			return ERROR;
@@ -377,6 +385,10 @@ public class BidAction extends BaseAction {
 			base.setDatas(list);
 			base.setFilepath(filename);
 			base.exportExcel2(response.getOutputStream());
+			
+			//更新报名表日期
+			updateBidDto.setGEN_VERIFY_RPT_DATE(new Date());
+			bidService.updateBid(updateBidDto);
 		} catch(Exception e) {
 			log.error(e);
 			return ERROR;
