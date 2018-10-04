@@ -73,15 +73,15 @@
 		alert(number);
 		var filename = "";
 		if (number == 1)
-			filename = document.getElementById('uploadFile01');
+			filename = document.getElementById('strFile01');
 		else if (number == 2)
-			filename = document.getElementById('uploadFile02');
+			filename = document.getElementById('strFile02');
 		else if (number == 3)
-			filename = document.getElementById('uploadFile03');
+			filename = document.getElementById('strFile03');
 		else if (number == 4)
-			filename = document.getElementById('uploadFile04');
+			filename = document.getElementById('strFile04');
 		else if (number == 5)
-			filename = document.getElementById('uploadFile05');
+			filename = document.getElementById('strFile05');
 		
 		if (filename.value == "")
 			alert("请输入上传文件！");
@@ -123,6 +123,7 @@
 					<s:hidden name="File03" id="File03"/>
 					<s:hidden name="File04" id="File04"/>
 					<s:hidden name="File05" id="File05"/>
+					<s:hidden name="uploadFile" id="uploadFile"/>
 					<h3 class="title">招标项目状态输入</h3>
 					<div class="row">
 					<s:if test="hasActionMessages()">

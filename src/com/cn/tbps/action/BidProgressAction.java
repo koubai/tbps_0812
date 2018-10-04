@@ -16,8 +16,12 @@ import com.cn.common.util.PropertiesConfig;
 import com.cn.common.util.StringUtil;
 import com.cn.tbps.dto.BidCompDto;
 import com.cn.tbps.dto.BidDto;
+import com.cn.tbps.dto.ExpertLibDto;
 import com.cn.tbps.dto.UserInfoDto;
+import com.cn.tbps.service.BidCompApplyService;
+import com.cn.tbps.service.BidCompService;
 import com.cn.tbps.service.BidService;
+import com.cn.tbps.service.ExpertLibService;
 import com.cn.tbps.service.UserInfoService;
 
 public class BidProgressAction extends BaseAction {
@@ -118,6 +122,11 @@ public class BidProgressAction extends BaseAction {
 	private String File05_URL;
 	private String upload_fileNo;  //upload file number
 	private List<UserInfoDto> listUserInfo;
+	
+	private BidCompService bidCompService;	
+	private ExpertLibService expertLibService;
+	private List<BidCompDto> listBidComp;		//投标公司列表	
+	private List<ExpertLibDto> listExpertLib;	//评审专家列表
 
 	/**
 	 * 显示项目状态信息
@@ -442,7 +451,11 @@ public class BidProgressAction extends BaseAction {
 			bidDto.setBID_VER_DOC_DELI_FILE5(File05 + ";" + File05_URL);
 		}
 		
-		bidService.updateBid(bidDto);
+		//查询招标公司列表
+		listBidComp = bidCompService.queryBidCompByIds(bidDto.getBID_CO_LIST());
+		//查询专家列表
+		listExpertLib = expertLibService.queryExpertLibByIds(bidDto.getBID_EXPERT_LIST());
+		bidService.updateBidNew(bidDto,listBidComp,listExpertLib);
 		this.addActionMessage("保存成功！");
 
 		return SUCCESS;
@@ -1774,5 +1787,38 @@ public class BidProgressAction extends BaseAction {
 	public void setDate2(Date date2) {
 		Date2 = date2;
 	}
+
+	public List<BidCompDto> getListBidComp() {
+		return listBidComp;
+	}
+
+	public void setListBidComp(List<BidCompDto> listBidComp) {
+		this.listBidComp = listBidComp;
+	}
+
+	public List<ExpertLibDto> getListExpertLib() {
+		return listExpertLib;
+	}
+
+	public void setListExpertLib(List<ExpertLibDto> listExpertLib) {
+		this.listExpertLib = listExpertLib;
+	}
+	
+	public BidCompService getBidCompService() {
+		return bidCompService;
+	}
+
+	public void setBidCompService(BidCompService bidCompService) {
+		this.bidCompService = bidCompService;
+	}
+
+	public ExpertLibService getExpertLibService() {
+		return expertLibService;
+	}
+
+	public void setExpertLibService(ExpertLibService expertLibService) {
+		this.expertLibService = expertLibService;
+	}
+
 
 }

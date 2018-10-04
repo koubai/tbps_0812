@@ -39,6 +39,12 @@
 		<property name="bidService">
 			<ref bean="bidService" />
 		</property>
+		<property name="bidCompService">
+			<ref bean="bidCompService" />
+		</property>
+		<property name="expertLibService">
+			<ref bean="expertLibService" />
+		</property>
 		<property name="userInfoService">
 			<ref bean="userInfoService" />
 		</property>
