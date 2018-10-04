@@ -325,6 +325,8 @@
 			var BID_CO_ADD = childs[4].value;
 			var BID_CO_PS = childs[5].value;
 			var TAX_NO = childs[6].value;
+			var tmpBidCompApply = childs[8].value;
+			var tmpSaveBidCompApply = childs[9].value;
 			var BID_CO_SEQ = rows[i].cells[2].innerHTML;
 			
 			var tr = document.createElement("tr");
@@ -395,6 +397,8 @@
 			td.appendChild(createInput("listBidCompTmp[" + i + "].BID_CO_PS", BID_CO_PS));
 			td.appendChild(createInput("listBidCompTmp[" + i + "].TAX_NO", TAX_NO));
 			td.appendChild(createInput("listBidCompTmp[" + i + "].BID_CO_SEQ", BID_CO_SEQ));
+			td.appendChild(createInput("listBidCompTmp[" + i + "].saveBidCompApply", tmpSaveBidCompApply));
+			td.appendChild(createInput("listBidCompTmp[" + i + "].showBidCompApply", tmpBidCompApply));
 			
 			tr.appendChild(td);
 			document.getElementById("bidCompListTable").appendChild(tr);
@@ -1157,6 +1161,13 @@
 			//seq
 			var input = createHidden("");
 			td1.appendChild(input);
+			//bidCompApply
+			var input = createHidden("");
+			td1.appendChild(input);
+			//saveBidCompApply
+			var input = createHidden("");
+			td1.appendChild(input);
+			
 			tr.appendChild(td1);
 			
 			//序号
@@ -1221,10 +1232,57 @@
 		document.mainform.submit();
 	}
 	
-	//导出单个公司报名内容
-	function exportSingleBidRegisterContent(compNo) {
-		//document.mainform.action = '<c:url value="/bid/exportSingleBidRegisterAction.action"></c:url>?strCompNo=' + compNo;
-		//document.mainform.submit();
+	//设置公司报名内容
+	function setApplyContent(compNo) {
+		$("#applyCompNo").val(compNo);
+		var bidCompApply = $("#bidCompApply_" + compNo).val();
+		$("#bidCompApplyData").empty();
+		if(bidCompApply != "") {
+			var list = bidCompApply.split("####");
+			var n = 1;
+			for(var i = 0; i < list.length; i++) {
+				if(list[i] != "") {
+					var ss = list[i].split("@@@@");
+					var html = '<tr>';
+					html += '<td>' + n + '</td>';
+					html += '<td>';
+					html += '	<input type="hidden" name="tmpApplyId" value="' + ss[0] + '">';
+					html += '	<input type="text" disabled="disabled" name="tmpApplyRequire" class="form-control" value="' + ss[1] + '">';
+					html += '</td>';
+					html += '<td><input name="tmpApplyContent" type="text" class="form-control" value="' + ss[2] + '"></td>';
+					html += '</tr>';
+					$("#bidCompApplyData").append(html);
+					n++;
+				}
+			}
+			//禁用 Bootstrap 模态框(Modal) 点击空白时自动关闭
+			$('#bidCompApplyModal').modal({backdrop: 'static', keyboard: false});
+			$('#bidCompApplyModal').modal('show');
+		} else {
+			alert("请设置报名要求！");
+		}
+	}
+	
+	function setBidCompApply() {
+		var compNo = $("#applyCompNo").val();
+		var tmpApplyId = $("[name='tmpApplyId']");
+		var tmpApplyRequire = $("[name='tmpApplyRequire']");
+		var tmpApplyContent = $("[name='tmpApplyContent']");
+		if(tmpApplyId != null && tmpApplyId.length > 0) {
+			var tmpapplynote = "";
+			for(var i = 0; i < tmpApplyId.length; i++) {
+				if(tmpApplyContent[i].value == "") {
+					alert("报名内容不能为空！");
+					tmpApplyContent[i].focus();
+					return;
+				}
+				tmpapplynote += tmpApplyId[i].value + "@@@@" + tmpApplyRequire[i].value + "@@@@" + tmpApplyContent[i].value + "####";
+			}
+			//
+			$("#bidCompApply_" + compNo).val(tmpapplynote);
+			$("#saveBidCompApply_" + compNo).val(tmpapplynote);
+		}
+		$('#bidCompApplyModal').modal('hide');
 	}
 	
 	//导出单个公司报名回执
@@ -1258,9 +1316,9 @@
 	}
 	
 	function showUploadModel(obj, compNo) {
-		//禁用 Bootstrap 模态框(Modal) 点击空白时自动关闭
 		$("#uploadFileName").val("");
 		$("#uploadFileCompNo").val(compNo);
+		//禁用 Bootstrap 模态框(Modal) 点击空白时自动关闭
 		$('#uploadFileModal').modal({backdrop: 'static', keyboard: false});
 		$('#uploadFileModal').modal('show');
 	}
@@ -2026,6 +2084,8 @@
 													<input type="hidden" value="<s:property value="BID_CO_PS"/>"/>
 													<input type="hidden" value="<s:property value="TAX_NO"/>"/>
 													<input type="hidden" value="<s:property value="BID_CO_SEQ"/>"/>
+													<input id="bidCompApply_<s:property value="BID_CO_NO"/>" type="hidden" value="<s:property value="showBidCompApply"/>"/>
+													<input id="saveBidCompApply_<s:property value="BID_CO_NO"/>" type="hidden" value="<s:property value="showBidCompApply"/>"/>
 												</td>
 												<td><s:property value="%{#st1.index + 1}"/></td>
 												<td><s:property value="BID_CO_NAME"/></td>
@@ -2035,7 +2095,7 @@
 												<td><s:property value="BID_CO_PS"/></td>
 												<td>
 													<s:if test="BID_CO_NO != null">
-														<button type="button" onclick="exportSingleBidRegisterContent('<s:property value="BID_CO_NO"/>');" class="btn btn-success">报名内容</button>
+														<button type="button" onclick="setApplyContent('<s:property value="BID_CO_NO"/>');" class="btn btn-success">报名内容</button>
 														<button type="button" onclick="exportSingleBidRegister('<s:property value="BID_CO_NO"/>');" class="btn btn-success">打印报名表</button>
 														<button type="button" onclick="exportSingleBidRegisterReturn('<s:property value="BID_CO_NO"/>');" class="btn btn-success">打印报名回执</button>
 													</s:if>
@@ -2864,6 +2924,50 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-primary" onclick="uploadFile();">上传</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="bidCompApplyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" style="width: 900px;">
+			<div class="modal-content">
+				<form id="file_form" name="file_form" enctype="multipart/form-data" method="post">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							报名要求
+						</h4>
+						<input type="hidden" id="applyCompNo">
+					</div>
+					<div class="modal-body" style="height: 350px;">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th>编号</th>
+									<th>报名要求</th>
+									<th>报名内容</th>
+								</tr>
+							</thead>
+							<tbody id="bidCompApplyData">
+								<tr>
+									<td>1</td>
+									<td>
+										<input type="hidden" name="tmpApplyId">
+										<input name="tmpApplyRequire" type="text" class="form-control">
+									</td>
+									<td>
+										<input name="tmpApplyContent" type="text" class="form-control">
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" onclick="setBidCompApply();">确定</button>
 						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 					</div>
 				</form>

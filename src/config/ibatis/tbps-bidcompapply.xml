@@ -50,7 +50,10 @@
 	<update id="updBidCompApplyStatusByBidCoNo" parameterClass="java.util.Map">
 		update bidcompapply
 		set STATUS = 0
-		where BID_CO_NO = #BID_CO_NO# and BID_NO = #BID_NO#
+		where BID_NO = #BID_NO#
+		<isNotEmpty prepend="and" property="BID_CO_NO">
+			BID_CO_NO = #BID_CO_NO#
+		</isNotEmpty>
 	</update>
 	
 	<update id="updBidCompApply" parameterClass="com.cn.tbps.dto.BidCompApplyDto">
