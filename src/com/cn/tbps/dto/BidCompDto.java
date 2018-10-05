@@ -200,6 +200,57 @@ public class BidCompDto extends BaseDto {
 	 * 上传文件10
 	 */
 	private String RECEPT_UL_FILE10;
+	
+	/**
+	 * 上传文件1原始文件名
+	 */
+	private String RECEPT_UL_FILE1_BASENAME;
+
+	/**
+	 * 上传文件2原始文件名
+	 */
+	private String RECEPT_UL_FILE2_BASENAME;
+
+	/**
+	 * 上传文件3原始文件名
+	 */
+	private String RECEPT_UL_FILE3_BASENAME;
+
+	/**
+	 * 上传文件4原始文件名
+	 */
+	private String RECEPT_UL_FILE4_BASENAME;
+
+	/**
+	 * 上传文件5原始文件名
+	 */
+	private String RECEPT_UL_FILE5_BASENAME;
+
+	/**
+	 * 上传文件6原始文件名
+	 */
+	private String RECEPT_UL_FILE6_BASENAME;
+
+	/**
+	 * 上传文件7原始文件名
+	 */
+	private String RECEPT_UL_FILE7_BASENAME;
+
+	/**
+	 * 上传文件8原始文件名
+	 */
+	private String RECEPT_UL_FILE8_BASENAME;
+
+	/**
+	 * 上传文件9原始文件名
+	 */
+	private String RECEPT_UL_FILE9_BASENAME;
+
+	/**
+	 * 上传文件10原始文件名
+	 */
+	private String RECEPT_UL_FILE10_BASENAME;
+
 
 	/**
 	 * 标书费到账日期
@@ -794,5 +845,85 @@ public class BidCompDto extends BaseDto {
 
 	public void setFile_url(String file_url) {
 		this.file_url = file_url;
+	}
+
+	public String getRECEPT_UL_FILE1_BASENAME() {
+		return RECEPT_UL_FILE1_BASENAME;
+	}
+
+	public void setRECEPT_UL_FILE1_BASENAME(String rECEPT_UL_FILE1_BASENAME) {
+		RECEPT_UL_FILE1_BASENAME = rECEPT_UL_FILE1_BASENAME;
+	}
+
+	public String getRECEPT_UL_FILE2_BASENAME() {
+		return RECEPT_UL_FILE2_BASENAME;
+	}
+
+	public void setRECEPT_UL_FILE2_BASENAME(String rECEPT_UL_FILE2_BASENAME) {
+		RECEPT_UL_FILE2_BASENAME = rECEPT_UL_FILE2_BASENAME;
+	}
+
+	public String getRECEPT_UL_FILE3_BASENAME() {
+		return RECEPT_UL_FILE3_BASENAME;
+	}
+
+	public void setRECEPT_UL_FILE3_BASENAME(String rECEPT_UL_FILE3_BASENAME) {
+		RECEPT_UL_FILE3_BASENAME = rECEPT_UL_FILE3_BASENAME;
+	}
+
+	public String getRECEPT_UL_FILE4_BASENAME() {
+		return RECEPT_UL_FILE4_BASENAME;
+	}
+
+	public void setRECEPT_UL_FILE4_BASENAME(String rECEPT_UL_FILE4_BASENAME) {
+		RECEPT_UL_FILE4_BASENAME = rECEPT_UL_FILE4_BASENAME;
+	}
+
+	public String getRECEPT_UL_FILE5_BASENAME() {
+		return RECEPT_UL_FILE5_BASENAME;
+	}
+
+	public void setRECEPT_UL_FILE5_BASENAME(String rECEPT_UL_FILE5_BASENAME) {
+		RECEPT_UL_FILE5_BASENAME = rECEPT_UL_FILE5_BASENAME;
+	}
+
+	public String getRECEPT_UL_FILE6_BASENAME() {
+		return RECEPT_UL_FILE6_BASENAME;
+	}
+
+	public void setRECEPT_UL_FILE6_BASENAME(String rECEPT_UL_FILE6_BASENAME) {
+		RECEPT_UL_FILE6_BASENAME = rECEPT_UL_FILE6_BASENAME;
+	}
+
+	public String getRECEPT_UL_FILE7_BASENAME() {
+		return RECEPT_UL_FILE7_BASENAME;
+	}
+
+	public void setRECEPT_UL_FILE7_BASENAME(String rECEPT_UL_FILE7_BASENAME) {
+		RECEPT_UL_FILE7_BASENAME = rECEPT_UL_FILE7_BASENAME;
+	}
+
+	public String getRECEPT_UL_FILE8_BASENAME() {
+		return RECEPT_UL_FILE8_BASENAME;
+	}
+
+	public void setRECEPT_UL_FILE8_BASENAME(String rECEPT_UL_FILE8_BASENAME) {
+		RECEPT_UL_FILE8_BASENAME = rECEPT_UL_FILE8_BASENAME;
+	}
+
+	public String getRECEPT_UL_FILE9_BASENAME() {
+		return RECEPT_UL_FILE9_BASENAME;
+	}
+
+	public void setRECEPT_UL_FILE9_BASENAME(String rECEPT_UL_FILE9_BASENAME) {
+		RECEPT_UL_FILE9_BASENAME = rECEPT_UL_FILE9_BASENAME;
+	}
+
+	public String getRECEPT_UL_FILE10_BASENAME() {
+		return RECEPT_UL_FILE10_BASENAME;
+	}
+
+	public void setRECEPT_UL_FILE10_BASENAME(String rECEPT_UL_FILE10_BASENAME) {
+		RECEPT_UL_FILE10_BASENAME = rECEPT_UL_FILE10_BASENAME;
 	}
 }
