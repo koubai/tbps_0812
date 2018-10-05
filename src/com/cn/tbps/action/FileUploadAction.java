@@ -35,6 +35,7 @@ public class FileUploadAction extends BaseAction {
 	private String uploadFileName;
 	//文件名前缀
 	private String fileNamePre;
+	private String delFileName;
 
 	/**
 	 * 文件上传
@@ -63,6 +64,7 @@ public class FileUploadAction extends BaseAction {
 					}
 					
 					//文件名
+					System.out.println("org file:"+uploadFileName);
 					String picSuffix = uploadFileName.substring(uploadFileName.lastIndexOf(".") + 1, uploadFileName.length());
 					Date date = new Date();
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
@@ -105,6 +107,72 @@ public class FileUploadAction extends BaseAction {
 		return null;
 	}
 
+
+	/**
+	 * 文件删除
+	 * @return
+	 * @throws IOException
+	 */
+	public String delFileAction() throws IOException {
+		HttpServletResponse response = ServletActionContext.getResponse();
+		response.setContentType("application/json");
+		PrintWriter out;
+		AjaxDataDto ajaxData = new AjaxDataDto();
+		try {
+			this.clearMessages();
+			//验证用户是否登录
+			//这里不用拦截器，以防止拦截器会导致一些奇怪的异常。
+			String islogin = (String) ActionContext.getContext().getSession().get(Constants.SESSION_ISLOGIN);
+			if(Constants.FLAG_IS_LOGIN.equals(islogin)) {
+				if(delFileName != null && !delFileName.equals("")) {
+					//保存文件
+					String savePath = PropertiesConfig.getPropertiesValueByKey("file_path");
+					
+					//判断路径是否存在
+					File savePathFile = new File(savePath);
+					if(!savePathFile.exists()) {
+						savePathFile.mkdir();
+					}
+					
+					
+					//将上传的文件copy到指定目录下
+					String delFileName2 = savePathFile +"\\"+ delFileName.substring(delFileName.lastIndexOf("/")+1);
+					//文件名
+					System.out.println("del org file:"+delFileName2);
+					
+					File newFile = new File(delFileName2);
+					if (newFile.exists()){
+						FileUtil.deleteContents(newFile);						
+						ajaxData.setResultCode(0);
+						Map<String, String> data = new HashMap<String, String>();
+						ajaxData.setData(data);
+					} else {
+						ajaxData.setResultCode(1001);
+						ajaxData.setResultMessage("文件不存在！");												
+					}
+				} else {
+					ajaxData.setResultCode(1001);
+					ajaxData.setResultMessage("文件不能为空！");
+				}
+				delFileName = "";
+			} else {
+				ajaxData.setResultCode(1002);
+				ajaxData.setResultMessage("您未登录或Session失效！");
+			}
+		} catch(Exception e) {
+			ajaxData.setResultCode(-1);
+			ajaxData.setResultMessage("delFileAction error：" + e.getMessage());
+		}
+		out = response.getWriter();
+		String result = JSONArray.fromObject(ajaxData).toString();
+		result = result.substring(1, result.length() - 1);
+		log.info(result);
+		out.write(result);
+		out.flush();
+		return null;
+	}
+	
+	
 	public File getUploadFileObj() {
 		return uploadFileObj;
 	}
@@ -128,4 +196,16 @@ public class FileUploadAction extends BaseAction {
 	public void setFileNamePre(String fileNamePre) {
 		this.fileNamePre = fileNamePre;
 	}
+	
+	public String getDelFileName() {
+		return delFileName;
+	}
+
+
+	public void setDelFileName(String delFileName) {
+		this.delFileName = delFileName;
+	}
+
+
+
 }

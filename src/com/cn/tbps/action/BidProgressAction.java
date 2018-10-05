@@ -474,6 +474,16 @@ public class BidProgressAction extends BaseAction {
 			System.out.println("filename:"+ filename);
 			if (filename.equals(""))
 				return ERROR;
+			File01 = "";
+			File01_URL = "";
+			File02 = "";
+			File02_URL = "";
+			File03 = "";
+			File03_URL = "";
+			File04 = "";
+			File04_URL = "";
+			File05 = "";
+			File05_URL = "";
 
 	        //得到文件名
 			String file_path = PropertiesConfig.getPropertiesValueByKey(Constants.PROPERTIES_FILE_PATH);

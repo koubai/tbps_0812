@@ -9,6 +9,9 @@
 		<action name="uploadFileAction" class="fileUploadAction" method="uploadFileAction">
 			<result type="json"></result>
 		</action>
+		<action name="delFileAction" class="fileUploadAction" method="delFileAction">
+			<result type="json"></result>
+		</action>
 		
 	</package>
 

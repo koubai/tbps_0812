@@ -22,402 +22,264 @@
 <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 <script type="text/javascript">
-
-	//保存
-	function save() {		
-//		alert($("#Date1").val()); 
-//		var form = document.getElementById('mainform');
-		if ($("#strDate1").val() == null && $("#Date1").val() == null){
-			$("#Date1").val("");
-		}else{
-			$("#Date1").val($("#strDate1").val());
-		}
-		if ($("#strDate2").val() == null && $("#Date2").val() == null)
-			$("#Date2").val("");
-		else
-			$("#Date2").val($("#strDate2").val());
-		if ($("#strMember1").val() == null && $("#Member1").val() == null){
-			$("#Member1").val("");
-		}
-		else{
-			$("#Member1").val($("#strMember1").val());			
-		}
-//		document.mainform.action='<c:url value="/bidprogress/saveBidProgressUtilAction.action"></c:url>' + "?Finish_status=" + $("#Finish_status").val() + "&Date1=" + $("#Date1").val() + "&Date2=" + $("#Date2").val()+ "&Member1=" + $("#Member1").val()+ "&File01=" + $("#File01").val()+ "&File02=" + $("#File02").val()+ "&File03=" + $("#File03").val()+ "&File04=" + $("#File04").val()+ "&File05=" + $("#File05").val() + "&date=" + new Date();
-		document.mainform.action='<c:url value="/bidprogress/saveBidProgressUtilAction.action"></c:url>' + "?Finish_status=" + $("#Finish_status").val() + "&Date1=" + $("#Date1").val() + "&Date2=" + $("#Date2").val()+ "&Member1=" + $("#Member1").val() + "&date=" + new Date();
-		document.mainform.action();//提交表单
-	    window.close();//关闭窗口
-		
-	}
-
 	//上传
 	function uploadfile(number) {
+
+//		var uploadFileCompNo = $("#uploadFileCompNo").val();
+		var uploadFileObj = $("#uploadFileObj").val();	
 		alert(number);
-		var filename = "";
-		if (number == 1)
-			filename = document.getElementById('strFile01');
-		else if (number == 2)
-			filename = document.getElementById('strFile02');
-		else if (number == 3)
-			filename = document.getElementById('strFile03');
-		else if (number == 4)
-			filename = document.getElementById('strFile04');
-		else if (number == 5)
-			filename = document.getElementById('strFile05');
-		
-		if (filename.value == "")
+		if ($("#uploadFileObj").val() == "")
 			alert("请输入上传文件！");
 		else{		
-			$("#uploadFile").attr("value", filename.value);
-			if (confirm("开始上传文件！"+filename.value)){
-				var form = document.getElementById("mainform");
-				form.action='<c:url value="/bidprogress/uploadBidProgressUtilAction.action"></c:url>' + "?upload_fileNo=" + number + "&date=" + new Date();
-				form.submit();//提交表单
-//				form.reset();
+			if (confirm("开始上传文件！"+uploadFileObj)){
+				var loc_filename = uploadFileObj.substring(uploadFileObj.lastIndexOf("\\")+1);
+				$("#uploadFileName").val(uploadFileObj);
+				//前缀
+				$("#fileNamePre").val("comp");
+				var formData = new FormData($("#file_form")[0]);
+				$.ajax({
+					url: '<c:url value="/fileupload/uploadFileAction.action"></c:url>',
+					type: 'POST',
+					data: formData,
+					async: false,
+					cache: false,
+					contentType: false,
+					processData: false,
+					success: function (data) {
+						if(data.resultCode == 0) {
+							//上传成功
+							var fileurl = data.data.fileurl;
+							var filename = data.data.filename;
+							alert("文件上传成功：" + data.resultMessage);
+//							$('#uploadFileModal').modal('hide');
+							if (number == 1){
+								$("#uploadFileName1").val(fileurl+filename);
+								var lup1 = document.getElementById("lup1");
+								lup1.innerText = loc_filename;
+							}
+							if (number == 2){
+								$("#uploadFileName2").val(fileurl+filename);
+								var lup2 = document.getElementById("lup2");
+								lup2.innerText = loc_filename;
+							}
+							if (number == 3){
+								$("#uploadFileName3").val(fileurl+filename);
+								var lup3 = document.getElementById("lup3");
+								lup3.innerText = loc_filename;
+							}
+							if (number == 4){
+								$("#uploadFileName4").val(fileurl+filename);
+								var lup4 = document.getElementById("lup4");
+								lup4.innerText = loc_filename;
+							}
+							if (number == 5){
+								$("#uploadFileName5").val(fileurl+filename);
+								var lup5 = document.getElementById("lup5");
+								lup5.innerText = loc_filename;
+							}
+							$("#uploadFileObj").val("");
+						} else {
+							alert("文件上传失败：" + data.resultMessage);
+							return;
+						}
+					}
+				});
 			}
 		}
 		
 	}
 	
-	
 	function goBidProgress() {
-//		window.parent.document.mainform.action = '<c:url value="/bidprogress/showBidProgressAction.action"></c:url>';
-//		window.parent.document.mainform.action();
 	    window.close();//关闭窗口
 	}
 
+	function popup(){
+		var msg = $("#uploadFileName1").val();
+		window.open(msg);
+	}
+	
+	function delfile(number){
+		if (number == 1){
+			$("#delFileName").val($("#uploadFileName1").val());
+		}
+		if (number == 2)
+			$("#delFileName").val($("#uploadFileName2").val());
+		if (number == 3)
+			$("#delFileName").val($("#uploadFileName3").val());
+		if (number == 4)
+			$("#delFileName").val($("#uploadFileName4").val());
+		if (number == 5)
+			$("#delFileName").val($("#uploadFileName5").val());
+	
+		if ($("#delFileName").val() == "")
+			alert("没有删除文件！");
+		else{		
+			if (confirm("开始删除文件！"+$("#delFileName").val())){
+				var formData = new FormData($("#file_form")[0]);
+				$.ajax({
+					url: '<c:url value="/fileupload/delFileAction.action"></c:url>',
+					type: 'POST',
+					data: formData,
+					async: false,
+					cache: false,
+					contentType: false,
+					processData: false,
+					success: function (data) {
+						if(data.resultCode == 0) {
+							//上传成功
+							var fileurl = data.data.fileurl;
+							var filename = data.data.filename;
+							alert("文件删除成功：" + data.resultMessage);
+//							$('#uploadFileModal').modal('hide');
+							if (number == 1){
+								$("#uploadFileName1").val("");
+								var lup1 = document.getElementById("lup1");
+								lup1.innerText = "";
+							}
+							if (number == 2){
+								$("#uploadFileName1").val("");
+								var lup2 = document.getElementById("lup2");
+								lup2.innerText = "";
+							}
+							if (number == 3){
+								$("#uploadFileName1").val("");
+								var lup3 = document.getElementById("lup3");
+								lup3.innerText = "";
+							}
+							if (number == 4){
+								$("#uploadFileName1").val("");
+								var lup4 = document.getElementById("lup4");
+								lup4.innerText = "";
+							}
+							if (number == 5){
+								$("#uploadFileName1").val("");
+								var lup5 = document.getElementById("lup5");
+								lup5.innerText = "";
+							}
+							$("#delFileName").val("");
+						} else {
+							alert("文件删除失败：" + data.resultMessage);
+							return;
+						}
+					}
+				});
+			}
+		}
+	}
 </script>
 </head>
 <body>
 	<div class="container-fluid1">
 		<div class="row">
 			<div class="col-lg-10 right">
-				<s:form id="mainform" name="mainform" method="POST" enctype="multipart/form-data">
-					<label for="" class="col-lg-3 form-label"><s:property value="BTN_NO" /></label>
-					
-					<s:hidden name="strBID_NO" id="strBID_NO"/>
-					<s:hidden name="strBID_COMP_NO" id="strBID_COMP_NO"/>
-					<s:hidden name="Date1" id="Date1"/>
-					<s:hidden name="Date2" id="Date2"/>
-					<s:hidden name="Member1" id="Member1"/>
-					<s:hidden name="File01" id="File01"/>
-					<s:hidden name="File02" id="File02"/>
-					<s:hidden name="File03" id="File03"/>
-					<s:hidden name="File04" id="File04"/>
-					<s:hidden name="File05" id="File05"/>
-					<s:hidden name="uploadFile" id="uploadFile"/>
-					<h3 class="title">招标项目状态输入</h3>
-					<div class="row">
-					<s:if test="hasActionMessages()">
-						<div class="row">
-							<span style="color:red; text-align:center;"><s:actionmessage /></span>
-						</div>
-					</s:if>
-						<table class="table table-striped">
-							<s:if test='UTIL_TYP == "5"'>
-							<tr>
-								<td>
-									<div class="col-lg-8 form-group">
-										<label for="" class="col-lg-8 form-label"><span class="red">*</span>项目完成情况</label>
-									</div>
-								</td>
-								<td>
-									<!--  <div class="col-lg-8">  -->
-										<select id="Finish_status" name="Finish_status" class="form-control">
-											<s:if test='Finish_status == "10"'>
-												<option value="">请选择</option>
-												<option value="10" selected="selected">暂停</option>
-												<option value="20">进行中</option>
-												<option value="52">失败（报名不满6家）</option>
-												<option value="54">失败（开标不满3家）</option>
-												<option value="56">失败（评审失败）</option>
-												<option value="70">终止</option>
-												<option value="90">完成</option>
-											</s:if>
-											<s:elseif test='Finish_status == "20"'>
-												<option value="">请选择</option>
-												<option value="10">暂停</option>
-												<option value="20" selected="selected">进行中</option>
-												<option value="52">失败（报名不满6家）</option>
-												<option value="54">失败（开标不满3家）</option>
-												<option value="56">失败（评审失败）</option>
-												<option value="70">终止</option>
-												<option value="90">完成</option>
-											</s:elseif>
-											<s:elseif test='Finish_status == "52"'>
-												<option value="">请选择</option>
-												<option value="10">暂停</option>
-												<option value="20">进行中</option>
-												<option value="52" selected="selected">失败（报名不满6家）</option>
-												<option value="54">失败（开标不满3家）</option>
-												<option value="56">失败（评审失败）</option>
-												<option value="70">终止</option>
-												<option value="90">完成</option>
-											</s:elseif>
-											<s:elseif test='Finish_status == "54"'>
-												<option value="">请选择</option>
-												<option value="10">暂停</option>
-												<option value="20">进行中</option>
-												<option value="52">失败（报名不满6家）</option>
-												<option value="54" selected="selected">失败（开标不满3家）</option>
-												<option value="56">失败（评审失败）</option>
-												<option value="70">终止</option>
-												<option value="90">完成</option>
-											</s:elseif>
-											<s:elseif test='Finish_status == "56"'>
-												<option value="">请选择</option>
-												<option value="10">暂停</option>
-												<option value="20">进行中</option>
-												<option value="52">失败（报名不满6家）</option>
-												<option value="54">失败（开标不满3家）</option>
-												<option value="56" selected="selected">失败（评审失败）</option>
-												<option value="70">终止</option>
-												<option value="90">完成</option>
-											</s:elseif>
-											<s:elseif test='Finish_status == "70"'>
-												<option value="">请选择</option>
-												<option value="10">暂停</option>
-												<option value="20">进行中</option>
-												<option value="52">失败（报名不满6家）</option>
-												<option value="54">失败（开标不满3家）</option>
-												<option value="56">失败（评审失败）</option>
-												<option value="70" selected="selected">终止</option>
-												<option value="90">完成</option>
-											</s:elseif>
-											<s:elseif test='Finish_status == "90"'>
-												<option value="">请选择</option>
-												<option value="10">暂停</option>
-												<option value="20">进行中</option>
-												<option value="52">失败（报名不满6家）</option>
-												<option value="54">失败（开标不满3家）</option>
-												<option value="56">失败（评审失败）</option>
-												<option value="70">终止</option>
-												<option value="90" selected="selected">完成</option>
-											</s:elseif>
-											<s:else>
-												<option value="" selected="selected">请选择</option>
-												<option value="10">暂停</option>
-												<option value="20">进行中</option>
-												<option value="52">失败（报名不满6家）</option>
-												<option value="54">失败（开标不满3家）</option>
-												<option value="56">失败（评审失败）</option>
-												<option value="70">终止</option>
-												<option value="90">完成</option>
-											</s:else>
-										</select>
-									<!--  </div>  -->
-								</td>
-								<td>
-								</td>
-							</tr>
-							</s:if>								
-							<tr>
-								<td>
-								<div class="col-lg-8 form-group">
-									<label for="" class="col-lg-8 form-label"><span class="red">*</span><s:property value="strHead1" />日期</label>
-								</div>
-								</td>
-								<td>
-								<div class="input-group date" data-provide="datepicker">
-									<input id="strDate1" name="strDate1" value="<s:date name="Date1" format="yyyy-MM-dd"/>" maxlength="10" type="text" class="form-control datepicker" readonly />
-									<div class="input-group-addon">
-										<span class="glyphicon glyphicon-th"></span>
-									</div>
-								</div>
-								</td>
-								<td>
-								</td>
-							</tr>
-							<s:if test='UTIL_TYP == "4"'>
-							<tr>
-								<td>
-								<div class="col-lg-8 form-group">
-									<label for="" class="col-lg-8 form-label"><span class="red">*</span><s:property value="strHead2" />日期</label>
-								</div>
-								</td>
-								<td>
-								<div class="input-group date" data-provide="datepicker">
-									<input id="strDate2" name="strDate2" value="<s:date name="Date2" format="yyyy-MM-dd"/>" maxlength="10" type="text" class="form-control datepicker" readonly />
-									<div class="input-group-addon">
-										<span class="glyphicon glyphicon-th"></span>
-									</div>
-								</div>
-								</td>
-								<td>
-								</td>
-							</tr>
-							</s:if>								
-							<s:if test='UTIL_TYP == "2"'>
-							<tr>
-								<td>
-								<div class="col-lg-8 form-group">
-									<label for="" class="col-lg-8 form-label"><span class="red">*</span><s:property value="strHead3" />者</label>
-								</div>
-								</td>
-								<td>
-								<div>
-									<!-- <s:textfield name="strMember1" id="strMember1" cssClass="form-control" maxlength="300" theme="simple"><s:property value="Member1" /></s:textfield> -->
-									<select name="strMember1" id="strMember1" class="form-control">
-										<option value="">请选择</option>
-										<s:iterator id="listUserInfo" value="listUserInfo" status="st1">
-											<option value="<s:property value="LOGIN_ID"/>" <s:if test="%{Member1 == LOGIN_ID}">selected</s:if>><s:property value="LOGIN_NAME"/></option>
-										</s:iterator>
-									</select>
-								</div>
-								</td>
-								<td>
-								</td>
-							</tr>
-							</s:if>								
-							<s:if test='UTIL_TYP == "3"'>
-							<tr>
-								<td>
-								<div class="col-lg-7 form-group">
-									<label class="pdf10">上传文件1</label>
-									<label class="pdf10">目录</label>
-								</div>
-								</td>
-								<td>
-								<s:if test='%{File01!= null}'>
-									<div>
-										<label class="pdf10"><a href=<s:property value="File01_URL" />><s:property value="File01" /></a></label>								
-									</div>
-								</s:if>								
-								<s:else>								
-									<div>
-										<input type="file" name="strFile01" style="width: 400px;" id="strFile01"/><br />
-									</div>
-								</s:else>			
-								</td>
-								<td>
-								<div>
-									<button class="btn btn-success" id="success" onclick="uploadfile(1);">上传</button>
-								</div>
-								</td>
-							</tr>
- 				 			<tr>
-								<td>
-								<div class="col-lg-7 form-group">
-									<label class="pdf10">上传文件2</label>
-									<label class="pdf10">目录</label>
-								</div>
-								</td>
-								<td>
-								<s:if test='%{File02!= null}'>
-									<div>
-										<label class="pdf10"><a href=<s:property value="File02_URL" />><s:property value="File02" /></a></label>								
-									</div>
-								</s:if>								
-								<s:else>								
-									<div>
-										<input type="file" name="strFile02" style="width: 400px;" id="strFile02"/><br />
-									</div>
-								</s:else>			
-								</td>
-								<td>
-								<div>
-									<button class="btn btn-success" id="success" onclick="uploadfile(2);">上传</button>
-								</div>
-								</td>
-							</tr>
-							<tr>
-								<td>
-								<div class="col-lg-7 form-group">
-									<label class="pdf10">上传文件3</label>
-									<label class="pdf10">目录</label>
-								</div>
-								</td>
-								<td>
-								<s:if test='%{File03!= null}'>
-									<div>
-										<label class="pdf10"><a href=<s:property value="File03_URL" />><s:property value="File03" /></a></label>								
-									</div>
-								</s:if>								
-								<s:else>								
-									<div>
-										<input type="file" name="strFile03" style="width: 400px;" id="strFile03"/><br />
-									</div>
-								</s:else>			
-								</td>
-								<td>
-								<div>
-									<button class="btn btn-success" id="success" onclick="uploadfile(3);">上传</button>
-								</div>
-								</td>
-							</tr>
-							<tr>
-								<td>
-								<div class="col-lg-7 form-group">
-									<label class="pdf10">上传文件4</label>
-									<label class="pdf10">目录</label>
-								</div>
-								</td>
-								<td>
-								<s:if test='%{File04!= null}'>
-									<div>
-										<label class="pdf10"><a href=<s:property value="File04_URL" />><s:property value="File04" /></a></label>								
-									</div>
-								</s:if>								
-								<s:else>								
-									<div>
-										<input type="file" name="strFile04" style="width: 400px;" id="strFile04"/><br />
-									</div>
-								</s:else>			
-								</td>
-								<td>
-								<div>
-									<button class="btn btn-success" id="success" onclick="uploadfile(4);">上传</button>
-								</div>
-								</td>
-							</tr>
-							<tr>
-								<td>
-								<div class="col-lg-7 form-group">
-									<label class="pdf10">上传文件5</label>
-									<label class="pdf10">目录</label>
-								</div>
-								</td>
-								<td>
-								<s:if test='%{File05!= null}'>
-									<div>
-										<label class="pdf10"><a href=<s:property value="File05_URL" />><s:property value="File05" /></a></label>								
-									</div>
-								</s:if>								
-								<s:else>								
-									<div>
-										<input type="file" name="strFile05" style="width: 400px;" id="strFile05"/><br />
-									</div>
-								</s:else>			
-								</td>
-								<td>
-								<div>
-									<button class="btn btn-success" id="success" onclick="uploadfile(5);">上传</button>
-								</div>						
-							</td>
-						</tr>
-						</s:if>								
-						<tr>
-							<td>
-							<div class="col-lg-8 form-group">
-								<button class="btn btn-success" id="cancel" onclick="goBidProgress();">关闭</button>
-							</div>
-							</td>
-							<td>
-							<div>
-								<button class="btn btn-success" id="success" onclick="save();">保存</button>
-							</div>
-							</td>
-							<td>
-							</td>
-						</tr>
-					</table>
+				<form id="file_form" name="file_form" enctype="multipart/form-data" method="post">
+				<!-- <s:form id="mainform" name="mainform" method="POST" enctype="multipart/form-data"> -->
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							文件上传
+						</h4>
 					</div>
-				</s:form>
+					<div class="modal-body" style="height: 100px;">
+						<div class="form-group">
+				
+							<label for="" class="col-lg-3 form-label"><s:property value="strBID_NO" /></label>
+												
+							<input type="hidden" id="uploadFileCompNo">
+							<input type="hidden" id="fileNamePre" name="fileNamePre" value="">
+							<input type="hidden" id="uploadFileName" name="uploadFileName">
+							<input type="hidden" id="delFileName" name="delFileName">
+							<input type="hidden" id="upfile1" name="upfile1">
+							
+							<s:hidden name="uploadFile" id="uploadFile"/>
+							
+							<h3 class="title">招标项目状态输入</h3>
+							<div class="row">
+								<s:if test="hasActionMessages()">
+									<div class="row">
+										<span style="color:red; text-align:center;"><s:actionmessage /></span>
+									</div>
+								</s:if>
+								<table class="table table-striped">
+									<tr>
+										<td>
+										<div class="col-lg-7 form-group">
+											<label class="pdf10">上传文件目录</label>
+										</div>
+										</td>
+										<td>
+											<input type="file" name="uploadFileObj" id="uploadFileObj" class="form-control">
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label for="" class="col-lg-3 form-label" id="lup1" onclick="popup()"></label>
+										</td>
+										<td>
+											<input type="text" id="uploadFileName1" name="uploadFileName1">
+											<button type="button" class="btn btn-primary" onclick="uploadfile(1);">上传</button>
+											<button type="button" class="btn btn-primary" onclick="delfile(1);">删除</button>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label for="" class="col-lg-3 form-label" id="lup2" onclick="popup()"></label>
+										</td>
+										<td>
+											<input type="text" id="uploadFileName2" name="uploadFileName2">
+											<button type="button" class="btn btn-primary" onclick="uploadfile(2);">上传</button>
+											<button type="button" class="btn btn-primary" onclick="delfile(2);">删除</button>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label for="" class="col-lg-3 form-label" id="lup3" onclick="popup()"></label>
+										</td>
+										<td>
+											<input type="text" id="uploadFileName3" name="uploadFileName3">
+											<button type="button" class="btn btn-primary" onclick="uploadfile(3);">上传</button>
+											<button type="button" class="btn btn-primary" onclick="delfile(3);">删除</button>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label for="" class="col-lg-3 form-label" id="lup4" onclick="popup()"></label>
+										</td>
+										<td>
+											<input type="text" id="uploadFileName4" name="uploadFileName4">
+											<button type="button" class="btn btn-primary" onclick="uploadfile(4);">上传</button>
+											<button type="button" class="btn btn-primary" onclick="delfile(4);">删除</button>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label for="" class="col-lg-3 form-label" id="lup5" onclick="popup()"></label>
+										</td>
+										<td>
+											<input type="text" id="uploadFileName5" name="uploadFileName5">
+											<button type="button" class="btn btn-primary" onclick="uploadfile(5);">上传</button>
+											<button type="button" class="btn btn-primary" onclick="delfile(5);">删除</button>
+										</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal" onclick="goBidProgress();">取消</button>
+					</div>
+					
+				<!-- </s:form>-->
+				</form>
 			</div>
 		</div>
 	</div>
 	<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
 <script src="<%=request.getContextPath()%>/node_modules/jquery/dist/jquery.min.js"></script>
 <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/ajaxfileupload.js"></script>
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.min.js"></script>
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.zh-CN.min.js"></script>

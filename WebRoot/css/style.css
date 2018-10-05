@@ -127,7 +127,7 @@ footer{ position:absolute; bottom:0; background:url(../images/footer.gif) no-rep
 .menu_l{ float:left; width:5px; height:45px; background:url(../images/menu_l.gif) no-repeat;}
 .menu_r{ float:left; width:5px; height:45px; background:url(../images/menu_r.gif) no-repeat;}
 .menu_c{ float:left; width:275px; height:45px; background:url(../images/menu_c.gif) repeat-x;}
-.menu_c a{ color:#333; font-size:16px; padding-left:20px;line-height:45px; font-family:"黑体";}
+.menu_c a{ color:#333; font-size:16px; padding-left:20px;line-height:45px; font-family:"宋体";}
 
 .update input[type="text"]{ width:120px;}
 .companys{ padding:10px;}
