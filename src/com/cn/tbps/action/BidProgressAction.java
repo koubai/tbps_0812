@@ -349,23 +349,23 @@ public class BidProgressAction extends BaseAction {
 				strHead3 = "";
 				if (bidDto.getBID_VER_DOC_DELI_DATE1()!= null)
 					Date1 = bidDto.getBID_VER_DOC_DELI_DATE1();
-				if (bidDto.getBID_VER_DOC_DELI_FILE1()!= null ){
+				if (bidDto.getBID_VER_DOC_DELI_FILE1()!= null && StringUtil.isBlank(bidDto.getBID_VER_DOC_DELI_FILE1())){
 					File01 = StringUtil.splitFileName(bidDto.getBID_VER_DOC_DELI_FILE1());
 					File01_URL = StringUtil.splitFileNameURL(bidDto.getBID_VER_DOC_DELI_FILE1());
 				}
-				if (bidDto.getBID_VER_DOC_DELI_FILE2()!= null ){
+				if (bidDto.getBID_VER_DOC_DELI_FILE2()!= null && StringUtil.isBlank(bidDto.getBID_VER_DOC_DELI_FILE2())){
 					File02 = StringUtil.splitFileName(bidDto.getBID_VER_DOC_DELI_FILE2());
 					File02_URL = StringUtil.splitFileNameURL(bidDto.getBID_VER_DOC_DELI_FILE2());
 				}
-				if (bidDto.getBID_VER_DOC_DELI_FILE3()!= null ){
+				if (bidDto.getBID_VER_DOC_DELI_FILE3()!= null && StringUtil.isBlank(bidDto.getBID_VER_DOC_DELI_FILE3())){
 					File03 = StringUtil.splitFileName(bidDto.getBID_VER_DOC_DELI_FILE3());
 					File03_URL = StringUtil.splitFileNameURL(bidDto.getBID_VER_DOC_DELI_FILE3());
 				}
-				if (bidDto.getBID_VER_DOC_DELI_FILE4()!= null ){
+				if (bidDto.getBID_VER_DOC_DELI_FILE4()!= null && StringUtil.isBlank(bidDto.getBID_VER_DOC_DELI_FILE4())){
 					File04 = StringUtil.splitFileName(bidDto.getBID_VER_DOC_DELI_FILE4());
 					File04_URL = StringUtil.splitFileNameURL(bidDto.getBID_VER_DOC_DELI_FILE4());
 				}
-				if (bidDto.getBID_VER_DOC_DELI_FILE5()!= null ){
+				if (bidDto.getBID_VER_DOC_DELI_FILE5()!= null && StringUtil.isBlank(bidDto.getBID_VER_DOC_DELI_FILE5())){
 					File05 = StringUtil.splitFileName(bidDto.getBID_VER_DOC_DELI_FILE5());
 					File05_URL = StringUtil.splitFileNameURL(bidDto.getBID_VER_DOC_DELI_FILE5());
 				}
@@ -712,7 +712,7 @@ public class BidProgressAction extends BaseAction {
 			
 			//开标完成
 //			setStatus0304(bidStatusInfo.substring(14,15));
-			if (bidDto.getBID_WIN_PRICE()!= null && StringUtil.isNotBlank(bidDto.getBID_WIN_PRICE().toString())){
+			if (bidDto.getBID_PRICE_LIST()!= null && StringUtil.isNotBlank(bidDto.getBID_PRICE_LIST().toString())){
 				setStatus0304("9");
 			}else{
 				setStatus0304("0");
@@ -748,7 +748,7 @@ public class BidProgressAction extends BaseAction {
 			
 			//评标完成
 //			setStatus0404(bidStatusInfo.substring(19,20));
-			if (bidDto.getBID_WIN_PRICE()!= null){
+			if (bidDto.getBID_PRICE_LIST()!= null && StringUtil.isNotBlank(bidDto.getBID_PRICE_LIST().toString())){
 				setStatus0404("9");
 			}else{
 				setStatus0404("0");

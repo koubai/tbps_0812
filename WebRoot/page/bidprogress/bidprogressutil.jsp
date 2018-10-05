@@ -42,29 +42,7 @@
 		else{
 			$("#Member1").val($("#strMember1").val());			
 		}
-		if ($("#strFile01").val() == null && $("#File01").val() == null){
-			$("#File01").val("");
-			alert("strFile01 is null");
-		} else{
-			$("#File01").val($("#strFile01").val());
-			alert("strFile01 is :" + $("#strFile01").val());
-		}
-		if ($("#strFile02").val() == null && $("#File02").val() == null)
-			$("#File02").val("");
-		else
-			$("#File02").val($("#strFile02").val());
-		if ($("#strFile03").val() == null && $("#File03").val() == null)
-			$("#File03").val("");
-		else
-			$("#File03").val($("#strFile03").val());
-		if ($("#strFile04").val() == null && $("#File04").val() == null)
-			$("#File04").val("");
-		else
-			$("#File04").val($("#strFile04").val());
-		if ($("#strFile05").val() == null && $("#File05").val() == null)
-			$("#File05").val("");
-		else
-			$("#File05").val($("#strFile05").val());
+//		document.mainform.action='<c:url value="/bidprogress/saveBidProgressUtilAction.action"></c:url>' + "?Finish_status=" + $("#Finish_status").val() + "&Date1=" + $("#Date1").val() + "&Date2=" + $("#Date2").val()+ "&Member1=" + $("#Member1").val()+ "&File01=" + $("#File01").val()+ "&File02=" + $("#File02").val()+ "&File03=" + $("#File03").val()+ "&File04=" + $("#File04").val()+ "&File05=" + $("#File05").val() + "&date=" + new Date();
 		document.mainform.action='<c:url value="/bidprogress/saveBidProgressUtilAction.action"></c:url>' + "?Finish_status=" + $("#Finish_status").val() + "&Date1=" + $("#Date1").val() + "&Date2=" + $("#Date2").val()+ "&Member1=" + $("#Member1").val() + "&date=" + new Date();
 		document.mainform.action();//提交表单
 	    window.close();//关闭窗口

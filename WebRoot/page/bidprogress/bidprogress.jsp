@@ -195,112 +195,112 @@ th {
 								<s:if test='Status0106 == "9"'>
 									<button class="btn btn-success" id="0106" onclick="showProgressUtil('0106',5);">
 										<s:if test='Finish_status == "10"'>
-											暂停
+											暂停*
 										</s:if>
 										<s:elseif test='Finish_status == "20"'>
-											进行中
+											进行中*
 										</s:elseif>
 										<s:elseif test='Finish_status == "52"'>
-											失败（报名不满6家）
+											失败（报名不满6家）*
 										</s:elseif>
 										<s:elseif test='Finish_status == "54"'>
-											失败（开标不满3家）
+											失败（开标不满3家）*
 										</s:elseif>
 										<s:elseif test='Finish_status == "56"'>
-											失败（评审失败）
+											失败（评审失败）*
 										</s:elseif>
 										<s:elseif test='Finish_status == "70"'>
-											终止
+											终止*
 										</s:elseif>
 										<s:elseif test='Finish_status == "90"'>
-											完成
+											完成*
 										</s:elseif>
 										<s:else>
-											不明
+											不明*
 										</s:else>
 									</button>
 								</s:if>
 								<s:elseif test='Status0106 == "2"'>
 									<button class="btn btn-warning" id="0106" onclick="showProgressUtil('0106',5);">
 										<s:if test='Finish_status == "10"'>
-											暂停
+											暂停*
 										</s:if>
 										<s:elseif test='Finish_status == "20"'>
-											进行中
+											进行中*
 										</s:elseif>
 										<s:elseif test='Finish_status == "52"'>
-											失败（报名不满6家）
+											失败（报名不满6家）*
 										</s:elseif>
 										<s:elseif test='Finish_status == "54"'>
-											失败（开标不满3家）
+											失败（开标不满3家）*
 										</s:elseif>
 										<s:elseif test='Finish_status == "56"'>
-											失败（评审失败）
+											失败（评审失败）*
 										</s:elseif>
 										<s:elseif test='Finish_status == "70"'>
-											终止
+											终止*
 										</s:elseif>
 										<s:elseif test='Finish_status == "90"'>
-											完成
+											完成*
 										</s:elseif>
 										<s:else>
-											不明
+											不明*
 										</s:else>
 									</button>
 								</s:elseif>
 								<s:elseif test='Status0106 == "0"'>
 									<button class="btn btn-danger" id="0106" onclick="showProgressUtil('0106',5);">
 										<s:if test='Finish_status == "10"'>
-											暂停
+											暂停*
 										</s:if>
 										<s:elseif test='Finish_status == "20"'>
-											进行中
+											进行中*
 										</s:elseif>
 										<s:elseif test='Finish_status == "52"'>
-											失败（报名不满6家）
+											失败（报名不满6家）*
 										</s:elseif>
 										<s:elseif test='Finish_status == "54"'>
-											失败（开标不满3家）
+											失败（开标不满3家）*
 										</s:elseif>
 										<s:elseif test='Finish_status == "56"'>
-											失败（评审失败）
+											失败（评审失败）*
 										</s:elseif>
 										<s:elseif test='Finish_status == "70"'>
-											终止
+											终止*
 										</s:elseif>
 										<s:elseif test='Finish_status == "90"'>
-											完成
+											完成*
 										</s:elseif>
 										<s:else>
-											不明
+											不明*
 										</s:else>
 									</button>
 								</s:elseif>
 								<s:else>
 									<button class="btn btn-danger" id="0106" onclick="showProgressUtil('0106',5);">
 										<s:if test='Finish_status == "10"'>
-											暂停
+											暂停*
 										</s:if>
 										<s:elseif test='Finish_status == "20"'>
-											进行中
+											进行中*
 										</s:elseif>
 										<s:elseif test='Finish_status == "52"'>
-											失败（报名不满6家）
+											失败（报名不满6家）*
 										</s:elseif>
 										<s:elseif test='Finish_status == "54"'>
-											失败（开标不满3家）
+											失败（开标不满3家）*
 										</s:elseif>
 										<s:elseif test='Finish_status == "56"'>
-											失败（评审失败）
+											失败（评审失败）*
 										</s:elseif>
 										<s:elseif test='Finish_status == "70"'>
-											终止
+											终止*
 										</s:elseif>
 										<s:elseif test='Finish_status == "90"'>
-											完成
+											完成*
 										</s:elseif>
 										<s:else>
-											不明
+											不明*
 										</s:else>
 									</button>
 								</s:else>

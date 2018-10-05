@@ -2709,7 +2709,6 @@
 						<button type="button" class="btn btn-success" onclick="upd();">保存</button>
 						<button type="button" class="btn btn-success" onclick="goBidList();">返回</button>
 					</div>
-				</div>
 			</div>
 		</s:form>
 	</div>
@@ -3000,6 +2999,7 @@
 							</tbody>
 						</table>
 					</div>
+				</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-primary" onclick="setBidCompApply();">确定</button>
 						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>

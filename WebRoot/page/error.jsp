@@ -39,6 +39,6 @@
 		<div class="commoncontent">
 			<p class="session_txt">出错啦！点击<a href="#" onclick="goHomePage();">回到首页</a>。</p>
 		</div>
-	<!-- </div>  -->
+	</div>
 </body>
 </html>
