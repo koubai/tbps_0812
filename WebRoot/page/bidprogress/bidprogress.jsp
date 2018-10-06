@@ -47,6 +47,10 @@
 		}
 	}
 	
+	function goHome() {
+		window.location.href = '<c:url value="/bid/queryBidList.action"></c:url>';
+	}
+
 </script>
 </head>
 <style type="text/css">

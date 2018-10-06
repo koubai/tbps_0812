@@ -73,7 +73,7 @@
 
 //		var uploadFileCompNo = $("#uploadFileCompNo").val();
 		var uploadFileObj = $("#uploadFileObj").val();	
-		alert(number);
+//		alert(number);
 		if ($("#uploadFileObj").val() == "")
 			alert("请输入上传文件！");
 		else{		
@@ -429,50 +429,50 @@
 											</tr>
 											<tr>
 												<td>
-													<label for="<s:property value="File01"/>" class="col-lg-3 form-label" id="lbFile01" onclick="popup(1)"><s:property value="File01"/></label>
+													<label style="text-align:left;" for="<s:property value="File01"/>" class="col-lg-9 form-label" id="lbFile01" onclick="popup(1)"><s:property value="File01"/></label>
 												</td>
 												<td>
-													<input type="text" id="File01_URL" name="File01_URL" value="<s:property value="File01_URL"/>">
+													<input type="hidden" id="File01_URL" name="File01_URL" value="<s:property value="File01_URL"/>">
 													<button type="button" class="btn btn-primary" onclick="uploadfile(1);">上传</button>
 													<button type="button" class="btn btn-primary" onclick="delfile(1);">删除</button>
 												</td>
 											</tr>
 											<tr>
 												<td>
-													<label for="<s:property value="File02"/>" class="col-lg-3 form-label" id="lbFile02" onclick="popup(2)"><s:property value="File02"/></label>
+													<label style="text-align:left;" for="<s:property value="File02"/>" class="col-lg-9 form-label" id="lbFile02" onclick="popup(2)"><s:property value="File02"/></label>
 												</td>
 												<td>
-													<input type="text" id="File02_URL" name="File02_URL" value="<s:property value="File02_URL"/>">
+													<input type="hidden" id="File02_URL" name="File02_URL" value="<s:property value="File02_URL"/>">
 													<button type="button" class="btn btn-primary" onclick="uploadfile(2);">上传</button>
 													<button type="button" class="btn btn-primary" onclick="delfile(2);">删除</button>
 												</td>
 											</tr>
 											<tr>
 												<td>
-													<label for="<s:property value="File03"/>" class="col-lg-3 form-label" id="lbFile03" onclick="popup(3)"><s:property value="File03"/></label>
+													<label style="text-align:left;" for="<s:property value="File03"/>" class="col-lg-9 form-label" id="lbFile03" onclick="popup(3)"><s:property value="File03"/></label>
 												</td>
 												<td>
-													<input type="text" id="File03_URL" name="File03_URL" value="<s:property value="File03_URL"/>">
+													<input type="hidden" id="File03_URL" name="File03_URL" value="<s:property value="File03_URL"/>">
 													<button type="button" class="btn btn-primary" onclick="uploadfile(3);">上传</button>
 													<button type="button" class="btn btn-primary" onclick="delfile(3);">删除</button>
 												</td>
 											</tr>
 											<tr>
 												<td>
-													<label for="<s:property value="File04"/>" class="col-lg-3 form-label" id="lbFile04" onclick="popup(4)"><s:property value="File04"/></label>
+													<label style="text-align:left;" for="<s:property value="File04"/>" class="col-lg-9 form-label" id="lbFile04" onclick="popup(4)"><s:property value="File04"/></label>
 												</td>
 												<td>
-													<input type="text" id="File04_URL" name="File04_URL" value="<s:property value="File04_URL"/>">
+													<input type="hidden" id="File04_URL" name="File04_URL" value="<s:property value="File04_URL"/>">
 													<button type="button" class="btn btn-primary" onclick="uploadfile(4);">上传</button>
 													<button type="button" class="btn btn-primary" onclick="delfile(4);">删除</button>
 												</td>
 											</tr>
 											<tr>
 												<td>
-													<label for="<s:property value="File05"/>" class="col-lg-3 form-label" id="lbFile05" onclick="popup(5)"><s:property value="File05"/></label>
+													<label style="text-align:left;" for="<s:property value="File05"/>" class="col-lg-9 form-label" id="lbFile05" onclick="popup(5)"><s:property value="File05"/></label>
 												</td>
 												<td>
-													<input type="text" id="File05_URL" name="File05_URL" value="<s:property value="File05_URL"/>">
+													<input type="hidden" id="File05_URL" name="File05_URL" value="<s:property value="File05_URL"/>">
 													<button type="button" class="btn btn-primary" onclick="uploadfile(5);">上传</button>
 													<button type="button" class="btn btn-primary" onclick="delfile(5);">删除</button>
 												</td>
