@@ -247,6 +247,16 @@ public class BidProgressAction extends BaseAction {
 			Member1 = "";
 			strHead1 = "";
 			strHead2 = "";
+			File01 = "";
+			File02 = "";
+			File03 = "";
+			File04 = "";
+			File05 = "";
+			File01_URL = "";
+			File02_URL = "";
+			File03_URL = "";
+			File04_URL = "";
+			File05_URL = "";
 			if (BTN_NO.equals("0201")){
 				strHead1 = "招标文件编制";
 				strHead2 = "";
@@ -381,12 +391,16 @@ public class BidProgressAction extends BaseAction {
 	}
 	
 	public String saveBidProgressUtilAction() throws Exception {
+		this.clearMessages();
+
 //		String strMember1 = new String(Member1.getBytes("iso-8859-1"),"utf-8");
 		System.out.println("saveBidProgressUtilAction");
 		System.out.println("招标编号：" + strBID_NO);
 		System.out.println("按钮编号：" + BTN_NO);
 		System.out.println("日期：" + Date1);
 		System.out.println("姓名：" + Member1);
+		System.out.println("File01：" + File01);
+		System.out.println("File01_URL：" + File01_URL);
 		
 		//项目完成情况
 		if (BTN_NO.equals("0106")){
@@ -427,11 +441,16 @@ public class BidProgressAction extends BaseAction {
 		//文件送至甲方
 		else if (BTN_NO.equals("0105")){
 			bidDto.setBID_DOC_DELI_DATE1(Date1);
-			bidDto.setBID_DOC_DELI_FILE1(File01 + ";" + File01_URL);
-			bidDto.setBID_DOC_DELI_FILE2(File02 + ";" + File02_URL);
-			bidDto.setBID_DOC_DELI_FILE3(File03 + ";" + File03_URL);
-			bidDto.setBID_DOC_DELI_FILE4(File04 + ";" + File04_URL);
-			bidDto.setBID_DOC_DELI_FILE5(File05 + ";" + File05_URL);
+			if (!File01.equals(""))
+				bidDto.setBID_DOC_DELI_FILE1(File01 + ";" + File01_URL);
+			if (!File02.equals(""))
+				bidDto.setBID_DOC_DELI_FILE2(File02 + ";" + File02_URL);
+			if (!File03.equals(""))
+				bidDto.setBID_DOC_DELI_FILE3(File03 + ";" + File03_URL);
+			if (!File04.equals(""))
+				bidDto.setBID_DOC_DELI_FILE4(File04 + ";" + File04_URL);
+			if (!File05.equals(""))
+				bidDto.setBID_DOC_DELI_FILE5(File05 + ";" + File05_URL);
 		}
 		//中标通知书签收
 		else if (BTN_NO.equals("0205")){
@@ -452,10 +471,10 @@ public class BidProgressAction extends BaseAction {
 		}
 		
 		//查询招标公司列表
-		listBidComp = bidCompService.queryBidCompByIds(bidDto.getBID_CO_LIST());
+//		listBidComp = bidCompService.queryBidCompByIds(bidDto.getBID_CO_LIST());
 		//查询专家列表
-		listExpertLib = expertLibService.queryExpertLibByIds(bidDto.getBID_EXPERT_LIST());
-		bidService.updateBidNew(bidDto,listBidComp,listExpertLib);
+//		listExpertLib = expertLibService.queryExpertLibByIds(bidDto.getBID_EXPERT_LIST());
+		bidService.updateBid(bidDto);
 		this.addActionMessage("保存成功！");
 
 		return SUCCESS;
@@ -463,6 +482,8 @@ public class BidProgressAction extends BaseAction {
 	}
 	
 	public String uploadBidProgressUtilAction() throws Exception {
+		this.clearMessages();
+
 		System.out.println("uploadBidProgressUtilAction");
 		System.out.println("招标编号：" + strBID_NO);
 		System.out.println("按钮编号：" + BTN_NO);
@@ -528,6 +549,7 @@ public class BidProgressAction extends BaseAction {
 	 */
 	public String saveBidProgress() {
 		try {
+			this.clearMessages();
 			System.out.println("saveBidProgressAction");
 			System.out.println("招标编号：" + strBID_NO);
 			System.out.println("按钮编号：" + BTN_NO);

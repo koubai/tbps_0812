@@ -555,7 +555,7 @@ public class BidServiceImpl extends BaseService implements BidService {
 		insertBidHistNew(bidDto);
 		return bidNo;
 	}
-	
+
 	@Override
 	public void updateBidNew(BidDto bidDto, List<BidCompDto> listBidComp, List<ExpertLibDto> listExpertLib) {
 		BidDto oldbid = bidDao.queryBidByID(bidDto.getBID_NO());
@@ -947,6 +947,7 @@ public class BidServiceImpl extends BaseService implements BidService {
 		//更新招标
 		bidDao.updateBid(bidDto);
 		//插入招标履历
+		System.out.println("before insertHist");
 		insertBidHistNew(bidDto);
 	}
 	
