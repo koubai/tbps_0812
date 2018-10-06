@@ -66,6 +66,7 @@ public class FileUploadAction extends BaseAction {
 					//文件名
 					System.out.println("org file:"+uploadFileName);
 					String picSuffix = uploadFileName.substring(uploadFileName.lastIndexOf(".") + 1, uploadFileName.length());
+					String originalname = uploadFileName.substring(uploadFileName.lastIndexOf("\\") + 1, uploadFileName.length());
 					Date date = new Date();
 					SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmssSSS");
 					String uuid = UUID.randomUUID().toString();
@@ -81,6 +82,7 @@ public class FileUploadAction extends BaseAction {
 					ajaxData.setResultCode(0);
 					Map<String, String> data = new HashMap<String, String>();
 					data.put("filename", filename);
+					data.put("originalname", originalname);
 					data.put("fileurl", PropertiesConfig.getPropertiesValueByKey("file_url"));
 					ajaxData.setData(data);
 				} else {
@@ -134,25 +136,27 @@ public class FileUploadAction extends BaseAction {
 						savePathFile.mkdir();
 					}
 					
-					
-					//将上传的文件copy到指定目录下
-					String delFileName2 = savePathFile +"\\"+ delFileName.substring(delFileName.lastIndexOf("/")+1);
+					String delFileName2 = savePathFile + "/" + delFileName;
+					//判断文件名是不是显示路径
+					if(delFileName.indexOf("/") >= 0) {
+						//从路径中解析出文件名
+						delFileName2 = savePathFile + "/" + delFileName.substring(delFileName.lastIndexOf("/") + 1);
+					}
 					//文件名
-					System.out.println("del org file:"+delFileName2);
+					System.out.println("del org file:" + delFileName2);
 					
 					File newFile = new File(delFileName2);
 					if (newFile.exists()){
 						FileUtil.deleteContents(newFile);						
 						ajaxData.setResultCode(0);
-						Map<String, String> data = new HashMap<String, String>();
-						ajaxData.setData(data);
+						ajaxData.setResultMessage("文件删除成功！");	
 					} else {
 						ajaxData.setResultCode(1001);
 						ajaxData.setResultMessage("文件不存在！");												
 					}
 				} else {
 					ajaxData.setResultCode(1001);
-					ajaxData.setResultMessage("文件不能为空！");
+					ajaxData.setResultMessage("文件名不能为空！");
 				}
 				delFileName = "";
 			} else {

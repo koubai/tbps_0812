@@ -260,6 +260,7 @@
 		var tmpREFOUND_BOND_STATUS = $("[name='tmpREFOUND_BOND_STATUS']");
 		var tmpREFOUND_DEPOSIT_DATE = $("[name='tmpREFOUND_DEPOSIT_DATE']");
 		var tmpRECEPT_UL_FILE1 = $("[name='tmpRECEPT_UL_FILE1']");
+		var tmpRECEPT_UL_FILE1_BASENAME = $("[name='tmpRECEPT_UL_FILE1_BASENAME']");
 		
 		//标书费
 		var tmpBID_CO_NO3 = $("[name='tmpBID_CO_NO3']");
@@ -307,6 +308,7 @@
 		var tmpREFOUND_BOND_STATUS = $("[name='tmpREFOUND_BOND_STATUS']");
 		var tmpREFOUND_DEPOSIT_DATE = $("[name='tmpREFOUND_DEPOSIT_DATE']");
 		var tmpRECEPT_UL_FILE1 = $("[name='tmpRECEPT_UL_FILE1']");
+		var tmpRECEPT_UL_FILE1_BASENAME = $("[name='tmpRECEPT_UL_FILE1_BASENAME']");
 		
 		//标书费
 		var tmpBID_CO_NO3 = $("[name='tmpBID_CO_NO3']");
@@ -367,6 +369,7 @@
 							td.appendChild(createInput("listBidCompTmp[" + i + "].REFOUND_DEPOSIT_DATE", tmpREFOUND_DEPOSIT_DATE[j].value));
 						}
 						td.appendChild(createInput("listBidCompTmp[" + i + "].RECEPT_UL_FILE1", tmpRECEPT_UL_FILE1[j].value));
+						td.appendChild(createInput("listBidCompTmp[" + i + "].RECEPT_UL_FILE1_BASENAME", tmpRECEPT_UL_FILE1_BASENAME[j].value));
 						break;
 					}
 				}
@@ -1315,6 +1318,28 @@
 		document.mainform.submit();
 	}
 	
+	function delFile(obj, compNo) {
+		var filename = $("#tmpRECEPT_UL_FILE1_" + compNo).val();
+		if(filename != "") {
+			if(confirm("确定删除吗？")) {
+				var param = new Object();
+				param.delFileName = filename;
+				$.getJSON('<%=request.getContextPath()%>/fileupload/delFileAction.action', param, function(data) {
+					if(data.resultCode == 0) {
+						alert("文件删除成功！");
+						//清空页面数据
+						$("#tmpRECEPT_UL_FILE1_" + compNo).val("");
+						$("#tmpRECEPT_UL_FILE1_BASENAME_" + compNo).val("");
+						$("#preview_" + compNo).remove();
+						$("#del_file_" + compNo).remove();
+					} else {
+						alert(data.resultMessage);
+					}
+				});
+			}
+		}
+	}
+	
 	function showUploadModel(obj, compNo) {
 		$("#uploadFileName").val("");
 		$("#uploadFileObj").val("");
@@ -1361,8 +1386,16 @@
 						//上传成功
 						var fileurl = data.data.fileurl;
 						var filename = data.data.filename;
+						var originalname = data.data.originalname;
 						$("#tmpRECEPT_UL_FILE1_" + uploadFileCompNo).val(filename);
-						$("#preview_" + uploadFileCompNo).attr("href", fileurl + filename);
+						//将文件原始名称记录下来
+						$("#tmpRECEPT_UL_FILE1_BASENAME_" + uploadFileCompNo).val(originalname);
+						
+						var preview_html = '<a id="preview_' + uploadFileCompNo + '" target="_blank" href="' + fileurl + filename + '">' + originalname + '</a>';
+						$("#file_td_" + uploadFileCompNo).append(preview_html);
+						var del_html = '<a id="del_file_' + uploadFileCompNo + '" href="javascript:void(0);" onclick="delFile(this,\'' + uploadFileCompNo + '\');">删除</a>';
+						$("#file_td_" + uploadFileCompNo).append(del_html);
+						
 						//隐藏模态窗体
 						$('#uploadFileModal').modal('hide');
 						$("#uploadFileName").val("");
@@ -2417,15 +2450,21 @@
 													</div>
 												</div>
 											</td>
-											<td>
+											<td id="file_td_<s:property value="BID_CO_NO"/>">
 												<input name="tmpRECEPT_UL_FILE1" id="tmpRECEPT_UL_FILE1_<s:property value="BID_CO_NO"/>" type="hidden" value="<s:property value="RECEPT_UL_FILE1"/>">
+												<input name="tmpRECEPT_UL_FILE1_BASENAME" id="tmpRECEPT_UL_FILE1_BASENAME_<s:property value="BID_CO_NO"/>" type="hidden" value="<s:property value="RECEPT_UL_FILE1_BASENAME"/>">
 												<s:if test="BID_CO_NO != null">
 													<a href="javascript:void(0);" onclick="showUploadModel(this, '<s:property value="BID_CO_NO"/>');">文件上传</a>
 													<s:if test='RECEPT_UL_FILE1 != null && RECEPT_UL_FILE1 != ""'>
-														<a id="preview_<s:property value="BID_CO_NO"/>" target="_blank" href="<s:property value="file_url"/><s:property value="RECEPT_UL_FILE1"/>">预览</a>
+														<s:if test='RECEPT_UL_FILE1_BASENAME != null && RECEPT_UL_FILE1_BASENAME != ""'>
+															<a id="preview_<s:property value="BID_CO_NO"/>" target="_blank" href="<s:property value="file_url"/><s:property value="RECEPT_UL_FILE1"/>"><s:property value="RECEPT_UL_FILE1_BASENAME"/></a>
+														</s:if>
+														<s:else>
+															<a id="preview_<s:property value="BID_CO_NO"/>" target="_blank" href="<s:property value="file_url"/><s:property value="RECEPT_UL_FILE1"/>">预览</a>
+														</s:else>
+														<a id="del_file_<s:property value="BID_CO_NO"/>" href="javascript:void(0);" onclick="delFile(this,'<s:property value="BID_CO_NO"/>');">删除</a>
 													</s:if>
 													<s:else>
-														<a id="preview_<s:property value="BID_CO_NO"/>" target="_blank" href="javascript:void(0);">预览</a>
 													</s:else>
 												</s:if>
 											</td>
