@@ -435,6 +435,7 @@
 													<input type="hidden" id="File01_URL" name="File01_URL" value="<s:property value="File01_URL"/>">
 													<button type="button" class="btn btn-primary" onclick="uploadfile(1);">上传</button>
 													<button type="button" class="btn btn-primary" onclick="delfile(1);">删除</button>
+													<s:if test='File01_URL != ""'><a href="<s:property value="File01_URL"/>">链接</a></s:if>
 												</td>
 											</tr>
 											<tr>
@@ -445,6 +446,7 @@
 													<input type="hidden" id="File02_URL" name="File02_URL" value="<s:property value="File02_URL"/>">
 													<button type="button" class="btn btn-primary" onclick="uploadfile(2);">上传</button>
 													<button type="button" class="btn btn-primary" onclick="delfile(2);">删除</button>
+													<s:if test='File02_URL != ""'><a href="<s:property value="File02_URL"/>">链接</a></s:if>
 												</td>
 											</tr>
 											<tr>
@@ -455,6 +457,7 @@
 													<input type="hidden" id="File03_URL" name="File03_URL" value="<s:property value="File03_URL"/>">
 													<button type="button" class="btn btn-primary" onclick="uploadfile(3);">上传</button>
 													<button type="button" class="btn btn-primary" onclick="delfile(3);">删除</button>
+													<s:if test='File03_URL != ""'><a href="<s:property value="File03_URL"/>">链接</a></s:if>
 												</td>
 											</tr>
 											<tr>
@@ -465,6 +468,7 @@
 													<input type="hidden" id="File04_URL" name="File04_URL" value="<s:property value="File04_URL"/>">
 													<button type="button" class="btn btn-primary" onclick="uploadfile(4);">上传</button>
 													<button type="button" class="btn btn-primary" onclick="delfile(4);">删除</button>
+													<s:if test='File04_URL != ""'><a href="<s:property value="File04_URL"/>">链接</a></s:if>
 												</td>
 											</tr>
 											<tr>
@@ -475,6 +479,7 @@
 													<input type="hidden" id="File05_URL" name="File05_URL" value="<s:property value="File05_URL"/>">
 													<button type="button" class="btn btn-primary" onclick="uploadfile(5);">上传</button>
 													<button type="button" class="btn btn-primary" onclick="delfile(5);">删除</button>
+													<s:if test='File05_URL != ""'><a href="<s:property value="File05_URL"/>">链接</a></s:if>
 												</td>
 											</tr>
 									</s:if>								

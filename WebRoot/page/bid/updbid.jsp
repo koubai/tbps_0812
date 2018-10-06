@@ -1599,7 +1599,7 @@
 								</select>
 						 	</div>
 						</div>
-						<div class="col-lg-4 form-group">
+						<div class="col-lg-6 form-group">
 						 	<label for="" class="col-lg-3 form-label">项目名称</label>
 						 	<div class="col-lg-9">
 						 		<s:textfield name="updateBidDto.PROJECT_NAME" id="PROJECT_NAME" cssClass="form-control" maxlength="200" theme="simple"></s:textfield>
