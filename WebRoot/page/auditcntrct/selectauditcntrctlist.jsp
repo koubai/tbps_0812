@@ -167,7 +167,7 @@
 								</div>
 							</div>
 							<div class="col-xs-2 form-group">
-								<button type="button" class="btn btn-success form-control" onclick="queryList();">检索</button>
+								<button type="button" id="buttonquery" class="btn btn-success form-control" onclick="queryList();">检索</button>
 							</div>
 						</div>
 					</div>
@@ -230,6 +230,7 @@
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.min.js"></script>
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.zh-CN.min.js"></script>
 <script>
+	$("#buttonquery").focus();
 	$('.datepicker').parent().datepicker({
 		"autoclose":true,"format":"yyyy-mm-dd","language":"zh-CN"
 	});

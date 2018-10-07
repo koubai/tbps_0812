@@ -158,6 +158,8 @@ public class AuditCntrctAction extends BaseAction {
 	 */
 	private String cntrctEdDate;
 	
+	private AuditCntrctDto auditCntrctDto;
+	
 	
 	/**
 	 * 显示审计明细
@@ -186,6 +188,7 @@ public class AuditCntrctAction extends BaseAction {
 				this.addActionMessage("该数据不存在！");
 				return "checkerror";
 			}
+			auditCntrctDto = auditCntrctService.queryAuditCntrctByID(updAuditCntrctNo);
 			updAuditCntrctDtoOld = auditCntrctService.queryAuditCntrctByID(updAuditCntrctNo);
 		} catch(Exception e) {
 			this.addActionMessage("系统错误，查询审价异常！");
@@ -730,6 +733,14 @@ public class AuditCntrctAction extends BaseAction {
 
 	public void setStrCntrctEdDate(String strCntrctEdDate) {
 		this.strCntrctEdDate = strCntrctEdDate;
+	}
+
+	public AuditCntrctDto getAuditCntrctDto() {
+		return auditCntrctDto;
+	}
+
+	public void setAuditCntrctDto(AuditCntrctDto auditCntrctDto) {
+		this.auditCntrctDto = auditCntrctDto;
 	}
 
 }
