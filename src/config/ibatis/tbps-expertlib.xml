@@ -197,7 +197,7 @@
 	</select>
 	
 	<select id="queryExpertComp" parameterClass="java.util.Map" resultMap="ExpertCompDto">
-		select distinct expert_comp from expertlib where 1 = 1 and DELETE_FLG = '1' order by UPDATE_DATE desc
+		select distinct EXPERT_COMP from expertlib where 1 = 1 and DELETE_FLG = '1' order by EXPERT_COMP desc
 	</select>
 	
 	<insert id="insertExpertLib" parameterClass="com.cn.tbps.dto.ExpertLibDto">
