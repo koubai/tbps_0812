@@ -188,7 +188,7 @@ public class AuditCntrctAction extends BaseAction {
 				this.addActionMessage("该数据不存在！");
 				return "checkerror";
 			}
-			auditCntrctDto = auditCntrctService.queryAuditCntrctByID(updAuditCntrctNo);
+			//auditCntrctDto = auditCntrctService.queryAuditCntrctByID(updAuditCntrctNo);
 			updAuditCntrctDtoOld = auditCntrctService.queryAuditCntrctByID(updAuditCntrctNo);
 		} catch(Exception e) {
 			this.addActionMessage("系统错误，查询审价异常！");

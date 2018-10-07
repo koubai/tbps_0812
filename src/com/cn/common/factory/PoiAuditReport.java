@@ -1,5 +1,6 @@
 package com.cn.common.factory;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 
 import org.apache.poi.hwpf.HWPFDocument;
@@ -49,19 +50,22 @@ public class PoiAuditReport extends Poi2007Base {
 		//送审价
 		String ssj = "";
 		if(null != auditDto.getVERIFY_PER_AMOUNT()) {
-			ssj = auditDto.getVERIFY_PER_AMOUNT().toString();
+			BigDecimal bignum = auditDto.getVERIFY_PER_AMOUNT().multiply(new BigDecimal("10000")); 
+			ssj = bignum.toString();
 		}
 		range.replaceText("（项目属性内的送审价）", ssj);
 		//审核价
 		String shj = "";
 		if(null != auditDto.getVERIFY_AMOUNT()) {
-			shj = auditDto.getVERIFY_AMOUNT().toString();
+			BigDecimal bignum = auditDto.getVERIFY_AMOUNT().multiply(new BigDecimal("10000")); 
+			shj = bignum.toString();
 		}
 		range.replaceText("（项目属性内的审核价）", shj);
 		//净核减额
 		String jhje = "";
 		if(null != auditDto.getVERIFY_DIFF()) {
-			jhje = auditDto.getVERIFY_DIFF().toString();
+			BigDecimal bignum = auditDto.getVERIFY_DIFF().multiply(new BigDecimal("10000")); 
+			jhje = bignum.toString();
 		}
 		range.replaceText("（项目属性内的净核减额）", jhje);
 	}

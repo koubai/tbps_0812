@@ -939,12 +939,11 @@
 	}
 	
 	function goAuditList() {
-		window.location.href = '<c:url value="/audit/queryAuditList.action"></c:url>';
+		window.location.href = '<c:url value="/audit/showAuditAction.action"></c:url>';
 	}
 	
 	function exportAudit() {
 		var CNTRCT_TYPE = $("#CNTRCT_TYPE").val();
-		alert(CNTRCT_TYPE);
 		if(CNTRCT_TYPE == 1){
 			document.mainform.action = '<c:url value="/audit/exportAuditMetroAction.action"></c:url>';
 		} else {

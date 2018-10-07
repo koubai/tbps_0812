@@ -1,5 +1,6 @@
 package com.cn.common.factory;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 
 import org.apache.poi.ss.usermodel.Cell;
@@ -62,7 +63,8 @@ public class PoiAuditMetro extends Poi2007Base {
 		cell = row.getCell((short) 3);
 		String ssj = "";
 		if(null != auditDto.getVERIFY_PER_AMOUNT()) {
-			ssj = auditDto.getVERIFY_PER_AMOUNT().toString();
+			BigDecimal bignum = auditDto.getVERIFY_PER_AMOUNT().multiply(new BigDecimal("10000")); 
+			ssj = bignum.toString();
 		}
 		cell.setCellValue(ssj);
 		//审核价
@@ -70,7 +72,8 @@ public class PoiAuditMetro extends Poi2007Base {
 		cell = row.getCell((short) 14);
 		String shj = "";
 		if(null != auditDto.getVERIFY_AMOUNT()) {
-			shj = auditDto.getVERIFY_AMOUNT().toString();
+			BigDecimal bignum = auditDto.getVERIFY_AMOUNT().multiply(new BigDecimal("10000")); 
+			shj = bignum.toString();
 		}
 		cell.setCellValue(shj);
 		//净核减额
@@ -78,7 +81,8 @@ public class PoiAuditMetro extends Poi2007Base {
 		cell = row.getCell((short) 17);
 		String jhje = "";
 		if(null != auditDto.getVERIFY_DIFF()) {
-			jhje = auditDto.getVERIFY_DIFF().toString();
+			BigDecimal bignum = auditDto.getVERIFY_DIFF().multiply(new BigDecimal("10000")); 
+			jhje = bignum.toString();
 		}
 		cell.setCellValue(jhje);
 	}
