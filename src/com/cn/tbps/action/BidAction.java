@@ -3,12 +3,16 @@ package com.cn.tbps.action;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import com.cn.common.action.BaseAction;
+import com.cn.common.factory.Poi2007Base;
+import com.cn.common.factory.PoiFactory;
 import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
@@ -144,6 +148,280 @@ public class BidAction extends BaseAction {
 	 */
 	private String delBidNo;
 	
+	//招标公司编号
+	private String strCompNo;
+	
+	//招标数据导出部分
+	/**
+	 * 标书费打印签收单
+	 * @return
+	 */
+	public String exportBidSignAction() {
+		try {
+			this.clearMessages();
+			String filename = "page/bidsign.xls";
+			String name =  StringUtil.createFileName2(Constants.EXCEL_TYPE_ZBQS);
+			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
+			response.setContentType("application/vnd.ms-excel");
+			Poi2007Base base = PoiFactory.getPoi(Constants.EXCEL_TYPE_ZBQS);
+			
+			//查询数据
+			List<BidDto> list = new ArrayList<BidDto>();
+			list.add(updateBidDto);
+			base.setDatas(list);
+			base.setFilepath(filename);
+			base.exportExcel2(response.getOutputStream());
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 导出标书费收据
+	 * @return
+	 */
+	public String exportBidReceiveAction() {
+		try {
+			this.clearMessages();
+			String filename = "page/bidreceive.xls";
+			String name = StringUtil.createFileName2(Constants.EXCEL_TYPE_ZBSD);
+			if (!StringUtil.isBlank(updateBidDto.getBID_NO()))
+				name = StringUtil.createFileName2(updateBidDto.getBID_NO() + "-" + Constants.EXCEL_TYPE_ZBSD);
+			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
+			response.setContentType("application/vnd.ms-excel");
+			Poi2007Base base = PoiFactory.getPoi(Constants.EXCEL_TYPE_ZBSD);
+			
+			//查询数据
+			List<Object> list = new ArrayList<Object>();
+			list.add(updateBidDto);
+			list.add(listBidComp);
+			base.setDatas(list);
+			base.setFilepath(filename);
+			base.exportExcel2(response.getOutputStream());
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 导出招标保证金退定
+	 * @return
+	 */
+	public String exportBidCancelAction() {
+		try {
+			this.clearMessages();
+			String filename = "page/bidcancel.xls";
+			String name =  StringUtil.createFileName2(Constants.EXCEL_TYPE_ZBTD);
+			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
+			response.setContentType("application/vnd.ms-excel");
+			Poi2007Base base = PoiFactory.getPoi(Constants.EXCEL_TYPE_ZBTD);
+			
+			//查询数据
+			List<BidDto> list = new ArrayList<BidDto>();
+			list.add(updateBidDto);
+			base.setDatas(list);
+			base.setFilepath(filename);
+			base.exportExcel2(response.getOutputStream());
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 导出招标保证金收据
+	 * @return
+	 */
+	public String exportBidDepositAction() {
+		try {
+			this.clearMessages();
+			String filename = "page/biddeposit.xls";
+			String name = StringUtil.createFileName2(Constants.EXCEL_TYPE_ZBBZJ);
+			if (!StringUtil.isBlank(updateBidDto.getBID_NO()))
+				name = StringUtil.createFileName2(updateBidDto.getBID_NO() + "-" + Constants.EXCEL_TYPE_ZBBZJ);
+			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
+			response.setContentType("application/vnd.ms-excel");
+			Poi2007Base base = PoiFactory.getPoi(Constants.EXCEL_TYPE_ZBBZJ);
+			
+			//查询数据
+			List<Object> list = new ArrayList<Object>();
+			list.add(updateBidDto);
+			list.add(listBidComp);
+			base.setDatas(list);
+			base.setFilepath(filename);
+			base.exportExcel2(response.getOutputStream());
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 导出招标报名表（单个公司报名表）
+	 * @return
+	 */
+	public String exportSingleBidRegisterAction() {
+		try {
+			this.clearMessages();
+			String filename = "page/bidregister.xlsx";
+			String name = StringUtil.createFileName(Constants.EXCEL_TYPE_ZBBM);
+			if (!StringUtil.isBlank(updateBidDto.getBID_NO()))
+				name = StringUtil.createFileName(updateBidDto.getBID_NO() + "-" + Constants.EXCEL_TYPE_ZBBM);
+			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
+			response.setContentType("application/vnd.ms-excel");
+			Poi2007Base base = PoiFactory.getPoi(Constants.EXCEL_TYPE_ZBBM);
+			
+			//查询数据
+			List<Object> list = new ArrayList<Object>();
+			list.add(updateBidDto);
+			List<BidCompDto> compList = new ArrayList<BidCompDto>();
+			BidCompDto bidComp = bidCompService.queryAllBidCompByID(strCompNo);
+			if(bidComp != null) {
+				compList.add(bidComp);
+			}
+			list.add(compList);
+			base.setDatas(list);
+			base.setFilepath(filename);
+			base.exportExcel2(response.getOutputStream());
+			
+			//更新报名表日期
+			updateBidDto.setGEN_REGISTE_RPT_DATE(new Date());
+			bidService.updateBid(updateBidDto);
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 导出招标报名表回执
+	 * @return
+	 */
+	public String exportBidReplyAction() {
+		try {
+			this.clearMessages();
+			String filename = "page/bidreply.xls";
+			String name = StringUtil.createFileName2(Constants.EXCEL_TYPE_ZBHZ);
+			if (!StringUtil.isBlank(updateBidDto.getBID_NO()))
+				name = StringUtil.createFileName2(updateBidDto.getBID_NO() + "-" + Constants.EXCEL_TYPE_ZBHZ);
+			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
+			response.setContentType("application/vnd.ms-excel");
+			Poi2007Base base = PoiFactory.getPoi(Constants.EXCEL_TYPE_ZBHZ);
+			
+			//查询数据
+			List<BidDto> list = new ArrayList<BidDto>();
+			list.add(updateBidDto);
+			base.setDatas(list);
+			base.setFilepath(filename);
+			base.exportExcel2(response.getOutputStream());
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 导出招标报名表（所有公司报名表）
+	 * @return
+	 */
+	public String exportBidRegisterAction() {
+		try {
+			this.clearMessages();
+			String filename = "page/bidregister.xlsx";
+			String name = StringUtil.createFileName(Constants.EXCEL_TYPE_ZBBM);
+			if (!StringUtil.isBlank(updateBidDto.getBID_NO()))
+				name = StringUtil.createFileName(updateBidDto.getBID_NO() + "-" + Constants.EXCEL_TYPE_ZBBM);
+			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
+			response.setContentType("application/vnd.ms-excel");
+			Poi2007Base base = PoiFactory.getPoi(Constants.EXCEL_TYPE_ZBBM);
+			
+			//查询数据
+			List<Object> list = new ArrayList<Object>();
+			list.add(updateBidDto);
+			list.add(listBidComp);
+			base.setDatas(list);
+			base.setFilepath(filename);
+			base.exportExcel2(response.getOutputStream());
+			
+			//更新报名表日期
+			updateBidDto.setGEN_REGISTE_RPT_DATE(new Date());
+			bidService.updateBid(updateBidDto);
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 导出招标审核表
+	 * @return
+	 */
+	public String exportBidAuditAction() {
+		try {
+			this.clearMessages();
+			String filename = "page/bidaudit.xlsx";
+			String name =  StringUtil.createFileName(Constants.EXCEL_TYPE_ZBSH);
+			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
+			response.setContentType("application/vnd.ms-excel");
+			Poi2007Base base = PoiFactory.getPoi(Constants.EXCEL_TYPE_ZBSH);
+			
+			//查询数据
+			List<Object> list = new ArrayList<Object>();
+			//报名内容
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("bidCompApplyService", bidCompApplyService);
+			list.add(updateBidDto);
+			list.add(listBidComp);
+			base.setMap(map);
+			base.setDatas(list);
+			base.setFilepath(filename);
+			base.exportExcel2(response.getOutputStream());
+			
+			//更新报名表日期
+			updateBidDto.setGEN_VERIFY_RPT_DATE(new Date());
+			bidService.updateBid(updateBidDto);
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 导出招标信息列表
+	 * @return
+	 */
+	public String exportBidListAction() {
+		try {
+			this.clearMessages();
+			String name = StringUtil.createFileName(Constants.EXCEL_TYPE_ZBYL);
+			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
+			response.setContentType("application/vnd.ms-excel");
+			Poi2007Base base = PoiFactory.getPoi(Constants.EXCEL_TYPE_ZBYL);
+			
+			//查询数据
+			List<BidDto> list = bidService.queryAllBidExport("", "", "", "", "", strProjectName, strBidNoLow, strBidNoHigh,
+					"", "", "", "", "", "", "");
+			
+			base.setDatas(list);
+			base.setSheetName(Constants.EXCEL_TYPE_ZBYL);
+			base.exportExcel(response.getOutputStream());
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
 	/**
 	 * 显示添加招标页面
 	 * @return
@@ -161,7 +439,7 @@ public class BidAction extends BaseAction {
 			addBidDto = new BidDto();
 			//默认为不随机
 //			addBidDto.setIS_RANDOM("0");
-			addBidDto.setSTATUS("0");
+			addBidDto.setSTATUS("10");
 			//承接项目日期默认=当天
 			addBidDto.setPROJECT_DEVIEW_DATE(new Date());
 			String userid = (String) ActionContext.getContext().getSession().get(Constants.USER_ID);
@@ -421,7 +699,7 @@ public class BidAction extends BaseAction {
 		}
 		//翻页查询所有招标
 		this.page.setStartIndex(startIndex);
-		bidService.queryBidAndBidCntrctByPage("", "", strProjectName, strBidNoLow, strBidNoHigh,
+		bidService.queryBidAndBidCntrctByPage("", "", "", "", "", strProjectName, strBidNoLow, strBidNoHigh,
 				"", "", "", "", "", "", "", page);
 		listBid = (List<BidDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
@@ -765,5 +1043,13 @@ public class BidAction extends BaseAction {
 
 	public void setListSuperviseLib(List<SuperviseLibDto> listSuperviseLib) {
 		this.listSuperviseLib = listSuperviseLib;
+	}
+
+	public String getStrCompNo() {
+		return strCompNo;
+	}
+
+	public void setStrCompNo(String strCompNo) {
+		this.strCompNo = strCompNo;
 	}
 }

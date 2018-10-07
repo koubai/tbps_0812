@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/node_modules/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/global.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/local.css" />
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/common.js"></script>
 <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
 <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
@@ -23,9 +24,8 @@
 <![endif]-->
 <script type="text/javascript">
 	function add() {
-		var url = '<c:url value="/agentcomp/showAddAgentCompAction.action"></c:url>' + "?date=" + new Date();
-		window.open(url);
-		//window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:750px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+		document.mainform.action = '<c:url value="/agentcomp/showAddAgentCompAction.action"></c:url>';
+		document.mainform.submit();
 	}
 	
 	function upd() {
@@ -34,10 +34,9 @@
 			alert("请选择一条记录！");
 			return;
 		} else {
-			var url = '<c:url value="/agentcomp/showUpdAgentCompAction.action"></c:url>'
-					+ "?updateAgentCompNo=" + id
-					+ "&date=" + new Date();
-			window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:750px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+			$("#updateAgentCompNo").val(id);
+			document.mainform.action = '<c:url value="/agentcomp/showUpdAgentCompAction.action"></c:url>';
+			document.mainform.submit();
 		}
 	}
 	
@@ -119,26 +118,33 @@
 </script>
 </head>
 <body>
-	<jsp:include page="../head.jsp" flush="true" />
-	<div class="container-fluid">
+	<jsp:include page="../head.jsp" flush="true" />	
 		<jsp:include page="../info.jsp" flush="true" />
 		<div class="row">
+			<div class="collapse navbar-collapse navbar-ex1-collapse">
 			<jsp:include page="../menu.jsp" flush="true" />
-			<div class="col-lg-10 right">
+			<s:if test='#session.toggle_menu_flag == "1"'>
+				<div class="col-lg-10 right w100">
+				<a class="toggle" href="javascript:;"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+			</s:if>
+			<s:else>
+				<div class="col-lg-10 right">
 				<a class="toggle" href="javascript:;"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+			</s:else>
 				<s:form id="mainform" name="mainform" method="POST">
 					<s:hidden name="startIndex" id="startIndex"/>
+					<s:hidden name="updateAgentCompNo" id="updateAgentCompNo"/>
 					<h3 class="title">委托公司信息一览<a class="backHome" href="#" onclick="goHome();"><i class="fa fa-home" aria-hidden="true"></i>返回首页</a></h3>
 					<div class="row">
 						<div class="col-lg-4 form-group">
-							<label for="" class="col-lg-3 form-label">委托公司名称</label>
-							<div class="col-lg-9">
+							<label for="" class="col-lg-4 form-label">委托公司名称</label>
+							<div class="col-lg-8">
 								<s:textfield name="strAgentCompName" id="strAgentCompName" cssClass="form-control" maxlength="4" theme="simple"></s:textfield>
 							</div>
 						</div>
 						<div class="col-lg-4 form-group">
-							<label for="" class="col-lg-3 form-label">投标状态</label>
-							<div class="col-lg-9 account">
+							<label for="" class="col-lg-4 form-label">投标状态</label>
+							<div class="col-lg-8">
 								<s:if test='%{radioCom == "1"}'>
 									<input name="radioCom" type="radio" value="1" checked="checked"/>
 									<label class="form-label" for="">委托公司</label>
@@ -160,14 +166,14 @@
 							</div>
 						</div>
 						<div class="col-lg-2 form-group">
-							<button type="button" class="btn btn-success form-control" onclick="queryList();">检索</button>
+							<button class="btn btn-success form-control" onclick="queryList();">检索</button>
 						</div>
 					</div>
 					<div class="btns">
 						<ul>
-							<li><a href="#" onclick="add();"><i class="fa fa-plus" aria-hidden="true"></i>新增</a></li>
-							<!-- <li><a href="#" onclick="upd();"><i class="fa fa-pencil" aria-hidden="true"></i>修改</a></li> -->
-							<li><a href="#" onclick="del();"><i class="fa fa-trash" aria-hidden="true"></i>删除</a></li>
+							<li><a href="javascript:;" onclick="add();"><i class="fa fa-plus" aria-hidden="true"></i>新增</a></li>
+							<li><a href="javascript:;" onclick="upd();"><i class="fa fa-pencil" aria-hidden="true"></i>修改</a></li>
+							<li><a href="javascript:;" onclick="del();"><i class="fa fa-trash" aria-hidden="true"></i>删除</a></li>
 						</ul>
 					</div>
 					<table class="table table-bordered">
@@ -212,7 +218,7 @@
 					</table>
 					<jsp:include page="../turning.jsp" flush="true" />
 					<div class="operationBtns">
-						<button class="btn btn-success" onclick="exportExcel();">下载</button>
+						<button type="button" class="btn btn-success" onclick="exportExcel();">下载</button>
 					</div>
 				</s:form>
 			</div>
@@ -225,15 +231,29 @@
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.min.js"></script>
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.zh-CN.min.js"></script>
 <script>
+	$(function () { $('#collapseThree').collapse('toggle')});
+	
 	$('.datepicker').parent().datepicker({
 		"autoclose":true,"format":"yyyy-mm-dd","language":"zh-CN"
 	});
 	
 	$('.toggle i').click(function(){
-		$('.left').toggle();
-		$(this).toggleClass('fa-angle-double-left');
-		$(this).toggleClass('fa-angle-double-right');
-		$(this).parent().parent('.right').toggleClass('w100');
+		var param = new Object();
+		if($(this).hasClass('fa-angle-double-left')) {
+			param.toggleMenuFlag = "1";
+			$('.left').hide();
+			$(this).removeClass('fa-angle-double-left');
+			$(this).addClass('fa-angle-double-right');
+			$(this).parent().parent('.right').addClass('w100');
+		} else {
+			param.toggleMenuFlag = "0";
+			$('.left').show();
+			$(this).addClass('fa-angle-double-left');
+			$(this).removeClass('fa-angle-double-right');
+			$(this).parent().parent('.right').removeClass('w100');
+		}
+		$.getJSON('<%=request.getContextPath()%>/home/toggleMenuAction.action', param, function(data) {
+		});
 	});
 </script>
 </body>

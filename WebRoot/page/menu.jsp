@@ -2,7 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="c" uri="/WEB-INF/c.tld"%>
-<div class="col-lg-2 left">
+<s:if test='#session.toggle_menu_flag == "1"'>
+	<div class="col-lg-2 left" style="display: none;">
+</s:if>
+<s:else>
+	<div class="col-lg-2 left">
+</s:else>
 	<ul class="nav navbar-nav side-nav">
 	<div class="panel-group" id="accordion">
 		<div class="panel panel-default">
@@ -37,7 +42,7 @@
 				<div class="panel-body">
 					<ul>
 						<li><a href="<%=request.getContextPath()%>/bidcntrct/showBidCntrctPage.action">招标合同管理一览</a></li>
-						<li><a href="<%=request.getContextPath()%>/bidcntrct/showAddAuditCntrctAction.action">招标合同增加</a></li>
+						<li><a href="<%=request.getContextPath()%>/bidcntrct/showAddBidCntrct.action">招标合同增加</a></li>
 						<li><a href="<%=request.getContextPath()%>/bid/showBidAction.action">招标项目检索和一览</a></li>
 						<li><a href="<%=request.getContextPath()%>/bid/showAddBidAction.action">项目信息（新增）</a></li>
 						<li><a href="<%=request.getContextPath()%>/bidagentcost/showBidAgentCostAction.action">代理费计算</a></li>
@@ -55,7 +60,7 @@
 			<div id="collapseThree" class="panel-collapse collapse">
 				<div class="panel-body">
 					<ul>
-						<li><a href="<%=request.getContextPath()%>/auditcomp/showAuditCompAction.action">委托公司信息</a></li>
+						<li><a href="<%=request.getContextPath()%>/agentcomp/showAgentCompAction.action">委托公司信息</a></li>
 					</ul>
 				</div>
 			</div>
@@ -63,10 +68,10 @@
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h4 class="panel-title">
-					<a data-toggle="collapse" data-parent="#accordion" href="#collapseTour"><i class="fa fa-list-ul"></i> 专家库信息 </a>
+					<a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><i class="fa fa-list-ul"></i> 专家库信息 </a>
 				</h4>
 			</div>
-			<div id="collapseTour" class="panel-collapse collapse">
+			<div id="collapseFour" class="panel-collapse collapse">
 				<div class="panel-body">
 					<ul>
 						<li><a href="<%=request.getContextPath()%>/expertlib/showExpertLibAction.action">专家库信息</a></li>
@@ -74,6 +79,7 @@
 				</div>
 			</div>
 		</div>
+		<s:if test='#session.user_rank >= "B"'>
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<h4 class="panel-title">
@@ -84,10 +90,12 @@
 				<div class="panel-body">
 					<ul>
 						<li><a href="<%=request.getContextPath()%>/userinfo/showUserInfoAction.action">用户信息管理</a></li>
+						<li><a href="<%=request.getContextPath()%>/superviselib/showSuperviseLibAction.action">会审监管人管理</a></li>
 					</ul>
 				</div>
 			</div>
 		</div>
+		</s:if>
 	</div>
 	</ul>
 </div>

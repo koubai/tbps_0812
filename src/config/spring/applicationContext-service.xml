@@ -169,6 +169,12 @@
 
 	<!-- 招标 -->
 	<bean id="bidService" class="com.cn.tbps.service.impl.BidServiceImpl" >
+		<property name="superviseLibDao">
+			<ref local="superviseLibDao"/>
+		</property>
+		<property name="userInfoDao">
+			<ref local="userInfoDao"/>
+		</property>
 		<property name="bidDao">
 			<ref local="bidDao"/>
 		</property>

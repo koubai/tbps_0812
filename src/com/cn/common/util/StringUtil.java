@@ -9,6 +9,7 @@ import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 /**
  * 字符串操作工具类
  * @author Frank
@@ -486,4 +487,40 @@ public class StringUtil {
 		}
 		return true;
 	}
+	
+	/**
+	 * 分割文件名路径
+	 * @param filename
+	 * @return
+	 */
+	public static String splitFileName(String filename) {
+		String strRtn="";
+		if (StringUtil.isNotNull(filename)){
+			int i = filename.indexOf(';');
+			if (i>=0){
+				return filename.substring(0, i);
+			}else{
+				return filename;
+			}
+		} 
+		return strRtn;
+	}
+
+	/**
+	 * 分割文件名路径
+	 * @param filename
+	 * @return
+	 */
+	public static String splitFileNameURL(String filename) {
+		String strRtn="";
+		if (StringUtil.isNotNull(filename)){
+			int i = filename.indexOf(';');
+			if (i>=0 && filename.length() > 1){
+				return filename.substring(i+1);
+			}
+		} 
+		return strRtn;
+	}
+
+
 }

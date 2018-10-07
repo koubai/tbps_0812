@@ -64,7 +64,7 @@ public class PoiFactory {
 			//招标报名表回执
 			return new PoiBidReply();
 		} else if(Constants.EXCEL_TYPE_ZBSD.equals(type)) {
-			//招标签收单
+			//招标签收单（标书费收据）
 			return new PoiBidReceive();
 		} else if(Constants.EXCEL_TYPE_ZBSH.equals(type)) {
 			//招标审核表

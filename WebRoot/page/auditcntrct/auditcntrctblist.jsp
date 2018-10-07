@@ -8,12 +8,13 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-<title>审计一览</title>
+<title>审价一览</title>
 <!-- Bootstrap -->
 <link href="<%=request.getContextPath()%>/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/node_modules/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/global.css">
+<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/local.css" />
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/common.js"></script>
 <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
 <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
@@ -162,9 +163,15 @@
 	<div class="container-fluid">
 		<jsp:include page="../info.jsp" flush="true" />
 		<div class="row">
-			<jsp:include page="../auditmenu.jsp" flush="true" />
-			<div class="col-lg-10 right">
+			<jsp:include page="../menu.jsp" flush="true" />
+			<s:if test='#session.toggle_menu_flag == "1"'>
+				<div class="col-lg-10 right w100">
+				<a class="toggle" href="javascript:;"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+			</s:if>
+			<s:else>
+				<div class="col-lg-10 right">
 				<a class="toggle" href="javascript:;"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+			</s:else>
 				<s:form id="mainform" name="mainform" method="POST">
 					<s:hidden name="startIndex" id="startIndex"/>
 					<s:hidden name="strCntrctStDate" id="strCntrctStDate"/>
@@ -328,15 +335,29 @@
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.min.js"></script>
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.zh-CN.min.js"></script>
 <script>
+	$(function () { $('#collapseOne').collapse('toggle')});
+	
 	$('.datepicker').parent().datepicker({
 		"autoclose":true,"format":"yyyy-mm-dd","language":"zh-CN"
 	});
 	
 	$('.toggle i').click(function(){
-		$('.left').toggle();
-		$(this).toggleClass('fa-angle-double-left');
-		$(this).toggleClass('fa-angle-double-right');
-		$(this).parent().parent('.right').toggleClass('w100');
+		var param = new Object();
+		if($(this).hasClass('fa-angle-double-left')) {
+			param.toggleMenuFlag = "1";
+			$('.left').hide();
+			$(this).removeClass('fa-angle-double-left');
+			$(this).addClass('fa-angle-double-right');
+			$(this).parent().parent('.right').addClass('w100');
+		} else {
+			param.toggleMenuFlag = "0";
+			$('.left').show();
+			$(this).addClass('fa-angle-double-left');
+			$(this).removeClass('fa-angle-double-right');
+			$(this).parent().parent('.right').removeClass('w100');
+		}
+		$.getJSON('<%=request.getContextPath()%>/home/toggleMenuAction.action', param, function(data) {
+		});
 	});
 </script>
 </body>

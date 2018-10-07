@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="c" uri="/WEB-INF/c.tld" %>
+<script type="text/javascript">
+	function goHome1() {
+		window.location.href = '<c:url value="/home/goHomeAction.action"></c:url>';
+	}
+	
+	function logout1() {
+		window.location.href = '<c:url value="/login/logout.action"></c:url>';
+	}
+</script>
 <div class="container-fluid">
 <div class="top">
 	<!-- <div class="container">
@@ -20,7 +29,7 @@
 	            <span class="icon-bar"></span>
 	            <span class="icon-bar"></span>
 	        </button>                	        
-	        <a class="navbar-brand" href="index.html">审价和招标管理系统</a>
+	        <a class="navbar-brand" href="#" onclick="goHome1();">审价和招标管理系统</a>
 	     </div>
               <ul class="nav navbar-nav navbar-right navbar-user">
                   <li class="dropdown messages-dropdown">
@@ -45,12 +54,12 @@
                       </ul>
                   </li>
                    <li class="dropdown user-dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Steve Miller<b class="caret"></b></a>
+                      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <%=session.getAttribute("user_name")%><b class="caret"></b></a>
                       <ul class="dropdown-menu">
                           <li><a href="#"><i class="fa fa-user"></i> Profile</a></li>
                           <li><a href="#"><i class="fa fa-gear"></i> Settings</a></li>
                           <li class="divider"></li>
-                          <li><a href="#"><i class="fa fa-power-off"></i> Log Out</a></li>
+                          <li><a href="#" onclick="logout1();"><i class="fa fa-power-off"></i> Log Out</a></li>
                       </ul>
                   </li>
               </ul>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="fileupload" extends="struts-default, json-default" namespace="/fileupload">
+	
+		<action name="uploadFileAction" class="fileUploadAction" method="uploadFileAction">
+			<result type="json"></result>
+		</action>
+		<action name="delFileAction" class="fileUploadAction" method="delFileAction">
+			<result type="json"></result>
+		</action>
+		
+	</package>
+
+</struts>

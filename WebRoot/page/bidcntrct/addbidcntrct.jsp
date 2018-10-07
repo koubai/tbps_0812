@@ -344,7 +344,7 @@
 					</div>
 					<div class="row">
 						<div class="col-lg-6">
-							<div class="box">
+							<div class="box" style="margin-left:50px; margin-top:20px">
 								<h5>委托公司信息</h5>
 								<div class="row">
 									<label class="col-lg-4 form-label">代码</label>
@@ -396,7 +396,7 @@
 					</div>
 					<div class="operationBtns addBtns mgt15 btn3">
 						<button type="button" class="btn btn-success" onclick="add();">保存</button>
-						<button type="button" class="btn btn-success" onclick="goBidCntrctList();">返回</button>
+						<button type="button" class="btn btn-success" style="margin-left:20px" onclick="goBidCntrctList();">返回</button>
 					</div>
 				</div>
 			</div>

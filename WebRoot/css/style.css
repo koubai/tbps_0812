@@ -118,14 +118,16 @@ input,img,label{ vertical-align:middle;}
 
 .login_tab{margin:0 auto; margin-top:15px; font-size:12pt; font-family:"宋体"; color:#333;}
 .yzhm{ margin-top:6px; margin-left:5px;}
-#footer{ position:absolute; bottom:0; background:url(../images/footer.gif) no-repeat; width:1024px; height:120px;}
+footer{ position:absolute; bottom:0; background:url(../images/footer.gif) no-repeat; width:1024px; height:120px;}
+
+
 .session_txt{ margin:0; padding:0; padding-top:155px; font-size:36px; color:#f7b667; text-align:center;}
 .session_txt a{ color:#0087ce; text-decoration:underline;}
 .menu_tab{ position:relative; clear:right; margin:0 auto; padding-top:40px;}
 .menu_l{ float:left; width:5px; height:45px; background:url(../images/menu_l.gif) no-repeat;}
 .menu_r{ float:left; width:5px; height:45px; background:url(../images/menu_r.gif) no-repeat;}
 .menu_c{ float:left; width:275px; height:45px; background:url(../images/menu_c.gif) repeat-x;}
-.menu_c a{ color:#333; font-size:16px; padding-left:20px;line-height:45px; font-family:"黑体";}
+.menu_c a{ color:#333; font-size:16px; padding-left:20px;line-height:45px; font-family:"宋体";}
 
 .update input[type="text"]{ width:120px;}
 .companys{ padding:10px;}

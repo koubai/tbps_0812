@@ -26,6 +26,7 @@
 	function upd() {
 		if(checkdata()) {
 			if(confirm("确定修改吗？")) {
+				$("#uploadFileName").val("");
 				document.mainform.action = '<c:url value="/bid/updBidAction.action"></c:url>';
 				document.mainform.submit();
 			}
@@ -144,22 +145,24 @@
 		var registeEdDateList = $("[name='registeEdDate']");
 		for(var i = 0; i < registeStDateList.length; i++) {
 			if(registeStDateList[i].value == "") {
-				showtab("2");
-				alert("报名开始时间不能为空！");
-				registeStDateList[i].focus();
-				return false;
+				//showtab("2");
+				//alert("报名开始时间不能为空！");
+				//registeStDateList[i].focus();
+				//return false;
 			}
-			if(registeEdDateList[i].value == "") {
-				showtab("2");
-				alert("报名结束时间不能为空！");
-				registeEdDateList[i].focus();
-				return false;
-			}
-			if(registeStDateList[i].value > registeEdDateList[i].value) {
-				showtab("2");
-				alert("报名开始时间不能大于报名结束时间！");
-				registeEdDateList[i].focus();
-				return false;
+			if(registeStDateList[i].value != "") {
+				if(registeEdDateList[i].value == "") {
+					showtab("2");
+					alert("报名结束时间不能为空！");
+					registeEdDateList[i].focus();
+					return false;
+				}
+				if(registeStDateList[i].value > registeEdDateList[i].value) {
+					showtab("2");
+					alert("报名开始时间不能大于报名结束时间！");
+					registeEdDateList[i].focus();
+					return false;
+				}
 			}
 		}
 		//清空报名日历
@@ -256,6 +259,8 @@
 		var tmpBID_PAYMENT_TYPE = $("[name='tmpBID_PAYMENT_TYPE']");
 		var tmpREFOUND_BOND_STATUS = $("[name='tmpREFOUND_BOND_STATUS']");
 		var tmpREFOUND_DEPOSIT_DATE = $("[name='tmpREFOUND_DEPOSIT_DATE']");
+		var tmpRECEPT_UL_FILE1 = $("[name='tmpRECEPT_UL_FILE1']");
+		var tmpRECEPT_UL_FILE1_BASENAME = $("[name='tmpRECEPT_UL_FILE1_BASENAME']");
 		
 		//标书费
 		var tmpBID_CO_NO3 = $("[name='tmpBID_CO_NO3']");
@@ -302,6 +307,8 @@
 		var tmpBID_PAYMENT_TYPE = $("[name='tmpBID_PAYMENT_TYPE']");
 		var tmpREFOUND_BOND_STATUS = $("[name='tmpREFOUND_BOND_STATUS']");
 		var tmpREFOUND_DEPOSIT_DATE = $("[name='tmpREFOUND_DEPOSIT_DATE']");
+		var tmpRECEPT_UL_FILE1 = $("[name='tmpRECEPT_UL_FILE1']");
+		var tmpRECEPT_UL_FILE1_BASENAME = $("[name='tmpRECEPT_UL_FILE1_BASENAME']");
 		
 		//标书费
 		var tmpBID_CO_NO3 = $("[name='tmpBID_CO_NO3']");
@@ -320,6 +327,8 @@
 			var BID_CO_ADD = childs[4].value;
 			var BID_CO_PS = childs[5].value;
 			var TAX_NO = childs[6].value;
+			var tmpBidCompApply = childs[8].value;
+			var tmpSaveBidCompApply = childs[9].value;
 			var BID_CO_SEQ = rows[i].cells[2].innerHTML;
 			
 			var tr = document.createElement("tr");
@@ -359,6 +368,8 @@
 						if(tmpREFOUND_DEPOSIT_DATE[j].value != "") {
 							td.appendChild(createInput("listBidCompTmp[" + i + "].REFOUND_DEPOSIT_DATE", tmpREFOUND_DEPOSIT_DATE[j].value));
 						}
+						td.appendChild(createInput("listBidCompTmp[" + i + "].RECEPT_UL_FILE1", tmpRECEPT_UL_FILE1[j].value));
+						td.appendChild(createInput("listBidCompTmp[" + i + "].RECEPT_UL_FILE1_BASENAME", tmpRECEPT_UL_FILE1_BASENAME[j].value));
 						break;
 					}
 				}
@@ -389,6 +400,8 @@
 			td.appendChild(createInput("listBidCompTmp[" + i + "].BID_CO_PS", BID_CO_PS));
 			td.appendChild(createInput("listBidCompTmp[" + i + "].TAX_NO", TAX_NO));
 			td.appendChild(createInput("listBidCompTmp[" + i + "].BID_CO_SEQ", BID_CO_SEQ));
+			td.appendChild(createInput("listBidCompTmp[" + i + "].saveBidCompApply", tmpSaveBidCompApply));
+			td.appendChild(createInput("listBidCompTmp[" + i + "].showBidCompApply", tmpBidCompApply));
 			
 			tr.appendChild(td);
 			document.getElementById("bidCompListTable").appendChild(tr);
@@ -1088,6 +1101,7 @@
 			$("#tmpBidCompManager").focus();
 			return;
 		}
+		/*
 		if(tmpBidCompTel == "") {
 			alert("负责人电话不能为空！");
 			$("#tmpBidCompTel").focus();
@@ -1103,6 +1117,7 @@
 			$("#tmpBidCompPs").focus();
 			return;
 		}
+		//*/
 		if(tmpBidCompTaxno == "") {
 			alert("开票信息不能为空！");
 			$("#tmpBidCompTaxno").focus();
@@ -1149,6 +1164,13 @@
 			//seq
 			var input = createHidden("");
 			td1.appendChild(input);
+			//bidCompApply
+			var input = createHidden("");
+			td1.appendChild(input);
+			//saveBidCompApply
+			var input = createHidden("");
+			td1.appendChild(input);
+			
 			tr.appendChild(td1);
 			
 			//序号
@@ -1193,6 +1215,228 @@
 			rows[i].cells[2].innerHTML = num;
 		}
 		$('#bidCompModal').modal('hide');
+	}
+	
+	//导出审核表
+	function exportBidAudit() {
+		document.mainform.action = '<c:url value="/bid/exportBidAuditAction.action"></c:url>';
+		document.mainform.submit();
+	}
+	
+	//导出所有公司报名表
+	function exportBidRegister() {
+		document.mainform.action = '<c:url value="/bid/exportBidRegisterAction.action"></c:url>';
+		document.mainform.submit();
+	}
+	
+	//导出单个公司报名表
+	function exportSingleBidRegister(compNo) {
+		document.mainform.action = '<c:url value="/bid/exportSingleBidRegisterAction.action"></c:url>?strCompNo=' + compNo;
+		document.mainform.submit();
+	}
+	
+	//设置公司报名内容
+	function setApplyContent(compNo) {
+		$("#applyCompNo").val(compNo);
+		var bidCompApply = $("#bidCompApply_" + compNo).val();
+		$("#bidCompApplyData").empty();
+		if(bidCompApply != "") {
+			var list = bidCompApply.split("####");
+			var n = 1;
+			for(var i = 0; i < list.length; i++) {
+				if(list[i] != "") {
+					var ss = list[i].split("@@@@");
+					var html = '<tr>';
+					html += '<td>' + n + '</td>';
+					html += '<td>';
+					html += '	<input type="hidden" name="tmpApplyId" value="' + ss[0] + '">';
+					html += '	<input type="text" disabled="disabled" name="tmpApplyRequire" class="form-control" value="' + ss[1] + '">';
+					html += '</td>';
+					html += '<td><input name="tmpApplyContent" type="text" class="form-control" value="' + ss[2] + '"></td>';
+					html += '</tr>';
+					$("#bidCompApplyData").append(html);
+					n++;
+				}
+			}
+			//禁用 Bootstrap 模态框(Modal) 点击空白时自动关闭
+			$('#bidCompApplyModal').modal({backdrop: 'static', keyboard: false});
+			$('#bidCompApplyModal').modal('show');
+		} else {
+			alert("请设置报名要求！");
+		}
+	}
+	
+	function setBidCompApply() {
+		var compNo = $("#applyCompNo").val();
+		var tmpApplyId = $("[name='tmpApplyId']");
+		var tmpApplyRequire = $("[name='tmpApplyRequire']");
+		var tmpApplyContent = $("[name='tmpApplyContent']");
+		if(tmpApplyId != null && tmpApplyId.length > 0) {
+			var tmpapplynote = "";
+			for(var i = 0; i < tmpApplyId.length; i++) {
+				if(tmpApplyContent[i].value == "") {
+					alert("报名内容不能为空！");
+					tmpApplyContent[i].focus();
+					return;
+				}
+				tmpapplynote += tmpApplyId[i].value + "@@@@" + tmpApplyRequire[i].value + "@@@@" + tmpApplyContent[i].value + "####";
+			}
+			//
+			$("#bidCompApply_" + compNo).val(tmpapplynote);
+			$("#saveBidCompApply_" + compNo).val(tmpapplynote);
+		}
+		$('#bidCompApplyModal').modal('hide');
+	}
+	
+	//导出单个公司报名回执
+	function exportSingleBidRegisterReturn(compNo) {
+		document.mainform.action = '<c:url value="/bid/exportBidReplyAction.action"></c:url>?strCompNo=' + compNo;
+		document.mainform.submit();
+	}
+	
+	//导出保证金收据
+	function exportBidDeposit() {
+		document.mainform.action = '<c:url value="/bid/exportBidDepositAction.action"></c:url>';
+		document.mainform.submit();
+	}
+	
+	//导出保证金退订签收单
+	function exportBidCancel() {
+		document.mainform.action = '<c:url value="/bid/exportBidCancelAction.action"></c:url>';
+		document.mainform.submit();
+	}
+	
+	//导出标书费收据
+	function exportBidReceive() {
+		document.mainform.action = '<c:url value="/bid/exportBidReceiveAction.action"></c:url>';
+		document.mainform.submit();
+	}
+	
+	//导出标书费签收单
+	function exportBidSign() {
+		document.mainform.action = '<c:url value="/bid/exportBidSignAction.action"></c:url>';
+		document.mainform.submit();
+	}
+	
+	function delFile(obj, compNo) {
+		var filename = $("#tmpRECEPT_UL_FILE1_" + compNo).val();
+		if(filename != "") {
+			if(confirm("确定删除吗？")) {
+				var param = new Object();
+				param.delFileName = filename;
+				$.getJSON('<%=request.getContextPath()%>/fileupload/delFileAction.action', param, function(data) {
+					if(data.resultCode == 0) {
+						alert("文件删除成功！");
+						//清空页面数据
+						$("#tmpRECEPT_UL_FILE1_" + compNo).val("");
+						$("#tmpRECEPT_UL_FILE1_BASENAME_" + compNo).val("");
+						$("#preview_" + compNo).remove();
+						$("#del_file_" + compNo).remove();
+					} else {
+						alert(data.resultMessage);
+					}
+				});
+			}
+		}
+	}
+	
+	function showUploadModel(obj, compNo) {
+		$("#uploadFileName").val("");
+		$("#uploadFileObj").val("");
+		$("#fileNamePre").val("");
+		$("#uploadFileCompNo").val(compNo);
+		//禁用 Bootstrap 模态框(Modal) 点击空白时自动关闭
+		$('#uploadFileModal').modal({backdrop: 'static', keyboard: false});
+		$('#uploadFileModal').modal('show');
+	}
+	
+	function uploadFile() {
+		var uploadFileCompNo = $("#uploadFileCompNo").val();
+		var uploadFileObj = $("#uploadFileObj").val();
+		
+		if(uploadFileObj == "") {
+			alert("请选择文件！");
+			$("#uploadFileObj").focus();
+			return;
+		}
+		if(confirm("确定上传吗？")) {
+			$("#uploadFileName").val(uploadFileObj);
+			//前缀
+			$("#fileNamePre").val("comp");
+			//解决重复上传错误
+			/* var formId = 'jUploadFrame' + 'uploadFileName';
+			var test1 = jQuery('#' + formId);
+			var test2 = $("iframe[id^='jUpload']");
+			alert("test1.length=" + test1.length + "," + "test2.length=" + test2.length);
+			if(test1.length > 0) {
+				test1.remove();
+			} */
+			
+			var formData = new FormData($("#file_form")[0]);
+			$.ajax({
+				url: '<c:url value="/fileupload/uploadFileAction.action"></c:url>',
+				type: 'POST',
+				data: formData,
+				async: false,
+				cache: false,
+				contentType: false,
+				processData: false,
+				success: function (data) {
+					if(data.resultCode == 0) {
+						//上传成功
+						var fileurl = data.data.fileurl;
+						var filename = data.data.filename;
+						var originalname = data.data.originalname;
+						$("#tmpRECEPT_UL_FILE1_" + uploadFileCompNo).val(filename);
+						//将文件原始名称记录下来
+						$("#tmpRECEPT_UL_FILE1_BASENAME_" + uploadFileCompNo).val(originalname);
+						
+						var preview_html = '<a id="preview_' + uploadFileCompNo + '" target="_blank" href="' + fileurl + filename + '">' + originalname + '</a>';
+						$("#file_td_" + uploadFileCompNo).append(preview_html);
+						var del_html = '<a id="del_file_' + uploadFileCompNo + '" href="javascript:void(0);" onclick="delFile(this,\'' + uploadFileCompNo + '\');">删除</a>';
+						$("#file_td_" + uploadFileCompNo).append(del_html);
+						
+						//隐藏模态窗体
+						$('#uploadFileModal').modal('hide');
+						$("#uploadFileName").val("");
+					} else {
+						alert("文件上传失败：" + data.resultMessage);
+						return;
+					}
+				}
+			});
+			
+			/*
+			$.ajaxFileUpload({
+				url:'<c:url value="/fileupload/uploadFileAction.action"></c:url>?time=' + new Date(),
+				secureuri:false,
+				fileElementId:"uploadFileName",
+				dataType:"json",
+				data:{
+					"uploadFileName":uploadFileName,
+					"fileNamePre":"comp"
+				},
+				success:function(data) {
+					if(data.resultCode == 0) {
+						//上传成功
+						var fileurl = data.data.fileurl;
+						var filename = data.data.filename;
+						//alert(fileurl + filename);
+						$("#tmpRECEPT_UL_FILE1_" + uploadFileCompNo).val(filename);
+						$("#preview_" + uploadFileCompNo).attr("href", fileurl + filename);
+						//隐藏模态窗体
+						$('#uploadFileModal').modal('hide');
+						$("#uploadFileName").val("");
+					} else {
+						alert("文件上传失败：" + data.resultMessage);
+						return;
+					}
+				},
+				error:function(XMLHttpRequest, textStatus, errorThrown) {
+					alert(errorThrown);
+				}
+			});//*/
+		}
 	}
 </script>
 </head>
@@ -1355,7 +1599,7 @@
 								</select>
 						 	</div>
 						</div>
-						<div class="col-lg-4 form-group">
+						<div class="col-lg-6 form-group">
 						 	<label for="" class="col-lg-3 form-label">项目名称</label>
 						 	<div class="col-lg-9">
 						 		<s:textfield name="updateBidDto.PROJECT_NAME" id="PROJECT_NAME" cssClass="form-control" maxlength="200" theme="simple"></s:textfield>
@@ -1378,112 +1622,211 @@
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-3 form-label">承接项目日期</label>
 									<div class="col-lg-9">
-										<div class="input-group date" data-provide="datepicker">
-											<input type="text" id="tmpPROJECT_DEVIEW_DATE" value="<s:date name="updateBidDto.PROJECT_DEVIEW_DATE" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
-											<div class="input-group-addon">
-												<span class="glyphicon glyphicon-th"></span>
+										<s:if test='#session.user_rank >= "B"'>
+											<div class="input-group date" data-provide="datepicker">
+												<input type="text" id="tmpPROJECT_DEVIEW_DATE" value="<s:date name="updateBidDto.PROJECT_DEVIEW_DATE" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
+												<div class="input-group-addon">
+													<span class="glyphicon glyphicon-th"></span>
+												</div>
 											</div>
-										</div>
+										</s:if>
+										<s:else>
+											<input type="text" id="tmpPROJECT_DEVIEW_DATE" value="<s:date name="updateBidDto.PROJECT_DEVIEW_DATE" format="yyyy-MM-dd"/>" class="form-control" readonly>
+										</s:else>
 									</div>
 								</div>
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-3 form-label">项目性质</label>
 									<div class="col-lg-9">
-										<select class="form-control" name="updateBidDto.PROJECT_PROPERTY" id="PROJECT_PROPERTY">
-											<option value="" selected="selected">请选择</option>
-											<s:if test='updateBidDto.PROJECT_PROPERTY == "1"'>
-												<option value="1" selected="selected">成本内</option>
-												<option value="2">成本外</option>
-												<option value="3">单独立项</option>
-												<option value="9">其他</option>
-											</s:if>
-											<s:elseif test='updateBidDto.PROJECT_PROPERTY == "2"'>
-												<option value="1">成本内</option>
-												<option value="2" selected="selected">成本外</option>
-												<option value="3">单独立项</option>
-												<option value="9">其他</option>
-											</s:elseif>
-											<s:elseif test='updateBidDto.PROJECT_PROPERTY == "3"'>
-												<option value="1">成本内</option>
-												<option value="2">成本外</option>
-												<option value="3" selected="selected">单独立项</option>
-												<option value="9">其他</option>
-											</s:elseif>
-											<s:elseif test='updateBidDto.PROJECT_PROPERTY == "4"'>
-												<option value="1">成本内</option>
-												<option value="2">成本外</option>
-												<option value="3">单独立项</option>
-												<option value="9" selected="selected">其他</option>
-											</s:elseif>
-											<s:else>
-												<option value="1">成本内</option>
-												<option value="2">成本外</option>
-												<option value="3">单独立项</option>
-												<option value="9">其他</option>
-											</s:else>
-										</select>
+										<s:if test='#session.user_rank >= "B"'>
+											<select class="form-control" name="updateBidDto.PROJECT_PROPERTY" id="PROJECT_PROPERTY">
+												<option value="" selected="selected">请选择</option>
+												<s:if test='updateBidDto.PROJECT_PROPERTY == "1"'>
+													<option value="1" selected="selected">成本内</option>
+													<option value="2">成本外</option>
+													<option value="3">单独立项</option>
+													<option value="9">其他</option>
+												</s:if>
+												<s:elseif test='updateBidDto.PROJECT_PROPERTY == "2"'>
+													<option value="1">成本内</option>
+													<option value="2" selected="selected">成本外</option>
+													<option value="3">单独立项</option>
+													<option value="9">其他</option>
+												</s:elseif>
+												<s:elseif test='updateBidDto.PROJECT_PROPERTY == "3"'>
+													<option value="1">成本内</option>
+													<option value="2">成本外</option>
+													<option value="3" selected="selected">单独立项</option>
+													<option value="9">其他</option>
+												</s:elseif>
+												<s:elseif test='updateBidDto.PROJECT_PROPERTY == "4"'>
+													<option value="1">成本内</option>
+													<option value="2">成本外</option>
+													<option value="3">单独立项</option>
+													<option value="9" selected="selected">其他</option>
+												</s:elseif>
+												<s:else>
+													<option value="1">成本内</option>
+													<option value="2">成本外</option>
+													<option value="3">单独立项</option>
+													<option value="9">其他</option>
+												</s:else>
+											</select>
+										</s:if>
+										<s:else>
+											<select class="form-control" name="updateBidDto.PROJECT_PROPERTY" id="PROJECT_PROPERTY" disabled="disabled">
+												<option value="" selected="selected">请选择</option>
+												<s:if test='updateBidDto.PROJECT_PROPERTY == "1"'>
+													<option value="1" selected="selected">成本内</option>
+													<option value="2">成本外</option>
+													<option value="3">单独立项</option>
+													<option value="9">其他</option>
+												</s:if>
+												<s:elseif test='updateBidDto.PROJECT_PROPERTY == "2"'>
+													<option value="1">成本内</option>
+													<option value="2" selected="selected">成本外</option>
+													<option value="3">单独立项</option>
+													<option value="9">其他</option>
+												</s:elseif>
+												<s:elseif test='updateBidDto.PROJECT_PROPERTY == "3"'>
+													<option value="1">成本内</option>
+													<option value="2">成本外</option>
+													<option value="3" selected="selected">单独立项</option>
+													<option value="9">其他</option>
+												</s:elseif>
+												<s:elseif test='updateBidDto.PROJECT_PROPERTY == "4"'>
+													<option value="1">成本内</option>
+													<option value="2">成本外</option>
+													<option value="3">单独立项</option>
+													<option value="9" selected="selected">其他</option>
+												</s:elseif>
+												<s:else>
+													<option value="1">成本内</option>
+													<option value="2">成本外</option>
+													<option value="3">单独立项</option>
+													<option value="9">其他</option>
+												</s:else>
+											</select>
+										</s:else>
 									</div>
 								</div>
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-3 form-label">会审监管人</label>
 									<div class="col-lg-9">
-										<select class="form-control" name="updateBidDto.PROJECT_AUTH" id="PROJECT_AUTH">
-											<option value="" selected="selected">请选择</option>
-											<s:iterator id="listSuperviseLib" value="listSuperviseLib" status="st1">
-												<option value="<s:property value="SUPERVISE_SEQ"/>" <s:if test="%{updateBidDto.PROJECT_AUTH == SUPERVISE_SEQ}">selected</s:if>><s:property value="SUPERVISE_NAME"/></option>
-											</s:iterator>
-										</select>
+										<s:if test='#session.user_rank >= "B"'>
+											<select class="form-control" name="updateBidDto.PROJECT_AUTH" id="PROJECT_AUTH">
+												<option value="" selected="selected">请选择</option>
+												<s:iterator id="listSuperviseLib" value="listSuperviseLib" status="st1">
+													<option value="<s:property value="SUPERVISE_SEQ"/>" <s:if test="%{updateBidDto.PROJECT_AUTH == SUPERVISE_SEQ}">selected</s:if>><s:property value="SUPERVISE_NAME"/></option>
+												</s:iterator>
+											</select>
+										</s:if>
+										<s:else>
+											<select class="form-control" name="updateBidDto.PROJECT_AUTH" id="PROJECT_AUTH" disabled="disabled">
+												<option value="" selected="selected">请选择</option>
+												<s:iterator id="listSuperviseLib" value="listSuperviseLib" status="st1">
+													<option value="<s:property value="SUPERVISE_SEQ"/>" <s:if test="%{updateBidDto.PROJECT_AUTH == SUPERVISE_SEQ}">selected</s:if>><s:property value="SUPERVISE_NAME"/></option>
+												</s:iterator>
+											</select>
+										</s:else>
 									</div>
 								</div>
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-3 form-label">代理费支付方</label>
 									<div class="col-lg-9">
-										<select class="form-control" name="updateBidDto.BID_AGENT_PAY" id="BID_AGENT_PAY">
-											<option value="" selected="selected">请选择</option>
-											<s:if test='updateBidDto.BID_AGENT_PAY == "1"'>
-												<option value="1" selected="selected">委托单位</option>
-												<option value="2">中标单位</option>
-												<option value="3">申通集团</option>
-												<option value="4">维保公司</option>
-											</s:if>
-											<s:elseif test='updateBidDto.BID_AGENT_PAY == "2"'>
-												<option value="1">委托单位</option>
-												<option value="2" selected="selected">中标单位</option>
-												<option value="3">申通集团</option>
-												<option value="4">维保公司</option>
-											</s:elseif>
-											<s:elseif test='updateBidDto.BID_AGENT_PAY == "3"'>
-												<option value="1">委托单位</option>
-												<option value="2">中标单位</option>
-												<option value="3" selected="selected">申通集团</option>
-												<option value="4">维保公司</option>
-											</s:elseif>
-											<s:elseif test='updateBidDto.BID_AGENT_PAY == "4"'>
-												<option value="1">委托单位</option>
-												<option value="2">中标单位</option>
-												<option value="3">申通集团</option>
-												<option value="4" selected="selected">维保公司</option>
-											</s:elseif>
-											<s:else>
-												<option value="1">委托单位</option>
-												<option value="2">中标单位</option>
-												<option value="3">申通集团</option>
-												<option value="4">维保公司</option>
-											</s:else>
-										</select>
+										<s:if test='#session.user_rank >= "B"'>
+											<select class="form-control" name="updateBidDto.BID_AGENT_PAY" id="BID_AGENT_PAY">
+												<option value="" selected="selected">请选择</option>
+												<s:if test='updateBidDto.BID_AGENT_PAY == "1"'>
+													<option value="1" selected="selected">委托单位</option>
+													<option value="2">中标单位</option>
+													<option value="3">申通集团</option>
+													<option value="4">维保公司</option>
+												</s:if>
+												<s:elseif test='updateBidDto.BID_AGENT_PAY == "2"'>
+													<option value="1">委托单位</option>
+													<option value="2" selected="selected">中标单位</option>
+													<option value="3">申通集团</option>
+													<option value="4">维保公司</option>
+												</s:elseif>
+												<s:elseif test='updateBidDto.BID_AGENT_PAY == "3"'>
+													<option value="1">委托单位</option>
+													<option value="2">中标单位</option>
+													<option value="3" selected="selected">申通集团</option>
+													<option value="4">维保公司</option>
+												</s:elseif>
+												<s:elseif test='updateBidDto.BID_AGENT_PAY == "4"'>
+													<option value="1">委托单位</option>
+													<option value="2">中标单位</option>
+													<option value="3">申通集团</option>
+													<option value="4" selected="selected">维保公司</option>
+												</s:elseif>
+												<s:else>
+													<option value="1">委托单位</option>
+													<option value="2">中标单位</option>
+													<option value="3">申通集团</option>
+													<option value="4">维保公司</option>
+												</s:else>
+											</select>
+										</s:if>
+										<s:else>
+											<select class="form-control" name="updateBidDto.BID_AGENT_PAY" id="BID_AGENT_PAY" disabled="disabled">
+												<option value="" selected="selected">请选择</option>
+												<s:if test='updateBidDto.BID_AGENT_PAY == "1"'>
+													<option value="1" selected="selected">委托单位</option>
+													<option value="2">中标单位</option>
+													<option value="3">申通集团</option>
+													<option value="4">维保公司</option>
+												</s:if>
+												<s:elseif test='updateBidDto.BID_AGENT_PAY == "2"'>
+													<option value="1">委托单位</option>
+													<option value="2" selected="selected">中标单位</option>
+													<option value="3">申通集团</option>
+													<option value="4">维保公司</option>
+												</s:elseif>
+												<s:elseif test='updateBidDto.BID_AGENT_PAY == "3"'>
+													<option value="1">委托单位</option>
+													<option value="2">中标单位</option>
+													<option value="3" selected="selected">申通集团</option>
+													<option value="4">维保公司</option>
+												</s:elseif>
+												<s:elseif test='updateBidDto.BID_AGENT_PAY == "4"'>
+													<option value="1">委托单位</option>
+													<option value="2">中标单位</option>
+													<option value="3">申通集团</option>
+													<option value="4" selected="selected">维保公司</option>
+												</s:elseif>
+												<s:else>
+													<option value="1">委托单位</option>
+													<option value="2">中标单位</option>
+													<option value="3">申通集团</option>
+													<option value="4">维保公司</option>
+												</s:else>
+											</select>
+										</s:else>
 									</div>
 								</div>
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-3 form-label">代理费</label>
 									<div class="col-lg-8">
-										<s:textfield name="updateBidDto.BID_AGENT_PRICE" id="BID_AGENT_PRICE" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
+										<s:if test='#session.user_rank >= "B"'>
+											<s:textfield name="updateBidDto.BID_AGENT_PRICE" id="BID_AGENT_PRICE" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
+										</s:if>
+										<s:else>
+											<s:textfield name="updateBidDto.BID_AGENT_PRICE" disabled="true" id="BID_AGENT_PRICE" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
+										</s:else>
 									</div>
 									<label for="" class="col-lg-1 form-label">万元</label>
 								</div>
 								<div class="col-lg-12 form-group">
 									<label class="col-lg-1 form-label">工程概况批文</label>
 									<div class="col-lg-11">
-										<textarea id="tmpPROJ_APPROVAL" class="form-control"><s:property value="updateBidDto.PROJ_APPROVAL" /></textarea>
+										<s:if test='#session.user_rank >= "B"'>
+											<textarea id="tmpPROJ_APPROVAL" class="form-control"><s:property value="updateBidDto.PROJ_APPROVAL" /></textarea>
+										</s:if>
+										<s:else>
+											<textarea id="tmpPROJ_APPROVAL" disabled="disabled" class="form-control"><s:property value="updateBidDto.PROJ_APPROVAL" /></textarea>
+										</s:else>
 									</div>
 								</div>
 							</div>
@@ -1496,29 +1839,41 @@
 										<s:if test='updateBidDto.REGISTE_ST_DATE1 != null'>
 											<div class="row">
 												<div class="col-lg-4">
-													<div class="input-group date" data-provide="datepicker">
-														<input type="text" name="registeStDate" value="<s:date name="updateBidDto.REGISTE_ST_DATE1" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
-														<div class="input-group-addon">
-															<span class="glyphicon glyphicon-th"></span>
+													<s:if test='#session.user_rank >= "B"'>
+														<div class="input-group date" data-provide="datepicker">
+															<input type="text" name="registeStDate" value="<s:date name="updateBidDto.REGISTE_ST_DATE1" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
+															<div class="input-group-addon">
+																<span class="glyphicon glyphicon-th"></span>
+															</div>
 														</div>
-													</div>
+													</s:if>
+													<s:else>
+														<input type="text" name="registeStDate" value="<s:date name="updateBidDto.REGISTE_ST_DATE1" format="yyyy-MM-dd"/>" class="form-control" readonly>
+													</s:else>
 												</div>
 												<label for="" class="col-lg-1 form-label to">---</label>
 												<div class="col-lg-4">
-													<div class="input-group date" data-provide="datepicker">
-														<input type="text" name="registeEdDate" value="<s:date name="updateBidDto.REGISTE_ED_DATE1" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
-														<div class="input-group-addon">
-															<span class="glyphicon glyphicon-th"></span>
+													<s:if test='#session.user_rank >= "B"'>
+														<div class="input-group date" data-provide="datepicker">
+															<input type="text" name="registeEdDate" value="<s:date name="updateBidDto.REGISTE_ED_DATE1" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
+															<div class="input-group-addon">
+																<span class="glyphicon glyphicon-th"></span>
+															</div>
 														</div>
-													</div>
+													</s:if>
+													<s:else>
+														<input type="text" name="registeEdDate" value="<s:date name="updateBidDto.REGISTE_ED_DATE1" format="yyyy-MM-dd"/>" class="form-control" readonly>
+													</s:else>
 												</div>
 												<div class="col-lg-2">
-													<a href="javascript:void(0);" onclick="adddate();">
-														<img src="<%=request.getContextPath()%>/images/add.png" />
-													</a>
-													<a href="javascript:void(0);" onclick="deldate(this);">
-														<img src="<%=request.getContextPath()%>/images/minus.png" />
-													</a>
+													<s:if test='#session.user_rank >= "B"'>
+														<a href="javascript:void(0);" onclick="adddate();">
+															<img src="<%=request.getContextPath()%>/images/add.png" />
+														</a>
+														<a href="javascript:void(0);" onclick="deldate(this);">
+															<img src="<%=request.getContextPath()%>/images/minus.png" />
+														</a>
+													</s:if>
 												</div>
 											</div>
 										</s:if>
@@ -1526,145 +1881,205 @@
 											<!-- 默认至少有一个日期 -->
 											<div class="row">
 												<div class="col-lg-4">
-													<div class="input-group date" data-provide="datepicker">
-														<input type="text" name="registeStDate" value="" class="form-control datepicker" readonly>
-														<div class="input-group-addon">
-															<span class="glyphicon glyphicon-th"></span>
+													<s:if test='#session.user_rank >= "B"'>
+														<div class="input-group date" data-provide="datepicker">
+															<input type="text" name="registeStDate" value="" class="form-control datepicker" readonly>
+															<div class="input-group-addon">
+																<span class="glyphicon glyphicon-th"></span>
+															</div>
 														</div>
-													</div>
+													</s:if>
+													<s:else>
+														<input type="text" name="registeStDate" value="" class="form-control" readonly>
+													</s:else>
 												</div>
 												<label for="" class="col-lg-1 form-label to">---</label>
 												<div class="col-lg-4">
-													<div class="input-group date" data-provide="datepicker">
-														<input type="text" name="registeEdDate" value="" class="form-control datepicker" readonly>
-														<div class="input-group-addon">
-															<span class="glyphicon glyphicon-th"></span>
+													<s:if test='#session.user_rank >= "B"'>
+														<div class="input-group date" data-provide="datepicker">
+															<input type="text" name="registeEdDate" value="" class="form-control datepicker" readonly>
+															<div class="input-group-addon">
+																<span class="glyphicon glyphicon-th"></span>
+															</div>
 														</div>
-													</div>
+													</s:if>
+													<s:else>
+														<input type="text" name="registeEdDate" value="" class="form-control" readonly>
+													</s:else>
 												</div>
 												<div class="col-lg-2">
-													<a href="javascript:void(0);" onclick="adddate();">
-														<img src="<%=request.getContextPath()%>/images/add.png" />
-													</a>
-													<a href="javascript:void(0);" onclick="deldate(this);">
-														<img src="<%=request.getContextPath()%>/images/minus.png" />
-													</a>
+													<s:if test='#session.user_rank >= "B"'>
+														<a href="javascript:void(0);" onclick="adddate();">
+															<img src="<%=request.getContextPath()%>/images/add.png" />
+														</a>
+														<a href="javascript:void(0);" onclick="deldate(this);">
+															<img src="<%=request.getContextPath()%>/images/minus.png" />
+														</a>
+													</s:if>
 												</div>
 											</div>
 										</s:else>
 										<s:if test='updateBidDto.REGISTE_ST_DATE2 != null'>
 											<div class="row">
 												<div class="col-lg-4">
-													<div class="input-group date" data-provide="datepicker">
-														<input type="text" name="registeStDate" value="<s:date name="updateBidDto.REGISTE_ST_DATE2" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
-														<div class="input-group-addon">
-															<span class="glyphicon glyphicon-th"></span>
+													<s:if test='#session.user_rank >= "B"'>
+														<div class="input-group date" data-provide="datepicker">
+															<input type="text" name="registeStDate" value="<s:date name="updateBidDto.REGISTE_ST_DATE2" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
+															<div class="input-group-addon">
+																<span class="glyphicon glyphicon-th"></span>
+															</div>
 														</div>
-													</div>
+													</s:if>
+													<s:else>
+														<input type="text" name="registeStDate" value="<s:date name="updateBidDto.REGISTE_ST_DATE2" format="yyyy-MM-dd"/>" class="form-control" readonly>
+													</s:else>
 												</div>
 												<label for="" class="col-lg-1 form-label to">---</label>
 												<div class="col-lg-4">
-													<div class="input-group date" data-provide="datepicker">
-														<input type="text" name="registeEdDate" value="<s:date name="updateBidDto.REGISTE_ED_DATE2" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
-														<div class="input-group-addon">
-															<span class="glyphicon glyphicon-th"></span>
+													<s:if test='#session.user_rank >= "B"'>
+														<div class="input-group date" data-provide="datepicker">
+															<input type="text" name="registeEdDate" value="<s:date name="updateBidDto.REGISTE_ED_DATE2" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
+															<div class="input-group-addon">
+																<span class="glyphicon glyphicon-th"></span>
+															</div>
 														</div>
-													</div>
+													</s:if>
+													<s:else>
+														<input type="text" name="registeEdDate" value="<s:date name="updateBidDto.REGISTE_ED_DATE2" format="yyyy-MM-dd"/>" class="form-control" readonly>
+													</s:else>
 												</div>
 												<div class="col-lg-2">
-													<a href="javascript:void(0);" onclick="adddate();">
-														<img src="<%=request.getContextPath()%>/images/add.png" />
-													</a>
-													<a href="javascript:void(0);" onclick="deldate(this);">
-														<img src="<%=request.getContextPath()%>/images/minus.png" />
-													</a>
+													<s:if test='#session.user_rank >= "B"'>
+														<a href="javascript:void(0);" onclick="adddate();">
+															<img src="<%=request.getContextPath()%>/images/add.png" />
+														</a>
+														<a href="javascript:void(0);" onclick="deldate(this);">
+															<img src="<%=request.getContextPath()%>/images/minus.png" />
+														</a>
+													</s:if>
 												</div>
 											</div>
 										</s:if>
 										<s:if test='updateBidDto.REGISTE_ST_DATE3 != null'>
 											<div class="row">
 												<div class="col-lg-4">
-													<div class="input-group date" data-provide="datepicker">
-														<input type="text" name="registeStDate" value="<s:date name="updateBidDto.REGISTE_ST_DATE3" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
-														<div class="input-group-addon">
-															<span class="glyphicon glyphicon-th"></span>
+													<s:if test='#session.user_rank >= "B"'>
+														<div class="input-group date" data-provide="datepicker">
+															<input type="text" name="registeStDate" value="<s:date name="updateBidDto.REGISTE_ST_DATE3" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
+															<div class="input-group-addon">
+																<span class="glyphicon glyphicon-th"></span>
+															</div>
 														</div>
-													</div>
+													</s:if>
+													<s:else>
+														<input type="text" name="registeStDate" value="<s:date name="updateBidDto.REGISTE_ST_DATE3" format="yyyy-MM-dd"/>" class="form-control" readonly>
+													</s:else>
 												</div>
 												<label for="" class="col-lg-1 form-label to">---</label>
 												<div class="col-lg-4">
-													<div class="input-group date" data-provide="datepicker">
-														<input type="text" name="registeEdDate" value="<s:date name="updateBidDto.REGISTE_ED_DATE3" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
-														<div class="input-group-addon">
-															<span class="glyphicon glyphicon-th"></span>
+													<s:if test='#session.user_rank >= "B"'>
+														<div class="input-group date" data-provide="datepicker">
+															<input type="text" name="registeEdDate" value="<s:date name="updateBidDto.REGISTE_ED_DATE3" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
+															<div class="input-group-addon">
+																<span class="glyphicon glyphicon-th"></span>
+															</div>
 														</div>
-													</div>
+													</s:if>
+													<s:else>
+														<input type="text" name="registeEdDate" value="<s:date name="updateBidDto.REGISTE_ED_DATE3" format="yyyy-MM-dd"/>" class="form-control" readonly>
+													</s:else>
 												</div>
 												<div class="col-lg-2">
-													<a href="javascript:void(0);" onclick="adddate();">
-														<img src="<%=request.getContextPath()%>/images/add.png" />
-													</a>
-													<a href="javascript:void(0);" onclick="deldate(this);">
-														<img src="<%=request.getContextPath()%>/images/minus.png" />
-													</a>
+													<s:if test='#session.user_rank >= "B"'>
+														<a href="javascript:void(0);" onclick="adddate();">
+															<img src="<%=request.getContextPath()%>/images/add.png" />
+														</a>
+														<a href="javascript:void(0);" onclick="deldate(this);">
+															<img src="<%=request.getContextPath()%>/images/minus.png" />
+														</a>
+													</s:if>
 												</div>
 											</div>
 										</s:if>
 										<s:if test='updateBidDto.REGISTE_ST_DATE4 != null'>
 											<div class="row">
 												<div class="col-lg-4">
-													<div class="input-group date" data-provide="datepicker">
-														<input type="text" name="registeStDate" value="<s:date name="updateBidDto.REGISTE_ST_DATE4" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
-														<div class="input-group-addon">
-															<span class="glyphicon glyphicon-th"></span>
+													<s:if test='#session.user_rank >= "B"'>
+														<div class="input-group date" data-provide="datepicker">
+															<input type="text" name="registeStDate" value="<s:date name="updateBidDto.REGISTE_ST_DATE4" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
+															<div class="input-group-addon">
+																<span class="glyphicon glyphicon-th"></span>
+															</div>
 														</div>
-													</div>
+													</s:if>
+													<s:else>
+														<input type="text" name="registeStDate" value="<s:date name="updateBidDto.REGISTE_ST_DATE4" format="yyyy-MM-dd"/>" class="form-control" readonly>
+													</s:else>
 												</div>
 												<label for="" class="col-lg-1 form-label to">---</label>
 												<div class="col-lg-4">
-													<div class="input-group date" data-provide="datepicker">
-														<input type="text" name="registeEdDate" value="<s:date name="updateBidDto.REGISTE_ED_DATE4" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
-														<div class="input-group-addon">
-															<span class="glyphicon glyphicon-th"></span>
+													<s:if test='#session.user_rank >= "B"'>
+														<div class="input-group date" data-provide="datepicker">
+															<input type="text" name="registeEdDate" value="<s:date name="updateBidDto.REGISTE_ED_DATE4" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
+															<div class="input-group-addon">
+																<span class="glyphicon glyphicon-th"></span>
+															</div>
 														</div>
-													</div>
+													</s:if>
+													<s:else>
+														<input type="text" name="registeEdDate" value="<s:date name="updateBidDto.REGISTE_ED_DATE4" format="yyyy-MM-dd"/>" class="form-control" readonly>
+													</s:else>
 												</div>
 												<div class="col-lg-2">
-													<a href="javascript:void(0);" onclick="adddate();">
-														<img src="<%=request.getContextPath()%>/images/add.png" />
-													</a>
-													<a href="javascript:void(0);" onclick="deldate(this);">
-														<img src="<%=request.getContextPath()%>/images/minus.png" />
-													</a>
+													<s:if test='#session.user_rank >= "B"'>
+														<a href="javascript:void(0);" onclick="adddate();">
+															<img src="<%=request.getContextPath()%>/images/add.png" />
+														</a>
+														<a href="javascript:void(0);" onclick="deldate(this);">
+															<img src="<%=request.getContextPath()%>/images/minus.png" />
+														</a>
+													</s:if>
 												</div>
 											</div>
 										</s:if>
 										<s:if test='updateBidDto.REGISTE_ST_DATE5 != null'>
 											<div class="row">
 												<div class="col-lg-4">
-													<div class="input-group date" data-provide="datepicker">
-														<input type="text" name="registeStDate" value="<s:date name="updateBidDto.REGISTE_ST_DATE5" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
-														<div class="input-group-addon">
-															<span class="glyphicon glyphicon-th"></span>
+													<s:if test='#session.user_rank >= "B"'>
+														<div class="input-group date" data-provide="datepicker">
+															<input type="text" name="registeStDate" value="<s:date name="updateBidDto.REGISTE_ST_DATE5" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
+															<div class="input-group-addon">
+																<span class="glyphicon glyphicon-th"></span>
+															</div>
 														</div>
-													</div>
+													</s:if>
+													<s:else>
+														<input type="text" name="registeStDate" value="<s:date name="updateBidDto.REGISTE_ST_DATE5" format="yyyy-MM-dd"/>" class="form-control" readonly>
+													</s:else>
 												</div>
 												<label for="" class="col-lg-1 form-label to">---</label>
 												<div class="col-lg-4">
-													<div class="input-group date" data-provide="datepicker">
-														<input type="text" name="registeEdDate" value="<s:date name="updateBidDto.REGISTE_ED_DATE5" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
-														<div class="input-group-addon">
-															<span class="glyphicon glyphicon-th"></span>
+													<s:if test='#session.user_rank >= "B"'>
+														<div class="input-group date" data-provide="datepicker">
+															<input type="text" name="registeEdDate" value="<s:date name="updateBidDto.REGISTE_ED_DATE5" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
+															<div class="input-group-addon">
+																<span class="glyphicon glyphicon-th"></span>
+															</div>
 														</div>
-													</div>
+													</s:if>
+													<s:else>
+														<input type="text" name="registeEdDate" value="<s:date name="updateBidDto.REGISTE_ED_DATE5" format="yyyy-MM-dd"/>" class="form-control" readonly>
+													</s:else>
 												</div>
 												<div class="col-lg-2">
-													<a href="javascript:void(0);" onclick="adddate();">
-														<img src="<%=request.getContextPath()%>/images/add.png" />
-													</a>
-													<a href="javascript:void(0);" onclick="deldate(this);">
-														<img src="<%=request.getContextPath()%>/images/minus.png" />
-													</a>
+													<s:if test='#session.user_rank >= "B"'>
+														<a href="javascript:void(0);" onclick="adddate();">
+															<img src="<%=request.getContextPath()%>/images/add.png" />
+														</a>
+														<a href="javascript:void(0);" onclick="deldate(this);">
+															<img src="<%=request.getContextPath()%>/images/minus.png" />
+														</a>
+													</s:if>
 												</div>
 											</div>
 										</s:if>
@@ -1673,19 +2088,29 @@
 								<div class="col-lg-12 form-group">
 									<label class="col-lg-1 form-label">报名要求</label>
 									<div class="col-lg-11">
-										<textarea id="tmpAPPLY_REQUIRE" class="form-control"><s:property value="updateBidDto.APPLY_REQUIRE" /></textarea>
+										<s:if test='#session.user_rank >= "B"'>
+											<textarea id="tmpAPPLY_REQUIRE" class="form-control"><s:property value="updateBidDto.APPLY_REQUIRE" /></textarea>
+										</s:if>
+										<s:else>
+											<textarea id="tmpAPPLY_REQUIRE" class="form-control" disabled="disabled"><s:property value="updateBidDto.APPLY_REQUIRE" /></textarea>
+										</s:else>
 									</div>
 								</div>
 								<div class="col-lg-12 form-group">
 									<label class="col-lg-1 form-label">保证金</label>
 									<div class="col-lg-8">
-										<s:textfield name="updateBidDto.BID_BOND" id="BID_BOND" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
+										<s:if test='#session.user_rank >= "B"'>
+											<s:textfield name="updateBidDto.BID_BOND" id="BID_BOND" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
+										</s:if>
+										<s:else>
+											<s:textfield name="updateBidDto.BID_BOND" disabled="true" id="BID_BOND" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
+										</s:else>
 									</div>
 									<label for="" class="col-lg-3 form-label" style="text-align:left;">万元</label>
 								</div>
 							</div>
 							<div class="operationBtns">
-								<button type="button" class="btn btn-success">生成审核表</button>
+								<button type="button" class="btn btn-success" onclick="exportBidAudit();">生成审核表</button>
 							</div>
 						</div>
 						<div class="tab-pane fade" id="tab3">
@@ -1724,6 +2149,8 @@
 													<input type="hidden" value="<s:property value="BID_CO_PS"/>"/>
 													<input type="hidden" value="<s:property value="TAX_NO"/>"/>
 													<input type="hidden" value="<s:property value="BID_CO_SEQ"/>"/>
+													<input id="bidCompApply_<s:property value="BID_CO_NO"/>" type="hidden" value="<s:property value="showBidCompApply"/>"/>
+													<input id="saveBidCompApply_<s:property value="BID_CO_NO"/>" type="hidden" value="<s:property value="showBidCompApply"/>"/>
 												</td>
 												<td><s:property value="%{#st1.index + 1}"/></td>
 												<td><s:property value="BID_CO_NAME"/></td>
@@ -1731,15 +2158,21 @@
 												<td><s:property value="BID_CO_TEL"/></td>
 												<td><s:property value="BID_CO_ADD"/></td>
 												<td><s:property value="BID_CO_PS"/></td>
-												<td></td>
+												<td>
+													<s:if test="BID_CO_NO != null">
+														<button type="button" onclick="setApplyContent('<s:property value="BID_CO_NO"/>');" class="btn btn-success">报名内容</button>
+														<button type="button" onclick="exportSingleBidRegister('<s:property value="BID_CO_NO"/>');" class="btn btn-success">打印报名表</button>
+														<button type="button" onclick="exportSingleBidRegisterReturn('<s:property value="BID_CO_NO"/>');" class="btn btn-success">打印报名回执</button>
+													</s:if>
+												</td>
 											</tr>
 										</s:iterator>
 									</tbody>
 								</table>
 							</div>
 							<div class="operationBtns">
-								<button type="button" class="btn btn-success">生成报名表</button>
-								<button type="button" class="btn btn-success">生成审核表</button>
+								<button type="button" onclick="exportBidRegister();" class="btn btn-success">生成报名表</button>
+								<button type="button" onclick="exportBidAudit();" class="btn btn-success">生成审核表</button>
 							</div>
 						</div>
 						<div class="tab-pane fade" id="tab4">
@@ -1843,7 +2276,7 @@
 								<div class="col-lg-5">
 									<label for="" class="col-lg-3 form-label">专家费支出</label>
 									<div class="col-lg-6">
-										<input type="text" class="form-control">
+										<input type="text" disabled="disabled" class="form-control" value="<s:property value="updateBidDto.BID_EXPERT_COMMISION_ACT" />">
 									</div>
 									<label for="" class="col-lg-3 form-label" style="text-align:left;">万元</label>
 								</div>
@@ -2017,16 +2450,31 @@
 													</div>
 												</div>
 											</td>
-											<td>
-												<a href="">上传</a><a href="">预览</a>
+											<td id="file_td_<s:property value="BID_CO_NO"/>">
+												<input name="tmpRECEPT_UL_FILE1" id="tmpRECEPT_UL_FILE1_<s:property value="BID_CO_NO"/>" type="hidden" value="<s:property value="RECEPT_UL_FILE1"/>">
+												<input name="tmpRECEPT_UL_FILE1_BASENAME" id="tmpRECEPT_UL_FILE1_BASENAME_<s:property value="BID_CO_NO"/>" type="hidden" value="<s:property value="RECEPT_UL_FILE1_BASENAME"/>">
+												<s:if test="BID_CO_NO != null">
+													<a href="javascript:void(0);" onclick="showUploadModel(this, '<s:property value="BID_CO_NO"/>');">文件上传</a>
+													<s:if test='RECEPT_UL_FILE1 != null && RECEPT_UL_FILE1 != ""'>
+														<s:if test='RECEPT_UL_FILE1_BASENAME != null && RECEPT_UL_FILE1_BASENAME != ""'>
+															<a id="preview_<s:property value="BID_CO_NO"/>" target="_blank" href="<s:property value="file_url"/><s:property value="RECEPT_UL_FILE1"/>"><s:property value="RECEPT_UL_FILE1_BASENAME"/></a>
+														</s:if>
+														<s:else>
+															<a id="preview_<s:property value="BID_CO_NO"/>" target="_blank" href="<s:property value="file_url"/><s:property value="RECEPT_UL_FILE1"/>">预览</a>
+														</s:else>
+														<a id="del_file_<s:property value="BID_CO_NO"/>" href="javascript:void(0);" onclick="delFile(this,'<s:property value="BID_CO_NO"/>');">删除</a>
+													</s:if>
+													<s:else>
+													</s:else>
+												</s:if>
 											</td>
 										</tr>
 									</s:iterator>
 								</tbody>
 							</table>
 							<div class="operationBtns">
-								<button type="button" class="btn btn-success">保证金收据</button>
-								<button type="button" class="btn btn-success">退定签收单</button>
+								<button type="button" onclick="exportBidDeposit();" class="btn btn-success">保证金收据</button>
+								<button type="button" onclick="exportBidCancel();" class="btn btn-success">退定签收单</button>
 							</div>
 						</div>
 						<div class="tab-pane fade" id="tab6">
@@ -2117,8 +2565,8 @@
 								</tbody>
 							</table>
 							<div class="operationBtns">
-								<button type="button" class="btn btn-success">标书费收据</button>
-								<button type="button" class="btn btn-success">打印签收单</button>
+								<button type="button" onclick="exportBidReceive();" class="btn btn-success">标书费收据</button>
+								<button type="button" onclick="exportBidSign();" class="btn btn-success">打印签收单</button>
 							</div>
 						</div>
 						<div class="tab-pane fade" id="tab7">
@@ -2300,7 +2748,6 @@
 						<button type="button" class="btn btn-success" onclick="upd();">保存</button>
 						<button type="button" class="btn btn-success" onclick="goBidList();">返回</button>
 					</div>
-				</div>
 			</div>
 		</s:form>
 	</div>
@@ -2524,8 +2971,85 @@
 			</div>
 		</div>
 	</div>
+	<div class="modal fade" id="uploadFileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" style="width: 700px;">
+			<div class="modal-content">
+				<form id="file_form" name="file_form" enctype="multipart/form-data" method="post">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							文件上传
+						</h4>
+					</div>
+					<div class="modal-body" style="height: 100px;">
+						<div class="form-group">
+							<label class="col-sm-2 control-label">文件</label>
+							<div class="col-sm-9">
+								<input type="hidden" id="uploadFileCompNo">
+								<input type="hidden" id="fileNamePre" name="fileNamePre" value="">
+								<input type="hidden" id="uploadFileName" name="uploadFileName">
+								<input type="file" name="uploadFileObj" id="uploadFileObj" class="form-control">
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" onclick="uploadFile();">上传</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="bidCompApplyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" style="width: 900px;">
+			<div class="modal-content">
+				<form id="file_form" name="file_form" enctype="multipart/form-data" method="post">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							报名要求
+						</h4>
+						<input type="hidden" id="applyCompNo">
+					</div>
+					<div class="modal-body" style="height: 350px;">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th>编号</th>
+									<th>报名要求</th>
+									<th>报名内容</th>
+								</tr>
+							</thead>
+							<tbody id="bidCompApplyData">
+								<tr>
+									<td>1</td>
+									<td>
+										<input type="hidden" name="tmpApplyId">
+										<input name="tmpApplyRequire" type="text" class="form-control">
+									</td>
+									<td>
+										<input name="tmpApplyContent" type="text" class="form-control">
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" onclick="setBidCompApply();">确定</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
 	<!-- jQuery (Bootstrap 的所有 JavaScript 插件都依赖 jQuery，所以必须放在前边) -->
 <script src="<%=request.getContextPath()%>/node_modules/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/ajaxfileupload.js"></script>
 <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.min.js"></script>

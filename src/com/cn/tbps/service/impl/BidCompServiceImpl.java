@@ -83,7 +83,13 @@ public class BidCompServiceImpl extends BaseService implements BidCompService {
 
 	@Override
 	public BidCompDto queryAllBidCompByID(String bidCoNo) {
-		return bidCompDao.queryAllBidCompByID(bidCoNo);
+		
+		BidCompDto bidComp = bidCompDao.queryAllBidCompByID(bidCoNo);
+		if(bidComp != null) {
+			//查询报名内容
+			bidComp.setListBidCompApply(bidCompApplyDao.queryBidCompApplyByBidCoNo("" + bidComp.getBID_CO_NO()));
+		}
+		return bidComp;
 	}
 	
 	@Override
@@ -104,7 +110,14 @@ public class BidCompServiceImpl extends BaseService implements BidCompService {
 	@Override
 	public List<BidCompDto> queryAllBidCompExport(String bidNo,
 			String bidCoSeq, String bidCoNo) {
-		return bidCompDao.queryAllBidCompExport(bidNo, bidCoSeq, bidCoNo);
+		List<BidCompDto> list = bidCompDao.queryAllBidCompExport(bidNo, bidCoSeq, bidCoNo);
+		if(list != null && list.size() > 0) {
+			for(BidCompDto bidComp : list) {
+				//查询报名内容
+				bidComp.setListBidCompApply(bidCompApplyDao.queryBidCompApplyByBidCoNo("" + bidComp.getBID_CO_NO()));
+			}
+		}
+		return list;
 	}
 
 	public BidCompDao getBidCompDao() {

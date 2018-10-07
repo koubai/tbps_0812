@@ -38,6 +38,13 @@ public interface SuperviseLibService {
 	public SuperviseLibDto querySuperviseLibByID(String id);
 	
 	/**
+	 * 逻辑删除会审监管人信息
+	 * @param id
+	 * @param userid
+	 */
+	public void deleteSuperviseLib(String id, String userid);
+	
+	/**
 	 * 新增会审监管人信息
 	 * @param superviseLib
 	 */

@@ -108,8 +108,8 @@
 	}
 	
 	function exportBid() {
-		//document.mainform.action = '<c:url value="/bid/exportBidListAction.action"></c:url>';
-		//document.mainform.submit();
+		document.mainform.action = '<c:url value="/bid/exportBidListAction.action"></c:url>';
+		document.mainform.submit();
 	}
 	
 	function goBidProgress(bidNo) {
@@ -125,22 +125,33 @@
 		<div class="row">
 			<div class="collapse navbar-collapse navbar-ex1-collapse">
 			<jsp:include page="../menu.jsp" flush="true" />
-			<div class="col-lg-10 right">
-			 	<a class="toggle" href="javascript:;"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+			<s:if test='#session.toggle_menu_flag == "1"'>
+				<div class="col-lg-10 right w100">
+				<a class="toggle" href="javascript:;"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+			</s:if>
+			<s:else>
+				<div class="col-lg-10 right">
+				<a class="toggle" href="javascript:;"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+			</s:else>
 				<s:form id="mainform" name="mainform" method="POST">
 					<s:hidden name="startIndex" id="startIndex"/>
 					<s:hidden name="updateBidNo" id="updateBidNo"/>
 					<s:hidden name="strBID_NO" id="strBID_NO"/>
 					<h3 class="title">招标项目检索和一览<a class="backHome" href="#" onclick="goHome();"><i class="fa fa-home" aria-hidden="true"></i>返回首页</a></h3>
 					<div class="row">
+						<s:if test="hasActionMessages()">
+							<div class="row">
+								<span style="color:red; text-align:center;"><s:actionmessage /></span>
+							</div>
+						</s:if>
 						<div class="col-lg-6 form-group">
 							<label for="" class="col-lg-2 form-label">招标编号</label>
 							<div class="col-lg-4">
-								<s:textfield name="strBidNoLow" id="strBidNoLow" cssClass="form-control" maxlength="13" theme="simple"></s:textfield>
+								<s:textfield name="strBidNoLow" id="strBidNoLow" cssClass="form-control" maxlength="18" theme="simple"></s:textfield>
 							</div>
 							<label for="" class="col-lg-1 form-label to">---</label>
 							<div class="col-lg-4">
-								<s:textfield name="strBidNoHigh" id="strBidNoHigh" cssClass="form-control" maxlength="13" theme="simple"></s:textfield>
+								<s:textfield name="strBidNoHigh" id="strBidNoHigh" cssClass="form-control" maxlength="18" theme="simple"></s:textfield>
 							</div>
 						</div>
 						<div class="col-lg-3 form-group">
@@ -157,7 +168,7 @@
 						<ul>
 							<li><a href="javascript:;" onclick="add();"><i class="fa fa-plus" aria-hidden="true"></i>新增</a></li>
 							<li><a href="javascript:;" onclick="upd();"><i class="fa fa-pencil" aria-hidden="true"></i>修改</a></li>
-							<li><a href="javascript:;" onclick="del();"><i class="fa fa-trash" aria-hidden="true"></i>删除</a></li>
+							<!-- <li><a href="javascript:;" onclick="del();"><i class="fa fa-trash" aria-hidden="true"></i>删除</a></li> -->
 						</ul>
 					</div>
 					<table class="table table-bordered">
@@ -197,7 +208,7 @@
 					</table>
 					<jsp:include page="../turning.jsp" flush="true" />
 					<div class="operationBtns">
-						<button type="button" class="btn btn-success" onclick="">导出</button>
+						<button type="button" class="btn btn-success" onclick="exportBid();">导出</button>
 					</div>
 				</s:form>
 			</div>
@@ -210,15 +221,29 @@
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.min.js"></script>
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.zh-CN.min.js"></script>
 <script>
+	$(function () { $('#collapseTwo').collapse('toggle')});
+	
 	$('.datepicker').parent().datepicker({
 		"autoclose":true,"format":"yyyy-mm-dd","language":"zh-CN"
 	});
 	
 	$('.toggle i').click(function(){
-		$('.left').toggle();
-		$(this).toggleClass('fa-angle-double-left');
-		$(this).toggleClass('fa-angle-double-right');
-		$(this).parent().parent('.right').toggleClass('w100');
+		var param = new Object();
+		if($(this).hasClass('fa-angle-double-left')) {
+			param.toggleMenuFlag = "1";
+			$('.left').hide();
+			$(this).removeClass('fa-angle-double-left');
+			$(this).addClass('fa-angle-double-right');
+			$(this).parent().parent('.right').addClass('w100');
+		} else {
+			param.toggleMenuFlag = "0";
+			$('.left').show();
+			$(this).addClass('fa-angle-double-left');
+			$(this).removeClass('fa-angle-double-right');
+			$(this).parent().parent('.right').removeClass('w100');
+		}
+		$.getJSON('<%=request.getContextPath()%>/home/toggleMenuAction.action', param, function(data) {
+		});
 	});
 </script>
 </body>

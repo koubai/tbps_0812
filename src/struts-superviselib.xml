@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="superviselib" extends="struts-admin" namespace="/superviselib">
+	
+		<action name="showSuperviseLibAction" class="superviseLibAction" method="showSuperviseLibAction">
+			<result name="success">/page/superviselib/superviseliblist.jsp</result>
+		</action>
+		
+		<action name="querySuperviseLibAction" class="superviseLibAction" method="querySuperviseLibAction">
+			<result name="success">/page/superviselib/superviseliblist.jsp</result>
+		</action>
+		
+		<action name="turnSuperviseLibAction" class="superviseLibAction" method="turnSuperviseLibAction">
+			<result name="success">/page/superviselib/superviseliblist.jsp</result>
+		</action>
+		
+		<action name="showAddSuperviseLibAction" class="superviseLibAction" method="showAddSuperviseLibAction">
+			<result name="success">/page/superviselib/addsuperviselib.jsp</result>
+		</action>
+		
+		<action name="addSuperviseLibAction" class="superviseLibAction" method="addSuperviseLibAction">
+			<result name="success">/page/superviselib/addsuperviselib.jsp</result>
+			<result name="checkerror">/page/superviselib/addsuperviselib.jsp</result>
+		</action>
+		
+		<action name="showUpdSuperviseLibAction" class="superviseLibAction" method="showUpdSuperviseLibAction">
+			<result name="success">/page/superviselib/updsuperviselib.jsp</result>
+		</action>
+		
+		<action name="updSuperviseLibAction" class="superviseLibAction" method="updSuperviseLibAction">
+			<result name="success">/page/superviselib/updsuperviselib.jsp</result>
+			<result name="checkerror">/page/superviselib/updsuperviselib.jsp</result>
+		</action>
+		
+		<action name="delSuperviseLibAction" class="superviseLibAction" method="delSuperviseLibAction">
+			<result name="success">/page/superviselib/superviseliblist.jsp</result>
+		</action>
+		
+	</package>
+
+</struts>

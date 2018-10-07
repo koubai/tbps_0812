@@ -150,6 +150,10 @@
 			<result name="success">/page/download.jsp</result>
 		</action>
 
+		<action name="exportSingleBidRegisterAction" class="bidAction" method="exportSingleBidRegisterAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
+		
 		<action name="exportBidRegisterAction" class="bidAction" method="exportBidRegisterAction">
 			<result name="success">/page/download.jsp</result>
 		</action>

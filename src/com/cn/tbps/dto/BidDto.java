@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.cn.common.dto.BaseDto;
+import com.cn.common.util.DateUtil;
 
 /**
  * 招标
@@ -74,6 +75,11 @@ public class BidDto extends BaseDto {
 	 * 合同类别
 	 */
 	private String CNTRCT_TYPE;
+	
+	/**
+	 * 合同类别名
+	 */
+	private String CNTRCT_TYPE_NAME;
 
 	/**
 	 * 项目名称
@@ -84,6 +90,7 @@ public class BidDto extends BaseDto {
 	 * 项目性质
 	 */
 	private String PROJECT_PROPERTY;
+	private String PROJECT_PROPERTY_NAME;
 
 	/**
 	 * 工程概况批文
@@ -94,11 +101,13 @@ public class BidDto extends BaseDto {
 	 * 会审监管人
 	 */
 	private String PROJECT_AUTH;
+	private String PROJECT_AUTH_NAME;
 
 	/**
 	 * 担当者
 	 */
 	private String PROJECT_MANAGER;
+	private String PROJECT_MANAGER_NAME;
 
 	/**
 	 * 招标代理支付方
@@ -139,6 +148,9 @@ public class BidDto extends BaseDto {
 	 * 报名日期终了日1
 	 */
 	private Date REGISTE_ED_DATE1;
+	
+	//报名日期（将报名日期1-5汇总在一起，导出用）
+	private String REGISTE_DATE;
 
 	/**
 	 * 报名日期开始日2
@@ -219,6 +231,7 @@ public class BidDto extends BaseDto {
 	 * 评审人
 	 */
 	private String BID_AUTH;
+	private String BID_AUTH_NAME;
 
 	/**
 	 * 限价
@@ -229,11 +242,13 @@ public class BidDto extends BaseDto {
 	 * 投标公司列表
 	 */
 	private String BID_CO_LIST;
+	private String BID_CO_NAME_LIST;
 
 	/**
 	 * 评审专家列表
 	 */
 	private String BID_EXPERT_LIST;
+	private String BID_EXPERT_NAME_LIST;
 
 	/**
 	 * 中标公司号
@@ -289,6 +304,7 @@ public class BidDto extends BaseDto {
 	 * 专家费申请人
 	 */
 	private String BID_EXPERT_COMMISION_APPLY;
+	private String BID_EXPERT_COMMISION_APPLY_NAME;
 
 	/**
 	 * 专家费申请日期
@@ -569,11 +585,13 @@ public class BidDto extends BaseDto {
 	 * 项目进度情况
 	 */
 	private String PROGRESS_STATUS;
+	private String PROGRESS_STATUS_NAME;
 
 	/**
 	 * 项目完成情况，10：取消，20：进行中（新建时状态=20），52：失败（报名不满6家）,54:失败（开标不满3家），56：失败（评审失败），70：终止，90：完成
 	 */
 	private String FINISH_STATUS;
+	private String FINISH_STATUS_NAME;
 	
 	/**
 	 * 项目完成日期
@@ -589,6 +607,7 @@ public class BidDto extends BaseDto {
 	 * 投标状态
 	 */
 	private String STATUS;
+	private String STATUS_NAME;
 
 	/**
 	 * 备注
@@ -1912,5 +1931,170 @@ public class BidDto extends BaseDto {
 
 	public void setFINISH_DATE(Date fINISH_DATE) {
 		FINISH_DATE = fINISH_DATE;
+	}
+
+	public String getCNTRCT_TYPE_NAME() {
+		CNTRCT_TYPE_NAME = CNTRCT_TYPE;
+		if("1".equals(CNTRCT_TYPE)) {
+			CNTRCT_TYPE_NAME = "招标";
+		} else if("2".equals(CNTRCT_TYPE)) {
+			CNTRCT_TYPE_NAME = "比选";
+		} else if("3".equals(CNTRCT_TYPE)) {
+			CNTRCT_TYPE_NAME = "招标办";
+		} else if("4".equals(CNTRCT_TYPE)) {
+			CNTRCT_TYPE_NAME = "竞价";
+		}
+		return CNTRCT_TYPE_NAME;
+	}
+
+	public void setCNTRCT_TYPE_NAME(String cNTRCT_TYPE_NAME) {
+		CNTRCT_TYPE_NAME = cNTRCT_TYPE_NAME;
+	}
+
+	public String getPROJECT_PROPERTY_NAME() {
+		PROJECT_PROPERTY_NAME = PROJECT_PROPERTY;
+		if("1".equals(PROJECT_PROPERTY)) {
+			PROJECT_PROPERTY_NAME = "成本内";
+		} else if("2".equals(PROJECT_PROPERTY)) {
+			PROJECT_PROPERTY_NAME = "成本外";
+		} else if("3".equals(PROJECT_PROPERTY)) {
+			PROJECT_PROPERTY_NAME = "单独立项";
+		} else if("4".equals(PROJECT_PROPERTY)) {
+			PROJECT_PROPERTY_NAME = "其他";
+		}
+		return PROJECT_PROPERTY_NAME;
+	}
+
+	public void setPROJECT_PROPERTY_NAME(String pROJECT_PROPERTY_NAME) {
+		PROJECT_PROPERTY_NAME = pROJECT_PROPERTY_NAME;
+	}
+
+	public String getPROJECT_AUTH_NAME() {
+		return PROJECT_AUTH_NAME;
+	}
+
+	public void setPROJECT_AUTH_NAME(String pROJECT_AUTH_NAME) {
+		PROJECT_AUTH_NAME = pROJECT_AUTH_NAME;
+	}
+
+	public String getPROJECT_MANAGER_NAME() {
+		return PROJECT_MANAGER_NAME;
+	}
+
+	public void setPROJECT_MANAGER_NAME(String pROJECT_MANAGER_NAME) {
+		PROJECT_MANAGER_NAME = pROJECT_MANAGER_NAME;
+	}
+
+	public String getBID_AUTH_NAME() {
+		return BID_AUTH_NAME;
+	}
+
+	public void setBID_AUTH_NAME(String bID_AUTH_NAME) {
+		BID_AUTH_NAME = bID_AUTH_NAME;
+	}
+
+	public String getBID_EXPERT_COMMISION_APPLY_NAME() {
+		return BID_EXPERT_COMMISION_APPLY_NAME;
+	}
+
+	public void setBID_EXPERT_COMMISION_APPLY_NAME(String bID_EXPERT_COMMISION_APPLY_NAME) {
+		BID_EXPERT_COMMISION_APPLY_NAME = bID_EXPERT_COMMISION_APPLY_NAME;
+	}
+
+	public String getBID_CO_NAME_LIST() {
+		return BID_CO_NAME_LIST;
+	}
+
+	public void setBID_CO_NAME_LIST(String bID_CO_NAME_LIST) {
+		BID_CO_NAME_LIST = bID_CO_NAME_LIST;
+	}
+
+	public String getBID_EXPERT_NAME_LIST() {
+		return BID_EXPERT_NAME_LIST;
+	}
+
+	public void setBID_EXPERT_NAME_LIST(String bID_EXPERT_NAME_LIST) {
+		BID_EXPERT_NAME_LIST = bID_EXPERT_NAME_LIST;
+	}
+
+	public String getREGISTE_DATE() {
+		REGISTE_DATE = "";
+		if(REGISTE_ST_DATE1 != null) {
+			REGISTE_DATE += DateUtil.dateToStr(REGISTE_ST_DATE1, DateUtil.DATE_FORMAT_SHORTE) + "-" + DateUtil.dateToStr(REGISTE_ED_DATE1, DateUtil.DATE_FORMAT_SHORTE) + ",";
+		}
+		if(REGISTE_ST_DATE2 != null) {
+			REGISTE_DATE += DateUtil.dateToStr(REGISTE_ST_DATE2, DateUtil.DATE_FORMAT_SHORTE) + "-" + DateUtil.dateToStr(REGISTE_ED_DATE2, DateUtil.DATE_FORMAT_SHORTE) + ",";
+		}
+		if(REGISTE_ST_DATE3 != null) {
+			REGISTE_DATE += DateUtil.dateToStr(REGISTE_ST_DATE3, DateUtil.DATE_FORMAT_SHORTE) + "-" + DateUtil.dateToStr(REGISTE_ED_DATE3, DateUtil.DATE_FORMAT_SHORTE) + ",";
+		}
+		if(REGISTE_ST_DATE4 != null) {
+			REGISTE_DATE += DateUtil.dateToStr(REGISTE_ST_DATE4, DateUtil.DATE_FORMAT_SHORTE) + "-" + DateUtil.dateToStr(REGISTE_ED_DATE4, DateUtil.DATE_FORMAT_SHORTE) + ",";
+		}
+		if(REGISTE_ST_DATE5 != null) {
+			REGISTE_DATE += DateUtil.dateToStr(REGISTE_ST_DATE5, DateUtil.DATE_FORMAT_SHORTE) + "-" + DateUtil.dateToStr(REGISTE_ED_DATE5, DateUtil.DATE_FORMAT_SHORTE) + ",";
+		}
+		return REGISTE_DATE;
+	}
+
+	public void setREGISTE_DATE(String rEGISTE_DATE) {
+		REGISTE_DATE = rEGISTE_DATE;
+	}
+
+	public String getPROGRESS_STATUS_NAME() {
+		//TODO
+		PROGRESS_STATUS_NAME = PROGRESS_STATUS;
+		return PROGRESS_STATUS_NAME;
+	}
+
+	public void setPROGRESS_STATUS_NAME(String pROGRESS_STATUS_NAME) {
+		PROGRESS_STATUS_NAME = pROGRESS_STATUS_NAME;
+	}
+
+	public String getFINISH_STATUS_NAME() {
+		//10：取消，20：进行中（新建时状态=20），52：失败（报名不满6家）,54:失败（开标不满3家），56：失败（评审失败），70：终止，90：完成
+		FINISH_STATUS_NAME = "";
+		if("10".equals(FINISH_STATUS)) {
+			FINISH_STATUS_NAME = "暂停";
+		} else if("20".equals(FINISH_STATUS)) {
+			FINISH_STATUS_NAME = "进行中";
+		} else if("52".equals(FINISH_STATUS)) {
+			FINISH_STATUS_NAME = "失败（报名不满6家）";
+		} else if("54".equals(FINISH_STATUS)) {
+			FINISH_STATUS_NAME = "失败（开标不满3家）";
+		} else if("56".equals(FINISH_STATUS)) {
+			FINISH_STATUS_NAME = "失败（评审失败）";
+		} else if("70".equals(FINISH_STATUS)) {
+			FINISH_STATUS_NAME = "终止";
+		} else if("90".equals(FINISH_STATUS)) {
+			FINISH_STATUS_NAME = "完成";
+		}
+		return FINISH_STATUS_NAME;
+	}
+
+	public void setFINISH_STATUS_NAME(String fINISH_STATUS_NAME) {
+		FINISH_STATUS_NAME = fINISH_STATUS_NAME;
+	}
+
+	public String getSTATUS_NAME() {
+		STATUS_NAME = "";
+		if("10".equals(STATUS)) {
+			STATUS_NAME = "项目信息";
+		} else if("20".equals(STATUS)) {
+			STATUS_NAME = "报名";
+		} else if("30".equals(STATUS)) {
+			STATUS_NAME = "保证金";
+		} else if("40".equals(STATUS)) {
+			STATUS_NAME = "开标评标";
+		} else if("50".equals(STATUS)) {
+			STATUS_NAME = "资料归档";
+		} else {
+			STATUS_NAME = STATUS;
+		}
+		return STATUS_NAME;
+	}
+
+	public void setSTATUS_NAME(String sTATUS_NAME) {
+		STATUS_NAME = sTATUS_NAME;
 	}
 }

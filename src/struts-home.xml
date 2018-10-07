@@ -11,6 +11,10 @@
 			<result name="error">/page/login.jsp</result>
 		</action>
 		
+		<action name="toggleMenuAction" class="homeAction" method="toggleMenuAction">
+			<result type="json"></result>
+		</action>
+		
 	</package>
 
 </struts>

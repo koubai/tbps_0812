@@ -208,18 +208,12 @@ public class PoiBidAudit extends Poi2007Base {
 				cell.setCellValue(bidComp.getMEMO1());
 				i++;
 			}
-//			if ((bidDto.getSUBMIT_DATE()!= null) || (bidDto.getSUBMIT_DATE2()!= null)){
-//				String str_SubmitDate="";
-//				SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
-//				if (bidDto.getSUBMIT_DATE()!= null)
-//						str_SubmitDate = formatter.format(bidDto.getSUBMIT_DATE());
-//				if (bidDto.getSUBMIT_DATE2()!= null)
-//						str_SubmitDate = str_SubmitDate + " - " + formatter.format(bidDto.getSUBMIT_DATE2());
-//				// add 报名日期修改
-//				row = sheet.getRow((short) rowMidCount + 14);
-//				cell = row.getCell(4);
-//				cell.setCellValue("报名日期: " + str_SubmitDate);			
-//			}
+			//报名日期
+			if(StringUtil.isNotBlank(bidDto.getREGISTE_DATE())) {
+				row = sheet.getRow((short) rowMidCount + 14);
+				cell = row.getCell(4);
+				cell.setCellValue("报名日期: " + bidDto.getREGISTE_DATE());
+			}
 		}
 	}
     public static void insertCol(Workbook wb, Sheet sheet, int startRow, int startCol, int cols, int rowCount) {

@@ -22,7 +22,7 @@
 <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 <script type="text/javascript">
-	//审计一览
+	//审价一览
 	function auditcntrct() {
 		window.location.href = '<c:url value="/auditcntrct/showAuditCntrctAction.action"></c:url>';
 	}
@@ -60,7 +60,7 @@
 	}
 	// 委托公司信息
 	function showAgentCompAction() {
-		window.location.href = '<c:url value="/auditcomp/showAuditCompAction.action"></c:url>';
+		window.location.href = '<c:url value="/agentcomp/showAgentCompAction.action"></c:url>';
 	}
 	// 到账统计
 	function accountaccurate() {
@@ -78,6 +78,9 @@
 	function manageUser() {
 		window.location.href = '<c:url value="/userinfo/showUserInfoAction.action"></c:url>';
 	}
+	function manageSuperviselib() {
+		window.location.href = '<c:url value="/superviselib/showSuperviseLibAction.action"></c:url>';
+	}
 </script>
 </head>
 <body>
@@ -87,7 +90,7 @@
 		<!-- <div class="row menuList">  -->
 		<div class="row menuList">
 			<div class="col-lg-6">
-				<a class="btn btn-primary" href="#" onclick="auditcntrct();">审计一览</a>
+				<a class="btn btn-primary" href="#" onclick="auditcntrct();">审价一览</a>
 			</div>
 			<div class="col-lg-6">
 				<a class="btn btn-primary" href="#" onclick="bidcntrct();">招标合同管理一览</a>
@@ -125,9 +128,14 @@
 			<div class="col-lg-6">
 				<a class="btn btn-primary" href="#" onclick="showauditB();">投资监理B项目一览</a>
 			</div>
+			<s:if test='#session.user_rank >= "B"'>
 			<div class="col-lg-6">
 				<a class="btn btn-primary" href="#" onclick="manageUser();">用户信息管理</a>
 			</div>
+			<div class="col-lg-6">
+				<a class="btn btn-primary" href="#" onclick="manageSuperviselib();">会审监管人管理</a>
+			</div>
+			</s:if>
 		</div>
 	</div>
 	<!--  <div class="bottom">

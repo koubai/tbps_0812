@@ -8,7 +8,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
-<title>用户息一览</title>
+<title>会审监管人一览</title>
 <!-- Bootstrap -->
 <link href="<%=request.getContextPath()%>/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/node_modules/font-awesome/css/font-awesome.min.css">
@@ -24,7 +24,7 @@
 <![endif]-->
 <script type="text/javascript">
 	function add() {
-		document.mainform.action = '<c:url value="/userinfo/showAddUserInfoAction.action"></c:url>';
+		document.mainform.action = '<c:url value="/superviselib/showAddSuperviseLibAction.action"></c:url>';
 		document.mainform.submit();
 	}
 	
@@ -34,8 +34,8 @@
 			alert("请选择一条记录！");
 			return;
 		} else {
-			$("#updLoginId").val(id);
-			document.mainform.action = '<c:url value="/userinfo/showUpdUserInfoAction.action"></c:url>';
+			$("#updSUPERVISE_SEQ").val(id);
+			document.mainform.action = '<c:url value="/superviselib/showUpdSuperviseLibAction.action"></c:url>';
 			document.mainform.submit();
 		}
 	}
@@ -47,7 +47,7 @@
 			return;
 		} else {
 			if(confirm("确定删除该记录吗？")) {
-				document.mainform.action = '<c:url value="/userinfo/delUserInfoAction.action"></c:url>' + "?delLoginId=" + id;
+				document.mainform.action = '<c:url value="/superviselib/delSuperviseLibAction.action"></c:url>' + "?delSUPERVISE_SEQ=" + id;
 				document.mainform.submit();
 			}
 		}
@@ -71,14 +71,14 @@
 	}
 	
 	function queryList() {
-		document.mainform.action = '<c:url value="/userinfo/queryUserInfoAction.action"></c:url>';
+		document.mainform.action = '<c:url value="/superviselib/querySuperviseLibAction.action"></c:url>';
 		document.mainform.submit();
 	}
 	
 	//翻页
 	function changePage(pageNum) {
 		document.getElementById("startIndex").value = pageNum;
-		document.mainform.action = '<c:url value="/userinfo/turnUserInfoAction.action"></c:url>';
+		document.mainform.action = '<c:url value="/superviselib/turnSuperviseLibAction.action"></c:url>';
 		document.mainform.submit();
 	}
 
@@ -128,13 +128,18 @@
 			</s:else>
 				<s:form id="mainform" name="mainform" method="POST">
 					<s:hidden name="startIndex" id="startIndex"/>
-					<s:hidden name="updLoginId" id="updLoginId"/>
-					<h3 class="title">用户息一览<a class="backHome" href="#" onclick="goHome();"><i class="fa fa-home" aria-hidden="true"></i>返回首页</a></h3>
+					<s:hidden name="updSUPERVISE_SEQ" id="updSUPERVISE_SEQ"/>
+					<h3 class="title">会审监管人一览<a class="backHome" href="#" onclick="goHome();"><i class="fa fa-home" aria-hidden="true"></i>返回首页</a></h3>
 					<div class="row">
+						<s:if test="hasActionMessages()">
+							<div class="row">
+								<span style="color:red; text-align:center;"><s:actionmessage /></span>
+							</div>
+						</s:if>
 						<div class="col-lg-3 form-group">
 							<label for="" class="col-lg-3 form-label">姓名</label>
 							<div class="col-lg-9">
-								<s:textfield name="strLoginName" id="strLoginName" cssClass="form-control" maxlength="20" theme="simple"></s:textfield>
+								<s:textfield name="strSUPERVISE_NAME" id="strSUPERVISE_NAME" cssClass="form-control" maxlength="20" theme="simple"></s:textfield>
 							</div>
 						</div>
 						<div class="col-lg-2 form-group">
@@ -151,35 +156,25 @@
 					<table class="table table-bordered">
 						<tr>
 							<th></th>
-							<th>登录ID</th>
 							<th>登录姓名</th>
-							<th>用户类型</th>
+							<th>手机电话</th>
+							<th>性别</th>
+							<th>就职公司</th>
 							<th>创建日期</th>
 							<th>更新日期</th>
-							<th>备注</th>
 						</tr>
-						<s:iterator id="listUserInfo" value="listUserInfo" status="st1">
+						<s:iterator id="listSuperviseLib" value="listSuperviseLib" status="st1">
 							<tr>
-								<td><input name="radioKey" type="radio" value="<s:property value="LOGIN_ID"/>"/></td>
-								<td><s:property value="LOGIN_ID"/></td>
-								<td><s:property value="LOGIN_NAME"/></td>
+								<td><input name="radioKey" type="radio" value="<s:property value="SUPERVISE_SEQ"/>"/></td>
+								<td><s:property value="SUPERVISE_NAME"/></td>
+								<td><s:property value="SUPERVISE_TEL1"/></td>
 								<td>
-									<s:if test='RANK == "L"'>
-										管理员
-									</s:if>
-									<s:elseif test='RANK == "C"'>
-										负责人
-									</s:elseif>
-									<s:elseif test='RANK == "B"'>
-										工程师
-									</s:elseif>
-									<s:else>
-										一般用户
-									</s:else>
+									<s:if test='SUPERVISE_GENDER == "1"'>男</s:if>
+									<s:elseif test='SUPERVISE_GENDER == "2"'>女</s:elseif>
 								</td>
+								<td><s:property value="SUPERVISE_COMP"/></td>
 								<td><s:date name="INSERT_DATE" format="yyyy/MM/dd HH:mm:ss"/></td>
 								<td><s:date name="UPDATE_DATE" format="yyyy/MM/dd HH:mm:ss"/></td>
-								<td><s:property value="MEMO1"/></td>
 							</tr>
 						</s:iterator>
 					</table>

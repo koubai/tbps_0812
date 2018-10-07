@@ -33,9 +33,10 @@ public class AdminInterceptor extends AbstractInterceptor {
 			log.info("session is time out.");
 			return "timeout";
 		} else {
-			//判断是否是超级用户
+			//判断是否是大于等于工程师
 			String rank = (String) ActionContext.getContext().getSession().get(Constants.USER_RANK);
-			if(!Constants.USER_RANK_ADMIN.equals(rank)) {
+			System.out.println(Constants.USER_RANK_ENGINEER.compareTo(rank));
+			if(StringUtil.isBlank(rank) || Constants.USER_RANK_ENGINEER.compareTo(rank) > 0) {
 				log.info("user is not admin.");
 				return "noauthority";
 			}

@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/node_modules/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/global.css">
+<link rel="stylesheet" href="<%=request.getContextPath()%>/css/local.css">
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/common.js"></script>
 <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
 <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
@@ -22,28 +23,34 @@
 <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 <script type="text/javascript">	
+	function goBidProgress() {
+		document.mainform.action = '<c:url value="/bidprogress/showBidProgressAction.action"></c:url>';
+		document.mainform.submit();
+	}
+
 	function showProgressUtil(btn_no, util_typ) {
-//		var id = getSelectedID();
-//		if(id == "") {
-//			alert("请选择一条记录！");
-//			return;
-//		} else {
-			$("#BTN_NO").attr("value", btn_no);
-			alert($("#BTN_NO").val());
-//			var url = '<c:url value="/bidprogress/showBidProgressUtilAction.action"></c:url>' + "?strBID_NO=" + strBID_COMP_NO + "&date=" + new Date();
-			var url = '<c:url value="/bidprogress/showBidProgressUtilAction.action"></c:url>' + "?BTN_NO=" + btn_no + "&UTIL_TYP=" + util_typ + "&date=" + new Date();
-			if (util_typ == 3){
-				window.open(url, window, "height=600px;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
-			}
-			if (util_typ == 4){
-				window.open(url, window, "height=500px;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");				
-			}
-			if (util_typ == 1 || util_typ == 2){
-				window.open(url, window, "height=400px;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");				
-			}
-//		}
+		$("#BTN_NO").attr("value", btn_no);
+//		alert($("#BTN_NO").val());
+//		alert(util_typ);
+		var url = '<c:url value="/bidprogress/showBidProgressUtilAction.action"></c:url>' + "?BTN_NO=" + btn_no + "&UTIL_TYP=" + util_typ + "&date=" + new Date();
+		if (util_typ == 3){
+			window.open(url, window, "height=600px;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+		}
+		if (util_typ == 4){
+			window.open(url, window, "height=500px;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");				
+		}
+		if (util_typ == 5){
+			window.open(url, window, "height=500px;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");				
+		}
+		if (util_typ == 1 || util_typ == 2){
+			window.open(url, window, "height=400px;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");				
+		}
 	}
 	
+	function goHome() {
+		window.location.href = '<c:url value="/bid/queryBidList.action"></c:url>';
+	}
+
 </script>
 </head>
 <style type="text/css">
@@ -63,11 +70,11 @@ th {
 				<s:form id="mainform" name="mainform" method="POST">
 					<s:hidden name="startIndex" id="startIndex"/>
 					<s:hidden name="BTN_NO" id="BTN_NO"/>
-					<s:hidden name="strBID_COMP_NO" id="strBID_COMP_NO"/>
+					<s:hidden name="Finish_status" id="Finish_status"/>
 					<h3 class="title">招标项目状态<a class="backHome" href="#" onclick="goHome();"><i class="fa fa-home" aria-hidden="true"></i>返回首页</a></h3>
 					<div class="row">
 						<div class="col-lg-3 form-group">
-							<label for="" class="col-lg-3 form-label"><span class="red">*</span>招标编号</label>
+							<label for="" class="col-lg-3 form-label">招标编号</label>
 							<div class="col-lg-9">
 								<s:if test='bidDto.PROJECT_TYPE != "3" && bidDto.PROJECT_TYPE != "4" && bidDto.IS_RANDOM == "1"'>
 									<s:textfield name="bidDto.BID_NO" id="strBID_NO" disabled="true" cssClass="form-control" maxlength="13" theme="simple"></s:textfield>
@@ -78,23 +85,21 @@ th {
 							</div>
 						</div>
 						<div class="col-lg-6 form-group">
-							<label for="" class="col-lg-2 form-label"><span class="red">*</span>项目名称</label>
+						<!--  <div class="col-lg-9 form-group">  -->
+							<label for="" class="col-lg-2 form-label">项目名称</label>
 							<div class="col-lg-10">
 								<s:textfield name="bidDto.PROJECT_NAME" id="PROJECT_NAME" cssClass="form-control" maxlength="300" theme="simple"></s:textfield>
 							</div>
 						</div>
 						<div class="col-lg-3 form-group">
+							<button class="btn btn-success" id="refresh" onclick="goBidProgress();">刷新</button>
+						</div>
+						<!-- <div class="col-lg-3 form-group">
 							<label for="" class="col-lg-3 form-label">委托公司</label>
 							<div class="col-lg-9">
-								<input type="text" id="strAgentNo" class="form-control" value="<s:property value="strBID_COMP_NO"/>">
+								<s:textfield name="bidDto.BID_COMP_NAME" id="BID_COMP_NAME" cssClass="form-control" maxlength="100" theme="simple"></s:textfield>
 							</div>
-						</div>
-						<div class="col-lg-3 form-group">
-							<label for="" class="col-lg-3 form-label">项目进展</label>
-							<div class="col-lg-9">
-							<input type="text" id="strBID_status" class="form-control" value="<s:property value="strBID_STATUS" />">
-							</div>
-						</div>
+						</div> -->
 					</div>
 					<BR/>
 					<table class="table table-striped">
@@ -192,16 +197,116 @@ th {
 							<td></td>
 							<td>
 								<s:if test='Status0106 == "9"'>
-									<button class="btn btn-success" id="0106" onclick="showProgressUtil('0106',0);">完成</button>
+									<button class="btn btn-success" id="0106" onclick="showProgressUtil('0106',5);">
+										<s:if test='Finish_status == "10"'>
+											暂停*
+										</s:if>
+										<s:elseif test='Finish_status == "20"'>
+											进行中*
+										</s:elseif>
+										<s:elseif test='Finish_status == "52"'>
+											失败（报名不满6家）*
+										</s:elseif>
+										<s:elseif test='Finish_status == "54"'>
+											失败（开标不满3家）*
+										</s:elseif>
+										<s:elseif test='Finish_status == "56"'>
+											失败（评审失败）*
+										</s:elseif>
+										<s:elseif test='Finish_status == "70"'>
+											终止*
+										</s:elseif>
+										<s:elseif test='Finish_status == "90"'>
+											完成*
+										</s:elseif>
+										<s:else>
+											不明*
+										</s:else>
+									</button>
 								</s:if>
 								<s:elseif test='Status0106 == "2"'>
-									<button class="btn btn-warning" id="0106" onclick="showProgressUtil('0106',0);">完成</button>
+									<button class="btn btn-warning" id="0106" onclick="showProgressUtil('0106',5);">
+										<s:if test='Finish_status == "10"'>
+											暂停*
+										</s:if>
+										<s:elseif test='Finish_status == "20"'>
+											进行中*
+										</s:elseif>
+										<s:elseif test='Finish_status == "52"'>
+											失败（报名不满6家）*
+										</s:elseif>
+										<s:elseif test='Finish_status == "54"'>
+											失败（开标不满3家）*
+										</s:elseif>
+										<s:elseif test='Finish_status == "56"'>
+											失败（评审失败）*
+										</s:elseif>
+										<s:elseif test='Finish_status == "70"'>
+											终止*
+										</s:elseif>
+										<s:elseif test='Finish_status == "90"'>
+											完成*
+										</s:elseif>
+										<s:else>
+											不明*
+										</s:else>
+									</button>
 								</s:elseif>
 								<s:elseif test='Status0106 == "0"'>
-									<button class="btn btn-danger" id="0106" onclick="showProgressUtil('0106',0);">完成</button>
+									<button class="btn btn-danger" id="0106" onclick="showProgressUtil('0106',5);">
+										<s:if test='Finish_status == "10"'>
+											暂停*
+										</s:if>
+										<s:elseif test='Finish_status == "20"'>
+											进行中*
+										</s:elseif>
+										<s:elseif test='Finish_status == "52"'>
+											失败（报名不满6家）*
+										</s:elseif>
+										<s:elseif test='Finish_status == "54"'>
+											失败（开标不满3家）*
+										</s:elseif>
+										<s:elseif test='Finish_status == "56"'>
+											失败（评审失败）*
+										</s:elseif>
+										<s:elseif test='Finish_status == "70"'>
+											终止*
+										</s:elseif>
+										<s:elseif test='Finish_status == "90"'>
+											完成*
+										</s:elseif>
+										<s:else>
+											不明*
+										</s:else>
+									</button>
 								</s:elseif>
 								<s:else>
-									<button class="btn btn-danger" id="0106" onclick="showProgressUtil('0106',0);">完成</button>
+									<button class="btn btn-danger" id="0106" onclick="showProgressUtil('0106',5);">
+										<s:if test='Finish_status == "10"'>
+											暂停*
+										</s:if>
+										<s:elseif test='Finish_status == "20"'>
+											进行中*
+										</s:elseif>
+										<s:elseif test='Finish_status == "52"'>
+											失败（报名不满6家）*
+										</s:elseif>
+										<s:elseif test='Finish_status == "54"'>
+											失败（开标不满3家）*
+										</s:elseif>
+										<s:elseif test='Finish_status == "56"'>
+											失败（评审失败）*
+										</s:elseif>
+										<s:elseif test='Finish_status == "70"'>
+											终止*
+										</s:elseif>
+										<s:elseif test='Finish_status == "90"'>
+											完成*
+										</s:elseif>
+										<s:else>
+											不明*
+										</s:else>
+									</button>
 								</s:else>
 							</td>
 							<td></td>
