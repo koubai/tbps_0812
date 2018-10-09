@@ -944,7 +944,7 @@
 	
 	function exportAudit() {
 		var CNTRCT_TYPE = $("#CNTRCT_TYPE").val();
-		alert(CNTRCT_TYPE);
+//		alert(CNTRCT_TYPE);
 		if(CNTRCT_TYPE == 1){
 			document.mainform.action = '<c:url value="/audit/exportAuditMetroAction.action"></c:url>';
 		} else {
