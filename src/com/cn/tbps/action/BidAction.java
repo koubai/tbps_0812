@@ -19,6 +19,7 @@ import com.cn.common.util.StringUtil;
 import com.cn.tbps.dto.BidCompDto;
 import com.cn.tbps.dto.BidDto;
 import com.cn.tbps.dto.ExpertLibDto;
+import com.cn.tbps.dto.MajorDto;
 import com.cn.tbps.dto.SuperviseLibDto;
 import com.cn.tbps.dto.UserInfoDto;
 import com.cn.tbps.service.AgentCompService;
@@ -121,6 +122,15 @@ public class BidAction extends BaseAction {
 	private List<BidCompDto> listBidCompTmp;
 	//评审专家列表（临时）
 	private List<ExpertLibDto> listExpertLibTmp;
+	//查询就职公司信息
+	private List<ExpertLibDto> listExpertComp;
+	//所有专业
+	private List<MajorDto> majorAllList;
+	private List<MajorDto> major11List;
+	private List<MajorDto> major21List;
+	private List<MajorDto> major31List;
+	private List<MajorDto> major41List;
+	private List<MajorDto> major51List;
 	
 	//修改
 	/**
@@ -436,6 +446,16 @@ public class BidAction extends BaseAction {
 			
 			listUserInfo = userInfoService.queryAllUser();
 			listSuperviseLib = superviseLibService.queryAllSuperviseLib();
+			//查询就职公司信息
+			listExpertComp = expertLibService.queryExpertComp();
+			//所有专业数据
+			majorAllList = majorService.queryAllMajor("", "");
+			major11List = majorService.queryAllMajor("1", "");
+			major21List = majorService.queryAllMajor("1", "");
+			major31List = majorService.queryAllMajor("1", "");
+			major41List = majorService.queryAllMajor("1", "");
+			major51List = majorService.queryAllMajor("1", "");
+			
 			addBidDto = new BidDto();
 			//默认为不随机
 //			addBidDto.setIS_RANDOM("0");
@@ -469,6 +489,15 @@ public class BidAction extends BaseAction {
 			listExpertLib = listExpertLibTmp;
 			listBidCompTmp = new ArrayList<BidCompDto>();
 			listExpertLibTmp = new ArrayList<ExpertLibDto>();
+			//查询就职公司信息
+			listExpertComp = expertLibService.queryExpertComp();
+			//所有专业数据
+			majorAllList = majorService.queryAllMajor("", "");
+			major11List = majorService.queryAllMajor("1", "");
+			major21List = majorService.queryAllMajor("1", "");
+			major31List = majorService.queryAllMajor("1", "");
+			major41List = majorService.queryAllMajor("1", "");
+			major51List = majorService.queryAllMajor("1", "");
 			//数据校验
 			if(!checkUpdData(addBidDto)) {
 				return "checkerror";
@@ -551,6 +580,15 @@ public class BidAction extends BaseAction {
 			listExpertLibTmp = new ArrayList<ExpertLibDto>();
 			listUserInfo = userInfoService.queryAllUser();
 			listSuperviseLib = superviseLibService.queryAllSuperviseLib();
+			//查询就职公司信息
+			listExpertComp = expertLibService.queryExpertComp();
+			//所有专业数据
+			majorAllList = majorService.queryAllMajor("", "");
+			major11List = majorService.queryAllMajor("1", "");
+			major21List = majorService.queryAllMajor("1", "");
+			major31List = majorService.queryAllMajor("1", "");
+			major41List = majorService.queryAllMajor("1", "");
+			major51List = majorService.queryAllMajor("1", "");
 			
 			//查询招标公司列表
 			listBidComp = bidCompService.queryAllBidCompExport(updateBidNo, "", "");
@@ -577,7 +615,15 @@ public class BidAction extends BaseAction {
 			listExpertLib = listExpertLibTmp;
 			listBidCompTmp = new ArrayList<BidCompDto>();
 			listExpertLibTmp = new ArrayList<ExpertLibDto>();
-			
+			//查询就职公司信息
+			listExpertComp = expertLibService.queryExpertComp();
+			//所有专业数据
+			majorAllList = majorService.queryAllMajor("", "");
+			major11List = majorService.queryAllMajor("1", "");
+			major21List = majorService.queryAllMajor("1", "");
+			major31List = majorService.queryAllMajor("1", "");
+			major41List = majorService.queryAllMajor("1", "");
+			major51List = majorService.queryAllMajor("1", "");
 			//数据校验
 			if(!checkUpdData(updateBidDto)) {
 				return "checkerror";
@@ -1051,5 +1097,61 @@ public class BidAction extends BaseAction {
 
 	public void setStrCompNo(String strCompNo) {
 		this.strCompNo = strCompNo;
+	}
+
+	public List<ExpertLibDto> getListExpertComp() {
+		return listExpertComp;
+	}
+
+	public void setListExpertComp(List<ExpertLibDto> listExpertComp) {
+		this.listExpertComp = listExpertComp;
+	}
+
+	public List<MajorDto> getMajorAllList() {
+		return majorAllList;
+	}
+
+	public void setMajorAllList(List<MajorDto> majorAllList) {
+		this.majorAllList = majorAllList;
+	}
+
+	public List<MajorDto> getMajor11List() {
+		return major11List;
+	}
+
+	public void setMajor11List(List<MajorDto> major11List) {
+		this.major11List = major11List;
+	}
+
+	public List<MajorDto> getMajor21List() {
+		return major21List;
+	}
+
+	public void setMajor21List(List<MajorDto> major21List) {
+		this.major21List = major21List;
+	}
+
+	public List<MajorDto> getMajor31List() {
+		return major31List;
+	}
+
+	public void setMajor31List(List<MajorDto> major31List) {
+		this.major31List = major31List;
+	}
+
+	public List<MajorDto> getMajor41List() {
+		return major41List;
+	}
+
+	public void setMajor41List(List<MajorDto> major41List) {
+		this.major41List = major41List;
+	}
+
+	public List<MajorDto> getMajor51List() {
+		return major51List;
+	}
+
+	public void setMajor51List(List<MajorDto> major51List) {
+		this.major51List = major51List;
 	}
 }

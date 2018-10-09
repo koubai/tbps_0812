@@ -6,6 +6,10 @@
 
 	<package name="expertlib" extends="struts-tbps" namespace="/expertlib">
 	
+		<action name="queryAllExpertLibAjax" class="expertLibAction" method="queryAllExpertLibAjax">
+			<result type="json"></result>
+		</action>
+		
 		<action name="queryExpertLibAjax" class="expertLibAction" method="queryExpertLibAjax">
 			<result type="json"></result>
 		</action>

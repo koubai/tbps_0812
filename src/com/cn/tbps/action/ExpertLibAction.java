@@ -153,6 +153,53 @@ public class ExpertLibAction extends BaseAction {
 	private Integer ajaxTotalCount;
 	private Integer ajaxPageIndex;
 	
+	//专业
+	private String expertMajorQuery;
+	//是否随机查询专家
+	private String strIsRandom;
+	//是否包含
+	private String strIsInclude;
+	//专家告诉
+	private String strExpertComp;
+	
+	/**
+	 * Ajax翻页查询函数（查询所有专家）
+	 * @return
+	 * @throws IOException
+	 */
+	public String queryAllExpertLibAjax() throws IOException {
+		HttpServletResponse response = ServletActionContext.getResponse();
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out;
+		AjaxDataDto ajaxData = new AjaxDataDto();
+		try {
+			this.clearMessages();
+			//ajax中文乱码处理
+			if(StringUtil.isNotBlank(expertMajorQuery)) {
+				expertMajorQuery = URLDecoder.decode(expertMajorQuery, "UTF-8");
+			}
+			if(StringUtil.isNotBlank(strExpertName)) {
+				strExpertName = URLDecoder.decode(strExpertName, "UTF-8");
+			}
+			if(StringUtil.isNotBlank(strExpertComp)) {
+				strExpertComp = URLDecoder.decode(strExpertComp, "UTF-8");
+			}
+			List<ExpertLibDto> expertLibList = expertLibService.autoQueryExpertLibNew(expertMajorQuery, strIsRandom, strExpertName, strIsInclude, strExpertComp);
+			ajaxData.setData(expertLibList);
+		} catch(Exception e) {
+			ajaxData.setResultCode(-1);
+			ajaxData.setResultMessage("查询数据异常：" + e.getMessage());
+			return ERROR;
+		}
+		out = response.getWriter();
+		String result = JSONArray.fromObject(ajaxData).toString();
+		result = result.substring(1, result.length() - 1);
+		log.info(result);
+		out.write(result);
+		out.flush();
+		return null;
+	}
+	
 	/**
 	 * Ajax翻页查询函数
 	 * @return
@@ -1306,5 +1353,37 @@ public class ExpertLibAction extends BaseAction {
 
 	public void setAjaxPageIndex(Integer ajaxPageIndex) {
 		this.ajaxPageIndex = ajaxPageIndex;
+	}
+
+	public String getExpertMajorQuery() {
+		return expertMajorQuery;
+	}
+
+	public void setExpertMajorQuery(String expertMajorQuery) {
+		this.expertMajorQuery = expertMajorQuery;
+	}
+
+	public String getStrIsRandom() {
+		return strIsRandom;
+	}
+
+	public void setStrIsRandom(String strIsRandom) {
+		this.strIsRandom = strIsRandom;
+	}
+
+	public String getStrIsInclude() {
+		return strIsInclude;
+	}
+
+	public void setStrIsInclude(String strIsInclude) {
+		this.strIsInclude = strIsInclude;
+	}
+
+	public String getStrExpertComp() {
+		return strExpertComp;
+	}
+
+	public void setStrExpertComp(String strExpertComp) {
+		this.strExpertComp = strExpertComp;
 	}
 }

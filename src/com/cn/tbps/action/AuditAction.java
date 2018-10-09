@@ -1,9 +1,7 @@
 package com.cn.tbps.action;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.LogManager;
@@ -245,6 +243,9 @@ public class AuditAction extends BaseAction {
 	private String strReportNo;
 	//委托内容
 	private String strCntrctInfo;
+	
+	private AuditCntrctDto updAuditCntrctDtoOld;
+	private String updAuditCntrctNo;
 	
 	//审价履历
 	/**
@@ -679,6 +680,9 @@ public class AuditAction extends BaseAction {
 			this.clearMessages();
 			addAuditDto = new AuditDto();
 			auditCntrctDto = new AuditCntrctDto();
+			if(StringUtil.isNotBlank(updAuditCntrctNo)){
+				auditCntrctDto = auditCntrctService.queryAuditCntrctByID(updAuditCntrctNo);
+			}
 			listUserInfo = userInfoService.queryAllUser();
 			UserInfoDto userinfo = new UserInfoDto();
 			userinfo.setLOGIN_NAME("");
@@ -706,6 +710,7 @@ public class AuditAction extends BaseAction {
 			addAuditDto.setUPDATE_USER(username);
 			String auditNo = auditService.insertAudit(addAuditDto);
 			addAuditDto = new AuditDto();
+			auditCntrctDto = new AuditCntrctDto();
 			this.addActionMessage("添加审价成功！审价编号为：" + auditNo);
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -783,6 +788,8 @@ public class AuditAction extends BaseAction {
 			strReportNo = "";
 			strProjectName = "";
 			strCntrctInfo = "";
+			updAuditCntrctNo = "";
+			auditCntrctDto = new AuditCntrctDto();
 			//审价
 			arrAuditShow1 = new String[][]{{"PROJECT_MANAGER","工程师"},{"REPORT_NO", "项目文号"},{"PROJECT_NAME", "项目名称"},
 				{"DOC_REC_DATE", "资料收到日期"},{"APPROVAL_SND_DATE", "审定单发出日期"},{"REPORT_RAISE_DATE", "报告出具日期"},
@@ -1471,6 +1478,22 @@ public class AuditAction extends BaseAction {
 
 	public void setStrCntrctInfo(String strCntrctInfo) {
 		this.strCntrctInfo = strCntrctInfo;
+	}
+
+	public AuditCntrctDto getUpdAuditCntrctDtoOld() {
+		return updAuditCntrctDtoOld;
+	}
+
+	public void setUpdAuditCntrctDtoOld(AuditCntrctDto updAuditCntrctDtoOld) {
+		this.updAuditCntrctDtoOld = updAuditCntrctDtoOld;
+	}
+
+	public String getUpdAuditCntrctNo() {
+		return updAuditCntrctNo;
+	}
+
+	public void setUpdAuditCntrctNo(String updAuditCntrctNo) {
+		this.updAuditCntrctNo = updAuditCntrctNo;
 	}
 
 }

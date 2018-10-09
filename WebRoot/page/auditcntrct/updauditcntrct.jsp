@@ -318,7 +318,14 @@
 			alert("没有修改内容！");
 		}
 	}
-	
+		
+	function addAudit(updAuditCntrctNo){
+		var url = '<c:url value="/audit/showAddAuditAction.action"></c:url>';
+		url += "?updAuditCntrctNo=" + updAuditCntrctNo;
+		document.mainform.action = url;
+		document.mainform.submit();
+	}
+
 	function getAuditEditProject() {
 		var CNTRCT_BELONG_OLD = $("#CNTRCT_BELONG_OLD").val();
 		var CNTRCT_NAME_OLD = $("#CNTRCT_NAME_OLD").val();
@@ -1197,6 +1204,9 @@
 							</div>
 							<div class="col-lg-1">
 								<button class="btn btn-success" type="button" onclick="upd();">保存</button>
+							</div>
+							<div class="col-lg-1">
+								<button class="btn btn-success" type="button" onclick="addAudit('<s:property value="updAuditCntrctDto.CNTRCT_NO" />');">新建项目</button>
 							</div>
 						</div>
 					</div>

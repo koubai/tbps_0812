@@ -404,49 +404,148 @@
 		}
 	}
 	
-	//专家选择
+	//显示专家选择
 	function showSelectExpertLib() {
 		$("#strExpertName").val("");
-		$("#strExpertMajor").val("");
-		$("#strExpertMajorName").val("");
-		//查询委托公司
-		querySelectPageAjax1("0");
+		$("#strExpertComp").val("");
+		document.getElementById("exportrandom").checked = false;
+		document.getElementById("include").checked = false;
+		
+		$("#expertLibData").empty();
+		
+		disabledMajor("11", true);
+		disabledMajor("12", false);
+		disabledMajor("13", false);
+		disabledMajor("14", false);
+		disabledMajor("21", true);
+		disabledMajor("22", false);
+		disabledMajor("23", false);
+		disabledMajor("24", false);
+		disabledMajor("31", true);
+		disabledMajor("32", false);
+		disabledMajor("33", false);
+		disabledMajor("34", false);
+		disabledMajor("41", true);
+		disabledMajor("42", false);
+		disabledMajor("43", false);
+		disabledMajor("44", false);
+		disabledMajor("51", true);
+		disabledMajor("52", false);
+		disabledMajor("53", false);
+		disabledMajor("54", false);
+		
+		queryExpertAjax();
+		
 		//禁用 Bootstrap 模态框(Modal) 点击空白时自动关闭
 		$('#expertLibModal').modal({backdrop: 'static', keyboard: false});
 		$('#expertLibModal').modal('show');
 	}
 	
+	function disabledMajor(id, isFirst) {
+		$("#tmpMajor" + id).val("");
+		if(!isFirst) {
+			//非一级专业，需要disabled
+			$("#tmpMajor" + id).attr("disabled", true);
+		}
+		$("#tmpMajorNum" + id).val("");
+		$("#tmpMajorNum" + id).attr("disabled", true);
+	}
+	
 	/**
 	 * 注：翻页函数，每个列表选择模态窗体必须实现这个函数
 	 */
-	function querySelectPageAjax1(index) {
+	function queryExpertAjax() {
+		var majorQuery = "";
+		//是否随机
+		if(document.getElementById("exportrandom").checked) {
+			//数据验证
+			//这里最多只有5行数据
+			for(var i = 1; i <= 5; i++) {
+				//专家1-4，这里只check所选择最小专业的专家数量是否填写。对于父节点数量可不填
+				var check = false;
+				for(var j = 4; j >= 1; j--) {
+					var vv = $("#" + "tmpMajor" + i + j).val();
+					if(vv != "") {
+						var num = $("#" + "tmpMajorNum" + i + j).val();
+						if(num == "" && !check) {
+							$("#" + "tmpMajorNum" + i + j).focus();
+							alert("请输入专家个数！");
+							return;
+						}
+						if(num != "" && !isNumber(num)) {
+							$("#" + "tmpMajorNum" + i + j).focus();
+							alert("专家个数必须为大于0的数字！");
+							return;
+						}
+						check = true;
+					} else {
+					}
+				}
+			}
+		} else {
+			//不随机
+		}
+		//查询参数
+		for(var i = 1; i <= 5; i++) {
+			for(var j = 1; j <= 4; j++) {
+				var vv = $("#" + "tmpMajor" + i + j).val();
+				if(vv != "") {
+					var num = $("#" + "tmpMajorNum" + i + j).val();
+					$("#" + "majorNum" + i + j).val(num);
+					if(num == "") {
+						majorQuery += vv + "#" + "0" + ",";
+					} else {
+						majorQuery += vv + "#" + num + ",";
+					}
+					$("#" + "strMajor" + i + j).val(vv);
+				} else {
+					$("#" + "majorNum" + i + j).val("");
+					$("#" + "strMajor" + i + j).val(vv);
+				}
+			}
+		}
+		
+		if(document.getElementById("exportrandom").checked) {
+			//随机时，专业条件不能为空
+			if(majorQuery == "") {
+				alert("请选择专业条件！");
+				return;
+			}
+		}
+		$("#expertMajorQuery").attr("value", majorQuery);
+		
 		//各个模块自己的参数
 		var strExpertName = $("#strExpertName").val();
-		var strExpertMajor = $("#strExpertMajor").val();
+		var expertMajorQuery = $("#expertMajorQuery").val();
+		if(document.getElementById("exportrandom").checked) {
+			$("#strIsRandom").attr("value", "1");
+		} else {
+			$("#strIsRandom").attr("value", "0");
+		}
+		if(document.getElementById("include").checked) {
+			$("#strIsInclude").attr("value", "1");
+		} else {
+			$("#strIsInclude").attr("value", "0");
+		}
+		var strIsRandom = $("#strIsRandom").val();
+		var strIsInclude = $("#strIsInclude").val();
+		var strExpertComp = $("#strExpertComp").val();
 		var param = new Object();
 		param.strExpertName = encodeURI(strExpertName,"utf-8");
-		param.strExpertMajor = encodeURI(strExpertMajor,"utf-8");
+		param.expertMajorQuery = encodeURI(expertMajorQuery,"utf-8");
+		param.strExpertComp = encodeURI(strExpertComp,"utf-8");
+		param.strIsRandom = strIsRandom;
+		param.strIsInclude = strIsInclude;
 		
-		//-----共通1 start-----
-		//页码
-		param.ajaxPageIndex = index;
-		//总记录数
-		var ajaxTotalCount = $("#ajaxTotalCount1").val();
-		if(ajaxTotalCount == "") {
-			ajaxTotalCount = "0";
-		}
-		param.ajaxTotalCount = ajaxTotalCount;
-		//-----共通1 end-----
-		
-		$.getJSON('<%=request.getContextPath()%>/expertlib/queryExpertLibAjax.action', param, function(data) {
+		$.getJSON('<%=request.getContextPath()%>/expertlib/queryAllExpertLibAjax.action', param, function(data) {
 			if(data.resultCode == 0) {
-				var items = data.data.items;
+				var items = data.data;
 				//数据列表
 				$("#expertLibData").empty();
 				$.each(items, function(i, n) {
 					var html = "";
 					html += '<tr>';
-					html += '	<td><input name="expertLibKey" type="radio" value=""/></td>';
+					html += '	<td style="display: none;"><input name="expertLibKey" type="radio" value=""/></td>';
 					html += '	<td style="display: none;">';
 					html += '		<input type="hidden" value="' + n.EXPERT_SEQ + '">';
 					html += '		<input type="hidden" value="' + n.EXPERT_NAME + '">';
@@ -469,41 +568,6 @@
 					html += '</tr>';
 					$("#expertLibData").append(html);
 				});
-				
-				//-----共通2 start-----
-				//分页页码
-				$("#ajaxpagenum1").val("");
-				var totalPage = data.data.totalPage;
-				//总数据量
-				var totalCount = data.data.totalCount;
-				totalPage = parseInt(totalPage);
-				totalCount = parseInt(totalCount);
-				$("#ajaxTotalPage1").val(totalPage);
-				$("#ajaxTotalCount1").val(totalCount);
-				//分页
-				var skipList = data.data.skipList;
-				$("#ajaxskiplist1").empty();
-				//第一页
-				$("#ajaxskiplist1").append('<li><a href="javascript:void(0);" onclick="turningAjaxPage1(1);">&laquo;</a></li>');
-				$.each(skipList, function(ii, nn) {
-					if((parseInt(nn) - 1) == parseInt(index)) {
-						$("#ajaxskiplist1").append('<li class="active"><a href="javascript:void(0);">' + nn + '</a></li>');
-					} else {
-						$("#ajaxskiplist1").append('<li><a href="javascript:void(0);" onclick="turningAjaxPage1(' + nn + ');">' + nn + '</a></li>');
-					}
-				});
-				//页信息
-				$("#ajaxPageInfo1").empty();
-				var startIndex = data.data.startIndex;
-				startIndex = parseInt(startIndex);
-				if(totalPage == 0) {
-					totalPage = 1;
-				}
-				var ajaxPageInfo = '第' + (startIndex + 1) + '页/共' + totalPage + '页&nbsp;&nbsp;&nbsp;&nbsp;共' + totalCount + '条记录';
-				$("#ajaxPageInfo1").append(ajaxPageInfo);
-				//最后一页
-				$("#ajaxskiplist1").append('<li><a href="javascript:void(0);" onclick="turningLastPage1();">&raquo;</a></li>');
-				//-----共通2 end-----
 			} else {
 				alert(data.resultMessage);
 			}
@@ -514,13 +578,15 @@
 	function selectExpertLib() {
 		var obj = null;
 		var list = document.getElementsByName("expertLibKey");
-		for(var i = 0; i < list.length; i++) {
-			if(list[i].checked) {
-				obj = list[i];
-				break;
-			}
+		if(list.length == 0) {
+			alert("专家为空，请重新查询！");
+			return;
 		}
-		if(obj != null) {
+		//清空原来的专家数据
+		$("#bidExpertLibBody").empty();
+		
+		for(var i = 0; i < list.length; i++) {
+			obj = list[i];
 			var tr = obj.parentNode.parentNode;
 			var tds = tr.getElementsByTagName("td");
 			//第二列是隐藏列
@@ -592,18 +658,103 @@
 			tr.appendChild(createTd(EXPERT_TEL1));
 			
 			bidExpertLibBody.appendChild(tr);
-			
-			//刷新列表序号
-			var rows = document.getElementById("bidExpertLibBody").rows;
-			for(var i = 0; i < rows.length; i++) {
-				var num = i + 1;
-				rows[i].cells[2].innerHTML = num;
+		}
+		//刷新列表序号
+		var rows = document.getElementById("bidExpertLibBody").rows;
+		for(var i = 0; i < rows.length; i++) {
+			var num = i + 1;
+			rows[i].cells[2].innerHTML = num;
+		}
+		
+		//隐藏模态窗体
+		$('#expertLibModal').modal('hide');
+	}
+	
+	function checkMajor(obj) {
+		var v = obj.value;
+		if($("#strIsRandom").val() == "1") {
+			if(obj.checked) {
+				$("#" + "tmpmajornum" + v).attr("disabled", false);
+			} else {
+				$("#" + "tmpmajornum" + v).attr("disabled", true);
+				$("#" + "tmpmajornum" + v).attr("value", "");
 			}
-			
-			//隐藏模态窗体
-			$('#expertLibModal').modal('hide');
+		}
+	}
+	
+	function isRandom(obj) {
+		if(obj.checked) {
+			for(var i = 1; i <= 5; i++) {
+				for(var j = 1; j <= 4; j++) {
+					var vv = $("#" + "tmpMajor" + i + j).val();
+					if(vv != "") {
+						$("#" + "tmpMajorNum" + i + j).attr("disabled", false);
+					}
+				}
+			}
 		} else {
-			alert("请选择一条记录！");
+			for(var i = 1; i <= 5; i++) {
+				for(var j = 1; j <= 4; j++) {
+					$("#" + "tmpMajorNum" + i + j).val("");
+					$("#" + "tmpMajorNum" + i + j).attr("disabled", true);
+				}
+			}
+		}
+	}
+	
+	function selectMajor(i, j) {
+		var vv = $("#" + "tmpMajor" + i + j).val();
+		if(vv != "" && document.getElementById("exportrandom").checked) {
+			$("#" + "tmpMajorNum" + i + j).attr("disabled", false);
+		} else {
+			$("#" + "tmpMajorNum" + i + j).val("");
+			$("#" + "tmpMajorNum" + i + j).attr("disabled", true);
+		}
+		//AJAX加载子专业（暂时只保留1-4列）
+		if(j != "4") {
+			var jj = parseInt(j) + 1;
+			if(vv != "") {
+				$.ajax({
+					url:'<%=request.getContextPath()%>/expertlib/queryChildExpertLibByParentid.action',
+					type:"GET",
+					dataType:"json",
+					data:{
+						"strParentMajorType":jj,
+						"strParentMajorCode":vv
+					},
+					success:function(data) {
+						//对于子节点，先清空所有子节点数据
+						for(var k = jj; k <= 4; k++) {
+							var child = $("#" + "tmpMajor" + i + k);
+							child.empty();
+							$("<option value=''>" + '请选择' + "</option>").appendTo(child);
+							child.attr("disabled", true);
+							
+							$("#" + "tmpMajorNum" + i + k).val("");
+							$("#" + "tmpMajorNum" + i + k).attr("disabled", true);
+						}
+						//重新赋值
+						var selObj = $("#" + "tmpMajor" + i + jj);
+						selObj.removeAttr("disabled");
+						selObj.empty();
+						$("<option value=''>" + '请选择' + "</option>").appendTo(selObj);
+						$.each(data, function(i, n){
+							$("<option value='"+ n.MAJORCODE +"'>"+ n.MAJORNAME +"</option>").appendTo(selObj);
+						});
+					}
+				});
+			} else {
+				//对于子节点，先清空所有子节点数据
+				for(var k = jj; k <= 4; k++) {
+					var child = $("#" + "tmpMajor" + i + k);
+					child.empty();
+					$("<option value=''>" + '请选择' + "</option>").appendTo(child);
+					child.attr("disabled", true);
+					
+					$("#" + "tmpMajorNum" + i + k).val("");
+					$("#" + "tmpMajorNum" + i + k).attr("disabled", true);
+				}
+			}
 		}
 	}
 	
@@ -2346,39 +2497,324 @@
 		<div class="modal-dialog" style="width: 1000px;">
 			<div class="modal-content">
 				<form class="form-horizontal" role="form">
+					<input type="hidden" id="expertMajorQuery" name="expertMajorQuery"/>
+					<input type="hidden" id="strIsRandom" name="strIsRandom"/>
+					<input type="hidden" id="strIsInclude" name="strIsInclude"/>
+					<input type="hidden" id="majorNum11" name="majorNum11"/>
+					<input type="hidden" id="majorNum12" name="majorNum12"/>
+					<input type="hidden" id="majorNum13" name="majorNum13"/>
+					<input type="hidden" id="majorNum14" name="majorNum14"/>
+					<input type="hidden" id="majorNum15" name="majorNum15"/>
+					<input type="hidden" id="majorNum21" name="majorNum21"/>
+					<input type="hidden" id="majorNum22" name="majorNum22"/>
+					<input type="hidden" id="majorNum23" name="majorNum23"/>
+					<input type="hidden" id="majorNum24" name="majorNum24"/>
+					<input type="hidden" id="majorNum25" name="majorNum25"/>
+					<input type="hidden" id="majorNum31" name="majorNum31"/>
+					<input type="hidden" id="majorNum32" name="majorNum32"/>
+					<input type="hidden" id="majorNum33" name="majorNum33"/>
+					<input type="hidden" id="majorNum34" name="majorNum34"/>
+					<input type="hidden" id="majorNum35" name="majorNum35"/>
+					<input type="hidden" id="majorNum41" name="majorNum41"/>
+					<input type="hidden" id="majorNum42" name="majorNum42"/>
+					<input type="hidden" id="majorNum43" name="majorNum43"/>
+					<input type="hidden" id="majorNum44" name="majorNum44"/>
+					<input type="hidden" id="majorNum45" name="majorNum45"/>
+					<input type="hidden" id="majorNum51" name="majorNum51"/>
+					<input type="hidden" id="majorNum52" name="majorNum52"/>
+					<input type="hidden" id="majorNum53" name="majorNum53"/>
+					<input type="hidden" id="majorNum54" name="majorNum54"/>
+					<input type="hidden" id="majorNum55" name="majorNum55"/>
+					<input type="hidden" id="strMajor11" name="strMajor11"/>
+					<input type="hidden" id="strMajor12" name="strMajor12"/>
+					<input type="hidden" id="strMajor13" name="strMajor13"/>
+					<input type="hidden" id="strMajor14" name="strMajor14"/>
+					<input type="hidden" id="strMajor15" name="strMajor15"/>
+					<input type="hidden" id="strMajor21" name="strMajor21"/>
+					<input type="hidden" id="strMajor22" name="strMajor22"/>
+					<input type="hidden" id="strMajor23" name="strMajor23"/>
+					<input type="hidden" id="strMajor24" name="strMajor24"/>
+					<input type="hidden" id="strMajor25" name="strMajor25"/>
+					<input type="hidden" id="strMajor31" name="strMajor31"/>
+					<input type="hidden" id="strMajor32" name="strMajor32"/>
+					<input type="hidden" id="strMajor33" name="strMajor33"/>
+					<input type="hidden" id="strMajor34" name="strMajor34"/>
+					<input type="hidden" id="strMajor35" name="strMajor35"/>
+					<input type="hidden" id="strMajor41" name="strMajor41"/>
+					<input type="hidden" id="strMajor42" name="strMajor42"/>
+					<input type="hidden" id="strMajor43" name="strMajor43"/>
+					<input type="hidden" id="strMajor44" name="strMajor44"/>
+					<input type="hidden" id="strMajor45" name="strMajor45"/>
+					<input type="hidden" id="strMajor51" name="strMajor51"/>
+					<input type="hidden" id="strMajor52" name="strMajor52"/>
+					<input type="hidden" id="strMajor53" name="strMajor53"/>
+					<input type="hidden" id="strMajor54" name="strMajor54"/>
+					<input type="hidden" id="strMajor55" name="strMajor55"/>
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 						&times;
 						</button>
 						<h4 class="modal-title" id="myModalLabel">
-							专家一览
+							专家信息查询
 						</h4>
 					</div>
 					<div class="modal-body">
+						<div class="col-lg-2 checkBox" style="z-index: 9;">
+							<input id="exportrandom" type="checkbox" onclick="isRandom(this);"/>随机
+						</div>
 						<div class="col-lg-4 form-group">
-							<label for="" class="col-lg-4 form-label">姓名</label>
+							<label for="" class="col-lg-4 form-label">专家姓名</label>
 							<div class="col-lg-8">
 								<div class="input-group">
 									<input id="strExpertName" maxlength="24" type="text" class="form-control">
 								</div>
 							</div>
 						</div>
-						<div class="col-lg-7 form-group" style="z-index: 1;">
-							<label for="" class="col-lg-2 form-label">专业</label>
+						<div class="col-lg-2 checkBox" style="z-index: 9;">
+							<input id="include" type="checkbox"/>不包含
+						</div>
+						<div class="col-lg-4 form-group" style="z-index: 9;">
+							<label for="" class="col-lg-4 form-label">单位选择</label>
 							<div class="col-lg-8">
-								<input id="strExpertMajor" type="hidden" class="form-control">
-								<input id="strExpertMajorName" type="text" class="form-control">
+								<select id="strExpertComp" class="form-control">
+						 			<option value="" selected="selected">请选择</option>
+									<s:iterator id="listExpertComp" value="listExpertComp" status="st1">
+										<option value="<s:property value="EXPERT_COMP"/>"><s:property value="EXPERT_COMP"/></option>
+									</s:iterator>
+								</select>
 							</div>
 						</div>
-						<div class="col-lg-2 form-group" style="z-index: 1;">
-							<button type="button" class="btn btn-success form-control" onclick="querySelectPageAjax1(0);">检索</button>
+						<div class="col-lg-2 form-group" style="z-index: 10; float: right;">
+							<button type="button" class="btn btn-success form-control" onclick="queryExpertAjax();">检索</button>
+						</div>
+						<div class="col-lg-1 form-group" style="z-index: 10; float: left;">
+							<label for="" class="form-label">专业</label>
 						</div>
 					</div>
-					<div class="modal-body" style="height: 430px;">
+					<div class="modal-body" style="height: 330px; width:100%;">
+						<table class="table table-bordered">
+							<tr>
+								<td width="150" align="center">一级</td>
+								<td width="40" align="center">人数</td>
+								<td width="150" align="center">二级</td>
+								<td width="40" align="center">人数</td>
+								<td width="150" align="center">三级</td>
+								<td width="40" align="center">人数</td>
+								<td width="150" align="center">四级</td>
+								<td width="40" align="center">人数</td>
+							</tr>
+							<tr>
+								<td>
+									<select id="tmpMajor11" style="width: 145px;" onchange="selectMajor('1', '1');">
+										<option value="" selected="selected">请选择</option>
+										<s:iterator id="major11List" value="major11List" status="st1">
+											<option value="<s:property value="MAJORCODE"/>"><s:property value="MAJORNAME"/></option>
+										</s:iterator>
+									</select>
+								</td>
+								<td>
+									<input type="text" style="width: 30px;" maxlength="2" id="tmpMajorNum11" disabled="disabled" value=""/>
+								</td>
+								<td>
+									<select id="tmpMajor12" style="width: 145px;" disabled="disabled" onchange="selectMajor('1', '2');">
+										<option value="" selected="selected">请选择</option>
+									</select>
+								</td>
+								<td>
+									<input type="text" style="width: 30px;" maxlength="2" id="tmpMajorNum12" disabled="disabled" value=""/>
+								</td>
+								<td>
+									<select id="tmpMajor13" style="width: 145px;" disabled="disabled" onchange="selectMajor('1', '3');">
+										<option value="" selected="selected">请选择</option>
+									</select>
+								</td>
+								<td>
+										<input type="text" style="width: 30px;" maxlength="2" id="tmpMajorNum13" disabled="disabled" value=""/>
+								</td>
+								<td>
+									<select id="tmpMajor14" style="width: 145px;" disabled="disabled" onchange="selectMajor('1', '4');">
+										<option value="" selected="selected">请选择</option>
+									</select>
+								</td>
+								<td>
+									<input type="text" style="width: 30px;" maxlength="2" id="tmpMajorNum14" disabled="disabled" value=""/>
+								</td>
+							</tr>
+							<s:if test="major11List != null && major11List.size() > 1">
+							<tr>
+							</s:if>
+							<s:else>
+							<tr style="display: none;">
+							</s:else>
+								<td>
+									<select id="tmpMajor21" style="width: 145px;" onchange="selectMajor('2', '1');">
+										<option value="" selected="selected">请选择</option>
+										<s:iterator id="major21List" value="major21List" status="st1">
+											<option value="<s:property value="MAJORCODE"/>"><s:property value="MAJORNAME"/></option>
+										</s:iterator>
+									</select>
+								</td>
+								<td>
+									<input type="text" style="width: 30px;" maxlength="2" id="tmpMajorNum21" disabled="disabled" value=""/>
+								</td>
+								<td>
+									<select id="tmpMajor22" style="width: 145px;" disabled="disabled" onchange="selectMajor('2', '2');">
+										<option value="" selected="selected">请选择</option>
+									</select>
+								</td>
+								<td>
+									<input type="text" style="width: 30px;" maxlength="2" id="tmpMajorNum22" disabled="disabled" value=""/>
+								</td>
+								<td>
+									<select id="tmpMajor23" style="width: 145px;" disabled="disabled" onchange="selectMajor('2', '3');">
+										<option value="" selected="selected">请选择</option>
+									</select>
+								</td>
+								<td>
+									<input type="text" style="width: 30px;" maxlength="2" id="tmpMajorNum23" disabled="disabled" value=""/>
+								</td>
+								<td>
+									<select id="tmpMajor24" style="width: 145px;" disabled="disabled" onchange="selectMajor('2', '4');">
+										<option value="" selected="selected">请选择</option>
+									</select>
+								</td>
+								<td>
+									<input type="text" style="width: 30px;" maxlength="2" id="tmpMajorNum24" disabled="disabled" value=""/>
+								</td>
+							</tr>
+							<s:if test="major11List != null && major11List.size() > 2">
+							<tr>
+							</s:if>
+							<s:else>
+							<tr style="display: none;">
+							</s:else>
+								<td>
+									<select id="tmpMajor31" style="width: 145px;" onchange="selectMajor('3', '1');">
+										<option value="" selected="selected">请选择</option>
+										<s:iterator id="major31List" value="major31List" status="st1">
+											<option value="<s:property value="MAJORCODE"/>"><s:property value="MAJORNAME"/></option>
+										</s:iterator>
+									</select>
+								</td>
+								<td>
+									<input type="text" style="width: 30px;" maxlength="2" id="tmpMajorNum31" disabled="disabled" value=""/>
+								</td>
+								<td>
+									<select id="tmpMajor32" style="width: 145px;" disabled="disabled" onchange="selectMajor('3', '2');">
+										<option value="" selected="selected">请选择</option>
+									</select>
+								</td>
+								<td>
+									<input type="text" style="width: 30px;" maxlength="2" id="tmpMajorNum32" disabled="disabled" value=""/>
+								</td>
+								<td>
+									<select id="tmpMajor33" style="width: 145px;" disabled="disabled" onchange="selectMajor('3', '3');">
+										<option value="" selected="selected">请选择</option>
+									</select>
+								</td>
+								<td>
+									<input type="text" style="width: 30px;" maxlength="2" id="tmpMajorNum33" disabled="disabled" value=""/>
+								</td>
+								<td>
+									<select id="tmpMajor34" style="width: 145px;" disabled="disabled" onchange="selectMajor('3', '4');">
+										<option value="" selected="selected">请选择</option>
+									</select>
+								</td>
+								<td>
+									<input type="text" style="width: 30px;" maxlength="2" id="tmpMajorNum34" disabled="disabled" value=""/>
+								</td>
+							</tr>
+							<s:if test="major11List != null && major11List.size() > 3">
+							<tr>
+							</s:if>
+							<s:else>
+							<tr style="display: none;">
+							</s:else>
+								<td>
+									<select id="tmpMajor41" style="width: 145px;" onchange="selectMajor('4', '1');">
+										<option value="" selected="selected">请选择</option>
+										<s:iterator id="major41List" value="major41List" status="st1">
+											<option value="<s:property value="MAJORCODE"/>"><s:property value="MAJORNAME"/></option>
+										</s:iterator>
+									</select>
+								</td>
+								<td>
+									<input type="text" style="width: 30px;" maxlength="2" id="tmpMajorNum41" disabled="disabled" value=""/>
+								</td>
+								<td>
+									<select id="tmpMajor42" style="width: 145px;" disabled="disabled" onchange="selectMajor('4', '2');">
+										<option value="" selected="selected">请选择</option>
+									</select>
+								</td>
+								<td>
+									<input type="text" style="width: 30px;" maxlength="2" id="tmpMajorNum42" disabled="disabled" value=""/>
+								</td>
+								<td>
+									<select id="tmpMajor43" style="width: 145px;" disabled="disabled" onchange="selectMajor('4', '3');">
+										<option value="" selected="selected">请选择</option>
+									</select>
+								</td>
+								<td>
+									<input type="text" style="width: 30px;" maxlength="2" id="tmpMajorNum43" disabled="disabled" value=""/>
+								</td>
+								<td>
+									<select id="tmpMajor44" style="width: 145px;" disabled="disabled" onchange="selectMajor('4', '4');">
+										<option value="" selected="selected">请选择</option>
+									</select>
+								</td>
+								<td>
+									<input type="text" style="width: 30px;" maxlength="2" id="tmpMajorNum44" disabled="disabled" value=""/>
+								</td>
+							</tr>
+							<s:if test="major11List != null && major11List.size() > 4">
+							<tr>
+							</s:if>
+							<s:else>
+							<tr style="display: none;">
+							</s:else>
+								<td>
+									<select id="tmpMajor51" style="width: 145px;" onchange="selectMajor('5', '1');">
+										<option value="" selected="selected">请选择</option>
+										<s:iterator id="major51List" value="major51List" status="st1">
+											<option value="<s:property value="MAJORCODE"/>"><s:property value="MAJORNAME"/></option>
+										</s:iterator>
+									</select>
+								</td>
+								<td>
+									<input type="text" style="width: 30px;" maxlength="2" id="tmpMajorNum51" disabled="disabled" value=""/>
+								</td>
+								<td>
+									<select id="tmpMajor52" style="width: 145px;" disabled="disabled" onchange="selectMajor('5', '2');">
+										<option value="" selected="selected">请选择</option>
+									</select>
+								</td>
+								<td>
+									<input type="text" style="width: 30px;" maxlength="2" id="tmpMajorNum52" disabled="disabled" value=""/>
+								</td>
+								<td>
+									<select id="tmpMajor53" style="width: 145px;" disabled="disabled" onchange="selectMajor('5', '3');">
+										<option value="" selected="selected">请选择</option>
+									</select>
+								</td>
+								<td>
+									<input type="text" style="width: 30px;" maxlength="2" id="tmpMajorNum53" disabled="disabled" value=""/>
+								</td>
+								<td>
+									<select id="tmpMajor54" style="width: 145px;" disabled="disabled" onchange="selectMajor('5', '4');">
+										<option value="" selected="selected">请选择</option>
+									</select>
+								</td>
+								<td>
+									<input type="text" style="width: 30px;" maxlength="2" id="tmpMajorNum54" disabled="disabled" value=""/>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<div class="modal-body" style="height: 350px; overflow-y: auto;">
 						<table class="table table-bordered">
 							<thead>
 								<tr>
-									<th></th>
+									<th style="display: none;"></th>
 									<th style="display: none;"></th>
 									<th>姓名</th>
 									<th>专业</th>
@@ -2390,7 +2826,7 @@
 							</thead>
 							<tbody id="expertLibData">
 								<tr>
-									<td><input name="expertLibKey" type="radio" value=""/></td>
+									<td style="display: none;"><input name="expertLibKey" type="radio" style="" value=""/></td>
 									<td style="display: none;">
 										<input type="hidden" value="">
 									</td>
@@ -2403,7 +2839,6 @@
 								</tr>
 							</tbody>
 						</table>
-						<jsp:include page="../turning_select1.jsp" flush="true" />
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-primary" onclick="selectExpertLib();">确定</button>

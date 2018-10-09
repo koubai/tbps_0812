@@ -64,10 +64,10 @@
 		var CNTRCT_RATE_4 = inputs[11].value;
 		var CNTRCT_RATE_5 = inputs[12].value;
 		window.dialogArguments.document.getElementById("CNTRCT_BELONG").value = CNTRCT_BELONG;
-		window.dialogArguments.document.getElementById("CNTRCT_NO").value = CNTRCT_NO;
+		window.dialogArguments.document.getElementById("CNTRCT_NO_MID").value = CNTRCT_NO;
 		window.dialogArguments.document.getElementById("CNTRCT_TYPE").value = CNTRCT_TYPE;
 		window.dialogArguments.document.getElementById("CNTRCT_NAME").value = CNTRCT_NAME;
-		window.dialogArguments.document.getElementById("CNTRCT_NM").value = CNTRCT_NM;
+		window.dialogArguments.document.getElementById("CNTRCT_NM_MID").value = CNTRCT_NM;
 		window.dialogArguments.document.getElementById("AUDIT_COMP_NAME").value = AUDIT_COMP_NAME;
 		window.dialogArguments.document.getElementById("CO_MANAGER_ADDRESS1").value = CO_MANAGER_ADDRESS1;
 		window.dialogArguments.document.getElementById("strCntrctStDate").value = strCntrctStDate;
@@ -167,7 +167,7 @@
 								</div>
 							</div>
 							<div class="col-xs-2 form-group">
-								<button type="button" class="btn btn-success form-control" onclick="queryList();">检索</button>
+								<button type="button" id="buttonquery" class="btn btn-success form-control" onclick="queryList();">检索</button>
 							</div>
 						</div>
 					</div>
@@ -230,6 +230,7 @@
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.min.js"></script>
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.zh-CN.min.js"></script>
 <script>
+	$("#buttonquery").focus();
 	$('.datepicker').parent().datepicker({
 		"autoclose":true,"format":"yyyy-mm-dd","language":"zh-CN"
 	});

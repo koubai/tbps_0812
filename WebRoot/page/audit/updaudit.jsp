@@ -939,12 +939,15 @@
 	}
 	
 	function goAuditList() {
-		window.location.href = '<c:url value="/audit/queryAuditList.action"></c:url>';
+		window.location.href = '<c:url value="/audit/showAuditAction.action"></c:url>';
 	}
 	
 	function exportAudit() {
 		var CNTRCT_TYPE = $("#CNTRCT_TYPE").val();
+<<<<<<< HEAD
 //		alert(CNTRCT_TYPE);
+=======
+>>>>>>> 55a6beda826882f4b3df4aa52fd3dea24b4b58b2
 		if(CNTRCT_TYPE == 1){
 			document.mainform.action = '<c:url value="/audit/exportAuditMetroAction.action"></c:url>';
 		} else {

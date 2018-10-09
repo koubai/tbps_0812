@@ -253,26 +253,32 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 			
 			//乙方收费
 			String bType = auditDto.getB_TYPE();
+			BigDecimal bAmount = new BigDecimal(0);
 			if(bType.equals("1")) {
 				//标准收费
 				BigDecimal standard = standardAmountCalc(auditDto);
 				if(standard.compareTo(BigDecimal.ZERO) == 1) {
-					BigDecimal bAmount = auditDto.getB_RATE().multiply(standard).divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_UP);
-					auditDto.setB_AMOUNT(bAmount);
+					if(auditDto.getB_RATE().compareTo(BigDecimal.ZERO) == 1) {
+						bAmount = auditDto.getB_RATE().multiply(standard).divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_UP);
+					} else {
+						bAmount = standard;
+					}
 				}
 			} else if(bType.equals("2")) {
 				//收费金额
-				auditDto.setB_AMOUNT(auditDto.getB_RATE());
+				bAmount = auditDto.getB_RATE();
 			} else if(bType.equals("3")) {
 				//送审金额
 				BigDecimal verifyPerAmount = auditDto.getVERIFY_PER_AMOUNT();
 				if(verifyPerAmount.compareTo(BigDecimal.ZERO) == 1) {
-					BigDecimal bAmount = auditDto.getB_RATE().multiply(verifyPerAmount).divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_UP);
-					auditDto.setB_AMOUNT(bAmount);
+					if(auditDto.getB_RATE().compareTo(BigDecimal.ZERO) == 1) {
+						bAmount = auditDto.getB_RATE().multiply(verifyPerAmount).divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_UP);
+					} else {
+						bAmount = verifyPerAmount;
+					}
 				}
-			} else {
-				auditDto.setB_AMOUNT(new BigDecimal(0));
 			}
+			auditDto.setB_AMOUNT(bAmount);
 			auditDao.updateAudit(auditDto);
 			//新增审价履历
 			insertAuditHist(auditDto);
@@ -302,26 +308,32 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 			
 			//乙方收费
 			String bType = auditDto.getB_TYPE();
+			BigDecimal bAmount = new BigDecimal(0);
 			if(bType.equals("1")) {
 				//标准收费
 				BigDecimal standard = standardAmountCalc(auditDto);
 				if(standard.compareTo(BigDecimal.ZERO) == 1) {
-					BigDecimal bAmount = auditDto.getB_RATE().multiply(standard).divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_UP);
-					auditDto.setB_AMOUNT(bAmount);
+					if(auditDto.getB_RATE().compareTo(BigDecimal.ZERO) == 1) {
+						bAmount = auditDto.getB_RATE().multiply(standard).divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_UP);
+					} else {
+						bAmount = standard;
+					}
 				}
 			} else if(bType.equals("2")) {
 				//收费金额
-				auditDto.setB_AMOUNT(auditDto.getB_RATE());
+				bAmount = auditDto.getB_RATE();
 			} else if(bType.equals("3")) {
 				//送审金额
 				BigDecimal verifyPerAmount = auditDto.getVERIFY_PER_AMOUNT();
 				if(verifyPerAmount.compareTo(BigDecimal.ZERO) == 1) {
-					BigDecimal bAmount = auditDto.getB_RATE().multiply(verifyPerAmount).divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_UP);
-					auditDto.setB_AMOUNT(bAmount);
+					if(auditDto.getB_RATE().compareTo(BigDecimal.ZERO) == 1) {
+						bAmount = auditDto.getB_RATE().multiply(verifyPerAmount).divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_UP);
+					} else {
+						bAmount = verifyPerAmount;
+					}
 				}
-			} else {
-				auditDto.setB_AMOUNT(new BigDecimal(0));
 			}
+			auditDto.setB_AMOUNT(bAmount);
 			auditDao.updateAudit(auditDto);
 			//新增审价履历
 			insertAuditHist(auditDto);
@@ -351,26 +363,32 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 			
 			//乙方收费
 			String bType = auditDto.getB_TYPE();
+			BigDecimal bAmount = new BigDecimal(0);
 			if(bType.equals("1")) {
 				//标准收费
 				BigDecimal standard = standardAmountCalc(auditDto);
 				if(standard.compareTo(BigDecimal.ZERO) == 1) {
-					BigDecimal bAmount = auditDto.getB_RATE().multiply(standard).divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_UP);
-					auditDto.setB_AMOUNT(bAmount);
+					if(auditDto.getB_RATE().compareTo(BigDecimal.ZERO) == 1) {
+						bAmount = auditDto.getB_RATE().multiply(standard).divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_UP);
+					} else {
+						bAmount = standard;
+					}
 				}
 			} else if(bType.equals("2")) {
 				//收费金额
-				auditDto.setB_AMOUNT(auditDto.getB_RATE());
+				bAmount = auditDto.getB_RATE();
 			} else if(bType.equals("3")) {
 				//送审金额
 				BigDecimal verifyPerAmount = auditDto.getVERIFY_PER_AMOUNT();
 				if(verifyPerAmount.compareTo(BigDecimal.ZERO) == 1) {
-					BigDecimal bAmount = auditDto.getB_RATE().multiply(verifyPerAmount).divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_UP);
-					auditDto.setB_AMOUNT(bAmount);
+					if(auditDto.getB_RATE().compareTo(BigDecimal.ZERO) == 1) {
+						bAmount = auditDto.getB_RATE().multiply(verifyPerAmount).divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_UP);
+					} else {
+						bAmount = verifyPerAmount;
+					}
 				}
-			} else {
-				auditDto.setB_AMOUNT(new BigDecimal(0));
 			}
+			auditDto.setB_AMOUNT(bAmount);
 			auditDao.updateAudit(auditDto);
 			//新增审价履历
 			insertAuditHist(auditDto);
@@ -400,26 +418,32 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 			
 			//乙方收费
 			String bType = auditDto.getB_TYPE();
+			BigDecimal bAmount = new BigDecimal(0);
 			if(bType.equals("1")) {
 				//标准收费
 				BigDecimal standard = standardAmountCalc(auditDto);
 				if(standard.compareTo(BigDecimal.ZERO) == 1) {
-					BigDecimal bAmount = auditDto.getB_RATE().multiply(standard).divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_UP);
-					auditDto.setB_AMOUNT(bAmount);
+					if(auditDto.getB_RATE().compareTo(BigDecimal.ZERO) == 1) {
+						bAmount = auditDto.getB_RATE().multiply(standard).divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_UP);
+					} else {
+						bAmount = standard;
+					}
 				}
 			} else if(bType.equals("2")) {
 				//收费金额
-				auditDto.setB_AMOUNT(auditDto.getB_RATE());
+				bAmount = auditDto.getB_RATE();
 			} else if(bType.equals("3")) {
 				//送审金额
 				BigDecimal verifyPerAmount = auditDto.getVERIFY_PER_AMOUNT();
 				if(verifyPerAmount.compareTo(BigDecimal.ZERO) == 1) {
-					BigDecimal bAmount = auditDto.getB_RATE().multiply(verifyPerAmount).divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_UP);
-					auditDto.setB_AMOUNT(bAmount);
+					if(auditDto.getB_RATE().compareTo(BigDecimal.ZERO) == 1) {
+						bAmount = auditDto.getB_RATE().multiply(verifyPerAmount).divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_UP);
+					} else {
+						bAmount = verifyPerAmount;
+					}
 				}
-			} else {
-				auditDto.setB_AMOUNT(new BigDecimal(0));
 			}
+			auditDto.setB_AMOUNT(bAmount);
 			auditDao.updateAudit(auditDto);
 			//新增审价履历
 			insertAuditHist(auditDto);

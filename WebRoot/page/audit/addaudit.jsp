@@ -144,6 +144,8 @@
 	}
 	
 	function setAuditValue() {
+		$("#CNTRCT_NO").attr("value", $("#CNTRCT_NO_MID").val());
+		$("#CNTRCT_NM").attr("value", $("#CNTRCT_NM_MID").val());
 		//委托公司
 		$("#AGENT_NO").attr("value", $("#agentNo").val());
 		$("#AGENT_CO_NAME").attr("value", $("#agentCoName").val());
@@ -769,7 +771,7 @@
 	}
 	
 	function goAuditList() {
-		window.location.href = '<c:url value="/audit/queryAuditList.action"></c:url>';
+		window.location.href = '<c:url value="/audit/showAuditAction.action"></c:url>';
 	}
 	
 	function exportAudit() {
@@ -874,6 +876,8 @@
 					<s:hidden name="addAuditDto.CONTRACT_CO_INFO" id="CONTRACT_CO_INFO"/>
 					<s:hidden name="addAuditDto.CNTRCT_INFO" id="CNTRCT_INFO"/>
 					<s:hidden name="addAuditDto.B_AMOUNT" id="B_AMOUNT"/>
+					<s:hidden name="addAuditDto.CNTRCT_NO" id="CNTRCT_NO"/>
+					<s:hidden name="addAuditDto.CNTRCT_NM" id="CNTRCT_NM"/>
 					<h3 class="title"><label for="" class="col-lg-2 form-label">审价项目新增</label></h3>
 					<div class="row">
 						<div class="col-lg-12 form-group">
@@ -894,7 +898,7 @@
 							</div>
 							<label for="" class="col-lg-1 form-label">合同编号</label>
 							<div class="col-lg-2">
-								<s:textfield name="addAuditDto.CNTRCT_NO" id="CNTRCT_NO" disabled="true" cssClass="form-control" maxlength="20" theme="simple"></s:textfield>
+								<s:textfield name="auditCntrctDto.CNTRCT_NO" id="CNTRCT_NO_MID" disabled="true" cssClass="form-control" maxlength="20" theme="simple"></s:textfield>
 							</div>
 							<label for="" class="col-lg-1 form-label">合同性质</label>
 							<div class="col-lg-2">
@@ -916,7 +920,7 @@
 							</div>
 							<label for="" class="col-lg-1 form-label">合同简称</label>
 							<div class="col-lg-2">
-								<s:textfield name="addAuditDto.CNTRCT_NM" id="CNTRCT_NM" disabled="true" cssClass="form-control" maxlength="100" theme="simple"></s:textfield>
+								<s:textfield name="auditCntrctDto.CNTRCT_NM" id="CNTRCT_NM_MID" disabled="true" cssClass="form-control" maxlength="100" theme="simple"></s:textfield>
 							</div>
 						</div>
 						<div class="col-lg-12 form-group">
