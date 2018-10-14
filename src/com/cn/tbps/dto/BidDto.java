@@ -281,6 +281,11 @@ public class BidDto extends BaseDto {
 	private BigDecimal BID_EXPERT_COMMISION;
 
 	/**
+	 * 预借专家费日期
+	 */
+	private Date BID_EXPERT_COMMISION_PRE_DATE;
+	
+	/**
 	 * 预借专家费
 	 */
 	private BigDecimal BID_EXPERT_COMMISION_PRE;
@@ -2097,4 +2102,14 @@ public class BidDto extends BaseDto {
 	public void setSTATUS_NAME(String sTATUS_NAME) {
 		STATUS_NAME = sTATUS_NAME;
 	}
+	
+	public Date getBID_EXPERT_COMMISION_PRE_DATE() {
+		return BID_EXPERT_COMMISION_PRE_DATE;
+	}
+
+	public void setBID_EXPERT_COMMISION_PRE_DATE(Date bID_EXPERT_COMMISION_PRE_DATE) {
+		BID_EXPERT_COMMISION_PRE_DATE = bID_EXPERT_COMMISION_PRE_DATE;
+	}
+
+
 }
