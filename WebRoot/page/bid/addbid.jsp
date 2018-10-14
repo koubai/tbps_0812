@@ -408,6 +408,10 @@
 	function showSelectExpertLib() {
 		$("#strExpertName").val("");
 		$("#strExpertComp").val("");
+		$("#include").attr("disabled", false);
+		$("#strExpertComp").attr("disabled", false);
+		$("#strExpertName").attr("disabled", false);
+		$("#selectExpertCompBtn").attr("disabled", false);
 		document.getElementById("exportrandom").checked = false;
 		document.getElementById("include").checked = false;
 		
@@ -545,7 +549,7 @@
 				$.each(items, function(i, n) {
 					var html = "";
 					html += '<tr>';
-					html += '	<td style="display: none;"><input name="expertLibKey" type="radio" value=""/></td>';
+					html += '	<td><input name="expertLibKey" type="checkbox" value=""/></td>';
 					html += '	<td style="display: none;">';
 					html += '		<input type="hidden" value="' + n.EXPERT_SEQ + '">';
 					html += '		<input type="hidden" value="' + n.EXPERT_NAME + '">';
@@ -568,6 +572,13 @@
 					html += '</tr>';
 					$("#expertLibData").append(html);
 				});
+				var btn = '<tr>';
+				btn += '<td colspan="8">';
+				btn += '<button type="button" class="btn btn-primary" onclick="selectExpertLib();">确定</button>';
+				btn += '<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>';
+				btn += '</td>';
+				btn += '</tr>';
+				$("#expertLibData").append(btn);
 			} else {
 				alert(data.resultMessage);
 			}
@@ -582,82 +593,37 @@
 			alert("专家为空，请重新查询！");
 			return;
 		}
-		//清空原来的专家数据
-		$("#bidExpertLibBody").empty();
 		
+		var expertLib = false;
 		for(var i = 0; i < list.length; i++) {
-			obj = list[i];
-			var tr = obj.parentNode.parentNode;
-			var tds = tr.getElementsByTagName("td");
-			//第二列是隐藏列
-			var inputs = tds[1].getElementsByTagName("input");
-			var EXPERT_SEQ = inputs[0].value;
-			var EXPERT_NAME = inputs[1].value;
-			var EXPERT_COMP = inputs[2].value;
-			var EXPERT_MAJOR = inputs[3].value;
-			var EXPERT_MAJOR_NAME = inputs[4].value;
-			var EXPERT_QULI = inputs[5].value;
-			var EXPERT_TEL1 = inputs[6].value;
-			//新增
-			var bidExpertLibBody = document.getElementById("bidExpertLibBody");
-			//验证专家是否存在
-			var bidExpertLibRadioList = document.getElementsByName("bidExpertLibRadio");
-			for(var j = 0; j < bidExpertLibRadioList.length; j++) {
-				if(bidExpertLibRadioList[j].value == EXPERT_SEQ) {
-					alert("该专家已存在！");
-					return;
+			//是否随机
+			if(!document.getElementById("exportrandom").checked) {
+				//非随机
+				if(list[i].checked) {
+					expertLib = true;
+					break;
 				}
 			}
-			var tr = document.createElement("tr");
-			
-			var td0 = document.createElement("td");
-			//单选框
-			var radio = document.createElement("input");
-			radio.name = "bidExpertLibRadio";
-			radio.type = "radio";
-			radio.value = EXPERT_SEQ;
-			td0.appendChild(radio);
-			tr.appendChild(td0);
-			
-			var td1 = document.createElement("td");
-			td1.style.display = "none";
-			//EXPERT_SEQ
-			var input = createHidden(EXPERT_SEQ);
-			td1.appendChild(input);
-			//EXPERT_NAME
-			var input = createHidden(EXPERT_NAME);
-			td1.appendChild(input);
-			//EXPERT_COMP
-			var input = createHidden(EXPERT_COMP);
-			td1.appendChild(input);
-			//EXPERT_MAJOR
-			var input = createHidden(EXPERT_MAJOR);
-			td1.appendChild(input);
-			//EXPERT_MAJOR_NAME
-			var input = createHidden(EXPERT_MAJOR_NAME);
-			td1.appendChild(input);
-			//EXPERT_QULI
-			var input = createHidden(EXPERT_QULI);
-			td1.appendChild(input);
-			//EXPERT_TEL1
-			var input = createHidden(EXPERT_TEL1);
-			td1.appendChild(input);
-			tr.appendChild(td1);
-			
-			//序号
-			tr.appendChild(createTd(""));
-			//姓名
-			tr.appendChild(createTd(EXPERT_NAME));
-			//就职公司
-			tr.appendChild(createTd(EXPERT_COMP));
-			//专业
-			tr.appendChild(createTd(EXPERT_MAJOR_NAME));
-			//职称
-			tr.appendChild(createTd(EXPERT_QULI));
-			//联系方式
-			tr.appendChild(createTd(EXPERT_TEL1));
-			
-			bidExpertLibBody.appendChild(tr);
+		}
+		if(!document.getElementById("exportrandom").checked && !expertLib) {
+			alert("请选择专家!");
+			return;
+		}
+		
+		//清空原来的专家数据
+		$("#bidExpertLibBody").empty();
+		for(var i = 0; i < list.length; i++) {
+			//是否随机
+			if(document.getElementById("exportrandom").checked) {
+				//随机
+				selectExpertlibToList(list[i]);
+			} else {
+				//非随机
+				if(list[i].checked) {
+					selectExpertlibToList(list[i]);
+					expertLib = true;
+				}
+			}
 		}
 		//刷新列表序号
 		var rows = document.getElementById("bidExpertLibBody").rows;
@@ -668,6 +634,80 @@
 		
 		//隐藏模态窗体
 		$('#expertLibModal').modal('hide');
+	}
+	
+	function selectExpertlibToList(obj) {
+		var tr = obj.parentNode.parentNode;
+		var tds = tr.getElementsByTagName("td");
+		//第二列是隐藏列
+		var inputs = tds[1].getElementsByTagName("input");
+		var EXPERT_SEQ = inputs[0].value;
+		var EXPERT_NAME = inputs[1].value;
+		var EXPERT_COMP = inputs[2].value;
+		var EXPERT_MAJOR = inputs[3].value;
+		var EXPERT_MAJOR_NAME = inputs[4].value;
+		var EXPERT_QULI = inputs[5].value;
+		var EXPERT_TEL1 = inputs[6].value;
+		//新增
+		var bidExpertLibBody = document.getElementById("bidExpertLibBody");
+		//验证专家是否存在
+		var bidExpertLibRadioList = document.getElementsByName("bidExpertLibRadio");
+		for(var j = 0; j < bidExpertLibRadioList.length; j++) {
+			if(bidExpertLibRadioList[j].value == EXPERT_SEQ) {
+				alert("该专家已存在！");
+				return;
+			}
+		}
+		var tr = document.createElement("tr");
+		
+		var td0 = document.createElement("td");
+		//单选框
+		var radio = document.createElement("input");
+		radio.name = "bidExpertLibRadio";
+		radio.type = "radio";
+		radio.value = EXPERT_SEQ;
+		td0.appendChild(radio);
+		tr.appendChild(td0);
+		
+		var td1 = document.createElement("td");
+		td1.style.display = "none";
+		//EXPERT_SEQ
+		var input = createHidden(EXPERT_SEQ);
+		td1.appendChild(input);
+		//EXPERT_NAME
+		var input = createHidden(EXPERT_NAME);
+		td1.appendChild(input);
+		//EXPERT_COMP
+		var input = createHidden(EXPERT_COMP);
+		td1.appendChild(input);
+		//EXPERT_MAJOR
+		var input = createHidden(EXPERT_MAJOR);
+		td1.appendChild(input);
+		//EXPERT_MAJOR_NAME
+		var input = createHidden(EXPERT_MAJOR_NAME);
+		td1.appendChild(input);
+		//EXPERT_QULI
+		var input = createHidden(EXPERT_QULI);
+		td1.appendChild(input);
+		//EXPERT_TEL1
+		var input = createHidden(EXPERT_TEL1);
+		td1.appendChild(input);
+		tr.appendChild(td1);
+		
+		//序号
+		tr.appendChild(createTd(""));
+		//姓名
+		tr.appendChild(createTd(EXPERT_NAME));
+		//就职公司
+		tr.appendChild(createTd(EXPERT_COMP));
+		//专业
+		tr.appendChild(createTd(EXPERT_MAJOR_NAME));
+		//职称
+		tr.appendChild(createTd(EXPERT_QULI));
+		//联系方式
+		tr.appendChild(createTd(EXPERT_TEL1));
+		
+		bidExpertLibBody.appendChild(tr);
 	}
 	
 	function checkMajor(obj) {
@@ -692,6 +732,13 @@
 					}
 				}
 			}
+			document.getElementById("include").checked = false;
+			$("#include").attr("disabled", true);
+			$("#strExpertComp").val("");
+			$("#strExpertComp").attr("disabled", true);
+			$("#strExpertName").val("");
+			$("#strExpertName").attr("disabled", true);
+			$("#selectExpertCompBtn").attr("disabled", true);
 		} else {
 			for(var i = 1; i <= 5; i++) {
 				for(var j = 1; j <= 4; j++) {
@@ -699,7 +746,42 @@
 					$("#" + "tmpMajorNum" + i + j).attr("disabled", true);
 				}
 			}
+			$("#include").attr("disabled", false);
+			$("#strExpertComp").attr("disabled", false);
+			$("#strExpertName").attr("disabled", false);
+			$("#selectExpertCompBtn").attr("disabled", false);
 		}
+	}
+	
+	function showSelectExpertComp() {
+		var expertCompKeyList = $("[name='expertCompKey']");
+		for(var i = 0; i < expertCompKeyList.length; i++) {
+			expertCompKeyList[i].checked = false;
+		}
+		//禁用 Bootstrap 模态框(Modal) 点击空白时自动关闭
+		$('#expertCompModal').modal({backdrop: 'static', keyboard: false});
+		$('#expertCompModal').modal('show');
+	}
+	
+	function selectExpertComp() {
+		var expertCompKeyList = $("[name='expertCompKey']");
+		var strcomp = "";
+		for(var i = 0; i < expertCompKeyList.length; i++) {
+			if(expertCompKeyList[i].checked) {
+				strcomp += expertCompKeyList[i].value + ",";
+			}
+		}
+		if(strcomp.length == 0) {
+			alert("请选择专家公司！");
+			return;
+		} else {
+			$("#strExpertComp").val(strcomp);
+			$('#expertCompModal').modal('hide');
+		}
+	}
+	
+	function cancelExpertComp() {
+		$('#expertCompModal').modal('hide');
 	}
 	
 	function selectMajor(i, j) {
@@ -2493,7 +2575,45 @@
 		</s:form>
 	</div>
 	<!-- 模拟模态框 -->
-	<div class="modal fade" id="expertLibModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal fade" id="expertCompModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1050;">
+		<div class="modal-dialog" style="width: 700px;">
+			<div class="modal-content">
+				<form id="file_form" name="file_form" enctype="multipart/form-data" method="post">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							就职公司一览
+						</h4>
+					</div>
+					<div class="modal-body" style="height: 300px; overflow-y: auto;">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th></th>
+									<th>就职公司名称</th>
+								</tr>
+							</thead>
+							<tbody>
+								<s:iterator id="listExpertComp" value="listExpertComp" status="st1">
+								<tr>
+									<td><input name="expertCompKey" type="checkbox" value="<s:property value="EXPERT_COMP"/>"/></td>
+									<td><s:property value="EXPERT_COMP"/></td>
+								</tr>
+								</s:iterator>
+							</tbody>
+						</table>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" onclick="selectExpertComp();">确定</button>
+						<button type="button" class="btn btn-primary" onclick="cancelExpertComp();">取消</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="expertLibModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1045;">
 		<div class="modal-dialog" style="width: 1000px;">
 			<div class="modal-content">
 				<form class="form-horizontal" role="form">
@@ -2559,10 +2679,10 @@
 						</h4>
 					</div>
 					<div class="modal-body">
-						<div class="col-lg-2 checkBox" style="z-index: 9;">
+						<div class="col-lg-1 checkBox" style="z-index: 19;">
 							<input id="exportrandom" type="checkbox" onclick="isRandom(this);"/>随机
 						</div>
-						<div class="col-lg-4 form-group">
+						<div class="col-lg-3 form-group">
 							<label for="" class="col-lg-4 form-label">专家姓名</label>
 							<div class="col-lg-8">
 								<div class="input-group">
@@ -2570,24 +2690,24 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-lg-2 checkBox" style="z-index: 9;">
+						<div class="col-lg-2 checkBox" style="z-index: 19;">
 							<input id="include" type="checkbox"/>不包含
 						</div>
-						<div class="col-lg-4 form-group" style="z-index: 9;">
-							<label for="" class="col-lg-4 form-label">单位选择</label>
+						<div class="col-lg-6 form-group" style="z-index: 19;">
+							<label for="" class="col-lg-2 form-label">单位选择</label>
 							<div class="col-lg-8">
-								<select id="strExpertComp" class="form-control">
-						 			<option value="" selected="selected">请选择</option>
-									<s:iterator id="listExpertComp" value="listExpertComp" status="st1">
-										<option value="<s:property value="EXPERT_COMP"/>"><s:property value="EXPERT_COMP"/></option>
-									</s:iterator>
-								</select>
+								<div class="input-group">
+									<input id="strExpertComp" type="text" style="width: 250px;" class="form-control">
+								</div>
+							</div>
+							<div class="col-lg-2" style="z-index: 11;">
+								<button id="selectExpertCompBtn" type="button" class="btn btn-success" onclick="showSelectExpertComp();">选择</button>
 							</div>
 						</div>
-						<div class="col-lg-2 form-group" style="z-index: 10; float: right;">
+						<div class="col-lg-2 form-group" style="z-index: 20; float: right;">
 							<button type="button" class="btn btn-success form-control" onclick="queryExpertAjax();">检索</button>
 						</div>
-						<div class="col-lg-1 form-group" style="z-index: 10; float: left;">
+						<div class="col-lg-1 form-group" style="z-index: 20; float: left;">
 							<label for="" class="form-label">专业</label>
 						</div>
 					</div>
@@ -2814,7 +2934,7 @@
 						<table class="table table-bordered">
 							<thead>
 								<tr>
-									<th style="display: none;"></th>
+									<th></th>
 									<th style="display: none;"></th>
 									<th>姓名</th>
 									<th>专业</th>
@@ -2826,7 +2946,7 @@
 							</thead>
 							<tbody id="expertLibData">
 								<tr>
-									<td style="display: none;"><input name="expertLibKey" type="radio" style="" value=""/></td>
+									<td><input name="expertLibKey" type="checkbox" style="" value=""/></td>
 									<td style="display: none;">
 										<input type="hidden" value="">
 									</td>
@@ -2837,12 +2957,14 @@
 									<td></td>
 									<td></td>
 								</tr>
+								<tr>
+									<td colspan="8">
+										<button type="button" class="btn btn-primary" onclick="selectExpertLib();">确定</button>
+										<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+									</td>
+								</tr>
 							</tbody>
 						</table>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" onclick="selectExpertLib();">确定</button>
-						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 					</div>
 				</form>
 			</div>

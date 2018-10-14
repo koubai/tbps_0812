@@ -78,6 +78,18 @@ public class ExpertLibServiceImpl extends BaseService implements ExpertLibServic
 	public List<ExpertLibDto> autoQueryExpertLibNew(String expertMajor,
 			String isRandom, String expertName, String isInclude, String expertComp) {
 		List<ExpertLibDto> outExpertLibList = new ArrayList<ExpertLibDto>();
+		//专家公司转化
+		if(StringUtil.isNotBlank(expertComp)) {
+			String ss[] = expertComp.split(",");
+			String tmpExpertComp = "";
+			for(String s : ss) {
+				if(StringUtil.isNotBlank(s)) {
+					tmpExpertComp += "'" + s + "',";
+				}
+			}
+			expertComp = tmpExpertComp.substring(0, tmpExpertComp.length() - 1);
+		}
+		
 		log.info("expertMajor=" + expertMajor);
 		if(StringUtil.isNotBlank(expertMajor)) {
 			//根据专家查询条件循环

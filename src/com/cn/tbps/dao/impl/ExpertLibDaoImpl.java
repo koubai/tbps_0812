@@ -64,11 +64,11 @@ public class ExpertLibDaoImpl extends BaseDao implements ExpertLibDao {
 		paramMap.put("WITHOUT_EXPERT_SEQ_LIST", strWithoutExpertNameList);
 		paramMap.put("EXPERT_MAJOR", strExpertMajor);
 		paramMap.put("EXPERT_NAME", expertName);
-		paramMap.put("INCLUDE", "in");
+		paramMap.put("INCLUDE", " in ");
 		paramMap.put("EXPERT_COMP", expertComp);
 		if(StringUtil.isNotBlank(isInclude)){
 			if(isInclude.equals("1")){
-				paramMap.put("INCLUDE", "not in");
+				paramMap.put("INCLUDE", " not in ");
 			}
 		}
 		@SuppressWarnings("unchecked")
