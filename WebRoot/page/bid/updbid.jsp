@@ -539,19 +539,23 @@
 		for(var j = 0; j < bidExpertLibRadioList.length; j++) {
 			if(bidExpertLibRadioList[j].checked) {
 				obj = bidExpertLibRadioList[j];
+				if(confirm("确定删除吗?")) {
+					var tr = bidExpertLibRadioList[j].parentNode.parentNode;
+					var tbody = bidExpertLibRadioList[j].parentNode.parentNode.parentNode;
+					tbody.removeChild(tr);
+					
+					//obj.parentNode.parentNode.remove();
+					//刷新列表顺序
+					var rows = document.getElementById("bidExpertLibBody").rows;
+					for(var i = 0; i < rows.length; i++) {
+						var num = i + 1;
+						rows[i].cells[2].innerHTML = num;
+					}
+				}
 				break;
 			}
 		}
-		if(obj != null) {
-			if(confirm("确定删除吗?")) {
-				obj.parentNode.parentNode.remove();
-				var rows = document.getElementById("bidExpertLibBody").rows;
-				for(var i = 0; i < rows.length; i++) {
-					var num = i + 1;
-					rows[i].cells[2].innerHTML = num;
-				}
-			}
-		} else {
+		if(obj == null) {
 			alert("请选择一条记录！");
 		}
 	}
@@ -590,7 +594,8 @@
 		disabledMajor("53", false);
 		disabledMajor("54", false);
 		
-		queryExpertAjax();
+		//queryExpertAjax();
+		$("#expertLibData").empty();
 		
 		//禁用 Bootstrap 模态框(Modal) 点击空白时自动关闭
 		$('#expertLibModal').modal({backdrop: 'static', keyboard: false});
@@ -884,6 +889,7 @@
 					}
 				}
 			}
+			$("#expertLibData").empty();
 			document.getElementById("include").checked = false;
 			$("#include").attr("disabled", true);
 			$("#strExpertComp").val("");
