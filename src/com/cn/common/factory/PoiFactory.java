@@ -111,6 +111,18 @@ public class PoiFactory {
 		}else if(Constants.DOC_TYPE_REPORT.equals(type)) {
 			//审计报告
 			return new PoiAuditReport();
+		}else if(Constants.EXCEL_TYPE_BIDDATAREPORT.equals(type)) {
+			//招标所有源数据
+			return new PoiBidDataReport();
+		}else if(Constants.EXCEL_TYPE_BIDENGINEERREPORT.equals(type)) {
+			//招标工程师模板
+			return new PoiBidEngineerReport();
+		}else if(Constants.EXCEL_TYPE_BIDACCOUNTREPORT.equals(type)) {
+			//招标财务模板
+			return new PoiBidAccountReport();
+		}else if(Constants.EXCEL_TYPE_EXPERTPAYREPORT.equals(type)) {
+			//招标专家评审费申请发放表
+			return new PoiExpertPayReport();
 		}
 		return null;
 	}

@@ -1,5 +1,9 @@
 package com.cn.common.util;
 
+import com.cn.common.factory.PoiBidAccountReport;
+import com.cn.common.factory.PoiBidDataReport;
+import com.cn.common.factory.PoiBidEngineerReport;
+
 /**
  * 常量类
  * @name Constants.java
@@ -316,4 +320,15 @@ public class Constants {
 	public final static String FINISH_STATUS_IN_STOP = "70";//终止
 	public final static String FINISH_STATUS_IN_DONE = "90";//完成
 	
+	//招标所有源数据
+	public final static String EXCEL_TYPE_BIDDATAREPORT = "BIDDATA_REPORT";
+
+	//招标工程师模板
+	public final static String EXCEL_TYPE_BIDENGINEERREPORT = "BIDENGINEER_REPORT";
+
+	//招标财务模板
+	public final static String EXCEL_TYPE_BIDACCOUNTREPORT = "BIDACCOUNTR_EPORT";
+
+	//招标专家评审费申请发放表
+	public final static String EXCEL_TYPE_EXPERTPAYREPORT = "EXPERTPAY_REPORT";
 }
