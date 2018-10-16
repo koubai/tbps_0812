@@ -296,6 +296,11 @@ public class BidDto extends BaseDto {
 	private BigDecimal BID_EXPERT_COMMISION_ACT;
 
 	/**
+	 * 差价退还
+	 */
+	private BigDecimal BID_EXPERT_COMMISION_DIFF;
+	
+	/**
 	 * 差价退还日期
 	 */
 	private Date BID_EXPERT_COMMISION_DIFF_DATE;
@@ -2111,5 +2116,12 @@ public class BidDto extends BaseDto {
 		BID_EXPERT_COMMISION_PRE_DATE = bID_EXPERT_COMMISION_PRE_DATE;
 	}
 
+	public BigDecimal getBID_EXPERT_COMMISION_DIFF() {
+		return BID_EXPERT_COMMISION_DIFF;
+	}
+
+	public void setBID_EXPERT_COMMISION_DIFF(BigDecimal bID_EXPERT_COMMISION_DIFF) {
+		BID_EXPERT_COMMISION_DIFF = bID_EXPERT_COMMISION_DIFF;
+	}
 
 }

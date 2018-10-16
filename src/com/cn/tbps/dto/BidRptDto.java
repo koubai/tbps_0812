@@ -240,12 +240,27 @@ public class BidRptDto extends BaseDto {
 	 * 预借专家费
 	 */
 	private BigDecimal BID_EXPERT_COMMISION_PRE;
-
+	/**
+	 * 合计预借专家费
+	 */
+	private BigDecimal Total_BID_EXPERT_COMMISION_PRE;
 	/**
 	 * 实际专家费
 	 */
 	private BigDecimal BID_EXPERT_COMMISION_ACT;
+	/**
+	 * 合计实际专家费
+	 */
+	private BigDecimal Total_BID_EXPERT_COMMISION_ACT;
 
+	/**
+	 * 差价退还
+	 */
+	private BigDecimal BID_EXPERT_COMMISION_DIFF;
+	/**
+	 * 合计差价退还
+	 */
+	private BigDecimal Total_BID_EXPERT_COMMISION_DIFF;
 	/**
 	 * 差价退还日期
 	 */
@@ -960,8 +975,17 @@ public class BidRptDto extends BaseDto {
 	 */
 	private List<String> PM_LIST;
 
+	//Data Type
+	private String DATA_TYPE;
 	
-	
+	public String getDATA_TYPE() {
+		return DATA_TYPE;
+	}
+
+	public void setDATA_TYPE(String dATA_TYPE) {
+		DATA_TYPE = dATA_TYPE;
+	}
+
 	public BigDecimal getBID_BONDS() {
 		return BID_BONDS;
 	}
@@ -2746,6 +2770,41 @@ public class BidRptDto extends BaseDto {
 
 	public void setBID_EXPERT_COMMISION_PRE_DATE(Date bID_EXPERT_COMMISION_PRE_DATE) {
 		BID_EXPERT_COMMISION_PRE_DATE = bID_EXPERT_COMMISION_PRE_DATE;
+	}
+
+	public BigDecimal getTotal_BID_EXPERT_COMMISION_PRE() {
+		return Total_BID_EXPERT_COMMISION_PRE;
+	}
+
+	public void setTotal_BID_EXPERT_COMMISION_PRE(
+			BigDecimal total_BID_EXPERT_COMMISION_PRE) {
+		Total_BID_EXPERT_COMMISION_PRE = total_BID_EXPERT_COMMISION_PRE;
+	}
+
+	public BigDecimal getTotal_BID_EXPERT_COMMISION_ACT() {
+		return Total_BID_EXPERT_COMMISION_ACT;
+	}
+
+	public void setTotal_BID_EXPERT_COMMISION_ACT(
+			BigDecimal total_BID_EXPERT_COMMISION_ACT) {
+		Total_BID_EXPERT_COMMISION_ACT = total_BID_EXPERT_COMMISION_ACT;
+	}
+
+	public BigDecimal getBID_EXPERT_COMMISION_DIFF() {
+		return BID_EXPERT_COMMISION_DIFF;
+	}
+
+	public void setBID_EXPERT_COMMISION_DIFF(BigDecimal bID_EXPERT_COMMISION_DIFF) {
+		BID_EXPERT_COMMISION_DIFF = bID_EXPERT_COMMISION_DIFF;
+	}
+
+	public BigDecimal getTotal_BID_EXPERT_COMMISION_DIFF() {
+		return Total_BID_EXPERT_COMMISION_DIFF;
+	}
+
+	public void setTotal_BID_EXPERT_COMMISION_DIFF(
+			BigDecimal total_BID_EXPERT_COMMISION_DIFF) {
+		Total_BID_EXPERT_COMMISION_DIFF = total_BID_EXPERT_COMMISION_DIFF;
 	}
 
 }

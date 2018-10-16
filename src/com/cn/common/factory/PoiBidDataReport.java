@@ -18,7 +18,7 @@ import com.cn.tbps.dto.BidDto;
 import com.cn.tbps.dto.BidRptDto;
 
 /**
- * @name PoiBond.java
+ * @name PoiBidDataReport
  * @author Pei
  * @time 2018-10-10下午11:48:13
  * @version 1.0
@@ -258,7 +258,8 @@ public class PoiBidDataReport extends Poi2007Base {
 			cell25.setCellValue(biddata.getBID_NOTICE_ED_DATE().toString());
 			cell25.setCellStyle(style);
 			// 中标文件扫描
-// ADD			cell26.setCellValue((26);
+// need to change
+			cell26.setCellValue("");
 			cell26.setCellStyle(style);
 			// 评标报告扫描归档
 			cell27.setCellValue(biddata.getBID_VER_DOC_SCAN_DATE().toString());
@@ -273,37 +274,37 @@ public class PoiBidDataReport extends Poi2007Base {
 			cell30.setCellValue(biddata.getFINISH_DATE().toString());
 			cell30.setCellStyle(style);
 			// 项目进度
-			cell31.setCellValue(biddata.getFINISH_STATUS_NAME().toString());
+			cell31.setCellValue(biddata.getSTATUS_NAME().toString());
 			cell31.setCellStyle(style);
 			// 公告打印
-/* add			
-			cell32.setCellValue((32);
+// need to change			
+			cell32.setCellValue("");
 			cell32.setCellStyle(style);
 			// 编制报名表
-			cell33.setCellValue((33);
+			cell33.setCellValue(biddata.getGEN_REGISTE_RPT_DATE().toString());
 			cell33.setCellStyle(style);
 			// 编制审核表
-			cell34.setCellValue((34);
+			cell34.setCellValue(biddata.getGEN_VERIFY_RPT_DATE().toString());
 			cell34.setCellStyle(style);
 			// 招标文件装订
-			cell35.setCellValue((35);
+			cell35.setCellValue(biddata.getAPPLY_FORM_BOX_DATE().toString());
 			cell35.setCellStyle(style);
 			// 发送答疑、补充文件
-			cell36.setCellValue((36);
+			cell36.setCellValue(biddata.getSUPPORT_DOC_DATE().toString());
 			cell36.setCellStyle(style);
 			// 专家通知
-			cell37.setCellValue((37);
+// need to change			
+			cell37.setCellValue("");
 			cell37.setCellStyle(style);
 			// 中标通知书签收及录入
-			cell38.setCellValue(biddata.getBID_INFORM_RCV_DATE().toString);
+			cell38.setCellValue(biddata.getBID_INFORM_RCV_DATE().toString());
 			cell38.setCellStyle(style);
 			// 评标报告装订/扫描
-			cell39.setCellValue(biddata.getBID_VER_DOC_SCAN_DATE().toString);
+			cell39.setCellValue(biddata.getBID_VER_DOC_SCAN_DATE().toString());
 			cell39.setCellStyle(style);
 			// 专家费预借日期
-			cell40.setCellValue(biddata.getBID_EXPERT_COMMISION_PRE_DATE().toString);
+			cell40.setCellValue(biddata.getBID_EXPERT_COMMISION_PRE_DATE().toString());
 			cell40.setCellStyle(style);
-*/			
 			// 专家费预借费用
 			cell41.setCellValue(StringUtil.BigDecimal2Str(biddata.getBID_EXPERT_COMMISION_PRE(),2));
 			cell41.setCellStyle(style);

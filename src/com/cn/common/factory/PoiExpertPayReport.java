@@ -12,6 +12,8 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.cn.common.util.StringUtil;
+import com.cn.tbps.dto.BidDto;
+import com.cn.tbps.dto.BidRptDto;
 import com.cn.tbps.dto.BondDto;
 
 /**
@@ -38,10 +40,10 @@ public class PoiExpertPayReport extends Poi2007Base {
 				
 		XSSFRow row = sheet.createRow(1);
 		//合并单元格
-		sheet.addMergedRegion(new CellRangeAddress(1, 1, 0, 5));
+		sheet.addMergedRegion(new CellRangeAddress(1, 1, 0, 6));
 		XSSFCell cell = row.createCell(0);
 		
-		String title = "保证金汇总表";
+		String title = "专家评审费申请发放表";
 		cell.setCellValue(title);
 		//式样
 		XSSFCellStyle style = workbook.createCellStyle();
@@ -58,7 +60,7 @@ public class PoiExpertPayReport extends Poi2007Base {
 	@Override
 	public void writeData(XSSFSheet sheet, XSSFWorkbook workbook) {
 		XSSFRow row = null;
-		BondDto bond = new BondDto();
+		BidRptDto bidrpt = new BidRptDto();
 		//式样
 		XSSFCellStyle style = workbook.createCellStyle();
 		//水平居中
@@ -85,7 +87,7 @@ public class PoiExpertPayReport extends Poi2007Base {
 		//添加数据
 		for(int i = 0; i < datas.size(); i++) {
 			row = sheet.createRow(i + 4);
-			bond = (BondDto) datas.get(i);
+			bidrpt = (BidRptDto) datas.get(i);
 			XSSFCell cell0 = row.createCell(0);
 			XSSFCell cell1 = row.createCell(1);
 			XSSFCell cell2 = row.createCell(2);
@@ -98,57 +100,43 @@ public class PoiExpertPayReport extends Poi2007Base {
 			XSSFCell cell9 = row.createCell(9);
 			XSSFCell cell10 = row.createCell(10);
 			
-			if("3".equals(bond.getDATA_TYPE())) {
+			if("3".equals(bidrpt.getDATA_TYPE())) {
 				//合计
-				cell0.setCellValue(bond.getAGENT_CO_NAME());
+				cell0.setCellValue("");
 				cell0.setCellStyle(style1);
-				cell1.setCellValue(StringUtil.BigDecimal2Str(bond.getAMOUNT1(), 2));
+				cell1.setCellValue("合计");
 				cell1.setCellStyle(style1);
-				cell2.setCellValue(StringUtil.BigDecimal2Str(bond.getAMOUNT2(), 2));
+				cell2.setCellValue("");
 				cell2.setCellStyle(style1);
-				cell3.setCellValue(StringUtil.BigDecimal2Str(bond.getAMOUNT34(), 2));
+				//专家费申请金额（元）
+				cell3.setCellValue(StringUtil.BigDecimal2Str(bidrpt.getTotal_BID_EXPERT_COMMISION_PRE(), 2));
 				cell3.setCellStyle(style1);
-				//汇票、网上银行
-				cell4.setCellValue(StringUtil.BigDecimal2Str(bond.getAMOUNT5(), 2));
+				//专家费实际使用金额（元）
+				cell4.setCellValue(StringUtil.BigDecimal2Str(bidrpt.getTotal_BID_EXPERT_COMMISION_ACT(), 2));
 				cell4.setCellStyle(style1);
-				cell5.setCellValue(StringUtil.BigDecimal2Str(bond.getAMOUNT6(), 2));
+				//退还差额（元）
+				cell5.setCellValue(StringUtil.BigDecimal2Str(bidrpt.getTotal_BID_EXPERT_COMMISION_DIFF(), 2));
 				cell5.setCellStyle(style1);
-				cell6.setCellValue(StringUtil.BigDecimal2Str(bond.getTOTAL(), 2));
+				cell6.setCellValue("");
 				cell6.setCellStyle(style1);
-				cell7.setCellValue(StringUtil.BigDecimal2Str(bond.getREFUND(), 2));
-				cell7.setCellStyle(style1);
-				cell8.setCellValue(StringUtil.BigDecimal2Str(bond.getAGENT_FEE(), 2));
-				cell8.setCellStyle(style1);
-				//评标费
-				cell9.setCellValue(StringUtil.BigDecimal2Str(bond.getBID_COMMISION(), 2));
-				cell9.setCellStyle(style1);
-				cell10.setCellValue(bond.getMEMO());
-				cell10.setCellStyle(style1);
 			} else {
-				cell0.setCellValue(bond.getAGENT_CO_NAME() + "（" + bond.getAGENT_NO() + "）");
+				cell0.setCellValue(i);
 				cell0.setCellStyle(style);
-				cell1.setCellValue(StringUtil.BigDecimal2Str(bond.getAMOUNT1(), 2));
+				cell1.setCellValue(bidrpt.getPROJECT_NAME());
 				cell1.setCellStyle(style);
-				cell2.setCellValue(StringUtil.BigDecimal2Str(bond.getAMOUNT2(), 2));
+				cell2.setCellValue(bidrpt.getBID_NO());
 				cell2.setCellStyle(style);
-				cell3.setCellValue(StringUtil.BigDecimal2Str(bond.getAMOUNT34(), 2));
+				//专家费申请金额（元）
+				cell3.setCellValue(StringUtil.BigDecimal2Str(bidrpt.getBID_EXPERT_COMMISION_PRE(), 2));
 				cell3.setCellStyle(style);
-				//汇票、网上银行
-				cell4.setCellValue(StringUtil.BigDecimal2Str(bond.getAMOUNT5(), 2));
+				//专家费实际使用金额（元）
+				cell4.setCellValue(StringUtil.BigDecimal2Str(bidrpt.getBID_EXPERT_COMMISION_ACT(), 2));
 				cell4.setCellStyle(style);
-				cell5.setCellValue(StringUtil.BigDecimal2Str(bond.getAMOUNT6(), 2));
+				//退还差额（元）
+				cell5.setCellValue(StringUtil.BigDecimal2Str(bidrpt.getBID_EXPERT_COMMISION_DIFF(), 2));
 				cell5.setCellStyle(style);
-				cell6.setCellValue(StringUtil.BigDecimal2Str(bond.getTOTAL(), 2));
+				cell6.setCellValue("");
 				cell6.setCellStyle(style);
-				cell7.setCellValue(StringUtil.BigDecimal2Str(bond.getREFUND(), 2));
-				cell7.setCellStyle(style);
-				cell8.setCellValue(StringUtil.BigDecimal2Str(bond.getAGENT_FEE(), 2));
-				cell8.setCellStyle(style);
-				//评标费
-				cell9.setCellValue(StringUtil.BigDecimal2Str(bond.getBID_COMMISION(), 2));
-				cell9.setCellStyle(style);
-				cell10.setCellValue(bond.getMEMO());
-				cell10.setCellStyle(style);
 			}
 		}
 	}
@@ -193,72 +181,41 @@ public class PoiExpertPayReport extends Poi2007Base {
 			cell3.setCellStyle(style);
 		}
 		
-		//公司名称
+		//序号
 		sheet.setColumnWidth(0, 15 * 256);
-		sheet.addMergedRegion(new CellRangeAddress(2, 3, 0, 0));
-		XSSFCell cell = row2.createCell(0);
-		cell.setCellValue("公司名称");
+		XSSFCell cell = row3.createCell(0);
+		cell.setCellValue("序号");
 		cell.setCellStyle(style);
 		
-		//其中
-		sheet.addMergedRegion(new CellRangeAddress(2, 2, 1, 5));
-		cell = row2.createCell(1);
-		cell.setCellValue("其中");
-		cell.setCellStyle(style);
-		//现金
+		//项目名称
 		sheet.setColumnWidth(1, 15 * 256);
 		cell = row3.createCell(1);
-		cell.setCellValue("现金");
+		cell.setCellValue("项目名称");
 		cell.setCellStyle(style);
-		//支票
+		//项目编号
 		sheet.setColumnWidth(2, 15 * 256);
 		cell = row3.createCell(2);
-		cell.setCellValue("支票");
+		cell.setCellValue("项目编号");
 		cell.setCellStyle(style);
-		//汇票、网上银行
+		//专家费申请金额（元）
 		sheet.setColumnWidth(3, 15 * 256);
 		cell = row3.createCell(3);
-		cell.setCellValue("汇票、网上银行");
+		cell.setCellValue("专家费申请金额（元）");
 		cell.setCellStyle(style);
-		//保函
+		//专家费实际使用金额（元）
 		sheet.setColumnWidth(4, 15 * 256);
 		cell = row3.createCell(4);
-		cell.setCellValue("保函");
+		cell.setCellValue("专家费实际使用金额（元）");
 		cell.setCellStyle(style);
-		//现金2
+		//退还差额（元）
 		sheet.setColumnWidth(5, 15 * 256);
 		cell = row3.createCell(5);
-		cell.setCellValue("现金2");
+		cell.setCellValue("退还差额（元）");
 		cell.setCellStyle(style);
 		
-		//总收
-		sheet.setColumnWidth(6, 15 * 256);
-		sheet.addMergedRegion(new CellRangeAddress(2, 3, 6, 6));
-		cell = row2.createCell(6);
-		cell.setCellValue("总收");
-		cell.setCellStyle(style);
-		//已退
-		sheet.setColumnWidth(7, 15 * 256);
-		sheet.addMergedRegion(new CellRangeAddress(2, 3, 7, 7));
-		cell = row2.createCell(7);
-		cell.setCellValue("已退");
-		cell.setCellStyle(style);
-		//转代理费
-		sheet.setColumnWidth(8, 15 * 256);
-		sheet.addMergedRegion(new CellRangeAddress(2, 3, 8, 8));
-		cell = row2.createCell(8);
-		cell.setCellValue("转代理费");
-		cell.setCellStyle(style);
-		//专家费
-		sheet.setColumnWidth(9, 15 * 256);
-		sheet.addMergedRegion(new CellRangeAddress(2, 3, 9, 9));
-		cell = row2.createCell(9);
-		cell.setCellValue("评标费");
-		cell.setCellStyle(style);
 		//备注
-		sheet.setColumnWidth(10, 15 * 256);
-		sheet.addMergedRegion(new CellRangeAddress(2, 3, 10, 10));
-		cell = row2.createCell(10);
+		sheet.setColumnWidth(6, 15 * 256);
+		cell = row3.createCell(6);
 		cell.setCellValue("备注");
 		cell.setCellStyle(style);
 	}

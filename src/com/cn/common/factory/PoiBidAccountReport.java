@@ -12,6 +12,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.cn.common.util.StringUtil;
+import com.cn.tbps.dto.BidRptDto;
 import com.cn.tbps.dto.BondDto;
 
 /**
@@ -41,7 +42,7 @@ public class PoiBidAccountReport extends Poi2007Base {
 		sheet.addMergedRegion(new CellRangeAddress(1, 1, 0, 5));
 		XSSFCell cell = row.createCell(0);
 		
-		String title = "保证金汇总表";
+		String title = "财务数据";
 		cell.setCellValue(title);
 		//式样
 		XSSFCellStyle style = workbook.createCellStyle();
@@ -58,7 +59,7 @@ public class PoiBidAccountReport extends Poi2007Base {
 	@Override
 	public void writeData(XSSFSheet sheet, XSSFWorkbook workbook) {
 		XSSFRow row = null;
-		BondDto bond = new BondDto();
+		BidRptDto biddata = new BidRptDto();
 		//式样
 		XSSFCellStyle style = workbook.createCellStyle();
 		//水平居中
@@ -85,71 +86,159 @@ public class PoiBidAccountReport extends Poi2007Base {
 		//添加数据
 		for(int i = 0; i < datas.size(); i++) {
 			row = sheet.createRow(i + 4);
-			bond = (BondDto) datas.get(i);
+			biddata = (BidRptDto) datas.get(i);
+			// 合同编号
 			XSSFCell cell0 = row.createCell(0);
+			// 承接项目日期
 			XSSFCell cell1 = row.createCell(1);
+			// 招标编号
 			XSSFCell cell2 = row.createCell(2);
+			// 分类
 			XSSFCell cell3 = row.createCell(3);
+			// 项目名称
 			XSSFCell cell4 = row.createCell(4);
+			// 委托单位
 			XSSFCell cell5 = row.createCell(5);
+			// 代理费用支付方
 			XSSFCell cell6 = row.createCell(6);
+			// 保证金金额（万元）
 			XSSFCell cell7 = row.createCell(7);
+			// 投标单位
 			XSSFCell cell8 = row.createCell(8);
+			// 中标单位
 			XSSFCell cell9 = row.createCell(9);
+			// 中标价（万元）
 			XSSFCell cell10 = row.createCell(10);
+			// 标书费
+			XSSFCell cell11 = row.createCell(11);
+			// 应收代理费（万元）
+			XSSFCell cell12 = row.createCell(12);
+			// 实收代理费（万元）
+			XSSFCell cell13 = row.createCell(13);
+			// 工程师
+			XSSFCell cell14 = row.createCell(14);
+			// 开标时间
+			XSSFCell cell15 = row.createCell(15);
+			// 专家费预借日期
+			XSSFCell cell16 = row.createCell(16);
+			// 专家费预借费用
+			XSSFCell cell17 = row.createCell(17);
+			// 专家费实际费用
+			XSSFCell cell18 = row.createCell(18);
+			// 专家费差价退还日期
+			XSSFCell cell19 = row.createCell(19);
+			// 保证金支付形式
+			XSSFCell cell20 = row.createCell(20);
+			// 保证金入账日期
+			XSSFCell cell21 = row.createCell(21);
+			// 保证金退还日期
+			XSSFCell cell22 = row.createCell(22);
+			// 标书费入账日期
+			XSSFCell cell23 = row.createCell(23);
+			// 标书费开票形式
+			XSSFCell cell24 = row.createCell(24);
+			// 标书费开票日期
+			XSSFCell cell25 = row.createCell(25);
+			// 标书费发票编号
+			XSSFCell cell26 = row.createCell(26);
+			// 代理费开票日期
+			XSSFCell cell27 = row.createCell(27);
+			// 代理费发票编号
+			XSSFCell cell28 = row.createCell(28);
+			// 代理费入账日期
+			XSSFCell cell29 = row.createCell(29);
 			
-			if("3".equals(bond.getDATA_TYPE())) {
-				//合计
-				cell0.setCellValue(bond.getAGENT_CO_NAME());
-				cell0.setCellStyle(style1);
-				cell1.setCellValue(StringUtil.BigDecimal2Str(bond.getAMOUNT1(), 2));
-				cell1.setCellStyle(style1);
-				cell2.setCellValue(StringUtil.BigDecimal2Str(bond.getAMOUNT2(), 2));
-				cell2.setCellStyle(style1);
-				cell3.setCellValue(StringUtil.BigDecimal2Str(bond.getAMOUNT34(), 2));
-				cell3.setCellStyle(style1);
-				//汇票、网上银行
-				cell4.setCellValue(StringUtil.BigDecimal2Str(bond.getAMOUNT5(), 2));
-				cell4.setCellStyle(style1);
-				cell5.setCellValue(StringUtil.BigDecimal2Str(bond.getAMOUNT6(), 2));
-				cell5.setCellStyle(style1);
-				cell6.setCellValue(StringUtil.BigDecimal2Str(bond.getTOTAL(), 2));
-				cell6.setCellStyle(style1);
-				cell7.setCellValue(StringUtil.BigDecimal2Str(bond.getREFUND(), 2));
-				cell7.setCellStyle(style1);
-				cell8.setCellValue(StringUtil.BigDecimal2Str(bond.getAGENT_FEE(), 2));
-				cell8.setCellStyle(style1);
-				//评标费
-				cell9.setCellValue(StringUtil.BigDecimal2Str(bond.getBID_COMMISION(), 2));
-				cell9.setCellStyle(style1);
-				cell10.setCellValue(bond.getMEMO());
-				cell10.setCellStyle(style1);
-			} else {
-				cell0.setCellValue(bond.getAGENT_CO_NAME() + "（" + bond.getAGENT_NO() + "）");
-				cell0.setCellStyle(style);
-				cell1.setCellValue(StringUtil.BigDecimal2Str(bond.getAMOUNT1(), 2));
-				cell1.setCellStyle(style);
-				cell2.setCellValue(StringUtil.BigDecimal2Str(bond.getAMOUNT2(), 2));
-				cell2.setCellStyle(style);
-				cell3.setCellValue(StringUtil.BigDecimal2Str(bond.getAMOUNT34(), 2));
-				cell3.setCellStyle(style);
-				//汇票、网上银行
-				cell4.setCellValue(StringUtil.BigDecimal2Str(bond.getAMOUNT5(), 2));
-				cell4.setCellStyle(style);
-				cell5.setCellValue(StringUtil.BigDecimal2Str(bond.getAMOUNT6(), 2));
-				cell5.setCellStyle(style);
-				cell6.setCellValue(StringUtil.BigDecimal2Str(bond.getTOTAL(), 2));
-				cell6.setCellStyle(style);
-				cell7.setCellValue(StringUtil.BigDecimal2Str(bond.getREFUND(), 2));
-				cell7.setCellStyle(style);
-				cell8.setCellValue(StringUtil.BigDecimal2Str(bond.getAGENT_FEE(), 2));
-				cell8.setCellStyle(style);
-				//评标费
-				cell9.setCellValue(StringUtil.BigDecimal2Str(bond.getBID_COMMISION(), 2));
-				cell9.setCellStyle(style);
-				cell10.setCellValue(bond.getMEMO());
-				cell10.setCellStyle(style);
-			}
+			// 合同编号
+			cell0.setCellValue(biddata.getCNTRCT_NO());
+			cell0.setCellStyle(style);
+			// 承接项目日期
+			cell1.setCellValue(biddata.getPROJECT_DEVIEW_DATE());
+			cell1.setCellStyle(style);
+			// 招标编号
+			cell2.setCellValue(biddata.getBID_NO());
+			cell2.setCellStyle(style);
+			// 分类
+			cell3.setCellValue(biddata.getCNTRCT_TYPE_NAME());
+			cell3.setCellStyle(style);
+			// 项目名称
+			cell4.setCellValue(biddata.getPROJECT_NAME());
+			cell4.setCellStyle(style);
+			// 委托单位
+			cell5.setCellValue(biddata.getBID_COMP_NAME());
+			cell5.setCellStyle(style);
+			// 代理费用支付方
+			cell6.setCellValue(biddata.getBID_AGENT_PAY());
+			cell6.setCellStyle(style);
+			// 保证金金额（万元）
+			cell7.setCellValue(StringUtil.BigDecimal2Str(biddata.getBID_BOND(), 2));
+			cell7.setCellStyle(style);
+			// 投标单位
+			cell8.setCellValue(biddata.getBID_CO_NAME());
+			cell8.setCellStyle(style);
+			// 中标单位
+			cell9.setCellValue(biddata.getBID_CO_NAME());
+			cell9.setCellStyle(style);
+			// 中标价（万元）
+			cell10.setCellValue(StringUtil.BigDecimal2Str(biddata.getBID_WIN_PRICE(),2));
+			cell10.setCellStyle(style);
+			// 标书费
+			cell11.setCellValue(StringUtil.BigDecimal2Str(biddata.getBID_APPLY_PRICE(),2));
+			cell11.setCellStyle(style);
+			// 应收代理费（万元）
+			cell12.setCellValue(StringUtil.BigDecimal2Str(biddata.getBID_AGENT_PRICE(),2));
+			cell12.setCellStyle(style);
+			// 实收代理费（万元）
+			cell13.setCellValue(StringUtil.BigDecimal2Str(biddata.getBID_AGENT_PRICE_ACT(),2));
+			cell13.setCellStyle(style);
+			// 工程师
+			cell14.setCellValue(biddata.getPROJECT_MANAGER_NAME());
+			cell14.setCellStyle(style);
+			// 开标时间
+			cell15.setCellValue(biddata.getTENDER_OPEN_DATE().toString());
+			cell15.setCellStyle(style);
+			// 专家费预借日期
+			cell16.setCellValue(biddata.getBID_EXPERT_COMMISION_PRE_DATE().toString());
+			cell16.setCellStyle(style);
+			// 专家费预借费用
+			cell17.setCellValue(StringUtil.BigDecimal2Str(biddata.getBID_EXPERT_COMMISION_PRE(),2));
+			cell17.setCellStyle(style);
+			// 专家费实际费用
+			cell18.setCellValue(StringUtil.BigDecimal2Str(biddata.getBID_EXPERT_COMMISION_ACT(),2));
+			cell18.setCellStyle(style);			
+			// 专家费差价退还日期
+			cell19.setCellValue(biddata.getBID_EXPERT_COMMISION_DIFF_DATE().toString());
+			cell19.setCellStyle(style);			
+			// 保证金支付形式
+			cell20.setCellValue(biddata.getBID_PAYMENT_TYPE());
+			cell20.setCellStyle(style);			
+			// 保证金入账日期
+			cell21.setCellValue(biddata.getBID_VALUE_DATE().toString());
+			cell21.setCellStyle(style);			
+			// 保证金退还日期
+			cell22.setCellValue(biddata.getREFOUND_DEPOSIT_DATE().toString());
+			cell22.setCellStyle(style);			
+			// 标书费入账日期
+			cell23.setCellValue(biddata.getBID_APPLY_PRICE_DATE().toString());
+			cell23.setCellStyle(style);			
+			// 标书费开票形式
+			cell24.setCellValue(biddata.getINVOICE_TYPE());
+			cell24.setCellStyle(style);			
+			// 标书费开票日期
+			cell25.setCellValue(biddata.getINVOICE_DATE().toString());
+			cell25.setCellStyle(style);			
+			// 标书费发票编号
+			cell26.setCellValue(biddata.getBID_RECEIPT_NO());
+			cell26.setCellStyle(style);			
+			// 代理费开票日期
+			cell27.setCellValue(biddata.getRECEIPT1_DATE().toString());
+			cell27.setCellStyle(style);			
+			// 代理费发票编号
+//need to change
+			cell27.setCellValue("");
+			cell27.setCellStyle(style);			
+			// 代理费入账日期
+			cell29.setCellValue(biddata.getRECEIPT1_VALUE_DATE().toString());
+			cell29.setCellStyle(style);			
 		}
 	}
 	
@@ -193,74 +282,264 @@ public class PoiBidAccountReport extends Poi2007Base {
 			cell3.setCellStyle(style);
 		}
 		
-		//公司名称
+		//合同编号
 		sheet.setColumnWidth(0, 15 * 256);
-		sheet.addMergedRegion(new CellRangeAddress(2, 3, 0, 0));
-		XSSFCell cell = row2.createCell(0);
-		cell.setCellValue("公司名称");
+		XSSFCell cell = row3.createCell(0);
+		cell.setCellValue("合同编号");
 		cell.setCellStyle(style);
 		
-		//其中
-		sheet.addMergedRegion(new CellRangeAddress(2, 2, 1, 5));
-		cell = row2.createCell(1);
-		cell.setCellValue("其中");
-		cell.setCellStyle(style);
-		//现金
+		// 承接项目日期
 		sheet.setColumnWidth(1, 15 * 256);
 		cell = row3.createCell(1);
-		cell.setCellValue("现金");
+		cell.setCellValue("承接项目日期");
 		cell.setCellStyle(style);
-		//支票
+
+		// 招标编号
 		sheet.setColumnWidth(2, 15 * 256);
 		cell = row3.createCell(2);
-		cell.setCellValue("支票");
+		cell.setCellValue("招标编号");
 		cell.setCellStyle(style);
-		//汇票、网上银行
+
+		// 分类
 		sheet.setColumnWidth(3, 15 * 256);
 		cell = row3.createCell(3);
-		cell.setCellValue("汇票、网上银行");
+		cell.setCellValue("分类");
 		cell.setCellStyle(style);
-		//保函
+
+		// 项目性质
 		sheet.setColumnWidth(4, 15 * 256);
 		cell = row3.createCell(4);
-		cell.setCellValue("保函");
+		cell.setCellValue("项目性质");
 		cell.setCellStyle(style);
-		//现金2
+
+		// 项目名称
 		sheet.setColumnWidth(5, 15 * 256);
 		cell = row3.createCell(5);
-		cell.setCellValue("现金2");
+		cell.setCellValue("项目名称");
 		cell.setCellStyle(style);
 		
-		//总收
+		// 委托单位
 		sheet.setColumnWidth(6, 15 * 256);
-		sheet.addMergedRegion(new CellRangeAddress(2, 3, 6, 6));
-		cell = row2.createCell(6);
-		cell.setCellValue("总收");
+		cell = row3.createCell(6);
+		cell.setCellValue("委托单位");
 		cell.setCellStyle(style);
-		//已退
+		
+		// 联系人
 		sheet.setColumnWidth(7, 15 * 256);
-		sheet.addMergedRegion(new CellRangeAddress(2, 3, 7, 7));
-		cell = row2.createCell(7);
-		cell.setCellValue("已退");
+		cell = row3.createCell(7);
+		cell.setCellValue("联系人");
 		cell.setCellStyle(style);
-		//转代理费
+		
+		// 会审监管人
 		sheet.setColumnWidth(8, 15 * 256);
-		sheet.addMergedRegion(new CellRangeAddress(2, 3, 8, 8));
-		cell = row2.createCell(8);
-		cell.setCellValue("转代理费");
+		cell = row3.createCell(8);
+		cell.setCellValue("会审监管人");
 		cell.setCellStyle(style);
-		//专家费
+		
+		// 代理费用支付方
 		sheet.setColumnWidth(9, 15 * 256);
-		sheet.addMergedRegion(new CellRangeAddress(2, 3, 9, 9));
-		cell = row2.createCell(9);
-		cell.setCellValue("评标费");
+		cell = row3.createCell(9);
+		cell.setCellValue("代理费用支付方");
 		cell.setCellStyle(style);
-		//备注
+		
+		// 保证金金额（万元）
 		sheet.setColumnWidth(10, 15 * 256);
-		sheet.addMergedRegion(new CellRangeAddress(2, 3, 10, 10));
-		cell = row2.createCell(10);
-		cell.setCellValue("备注");
+		cell = row3.createCell(10);
+		cell.setCellValue("保证金金额（万元）");
 		cell.setCellStyle(style);
+		
+		// 限价（万元）
+		sheet.setColumnWidth(11, 15 * 256);
+		cell = row3.createCell(11);
+		cell.setCellValue("限价（万元）");
+		cell.setCellStyle(style);
+		
+		// 投标单位
+		sheet.setColumnWidth(12, 15 * 256);
+		cell = row3.createCell(12);
+		cell.setCellValue("投标单位");
+		cell.setCellStyle(style);
+		
+		// 中标单位
+		sheet.setColumnWidth(13, 15 * 256);
+		cell = row3.createCell(13);
+		cell.setCellValue("中标单位");
+		cell.setCellStyle(style);
+		
+		// 中标价（万元）
+		sheet.setColumnWidth(14, 15 * 256);
+		cell = row3.createCell(14);
+		cell.setCellValue("中标价（万元）");
+		cell.setCellStyle(style);
+		
+		// 标书费
+		sheet.setColumnWidth(15, 15 * 256);
+		cell = row3.createCell(15);
+		cell.setCellValue("标书费");
+		cell.setCellStyle(style);
+		
+		// 应收代理费（万元）
+		sheet.setColumnWidth(16, 15 * 256);
+		cell = row3.createCell(16);
+		cell.setCellValue("应收代理费（万元）");
+		cell.setCellStyle(style);
+		
+		// 实收代理费（万元）
+		sheet.setColumnWidth(17, 15 * 256);
+		cell = row3.createCell(17);
+		cell.setCellValue("实收代理费（万元）");
+		cell.setCellStyle(style);
+		
+		// 工程师
+		sheet.setColumnWidth(18, 15 * 256);
+		cell = row3.createCell(18);
+		cell.setCellValue("工程师");
+		cell.setCellStyle(style);
+		
+		// 开标时间
+		sheet.setColumnWidth(19, 15 * 256);
+		cell = row3.createCell(19);
+		cell.setCellValue("开标时间");
+		cell.setCellStyle(style);
+		
+		// 评标时间
+		sheet.setColumnWidth(20, 15 * 256);
+		cell = row3.createCell(20);
+		cell.setCellValue("评标时间");
+		cell.setCellStyle(style);
+		
+		// 招标公告开始时间
+		sheet.setColumnWidth(21, 15 * 256);
+		cell = row3.createCell(21);
+		cell.setCellValue("招标公告开始时间");
+		cell.setCellStyle(style);
+		
+		// 招标公告结束时间
+		sheet.setColumnWidth(22, 15 * 256);
+		cell = row3.createCell(22);
+		cell.setCellValue("招标公告结束时间");
+		cell.setCellStyle(style);
+		
+		// 是否二次公告
+		sheet.setColumnWidth(23, 15 * 256);
+		cell = row3.createCell(23);
+		cell.setCellValue("是否二次公告");
+		cell.setCellStyle(style);
+		
+		// 中标公示开始时间
+		sheet.setColumnWidth(24, 15 * 256);
+		cell = row3.createCell(24);
+		cell.setCellValue("中标公示开始时间");
+		cell.setCellStyle(style);
+		
+		// 中标公示结束时间
+		sheet.setColumnWidth(25, 15 * 256);
+		cell = row3.createCell(25);
+		cell.setCellValue("中标公示结束时间");
+		cell.setCellStyle(style);
+		
+		// 中标文件扫描
+		sheet.setColumnWidth(26, 15 * 256);
+		cell = row3.createCell(26);
+		cell.setCellValue("中标文件扫描");
+		cell.setCellStyle(style);
+		
+		// 评标报告扫描归档
+		sheet.setColumnWidth(27, 15 * 256);
+		cell = row3.createCell(27);
+		cell.setCellValue("评标报告扫描归档");
+		cell.setCellStyle(style);
+		
+		// 招投标文件送至甲方
+		sheet.setColumnWidth(28, 15 * 256);
+		cell = row3.createCell(28);
+		cell.setCellValue("招投标文件送至甲方");
+		cell.setCellStyle(style);
+		
+		// 评标报告送至甲方
+		sheet.setColumnWidth(29, 15 * 256);
+		cell = row3.createCell(29);
+		cell.setCellValue("评标报告送至甲方");
+		cell.setCellStyle(style);
+		
+		// 失败项目日期
+		sheet.setColumnWidth(30, 15 * 256);
+		cell = row3.createCell(30);
+		cell.setCellValue("失败项目日期");
+		cell.setCellStyle(style);
+		
+		// 项目进度
+		sheet.setColumnWidth(31, 15 * 256);
+		cell = row3.createCell(31);
+		cell.setCellValue("项目进度");
+		cell.setCellStyle(style);
+		
+		// 公告打印
+		sheet.setColumnWidth(32, 15 * 256);
+		cell = row3.createCell(32);
+		cell.setCellValue("公告打印");
+		cell.setCellStyle(style);
+		
+		// 编制报名表
+		sheet.setColumnWidth(33, 15 * 256);
+		cell = row3.createCell(33);
+		cell.setCellValue("编制报名表");
+		cell.setCellStyle(style);
+		
+		// 编制审核表
+		sheet.setColumnWidth(34, 15 * 256);
+		cell = row3.createCell(34);
+		cell.setCellValue("编制审核表");
+		cell.setCellStyle(style);
+		
+		// 招标文件装订
+		sheet.setColumnWidth(35, 15 * 256);
+		cell = row3.createCell(35);
+		cell.setCellValue("招标文件装订");
+		cell.setCellStyle(style);
+		
+		// 发送答疑、补充文件
+		sheet.setColumnWidth(36, 15 * 256);
+		cell = row3.createCell(36);
+		cell.setCellValue("发送答疑、补充文件");
+		cell.setCellStyle(style);
+		
+		// 专家通知
+		sheet.setColumnWidth(37, 15 * 256);
+		cell = row3.createCell(37);
+		cell.setCellValue("专家通知");
+		cell.setCellStyle(style);
+		
+		// 中标通知书签收及录入
+		sheet.setColumnWidth(38, 15 * 256);
+		cell = row3.createCell(38);
+		cell.setCellValue("中标通知书签收及录入");
+		cell.setCellStyle(style);
+		
+		// 评标报告装订/扫描
+		sheet.setColumnWidth(39, 15 * 256);
+		cell = row3.createCell(39);
+		cell.setCellValue("评标报告装订/扫描");
+		cell.setCellStyle(style);
+		
+		// 专家费预借日期
+		sheet.setColumnWidth(40, 15 * 256);
+		cell = row3.createCell(40);
+		cell.setCellValue("专家费预借日期");
+		cell.setCellStyle(style);
+		
+		// 专家费预借费用
+		sheet.setColumnWidth(41, 15 * 256);
+		cell = row3.createCell(41);
+		cell.setCellValue("专家费预借费用");
+		cell.setCellStyle(style);
+		
+		// 专家费实际费用
+		sheet.setColumnWidth(42, 15 * 256);
+		cell = row3.createCell(42);
+		cell.setCellValue("专家费实际费用");
+		cell.setCellStyle(style);
+
 	}
 	
 	public static void main(String arg[]) {
