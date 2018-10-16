@@ -3,6 +3,19 @@
 
 <beans>
 
+	<!-- mesg -->
+	<bean id="mesgService" class="com.cn.tbps.service.impl.MesgServiceImpl" >
+		<property name="mesgDao">
+			<ref local="mesgDao"/>
+		</property>
+	</bean>
+	
+	<bean id="mesgDao" class="com.cn.tbps.dao.impl.MesgDaoImpl">
+		<property name="sqlMapClient">
+			<ref bean="sqlMapClient"/>
+		</property>
+	</bean>
+	
 	<!-- superviseLib -->
 	<bean id="superviseLibService" class="com.cn.tbps.service.impl.SuperviseLibServiceImpl" >
 		<property name="superviseLibDao">

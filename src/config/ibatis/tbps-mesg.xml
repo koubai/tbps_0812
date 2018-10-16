@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap
+        PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN"
+        "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<sqlMap namespace="com.cn.tbps">
+
+	<resultMap id="MesgDto" class="com.cn.tbps.dto.MesgDto">
+		<result property="MSG_SEQ" column="MSG_SEQ" />
+		<result property="MSG_TYPE" column="MSG_TYPE" />
+		<result property="MSG_TITLE" column="MSG_TITLE" />
+		<result property="MSG_CONTENT" column="MSG_CONTENT" />
+		<result property="SEND_USER" column="SEND_USER" />
+		<result property="RECEIVE_USER" column="RECEIVE_USER" />
+		<result property="SEND_STATUS" column="SEND_STATUS" />
+		<result property="RECEIVE_STATUS" column="RECEIVE_STATUS" />
+		<result property="MEMO1" column="MEMO1" />
+		<result property="DELETE_FLG" column="DELETE_FLG" />
+		<result property="UPDATE_USER" column="UPDATE_USER" />
+		<result property="INSERT_DATE" column="INSERT_DATE" />
+		<result property="UPDATE_DATE" column="UPDATE_DATE" />
+		<result property="RESERVE1" column="RESERVE1" />
+		<result property="RESERVE2" column="RESERVE2" />
+		<result property="RESERVE3" column="RESERVE3" />
+		<result property="RESERVE4" column="RESERVE4" />
+		<result property="RESERVE5" column="RESERVE5" />
+	</resultMap>
+
+	<select id="queryMesgByPage" parameterClass="java.util.Map" resultMap="MesgDto">
+		select T.* from mesg T where 1 = 1
+		and T.DELETE_FLG = '1'
+		<isNotEmpty prepend="and" property="MSG_TYPE">
+			T.MSG_TYPE = #MSG_TYPE#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="SEND_USER">
+			T.SEND_USER = #SEND_USER#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="RECEIVE_USER">
+			T.RECEIVE_USER = #RECEIVE_USER#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="SEND_STATUS">
+			T.SEND_STATUS in ($SEND_STATUS$)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="RECEIVE_STATUS">
+			T.RECEIVE_STATUS in ($RECEIVE_STATUS$)
+		</isNotEmpty>
+		order by T.INSERT_DATE desc
+		LIMIT #start#, #end#
+	</select>
+	
+	<select id="queryMesgCountByPage" resultClass="int" parameterClass="java.util.Map">
+		select count(*) from mesg T where 1 = 1
+		and T.DELETE_FLG = '1'
+		<isNotEmpty prepend="and" property="MSG_TYPE">
+			T.MSG_TYPE = #MSG_TYPE#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="SEND_USER">
+			T.SEND_USER = #SEND_USER#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="RECEIVE_USER">
+			T.RECEIVE_USER = #RECEIVE_USER#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="SEND_STATUS">
+			T.SEND_STATUS in ($SEND_STATUS$)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="RECEIVE_STATUS">
+			T.RECEIVE_STATUS in ($RECEIVE_STATUS$)
+		</isNotEmpty>
+	</select>
+	
+	<select id="queryMesgByID" parameterClass="java.util.Map" resultMap="MesgDto">
+		select * from mesg where 
+			MSG_SEQ = #MSG_SEQ#
+			and DELETE_FLG = '1'
+	</select>
+	
+	<select id="queryAllMesg" parameterClass="java.util.Map" resultMap="MesgDto">
+		select * from mesg where 1 = 1 and DELETE_FLG = '1'
+		<isNotEmpty prepend="and" property="SEND_USER">
+			SEND_USER = #SEND_USER#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="RECEIVE_USER">
+			RECEIVE_USER = #RECEIVE_USER#
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="SEND_STATUS">
+			SEND_STATUS in ($SEND_STATUS$)
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="RECEIVE_STATUS">
+			RECEIVE_STATUS in ($RECEIVE_STATUS$)
+		</isNotEmpty>
+		order by INSERT_DATE desc
+	</select>
+	
+	<insert id="insertMesg" parameterClass="com.cn.tbps.dto.MesgDto">
+		insert into mesg(MSG_TYPE,MSG_TITLE,MSG_CONTENT,SEND_USER,RECEIVE_USER,SEND_STATUS,RECEIVE_STATUS,MEMO1,DELETE_FLG,UPDATE_USER,INSERT_DATE,UPDATE_DATE,RESERVE1,RESERVE2,RESERVE3,RESERVE4,RESERVE5)
+		values(#MSG_TYPE#,#MSG_TITLE#,#MSG_CONTENT#,#SEND_USER#,#RECEIVE_USER#,#SEND_STATUS#,#RECEIVE_STATUS#,#MEMO1#,#DELETE_FLG#,#UPDATE_USER#,NOW(),NOW(),#RESERVE1#,#RESERVE2#,#RESERVE3#,#RESERVE4#,#RESERVE5#)
+	</insert>
+	
+	<update id="updateMesg" parameterClass="com.cn.tbps.dto.MesgDto">
+		update mesg
+		set MSG_TYPE = #MSG_TYPE#,
+			MSG_TITLE = #MSG_TITLE#,
+			MSG_CONTENT = #MSG_CONTENT#,
+			SEND_USER = #SEND_USER#,
+			RECEIVE_USER = #RECEIVE_USER#,
+			SEND_STATUS = #SEND_STATUS#,
+			RECEIVE_STATUS = #RECEIVE_STATUS#,
+			MEMO1 = #MEMO1#,
+			DELETE_FLG = #DELETE_FLG#,
+			UPDATE_USER = #UPDATE_USER#,
+			UPDATE_DATE = NOW(),
+			RESERVE1 = #RESERVE1#,
+			RESERVE2 = #RESERVE2#,
+			RESERVE3 = #RESERVE3#,
+			RESERVE4 = #RESERVE4#,
+			RESERVE5 = #RESERVE5#
+		where MSG_SEQ = #MSG_SEQ#
+	</update>
+	
+</sqlMap>
