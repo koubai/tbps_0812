@@ -15,6 +15,7 @@ public interface MesgService {
 
 	/**
 	 * 翻页查询数据
+	 * @param MSG_TITLE
 	 * @param MSG_TYPE
 	 * @param SEND_USER
 	 * @param RECEIVE_USER
@@ -23,7 +24,7 @@ public interface MesgService {
 	 * @param page
 	 * @return
 	 */
-	public Page queryMesgByPage(String MSG_TYPE, String SEND_USER, String RECEIVE_USER,
+	public Page queryMesgByPage(String MSG_TITLE, String MSG_TYPE, String SEND_USER, String RECEIVE_USER,
 			String SEND_STATUS, String RECEIVE_STATUS, Page page);
 	
 	/**
@@ -42,6 +43,14 @@ public interface MesgService {
 	 * @return
 	 */
 	public List<MesgDto> queryAllMesg(String SEND_USER, String RECEIVE_USER, String SEND_STATUS, String RECEIVE_STATUS);
+	
+	/**
+	 * 批量新增数据
+	 * @param mesg
+	 * @param sendUserid
+	 * @param rank
+	 */
+	public void insertMesgBatch(MesgDto mesg, String sendUserid, String rank);
 	
 	/**
 	 * 新增数据

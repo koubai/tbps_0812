@@ -28,6 +28,9 @@
 	<select id="queryMesgByPage" parameterClass="java.util.Map" resultMap="MesgDto">
 		select T.* from mesg T where 1 = 1
 		and T.DELETE_FLG = '1'
+		<isNotEmpty prepend="and" property="MSG_TITLE">
+			T.MSG_TITLE like '%$MSG_TITLE$%' ESCAPE '/'
+		</isNotEmpty>
 		<isNotEmpty prepend="and" property="MSG_TYPE">
 			T.MSG_TYPE = #MSG_TYPE#
 		</isNotEmpty>
@@ -50,6 +53,9 @@
 	<select id="queryMesgCountByPage" resultClass="int" parameterClass="java.util.Map">
 		select count(*) from mesg T where 1 = 1
 		and T.DELETE_FLG = '1'
+		<isNotEmpty prepend="and" property="MSG_TITLE">
+			T.MSG_TITLE like '%$MSG_TITLE$%' ESCAPE '/'
+		</isNotEmpty>
 		<isNotEmpty prepend="and" property="MSG_TYPE">
 			T.MSG_TYPE = #MSG_TYPE#
 		</isNotEmpty>

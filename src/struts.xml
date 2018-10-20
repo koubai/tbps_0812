@@ -66,6 +66,9 @@
 	<!-- 文件上传 -->
 	<include file="struts-fileupload.xml"/>
 	
+	<!-- mesg -->
+	<include file="struts-mesg.xml"/>
+	
 	<package name="index" extends="struts-default, json-default" namespace="/index">
 		
 		<!-- 验证码 -->

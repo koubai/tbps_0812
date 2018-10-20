@@ -11,9 +11,10 @@ import com.cn.tbps.dto.MesgDto;
 public class MesgDaoImpl extends BaseDao implements MesgDao {
 
 	@Override
-	public List<MesgDto> queryMesgByPage(String MSG_TYPE, String SEND_USER, String RECEIVE_USER, String SEND_STATUS,
+	public List<MesgDto> queryMesgByPage(String MSG_TITLE, String MSG_TYPE, String SEND_USER, String RECEIVE_USER, String SEND_STATUS,
 			String RECEIVE_STATUS, int start, int end) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("MSG_TITLE", MSG_TITLE);
 		paramMap.put("MSG_TYPE", MSG_TYPE);
 		paramMap.put("SEND_USER", SEND_USER);
 		paramMap.put("RECEIVE_USER", RECEIVE_USER);
@@ -28,9 +29,10 @@ public class MesgDaoImpl extends BaseDao implements MesgDao {
 	}
 
 	@Override
-	public int queryMesgCountByPage(String MSG_TYPE, String SEND_USER, String RECEIVE_USER, String SEND_STATUS,
+	public int queryMesgCountByPage(String MSG_TITLE, String MSG_TYPE, String SEND_USER, String RECEIVE_USER, String SEND_STATUS,
 			String RECEIVE_STATUS) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("MSG_TITLE", MSG_TITLE);
 		paramMap.put("MSG_TYPE", MSG_TYPE);
 		paramMap.put("SEND_USER", SEND_USER);
 		paramMap.put("RECEIVE_USER", RECEIVE_USER);

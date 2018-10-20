@@ -81,6 +81,9 @@
 	function manageSuperviselib() {
 		window.location.href = '<c:url value="/superviselib/showSuperviseLibAction.action"></c:url>';
 	}
+	function manageMesg() {
+		window.location.href = '<c:url value="/mesg/showMesgAction.action"></c:url>';
+	}
 </script>
 </head>
 <body>
@@ -136,6 +139,9 @@
 				<a class="btn btn-primary" href="#" onclick="manageSuperviselib();">会审监管人管理</a>
 			</div>
 			</s:if>
+			<div class="col-lg-6">
+				<a class="btn btn-primary" href="#" onclick="manageMesg();">消息管理</a>
+			</div>
 		</div>
 	</div>
 	<!--  <div class="bottom">

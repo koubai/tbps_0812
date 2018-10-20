@@ -14,6 +14,7 @@ public interface MesgDao {
 
 	/**
 	 * 翻页查询数据
+	 * @param MSG_TITLE
 	 * @param MSG_TYPE
 	 * @param SEND_USER
 	 * @param RECEIVE_USER
@@ -23,11 +24,12 @@ public interface MesgDao {
 	 * @param end
 	 * @return
 	 */
-	public List<MesgDto> queryMesgByPage(String MSG_TYPE, String SEND_USER, String RECEIVE_USER,
+	public List<MesgDto> queryMesgByPage(String MSG_TITLE, String MSG_TYPE, String SEND_USER, String RECEIVE_USER,
 			String SEND_STATUS, String RECEIVE_STATUS, int start, int end);
 	
 	/**
 	 * 查询总记录数
+	 * @param MSG_TITLE
 	 * @param MSG_TYPE
 	 * @param SEND_USER
 	 * @param RECEIVE_USER
@@ -35,7 +37,7 @@ public interface MesgDao {
 	 * @param RECEIVE_STATUS
 	 * @return
 	 */
-	public int queryMesgCountByPage(String MSG_TYPE, String SEND_USER, String RECEIVE_USER,
+	public int queryMesgCountByPage(String MSG_TITLE, String MSG_TYPE, String SEND_USER, String RECEIVE_USER,
 			String SEND_STATUS, String RECEIVE_STATUS);
 	
 	/**

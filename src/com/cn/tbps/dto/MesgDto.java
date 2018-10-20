@@ -3,6 +3,7 @@ package com.cn.tbps.dto;
 import java.util.Date;
 
 import com.cn.common.dto.BaseDto;
+import com.cn.common.util.DateUtil;
 
 public class MesgDto extends BaseDto {
 
@@ -14,7 +15,7 @@ public class MesgDto extends BaseDto {
 	private Integer MSG_SEQ;
 
 	/**
-	 * 消息类型：10系统消息，20普通消息，30紧急消息
+	 * 消息类型：10发送，20接收
 	 */
 	private String MSG_TYPE;
 
@@ -27,16 +28,21 @@ public class MesgDto extends BaseDto {
 	 * 消息内容
 	 */
 	private String MSG_CONTENT;
+	
+	//是否发送所有人：1为全部
+	private String sendAllFlag;
 
 	/**
 	 * 发件人账号
 	 */
 	private String SEND_USER;
+	private String SEND_USER_NAME;
 
 	/**
 	 * 收件人账号
 	 */
 	private String RECEIVE_USER;
+	private String RECEIVE_USER_NAME;
 
 	/**
 	 * 发件状态：10新增，20已经发送，30删除
@@ -47,6 +53,8 @@ public class MesgDto extends BaseDto {
 	 * 收件状态：10未打开，20已打开，30删除
 	 */
 	private String RECEIVE_STATUS;
+	//已读标识
+	private String isRECEIVE;
 
 	/**
 	 * 备注
@@ -67,11 +75,13 @@ public class MesgDto extends BaseDto {
 	 * 新建日期
 	 */
 	private Date INSERT_DATE;
+	private String showINSERT_DATE;
 
 	/**
 	 * 更新日期
 	 */
 	private Date UPDATE_DATE;
+	private String showUPDATE_DATE;
 
 	/**
 	 * 备用1
@@ -240,5 +250,55 @@ public class MesgDto extends BaseDto {
 
 	public void setRESERVE5(String rESERVE5) {
 		RESERVE5 = rESERVE5;
+	}
+
+	public String getSEND_USER_NAME() {
+		return SEND_USER_NAME;
+	}
+
+	public void setSEND_USER_NAME(String sEND_USER_NAME) {
+		SEND_USER_NAME = sEND_USER_NAME;
+	}
+
+	public String getRECEIVE_USER_NAME() {
+		return RECEIVE_USER_NAME;
+	}
+
+	public void setRECEIVE_USER_NAME(String rECEIVE_USER_NAME) {
+		RECEIVE_USER_NAME = rECEIVE_USER_NAME;
+	}
+
+	public String getSendAllFlag() {
+		return sendAllFlag;
+	}
+
+	public void setSendAllFlag(String sendAllFlag) {
+		this.sendAllFlag = sendAllFlag;
+	}
+
+	public String getShowINSERT_DATE() {
+		showINSERT_DATE = DateUtil.dateToLogintime(INSERT_DATE);
+		return showINSERT_DATE;
+	}
+
+	public void setShowINSERT_DATE(String showINSERT_DATE) {
+		this.showINSERT_DATE = showINSERT_DATE;
+	}
+
+	public String getShowUPDATE_DATE() {
+		showUPDATE_DATE = DateUtil.dateToLogintime(UPDATE_DATE);
+		return showUPDATE_DATE;
+	}
+
+	public void setShowUPDATE_DATE(String showUPDATE_DATE) {
+		this.showUPDATE_DATE = showUPDATE_DATE;
+	}
+
+	public String getIsRECEIVE() {
+		return isRECEIVE;
+	}
+
+	public void setIsRECEIVE(String isRECEIVE) {
+		this.isRECEIVE = isRECEIVE;
 	}
 }
