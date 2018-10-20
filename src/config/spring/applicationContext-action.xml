@@ -57,6 +57,9 @@
 		<property name="userInfoService">
 			<ref bean="userInfoService" />
 		</property>
+		<property name="mesgService">
+			<ref bean="mesgService" />
+		</property>
 	</bean>
 
 	<!-- 保证金汇总 -->

@@ -17,11 +17,13 @@ import com.cn.common.util.StringUtil;
 import com.cn.tbps.dto.BidCompDto;
 import com.cn.tbps.dto.BidDto;
 import com.cn.tbps.dto.ExpertLibDto;
+import com.cn.tbps.dto.MesgDto;
 import com.cn.tbps.dto.UserInfoDto;
 import com.cn.tbps.service.BidCompApplyService;
 import com.cn.tbps.service.BidCompService;
 import com.cn.tbps.service.BidService;
 import com.cn.tbps.service.ExpertLibService;
+import com.cn.tbps.service.MesgService;
 import com.cn.tbps.service.UserInfoService;
 
 public class BidProgressAction extends BaseAction {
@@ -32,6 +34,7 @@ public class BidProgressAction extends BaseAction {
 	
 	private String strBID_NO;    //招标编号
 	private BidService bidService;
+	private MesgService mesgService;
 	private UserInfoService userInfoService;
 	
 	private Date Date1;
@@ -430,6 +433,15 @@ public class BidProgressAction extends BaseAction {
 		}
 		//招标文件定稿
 		else if (BTN_NO.equals("0501")){
+			if (bidDto.getAPPLY_FORM_FIX_DATE()== null && Date1!= null){
+				//消息推送
+				MesgDto addMesgDto = new MesgDto();
+				String sendUserRank = "A";
+				addMesgDto.setRECEIVE_USER("");
+				addMesgDto.setMSG_TITLE("招标编号：" + strBID_NO + "招标文件定稿.");
+				addMesgDto.setMSG_CONTENT("招标编号：" + strBID_NO + "招标文件定稿.");
+				mesgService.insertMesgBatch(addMesgDto, "SYSTEM", sendUserRank);
+			}
 			bidDto.setAPPLY_FORM_FIX_DATE(Date1);
 		}
 		//招标文件装订
@@ -438,7 +450,16 @@ public class BidProgressAction extends BaseAction {
 		}
 		//发送答疑、补充文件
 		else if (BTN_NO.equals("0103")){
-			bidDto.setSUPPORT_DOC_DATE(Date1);
+			if (bidDto.getSUPPORT_DOC_DATE()== null && Date1!= null){
+				//消息推送
+				MesgDto addMesgDto = new MesgDto();
+				String sendUserRank = "A";
+				addMesgDto.setRECEIVE_USER("");
+				addMesgDto.setMSG_TITLE("招标编号：" + strBID_NO + "发送答疑、补充文件.");
+				addMesgDto.setMSG_CONTENT("招标编号：" + strBID_NO + "发送答疑、补充文件.");
+				mesgService.insertMesgBatch(addMesgDto, "SYSTEM", sendUserRank);
+			}
+			bidDto.setSUPPORT_DOC_DATE(Date1);			
 		}
 		//中标公告发布
 		else if (BTN_NO.equals("0504")){
@@ -478,6 +499,15 @@ public class BidProgressAction extends BaseAction {
 		}
 		//中标投标文件扫描
 		else if (BTN_NO.equals("0505")){
+			if (bidDto.getBID_WIN_DOC_SCAN_FLG()== null && ScanFlg.equals("1")){
+				//消息推送
+				MesgDto addMesgDto = new MesgDto();
+				String sendUserRank = "A";
+				addMesgDto.setRECEIVE_USER("");
+				addMesgDto.setMSG_TITLE("招标编号：" + strBID_NO + "中标投标文件扫描有.");
+				addMesgDto.setMSG_CONTENT("招标编号：" + strBID_NO + "中标投标文件扫描有.");
+				mesgService.insertMesgBatch(addMesgDto, "SYSTEM", sendUserRank);
+			}
 			bidDto.setBID_WIN_DOC_SCAN_FLG(ScanFlg);
 		}
 		
@@ -895,7 +925,7 @@ public class BidProgressAction extends BaseAction {
 			}
 			
 			//中标投标文件扫描
-			if (bidDto.getBID_WIN_DOC_SCAN_FLG() != null && StringUtil.isNotBlank(bidDto.getBID_WIN_DOC_SCAN_FLG())){
+			if (bidDto.getBID_WIN_DOC_SCAN_FLG() != null){
 				setStatus0505("9");
 			}else{
 				setStatus0505("0");
@@ -1878,5 +1908,12 @@ public class BidProgressAction extends BaseAction {
 		ScanFlg = scanFlg;
 	}
 
+	public MesgService getMesgService() {
+		return mesgService;
+	}
+
+	public void setMesgService(MesgService mesgService) {
+		this.mesgService = mesgService;
+	}
 
 }

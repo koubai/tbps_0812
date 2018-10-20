@@ -267,7 +267,7 @@ public class MesgAction extends BaseAction {
 		if(page == null) {
 			page = new Page();
 		}
-		//翻页查询所有专家信息
+		//翻页查询所有信息
 		this.page.setStartIndex(startIndex);
 		
 		String userid = (String) ActionContext.getContext().getSession().get(Constants.USER_ID);
