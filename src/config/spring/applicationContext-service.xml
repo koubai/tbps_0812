@@ -8,6 +8,9 @@
 		<property name="mesgDao">
 			<ref local="mesgDao"/>
 		</property>
+		<property name="userInfoDao">
+			<ref local="userInfoDao"/>
+		</property>
 	</bean>
 	
 	<bean id="mesgDao" class="com.cn.tbps.dao.impl.MesgDaoImpl">

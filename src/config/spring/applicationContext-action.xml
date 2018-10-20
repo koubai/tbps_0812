@@ -2,6 +2,15 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
 <beans>
 
+	<bean id="mesgAction" class="com.cn.tbps.action.MesgAction" scope="session">
+		<property name="mesgService">
+			<ref bean="mesgService" />
+		</property>
+		<property name="userInfoService">
+			<ref bean="userInfoService" />
+		</property>
+	</bean>
+	
 	<bean id="fileUploadAction" class="com.cn.tbps.action.FileUploadAction" scope="session">
 	</bean>
 	

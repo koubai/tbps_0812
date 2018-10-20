@@ -96,6 +96,20 @@
 			</div>
 		</div>
 		</s:if>
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title">
+					<a data-toggle="collapse" data-parent="#accordion" href="#collapseSix"><i class="fa fa-list-ul"></i> 消息管理 </a>
+				</h4>
+			</div>
+			<div id="collapseSix" class="panel-collapse collapse">
+				<div class="panel-body">
+					<ul>
+						<li><a href="<%=request.getContextPath()%>/mesg/showMesgAction.action">消息管理</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
 	</div>
 	</ul>
 </div>

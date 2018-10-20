@@ -97,7 +97,6 @@ public class BidCntrctAction extends BaseAction {
 		} catch(Exception e) {
 			ajaxData.setResultCode(-1);
 			ajaxData.setResultMessage("查询数据异常：" + e.getMessage());
-			return ERROR;
 		}
 		out = response.getWriter();
 		String result = JSONArray.fromObject(ajaxData).toString();

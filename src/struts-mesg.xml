@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC 
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" 
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+
+	<package name="mesg" extends="struts-tbps" namespace="/mesg">
+	
+		<action name="queryMesgAjax" class="mesgAction" method="queryMesgAjax">
+			<result type="json"></result>
+		</action>
+		
+		<action name="showUpdMesgAction" class="mesgAction" method="showUpdMesgAction">
+			<result name="*">/page/mesg/updmesg.jsp</result>
+		</action>
+		
+		<action name="updMesgAction" class="mesgAction" method="updMesgAction">
+			<result name="*">/page/mesg/updmesg.jsp</result>
+		</action>
+	
+		<action name="showAddMesgAction" class="mesgAction" method="showAddMesgAction">
+			<result name="*">/page/mesg/addmesg.jsp</result>
+		</action>
+		
+		<action name="addMesgAction" class="mesgAction" method="addMesgAction">
+			<result name="*">/page/mesg/addmesg.jsp</result>
+		</action>
+		
+		<action name="delMesgAction" class="mesgAction" method="delMesgAction">
+			<result name="*">/page/mesg/mesglist.jsp</result>
+		</action>
+	
+		<action name="showMesgAction" class="mesgAction" method="showMesgAction">
+			<result name="*">/page/mesg/mesglist.jsp</result>
+		</action>
+		
+		<action name="queryMesgList" class="mesgAction" method="queryMesgList">
+			<result name="*">/page/mesg/mesglist.jsp</result>
+		</action>
+		
+		<action name="turnMesgPage" class="mesgAction" method="turnMesgPage">
+			<result name="*">/page/mesg/mesglist.jsp</result>
+		</action>
+		
+	</package>
+
+</struts>
