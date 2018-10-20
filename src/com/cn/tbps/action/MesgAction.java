@@ -52,6 +52,8 @@ public class MesgAction extends BaseAction {
 	
 	//新增
 	private MesgDto addMesgDto;
+	//发送人rank，rank以下的全部发送
+	private String sendUserRank;
 	
 	//修改
 	private String strUpdMesgId;
@@ -179,6 +181,7 @@ public class MesgAction extends BaseAction {
 			this.clearMessages();
 			userInfoList = userInfoService.queryAllUser();
 			addMesgDto = new MesgDto();
+			sendUserRank = "";
 		} catch(Exception e) {
 			return ERROR;
 		}
@@ -195,8 +198,9 @@ public class MesgAction extends BaseAction {
 			userInfoList = userInfoService.queryAllUser();
 			//发件人
 			String userid = (String) ActionContext.getContext().getSession().get(Constants.USER_ID);
-			mesgService.insertMesgBatch(addMesgDto, userid, "");
+			mesgService.insertMesgBatch(addMesgDto, userid, sendUserRank);
 			addMesgDto = new MesgDto();
+			sendUserRank = "";
 			this.addActionMessage("发送成功！");
 		} catch(Exception e) {
 			return ERROR;
@@ -216,6 +220,7 @@ public class MesgAction extends BaseAction {
 			addMesgDto = new MesgDto();
 			strUpdMesgId = "";
 			delMesgId = "";
+			sendUserRank = "";
 			mesgList = new ArrayList<MesgDto>();
 		} catch(Exception e) {
 			return ERROR;
@@ -388,10 +393,12 @@ public class MesgAction extends BaseAction {
 	public void setDelMesgId(String delMesgId) {
 		this.delMesgId = delMesgId;
 	}
-	
-	public static void main(String[] args) {
-		String rank = "C";
-		String rankB = "B";
-		System.out.println(rank.compareTo(rankB));
+
+	public String getSendUserRank() {
+		return sendUserRank;
+	}
+
+	public void setSendUserRank(String sendUserRank) {
+		this.sendUserRank = sendUserRank;
 	}
 }

@@ -25,12 +25,27 @@
 <script type="text/javascript">
 	function add() {
 		var RECEIVE_USER = $("#RECEIVE_USER").val().trim();
+		var sendUserRank = $("#sendUserRank").val().trim();
 		var MSG_TITLE = $("#MSG_TITLE").val().trim();
 		var tmpMSG_CONTENT = $("#tmpMSG_CONTENT").val().trim();
-		if(RECEIVE_USER == "") {
-			alert("请选择收件人！");
-			$("#RECEIVE_USER").focus();
-			return;
+		var tmpSendAllFlag = "";
+		if(document.getElementById("tmpSendAllFlag").checked) {
+			tmpSendAllFlag = "1";
+		} else {
+			tmpSendAllFlag = "0";
+		}
+		if(tmpSendAllFlag == "1") {
+			if(sendUserRank == "") {
+				alert("请选择收件人Rank！");
+				$("#sendUserRank").focus();
+				return;
+			}
+		} else {
+			if(RECEIVE_USER == "") {
+				alert("请选择收件人！");
+				$("#RECEIVE_USER").focus();
+				return;
+			}
 		}
 		if(MSG_TITLE == "") {
 			alert("消息标题不能为空！");
@@ -48,6 +63,7 @@
 			return;
 		}
 		$("#MSG_CONTENT").attr("value", tmpMSG_CONTENT);
+		$("#sendAllFlag").attr("value", tmpSendAllFlag);
 		document.mainform.action = '<c:url value="/mesg/addMesgAction.action"></c:url>';
 		document.mainform.submit();
 	}
@@ -55,6 +71,18 @@
 	function goUserList() {
 		document.mainform.action = '<c:url value="/mesg/queryMesgList.action"></c:url>';
 		document.mainform.submit();
+	}
+	
+	function setSendFlag(obj) {
+		if(obj.checked) {
+			$("#RECEIVE_USER").val("");
+			$("#RECEIVE_USER").attr("disabled", true);
+			$("#rankDiv").show();
+		} else {
+			$("#RECEIVE_USER").attr("disabled", false);
+			$("#sendUserRank").val("");
+			$("#rankDiv").hide();
+		}
 	}
 </script>
 </head>
@@ -64,6 +92,7 @@
 		<jsp:include page="../info.jsp" flush="true" />
 		<s:form id="mainform" name="mainform" method="POST">
 			<s:hidden name="addMesgDto.MSG_CONTENT" id="MSG_CONTENT"></s:hidden>
+			<s:hidden name="addMesgDto.sendAllFlag" id="sendAllFlag"></s:hidden>
 			<div class="row">
 				<div class="container-fluid">
 					<s:if test="hasActionMessages()">
@@ -77,12 +106,53 @@
 								<h5>消息输入</h5>
 								<div class="row">
 									<label class="col-lg-2 form-label">收件人</label>
-									<div class="col-lg-8">
+									<div class="col-lg-6">
 										<select name="addMesgDto.RECEIVE_USER" id="RECEIVE_USER" class="form-control">
-											<option value="">请选择</option>
+											<option value="" selected="selected">请选择</option>
 											<s:iterator id="userInfoList" value="userInfoList" status="st1">
 												<option value="<s:property value="LOGIN_ID"/>" <s:if test="%{addMesgDto.RECEIVE_USER == LOGIN_ID}">selected</s:if>><s:property value="LOGIN_NAME"/></option>
 											</s:iterator>
+										</select>
+									</div>
+									<div class="col-lg-2 checkBox">
+										<s:if test='addMesgDto.sendAllFlag == "1"'>
+											<input type="checkbox" id="tmpSendAllFlag" checked="checked" onclick="setSendFlag(this);"/>全部发送
+										</s:if>
+										<s:else>
+											<input type="checkbox" id="tmpSendAllFlag" onclick="setSendFlag(this);"/>全部发送
+										</s:else>
+									</div>
+								</div>
+								<s:if test='addMesgDto.sendAllFlag == "1"'>
+									<div id="rankDiv" class="row">
+								</s:if>
+								<s:else>
+									<div id="rankDiv" class="row" style="display: none;">
+								</s:else>
+									<label class="col-lg-2 form-label">收件人Rank</label>
+									<div class="col-lg-8">
+										<select name="sendUserRank" id="sendUserRank" class="form-control">
+											<option value="" selected="selected">请选择</option>
+											<s:if test='sendUserRank == "A"'>
+												<option value="A" selected="selected">A</option>
+												<option value="B">B</option>
+												<option value="C">C</option>
+											</s:if>
+											<s:elseif test='sendUserRank == "B"'>
+												<option value="A">A</option>
+												<option value="B" selected="selected">B</option>
+												<option value="C">C</option>
+											</s:elseif>
+											<s:elseif test='sendUserRank == "C"'>
+												<option value="A">A</option>
+												<option value="B">B</option>
+												<option value="C" selected="selected">C</option>
+											</s:elseif>
+											<s:else>
+												<option value="A">A</option>
+												<option value="B">B</option>
+												<option value="C">C</option>
+											</s:else>
 										</select>
 									</div>
 								</div>
