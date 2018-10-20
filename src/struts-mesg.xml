@@ -6,6 +6,10 @@
 
 	<package name="mesg" extends="struts-tbps" namespace="/mesg">
 	
+		<action name="queryMesgCountAjax" class="mesgAction" method="queryMesgCountAjax">
+			<result type="json"></result>
+		</action>
+		
 		<action name="queryMesgAjax" class="mesgAction" method="queryMesgAjax">
 			<result type="json"></result>
 		</action>

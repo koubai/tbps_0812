@@ -65,6 +65,40 @@ public class MesgAction extends BaseAction {
 	private String showMesgId;
 	
 	/**
+	 * Ajax查询未读消息条数
+	 * @return
+	 * @throws IOException
+	 */
+	public String queryMesgCountAjax() throws IOException {
+		HttpServletResponse response = ServletActionContext.getResponse();
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out;
+		AjaxDataDto ajaxData = new AjaxDataDto();
+		try {
+			this.clearMessages();
+			String userid = (String) ActionContext.getContext().getSession().get(Constants.USER_ID);
+			//只查询未读消息
+			List<MesgDto> msgList = mesgService.queryAllMesg("", userid, "", "'10'");
+			if(msgList != null && msgList.size() > 0) {
+				ajaxData.setData(msgList.size());
+			} else {
+				ajaxData.setData(0);
+			}
+			ajaxData.setResultCode(0);
+		} catch(Exception e) {
+			ajaxData.setResultCode(-1);
+			ajaxData.setResultMessage("查询数据异常：" + e.getMessage());
+		}
+		out = response.getWriter();
+		String result = JSONArray.fromObject(ajaxData).toString();
+		result = result.substring(1, result.length() - 1);
+		log.info(result);
+		out.write(result);
+		out.flush();
+		return null;
+	}
+	
+	/**
 	 * Ajax查询消息函数
 	 * @return
 	 * @throws IOException
