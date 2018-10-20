@@ -622,42 +622,44 @@ public class BidServiceImpl extends BaseService implements BidService {
 				}
 				
 				int sort = 1;
-				for(String rr : tmplist) {
-					if(map.containsKey(rr)) {
-						//该报名要求存在
-						String lll[] = map.get(rr).split("@@@@");
-						String id = lll[0];
-						String require = lll[1];
-						String note = "";
-						if(lll.length == 3) {
-							note = lll[2];
-						}
-						//更新
-						BidCompApplyDto apply = bidCompApplyDao.queryBidCompApplyByID(id);
-						if(apply != null) {
-							apply.setAPPLY_REQUIRE(require);
-							apply.setAPPLY_NOTE(note);
+				if (tmplist!= null){
+					for(String rr : tmplist) {
+						if(map.containsKey(rr)) {
+							//该报名要求存在
+							String lll[] = map.get(rr).split("@@@@");
+							String id = lll[0];
+							String require = lll[1];
+							String note = "";
+							if(lll.length == 3) {
+								note = lll[2];
+							}
+							//更新
+							BidCompApplyDto apply = bidCompApplyDao.queryBidCompApplyByID(id);
+							if(apply != null) {
+								apply.setAPPLY_REQUIRE(require);
+								apply.setAPPLY_NOTE(note);
+								apply.setAPPLY_SORT(sort);
+								//状态=有效
+								apply.setSTATUS(1);
+								bidCompApplyDao.updBidCompApply(apply);
+							}
+						} else {
+							//不存在，则新增
+							BidCompApplyDto apply = new BidCompApplyDto();
+							apply.setAPPLY_REQUIRE(rr);
+							apply.setAPPLY_NOTE("");
 							apply.setAPPLY_SORT(sort);
 							//状态=有效
 							apply.setSTATUS(1);
-							bidCompApplyDao.updBidCompApply(apply);
+							apply.setBID_NO(bidDto.getBID_NO());
+							apply.setBID_CO_NO(bidcomp.getBID_CO_NO());
+							bidCompApplyDao.insertBidCompApply(apply);
 						}
-					} else {
-						//不存在，则新增
-						BidCompApplyDto apply = new BidCompApplyDto();
-						apply.setAPPLY_REQUIRE(rr);
-						apply.setAPPLY_NOTE("");
-						apply.setAPPLY_SORT(sort);
-						//状态=有效
-						apply.setSTATUS(1);
-						apply.setBID_NO(bidDto.getBID_NO());
-						apply.setBID_CO_NO(bidcomp.getBID_CO_NO());
-						bidCompApplyDao.insertBidCompApply(apply);
+						sort++;
 					}
-					sort++;
-				}
-				//删除所有无效的数据
-				bidCompApplyDao.delBidCompApplyByBidCoNo(bidDto.getBID_NO(), "" + bidcomp.getBID_CO_NO());
+					//删除所有无效的数据
+					bidCompApplyDao.delBidCompApplyByBidCoNo(bidDto.getBID_NO(), "" + bidcomp.getBID_CO_NO());
+				}		
 			}
 		}
 		

@@ -631,6 +631,9 @@ public class BidAction extends BaseAction {
 			//修改数据
 			String username = (String) ActionContext.getContext().getSession().get(Constants.USER_NAME);
 			updateBidDto.setUPDATE_USER(username);
+			if (listExpertLib.size() != 0 && updateBidDto.getBID_EXPERT_NOTIFY_DATE()== null){
+				updateBidDto.setBID_EXPERT_NOTIFY_DATE(new Date());
+			}
 			bidService.updateBidNew(updateBidDto, listBidComp, listExpertLib);
 			this.addActionMessage("修改招标成功！");
 			updateBidDtoOld = bidService.queryAllBidByID(updateBidNo);

@@ -50,7 +50,7 @@
                               </a>
                           </li>
                           <li class="divider"></li>
-                          <li><a href="#">Go to Inbox <span class="badge">2</span></a></li>
+                          <li><a href="<%=request.getContextPath()%>/mesg/showMesgAction.action">消息&nbsp;&nbsp;&nbsp;&nbsp;<span class="badge">2</span></a></li>
                       </ul>
                   </li>
                    <li class="dropdown user-dropdown">
