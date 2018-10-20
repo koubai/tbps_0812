@@ -41,6 +41,13 @@
 		}
 	}
 	
+	function upd(bidNo) {
+		$("#updateBidNo").val(bidNo);
+		var url = '<c:url value="/bid/showUpdBidAction.action"></c:url>';
+		document.mainform.action = url;
+		document.mainform.submit();
+	}
+	
 	function del() {
 		var id = getSelectedID();
 		if(id == "") {
@@ -117,6 +124,19 @@
 		document.mainform.action = '<c:url value="/bidprogress/showBidProgressAction.action"></c:url>';
 		document.mainform.submit();
 	}
+	
+	function progressBid() {
+		var bidNo = getSelectedID();
+		if(bidNo == "") {
+			alert("请选择一条记录！");
+			return;
+		} else {
+			$("#strBID_NO").val(bidNo);
+			document.mainform.action = '<c:url value="/bidprogress/showBidProgressAction.action"></c:url>';
+			document.mainform.submit();
+		}
+	}
+	
 </script>
 </head>
 <body>
@@ -184,7 +204,8 @@
 							<tr>
 								<td><input name="radioKey" type="radio" value="<s:property value="BID_NO"/>"/></td>
 								<td>
-									<a href="javascript:void(0);" onclick="goBidProgress('<s:property value="BID_NO"/>');"><s:property value="BID_NO"/></a>
+									<!-- <a href="javascript:void(0);" onclick="goBidProgress('<s:property value="BID_NO"/>');"><s:property value="BID_NO"/></a> -->
+									<a href="javascript:void(0);" onclick="upd('<s:property value="BID_NO"/>');"><s:property value="BID_NO"/></a>
 								</td>
 								<td><s:property value="PROJECT_NAME"/></td>
 								<td>
@@ -209,6 +230,7 @@
 					<jsp:include page="../turning.jsp" flush="true" />
 					<div class="operationBtns">
 						<button type="button" class="btn btn-success" onclick="exportBid();">导出</button>
+						<button type="button" class="btn btn-success" onclick="progressBid();">进展状态</button>
 					</div>
 				</s:form>
 			</div>
