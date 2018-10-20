@@ -1174,13 +1174,15 @@
 	}
 	
 	function showtab(id) {
-		for(var i = 1; i <= 8; i++) {
-			$("#tabli" + i).removeClass("active");
-			$("#tab" + i).removeClass("tab-pane fade in active");
-			$("#tab" + i).addClass("tab-pane fade");
+		if(id != "") {
+			for(var i = 1; i <= 8; i++) {
+				$("#tabli" + i).removeClass("active");
+				$("#tab" + i).removeClass("tab-pane fade in active");
+				$("#tab" + i).addClass("tab-pane fade");
+			}
+			$("#tabli" + id).addClass("active");
+			$("#tab" + id).addClass("tab-pane fade in active");
 		}
-		$("#tabli" + id).addClass("active");
-		$("#tab" + id).addClass("tab-pane fade in active");
 	}
 
 	function adddate() {
@@ -3633,6 +3635,8 @@
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.min.js"></script>
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.zh-CN.min.js"></script>
 <script>
+	showtab('${updBidTabIndex}');
+	
 	$('.datepicker').parent().datepicker({
 		"autoclose":true,"format":"yyyy-mm-dd","language":"zh-CN",clearBtn: true
 	});
