@@ -40,6 +40,7 @@ public class BidProgressAction extends BaseAction {
 	private String uploadFile;   //上传文件
 	private String UTIL_TYP;     //ProgressUtil window type
 	private String Finish_status;     //Progress
+	private String ScanFlg;		// 有无扫描选项   1:有      0:无
 
 	private String BTN_NO; 	 	 //按钮编号
 	private String Status0101;   //新项目登记
@@ -379,6 +380,12 @@ public class BidProgressAction extends BaseAction {
 					File05 = StringUtil.splitFileName(bidDto.getBID_VER_DOC_DELI_FILE5());
 					File05_URL = StringUtil.splitFileNameURL(bidDto.getBID_VER_DOC_DELI_FILE5());
 				}
+			} else if (BTN_NO.equals("0505")){
+				strHead1 = "";			
+				strHead2 = "";
+				strHead3 = "";
+				if (bidDto.getBID_WIN_DOC_SCAN_FLG()!= null)
+					ScanFlg = bidDto.getBID_WIN_DOC_SCAN_FLG();
 			}
 			System.out.println("showBidProgressUtilAction");
 			System.out.println("招标编号：" + strBID_NO);
@@ -468,6 +475,10 @@ public class BidProgressAction extends BaseAction {
 			bidDto.setBID_VER_DOC_DELI_FILE3(File03 + ";" + File03_URL);
 			bidDto.setBID_VER_DOC_DELI_FILE4(File04 + ";" + File04_URL);
 			bidDto.setBID_VER_DOC_DELI_FILE5(File05 + ";" + File05_URL);
+		}
+		//中标投标文件扫描
+		else if (BTN_NO.equals("0505")){
+			bidDto.setBID_WIN_DOC_SCAN_FLG(ScanFlg);
 		}
 		
 		//查询招标公司列表
@@ -881,6 +892,13 @@ public class BidProgressAction extends BaseAction {
 				setStatus0802("9");
 			}else{
 				setStatus0802("0");
+			}
+			
+			//中标投标文件扫描
+			if (bidDto.getBID_WIN_DOC_SCAN_FLG() != null && StringUtil.isNotBlank(bidDto.getBID_WIN_DOC_SCAN_FLG())){
+				setStatus0505("9");
+			}else{
+				setStatus0505("0");
 			}
 			
 		}	
@@ -1850,6 +1868,14 @@ public class BidProgressAction extends BaseAction {
 
 	public void setExpertLibService(ExpertLibService expertLibService) {
 		this.expertLibService = expertLibService;
+	}
+
+	public String getScanFlg() {
+		return ScanFlg;
+	}
+
+	public void setScanFlg(String scanFlg) {
+		ScanFlg = scanFlg;
 	}
 
 

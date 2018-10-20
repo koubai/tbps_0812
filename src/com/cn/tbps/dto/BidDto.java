@@ -130,6 +130,11 @@ public class BidDto extends BaseDto {
 	private BigDecimal BID_AGENT_PRICE_ACT;
 
 	/**
+	 * 代理费发票号
+	 */
+	private String BID_AGENT_PRICE_INVOICE;
+	
+	/**
 	 * 开票日期
 	 */
 	private Date RECEIPT1_DATE;
@@ -274,6 +279,11 @@ public class BidDto extends BaseDto {
 	 * 中标金额一览
 	 */
 	private String BID_PRICE_LIST;
+
+	/**
+	 * 专家通知时间
+	 */
+	private Date BID_EXPERT_NOTIFY_DATE;
 
 	/**
 	 * 专家费
@@ -591,6 +601,11 @@ public class BidDto extends BaseDto {
 	 */
 	private String BID_VER_DOC_DELI_FILE10;
 
+	/**
+	 * 中标投标文件扫描有无
+	 */
+	private String BID_WIN_DOC_SCAN_FLG;	
+	
 	/**
 	 * 项目进度情况
 	 */
@@ -2123,5 +2138,30 @@ public class BidDto extends BaseDto {
 	public void setBID_EXPERT_COMMISION_DIFF(BigDecimal bID_EXPERT_COMMISION_DIFF) {
 		BID_EXPERT_COMMISION_DIFF = bID_EXPERT_COMMISION_DIFF;
 	}
+
+	public String getBID_WIN_DOC_SCAN_FLG() {
+		return BID_WIN_DOC_SCAN_FLG;
+	}
+
+	public void setBID_WIN_DOC_SCAN_FLG(String bID_WIN_DOC_SCAN_FLG) {
+		BID_WIN_DOC_SCAN_FLG = bID_WIN_DOC_SCAN_FLG;
+	}
+
+	public String getBID_AGENT_PRICE_INVOICE() {
+		return BID_AGENT_PRICE_INVOICE;
+	}
+
+	public void setBID_AGENT_PRICE_INVOICE(String bID_AGENT_PRICE_INVOICE) {
+		BID_AGENT_PRICE_INVOICE = bID_AGENT_PRICE_INVOICE;
+	}
+
+	public Date getBID_EXPERT_NOTIFY_DATE() {
+		return BID_EXPERT_NOTIFY_DATE;
+	}
+
+	public void setBID_EXPERT_NOTIFY_DATE(Date bID_EXPERT_NOTIFY_DATE) {
+		BID_EXPERT_NOTIFY_DATE = bID_EXPERT_NOTIFY_DATE;
+	}
+
 
 }

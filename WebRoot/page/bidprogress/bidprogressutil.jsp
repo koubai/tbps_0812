@@ -226,12 +226,12 @@
 		<div class="row">
 			<div class="col-lg-10 right">
 				<form id="mainform" name="mainform" enctype="multipart/form-data method="post">
-				<!-- <s:form id="mainform" name="mainform" method="POST" enctype="multipart/form-data"> -->
+				<!-- <s:form id="mainform" name="mainform" method="POST" enctype="multipart/form-data"> 
 					<div class="modal-header">
 						<h4 class="modal-title" id="myModalLabel">
 							文件上传
 						</h4>
-					</div>
+					</div>-->
 					<div class="modal-body" style="height: 100px;">
 						<div class="form-group">
 				
@@ -241,6 +241,7 @@
 							<s:hidden name="Date1" id="Date1"/>
 							<s:hidden name="Date2" id="Date2"/>
 							<s:hidden name="Member1" id="Member1"/>
+							<s:hidden name="ScanFlg" id="ScanFlg"/>
 							
 							<s:hidden name="File01" id="File01"/>
 							<s:hidden name="File02" id="File02"/>
@@ -357,25 +358,27 @@
 										<td>
 										</td>
 									</tr>
-									</s:if>								
-									<tr>
-										<td>
-										<div class="col-lg-8 form-group">
-											<label for="" class="col-lg-8 form-label"><span class="red">*</span><s:property value="strHead1" />日期</label>
+								</s:if>			
+								<s:if test='UTIL_TYP != "6"'>					
+								<tr>
+									<td>
+									<div class="col-lg-8 form-group">
+										<label for="" class="col-lg-8 form-label"><span class="red">*</span><s:property value="strHead1" />日期</label>
+									</div>
+									</td>
+									<td>
+									<div class="input-group date" data-provide="datepicker">
+										<input id="strDate1" name="strDate1" value="<s:date name="Date1" format="yyyy-MM-dd"/>" maxlength="10" type="text" class="form-control datepicker" readonly />
+										<div class="input-group-addon">
+											<span class="glyphicon glyphicon-th"></span>
 										</div>
-										</td>
-										<td>
-										<div class="input-group date" data-provide="datepicker">
-											<input id="strDate1" name="strDate1" value="<s:date name="Date1" format="yyyy-MM-dd"/>" maxlength="10" type="text" class="form-control datepicker" readonly />
-											<div class="input-group-addon">
-												<span class="glyphicon glyphicon-th"></span>
-											</div>
-										</div>
-										</td>
-										<td>
-										</td>
-									</tr>
-									<s:if test='UTIL_TYP == "4"'>
+									</div>
+									</td>
+									<td>
+									</td>
+								</tr>
+								</s:if>
+								<s:if test='UTIL_TYP == "4"'>
 									<tr>
 										<td>
 										<div class="col-lg-8 form-group">
@@ -393,8 +396,8 @@
 										<td>
 										</td>
 									</tr>
-									</s:if>								
-									<s:if test='UTIL_TYP == "2"'>
+								</s:if>								
+								<s:if test='UTIL_TYP == "2"'>
 									<tr>
 										<td>
 										<div class="col-lg-8 form-group">
@@ -415,88 +418,118 @@
 										<td>
 										</td>
 									</tr>
-									</s:if>								
-									<s:if test='UTIL_TYP == "3"'>
-											<tr>
-												<td>
-												<div class="col-lg-7 form-group">
-													<label class="pdf10">上传文件目录</label>
-												</div>
-												</td>
-												<td>
-													<input type="file" name="uploadFileObj" id="uploadFileObj" class="form-control">
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<label style="text-align:left;" for="<s:property value="File01"/>" class="col-lg-9 form-label" id="lbFile01" onclick="popup(1)"><s:property value="File01"/></label>
-												</td>
-												<td>
-													<input type="hidden" id="File01_URL" name="File01_URL" value="<s:property value="File01_URL"/>">
-													<button type="button" class="btn btn-primary" onclick="uploadfile(1);">上传</button>
-													<button type="button" class="btn btn-primary" onclick="delfile(1);">删除</button>
-													<s:if test='File01_URL != ""'><a href="<s:property value="File01_URL"/>">链接</a></s:if>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<label style="text-align:left;" for="<s:property value="File02"/>" class="col-lg-9 form-label" id="lbFile02" onclick="popup(2)"><s:property value="File02"/></label>
-												</td>
-												<td>
-													<input type="hidden" id="File02_URL" name="File02_URL" value="<s:property value="File02_URL"/>">
-													<button type="button" class="btn btn-primary" onclick="uploadfile(2);">上传</button>
-													<button type="button" class="btn btn-primary" onclick="delfile(2);">删除</button>
-													<s:if test='File02_URL != ""'><a href="<s:property value="File02_URL"/>">链接</a></s:if>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<label style="text-align:left;" for="<s:property value="File03"/>" class="col-lg-9 form-label" id="lbFile03" onclick="popup(3)"><s:property value="File03"/></label>
-												</td>
-												<td>
-													<input type="hidden" id="File03_URL" name="File03_URL" value="<s:property value="File03_URL"/>">
-													<button type="button" class="btn btn-primary" onclick="uploadfile(3);">上传</button>
-													<button type="button" class="btn btn-primary" onclick="delfile(3);">删除</button>
-													<s:if test='File03_URL != ""'><a href="<s:property value="File03_URL"/>">链接</a></s:if>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<label style="text-align:left;" for="<s:property value="File04"/>" class="col-lg-9 form-label" id="lbFile04" onclick="popup(4)"><s:property value="File04"/></label>
-												</td>
-												<td>
-													<input type="hidden" id="File04_URL" name="File04_URL" value="<s:property value="File04_URL"/>">
-													<button type="button" class="btn btn-primary" onclick="uploadfile(4);">上传</button>
-													<button type="button" class="btn btn-primary" onclick="delfile(4);">删除</button>
-													<s:if test='File04_URL != ""'><a href="<s:property value="File04_URL"/>">链接</a></s:if>
-												</td>
-											</tr>
-											<tr>
-												<td>
-													<label style="text-align:left;" for="<s:property value="File05"/>" class="col-lg-9 form-label" id="lbFile05" onclick="popup(5)"><s:property value="File05"/></label>
-												</td>
-												<td>
-													<input type="hidden" id="File05_URL" name="File05_URL" value="<s:property value="File05_URL"/>">
-													<button type="button" class="btn btn-primary" onclick="uploadfile(5);">上传</button>
-													<button type="button" class="btn btn-primary" onclick="delfile(5);">删除</button>
-													<s:if test='File05_URL != ""'><a href="<s:property value="File05_URL"/>">链接</a></s:if>
-												</td>
-											</tr>
-									</s:if>								
+								</s:if>			
+								<s:if test='UTIL_TYP == "6"'>
 									<tr>
 										<td>
 										<div class="col-lg-8 form-group">
-											<button class="btn btn-success" id="cancel" onclick="goBidProgress();">关闭</button>
+											<label for="" class="col-lg-8 form-label"><span class="red">*</span>有无扫描选项</label>
 										</div>
 										</td>
 										<td>
-										<div>
-											<button class="btn btn-success" id="success" onclick="save();">保存</button>
-										</div>
+										<c:choose>
+						                     <c:when test="${ScanFlg=='1'}">
+							                     <input type="radio" name="ScanFlg" value="1"  checked />有
+						                     </c:when>
+						                     <c:otherwise>
+							                      <input type="radio" name="ScanFlg" value="1"  />有
+						                     </c:otherwise>
+					                    </c:choose>
+					                    &nbsp;&nbsp;&nbsp;&nbsp;
+	            				        <c:choose>
+											<c:when test="${ScanFlg=='0'}">
+							                     <input type="radio" name="ScanFlg" value="0"  checked />无
+						                    </c:when>
+							                <c:otherwise>
+							                	<input type="radio" name="ScanFlg" value="0"  />无
+							                </c:otherwise>
+					                     </c:choose>
 										</td>
 										<td>
 										</td>
 									</tr>
+								</s:if>			
+								<s:if test='UTIL_TYP == "3"'>
+									<tr>
+										<td>
+										<div class="col-lg-7 form-group">
+											<label class="pdf10">上传文件目录</label>
+										</div>
+										</td>
+										<td>
+											<input type="file" name="uploadFileObj" id="uploadFileObj" class="form-control">
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label style="text-align:left;" for="<s:property value="File01"/>" class="col-lg-9 form-label" id="lbFile01" onclick="popup(1)"><s:property value="File01"/></label>
+										</td>
+										<td>
+											<input type="hidden" id="File01_URL" name="File01_URL" value="<s:property value="File01_URL"/>">
+											<button type="button" class="btn btn-primary" onclick="uploadfile(1);">上传</button>
+											<button type="button" class="btn btn-primary" onclick="delfile(1);">删除</button>
+											<s:if test='File01_URL != ""'><a href="<s:property value="File01_URL"/>">链接</a></s:if>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label style="text-align:left;" for="<s:property value="File02"/>" class="col-lg-9 form-label" id="lbFile02" onclick="popup(2)"><s:property value="File02"/></label>
+										</td>
+										<td>
+											<input type="hidden" id="File02_URL" name="File02_URL" value="<s:property value="File02_URL"/>">
+											<button type="button" class="btn btn-primary" onclick="uploadfile(2);">上传</button>
+											<button type="button" class="btn btn-primary" onclick="delfile(2);">删除</button>
+											<s:if test='File02_URL != ""'><a href="<s:property value="File02_URL"/>">链接</a></s:if>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label style="text-align:left;" for="<s:property value="File03"/>" class="col-lg-9 form-label" id="lbFile03" onclick="popup(3)"><s:property value="File03"/></label>
+										</td>
+										<td>
+											<input type="hidden" id="File03_URL" name="File03_URL" value="<s:property value="File03_URL"/>">
+											<button type="button" class="btn btn-primary" onclick="uploadfile(3);">上传</button>
+											<button type="button" class="btn btn-primary" onclick="delfile(3);">删除</button>
+											<s:if test='File03_URL != ""'><a href="<s:property value="File03_URL"/>">链接</a></s:if>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label style="text-align:left;" for="<s:property value="File04"/>" class="col-lg-9 form-label" id="lbFile04" onclick="popup(4)"><s:property value="File04"/></label>
+										</td>
+										<td>
+											<input type="hidden" id="File04_URL" name="File04_URL" value="<s:property value="File04_URL"/>">
+											<button type="button" class="btn btn-primary" onclick="uploadfile(4);">上传</button>
+											<button type="button" class="btn btn-primary" onclick="delfile(4);">删除</button>
+											<s:if test='File04_URL != ""'><a href="<s:property value="File04_URL"/>">链接</a></s:if>
+										</td>
+									</tr>
+									<tr>
+										<td>
+											<label style="text-align:left;" for="<s:property value="File05"/>" class="col-lg-9 form-label" id="lbFile05" onclick="popup(5)"><s:property value="File05"/></label>
+										</td>
+										<td>
+											<input type="hidden" id="File05_URL" name="File05_URL" value="<s:property value="File05_URL"/>">
+											<button type="button" class="btn btn-primary" onclick="uploadfile(5);">上传</button>
+											<button type="button" class="btn btn-primary" onclick="delfile(5);">删除</button>
+											<s:if test='File05_URL != ""'><a href="<s:property value="File05_URL"/>">链接</a></s:if>
+										</td>
+									</tr>
+								</s:if>								
+								<tr>
+									<td>
+									<div class="col-lg-8 form-group">
+										<button class="btn btn-success" id="cancel" onclick="goBidProgress();">关闭</button>
+									</div>
+									</td>
+									<td>
+									<div>
+										<button class="btn btn-success" id="success" onclick="save();">保存</button>
+									</div>
+									</td>
+									<td>
+									</td>
+								</tr>
 								</table>
 								</form>
 							</div>

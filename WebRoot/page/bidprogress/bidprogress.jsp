@@ -33,7 +33,7 @@
 //		alert($("#BTN_NO").val());
 //		alert(util_typ);
 		var url = '<c:url value="/bidprogress/showBidProgressUtilAction.action"></c:url>' + "?BTN_NO=" + btn_no + "&UTIL_TYP=" + util_typ + "&date=" + new Date();
-		if (util_typ == 3){
+		if (util_typ == 3 ){
 			window.open(url, window, "height=600px;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
 		}
 		if (util_typ == 4){
@@ -42,8 +42,11 @@
 		if (util_typ == 5){
 			window.open(url, window, "height=500px;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");				
 		}
-		if (util_typ == 1 || util_typ == 2){
+		if (util_typ == 1 || util_typ == 2 ){
 			window.open(url, window, "height=400px;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");				
+		}
+		if (util_typ == 6){
+			window.open(url, window, "height=300px;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");				
 		}
 	}
 	
@@ -563,16 +566,16 @@ th {
 							<td></td>
 							<td>
 								<s:if test='Status0505 == "9"'>
-									<button class="btn btn-success" id="0505" onclick="showProgressUtil('0505',0);">中标投标文件扫描&nbsp;&nbsp;&nbsp;</button>
+									<button class="btn btn-success" id="0505" onclick="showProgressUtil('0505',6);">中标投标文件扫描*&nbsp;&nbsp;&nbsp;</button>
 								</s:if>
 								<s:elseif test='Status0505 == "2"'>
-									<button class="btn btn-warning" id="0505" onclick="showProgressUtil('0505',0);">中标投标文件扫描&nbsp;&nbsp;&nbsp;</button>
+									<button class="btn btn-warning" id="0505" onclick="showProgressUtil('0505',6);">中标投标文件扫描*&nbsp;&nbsp;&nbsp;</button>
 								</s:elseif>
 								<s:elseif test='Status0505 == "0"'>
-									<button class="btn btn-danger" id="0505" onclick="showProgressUtil('0505',0);">中标投标文件扫描&nbsp;&nbsp;&nbsp;</button>
+									<button class="btn btn-danger" id="0505" onclick="showProgressUtil('0505',6);">中标投标文件扫描*&nbsp;&nbsp;&nbsp;</button>
 								</s:elseif>
 								<s:else>
-									<button class="btn btn-danger" id="0505" onclick="showProgressUtil('0505',0);">中标投标文件扫描&nbsp;&nbsp;&nbsp;</button>
+									<button class="btn btn-danger" id="0505" onclick="showProgressUtil('0505',6);">中标投标文件扫描*&nbsp;&nbsp;&nbsp;</button>
 								</s:else>
 							</td>
 							<td></td>
