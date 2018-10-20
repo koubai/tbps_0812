@@ -2124,6 +2124,12 @@
 							<div class="row">
 								<div class="col-lg-7">专家名单</div>
 								<div class="col-lg-5">
+									<label for="" class="col-lg-3 form-label">专家通知时间</label>
+									<div class="col-lg-8">
+										<input type="text" value="<s:date name="addBidDto.BID_EXPERT_NOTIFY_DATE" format="yyyy-MM-dd" />" class="form-control" readonly="readonly">
+									</div>
+								</div>
+								<div class="col-lg-5">
 									<label for="" class="col-lg-3 form-label">专家费支出</label>
 									<div class="col-lg-6">
 										<input type="text" disabled="disabled" class="form-control" value="<s:property value="addBidDto.BID_EXPERT_COMMISION_ACT" />">
@@ -2510,6 +2516,12 @@
 												<span class="glyphicon glyphicon-th"></span>
 											</div>
 										</div>
+									</div>
+								</div>
+								<div class="col-lg-4 form-group">
+									<label for="" class="col-lg-4 form-label">代理费发票</label>
+									<div class="col-lg-7">
+										<s:textfield name="addBidDto.BID_AGENT_PRICE_INVOICE" id="BID_AGENT_PRICE_INVOICE" disabled="true" cssClass="form-control" theme="simple"></s:textfield>
 									</div>
 								</div>
 							</div>
