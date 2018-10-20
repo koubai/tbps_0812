@@ -195,7 +195,7 @@ public class MesgAction extends BaseAction {
 			userInfoList = userInfoService.queryAllUser();
 			//发件人
 			String userid = (String) ActionContext.getContext().getSession().get(Constants.USER_ID);
-			mesgService.insertMesgBatch(addMesgDto, userid);
+			mesgService.insertMesgBatch(addMesgDto, userid, "");
 			addMesgDto = new MesgDto();
 			this.addActionMessage("发送成功！");
 		} catch(Exception e) {
@@ -389,5 +389,9 @@ public class MesgAction extends BaseAction {
 		this.delMesgId = delMesgId;
 	}
 	
-	
+	public static void main(String[] args) {
+		String rank = "C";
+		String rankB = "B";
+		System.out.println(rank.compareTo(rankB));
+	}
 }

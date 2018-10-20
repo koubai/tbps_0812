@@ -88,34 +88,62 @@ public class MesgServiceImpl implements MesgService {
 	}
 	
 	@Override
-	public void insertMesgBatch(MesgDto mesg, String sendUserid) {
+	public void insertMesgBatch(MesgDto mesg, String sendUserid, String rank) {
 		if("1".equals(mesg.getSendAllFlag())) {
 			//发送所有人
 			MesgDto tmpMesg = null;
 			List<UserInfoDto> userList = userInfoDao.queryAllUser();
 			if(userList != null && userList.size() > 0) {
 				for(UserInfoDto user : userList) {
-					//不发给自己
-					//if(!sendUserid.equals(user.getLOGIN_ID())) {
-						tmpMesg = new MesgDto();
-						//收件人
-						tmpMesg.setRECEIVE_USER(user.getLOGIN_ID());
-						//消息标题
-						tmpMesg.setMSG_TITLE(mesg.getMSG_TITLE());
-						//消息内容
-						tmpMesg.setMSG_CONTENT(mesg.getMSG_CONTENT());
-						//消息类型：10发送，20接收
-						tmpMesg.setMSG_TYPE("10");
-						//发件状态：10新增，20已经发送，30删除
-						tmpMesg.setSEND_STATUS("20");
-						//收件状态：10未打开，20已打开，30删除
-						tmpMesg.setRECEIVE_STATUS("10");
-						tmpMesg.setDELETE_FLG(Constants.IS_DELETE_NORMAL);
-						//发件人
-						tmpMesg.setSEND_USER(sendUserid);
-						tmpMesg.setUPDATE_USER(sendUserid);
-						mesgDao.insertMesg(tmpMesg);
-					//}
+					//判断rank是否有值
+					if(StringUtil.isNotBlank(rank)) {
+						//只发给rank小的
+						if(rank.compareTo(user.getRANK()) >= 0) {
+							//不发给自己
+							//if(!sendUserid.equals(user.getLOGIN_ID())) {
+								tmpMesg = new MesgDto();
+								//收件人
+								tmpMesg.setRECEIVE_USER(user.getLOGIN_ID());
+								//消息标题
+								tmpMesg.setMSG_TITLE(mesg.getMSG_TITLE());
+								//消息内容
+								tmpMesg.setMSG_CONTENT(mesg.getMSG_CONTENT());
+								//消息类型：10发送，20接收
+								tmpMesg.setMSG_TYPE("10");
+								//发件状态：10新增，20已经发送，30删除
+								tmpMesg.setSEND_STATUS("20");
+								//收件状态：10未打开，20已打开，30删除
+								tmpMesg.setRECEIVE_STATUS("10");
+								tmpMesg.setDELETE_FLG(Constants.IS_DELETE_NORMAL);
+								//发件人
+								tmpMesg.setSEND_USER(sendUserid);
+								tmpMesg.setUPDATE_USER(sendUserid);
+								mesgDao.insertMesg(tmpMesg);
+							//}
+						}
+					} else {
+						//不发给自己
+						//if(!sendUserid.equals(user.getLOGIN_ID())) {
+							tmpMesg = new MesgDto();
+							//收件人
+							tmpMesg.setRECEIVE_USER(user.getLOGIN_ID());
+							//消息标题
+							tmpMesg.setMSG_TITLE(mesg.getMSG_TITLE());
+							//消息内容
+							tmpMesg.setMSG_CONTENT(mesg.getMSG_CONTENT());
+							//消息类型：10发送，20接收
+							tmpMesg.setMSG_TYPE("10");
+							//发件状态：10新增，20已经发送，30删除
+							tmpMesg.setSEND_STATUS("20");
+							//收件状态：10未打开，20已打开，30删除
+							tmpMesg.setRECEIVE_STATUS("10");
+							tmpMesg.setDELETE_FLG(Constants.IS_DELETE_NORMAL);
+							//发件人
+							tmpMesg.setSEND_USER(sendUserid);
+							tmpMesg.setUPDATE_USER(sendUserid);
+							mesgDao.insertMesg(tmpMesg);
+						//}
+					}
 				}
 			}
 		} else {

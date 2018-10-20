@@ -48,8 +48,9 @@ public interface MesgService {
 	 * 批量新增数据
 	 * @param mesg
 	 * @param sendUserid
+	 * @param rank
 	 */
-	public void insertMesgBatch(MesgDto mesg, String sendUserid);
+	public void insertMesgBatch(MesgDto mesg, String sendUserid, String rank);
 	
 	/**
 	 * 新增数据
