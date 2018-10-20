@@ -28,7 +28,7 @@
 		document.mainform.submit();
 	}
 	
-	function upd() {
+	function updBid() {
 		var id = getSelectedID();
 		if(id == "") {
 			alert("请选择一条记录！");
@@ -187,7 +187,7 @@
 					<div class="btns">
 						<ul>
 							<li><a href="javascript:;" onclick="add();"><i class="fa fa-plus" aria-hidden="true"></i>新增</a></li>
-							<li><a href="javascript:;" onclick="upd();"><i class="fa fa-pencil" aria-hidden="true"></i>修改</a></li>
+							<li><a href="javascript:;" onclick="updBid();"><i class="fa fa-pencil" aria-hidden="true"></i>修改</a></li>
 							<!-- <li><a href="javascript:;" onclick="del();"><i class="fa fa-trash" aria-hidden="true"></i>删除</a></li> -->
 						</ul>
 					</div>

@@ -1721,6 +1721,9 @@ public class BidServiceImpl extends BaseService implements BidService {
 		bidHist.setUPDATE_USER(bid.getUPDATE_USER());
 		bidHist.setINSERT_DATE(bid.getINSERT_DATE());
 		bidHist.setUPDATE_DATE(bid.getUPDATE_DATE());
+		bidHist.setBID_WIN_DOC_SCAN_FLG(bid.getBID_WIN_DOC_SCAN_FLG());
+		bidHist.setBID_AGENT_PRICE_INVOICE(bid.getBID_AGENT_PRICE_INVOICE());
+		bidHist.setBID_EXPERT_NOTIFY_DATE(bid.getBID_EXPERT_NOTIFY_DATE());
 		return bidHist;
 	}
 

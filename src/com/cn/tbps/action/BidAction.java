@@ -138,6 +138,9 @@ public class BidAction extends BaseAction {
 	 */
 	private String updateBidNo;
 	
+	//显示TabIndex（取值1-8），默认显示第一个TAB页
+	private String updBidTabIndex;
+	
 	private List<UserInfoDto> listUserInfo;
 	
 	private List<SuperviseLibDto> listSuperviseLib;
@@ -691,6 +694,7 @@ public class BidAction extends BaseAction {
 			strProjectType = "";
 			strOpenDateLow = "";
 			strOpenDateHigh = "";
+			updBidTabIndex = "";
 			page = new Page();
 			startIndex = 0;
 			listBid = new ArrayList<BidDto>();
@@ -742,6 +746,7 @@ public class BidAction extends BaseAction {
 	 */
 	@SuppressWarnings("unchecked")
 	private void queryBid() {
+		updBidTabIndex = "";
 		listBid = new ArrayList<BidDto>();
 		if(page == null) {
 			page = new Page();
@@ -1156,5 +1161,13 @@ public class BidAction extends BaseAction {
 
 	public void setMajor51List(List<MajorDto> major51List) {
 		this.major51List = major51List;
+	}
+
+	public String getUpdBidTabIndex() {
+		return updBidTabIndex;
+	}
+
+	public void setUpdBidTabIndex(String updBidTabIndex) {
+		this.updBidTabIndex = updBidTabIndex;
 	}
 }
