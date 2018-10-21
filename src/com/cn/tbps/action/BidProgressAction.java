@@ -499,6 +499,7 @@ public class BidProgressAction extends BaseAction {
 		}
 		//中标投标文件扫描
 		else if (BTN_NO.equals("0505")){
+			System.out.println("ScanFlg:" + bidDto.getBID_WIN_DOC_SCAN_FLG());
 			if (bidDto.getBID_WIN_DOC_SCAN_FLG()== null && ScanFlg.equals("1")){
 				//消息推送
 				MesgDto addMesgDto = new MesgDto();

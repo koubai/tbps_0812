@@ -62,6 +62,16 @@
 			$("#File05").attr("value","");
 		else
 			$("#File05").attr("value", $("#lbFile05").html());
+		
+		
+		$("#ScanFlg").attr("value","");
+		var ob = document.getElementsByName("rdoScanflg");
+		if (ob[0].checked == true){
+			$("#ScanFlg").attr("value","1");
+		}
+		if (ob[1].checked == true){
+			$("#ScanFlg").attr("value","0");
+		} 
 //		document.mainform.action='<c:url value="/bidprogress/saveBidProgressUtilAction.action"></c:url>' + "?Finish_status=" + $("#Finish_status").val() + "&Date1=" + $("#Date1").val() + "&Date2=" + $("#Date2").val()+ "&Member1=" + $("#Member1").val()+ "&lblbFile01=" + $("#lblbFile01").val()+ "&File02=" + $("#File02").val()+ "&File03=" + $("#File03").val()+ "&File04=" + $("#File04").val()+ "&File05=" + $("#File05").val() + "&date=" + new Date();
 		document.mainform.action='<c:url value="/bidprogress/saveBidProgressUtilAction.action"></c:url>' + "?Finish_status=" + $("#Finish_status").val() + "&Date1=" + $("#Date1").val() + "&Date2=" + $("#Date2").val()+ "&Member1=" + $("#Member1").val() + "&date=" + new Date();
 		document.mainform.action();//提交表单
@@ -429,19 +439,19 @@
 										<td>
 										<c:choose>
 						                     <c:when test="${ScanFlg=='1'}">
-							                     <input type="radio" name="ScanFlg" value="1"  checked />有
+							                     <input type="radio" name="rdoScanflg" id="Scanflg_t" value="1"  checked />有
 						                     </c:when>
 						                     <c:otherwise>
-							                      <input type="radio" name="ScanFlg" value="1"  />有
+							                      <input type="radio" name="rdoScanflg" id="Scanflg_t" value="1"  />有
 						                     </c:otherwise>
 					                    </c:choose>
 					                    &nbsp;&nbsp;&nbsp;&nbsp;
 	            				        <c:choose>
 											<c:when test="${ScanFlg=='0'}">
-							                     <input type="radio" name="ScanFlg" value="0"  checked />无
+							                     <input type="radio" name="rdoScanflg" id="Scanflg_f" value="0"  checked />无
 						                    </c:when>
 							                <c:otherwise>
-							                	<input type="radio" name="ScanFlg" value="0"  />无
+							                	<input type="radio" name="rdoScanflg" id="Scanflg_f" value="0"  />无
 							                </c:otherwise>
 					                     </c:choose>
 										</td>
