@@ -227,6 +227,18 @@
 			<result name="success">/page/bid/selectexpertcomp.jsp</result>
 		</action>
 		
+		<action name="exportBidDataRptAction" class="bidAction" method="exportBidDataRptAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
+		<action name="exportBidEngineerRptAction" class="bidAction" method="exportBidEngineerRptAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
+		<action name="exportBidAccountRptAction" class="bidAction" method="exportBidAccountRptAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
+		<action name="exportBidNeiyeRptAction" class="bidAction" method="exportBidNeiyeRptAction">
+			<result name="success">/page/download.jsp</result>
+		</action>
 	</package>
 
 </struts>

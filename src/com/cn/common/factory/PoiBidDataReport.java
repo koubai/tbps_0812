@@ -14,7 +14,6 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.cn.common.util.StringUtil;
-import com.cn.tbps.dto.BidDto;
 import com.cn.tbps.dto.BidRptDto;
 
 /**
@@ -258,8 +257,14 @@ public class PoiBidDataReport extends Poi2007Base {
 			cell25.setCellValue(biddata.getBID_NOTICE_ED_DATE().toString());
 			cell25.setCellStyle(style);
 			// 中标文件扫描
-// need to change
-			cell26.setCellValue("");
+			if (StringUtil.isBlank(biddata.getBID_WIN_DOC_SCAN_FLG()))
+					cell26.setCellValue("");
+			else{
+				if (biddata.getBID_WIN_DOC_SCAN_FLG().equals("0"))
+					cell26.setCellValue("无");
+				else
+					cell26.setCellValue("有");
+			}
 			cell26.setCellStyle(style);
 			// 评标报告扫描归档
 			cell27.setCellValue(biddata.getBID_VER_DOC_SCAN_DATE().toString());
@@ -278,7 +283,7 @@ public class PoiBidDataReport extends Poi2007Base {
 			cell31.setCellStyle(style);
 			// 公告打印
 // need to change			
-			cell32.setCellValue("");
+			cell32.setCellValue(biddata.getAPPLY_FORM_BOX_DATE().toString());
 			cell32.setCellStyle(style);
 			// 编制报名表
 			cell33.setCellValue(biddata.getGEN_REGISTE_RPT_DATE().toString());
@@ -293,8 +298,7 @@ public class PoiBidDataReport extends Poi2007Base {
 			cell36.setCellValue(biddata.getSUPPORT_DOC_DATE().toString());
 			cell36.setCellStyle(style);
 			// 专家通知
-// need to change			
-			cell37.setCellValue("");
+			cell37.setCellValue(biddata.getBID_EXPERT_NOTIFY_DATE().toString());
 			cell37.setCellStyle(style);
 			// 中标通知书签收及录入
 			cell38.setCellValue(biddata.getBID_INFORM_RCV_DATE().toString());
@@ -303,7 +307,9 @@ public class PoiBidDataReport extends Poi2007Base {
 			cell39.setCellValue(biddata.getBID_VER_DOC_SCAN_DATE().toString());
 			cell39.setCellStyle(style);
 			// 专家费预借日期
-			cell40.setCellValue(biddata.getBID_EXPERT_COMMISION_PRE_DATE().toString());
+//			cell40.setCellValue(biddata.getBID_EXPERT_COMMISION_PRE_DATE().toString());
+// NEED TO CHANGE			
+			cell40.setCellValue(biddata.getBID_EXPERT_COMMISION_APPLY_DATE().toString());
 			cell40.setCellStyle(style);
 			// 专家费预借费用
 			cell41.setCellValue(StringUtil.BigDecimal2Str(biddata.getBID_EXPERT_COMMISION_PRE(),2));
@@ -318,7 +324,6 @@ public class PoiBidDataReport extends Poi2007Base {
 	 * 输出Head部分
 	 * @param sheet
 	 */
-	@SuppressWarnings("deprecation")
 	@Override
 	public void writeHead(XSSFSheet sheet, XSSFWorkbook workbook) {
 		//Head部分颜色字体

@@ -119,6 +119,30 @@
 		document.mainform.submit();
 	}
 	
+	// 数据源导出
+	function exportBidDataRpt() {
+		document.mainform.action = '<c:url value="/bid/exportBidDataRptAction.action"></c:url>';
+		document.mainform.submit();
+	}
+	
+	// 工程师模板导出
+	function exportBidEngineerRpt() {
+		document.mainform.action = '<c:url value="/bid/exportBidEngineerRptAction.action"></c:url>';
+		document.mainform.submit();
+	}
+	
+	// 财务模板导出
+	function exportBidAccountRpt() {
+		document.mainform.action = '<c:url value="/bid/exportBidAccountRptAction.action"></c:url>';
+		document.mainform.submit();
+	}
+	
+	// 内业模板导出
+	function exportBidNeiyeRpt() {
+		document.mainform.action = '<c:url value="/bid/exportBidNeiyeRptAction.action"></c:url>';
+		document.mainform.submit();
+	}
+	
 	function goBidProgress(bidNo) {
 		$("#strBID_NO").val(bidNo);
 		document.mainform.action = '<c:url value="/bidprogress/showBidProgressAction.action"></c:url>';
@@ -231,6 +255,12 @@
 					<div class="operationBtns">
 						<button type="button" class="btn btn-success" onclick="exportBid();">导出</button>
 						<button type="button" class="btn btn-success" onclick="progressBid();">进展状态</button>
+					</div>
+					<div class="operationBtns">
+						<button type="button" class="btn btn-success" onclick="exportBidDataRpt();">数据源导出</button>
+						<button type="button" class="btn btn-success" onclick="exportBidEngineerRpt();">工程师模板导出</button>
+						<button type="button" class="btn btn-success" onclick="exportBidAccountRpt();">财务模板导出</button>
+						<button type="button" class="btn btn-success" onclick="exportBidNeiyeRpt();">内业模板导出</button>
 					</div>
 				</s:form>
 			</div>

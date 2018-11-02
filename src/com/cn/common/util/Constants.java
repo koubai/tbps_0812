@@ -322,13 +322,12 @@ public class Constants {
 	
 	//招标所有源数据
 	public final static String EXCEL_TYPE_BIDDATAREPORT = "BIDDATA_REPORT";
-
 	//招标工程师模板
 	public final static String EXCEL_TYPE_BIDENGINEERREPORT = "BIDENGINEER_REPORT";
-
 	//招标财务模板
-	public final static String EXCEL_TYPE_BIDACCOUNTREPORT = "BIDACCOUNTR_EPORT";
-
+	public final static String EXCEL_TYPE_BIDACCOUNTREPORT = "BIDACCOUNT_EPORT";
+	//招标内业模板
+	public final static String EXCEL_TYPE_BIDNEIYEREPORT = "BIDINTERNAL_EPORT";
 	//招标专家评审费申请发放表
 	public final static String EXCEL_TYPE_EXPERTPAYREPORT = "EXPERTPAY_REPORT";
 }

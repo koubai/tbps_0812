@@ -3,13 +3,17 @@ package com.cn.tbps.action;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import com.cn.common.action.BaseAction;
+import com.cn.common.factory.Poi2007Base;
+import com.cn.common.factory.PoiFactory;
 import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
+import com.cn.tbps.dto.AuditDto;
 import com.cn.tbps.dto.BidDto;
 import com.cn.tbps.dto.UserInfoDto;
 import com.cn.tbps.service.BidService;
@@ -190,6 +194,32 @@ public class BidExpertCostAction extends BaseAction {
 		this.setStartIndex(page.getStartIndex());
 	}
 
+	// 专家费信息导出
+	public String expertCostExportAction(){
+		try {
+			this.clearMessages();
+			String name = StringUtil.createFileName(Constants.EXCEL_TYPE_EXPERTPAYREPORT);
+			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
+			response.setContentType("application/vnd.ms-excel");
+			Poi2007Base base = PoiFactory.getPoi(Constants.EXCEL_TYPE_EXPERTPAYREPORT);
+			
+			listBid = bidService.queryAllBidExport(
+					"", "", "",
+					"", "", "", "", "",
+					"", "", "", "", "",
+					strCNTRCT_ST_DATE, strCNTRCT_ED_DATE);
+			
+			base.setDatas(listBid);
+			base.setSheetName(Constants.EXCEL_TYPE_EXPERTPAYREPORT);
+			base.exportExcel(response.getOutputStream());
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+		
+	}
+	
 	public BidService getBidService() {
 		return bidService;
 	}

@@ -66,12 +66,28 @@
 		
 		$("#ScanFlg").attr("value","");
 		var ob = document.getElementsByName("rdoScanflg");
-		if (ob[0].checked == true){
-			$("#ScanFlg").attr("value","1");
+		if (ob.length >0){
+			if (ob[0].checked == true){
+				$("#ScanFlg").attr("value","1");
+			}
+			if (ob[1].checked == true){
+				$("#ScanFlg").attr("value","0");
+			} 			
 		}
-		if (ob[1].checked == true){
-			$("#ScanFlg").attr("value","0");
-		} 
+		
+		var receivers = "";
+		var checkers = document.getElementsByName("RECEIVER");
+		if (checkers.length > 0){
+			var j = 0;
+			for (var i=0; i<checkers.length; i++){
+				if (checkers[i].checked == true){
+					receivers += checkers[i].value+";";
+					j++;
+				}
+			}
+			$("#RECEIVERS").attr("value", receivers);			
+		}
+		
 //		document.mainform.action='<c:url value="/bidprogress/saveBidProgressUtilAction.action"></c:url>' + "?Finish_status=" + $("#Finish_status").val() + "&Date1=" + $("#Date1").val() + "&Date2=" + $("#Date2").val()+ "&Member1=" + $("#Member1").val()+ "&lblbFile01=" + $("#lblbFile01").val()+ "&File02=" + $("#File02").val()+ "&File03=" + $("#File03").val()+ "&File04=" + $("#File04").val()+ "&File05=" + $("#File05").val() + "&date=" + new Date();
 		document.mainform.action='<c:url value="/bidprogress/saveBidProgressUtilAction.action"></c:url>' + "?Finish_status=" + $("#Finish_status").val() + "&Date1=" + $("#Date1").val() + "&Date2=" + $("#Date2").val()+ "&Member1=" + $("#Member1").val() + "&date=" + new Date();
 		document.mainform.action();//提交表单
@@ -246,6 +262,8 @@
 						<div class="form-group">
 				
 							<label for="" class="col-lg-3 form-label"><s:property value="strBID_NO" /></label>
+							<s:hidden name="BTN_NO" id="BTN_NO"/>
+							<s:hidden name="RECEIVERS" id="RECEIVERS"/>
 							<s:hidden name="strBID_NO" id="strBID_NO"/>
 							<s:hidden name="strBID_COMP_NO" id="strBID_COMP_NO"/>
 							<s:hidden name="Date1" id="Date1"/>
@@ -525,7 +543,7 @@
 											<s:if test='File05_URL != ""'><a href="<s:property value="File05_URL"/>">链接</a></s:if>
 										</td>
 									</tr>
-								</s:if>								
+								</s:if>	
 								<tr>
 									<td>
 									<div class="col-lg-8 form-group">
@@ -541,6 +559,36 @@
 									</td>
 								</tr>
 								</table>
+								<s:if test='BTN_NO== "0501" || BTN_NO== "0103" || BTN_NO== "0505"'>
+								
+									<div style="height:60;width:60;overflow:scroll">
+									<!-- <table class="table table-bordered">  -->
+									推送人员选择
+									<table  class="table table-bordered" height="50" border="1" width="1400" cellpadding="0" cellspacing="0">
+										<tr style="height:10">
+											<th>姓名</th>
+											<th>姓名</th>
+											<th>姓名</th>
+										</tr>
+										<s:iterator id="listUserInfo" value="listUserInfo" status="st1">
+											<s:if test='#st1.index%3 == 0'>
+												<tr>
+												<td>&nbsp;&nbsp;<input name="RECEIVER" type="checkbox" value="<s:property value="LOGIN_ID"/>"/>&nbsp;&nbsp;&nbsp;&nbsp;<s:property value="LOGIN_NAME"/></td>										
+											</s:if>
+											<s:elseif test='#st1.index%3 == 1'>
+												<td>&nbsp;&nbsp;<input name="RECEIVER" type="checkbox" value="<s:property value="LOGIN_ID"/>"/>&nbsp;&nbsp;&nbsp;&nbsp;<s:property value="LOGIN_NAME"/></td>										
+											</s:elseif>		
+											<s:elseif test='#st1.index%3 == 2'>
+												<td>&nbsp;&nbsp;<input name="RECEIVER" type="checkbox" value="<s:property value="LOGIN_ID"/>"/>&nbsp;&nbsp;&nbsp;&nbsp;<s:property value="LOGIN_NAME"/></td>										
+												</tr>
+											</s:elseif>
+										</s:iterator>
+										<s:if test='#st1.index%3 != 2'>
+											</tr>
+										</s:if>									
+									</table>
+									</div>
+								</s:if>
 								</form>
 							</div>
 						</div>

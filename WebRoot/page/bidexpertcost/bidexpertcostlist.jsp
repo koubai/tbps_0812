@@ -74,6 +74,13 @@
 		}
 	}
 	
+	//专家费信息导出
+	function expertcostexport(){
+		document.mainform.action = '<c:url value="/bidexpertcost/expertCostExportAction.action"></c:url>';
+		document.mainform.submit();		
+	}
+	
+	
 	function createInput(id, value) {
 		var input = document.createElement("input");
 		input.type = "text";
@@ -405,6 +412,8 @@
 					<jsp:include page="../turning.jsp" flush="true" />
 					<div class="operationBtns">
 						<button type="button" class="btn btn-success" onclick="save();">保存</button>
+					&nbsp;&nbsp;&nbsp;&nbsp;
+						<button type="button" class="btn btn-success" onclick="expertcostexport();">专家费导出</button>
 					</div>
 				</s:form>
 			</div>

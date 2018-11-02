@@ -22,7 +22,12 @@
 <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
-<script type="text/javascript">	
+<script type="text/javascript">
+	function goBidList() {
+		window.location.href = '<c:url value="/bid/queryBidList.action"></c:url>';
+		//document.mainform.submit();
+	}
+
 	function goBidProgress() {
 		document.mainform.action = '<c:url value="/bidprogress/showBidProgressAction.action"></c:url>';
 		document.mainform.submit();
@@ -30,23 +35,32 @@
 
 	function showProgressUtil(btn_no, util_typ) {
 		$("#BTN_NO").attr("value", btn_no);
+		var member_picker = 0;
+		if (btn_no == "0501" || btn_no == "0103" || btn_no == "0505" )
+			member_picker = 300;
 //		alert($("#BTN_NO").val());
 //		alert(util_typ);
 		var url = '<c:url value="/bidprogress/showBidProgressUtilAction.action"></c:url>' + "?BTN_NO=" + btn_no + "&UTIL_TYP=" + util_typ + "&date=" + new Date();
+		var win_height = 0;
 		if (util_typ == 3 ){
-			window.open(url, window, "height=600px;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+			win_height = 600 + member_picker;
+			window.open(url, window, "height=win_height;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
 		}
 		if (util_typ == 4){
-			window.open(url, window, "height=500px;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");				
+			win_height = 500 + member_picker;
+			window.open(url, window, "height=win_height;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");				
 		}
 		if (util_typ == 5){
-			window.open(url, window, "height=500px;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");				
+			win_height = 500 + member_picker;
+			window.open(url, window, "height=win_height;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");				
 		}
 		if (util_typ == 1 || util_typ == 2 ){
-			window.open(url, window, "height=400px;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");				
+			win_height = 400 + member_picker;
+			window.open(url, window, "height=win_height;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");				
 		}
 		if (util_typ == 6){
-			window.open(url, window, "height=300px;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");				
+			win_height = 300 + member_picker;
+			window.open(url, window, "height=win_height;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");				
 		}
 	}
 	
@@ -68,13 +82,19 @@ th {
 		<jsp:include page="../info.jsp" flush="true" />
 		<div class="row">
 			<jsp:include page="../menu.jsp" flush="true" />
-			<div class="col-lg-10 right">
-			 	<a class="toggle" href="javascript:;"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+			<s:if test='#session.toggle_menu_flag == "1"'>
+				<div class="col-lg-10 right w100">
+				<a class="toggle" href="javascript:;"><i class="fa fa-angle-double-right" aria-hidden="true"></i></a>
+			</s:if>
+			<s:else>
+				<div class="col-lg-10 right">
+				<a class="toggle" href="javascript:;"><i class="fa fa-angle-double-left" aria-hidden="true"></i></a>
+			</s:else>		
 				<s:form id="mainform" name="mainform" method="POST">
 					<s:hidden name="startIndex" id="startIndex"/>
 					<s:hidden name="BTN_NO" id="BTN_NO"/>
 					<s:hidden name="Finish_status" id="Finish_status"/>
-					<h3 class="title">招标项目状态<a class="backHome" href="#" onclick="goHome();"><i class="fa fa-home" aria-hidden="true"></i>返回首页</a></h3>
+					<h3 class="title">招标项目状态<a class="backHome" href="#" onclick="goBidList()"><i class="fa fa-home" aria-hidden="true"></i>返回</a></h3>
 					<div class="row">
 						<div class="col-lg-3 form-group">
 							<label for="" class="col-lg-3 form-label">招标编号</label>

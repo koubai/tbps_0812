@@ -280,6 +280,64 @@
 		<result property="UPDATE_DATE" column="UPDATE_DATE" />
 	</resultMap>
 	
+	<resultMap id="BidDetailDto" class="com.cn.tbps.dto.BidRptDto">
+		<result property="CNTRCT_NO" column="CNTRCT_NO" />
+		<result property="PROJECT_DEVIEW_DATE" column="PROJECT_DEVIEW_DATE" />
+		<result property="BID_NO" column="BID_NO" />
+		<result property="CNTRCT_TYPE" column="CNTRCT_TYPE" />
+		<result property="PROJECT_PROPERTY" column="PROJECT_PROPERTY" />
+		<result property="PROJECT_NAME" column="PROJECT_NAME" />
+		<result property="BID_COMP_NAME" column="BID_COMP_NAME" />
+		<result property="CO_MANAGER1" column="CO_MANAGER1" />
+		<result property="PROJECT_AUTH" column="PROJECT_AUTH" />
+		<result property="BID_AGENT_PAY" column="BID_AGENT_PAY" />
+		<result property="BID_BOND" column="BID_BOND" />
+		<result property="BID_LIMIT_PRICE" column="BID_LIMIT_PRICE" />
+		<result property="BID_CO_NAME" column="BID_CO_NAME" />
+		<result property="BID_RESULT" column="BID_RESULT" />
+		<result property="BID_WIN_PRICE" column="BID_WIN_PRICE" />
+		<result property="BID_APPLY_PRICE" column="BID_APPLY_PRICE" />
+		<result property="BID_AGENT_PRICE" column="BID_AGENT_PRICE" />
+		<result property="BID_AGENT_PRICE_ACT" column="BID_AGENT_PRICE_ACT" />
+		<result property="PROJECT_MANAGER" column="PROJECT_MANAGER" />
+		<result property="TENDER_OPEN_DATE" column="TENDER_OPEN_DATE" />
+		<result property="TENDER_VERIFY_DATE" column="TENDER_VERIFY_DATE" />
+		<result property="REGISTE_ST_DATE1" column="REGISTE_ST_DATE1" />
+		<result property="REGISTE_ED_DATE1" column="REGISTE_ED_DATE1" />
+		<result property="REGISTE_ST_DATE2" column="REGISTE_ST_DATE2" />
+		<result property="BID_NOTICE_ST_DATE" column="BID_NOTICE_ST_DATE" />
+		<result property="BID_NOTICE_ED_DATE" column="BID_NOTICE_ED_DATE" />
+		<result property="BID_WIN_DOC_SCAN_FLG" column="BID_WIN_DOC_SCAN_FLG" />
+		<result property="BID_VER_DOC_SCAN_DATE" column="BID_VER_DOC_SCAN_DATE" />
+		<result property="BID_DOC_DELI_DATE1" column="BID_DOC_DELI_DATE1" />
+		<result property="BID_VER_DOC_DELI_DATE1" column="BID_VER_DOC_DELI_DATE1" />
+		<result property="FINISH_STATUS" column="FINISH_STATUS" />
+		<result property="FINISH_DATE" column="FINISH_DATE" />
+		<result property="PROGRESS_STATUS" column="PROGRESS_STATUS" />
+		<result property="APPLY_FORM_BOX_DATE" column="APPLY_FORM_BOX_DATE" />
+		<result property="GEN_REGISTE_RPT_DATE" column="GEN_REGISTE_RPT_DATE" />
+		<result property="GEN_VERIFY_RPT_DATE" column="GEN_VERIFY_RPT_DATE" />
+		<result property="APPLY_FORM_BOX_DATE" column="APPLY_FORM_BOX_DATE" />
+		<result property="SUPPORT_DOC_DATE" column="SUPPORT_DOC_DATE" />
+		<result property="BID_EXPERT_NOTIFY_DATE" column="BID_EXPERT_NOTIFY_DATE" />
+		<result property="BID_INFORM_RCV_DATE" column="BID_INFORM_RCV_DATE" />
+		<result property="BID_VER_DOC_SCAN_DATE" column="BID_VER_DOC_SCAN_DATE" />
+		<!-- <result property="BID_EXPERT_COMMISION_PRE_DATE" column="BID_EXPERT_COMMISION_PRE_DATE" /> -->
+		<result property="BID_EXPERT_COMMISION_PRE" column="BID_EXPERT_COMMISION_PRE" />
+		<result property="BID_EXPERT_COMMISION_ACT" column="BID_EXPERT_COMMISION_ACT" />
+		<result property="BID_EXPERT_COMMISION_DIFF_DATE" column="BID_EXPERT_COMMISION_DIFF_DATE" />
+		<result property="BID_PAYMENT_TYPE" column="BID_PAYMENT_TYPE" />
+		<result property="BID_VALUE_DATE" column="BID_VALUE_DATE" />
+		<result property="REFOUND_DEPOSIT_DATE" column="REFOUND_DEPOSIT_DATE" />
+		<result property="BID_APPLY_PRICE_DATE" column="BID_APPLY_PRICE_DATE" />
+		<result property="INVOICE_TYPE" column="INVOICE_TYPE" />
+		<result property="INVOICE_DATE" column="INVOICE_DATE" />
+		<result property="BID_RECEIPT_NO" column="BID_RECEIPT_NO" />
+		<result property="RECEIPT1_DATE" column="RECEIPT1_DATE" />
+		<result property="BID_AGENT_PRICE_INVOICE" column="BID_AGENT_PRICE_INVOICE" />
+		<result property="RECEIPT1_VALUE_DATE" column="RECEIPT1_VALUE_DATE" />
+	</resultMap>	
+	
 	<select id="queryBidAndBidCntrctCountByPage" resultClass="int" parameterClass="java.util.Map">
 		select count(*) from (
 			select * from (
@@ -630,5 +688,116 @@
 			UPDATE_DATE = NOW()
 		where BID_NO = #BID_NO#
 	</update>
+	
+	<select id="queryAllBidDetailExport" parameterClass="java.util.Map" resultMap="BidDetailDto">
+		select N.* from (
+		select A.CNTRCT_NO
+			,A.PROJECT_DEVIEW_DATE
+			,A.BID_NO
+			,A.CNTRCT_TYPE
+			,A.PROJECT_PROPERTY
+	   		,A.PROJECT_NAME
+			,A.BID_COMP_NAME
+			,A.CO_MANAGER1
+			,A.PROJECT_AUTH
+			,A.BID_AGENT_PAY
+			,A.BID_BOND
+			,A.BID_LIMIT_PRICE
+			,M.BID_CO_NAME
+			,M.BID_RESULT
+			,M.BID_WIN_PRICE
+			,M.BID_APPLY_PRICE
+			,A.BID_AGENT_PRICE
+			,A.BID_AGENT_PRICE_ACT
+			,A.PROJECT_MANAGER
+			,A.TENDER_OPEN_DATE
+			,A.TENDER_VERIFY_DATE
+			,A.REGISTE_ST_DATE1
+			,A.REGISTE_ED_DATE1
+			,A.REGISTE_ST_DATE2
+			,A.BID_NOTICE_ST_DATE
+			,A.BID_NOTICE_ED_DATE
+			,A.BID_WIN_DOC_SCAN_FLG
+			,A.BID_VER_DOC_SCAN_DATE
+			,A.BID_DOC_DELI_DATE1
+			,A.BID_VER_DOC_DELI_DATE1
+			,A.FINISH_STATUS
+			,A.FINISH_DATE
+			,A.PROGRESS_STATUS
+			,A.GEN_REGISTE_RPT_DATE
+			,A.GEN_VERIFY_RPT_DATE
+ 			,A.APPLY_FORM_BOX_DATE
+			,A.SUPPORT_DOC_DATE
+			,A.BID_EXPERT_NOTIFY_DATE
+			,A.BID_INFORM_RCV_DATE
+			,A.BID_EXPERT_COMMISION_PRE
+			,A.BID_EXPERT_COMMISION_ACT
+			,A.BID_EXPERT_COMMISION_DIFF_DATE
+			,M.BID_PAYMENT_TYPE
+			,M.BID_VALUE_DATE
+			,M.REFOUND_DEPOSIT_DATE
+			,M.BID_APPLY_PRICE_DATE
+			,M.INVOICE_TYPE
+			,M.INVOICE_DATE
+			,M.BID_RECEIPT_NO
+			,A.RECEIPT1_DATE
+			,A.BID_AGENT_PRICE_INVOICE
+			,A.RECEIPT1_VALUE_DATE
+		 from (
+			select * from (
+				select C.BID_COMP_NO,C.CNTRCT_YEAR,C.CNTRCT_NAME,C.CNTRCT_ST_DATE,C.CNTRCT_ED_DATE,C.BID_COMP_NAME,C.CO_MANAGER1,
+					T.* from bid T left join bidcntrct C on C.CNTRCT_NO = T.CNTRCT_NO
+			) B  
+			where 1 = 1 and B.DELETE_FLG = '1'
+			<isNotEmpty prepend="and" property="CNTRCT_YEAR">
+				B.CNTRCT_YEAR = #CNTRCT_YEAR#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="CNTRCT_TYPE">
+				B.CNTRCT_TYPE = #CNTRCT_TYPE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="CNTRCT_NO">
+				B.CNTRCT_NO = #CNTRCT_NO#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="BID_COMP_NO">
+				B.BID_COMP_NO = #BID_COMP_NO#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="CNTRCT_NAME">
+				B.CNTRCT_NAME like '%$CNTRCT_NAME$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="CNTRCT_ST_DATE">
+				B.CNTRCT_ST_DATE <![CDATA[>=]]> #CNTRCT_ST_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="CNTRCT_ED_DATE">
+				B.CNTRCT_ED_DATE <![CDATA[<=]]> #CNTRCT_ED_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="PROJECT_NAME">
+				B.PROJECT_NAME like '%$PROJECT_NAME$%'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="BID_NO_LOW">
+				B.BID_NO <![CDATA[>=]]> #BID_NO_LOW#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="BID_NO_HIGH">
+				B.BID_NO <![CDATA[<=]]> #BID_NO_HIGH#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="strBID_AGENT_PRICE_ACT">
+				$strBID_AGENT_PRICE_ACT$
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="strRECEIPT1_DATE">
+				$strRECEIPT1_DATE$
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="strRECEIPT1_VALUE_DATE">
+				$strRECEIPT1_VALUE_DATE$
+			</isNotEmpty>
+		) A right join bidcomp M on A.BID_NO = M.BID_NO
+		where 1 = 1
+			<isNotEmpty prepend="and" property="cntrctNos">
+				A.CNTRCT_NO in ($cntrctNos$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="finishStatuss">
+				A.FINISH_STATUS in ($finishStatuss$)
+			</isNotEmpty>
+		) N
+		order by N.BID_NO 
+	</select>
 	
 </sqlMap>

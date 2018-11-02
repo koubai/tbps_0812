@@ -12,6 +12,7 @@ import com.cn.common.util.StringUtil;
 import com.cn.tbps.dao.BidDao;
 import com.cn.tbps.dto.BidDto;
 import com.cn.tbps.dto.BidHistDto;
+import com.cn.tbps.dto.BidRptDto;
 
 /**
  * @name BidDaoImpl.java
@@ -174,6 +175,33 @@ public class BidDaoImpl extends BaseDao implements BidDao {
 		@SuppressWarnings("unchecked")
 		List<BidDto> list = getSqlMapClientTemplate().queryForList("queryAllBidExport", paramMap);
 		return list;
+	}
+	
+	public List<BidRptDto> queryAllBidDetailExport(
+			String strBID_AGENT_PRICE_ACT, String strRECEIPT1_DATE, String strRECEIPT1_VALUE_DATE,
+			String cntrctNos, String finishStatuss, String PROJECT_NAME, String BID_NO_LOW, String BID_NO_HIGH,
+			String CNTRCT_YEAR, String CNTRCT_NO, String BID_COMP_NO, String CNTRCT_NAME, String CNTRCT_TYPE,
+			String CNTRCT_ST_DATE, String CNTRCT_ED_DATE){
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("strBID_AGENT_PRICE_ACT", strBID_AGENT_PRICE_ACT);
+		paramMap.put("strRECEIPT1_DATE", strRECEIPT1_DATE);
+		paramMap.put("strRECEIPT1_VALUE_DATE", strRECEIPT1_VALUE_DATE);
+		paramMap.put("cntrctNos", cntrctNos);
+		paramMap.put("finishStatuss", finishStatuss);
+		paramMap.put("PROJECT_NAME", PROJECT_NAME);
+		paramMap.put("BID_NO_LOW", BID_NO_LOW);
+		paramMap.put("BID_NO_HIGH", BID_NO_HIGH);
+		paramMap.put("CNTRCT_YEAR", CNTRCT_YEAR);
+		paramMap.put("CNTRCT_NO", CNTRCT_NO);
+		paramMap.put("BID_COMP_NO", BID_COMP_NO);
+		paramMap.put("CNTRCT_NAME", CNTRCT_NAME);
+		paramMap.put("CNTRCT_TYPE", CNTRCT_TYPE);
+		paramMap.put("CNTRCT_ST_DATE", CNTRCT_ST_DATE);
+		paramMap.put("CNTRCT_ED_DATE", CNTRCT_ED_DATE);
+		@SuppressWarnings("unchecked")
+		List<BidRptDto> list = getSqlMapClientTemplate().queryForList("queryAllBidDetailExport", paramMap);
+		return list;
+		
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cn.tbps.dto.BidDto;
 import com.cn.tbps.dto.BidHistDto;
+import com.cn.tbps.dto.BidRptDto;
 
 /**
  * @name BidDao.java
@@ -45,6 +46,31 @@ public interface BidDao {
 	 * @return
 	 */
 	public List<BidDto> queryAllBidExport(
+			String strBID_AGENT_PRICE_ACT, String strRECEIPT1_DATE, String strRECEIPT1_VALUE_DATE,
+			String cntrctNos, String finishStatuss, String PROJECT_NAME, String BID_NO_LOW, String BID_NO_HIGH,
+			String CNTRCT_YEAR, String CNTRCT_NO, String BID_COMP_NO, String CNTRCT_NAME, String CNTRCT_TYPE,
+			String CNTRCT_ST_DATE, String CNTRCT_ED_DATE);
+	
+	/**
+	 * 查询所有的招标详细信息（Excel导出用）
+	 * @param strBID_AGENT_PRICE_ACT
+	 * @param strRECEIPT1_DATE
+	 * @param strRECEIPT1_VALUE_DATE
+	 * @param cntrctNos
+	 * @param finishStatuss
+	 * @param PROJECT_NAME
+	 * @param BID_NO_LOW
+	 * @param BID_NO_HIGH
+	 * @param CNTRCT_YEAR
+	 * @param CNTRCT_NO
+	 * @param BID_COMP_NO
+	 * @param CNTRCT_NAME
+	 * @param CNTRCT_TYPE
+	 * @param CNTRCT_ST_DATE
+	 * @param CNTRCT_ED_DATE
+	 * @return
+	 */
+	public List<BidRptDto> queryAllBidDetailExport(
 			String strBID_AGENT_PRICE_ACT, String strRECEIPT1_DATE, String strRECEIPT1_VALUE_DATE,
 			String cntrctNos, String finishStatuss, String PROJECT_NAME, String BID_NO_LOW, String BID_NO_HIGH,
 			String CNTRCT_YEAR, String CNTRCT_NO, String BID_COMP_NO, String CNTRCT_NAME, String CNTRCT_TYPE,

@@ -126,6 +126,8 @@ public class BidProgressAction extends BaseAction {
 	private String File05_URL;
 	private String upload_fileNo;  //upload file number
 	private List<UserInfoDto> listUserInfo;
+	private String RECEIVERS;      //推送人员名单
+
 	
 	private BidCompService bidCompService;	
 	private ExpertLibService expertLibService;
@@ -411,6 +413,8 @@ public class BidProgressAction extends BaseAction {
 		System.out.println("姓名：" + Member1);
 		System.out.println("File01：" + File01);
 		System.out.println("File01_URL：" + File01_URL);
+		String rtn ="";
+		String msgsnd = "";
 		
 		//项目完成情况
 		if (BTN_NO.equals("0106")){
@@ -435,12 +439,9 @@ public class BidProgressAction extends BaseAction {
 		else if (BTN_NO.equals("0501")){
 			if (bidDto.getAPPLY_FORM_FIX_DATE()== null && Date1!= null){
 				//消息推送
-				MesgDto addMesgDto = new MesgDto();
-				String sendUserRank = "A";
-				addMesgDto.setRECEIVE_USER("");
-				addMesgDto.setMSG_TITLE("招标编号：" + strBID_NO + "招标文件定稿.");
-				addMesgDto.setMSG_CONTENT("招标编号：" + strBID_NO + "招标文件定稿.");
-				mesgService.insertMesgBatch(addMesgDto, "SYSTEM", sendUserRank);
+				rtn = pushMessage(getRECEIVERS(), strBID_NO, "招标文件定稿.");
+				if (rtn.equals("SUCCESS"))
+					msgsnd = "TRUE";
 			}
 			bidDto.setAPPLY_FORM_FIX_DATE(Date1);
 		}
@@ -452,12 +453,9 @@ public class BidProgressAction extends BaseAction {
 		else if (BTN_NO.equals("0103")){
 			if (bidDto.getSUPPORT_DOC_DATE()== null && Date1!= null){
 				//消息推送
-				MesgDto addMesgDto = new MesgDto();
-				String sendUserRank = "A";
-				addMesgDto.setRECEIVE_USER("");
-				addMesgDto.setMSG_TITLE("招标编号：" + strBID_NO + "发送答疑、补充文件.");
-				addMesgDto.setMSG_CONTENT("招标编号：" + strBID_NO + "发送答疑、补充文件.");
-				mesgService.insertMesgBatch(addMesgDto, "SYSTEM", sendUserRank);
+				rtn = pushMessage(getRECEIVERS(), strBID_NO, "发送答疑、补充文件.");
+				if (rtn.equals("SUCCESS"))
+					msgsnd = "TRUE";
 			}
 			bidDto.setSUPPORT_DOC_DATE(Date1);			
 		}
@@ -502,12 +500,9 @@ public class BidProgressAction extends BaseAction {
 			System.out.println("ScanFlg:" + bidDto.getBID_WIN_DOC_SCAN_FLG());
 			if (bidDto.getBID_WIN_DOC_SCAN_FLG()== null && ScanFlg.equals("1")){
 				//消息推送
-				MesgDto addMesgDto = new MesgDto();
-				String sendUserRank = "A";
-				addMesgDto.setRECEIVE_USER("");
-				addMesgDto.setMSG_TITLE("招标编号：" + strBID_NO + "中标投标文件扫描有.");
-				addMesgDto.setMSG_CONTENT("招标编号：" + strBID_NO + "中标投标文件扫描有.");
-				mesgService.insertMesgBatch(addMesgDto, "SYSTEM", sendUserRank);
+				rtn = pushMessage(getRECEIVERS(), strBID_NO, "中标投标文件扫描有.");
+				if (rtn.equals("SUCCESS"))
+					msgsnd = "TRUE";
 			}
 			bidDto.setBID_WIN_DOC_SCAN_FLG(ScanFlg);
 		}
@@ -517,10 +512,40 @@ public class BidProgressAction extends BaseAction {
 		//查询专家列表
 //		listExpertLib = expertLibService.queryExpertLibByIds(bidDto.getBID_EXPERT_LIST());
 		bidService.updateBid(bidDto);
-		this.addActionMessage("保存成功！");
+		if (msgsnd.equals("TRUE"))
+			this.addActionMessage("保存成功, 推送成功！");
+		else
+			this.addActionMessage("保存成功！");
 
 		return SUCCESS;
 		
+	}
+
+	
+	public String pushMessage(String receivers, String strBID_NO, String strContent) throws Exception {
+		try {
+			System.out.println("receivers:" + receivers);
+			System.out.println("strBID_NO:" + strBID_NO);
+			System.out.println("strContent:" + strContent);
+			if (!receivers.equals("")){
+		    	String[] receiverlst = receivers.split(";");
+		    	if (receiverlst.length > 0){
+		    		for (int m = 0 ; m <receiverlst.length ; m++){
+		    			//消息推送
+		    			MesgDto addMesgDto = new MesgDto();
+		    			String sendUserRank = "A";
+		    			addMesgDto.setRECEIVE_USER(receiverlst[m]);
+		    			addMesgDto.setMSG_TITLE("招标编号：" + strBID_NO + strContent);
+		    			addMesgDto.setMSG_CONTENT("招标编号：" + strBID_NO + strContent);
+		    			mesgService.insertMesgBatch(addMesgDto, "SYSTEM", sendUserRank);		    			
+		    		}
+		    	}
+			}
+		}catch (Exception e){
+			System.out.println("uploadBidProgressUtilAction error:" + e);
+			return ERROR;
+		}	
+		return SUCCESS;		
 	}
 	
 	public String uploadBidProgressUtilAction() throws Exception {
@@ -1915,6 +1940,14 @@ public class BidProgressAction extends BaseAction {
 
 	public void setMesgService(MesgService mesgService) {
 		this.mesgService = mesgService;
+	}
+
+	public String getRECEIVERS() {
+		return RECEIVERS;
+	}
+
+	public void setRECEIVERS(String rECEIVERS) {
+		RECEIVERS = rECEIVERS;
 	}
 
 }

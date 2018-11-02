@@ -18,6 +18,7 @@ import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
 import com.cn.tbps.dto.BidCompDto;
 import com.cn.tbps.dto.BidDto;
+import com.cn.tbps.dto.BidRptDto;
 import com.cn.tbps.dto.ExpertLibDto;
 import com.cn.tbps.dto.MajorDto;
 import com.cn.tbps.dto.SuperviseLibDto;
@@ -77,7 +78,11 @@ public class BidAction extends BaseAction {
 	 * 招标列表
 	 */
 	private List<BidDto> listBid;
-	
+
+	/**
+	 * 招标列表(详细)
+	 */
+	private List<BidRptDto> listBidRpt;
 	/**
 	 * 查询条件-招标编号（起）
 	 */
@@ -865,6 +870,108 @@ public class BidAction extends BaseAction {
 		return true;
 	}
 	
+	// 数据源导出
+	public String exportBidDataRptAction(){
+		try {
+			this.clearMessages();
+			String name = StringUtil.createFileName(Constants.EXCEL_TYPE_BIDDATAREPORT);
+			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
+			response.setContentType("application/vnd.ms-excel");
+			Poi2007Base base = PoiFactory.getPoi(Constants.EXCEL_TYPE_BIDDATAREPORT);
+			
+			listBidRpt = bidService.queryAllBidDetailExport(
+					"", "", "",
+					"", "", "", strBidNoLow, strBidNoHigh,
+					"", "", "", "", "",
+					"", "");
+			
+			base.setDatas(listBidRpt);
+			base.setSheetName(Constants.EXCEL_TYPE_BIDDATAREPORT);
+			base.exportExcel(response.getOutputStream());
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+		
+	}
+	
+	// 工程师模板数据导出
+	public String exportBidEngineerRptAction(){
+		try {
+			this.clearMessages();
+			String name = StringUtil.createFileName(Constants.EXCEL_TYPE_BIDENGINEERREPORT);
+			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
+			response.setContentType("application/vnd.ms-excel");
+			Poi2007Base base = PoiFactory.getPoi(Constants.EXCEL_TYPE_BIDENGINEERREPORT);
+			
+			listBidRpt = bidService.queryAllBidDetailExport(
+					"", "", "",
+					"", "", "", strBidNoLow, strBidNoHigh,
+					"", "", "", "", "",
+					"", "");
+			
+			base.setDatas(listBidRpt);
+			base.setSheetName(Constants.EXCEL_TYPE_BIDENGINEERREPORT);
+			base.exportExcel(response.getOutputStream());
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+
+	// 财务模板数据导出
+	public String exportBidAccountRptAction(){
+		try {
+			this.clearMessages();
+			String name = StringUtil.createFileName(Constants.EXCEL_TYPE_BIDACCOUNTREPORT);
+			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
+			response.setContentType("application/vnd.ms-excel");
+			Poi2007Base base = PoiFactory.getPoi(Constants.EXCEL_TYPE_BIDACCOUNTREPORT);
+			
+			listBidRpt = bidService.queryAllBidDetailExport(
+					"", "", "",
+					"", "", "", strBidNoLow, strBidNoHigh,
+					"", "", "", "", "",
+					"", "");
+			
+			base.setDatas(listBidRpt);
+			base.setSheetName(Constants.EXCEL_TYPE_BIDACCOUNTREPORT);
+			base.exportExcel(response.getOutputStream());
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	// 内业模板数据导出
+	public String exportBidNeiyeRptAction(){
+		try {
+			this.clearMessages();
+			String name = StringUtil.createFileName(Constants.EXCEL_TYPE_BIDNEIYEREPORT);
+			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
+			response.setContentType("application/vnd.ms-excel");
+			Poi2007Base base = PoiFactory.getPoi(Constants.EXCEL_TYPE_BIDNEIYEREPORT);
+			
+			listBidRpt = bidService.queryAllBidDetailExport(
+					"", "", "",
+					"", "", "", strBidNoLow, strBidNoHigh,
+					"", "", "", "", "",
+					"", "");
+			
+			base.setDatas(listBidRpt);
+			base.setSheetName(Constants.EXCEL_TYPE_BIDNEIYEREPORT);
+			base.exportExcel(response.getOutputStream());
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	
 	public BidService getBidService() {
 		return bidService;
 	}
@@ -1170,4 +1277,14 @@ public class BidAction extends BaseAction {
 	public void setUpdBidTabIndex(String updBidTabIndex) {
 		this.updBidTabIndex = updBidTabIndex;
 	}
+
+	public List<BidRptDto> getListBidRpt() {
+		return listBidRpt;
+	}
+
+	public void setListBidRpt(List<BidRptDto> listBidRpt) {
+		this.listBidRpt = listBidRpt;
+	}
+	
+	
 }

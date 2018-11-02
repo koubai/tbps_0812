@@ -31,6 +31,7 @@ import com.cn.tbps.dto.BidCompDto;
 import com.cn.tbps.dto.BidCompExportDto;
 import com.cn.tbps.dto.BidDto;
 import com.cn.tbps.dto.BidHistDto;
+import com.cn.tbps.dto.BidRptDto;
 import com.cn.tbps.dto.ConfigTabDto;
 import com.cn.tbps.dto.ExpertLibDto;
 import com.cn.tbps.dto.SuperviseLibDto;
@@ -1725,6 +1726,104 @@ public class BidServiceImpl extends BaseService implements BidService {
 		bidHist.setBID_AGENT_PRICE_INVOICE(bid.getBID_AGENT_PRICE_INVOICE());
 		bidHist.setBID_EXPERT_NOTIFY_DATE(bid.getBID_EXPERT_NOTIFY_DATE());
 		return bidHist;
+	}
+	
+	
+	public List<BidRptDto> queryAllBidDetailExport(
+			String strBID_AGENT_PRICE_ACT, String strRECEIPT1_DATE, String strRECEIPT1_VALUE_DATE,
+			String cntrctNos, String finishStatuss, String PROJECT_NAME, String BID_NO_LOW, String BID_NO_HIGH,
+			String CNTRCT_YEAR, String CNTRCT_NO, String BID_COMP_NO, String CNTRCT_NAME, String CNTRCT_TYPE,
+			String CNTRCT_ST_DATE, String CNTRCT_ED_DATE){
+		
+		String newCntrctNos = "";
+		if(StringUtil.isNotBlank(cntrctNos)) {
+			String[] cntrctNoList = cntrctNos.split(",");
+			for(String s : cntrctNoList) {
+				if(StringUtil.isNotBlank(s)) {
+					newCntrctNos += "'" + s + "',";
+				}
+			}
+			newCntrctNos = newCntrctNos.substring(0, newCntrctNos.length() - 1);
+		}
+		if("1".equals(strBID_AGENT_PRICE_ACT)) {
+			strBID_AGENT_PRICE_ACT = " B.BID_AGENT_PRICE_ACT > 0 ";
+		} else if ("2".equals(strBID_AGENT_PRICE_ACT)) {
+			strBID_AGENT_PRICE_ACT = " (B.BID_AGENT_PRICE_ACT = 0 or B.BID_AGENT_PRICE_ACT is null) ";
+		} else {
+			strBID_AGENT_PRICE_ACT = "";
+		}
+		if("1".equals(strRECEIPT1_DATE)) {
+			strRECEIPT1_DATE = " B.RECEIPT1_DATE is not null ";
+		} else if ("2".equals(strRECEIPT1_DATE)) {
+			strRECEIPT1_DATE = " B.RECEIPT1_DATE is null ";
+		} else {
+			strRECEIPT1_DATE = "";
+		}
+		if("1".equals(strRECEIPT1_VALUE_DATE)) {
+			strRECEIPT1_VALUE_DATE = " B.RECEIPT1_VALUE_DATE is not null ";
+		} else if ("2".equals(strRECEIPT1_VALUE_DATE)) {
+			strRECEIPT1_VALUE_DATE = " B.RECEIPT1_VALUE_DATE is null ";
+		} else {
+			strRECEIPT1_VALUE_DATE = "";
+		}
+		PROJECT_NAME = StringUtil.replaceDatabaseKeyword_mysql(PROJECT_NAME);
+		CNTRCT_NAME = StringUtil.replaceDatabaseKeyword_mysql(CNTRCT_NAME);
+		List<BidRptDto> list = bidDao.queryAllBidDetailExport(strBID_AGENT_PRICE_ACT, strRECEIPT1_DATE, strRECEIPT1_VALUE_DATE,
+				newCntrctNos, finishStatuss, PROJECT_NAME, BID_NO_LOW, BID_NO_HIGH, CNTRCT_YEAR,
+				CNTRCT_NO, BID_COMP_NO, CNTRCT_NAME, CNTRCT_TYPE, CNTRCT_ST_DATE, CNTRCT_ED_DATE);
+		if(list != null && list.size() > 0) {
+			Map<String, String> userMap = new HashMap<String, String>();
+			List<UserInfoDto> userList = userInfoDao.queryAllUser();
+			if(userList != null) {
+				for(UserInfoDto user : userList) {
+					userMap.put(user.getLOGIN_ID(), user.getLOGIN_NAME());
+				}
+			}
+			for(BidRptDto bid : list) {
+				//会审监管人
+				if(StringUtil.isNotBlank(bid.getPROJECT_AUTH())) {
+					SuperviseLibDto superviseLib = superviseLibDao.querySuperviseLibByID(bid.getPROJECT_AUTH());
+					if(superviseLib != null) {
+						bid.setPROJECT_AUTH_NAME(superviseLib.getSUPERVISE_NAME());
+					}
+				}
+				
+				//专家费申请人
+				bid.setBID_EXPERT_COMMISION_APPLY_NAME(userMap.get(bid.getBID_EXPERT_COMMISION_APPLY()));
+				//担当者
+				bid.setPROJECT_MANAGER_NAME(userMap.get(bid.getPROJECT_MANAGER()));
+				//评审人
+				bid.setBID_AUTH_NAME(userMap.get(bid.getBID_AUTH()));
+				
+				//查询投标公司
+				String compids = bid.getBID_CO_LIST();
+				if(StringUtil.isNotBlank(compids)) {
+					compids = compids.substring(0, compids.length() - 1);
+					List<BidCompDto> bidCompList = bidCompDao.queryBidCompByIds(compids);
+					if(bidCompList != null && bidCompList.size() > 0) {
+						String BID_CO_NAME_LIST = "";
+						for(BidCompDto bidComp : bidCompList) {
+							BID_CO_NAME_LIST += bidComp.getBID_CO_NAME() + ",";
+						}
+						bid.setBID_CO_NAME_LIST(BID_CO_NAME_LIST);
+					}
+				}
+				//查询评审专家
+				String expertids = bid.getBID_EXPERT_LIST();
+				if(StringUtil.isNotBlank(expertids)) {
+					expertids = expertids.substring(0, expertids.length() - 1);
+					List<ExpertLibDto> expertList = expertLibDao.queryExpertLibByIds(expertids);
+					if(expertList != null && expertList.size() > 0) {
+						String BID_EXPERT_NAME_LIST = "";
+						for(ExpertLibDto expert : expertList) {
+							BID_EXPERT_NAME_LIST += expert.getEXPERT_NAME() + ",";
+						}
+						bid.setBID_EXPERT_NAME_LIST(BID_EXPERT_NAME_LIST);
+					}
+				}
+			}
+		}
+		return list;		
 	}
 
 	public BidDao getBidDao() {
