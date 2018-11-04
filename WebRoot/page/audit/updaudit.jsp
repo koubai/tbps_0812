@@ -1958,12 +1958,10 @@
 							<div class="col-lg-2">
 								<s:textfield name="updAuditDto.B_RATE" id="B_RATE" cssClass="col-lg-10 form-control" maxlength="14" theme="simple"></s:textfield>
 							</div>
-							<!-- 
 							<label for="" class="col-lg-1 form-label colorGold">乙方收费</label>
 							<div class="col-lg-2">
 								<s:textfield name="updAuditDto.B_AMOUNT" id="B_AMOUNT" disabled="true" cssClass="col-lg-10 form-control" maxlength="14" theme="simple"></s:textfield>
 							</div>
-							 -->
 						</div>
 						<div class="col-lg-12 form-group">
 							<div class="col-lg-2"></div>

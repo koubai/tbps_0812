@@ -257,12 +257,16 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 			if(bType.equals("1")) {
 				//标准收费
 				BigDecimal standard = standardAmountCalc(auditDto);
+				BigDecimal brate = standardRateCalc(auditDto);
 				if(standard.compareTo(BigDecimal.ZERO) == 1) {
-					if(auditDto.getB_RATE().compareTo(BigDecimal.ZERO) == 1) {
+/*					if(auditDto.getB_RATE().compareTo(BigDecimal.ZERO) == 1) {
 						bAmount = auditDto.getB_RATE().multiply(standard).divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_UP);
 					} else {
 						bAmount = standard;
 					}
+*/
+					bAmount = standard;
+					auditDto.setB_RATE(brate);
 				}
 			} else if(bType.equals("2")) {
 				//收费金额
@@ -457,11 +461,12 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 		
 	}
 	
-	//计算标准价
-	public static BigDecimal standardAmountCalc(AuditDto audit){
-		BigDecimal stdAmount = new BigDecimal(0);
+	
+	//计算审价收费合计标准价
+	public static BigDecimal totalAmountCalc(AuditDto audit){
+		BigDecimal sum_tax_calc_amount = new BigDecimal(0);
 		if (audit.getVERIFY_PER_AMOUNT()== null ||audit.getVERIFY_AMOUNT()== null||audit.getVERIFY_INCREASE()== null){
-			return stdAmount ;			
+			return sum_tax_calc_amount ;			
 		}
 		
 		// 各阶段的收费费率（%）
@@ -477,7 +482,6 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 		BigDecimal calc_amount = new BigDecimal(0);
 		BigDecimal left_amount = new BigDecimal(0);
 		BigDecimal tax_calc_amount = new BigDecimal(0);
-		BigDecimal sum_tax_calc_amount = new BigDecimal(0);
 		
 		// 100以下 （含100）	   
 		if (verify_per_amount.compareTo(new BigDecimal(100)) <= 0){
@@ -490,8 +494,8 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 		}
 		tax_calc_amount = calc_amount.multiply(new BigDecimal(7.3)); 
 		sum_tax_calc_amount=sum_tax_calc_amount.add(tax_calc_amount); 
-		System.out.println("tax_calc_amount" + tax_calc_amount);
-		System.out.println("sum_tax_calc_amount" + sum_tax_calc_amount);
+//		System.out.println("tax_calc_amount" + tax_calc_amount);
+//		System.out.println("sum_tax_calc_amount" + sum_tax_calc_amount);
 		
 		// 100~500 （含500）	   
 		if (left_amount.compareTo(new BigDecimal(400)) < 0 ){
@@ -504,8 +508,8 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 		}
 		tax_calc_amount = calc_amount.multiply(new BigDecimal(6.7)); 
 		sum_tax_calc_amount=sum_tax_calc_amount.add(tax_calc_amount); 
-		System.out.println("tax_calc_amount" + tax_calc_amount);
-		System.out.println("sum_tax_calc_amount" + sum_tax_calc_amount);
+//		System.out.println("tax_calc_amount" + tax_calc_amount);
+//		System.out.println("sum_tax_calc_amount" + sum_tax_calc_amount);
 		
 		// 500~1000 （含1000）	   
 		if (left_amount.compareTo(new BigDecimal(500)) < 0 ){
@@ -518,8 +522,8 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 		}
 		tax_calc_amount = calc_amount.multiply(new BigDecimal(5.1)); 
 		sum_tax_calc_amount=sum_tax_calc_amount.add(tax_calc_amount); 
-		System.out.println("tax_calc_amount" + tax_calc_amount);
-		System.out.println("sum_tax_calc_amount" + sum_tax_calc_amount);
+//		System.out.println("tax_calc_amount" + tax_calc_amount);
+//		System.out.println("sum_tax_calc_amount" + sum_tax_calc_amount);
 		
 		// 1000~3000 （含1000）	   
 		if (left_amount.compareTo(new BigDecimal(2000)) < 0 ){
@@ -532,8 +536,8 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 		}
 		tax_calc_amount = calc_amount.multiply(new BigDecimal(4)); 
 		sum_tax_calc_amount=sum_tax_calc_amount.add(tax_calc_amount); 
-		System.out.println("tax_calc_amount" + tax_calc_amount);
-		System.out.println("sum_tax_calc_amount" + sum_tax_calc_amount);
+//		System.out.println("tax_calc_amount" + tax_calc_amount);
+//		System.out.println("sum_tax_calc_amount" + sum_tax_calc_amount);
 		
 		// 3000~5000 （含5000）	   
 		if (left_amount.compareTo(new BigDecimal(2000)) < 0 ){
@@ -546,8 +550,8 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 		}
 		tax_calc_amount = calc_amount.multiply(new BigDecimal(3.8)); 
 		sum_tax_calc_amount=sum_tax_calc_amount.add(tax_calc_amount); 
-		System.out.println("tax_calc_amount" + tax_calc_amount);
-		System.out.println("sum_tax_calc_amount" + sum_tax_calc_amount);
+//		System.out.println("tax_calc_amount" + tax_calc_amount);
+//		System.out.println("sum_tax_calc_amount" + sum_tax_calc_amount);
 		
 		// 5000~10000 （含10000）	   
 		if (left_amount.compareTo(new BigDecimal(5000)) < 0 ){
@@ -560,21 +564,42 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 		}
 		tax_calc_amount = calc_amount.multiply(new BigDecimal(3.6)); 
 		sum_tax_calc_amount=sum_tax_calc_amount.add(tax_calc_amount); 
-		System.out.println("tax_calc_amount" + tax_calc_amount);
-		System.out.println("sum_tax_calc_amount" + sum_tax_calc_amount);
+//		System.out.println("tax_calc_amount" + tax_calc_amount);
+//		System.out.println("sum_tax_calc_amount" + sum_tax_calc_amount);
 
 		// 10000 以上
 		calc_amount = left_amount;
 		tax_calc_amount = calc_amount.multiply(new BigDecimal(3.2)); 
 		sum_tax_calc_amount=sum_tax_calc_amount.add(tax_calc_amount); 
-		System.out.println("tax_calc_amount" + tax_calc_amount);
-		System.out.println("sum_tax_calc_amount" + sum_tax_calc_amount);
+//		System.out.println("tax_calc_amount" + tax_calc_amount);
+//		System.out.println("sum_tax_calc_amount" + sum_tax_calc_amount);
+		
+		return sum_tax_calc_amount ;
+	}
+
+	//计算折算费率
+	public static BigDecimal standardRateCalc(AuditDto audit){
+		BigDecimal sum_tax_calc_amount = new BigDecimal(0);
+		BigDecimal ori_rate = new BigDecimal(0);
+		sum_tax_calc_amount =  totalAmountCalc(audit);
 		
 		//折算后税率%
-		BigDecimal ori_rate = sum_tax_calc_amount.divide(verify_per_amount,10,BigDecimal.ROUND_HALF_UP);
+		ori_rate = sum_tax_calc_amount.divide(audit.getVERIFY_PER_AMOUNT(),10,BigDecimal.ROUND_HALF_UP);
+		return ori_rate ;
+	}
+	
+	//计算标准价
+	public static BigDecimal standardAmountCalc(AuditDto audit){
+		BigDecimal stdAmount = new BigDecimal(0);
+		BigDecimal sum_tax_calc_amount = new BigDecimal(0);
+		BigDecimal ori_rate = new BigDecimal(0);
+		sum_tax_calc_amount =  totalAmountCalc(audit);		
+		
+		//折算后税率%
+		ori_rate = sum_tax_calc_amount.divide(audit.getVERIFY_PER_AMOUNT(),10,BigDecimal.ROUND_HALF_UP);
 		
 		// 标准收费额计算	（核增额*折算费率+（核减额-送审价*5%）*折算费率）%
-		stdAmount = audit.getVERIFY_INCREASE().multiply(ori_rate).add((audit.getVERIFY_DECREASE().subtract(verify_per_amount.multiply(new BigDecimal(0.05))).multiply(ori_rate))).divide(new BigDecimal(100),2, BigDecimal.ROUND_HALF_UP);
+		stdAmount = audit.getVERIFY_INCREASE().multiply(ori_rate).add((audit.getVERIFY_DECREASE().subtract(audit.getVERIFY_PER_AMOUNT().multiply(new BigDecimal(0.05))).multiply(ori_rate))).divide(new BigDecimal(100),2, BigDecimal.ROUND_HALF_UP);
 		System.out.println("ori_rate" + ori_rate);
 		System.out.println("stdAmount" + stdAmount);
 		
