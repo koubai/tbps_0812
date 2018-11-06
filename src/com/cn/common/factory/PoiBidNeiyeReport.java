@@ -178,16 +178,28 @@ public class PoiBidNeiyeReport extends Poi2007Base {
 			cell8.setCellValue(biddata.getPROJECT_MANAGER_NAME());
 			cell8.setCellStyle(style);
 			// 开标时间
-			cell9.setCellValue(biddata.getTENDER_OPEN_DATE().toString());
+			if (biddata.getTENDER_OPEN_DATE()!= null)
+				cell9.setCellValue(biddata.getTENDER_OPEN_DATE().toString());
+			else
+				cell9.setCellValue("");
 			cell9.setCellStyle(style);
 			// 评标时间
-			cell10.setCellValue(biddata.getTENDER_VERIFY_DATE().toString());
+			if (biddata.getTENDER_VERIFY_DATE()!= null)
+				cell10.setCellValue(biddata.getTENDER_VERIFY_DATE().toString());
+			else
+				cell10.setCellValue("");
 			cell10.setCellStyle(style);
 			// 招标公告开始时间
-			cell11.setCellValue(biddata.getREGISTE_ST_DATE1().toString());
+			if (biddata.getREGISTE_ST_DATE1()!= null)
+				cell11.setCellValue(biddata.getREGISTE_ST_DATE1().toString());
+			else
+				cell11.setCellValue("");
 			cell11.setCellStyle(style);
 			// 招标公告结束时间
-			cell12.setCellValue(biddata.getREGISTE_ED_DATE1().toString());
+			if (biddata.getREGISTE_ED_DATE1()!= null)
+				cell12.setCellValue(biddata.getREGISTE_ED_DATE1().toString());
+			else
+				cell12.setCellValue("");
 			cell12.setCellStyle(style);
 			// 是否二次公告
 			if (StringUtil.isBlank(biddata.getREGISTE_ST_DATE1().toString()))
@@ -196,55 +208,101 @@ public class PoiBidNeiyeReport extends Poi2007Base {
 				cell13.setCellValue("是");
 			cell13.setCellStyle(style);
 			// 中标公示开始时间
-			cell14.setCellValue(biddata.getBID_NOTICE_ST_DATE().toString());
+			if (biddata.getBID_NOTICE_ST_DATE()!= null)
+				cell14.setCellValue(biddata.getBID_NOTICE_ST_DATE().toString());
+			else
+				cell14.setCellValue("");
 			cell14.setCellStyle(style);
 			// 中标公示结束时间
-			cell15.setCellValue(biddata.getBID_NOTICE_ED_DATE().toString());
+			if (biddata.getBID_NOTICE_ED_DATE()!= null)
+				cell15.setCellValue(biddata.getBID_NOTICE_ED_DATE().toString());
+			else
+				cell15.setCellValue("");
 			cell15.setCellStyle(style);
 			// 中标文件扫描
-// need to change
-			cell16.setCellValue("");
+			if (StringUtil.isBlank(biddata.getBID_WIN_DOC_SCAN_FLG()))
+				cell16.setCellValue("");
+			else{
+				if (biddata.getBID_WIN_DOC_SCAN_FLG().equals("0"))
+					cell16.setCellValue("无");
+				else
+					cell16.setCellValue("有");
+			}
 			cell16.setCellStyle(style);
 			// 评标报告扫描归档
-			cell17.setCellValue(biddata.getBID_VER_DOC_SCAN_DATE().toString());
+			if (biddata.getBID_VER_DOC_SCAN_DATE()!= null)
+				cell17.setCellValue(biddata.getBID_VER_DOC_SCAN_DATE().toString());
+			else
+				cell17.setCellValue("");
 			cell17.setCellStyle(style);
 			// 招投标文件送至甲方
-			cell18.setCellValue(biddata.getBID_DOC_DELI_DATE1().toString());
+			if (biddata.getBID_DOC_DELI_DATE1() != null)
+				cell18.setCellValue(biddata.getBID_DOC_DELI_DATE1().toString());
+			else
+				cell18.setCellValue("");
 			cell18.setCellStyle(style);
 			// 评标报告送至甲方
-			cell19.setCellValue(biddata.getBID_VER_DOC_DELI_DATE1().toString());
+			if (biddata.getBID_VER_DOC_DELI_DATE1()!= null)
+				cell19.setCellValue(biddata.getBID_VER_DOC_DELI_DATE1().toString());
+			else
+				cell19.setCellValue("");
 			cell19.setCellStyle(style);
 			// 失败项目日期
-			cell20.setCellValue(biddata.getFINISH_DATE().toString());
+			if (biddata.getFINISH_DATE()!= null)
+				cell20.setCellValue(biddata.getFINISH_DATE().toString());
+			else
+				cell20.setCellValue("");
 			cell20.setCellStyle(style);
 			// 项目完成情况
-			cell21.setCellValue(biddata.getSTATUS_NAME().toString());
+			cell21.setCellValue(biddata.getFINISH_STATUS_NAME());
 			cell21.setCellStyle(style);
 			// 公告打印
-// need to change			
-			cell22.setCellValue("");
+			if (biddata.getAPPLY_FORM_BOX_DATE()!= null)
+				cell22.setCellValue(biddata.getAPPLY_FORM_BOX_DATE().toString());
+			else
+				cell22.setCellValue("");
 			cell22.setCellStyle(style);
 			// 编制报名表
-			cell23.setCellValue(biddata.getGEN_REGISTE_RPT_DATE().toString());
+			if (biddata.getGEN_REGISTE_RPT_DATE()!= null)
+				cell23.setCellValue(biddata.getGEN_REGISTE_RPT_DATE().toString());
+			else
+				cell23.setCellValue("");
 			cell23.setCellStyle(style);
 			// 编制审核表
-			cell24.setCellValue(biddata.getGEN_VERIFY_RPT_DATE().toString());
+			if (biddata.getGEN_VERIFY_RPT_DATE()!= null)
+				cell24.setCellValue(biddata.getGEN_VERIFY_RPT_DATE().toString());
+			else
+				cell24.setCellValue("");
 			cell24.setCellStyle(style);
 			// 招标文件装订
-			cell25.setCellValue(biddata.getAPPLY_FORM_BOX_DATE().toString());
+			if (biddata.getAPPLY_FORM_BOX_DATE()!= null)
+				cell25.setCellValue(biddata.getAPPLY_FORM_BOX_DATE().toString());
+			else
+				cell25.setCellValue("");
 			cell25.setCellStyle(style);
 			// 发送答疑、补充文件
-			cell26.setCellValue(biddata.getSUPPORT_DOC_DATE().toString());
+			if (biddata.getSUPPORT_DOC_DATE()!= null)
+				cell26.setCellValue(biddata.getSUPPORT_DOC_DATE().toString());
+			else
+				cell26.setCellValue("");
 			cell26.setCellStyle(style);
 			// 专家通知
-// need to change			
-			cell27.setCellValue("");
+			if (biddata.getBID_EXPERT_NOTIFY_DATE()!=null)
+				cell27.setCellValue(biddata.getBID_EXPERT_NOTIFY_DATE().toString());
+			else
+				cell27.setCellValue("");
 			cell27.setCellStyle(style);
 			// 中标通知书签收及录入
-			cell28.setCellValue(biddata.getBID_INFORM_RCV_DATE().toString());
+			if (biddata.getBID_INFORM_RCV_DATE() != null)
+				cell28.setCellValue(biddata.getBID_INFORM_RCV_DATE().toString());
+			else
+				cell28.setCellValue("");
 			cell28.setCellStyle(style);
 			// 评标报告装订/扫描
-			cell29.setCellValue(biddata.getBID_VER_DOC_SCAN_DATE().toString());
+			if (biddata.getBID_VER_DOC_SCAN_DATE()!= null)
+				cell29.setCellValue(biddata.getBID_VER_DOC_SCAN_DATE().toString());
+			else
+				cell29.setCellValue("");
 			cell29.setCellStyle(style);
 		}
 	}

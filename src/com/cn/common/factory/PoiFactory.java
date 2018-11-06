@@ -120,6 +120,9 @@ public class PoiFactory {
 		}else if(Constants.EXCEL_TYPE_BIDACCOUNTREPORT.equals(type)) {
 			//招标财务模板
 			return new PoiBidAccountReport();
+		}else if(Constants.EXCEL_TYPE_BIDNEIYEREPORT.equals(type)) {
+			//内业数据模板
+			return new PoiBidNeiyeReport();
 		}else if(Constants.EXCEL_TYPE_EXPERTPAYREPORT.equals(type)) {
 			//招标专家评审费申请发放表
 			return new PoiExpertPayReport();

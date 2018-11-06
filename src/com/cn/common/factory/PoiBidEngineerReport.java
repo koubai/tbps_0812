@@ -14,7 +14,6 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.cn.common.util.StringUtil;
-import com.cn.tbps.dto.BidDto;
 import com.cn.tbps.dto.BidRptDto;
 
 /**
@@ -212,47 +211,87 @@ public class PoiBidEngineerReport extends Poi2007Base {
 			cell18.setCellValue(biddata.getPROJECT_MANAGER_NAME());
 			cell18.setCellStyle(style);
 			// 开标时间
-			cell19.setCellValue(biddata.getTENDER_OPEN_DATE().toString());
+			if (biddata.getTENDER_OPEN_DATE() != null)
+				cell19.setCellValue(biddata.getTENDER_OPEN_DATE().toString());
+			else 
+				cell19.setCellValue("");
 			cell19.setCellStyle(style);
 			// 评标时间
-			cell20.setCellValue(biddata.getTENDER_VERIFY_DATE().toString());
+			if (biddata.getTENDER_VERIFY_DATE()!= null)
+				cell20.setCellValue(biddata.getTENDER_VERIFY_DATE().toString());
+			else 
+				cell20.setCellValue("");				
 			cell20.setCellStyle(style);
 			// 招标公告开始时间
-			cell21.setCellValue(biddata.getREGISTE_ST_DATE1().toString());
+			if (biddata.getREGISTE_ST_DATE1()!= null)
+				cell21.setCellValue(biddata.getREGISTE_ST_DATE1().toString());
+			else
+				cell21.setCellValue("");
 			cell21.setCellStyle(style);
 			// 招标公告结束时间
-			cell22.setCellValue(biddata.getREGISTE_ED_DATE1().toString());
+			if (biddata.getREGISTE_ED_DATE1()!=null )
+				cell22.setCellValue(biddata.getREGISTE_ED_DATE1().toString());
+			else
+				cell22.setCellValue("");
 			cell22.setCellStyle(style);
 			// 是否二次公告
-			if (StringUtil.isBlank(biddata.getREGISTE_ST_DATE1().toString()))
+			if (biddata.getREGISTE_ST_DATE1() == null)
 				cell23.setCellValue("");
-			else
-				cell23.setCellValue("是");
+			else{
+				if (StringUtil.isBlank(biddata.getREGISTE_ST_DATE1().toString()))
+					cell23.setCellValue("");
+				else
+					cell23.setCellValue("是");				
+			}
 			cell23.setCellStyle(style);
 			// 中标公示开始时间
-			cell24.setCellValue(biddata.getBID_NOTICE_ST_DATE().toString());
+			if (biddata.getBID_NOTICE_ST_DATE()!=null)
+				cell24.setCellValue(biddata.getBID_NOTICE_ST_DATE().toString());
+			else
+				cell24.setCellValue("");
 			cell24.setCellStyle(style);
 			// 中标公示结束时间
-			cell25.setCellValue(biddata.getBID_NOTICE_ED_DATE().toString());
+			if (biddata.getBID_NOTICE_ED_DATE()!=null)
+				cell25.setCellValue(biddata.getBID_NOTICE_ED_DATE().toString());
+			else
+				cell25.setCellValue("");
 			cell25.setCellStyle(style);
 			// 中标文件扫描
-// need to change
-			cell26.setCellValue("");
+			if (StringUtil.isBlank(biddata.getBID_WIN_DOC_SCAN_FLG()))
+					cell26.setCellValue("");
+			else{
+				if (biddata.getBID_WIN_DOC_SCAN_FLG().equals("0"))
+					cell26.setCellValue("无");
+				else
+					cell26.setCellValue("有");
+			}
 			cell26.setCellStyle(style);
 			// 评标报告扫描归档
-			cell27.setCellValue(biddata.getBID_VER_DOC_SCAN_DATE().toString());
+			if (biddata.getBID_VER_DOC_SCAN_DATE()!=null)
+				cell27.setCellValue(biddata.getBID_VER_DOC_SCAN_DATE().toString());
+			else
+				cell27.setCellValue("");
 			cell27.setCellStyle(style);
 			// 招投标文件送至甲方
-			cell28.setCellValue(biddata.getBID_DOC_DELI_DATE1().toString());
+			if (biddata.getBID_DOC_DELI_DATE1()!=null)
+				cell28.setCellValue(biddata.getBID_DOC_DELI_DATE1().toString());
+			else
+				cell28.setCellValue("");
 			cell28.setCellStyle(style);
 			// 评标报告送至甲方
-			cell29.setCellValue(biddata.getBID_VER_DOC_DELI_DATE1().toString());
+			if (biddata.getBID_VER_DOC_DELI_DATE1() != null)
+				cell29.setCellValue(biddata.getBID_VER_DOC_DELI_DATE1().toString());
+			else
+				cell29.setCellValue("");
 			cell29.setCellStyle(style);
 			// 失败项目日期
-			cell30.setCellValue(biddata.getFINISH_DATE().toString());
+			if (biddata.getFINISH_DATE()!= null)
+				cell30.setCellValue(biddata.getFINISH_DATE().toString());
+			else
+				cell30.setCellValue("");
 			cell30.setCellStyle(style);
-			// 项目完成情况
-			cell31.setCellValue(biddata.getFINISH_STATUS_NAME().toString());
+			cell31.setCellStyle(style);			// 项目完成情况
+			cell31.setCellValue(biddata.getFINISH_STATUS_NAME());
 			cell31.setCellStyle(style);
 		}
 	}
@@ -261,7 +300,6 @@ public class PoiBidEngineerReport extends Poi2007Base {
 	 * 输出Head部分
 	 * @param sheet
 	 */
-	@SuppressWarnings("deprecation")
 	@Override
 	public void writeHead(XSSFSheet sheet, XSSFWorkbook workbook) {
 		//Head部分颜色字体
