@@ -202,10 +202,14 @@ public class PoiBidNeiyeReport extends Poi2007Base {
 				cell12.setCellValue("");
 			cell12.setCellStyle(style);
 			// 是否二次公告
-			if (StringUtil.isBlank(biddata.getREGISTE_ST_DATE1().toString()))
+			if (biddata.getREGISTE_ST_DATE1() == null)
 				cell13.setCellValue("");
-			else
-				cell13.setCellValue("是");
+			else{
+				if (StringUtil.isBlank(biddata.getREGISTE_ST_DATE1().toString()))
+					cell13.setCellValue("");
+				else
+					cell13.setCellValue("是");				
+			}
 			cell13.setCellStyle(style);
 			// 中标公示开始时间
 			if (biddata.getBID_NOTICE_ST_DATE()!= null)
