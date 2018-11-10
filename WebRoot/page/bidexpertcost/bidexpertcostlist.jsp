@@ -275,6 +275,13 @@
 			alert("请选择一条记录！");
 		}
 	}
+	
+	function goBidUpd(strBID_NO, updBidTabIndex) {
+		var url = '<c:url value="/bid/showUpdBidAction.action"></c:url>'+"?updateBidNo=" + strBID_NO + "&updBidTabIndex=" + updBidTabIndex+ "&date=" + new Date();
+		document.mainform.action = url;
+		document.mainform.submit();
+	}	
+
 </script>
 </head>
 <body>
@@ -371,7 +378,7 @@
 								<td><input name="radioKey" type="radio" value="<s:property value="BID_NO"/>"/></td>
 								<td>
 									<input name="tmpBID_NO" type="hidden" value="<s:property value="BID_NO"/>">
-									<s:property value="BID_NO"/>
+									<a class="goBidUpd" href="#" onclick='goBidUpd("<s:property value="BID_NO"/>",8)'; ><s:property value="BID_NO"/></a>
 								</td>
 								<td><s:property value="PROJECT_NAME"/></td>
 								<td><s:property value="BID_COMP_NAME"/></td>

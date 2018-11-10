@@ -68,6 +68,13 @@
 		window.location.href = '<c:url value="/bid/queryBidList.action"></c:url>';
 	}
 
+	function goBidUpd(updBidTabIndex) {
+		var strBID_NO = $("#strBID_NO").val();
+		var url = '<c:url value="/bid/showUpdBidAction.action"></c:url>'+"?updateBidNo=" + strBID_NO + "&updBidTabIndex=" + updBidTabIndex+ "&date=" + new Date();
+		document.mainform.action = url;
+		document.mainform.submit();
+	}	
+
 </script>
 </head>
 <style type="text/css">
@@ -144,6 +151,7 @@ th {
 						<tr>
 							<td></td>
 							<td>
+								<!-- 
 								<s:if test='Status0101 == "9"'>
 									<button class="btn btn-success" id="0101" onclick="showProgressUtil('0101',0);">新项目登记&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
 								</s:if>
@@ -156,9 +164,23 @@ th {
 								<s:else>
 									<button class="btn btn-danger" id="0101" onclick="showProgressUtil('0101',0);">新项目登记&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
 								</s:else>
+								 -->
+								<s:if test='Status0101 == "9"'>
+									<button class="btn btn-success" id="0101" onclick="goBidUpd(1);">新项目登记&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:if>
+								<s:elseif test='Status0101 == "2"'>
+									<button class="btn btn-warning" id="0101" onclick="goBidUpd(1);">新项目登记&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:elseif>
+								<s:elseif test='Status0101 == "0"'>
+									<button class="btn btn-danger" id="0101" onclick="goBidUpd(1);">新项目登记&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:elseif>
+								<s:else>
+									<button class="btn btn-danger" id="0101" onclick="goBidUpd(1);">新项目登记&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:else>
 							</td>
 							<td></td>
 							<td>
+							<!-- 
 								<s:if test='Status0102 == "9"'>
 									<button class="btn btn-success" id="0102" onclick="showProgressUtil('0102',0);">招标公告发布&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
 								</s:if>
@@ -170,6 +192,19 @@ th {
 								</s:elseif>
 								<s:else>
 									<button class="btn btn-danger" id="0102" onclick="showProgressUtil('0102',0);">招标公告发布&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:else>
+							-->
+								<s:if test='Status0102 == "9"'>
+									<button class="btn btn-success" id="0102" onclick="goBidUpd(2);">招标公告发布&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:if>
+								<s:elseif test='Status0102 == "2"'>
+									<button class="btn btn-warning" id="0102" onclick="goBidUpd(2)">招标公告发布&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:elseif>
+								<s:elseif test='Status0102 == "0"'>
+									<button class="btn btn-danger" id="0102" onclick="goBidUpd(2)">招标公告发布&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:elseif>
+								<s:else>
+									<button class="btn btn-danger" id="0102" onclick="goBidUpd(2)">招标公告发布&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
 								</s:else>
 							</td>
 							<td></td>
@@ -189,6 +224,7 @@ th {
 							</td>
 							<td></td>
 							<td>
+								<!-- 
 								<s:if test='Status0104 == "9"'>
 									<button class="btn btn-success" id="0104" onclick="showProgressUtil('0104',0);">专家抽取、通知</button>
 								</s:if>
@@ -201,8 +237,21 @@ th {
 								<s:else>
 									<button class="btn btn-danger" id="0104" onclick="showProgressUtil('0104',0);">专家抽取、通知</button>
 								</s:else>
-							</td>
-							<td></td>
+	 							-->
+								<s:if test='Status0104 == "9"'>
+									<button class="btn btn-success" id="0104" onclick="goBidUpd(4);">专家抽取、通知</button>
+								</s:if>
+								<s:elseif test='Status0104 == "2"'>
+									<button class="btn btn-warning" id="0104" onclick="goBidUpd(4);">专家抽取、通知</button>
+								</s:elseif>
+								<s:elseif test='Status0104 == "0"'>
+									<button class="btn btn-danger" id="0104" onclick="goBidUpd(4);">专家抽取、通知</button>
+								</s:elseif>
+								<s:else>
+									<button class="btn btn-danger" id="0104" onclick="goBidUpd(4);">专家抽取、通知</button>
+								</s:else>
+								</td>
+ 							<td></td>
 							<td>
 								<s:if test='Status0105 == "9"'>
 									<button class="btn btn-success" id="0105" onclick="showProgressUtil('0105',3);">招投标文件送至甲方*</button>
@@ -352,6 +401,7 @@ th {
 							</td>
 							<td></td>
 							<td>
+								<!-- 
 								<s:if test='Status0202 == "9"'>
 									<button class="btn btn-success" id="0202" onclick="showProgressUtil('0202',0);">报名登记表编制&nbsp;&nbsp;&nbsp;&nbsp;</button>
 								</s:if>
@@ -364,11 +414,25 @@ th {
 								<s:else>
 									<button class="btn btn-danger" id="0202" onclick="showProgressUtil('0202',0);">报名登记表编制&nbsp;&nbsp;&nbsp;&nbsp;</button>
 								</s:else>
+								-->
+								<s:if test='Status0202 == "9"'>
+									<button class="btn btn-success" id="0202" onclick="goBidUpd(2);">报名登记表编制&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:if>
+								<s:elseif test='Status0202 == "2"'>
+									<button class="btn btn-warning" id="0202" onclick="goBidUpd(2);">报名登记表编制&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:elseif>
+								<s:elseif test='Status0202 == "0"'>
+									<button class="btn btn-danger" id="0202" onclick="goBidUpd(2);">报名登记表编制&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:elseif>
+								<s:else>
+									<button class="btn btn-danger" id="0202" onclick="goBidUpd(2);">报名登记表编制&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:else>
 							</td>
 							<td></td>
 							<td></td>
 							<td></td>
 							<td>
+								<!-- 
 								<s:if test='Status0204 == "9"'>
 									<button class="btn btn-success" id="0204" onclick="showProgressUtil('0204',0);">专家费申请&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
 								</s:if>
@@ -380,6 +444,19 @@ th {
 								</s:elseif>
 								<s:else>
 									<button class="btn btn-danger" id="0204" onclick="showProgressUtil('0204',0);">专家费申请&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:else>
+								 -->
+								<s:if test='Status0204 == "9"'>
+									<button class="btn btn-success" id="0204" onclick="goBidUpd(4);">专家费申请&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:if>
+								<s:elseif test='Status0204 == "2"'>
+									<button class="btn btn-warning" id="0204" onclick="goBidUpd(4);">专家费申请&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:elseif>
+								<s:elseif test='Status0204 == "0"'>
+									<button class="btn btn-danger" id="0204" onclick="goBidUpd(4);">专家费申请&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:elseif>
+								<s:else>
+									<button class="btn btn-danger" id="0204" onclick="goBidUpd(4);">专家费申请&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
 								</s:else>
 							</td>
 							<td></td>
@@ -419,6 +496,7 @@ th {
 							</td>
 							<td></td>
 							<td>
+								<!-- 
 								<s:if test='Status0302 == "9"'>
 									<button class="btn btn-success" id="0302" onclick="showProgressUtil('0302',0);">投标单位录入&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
 								</s:if>
@@ -431,11 +509,25 @@ th {
 								<s:else>
 									<button class="btn btn-danger" id="0302" onclick="showProgressUtil('0302',0);">投标单位录入&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
 								</s:else>
+								 -->
+								<s:if test='Status0302 == "9"'>
+									<button class="btn btn-success" id="0302" onclick="goBidUpd(3);">投标单位录入&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:if>
+								<s:elseif test='Status0302 == "2"'>
+									<button class="btn btn-warning" id="0302" onclick="goBidUpd(3);">投标单位录入&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:elseif>
+								<s:elseif test='Status0302 == "0"'>
+									<button class="btn btn-danger" id="0302" onclick="goBidUpd(3);">投标单位录入&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:elseif>
+								<s:else>
+									<button class="btn btn-danger" id="0302" onclick="goBidUpd(3);">投标单位录入&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:else>
 							</td>
 							<td></td>
 							<td></td>
 							<td></td>
 							<td>
+								<!-- 
 								<s:if test='Status0304 == "9"'>
 									<button class="btn btn-success" id="0304" onclick="showProgressUtil('0304',0);">开标完成&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
 								</s:if>
@@ -447,6 +539,19 @@ th {
 								</s:elseif>
 								<s:else>
 									<button class="btn btn-danger" id="0304" onclick="showProgressUtil('0304',0);">开标完成&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:else>
+								 -->
+								<s:if test='Status0304 == "9"'>
+									<button class="btn btn-success" id="0304" onclick="goBidUpd(4);">开标完成&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:if>
+								<s:elseif test='Status0304 == "2"'>
+									<button class="btn btn-warning" id="0304" onclick="goBidUpd(4);">开标完成&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:elseif>
+								<s:elseif test='Status0304 == "0"'>
+									<button class="btn btn-danger" id="0304" onclick="goBidUpd(4);">开标完成&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:elseif>
+								<s:else>
+									<button class="btn btn-danger" id="0304" onclick="goBidUpd(4);">开标完成&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
 								</s:else>
 							</td>
 							<td></td>
@@ -486,6 +591,7 @@ th {
 							</td>
 							<td></td>
 							<td>
+								<!--  
 								<s:if test='Status0402 == "9"'>
 									<button class="btn btn-success" id="0402" onclick="showProgressUtil('0402',0);">二次公告&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
 								</s:if>
@@ -498,11 +604,25 @@ th {
 								<s:else>
 									<button class="btn btn-danger" id="0402" onclick="showProgressUtil('0402',0);">二次公告&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
 								</s:else>
+								-->
+								<s:if test='Status0402 == "9"'>
+									<button class="btn btn-success" id="0402" onclick="goBidUpd(2);">二次公告&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:if>
+								<s:elseif test='Status0402 == "2"'>
+									<button class="btn btn-warning" id="0402" onclick="goBidUpd(2);">二次公告&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:elseif>
+								<s:elseif test='Status0402 == "0"'>
+									<button class="btn btn-danger" id="0402" onclick="goBidUpd(2);">二次公告&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:elseif>
+								<s:else>
+									<button class="btn btn-danger" id="0402" onclick="goBidUpd(2);">二次公告&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:else>
 							</td>
 							<td></td>
 							<td></td>
 							<td></td>
 							<td>
+								<!-- 
 								<s:if test='Status0404 == "9"'>
 									<button class="btn btn-success" id="0404" onclick="showProgressUtil('0404',0);">评标完成&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
 								</s:if>
@@ -514,6 +634,19 @@ th {
 								</s:elseif>
 								<s:else>
 									<button class="btn btn-danger" id="0404" onclick="showProgressUtil('0404',0);">评标完成&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:else>
+								-->
+								<s:if test='Status0404 == "9"'>
+									<button class="btn btn-success" id="0404" onclick="goBidUpd(4); ">评标完成&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:if>
+								<s:elseif test='Status0404 == "2"'>
+									<button class="btn btn-warning" id="0404" onclick="goBidUpd(4); ">评标完成&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:elseif>
+								<s:elseif test='Status0404 == "0"'>
+									<button class="btn btn-danger" id="0404" onclick="goBidUpd(4); ">评标完成&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:elseif>
+								<s:else>
+									<button class="btn btn-danger" id="0404" onclick="goBidUpd(4); ">评标完成&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
 								</s:else>
 							</td>
 							<td></td>
@@ -553,6 +686,7 @@ th {
 							</td>
 							<td></td>
 							<td>
+								<!--   
 								<s:if test='Status0502 == "9"'>
 									<button class="btn btn-success" id="0502" onclick="showProgressUtil('0502',0);">报名审核表编制&nbsp;&nbsp;&nbsp;&nbsp;</button>
 								</s:if>
@@ -564,6 +698,19 @@ th {
 								</s:elseif>
 								<s:else>
 									<button class="btn btn-danger" id="0502" onclick="showProgressUtil('0502',0);">报名审核表编制&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:else>
+								-->
+								<s:if test='Status0502 == "9"'>
+									<button class="btn btn-success" id="0502" onclick="goBidUpd(3);">报名审核表编制&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:if>
+								<s:elseif test='Status0502 == "2"'>
+									<button class="btn btn-warning" id="0502" onclick="goBidUpd(3);">报名审核表编制&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:elseif>
+								<s:elseif test='Status0502 == "0"'>
+									<button class="btn btn-danger" id="0502" onclick="goBidUpd(3);">报名审核表编制&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:elseif>
+								<s:else>
+									<button class="btn btn-danger" id="0502" onclick="goBidUpd(3);">报名审核表编制&nbsp;&nbsp;&nbsp;&nbsp;</button>
 								</s:else>
 							</td>
 							<td></td>
@@ -607,6 +754,7 @@ th {
 							<td></td>
 							<td></td>
 							<td>
+								<!-- 
 								<s:if test='Status0602 == "9"'>
 									<button class="btn btn-success" id="0602" onclick="showProgressUtil('0602',0);">标书费收取&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
 								</s:if>
@@ -619,6 +767,19 @@ th {
 								<s:else>
 									<button class="btn btn-danger" id="0602" onclick="showProgressUtil('0602',0);">标书费收取&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
 								</s:else>
+								-->
+								<s:if test='Status0602 == "9"'>
+									<button class="btn btn-success" id="0602" onclick="goBidUpd(6); ">标书费收取&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:if>
+								<s:elseif test='Status0602 == "2"'>
+									<button class="btn btn-warning" id="0602" onclick="goBidUpd(6); ">标书费收取&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:elseif>
+								<s:elseif test='Status0602 == "0"'>
+									<button class="btn btn-danger" id="0602" onclick="goBidUpd(6); ">标书费收取&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:elseif>
+								<s:else>
+									<button class="btn btn-danger" id="0602" onclick="goBidUpd(6); ">标书费收取&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:else>
 							</td>
 							<td></td>
 							<td></td>
@@ -626,6 +787,7 @@ th {
 							<td></td>
 							<td></td>
 							<td>
+								<!--  
 								<s:if test='Status0605 == "9"'>
 									<button class="btn btn-success" id="0605" onclick="showProgressUtil('0605',0);">标书费开票完成&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
 								</s:if>
@@ -638,6 +800,19 @@ th {
 								<s:else>
 									<button class="btn btn-danger" id="0605" onclick="showProgressUtil('0605',0);">标书费开票完成&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
 								</s:else>
+								--> 
+								<s:if test='Status0605 == "9"'>
+									<button class="btn btn-success" id="0605" onclick="goBidUpd(6);">标书费开票完成&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:if>
+								<s:elseif test='Status0605 == "2"'>
+									<button class="btn btn-warning" id="0605" onclick="goBidUpd(6);">标书费开票完成&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:elseif>
+								<s:elseif test='Status0605 == "0"'>
+									<button class="btn btn-danger" id="0605" onclick="goBidUpd(6);">标书费开票完成&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:elseif>
+								<s:else>
+									<button class="btn btn-danger" id="0605" onclick="goBidUpd(6);">标书费开票完成&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:else>
 							</td>
 							<td></td>
 							<td></td>
@@ -648,6 +823,7 @@ th {
 							<td></td>
 							<td></td>
 							<td>
+								<!--  
 								<s:if test='Status0702 == "9"'>
 									<button class="btn btn-success" id="0702" onclick="showProgressUtil('0702',0);">保证金收取&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
 								</s:if>
@@ -660,6 +836,19 @@ th {
 								<s:else>
 									<button class="btn btn-danger" id="0702" onclick="showProgressUtil('0702',0);">保证金收取&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
 								</s:else>
+								-->
+								<s:if test='Status0702 == "9"'>
+									<button class="btn btn-success" id="0702" onclick="goBidUpd(5);">保证金收取&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:if>
+								<s:elseif test='Status0702 == "2"'>
+									<button class="btn btn-warning" id="0702" onclick="goBidUpd(5);">保证金收取&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:elseif>
+								<s:elseif test='Status0702 == "0"'>
+									<button class="btn btn-danger" id="0702" onclick="goBidUpd(5);">保证金收取&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:elseif>
+								<s:else>
+									<button class="btn btn-danger" id="0702" onclick="goBidUpd(5);">保证金收取&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:else>
 							</td>
 							<td></td>
 							<td></td>
@@ -667,6 +856,7 @@ th {
 							<td></td>
 							<td></td>
 							<td>
+								<!-- 
 								<s:if test='Status0705 == "9"'>
 									<button class="btn btn-success" id="0705" onclick="showProgressUtil('0705',0);">退保证金完成&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
 								</s:if>
@@ -679,7 +869,20 @@ th {
 								<s:else>
 									<button class="btn btn-danger" id="0705" onclick="showProgressUtil('0705',0);">退保证金完成&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
 								</s:else>
-							</td>
+ 								-->
+								<s:if test='Status0705 == "9"'>
+									<button class="btn btn-success" id="0705" onclick="goBidUpd(5);">退保证金完成&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:if>
+								<s:elseif test='Status0705 == "2"'>
+									<button class="btn btn-warning" id="0705" onclick="goBidUpd(5);">退保证金完成&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:elseif>
+								<s:elseif test='Status0705 == "0"'>
+									<button class="btn btn-danger" id="0705" onclick="goBidUpd(5);">退保证金完成&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:elseif>
+								<s:else>
+									<button class="btn btn-danger" id="0705" onclick="goBidUpd(5);">退保证金完成&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+								</s:else>
+ 							</td>
 							<td></td>
 							<td></td>
 							<td></td>

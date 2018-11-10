@@ -350,6 +350,13 @@
 		var tmpDiscountPrice = parseFloat(tmpTotalCost) * parseFloat(tmpDiscount);
 		$("#tmpDiscountPrice").val(tmpDiscountPrice.toFixed(2));
 	}
+	
+	function goBidUpd(strBID_NO, updBidTabIndex) {
+		var url = '<c:url value="/bid/showUpdBidAction.action"></c:url>'+"?updateBidNo=" + strBID_NO + "&updBidTabIndex=" + updBidTabIndex+ "&date=" + new Date();
+		document.mainform.action = url;
+		document.mainform.submit();
+	}	
+
 </script>
 </head>
 <body>
@@ -533,7 +540,7 @@
 									<input type="hidden" value="<s:property value="BID_AGENT_PRICE"/>">
 								</td>
 								<td>
-									<s:property value="BID_NO"/>
+									<a class="goBidUpd" href="#" onclick='goBidUpd("<s:property value="BID_NO"/>",7)'; ><s:property value="BID_NO"/></a>
 								</td>
 								<td><s:property value="PROJECT_NAME"/></td>
 								<td><s:property value="BID_COMP_NAME"/></td>
