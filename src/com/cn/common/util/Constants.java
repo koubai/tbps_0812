@@ -243,7 +243,7 @@ public class Constants {
 	public final static String EXCEL_TYPE_ZBHZ = "ZB_REPLY";
 	
 	/**
-	 * 招标报名表签收
+	 * 招标审核表签收
 	 */
 	public final static String EXCEL_TYPE_ZBSD = "ZB_RECEIVE";
 	
@@ -268,7 +268,7 @@ public class Constants {
 	public final static String EXCEL_TYPE_ZBQS = "ZB_SIGN";
 	
 	/**
-	 * 招标标书
+	 * 招标标书费
 	 */
 	public final static String EXCEL_TYPE_ZBBS = "ZB_BASE";
 	

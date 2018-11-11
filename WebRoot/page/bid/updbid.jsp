@@ -1547,7 +1547,14 @@
 		document.mainform.submit();
 	}
 	
+	
 	//导出标书费收据
+	function exportBidBase() {
+		document.mainform.action = '<c:url value="/bid/exportBidBaseAction.action"></c:url>';
+		document.mainform.submit();
+	}
+	
+	//导出审核表签收收据
 	function exportBidReceive() {
 		document.mainform.action = '<c:url value="/bid/exportBidReceiveAction.action"></c:url>';
 		document.mainform.submit();
@@ -2815,7 +2822,7 @@
 								</tbody>
 							</table>
 							<div class="operationBtns">
-								<button type="button" onclick="exportBidReceive();" class="btn btn-success">标书费收据</button>
+								<button type="button" onclick="exportBidBase();" class="btn btn-success">标书费收据</button>
 								<button type="button" onclick="exportBidSign();" class="btn btn-success">打印签收单</button>
 							</div>
 						</div>

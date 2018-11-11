@@ -197,7 +197,7 @@ public class BidAction extends BaseAction {
 	}
 	
 	/**
-	 * 导出标书费收据
+	 * 导出审核表签收
 	 * @return
 	 */
 	public String exportBidReceiveAction() {
@@ -210,6 +210,34 @@ public class BidAction extends BaseAction {
 			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
 			response.setContentType("application/vnd.ms-excel");
 			Poi2007Base base = PoiFactory.getPoi(Constants.EXCEL_TYPE_ZBSD);
+			
+			//查询数据
+			List<Object> list = new ArrayList<Object>();
+			list.add(updateBidDto);
+			list.add(listBidComp);
+			base.setDatas(list);
+			base.setFilepath(filename);
+			base.exportExcel2(response.getOutputStream());
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	
+	/**
+	 * 导出标书费收据
+	 * @return
+	 */
+	public String exportBidBaseAction() {
+		try {
+			this.clearMessages();
+			String filename = "page/bidbase.xls";
+			String name = StringUtil.createFileName2(Constants.EXCEL_TYPE_ZBBS);
+			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
+			response.setContentType("application/vnd.ms-excel");
+			Poi2007Base base = PoiFactory.getPoi(Constants.EXCEL_TYPE_ZBBS);
 			
 			//查询数据
 			List<Object> list = new ArrayList<Object>();
