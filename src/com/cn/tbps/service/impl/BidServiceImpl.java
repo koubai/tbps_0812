@@ -503,6 +503,23 @@ public class BidServiceImpl extends BaseService implements BidService {
 			}
 			
 			for(BidCompDto bidcomp : listBidComp) {
+				//保证金
+				if(bidDto.getBID_BOND() != null) {
+					//招标的保证金要保存到投标公司里去
+					bidcomp.setBID_BOND(bidDto.getBID_BOND());
+				} else {
+					//说明招标清空了保证金，所以默认值=0
+					bidcomp.setBID_BOND(new BigDecimal(0));
+				}
+				//标书费
+				if(bidDto.getBID_APPLY_PRICE() != null) {
+					//招标的标书费要保存到投标公司里去
+					bidcomp.setBID_APPLY_PRICE(bidDto.getBID_APPLY_PRICE());
+				} else {
+					//说明招标清空了标书费，所以默认值=0
+					bidcomp.setBID_APPLY_PRICE(new BigDecimal(0));
+				}
+				
 				bidcomp.setBID_NO(bidNo);
 				bidcomp.setDELETE_FLG(Constants.IS_DELETE_NORMAL);
 				bidcomp.setUPDATE_USER(bidDto.getUPDATE_USER());
@@ -581,10 +598,27 @@ public class BidServiceImpl extends BaseService implements BidService {
 			//报名要求
 			String bidrequire = bidDto.getAPPLY_REQUIRE();
 			if(StringUtil.isNotBlank(bidrequire)) {
-				tmplist = bidrequire.split("\r\n");		
+				tmplist = bidrequire.split("\r\n");
 			}
 			
 			for(BidCompDto bidcomp : listBidComp) {
+				//保证金
+				if(bidDto.getBID_BOND() != null) {
+					//招标的保证金要保存到投标公司里去
+					bidcomp.setBID_BOND(bidDto.getBID_BOND());
+				} else {
+					//说明招标清空了保证金，所以默认值=0
+					bidcomp.setBID_BOND(new BigDecimal(0));
+				}
+				//标书费
+				if(bidDto.getBID_APPLY_PRICE() != null) {
+					//招标的标书费要保存到投标公司里去
+					bidcomp.setBID_APPLY_PRICE(bidDto.getBID_APPLY_PRICE());
+				} else {
+					//说明招标清空了标书费，所以默认值=0
+					bidcomp.setBID_APPLY_PRICE(new BigDecimal(0));
+				}
+				
 				//这里重置下招标编号，从主表中获得
 				bidcomp.setBID_NO(bidDto.getBID_NO());
 				//删除标志

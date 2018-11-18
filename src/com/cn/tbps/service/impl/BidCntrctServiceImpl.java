@@ -9,9 +9,11 @@ import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
 import com.cn.tbps.dao.BidCntrctDao;
 import com.cn.tbps.dao.BidCntrctHisDao;
+import com.cn.tbps.dao.BidCompDao;
 import com.cn.tbps.dao.BidDao;
 import com.cn.tbps.dto.BidCntrctDto;
 import com.cn.tbps.dto.BidCntrctHisDto;
+import com.cn.tbps.dto.BidCompDto;
 import com.cn.tbps.dto.BidDto;
 import com.cn.tbps.service.BidCntrctService;
 
@@ -20,6 +22,7 @@ public class BidCntrctServiceImpl extends BaseService implements BidCntrctServic
 	private BidCntrctDao bidCntrctDao;
 	private BidCntrctHisDao bidCntrctHisDao;
 	private BidDao bidDao;
+	private BidCompDao bidCompDao;
 
 	@Override
 	public Page queryBidCntrctByPage(String CNTRCT_YEAR, String CNTRCT_NO, String BID_COMP_NO,
@@ -80,7 +83,11 @@ public class BidCntrctServiceImpl extends BaseService implements BidCntrctServic
 						
 						//标书费
 						if(bid.getBID_APPLY_PRICE() != null) {
-							bidAmount = bidAmount.add(bid.getBID_APPLY_PRICE());
+							//合同标书费=招标的标书费*投标公司数
+							List<BidCompDto> bidCompList = bidCompDao.queryAllBidCompExport(bid.getBID_NO(), "", "");
+							if(bidCompList != null && bidCompList.size() > 0) {
+								bidAmount = bidAmount.add(bid.getBID_APPLY_PRICE().multiply(new BigDecimal(bidCompList.size())));
+							}
 						}
 						//专家费
 						if(bid.getBID_EXPERT_COMMISION_ACT() != null) {
@@ -228,5 +235,13 @@ public class BidCntrctServiceImpl extends BaseService implements BidCntrctServic
 
 	public void setBidCntrctHisDao(BidCntrctHisDao bidCntrctHisDao) {
 		this.bidCntrctHisDao = bidCntrctHisDao;
+	}
+
+	public BidCompDao getBidCompDao() {
+		return bidCompDao;
+	}
+
+	public void setBidCompDao(BidCompDao bidCompDao) {
+		this.bidCompDao = bidCompDao;
 	}
 }

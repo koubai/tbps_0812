@@ -43,6 +43,9 @@
 		<property name="bidDao">
 			<ref local="bidDao"/>
 		</property>
+		<property name="bidCompDao">
+			<ref local="bidCompDao"/>
+		</property>
 	</bean>
 	
 	<bean id="bidCntrctDao" class="com.cn.tbps.dao.impl.BidCntrctDaoImpl">
