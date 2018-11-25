@@ -46,6 +46,7 @@
 		var IS_RANDOM = $("#IS_RANDOM").val();
 		var BID_NO = $("#BID_NO").val();
 		var PROJECT_NAME = $("#PROJECT_NAME").val();
+		$("#PROJECT_MANAGER").val($("#tmpPROJECT_MANAGER").val());
 		var PROJECT_MANAGER = $("#PROJECT_MANAGER").val();
 		
 		//#tab1
@@ -93,7 +94,7 @@
 		if(IS_RANDOM == "0") {
 			//非随机生成招标编号时
 			//分类=比选,招标时，招标编号不能为空
-			if(CNTRCT_TYPE == "1") {
+			if(CNTRCT_TYPE == "1" || CNTRCT_TYPE == "5" || CNTRCT_TYPE == "9") {
 				//验证招标编号格式是否正确
 				if(!isZB(BID_NO)) {
 					alert("招标编号格式不正确，应为：LHZB-YYYY-NNNNN或LHZB-YYYY-NNNNN-NN！");
@@ -107,7 +108,7 @@
 					$("#BID_NO").focus();
 					return false;
 				}
-			} else if(CNTRCT_TYPE == "4") {
+			} else if(CNTRCT_TYPE == "4" || CNTRCT_TYPE == "6" || CNTRCT_TYPE == "7") {
 				//验证招标编号格式是否正确
 				if(!isJJ(BID_NO)) {
 					alert("招标编号格式不正确，应为：LHJJ-YYYY-NNNN或LHJJ-YYYY-NNNN-NN！");
@@ -118,9 +119,10 @@
 		}
 		if(PROJECT_MANAGER == "") {
 			alert("请选择工程师！");
-			$("#PROJECT_MANAGER").focus();
+			$("#tmpPROJECT_MANAGER").focus();
 			return false;
 		}
+		
 		if(PROJECT_NAME == "") {
 			alert("项目名称不能为空！");
 			$("#PROJECT_NAME").focus();
@@ -905,6 +907,7 @@
 					html += '		<input type="hidden" value="' + n.CNTRCT_TYPE + '">';
 					html += '		<input type="hidden" value="' + n.CO_TAX + '">';
 					html += '		<input type="hidden" value="' + n.PROJECT_SENIOR_MANAGER + '">';
+					html += '		<input type="hidden" value="' + n.RESERVE1 + '">';
 					html += '	</td>';
 					html += '	<td>' + n.CNTRCT_YEAR + '</td>';
 					html += '	<td>' + n.CNTRCT_NO + '</td>';
@@ -982,6 +985,7 @@
 			var CNTRCT_TYPE = inputs[10].value;
 			var CO_TAX = inputs[11].value;
 			var PROJECT_SENIOR_MANAGER = inputs[12].value;
+			var RESERVE1 = inputs[13].value;
 			$('#tmpCNTRCT_NO').val(CNTRCT_NO);
 			$('#tmpCNTRCT_YEAR').val(CNTRCT_YEAR);
 			$('#tmpCNTRCT_ST_DATE').val(showCNTRCT_ST_DATE);
@@ -993,12 +997,22 @@
 			$('#tmpCO_MANAGER_EMAIL1').val(CO_MANAGER_EMAIL1);
 			$('#tmpCO_MANAGER_TEL1').val(CO_MANAGER_TEL1);
 			$('#tmpCNTRCT_TYPE').val(CNTRCT_TYPE);
-			$('#tmpPROJECT_MANAGER').val(PROJECT_SENIOR_MANAGER);
-			$('#PROJECT_MANAGER').val(PROJECT_SENIOR_MANAGER);
+			//合同不选择负责人
+			//$('#tmpPROJECT_MANAGER').val(PROJECT_SENIOR_MANAGER);
+			//$('#PROJECT_MANAGER').val(PROJECT_SENIOR_MANAGER);
+			$('#RESERVE1').val("");
 			if(CNTRCT_TYPE == "1") {
 				$('#tmpCNTRCT_TYPE_NAME').val("招标");
-			} else if(CNTRCT_TYPE == "4") {
-				$('#tmpCNTRCT_TYPE_NAME').val("竞价");
+			} else if(CNTRCT_TYPE == "5") {
+				$('#tmpCNTRCT_TYPE_NAME').val("电子招标");
+			} else if(CNTRCT_TYPE == "6") {
+				$('#tmpCNTRCT_TYPE_NAME').val("核价竞价");
+			} else if(CNTRCT_TYPE == "7") {
+				$('#tmpCNTRCT_TYPE_NAME').val("公开竞价");
+			} else if(CNTRCT_TYPE == "9") {
+				//直接取类型名称
+				$('#tmpCNTRCT_TYPE_NAME').val(RESERVE1);
+				$('#RESERVE1').val(RESERVE1);
 			} else {
 				$('#tmpCNTRCT_TYPE_NAME').val("");
 			}
@@ -1317,6 +1331,7 @@
 			<s:hidden name="addBidDto.CO_MANAGER_EMAIL1" id="CO_MANAGER_EMAIL1"/>
 			<s:hidden name="addBidDto.CO_TAX" id="CO_TAX"/>
 			<s:hidden name="addBidDto.CNTRCT_TYPE" id="CNTRCT_TYPE"/>
+			<s:hidden name="addBidDto.RESERVE1" id="RESERVE1"/>
 			<s:hidden name="addBidDto.PROJECT_DEVIEW_DATE" id="PROJECT_DEVIEW_DATE"/>
 			<s:hidden name="addBidDto.PROJ_APPROVAL" id="PROJ_APPROVAL"/>
 			<s:hidden name="addBidDto.REGISTE_ST_DATE1" id="REGISTE_ST_DATE1"/>
@@ -1438,8 +1453,17 @@
 						 		<s:if test='addBidDto.CNTRCT_TYPE == "1"'>
 						 			<input id="tmpCNTRCT_TYPE_NAME" value="招标" maxlength="80" type="text" class="form-control" disabled="disabled">
 						 		</s:if>
-						 		<s:elseif test='addBidDto.CNTRCT_TYPE == "4"'>
-						 			<input id="tmpCNTRCT_TYPE_NAME" value="竞价" maxlength="80" type="text" class="form-control" disabled="disabled">
+						 		<s:elseif test='addBidDto.CNTRCT_TYPE == "5"'>
+						 			<input id="tmpCNTRCT_TYPE_NAME" value="电子招标" maxlength="80" type="text" class="form-control" disabled="disabled">
+						 		</s:elseif>
+						 		<s:elseif test='addBidDto.CNTRCT_TYPE == "6"'>
+						 			<input id="tmpCNTRCT_TYPE_NAME" value="核价竞价" maxlength="80" type="text" class="form-control" disabled="disabled">
+						 		</s:elseif>
+						 		<s:elseif test='addBidDto.CNTRCT_TYPE == "7"'>
+						 			<input id="tmpCNTRCT_TYPE_NAME" value="公开竞价" maxlength="80" type="text" class="form-control" disabled="disabled">
+						 		</s:elseif>
+						 		<s:elseif test='addBidDto.CNTRCT_TYPE == "9"'>
+						 			<input id="tmpCNTRCT_TYPE_NAME" value="<s:property value="addBidDto.RESERVE1"/>" maxlength="80" type="text" class="form-control" disabled="disabled">
 						 		</s:elseif>
 						 		<s:else>
 						 			<input id="tmpCNTRCT_TYPE_NAME" value="" maxlength="80" type="text" class="form-control" disabled="disabled">
@@ -1449,7 +1473,7 @@
 						<div class="col-lg-4 form-group">
 						 	<label for="" class="col-lg-3 form-label">工程师</label>
 						 	<div class="col-lg-9">
-						 		<select id="tmpPROJECT_MANAGER" class="form-control" disabled="disabled">
+						 		<select id="tmpPROJECT_MANAGER" class="form-control">
 						 			<option value="" selected="selected">请选择</option>
 									<s:iterator id="listUserInfo" value="listUserInfo" status="st1">
 										<option value="<s:property value="LOGIN_ID"/>" <s:if test="%{addBidDto.PROJECT_MANAGER == LOGIN_ID}">selected</s:if>><s:property value="LOGIN_NAME"/></option>
@@ -3051,6 +3075,7 @@
 								<tr>
 									<td><input name="bidCntrctKey" type="radio" value=""/></td>
 									<td style="display: none;">
+										<input type="hidden" value="">
 										<input type="hidden" value="">
 										<input type="hidden" value="">
 										<input type="hidden" value="">

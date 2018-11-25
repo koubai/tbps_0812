@@ -73,6 +73,7 @@ public class BidDto extends BaseDto {
 
 	/**
 	 * 合同类别
+	 * 1：招标，4：竞价，5：电子招标，6：核价竞价，7：公开竞价，9：其他
 	 */
 	private String CNTRCT_TYPE;
 	
@@ -640,7 +641,7 @@ public class BidDto extends BaseDto {
 	private String MEMO1;
 
 	/**
-	 * 备用1
+	 * 合同类型=9时，需要输入合同名称
 	 */
 	private String RESERVE1;
 

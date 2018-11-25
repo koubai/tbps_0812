@@ -370,6 +370,8 @@ public class BidServiceImpl extends BaseService implements BidService {
 			BidCntrctDto bidCntrct = bidCntrctDao.queryBidCntrctByID(bid.getCNTRCT_NO());
 			if(bidCntrct != null) {
 				bid.setCNTRCT_NAME(bidCntrct.getCNTRCT_NAME());
+				//合同类别名称从合同表中带出
+				bid.setRESERVE1(bidCntrct.getRESERVE1());
 				bid.setCNTRCT_YEAR(bidCntrct.getCNTRCT_YEAR());
 				bid.setCNTRCT_ST_DATE(bidCntrct.getCNTRCT_ST_DATE());
 				bid.setCNTRCT_ED_DATE(bidCntrct.getCNTRCT_ED_DATE());
@@ -401,13 +403,18 @@ public class BidServiceImpl extends BaseService implements BidService {
 				String key = sdf.format(new Date());
 				int newValue = 1;
 				ConfigTabDto config = null;
-				if("1".equals(bidDto.getCNTRCT_TYPE())) {
+				if("1".equals(bidDto.getCNTRCT_TYPE())
+					|| "5".equals(bidDto.getCNTRCT_TYPE())
+					|| "9".equals(bidDto.getCNTRCT_TYPE())) {
 					//类型=招标
+					//其他类别9，默认为招标
 					config = configTabDao.queryConfigTabByKey(key, Constants.CONFIG_TAB_BID_ZB_SEQ);
 				} else if("2".equals(bidDto.getCNTRCT_TYPE())) {
 					//类型=比选
 					config = configTabDao.queryConfigTabByKey(key, Constants.CONFIG_TAB_BID_BX_SEQ);
-				} else if("4".equals(bidDto.getCNTRCT_TYPE())) {
+				} else if("4".equals(bidDto.getCNTRCT_TYPE())
+						|| "6".equals(bidDto.getCNTRCT_TYPE())
+						|| "7".equals(bidDto.getCNTRCT_TYPE())) {
 					//类型=竞价
 					config = configTabDao.queryConfigTabByKey(key, Constants.CONFIG_TAB_BID_JJ_SEQ);
 				}
@@ -418,13 +425,18 @@ public class BidServiceImpl extends BaseService implements BidService {
 				}
 				
 				while(true) {
-					if("1".equals(bidDto.getCNTRCT_TYPE())) {
+					if("1".equals(bidDto.getCNTRCT_TYPE())
+						|| "5".equals(bidDto.getCNTRCT_TYPE())
+						|| "9".equals(bidDto.getCNTRCT_TYPE())) {
 						//招标编号，类型=招标
+						//其他类别9，默认为招标
 						bidNo = "LHZB-" + key.substring(0, 4) + "-" + StringUtil.replenishStr("" + newValue, 4);
 					} else if("2".equals(bidDto.getCNTRCT_TYPE())) {
 						//招标编号，类型=比选
 						bidNo = "LHBX-" + key.substring(0, 4) + "-" + StringUtil.replenishStr("" + newValue, 4);
-					} else if("4".equals(bidDto.getCNTRCT_TYPE())) {
+					} else if("4".equals(bidDto.getCNTRCT_TYPE())
+							|| "6".equals(bidDto.getCNTRCT_TYPE())
+							|| "7".equals(bidDto.getCNTRCT_TYPE())) {
 						//招标编号，类型=竞价
 						bidNo = "LHJJ-" + key.substring(0, 4) + "-" + StringUtil.replenishStr("" + newValue, 4);
 					}

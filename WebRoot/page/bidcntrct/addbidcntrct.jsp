@@ -81,10 +81,18 @@
 			$("#CNTRCT_TYPE").focus();
 			return false;
 		}
+		if(CNTRCT_TYPE == "9") {
+			var RESERVE1 = $("#RESERVE1").val();
+			if(RESERVE1 == "") {
+				alert("请输入类别名称！");
+				$("#RESERVE1").focus();
+				return false;
+			}
+		}
 		if(PROJECT_SENIOR_MANAGER == "") {
-			alert("请选择负责人！");
-			$("#PROJECT_SENIOR_MANAGER").focus();
-			return false;
+			//alert("请选择负责人！");
+			//$("#PROJECT_SENIOR_MANAGER").focus();
+			//return false;
 		}
 		if(BID_COMP_NO == "") {
 			alert("请选择委托公司！");
@@ -255,6 +263,16 @@
 	function goBidCntrctList() {
 		window.location.href = '<c:url value="/bidcntrct/queryBidCntrctList.action"></c:url>';
 	}
+	
+	function changeCNTRCT_TYPE(obj) {
+		var type = $(obj).val();
+		$("#RESERVE1").val("");
+		if(type == "9") {
+			$("#divRESERVE1").show();
+		} else {
+			$("#divRESERVE1").hide();
+		}
+	}
 </script>
 </head>
 <body>
@@ -313,24 +331,65 @@
 						<div class="col-lg-3 form-group">
 							<label for="" class="col-lg-3 form-label"><span class="red">*</span>合同类别</label>
 							<div class="col-lg-9">
-								<select name="addBidCntrctDto.CNTRCT_TYPE" id="CNTRCT_TYPE" class="form-control">
+								<select name="addBidCntrctDto.CNTRCT_TYPE" id="CNTRCT_TYPE" class="form-control" onchange="changeCNTRCT_TYPE(this);">
 									<option value="">请选择</option>
 									<s:if test='addBidCntrctDto.CNTRCT_TYPE == "1"'>
 										<option value="1" selected="selected">招标</option>
-										<option value="4">竞价</option>
+										<option value="5">电子招标</option>
+										<option value="6">核价竞价</option>
+										<option value="7">公开竞价</option>
+										<option value="9">其他</option>
 									</s:if>
-									<s:elseif test='addBidCntrctDto.CNTRCT_TYPE == "4"'>
+									<s:elseif test='addBidCntrctDto.CNTRCT_TYPE == "5"'>
 										<option value="1">招标</option>
-										<option value="4" selected="selected">竞价</option>
+										<option value="5" selected="selected">电子招标</option>
+										<option value="6">核价竞价</option>
+										<option value="7">公开竞价</option>
+										<option value="9">其他</option>
+									</s:elseif>
+									<s:elseif test='addBidCntrctDto.CNTRCT_TYPE == "6"'>
+										<option value="1">招标</option>
+										<option value="5">电子招标</option>
+										<option value="6" selected="selected">核价竞价</option>
+										<option value="7">公开竞价</option>
+										<option value="9">其他</option>
+									</s:elseif>
+									<s:elseif test='addBidCntrctDto.CNTRCT_TYPE == "7"'>
+										<option value="1">招标</option>
+										<option value="5">电子招标</option>
+										<option value="6">核价竞价</option>
+										<option value="7" selected="selected">公开竞价</option>
+										<option value="9">其他</option>
+									</s:elseif>
+									<s:elseif test='addBidCntrctDto.CNTRCT_TYPE == "9"'>
+										<option value="1">招标</option>
+										<option value="5">电子招标</option>
+										<option value="6">核价竞价</option>
+										<option value="7">公开竞价</option>
+										<option value="9" selected="selected">其他</option>
 									</s:elseif>
 									<s:else>
 										<option value="1">招标</option>
-										<option value="4">竞价</option>
+										<option value="5">电子招标</option>
+										<option value="6">核价竞价</option>
+										<option value="7">公开竞价</option>
+										<option value="9">其他</option>
 									</s:else>
 								</select>
 							</div>
 						</div>
-						<div class="col-lg-3 form-group">
+						<s:if test='addBidCntrctDto.CNTRCT_TYPE == "9"'>
+						<div id="divRESERVE1" class="col-lg-3 form-group">
+						</s:if>
+						<s:else>
+						<div id="divRESERVE1" class="col-lg-3 form-group" style="display: none;">
+						</s:else>
+							<label for="" class="col-lg-3 form-label"><span class="red">*</span>类别名称</label>
+							<div class="col-lg-9">
+								<s:textfield name="addBidCntrctDto.RESERVE1" id="RESERVE1" maxlength="10" cssClass="form-control" theme="simple"></s:textfield>
+							</div>
+						</div>
+						<div class="col-lg-3 form-group" style="display: none;">
 							<label for="" class="col-lg-3 form-label"><span class="red">*</span>负责人</label>
 							<div class="col-lg-9">
 								<select name="addBidCntrctDto.PROJECT_SENIOR_MANAGER" id="PROJECT_SENIOR_MANAGER" class="form-control">

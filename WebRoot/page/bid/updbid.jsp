@@ -1057,6 +1057,7 @@
 					html += '		<input type="hidden" value="' + n.CNTRCT_TYPE + '">';
 					html += '		<input type="hidden" value="' + n.CO_TAX + '">';
 					html += '		<input type="hidden" value="' + n.PROJECT_SENIOR_MANAGER + '">';
+					html += '		<input type="hidden" value="' + n.RESERVE1 + '">';
 					html += '	</td>';
 					html += '	<td>' + n.CNTRCT_YEAR + '</td>';
 					html += '	<td>' + n.CNTRCT_NO + '</td>';
@@ -1134,6 +1135,7 @@
 			var CNTRCT_TYPE = inputs[10].value;
 			var CO_TAX = inputs[11].value;
 			var PROJECT_SENIOR_MANAGER = inputs[12].value;
+			var RESERVE1 = inputs[13].value;
 			$('#tmpCNTRCT_NO').val(CNTRCT_NO);
 			$('#tmpCNTRCT_YEAR').val(CNTRCT_YEAR);
 			$('#tmpCNTRCT_ST_DATE').val(showCNTRCT_ST_DATE);
@@ -1147,10 +1149,19 @@
 			$('#tmpCNTRCT_TYPE').val(CNTRCT_TYPE);
 			$('#tmpPROJECT_MANAGER').val(PROJECT_SENIOR_MANAGER);
 			$('#PROJECT_MANAGER').val(PROJECT_SENIOR_MANAGER);
+			$('#RESERVE1').val("");
 			if(CNTRCT_TYPE == "1") {
 				$('#tmpCNTRCT_TYPE_NAME').val("招标");
-			} else if(CNTRCT_TYPE == "4") {
-				$('#tmpCNTRCT_TYPE_NAME').val("竞价");
+			} else if(CNTRCT_TYPE == "5") {
+				$('#tmpCNTRCT_TYPE_NAME').val("电子招标");
+			} else if(CNTRCT_TYPE == "6") {
+				$('#tmpCNTRCT_TYPE_NAME').val("核价竞价");
+			} else if(CNTRCT_TYPE == "7") {
+				$('#tmpCNTRCT_TYPE_NAME').val("公开竞价");
+			} else if(CNTRCT_TYPE == "9") {
+				//直接取类型名称
+				$('#tmpCNTRCT_TYPE_NAME').val(RESERVE1);
+				$('#RESERVE1').val(RESERVE1);
 			} else {
 				$('#tmpCNTRCT_TYPE_NAME').val("");
 			}
@@ -1828,8 +1839,17 @@
 						 		<s:if test='updateBidDto.CNTRCT_TYPE == "1"'>
 						 			<input id="tmpCNTRCT_TYPE_NAME" value="招标" maxlength="80" type="text" class="form-control" disabled="disabled">
 						 		</s:if>
-						 		<s:elseif test='updateBidDto.CNTRCT_TYPE == "4"'>
-						 			<input id="tmpCNTRCT_TYPE_NAME" value="竞价" maxlength="80" type="text" class="form-control" disabled="disabled">
+						 		<s:elseif test='updateBidDto.CNTRCT_TYPE == "5"'>
+						 			<input id="tmpCNTRCT_TYPE_NAME" value="电子招标" maxlength="80" type="text" class="form-control" disabled="disabled">
+						 		</s:elseif>
+						 		<s:elseif test='updateBidDto.CNTRCT_TYPE == "6"'>
+						 			<input id="tmpCNTRCT_TYPE_NAME" value="核价竞价" maxlength="80" type="text" class="form-control" disabled="disabled">
+						 		</s:elseif>
+						 		<s:elseif test='updateBidDto.CNTRCT_TYPE == "7"'>
+						 			<input id="tmpCNTRCT_TYPE_NAME" value="公开竞价" maxlength="80" type="text" class="form-control" disabled="disabled">
+						 		</s:elseif>
+						 		<s:elseif test='updateBidDto.CNTRCT_TYPE == "9"'>
+						 			<input id="tmpCNTRCT_TYPE_NAME" value="<s:property value="updateBidDto.RESERVE1"/>" maxlength="80" type="text" class="form-control" disabled="disabled">
 						 		</s:elseif>
 						 		<s:else>
 						 			<input id="tmpCNTRCT_TYPE_NAME" value="" maxlength="80" type="text" class="form-control" disabled="disabled">
@@ -3470,6 +3490,7 @@
 								<tr>
 									<td><input name="bidCntrctKey" type="radio" value=""/></td>
 									<td style="display: none;">
+										<input type="hidden" value="">
 										<input type="hidden" value="">
 										<input type="hidden" value="">
 										<input type="hidden" value="">
