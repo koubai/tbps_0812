@@ -52,6 +52,26 @@ public class BidCompDto extends BaseDto {
 	 * 公司名称
 	 */
 	private String BID_CO_NAME;
+	
+	/**
+	 * 组织机构代码
+	 */
+	private String BID_CO_ORGCODE;
+	
+	/**
+	 * 法定代表人
+	 */
+	private String BID_CO_LEGAL;
+	
+	/**
+	 * 项目负责人
+	 */
+	private String BID_CO_PRO_MANAGER;
+	
+	/**
+	 * 项目负责人联系方式
+	 */
+	private String BID_CO_PRO_TEL;
 
 	/**
 	 * 负责人
@@ -925,5 +945,37 @@ public class BidCompDto extends BaseDto {
 
 	public void setRECEPT_UL_FILE10_BASENAME(String rECEPT_UL_FILE10_BASENAME) {
 		RECEPT_UL_FILE10_BASENAME = rECEPT_UL_FILE10_BASENAME;
+	}
+
+	public String getBID_CO_ORGCODE() {
+		return BID_CO_ORGCODE;
+	}
+
+	public void setBID_CO_ORGCODE(String bID_CO_ORGCODE) {
+		BID_CO_ORGCODE = bID_CO_ORGCODE;
+	}
+
+	public String getBID_CO_LEGAL() {
+		return BID_CO_LEGAL;
+	}
+
+	public void setBID_CO_LEGAL(String bID_CO_LEGAL) {
+		BID_CO_LEGAL = bID_CO_LEGAL;
+	}
+
+	public String getBID_CO_PRO_MANAGER() {
+		return BID_CO_PRO_MANAGER;
+	}
+
+	public void setBID_CO_PRO_MANAGER(String bID_CO_PRO_MANAGER) {
+		BID_CO_PRO_MANAGER = bID_CO_PRO_MANAGER;
+	}
+
+	public String getBID_CO_PRO_TEL() {
+		return BID_CO_PRO_TEL;
+	}
+
+	public void setBID_CO_PRO_TEL(String bID_CO_PRO_TEL) {
+		BID_CO_PRO_TEL = bID_CO_PRO_TEL;
 	}
 }

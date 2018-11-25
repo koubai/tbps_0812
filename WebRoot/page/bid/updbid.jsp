@@ -25,6 +25,14 @@
 <script type="text/javascript">
 	function upd() {
 		if(checkdata()) {
+			for(var i = 1; i <= 8; i++) {
+				var css = $("#tab" + i).prop("className");
+				if(css.indexOf("active") >= 0) {
+					$("#updBidTabIndex").val(i);
+					break;
+				}
+			}
+			
 			if(confirm("确定修改吗？")) {
 				$("#uploadFileName").val("");
 				document.mainform.action = '<c:url value="/bid/updBidAction.action"></c:url>';
@@ -330,6 +338,11 @@
 			var tmpSaveBidCompApply = childs[9].value;
 			var BID_CO_SEQ = rows[i].cells[2].innerHTML;
 			
+			var BID_CO_LEGAL = childs[10].value;
+			var BID_CO_ORGCODE = childs[11].value;
+			var BID_CO_PRO_TEL = childs[12].value;
+			var BID_CO_PRO_MANAGER = childs[13].value;
+			
 			var tr = document.createElement("tr");
 			var td = document.createElement("td");
 			
@@ -401,6 +414,11 @@
 			td.appendChild(createInput("listBidCompTmp[" + i + "].BID_CO_SEQ", BID_CO_SEQ));
 			td.appendChild(createInput("listBidCompTmp[" + i + "].saveBidCompApply", tmpSaveBidCompApply));
 			td.appendChild(createInput("listBidCompTmp[" + i + "].showBidCompApply", tmpBidCompApply));
+			
+			td.appendChild(createInput("listBidCompTmp[" + i + "].BID_CO_LEGAL", BID_CO_LEGAL));
+			td.appendChild(createInput("listBidCompTmp[" + i + "].BID_CO_ORGCODE", BID_CO_ORGCODE));
+			td.appendChild(createInput("listBidCompTmp[" + i + "].BID_CO_PRO_TEL", BID_CO_PRO_TEL));
+			td.appendChild(createInput("listBidCompTmp[" + i + "].BID_CO_PRO_MANAGER", BID_CO_PRO_MANAGER));
 			
 			tr.appendChild(td);
 			document.getElementById("bidCompListTable").appendChild(tr);
@@ -1241,11 +1259,13 @@
 		$('#tmpBidCompId').val("");
 		$('#tmpBidCompSeq').val("");
 		$('#tmpBidCompName').val("");
+		$('#tmpBidCompOrgCode').val("");
+		$('#tmpBidCompLegal').val("");
+		$('#tmpBidCompProManager').val("");
+		$('#tmpBidCompProTel').val("");
 		$('#tmpBidCompManager').val("");
 		$('#tmpBidCompTel').val("");
-		$('#tmpBidCompAddress').val("");
 		$('#tmpBidCompPs').val("");
-		$('#tmpBidCompTaxno').val("");
 		//禁用 Bootstrap 模态框(Modal) 点击空白时自动关闭
 		$('#bidCompModal').modal({backdrop: 'static', keyboard: false});
 		$('#bidCompModal').modal('show');
@@ -1273,15 +1293,24 @@
 			var BID_CO_ADD = inputs[4].value;
 			var BID_CO_PS = inputs[5].value;
 			var TAX_NO = inputs[6].value;
+			var BID_CO_LEGAL = inputs[10].value;
+			var BID_CO_ORGCODE = inputs[11].value;
+			var BID_CO_PRO_TEL = inputs[12].value;
+			var BID_CO_PRO_MANAGER = inputs[13].value;
+			
 			var seq = tds[2].innerHTML;
 			$('#tmpBidCompId').val(BID_CO_NO);
 			$('#tmpBidCompSeq').val(seq);
 			$('#tmpBidCompName').val(BID_CO_NAME);
+			
+			$('#tmpBidCompOrgCode').val(BID_CO_ORGCODE);
+			$('#tmpBidCompLegal').val(BID_CO_LEGAL);
+			$('#tmpBidCompProManager').val(BID_CO_PRO_MANAGER);
+			$('#tmpBidCompProTel').val(BID_CO_PRO_TEL);
+			
 			$('#tmpBidCompManager').val(BID_CO_MANAGER);
 			$('#tmpBidCompTel').val(BID_CO_TEL);
-			$('#tmpBidCompAddress').val(BID_CO_ADD);
 			$('#tmpBidCompPs').val(BID_CO_PS);
-			$('#tmpBidCompTaxno').val(TAX_NO);
 			//禁用 Bootstrap 模态框(Modal) 点击空白时自动关闭
 			$('#bidCompModal').modal({backdrop: 'static', keyboard: false});
 			$('#bidCompModal').modal('show');
@@ -1337,18 +1366,44 @@
 		var tmpBidCompId = $('#tmpBidCompId').val(); 
 		var tmpBidCompSeq = $('#tmpBidCompSeq').val(); 
 		var tmpBidCompName = $('#tmpBidCompName').val(); 
+		
+		var tmpBidCompOrgCode = $('#tmpBidCompOrgCode').val();
+		var tmpBidCompLegal = $('#tmpBidCompLegal').val();
+		var tmpBidCompProManager = $('#tmpBidCompProManager').val();
+		var tmpBidCompProTel = $('#tmpBidCompProTel').val();
+		
 		var tmpBidCompManager = $('#tmpBidCompManager').val();
 		var tmpBidCompTel = $('#tmpBidCompTel').val(); 
-		var tmpBidCompAddress = $('#tmpBidCompAddress').val();
 		var tmpBidCompPs = $('#tmpBidCompPs').val(); 
-		var tmpBidCompTaxno = $('#tmpBidCompTaxno').val(); 
 		if(tmpBidCompName == "") {
 			alert("请输入单位名称！");
 			$("#tmpBidCompName").focus();
 			return;
 		}
+		
+		if(tmpBidCompOrgCode == "") {
+			alert("组织机构代码不能为空！");
+			$("#tmpBidCompOrgCode").focus();
+			return;
+		}
+		if(tmpBidCompLegal == "") {
+			alert("法定代表人不能为空！");
+			$("#tmpBidCompLegal").focus();
+			return;
+		}
+		if(tmpBidCompProManager == "") {
+			alert("项目负责人不能为空！");
+			$("#tmpBidCompProManager").focus();
+			return;
+		}
+		if(tmpBidCompProTel == "") {
+			alert("项目负责人联系方式不能为空！");
+			$("#tmpBidCompProTel").focus();
+			return;
+		}
+		
 		if(tmpBidCompManager == "") {
-			alert("单位负责人不能为空！");
+			alert("负责人不能为空！");
 			$("#tmpBidCompManager").focus();
 			return;
 		}
@@ -1369,11 +1424,6 @@
 			return;
 		}
 		//*/
-		if(tmpBidCompTaxno == "") {
-			alert("开票信息不能为空！");
-			$("#tmpBidCompTaxno").focus();
-			return;
-		}
 		
 		if(tmpBidCompSeq == "") {
 			//新增
@@ -1404,23 +1454,38 @@
 			var input = createHidden(tmpBidCompTel);
 			td1.appendChild(input);
 			//公司联系地址
-			var input = createHidden(tmpBidCompAddress);
+			var input = createHidden("");
 			td1.appendChild(input);
 			//邮箱
 			var input = createHidden(tmpBidCompPs);
 			td1.appendChild(input);
 			//开票信息
-			var input = createHidden(tmpBidCompTaxno);
+			var input = createHidden("");
 			td1.appendChild(input);
 			//seq
 			var input = createHidden("");
 			td1.appendChild(input);
-			//bidCompApply
+			
+			//为了保持和update页面一致，所以添加2个空的隐藏input
 			var input = createHidden("");
 			td1.appendChild(input);
-			//saveBidCompApply
 			var input = createHidden("");
 			td1.appendChild(input);
+			
+			
+			//法定代表人
+			var input = createHidden(tmpBidCompLegal);
+			td1.appendChild(input);
+			//组织机构代码
+			var input = createHidden(tmpBidCompOrgCode);
+			td1.appendChild(input);
+			//项目负责人联系方式
+			var input = createHidden(tmpBidCompProTel);
+			td1.appendChild(input);
+			//项目负责人
+			var input = createHidden(tmpBidCompProManager);
+			td1.appendChild(input);
+			
 			
 			tr.appendChild(td1);
 			
@@ -1428,12 +1493,18 @@
 			tr.appendChild(createTd(""));
 			//单位名称
 			tr.appendChild(createTd(tmpBidCompName));
+			//组织机构代码
+			tr.appendChild(createTd(tmpBidCompOrgCode));
+			//法定代表人
+			tr.appendChild(createTd(tmpBidCompLegal));
+			//项目负责人
+			tr.appendChild(createTd(tmpBidCompProManager));
+			//项目负责人联系方式
+			tr.appendChild(createTd(tmpBidCompProTel));
 			//单位负责人
 			tr.appendChild(createTd(tmpBidCompManager));
 			//负责人电话
 			tr.appendChild(createTd(tmpBidCompTel));
-			//联系地址
-			tr.appendChild(createTd(tmpBidCompAddress));
 			//邮箱
 			tr.appendChild(createTd(tmpBidCompPs));
 			//报名内容
@@ -1449,15 +1520,27 @@
 			ii[1].value = tmpBidCompName;
 			ii[2].value = tmpBidCompManager;
 			ii[3].value = tmpBidCompTel;
-			ii[4].value = tmpBidCompAddress;
+			ii[4].value = "";
 			ii[5].value = tmpBidCompPs;
-			ii[6].value = tmpBidCompTaxno;
+			ii[6].value = "";
+			ii[7].value = "";
+			
+			ii[8].value = "";
+			ii[9].value = "";
+			
+			ii[10].value = tmpBidCompLegal;
+			ii[11].value = tmpBidCompOrgCode;
+			ii[12].value = tmpBidCompProTel;
+			ii[13].value = tmpBidCompProManager;
 			//更新显示的值
 			rows[seq].cells[3].innerHTML = tmpBidCompName;
-			rows[seq].cells[4].innerHTML = tmpBidCompManager;
-			rows[seq].cells[5].innerHTML = tmpBidCompTel;
-			rows[seq].cells[6].innerHTML = tmpBidCompAddress;
-			rows[seq].cells[7].innerHTML = tmpBidCompPs;
+			rows[seq].cells[4].innerHTML = tmpBidCompOrgCode;
+			rows[seq].cells[5].innerHTML = tmpBidCompLegal;
+			rows[seq].cells[6].innerHTML = tmpBidCompProManager;
+			rows[seq].cells[7].innerHTML = tmpBidCompProTel;
+			rows[seq].cells[8].innerHTML = tmpBidCompManager;
+			rows[seq].cells[9].innerHTML = tmpBidCompTel;
+			rows[seq].cells[10].innerHTML = tmpBidCompPs;
 		}
 		//刷新seq
 		var rows = document.getElementById("bidCompBody").rows;
@@ -1736,6 +1819,7 @@
 			<s:hidden name="updateBidDto.RECEIPT1_DATE" id="RECEIPT1_DATE"/>
 			<s:hidden name="updateBidDto.RECEIPT1_VALUE_DATE" id="RECEIPT1_VALUE_DATE"/>
 			<s:hidden name="updateBidDto.BID_EXPERT_COMMISION_DIFF_DATE" id="BID_EXPERT_COMMISION_DIFF_DATE"/>
+			<s:hidden name="updBidTabIndex" id="updBidTabIndex"/>
 			<div class="row">
 				<table id="bidCompListTable" style="display: none;">
 				</table>
@@ -2384,9 +2468,12 @@
 											<th style="display: none;"></th>
 											<th>序号</th>
 											<th>单位名称</th>
-											<th>单位负责人</th>
-											<th>负责人电话</th>
-											<th>联系地址</th>
+											<th>组织机构代码</th>
+											<th>法定代表人</th>
+											<th>项目负责人</th>
+											<th>项目负责人联系方式</th>
+											<th>负责人</th>
+											<th>负责人联系方式</th>
 											<th>邮箱</th>
 											<th colspan="3">报名内容</th>
 										</tr>
@@ -2406,12 +2493,19 @@
 													<input type="hidden" value="<s:property value="BID_CO_SEQ"/>"/>
 													<input id="bidCompApply_<s:property value="BID_CO_NO"/>" type="hidden" value="<s:property value="showBidCompApply"/>"/>
 													<input id="saveBidCompApply_<s:property value="BID_CO_NO"/>" type="hidden" value="<s:property value="showBidCompApply"/>"/>
+													<input type="hidden" value="<s:property value="BID_CO_LEGAL"/>"/>
+													<input type="hidden" value="<s:property value="BID_CO_ORGCODE"/>"/>
+													<input type="hidden" value="<s:property value="BID_CO_PRO_TEL"/>"/>
+													<input type="hidden" value="<s:property value="BID_CO_PRO_MANAGER"/>"/>
 												</td>
 												<td><s:property value="%{#st1.index + 1}"/></td>
 												<td><s:property value="BID_CO_NAME"/></td>
+												<td><s:property value="BID_CO_ORGCODE"/></td>
+												<td><s:property value="BID_CO_LEGAL"/></td>
+												<td><s:property value="BID_CO_PRO_MANAGER"/></td>
+												<td><s:property value="BID_CO_PRO_TEL"/></td>
 												<td><s:property value="BID_CO_MANAGER"/></td>
 												<td><s:property value="BID_CO_TEL"/></td>
-												<td><s:property value="BID_CO_ADD"/></td>
 												<td><s:property value="BID_CO_PS"/></td>
 												<td>
 													<s:if test="BID_CO_NO != null">
@@ -3532,46 +3626,58 @@
 					</div>
 					<div class="modal-body">
 						<div class="form-group">
-							<label class="col-sm-2 control-label">单位名称</label>
-							<div class="col-sm-9">
+							<label class="col-sm-3 control-label">单位名称</label>
+							<div class="col-sm-8">
 								<input type="hidden" id="tmpBidCompId" class="form-control">
 								<input type="hidden" id="tmpBidCompSeq" class="form-control">
 								<input type="text" id="tmpBidCompName" class="form-control" maxlength="40" placeholder="请输入单位名称">
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label">单位负责人</label>
-							<div class="col-sm-9">
-								<input type="text" id="tmpBidCompManager" class="form-control" maxlength="8" placeholder="请输入单位负责人">
+							<label class="col-sm-3 control-label">组织机构代码</label>
+							<div class="col-sm-8">
+								<input type="text" id="tmpBidCompOrgCode" class="form-control" maxlength="32" placeholder="请输入组织机构代码">
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label">负责人电话</label>
-							<div class="col-sm-9">
-								<input type="text"  id="tmpBidCompTel" class="form-control" maxlength="25" placeholder="请输入负责人电话">
+							<label class="col-sm-3 control-label">法定代表人</label>
+							<div class="col-sm-8">
+								<input type="text" id="tmpBidCompLegal" class="form-control" maxlength="32" placeholder="请输入法定代表人">
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label">联系地址</label>
-							<div class="col-sm-9">
-								<input type="text"  id="tmpBidCompAddress" class="form-control" maxlength="40" placeholder="请输入联系地址">
+							<label class="col-sm-3 control-label">项目负责人</label>
+							<div class="col-sm-8">
+								<input type="text" id="tmpBidCompProManager" class="form-control" maxlength="10" placeholder="请输入项目负责人">
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label">邮箱</label>
-							<div class="col-sm-9">
+							<label class="col-sm-3 control-label">项目负责人联系方式</label>
+							<div class="col-sm-8">
+								<input type="text" id="tmpBidCompProTel" class="form-control" maxlength="20" placeholder="请输入项目负责人联系方式">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">负责人</label>
+							<div class="col-sm-8">
+								<input type="text" id="tmpBidCompManager" class="form-control" maxlength="8" placeholder="请输入负责人">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">负责人联系方式</label>
+							<div class="col-sm-8">
+								<input type="text"  id="tmpBidCompTel" class="form-control" maxlength="25" placeholder="请输入负责人联系方式">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">邮箱</label>
+							<div class="col-sm-8">
 								<input type="text"  id="tmpBidCompPs" class="form-control" maxlength="100" placeholder="请输入邮箱">
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-2 control-label">开票信息</label>
-							<div class="col-sm-9">
-								<input type="text"  id="tmpBidCompTaxno" class="form-control" maxlength="20" placeholder="请输入开票信息">
 							</div>
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-primary" onclick="saveBidComp();">保存</button>
+						<button type="button" class="btn btn-primary" onclick="saveBidComp();">确认</button>
 						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 					</div>
 				</form>
