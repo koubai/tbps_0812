@@ -39,7 +39,7 @@ public class BidHistDto extends BaseDto {
 	 * 合同类别
 	 */
 	private String CNTRCT_TYPE;
-
+	
 	/**
 	 * 项目名称
 	 */

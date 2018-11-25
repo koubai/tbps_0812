@@ -143,6 +143,7 @@ public class BidCntrctServiceImpl extends BaseService implements BidCntrctServic
 		bidCntrctHis.setCNTRCT_NAME(bidCntrct.getCNTRCT_NAME());
 		bidCntrctHis.setCNTRCT_NM(bidCntrct.getCNTRCT_NM());
 		bidCntrctHis.setCNTRCT_TYPE(bidCntrct.getCNTRCT_TYPE());
+		bidCntrctHis.setCNTRCT_TYPE_NAME(bidCntrct.getCNTRCT_TYPE_NAME());
 		bidCntrctHis.setBID_COMP_NO(bidCntrct.getBID_COMP_NO());
 		bidCntrctHis.setBID_COMP_NAME(bidCntrct.getBID_COMP_NAME());
 		bidCntrctHis.setCO_MANAGER1(bidCntrct.getCO_MANAGER1());

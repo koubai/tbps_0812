@@ -38,6 +38,11 @@ public class BidCntrctHisDto extends BaseDto {
 	 * 合同类别
 	 */
 	private String CNTRCT_TYPE;
+	
+	/**
+	 * 类别名称，合同类型=9时，需要输入合同名称
+	 */
+	private String CNTRCT_TYPE_NAME;
 
 	/**
 	 * 委托单位ID
@@ -956,6 +961,14 @@ public class BidCntrctHisDto extends BaseDto {
 
 	public void setBID_CNTRCT_HIS_SEQ(Integer bID_CNTRCT_HIS_SEQ) {
 		BID_CNTRCT_HIS_SEQ = bID_CNTRCT_HIS_SEQ;
+	}
+
+	public String getCNTRCT_TYPE_NAME() {
+		return CNTRCT_TYPE_NAME;
+	}
+
+	public void setCNTRCT_TYPE_NAME(String cNTRCT_TYPE_NAME) {
+		CNTRCT_TYPE_NAME = cNTRCT_TYPE_NAME;
 	}
 
 }

@@ -299,9 +299,9 @@
 			return;
 		}
 		if(tmpReceiptValueDate == "") {
-			alert("请选择到账日期！");
-			$("#tmpReceiptValueDate").focus();
-			return;
+			//alert("请选择到账日期！");
+			//$("#tmpReceiptValueDate").focus();
+			//return;
 		}
 		//计算并赋值
 		var list = document.getElementsByName("radioKey");

@@ -36,6 +36,11 @@ public class BidCntrctDto extends BaseDto {
 	 */
 	private String CNTRCT_TYPE;
 	
+	/**
+	 * 类别名称，合同类型=9时，需要输入合同名称
+	 */
+	private String CNTRCT_TYPE_NAME;
+	
 	//项目总数量
 	private int totalProject;
 	//完成项目数量
@@ -316,7 +321,7 @@ public class BidCntrctDto extends BaseDto {
 	private String PROJECT_SENIOR_MANAGER;
 
 	/**
-	 * 合同类型=9时，需要输入合同名称
+	 * 备用1
 	 */
 	private String RESERVE1;
 
@@ -1052,5 +1057,13 @@ public class BidCntrctDto extends BaseDto {
 
 	public void setBID_AGENT_PRICE_ACT(BigDecimal bID_AGENT_PRICE_ACT) {
 		BID_AGENT_PRICE_ACT = bID_AGENT_PRICE_ACT;
+	}
+
+	public String getCNTRCT_TYPE_NAME() {
+		return CNTRCT_TYPE_NAME;
+	}
+
+	public void setCNTRCT_TYPE_NAME(String cNTRCT_TYPE_NAME) {
+		CNTRCT_TYPE_NAME = cNTRCT_TYPE_NAME;
 	}
 }

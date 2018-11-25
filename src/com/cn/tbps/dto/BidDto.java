@@ -78,7 +78,7 @@ public class BidDto extends BaseDto {
 	private String CNTRCT_TYPE;
 	
 	/**
-	 * 合同类别名
+	 * 合同类别名，合同类型=9时，需要输入合同名称
 	 */
 	private String CNTRCT_TYPE_NAME;
 
@@ -641,7 +641,7 @@ public class BidDto extends BaseDto {
 	private String MEMO1;
 
 	/**
-	 * 合同类型=9时，需要输入合同名称
+	 * 备用1
 	 */
 	private String RESERVE1;
 
@@ -1960,16 +1960,6 @@ public class BidDto extends BaseDto {
 	}
 
 	public String getCNTRCT_TYPE_NAME() {
-		CNTRCT_TYPE_NAME = CNTRCT_TYPE;
-		if("1".equals(CNTRCT_TYPE)) {
-			CNTRCT_TYPE_NAME = "招标";
-		} else if("2".equals(CNTRCT_TYPE)) {
-			CNTRCT_TYPE_NAME = "比选";
-		} else if("3".equals(CNTRCT_TYPE)) {
-			CNTRCT_TYPE_NAME = "招标办";
-		} else if("4".equals(CNTRCT_TYPE)) {
-			CNTRCT_TYPE_NAME = "竞价";
-		}
 		return CNTRCT_TYPE_NAME;
 	}
 

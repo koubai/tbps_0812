@@ -127,13 +127,6 @@
 			$("#PROJECT_NAME").focus();
 			return false;
 		}
-		
-		if(BID_AGENT_PRICE != "" && !isReal(BID_AGENT_PRICE)) {
-			showtab("1");
-			alert("代理费格式不正确！");
-			$("#BID_AGENT_PRICE").focus();
-			return false;
-		}
 		if(PROJ_APPROVAL.length > 60) {
 			showtab("1");
 			alert("工程概况批文不能超过60个字！");
@@ -198,6 +191,12 @@
 			showtab("4");
 			alert("限价格式不正确！");
 			$("#BID_LIMIT_PRICE").focus();
+			return false;
+		}
+		if(BID_AGENT_PRICE != "" && !isReal(BID_AGENT_PRICE)) {
+			showtab("4");
+			alert("代理费格式不正确！");
+			$("#BID_AGENT_PRICE").focus();
 			return false;
 		}
 		if(BID_APPLY_PRICE != "" && !isReal(BID_APPLY_PRICE)) {
@@ -1057,7 +1056,7 @@
 					html += '		<input type="hidden" value="' + n.CNTRCT_TYPE + '">';
 					html += '		<input type="hidden" value="' + n.CO_TAX + '">';
 					html += '		<input type="hidden" value="' + n.PROJECT_SENIOR_MANAGER + '">';
-					html += '		<input type="hidden" value="' + n.RESERVE1 + '">';
+					html += '		<input type="hidden" value="' + n.CNTRCT_TYPE_NAME + '">';
 					html += '	</td>';
 					html += '	<td>' + n.CNTRCT_YEAR + '</td>';
 					html += '	<td>' + n.CNTRCT_NO + '</td>';
@@ -1135,7 +1134,7 @@
 			var CNTRCT_TYPE = inputs[10].value;
 			var CO_TAX = inputs[11].value;
 			var PROJECT_SENIOR_MANAGER = inputs[12].value;
-			var RESERVE1 = inputs[13].value;
+			var CNTRCT_TYPE_NAME = inputs[13].value;
 			$('#tmpCNTRCT_NO').val(CNTRCT_NO);
 			$('#tmpCNTRCT_YEAR').val(CNTRCT_YEAR);
 			$('#tmpCNTRCT_ST_DATE').val(showCNTRCT_ST_DATE);
@@ -1149,7 +1148,7 @@
 			$('#tmpCNTRCT_TYPE').val(CNTRCT_TYPE);
 			$('#tmpPROJECT_MANAGER').val(PROJECT_SENIOR_MANAGER);
 			$('#PROJECT_MANAGER').val(PROJECT_SENIOR_MANAGER);
-			$('#RESERVE1').val("");
+			$('#CNTRCT_TYPE_NAME').val("");
 			if(CNTRCT_TYPE == "1") {
 				$('#tmpCNTRCT_TYPE_NAME').val("招标");
 			} else if(CNTRCT_TYPE == "5") {
@@ -1160,8 +1159,8 @@
 				$('#tmpCNTRCT_TYPE_NAME').val("公开竞价");
 			} else if(CNTRCT_TYPE == "9") {
 				//直接取类型名称
-				$('#tmpCNTRCT_TYPE_NAME').val(RESERVE1);
-				$('#RESERVE1').val(RESERVE1);
+				$('#tmpCNTRCT_TYPE_NAME').val(CNTRCT_TYPE_NAME);
+				$('#CNTRCT_TYPE_NAME').val(CNTRCT_TYPE_NAME);
 			} else {
 				$('#tmpCNTRCT_TYPE_NAME').val("");
 			}
@@ -1849,7 +1848,7 @@
 						 			<input id="tmpCNTRCT_TYPE_NAME" value="公开竞价" maxlength="80" type="text" class="form-control" disabled="disabled">
 						 		</s:elseif>
 						 		<s:elseif test='updateBidDto.CNTRCT_TYPE == "9"'>
-						 			<input id="tmpCNTRCT_TYPE_NAME" value="<s:property value="updateBidDto.RESERVE1"/>" maxlength="80" type="text" class="form-control" disabled="disabled">
+						 			<input id="tmpCNTRCT_TYPE_NAME" value="<s:property value="updateBidDto.CNTRCT_TYPE_NAME"/>" maxlength="80" type="text" class="form-control" disabled="disabled">
 						 		</s:elseif>
 						 		<s:else>
 						 			<input id="tmpCNTRCT_TYPE_NAME" value="" maxlength="80" type="text" class="form-control" disabled="disabled">
@@ -2073,18 +2072,6 @@
 											</select>
 										</s:else>
 									</div>
-								</div>
-								<div class="col-lg-4 form-group">
-									<label for="" class="col-lg-3 form-label">代理费</label>
-									<div class="col-lg-8">
-										<s:if test='#session.user_rank >= "B"'>
-											<s:textfield name="updateBidDto.BID_AGENT_PRICE" id="BID_AGENT_PRICE" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
-										</s:if>
-										<s:else>
-											<s:textfield name="updateBidDto.BID_AGENT_PRICE" disabled="true" id="BID_AGENT_PRICE" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
-										</s:else>
-									</div>
-									<label for="" class="col-lg-1 form-label">万元</label>
 								</div>
 								<div class="col-lg-12 form-group">
 									<label class="col-lg-1 form-label">工程概况批文</label>
@@ -2490,6 +2477,18 @@
 										<s:textfield name="updateBidDto.BID_LIMIT_PRICE" id="BID_LIMIT_PRICE" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
 									</div>
 									<label for="" class="col-lg-1 form-label" style="text-align:left;">万元</label>
+								</div>
+								<div class="col-lg-4 form-group">
+									<label for="" class="col-lg-3 form-label">代理费</label>
+									<div class="col-lg-7">
+										<s:if test='#session.user_rank >= "B"'>
+											<s:textfield name="updateBidDto.BID_AGENT_PRICE" id="BID_AGENT_PRICE" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
+										</s:if>
+										<s:else>
+											<s:textfield name="updateBidDto.BID_AGENT_PRICE" disabled="true" id="BID_AGENT_PRICE" cssClass="form-control" maxlength="14" theme="simple"></s:textfield>
+										</s:else>
+									</div>
+									<label for="" class="col-lg-1 form-label">万元</label>
 								</div>
 							</div>
 							<table class="table table-bordered">

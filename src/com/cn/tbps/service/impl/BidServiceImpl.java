@@ -371,7 +371,7 @@ public class BidServiceImpl extends BaseService implements BidService {
 			if(bidCntrct != null) {
 				bid.setCNTRCT_NAME(bidCntrct.getCNTRCT_NAME());
 				//合同类别名称从合同表中带出
-				bid.setRESERVE1(bidCntrct.getRESERVE1());
+				bid.setCNTRCT_TYPE_NAME(bidCntrct.getCNTRCT_TYPE_NAME());
 				bid.setCNTRCT_YEAR(bidCntrct.getCNTRCT_YEAR());
 				bid.setCNTRCT_ST_DATE(bidCntrct.getCNTRCT_ST_DATE());
 				bid.setCNTRCT_ED_DATE(bidCntrct.getCNTRCT_ED_DATE());

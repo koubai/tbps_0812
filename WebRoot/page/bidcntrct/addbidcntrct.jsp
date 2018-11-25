@@ -82,10 +82,10 @@
 			return false;
 		}
 		if(CNTRCT_TYPE == "9") {
-			var RESERVE1 = $("#RESERVE1").val();
-			if(RESERVE1 == "") {
+			var CNTRCT_TYPE_NAME = $("#CNTRCT_TYPE_NAME").val();
+			if(CNTRCT_TYPE_NAME == "") {
 				alert("请输入类别名称！");
-				$("#RESERVE1").focus();
+				$("#CNTRCT_TYPE_NAME").focus();
 				return false;
 			}
 		}
@@ -266,11 +266,11 @@
 	
 	function changeCNTRCT_TYPE(obj) {
 		var type = $(obj).val();
-		$("#RESERVE1").val("");
+		$("#CNTRCT_TYPE_NAME").val("");
 		if(type == "9") {
-			$("#divRESERVE1").show();
+			$("#divCNTRCT_TYPE_NAME").show();
 		} else {
-			$("#divRESERVE1").hide();
+			$("#divCNTRCT_TYPE_NAME").hide();
 		}
 	}
 </script>
@@ -379,14 +379,14 @@
 							</div>
 						</div>
 						<s:if test='addBidCntrctDto.CNTRCT_TYPE == "9"'>
-						<div id="divRESERVE1" class="col-lg-3 form-group">
+						<div id="divCNTRCT_TYPE_NAME" class="col-lg-3 form-group">
 						</s:if>
 						<s:else>
-						<div id="divRESERVE1" class="col-lg-3 form-group" style="display: none;">
+						<div id="divCNTRCT_TYPE_NAME" class="col-lg-3 form-group" style="display: none;">
 						</s:else>
 							<label for="" class="col-lg-3 form-label"><span class="red">*</span>类别名称</label>
 							<div class="col-lg-9">
-								<s:textfield name="addBidCntrctDto.RESERVE1" id="RESERVE1" maxlength="10" cssClass="form-control" theme="simple"></s:textfield>
+								<s:textfield name="addBidCntrctDto.CNTRCT_TYPE_NAME" id="CNTRCT_TYPE_NAME" maxlength="32" cssClass="form-control" theme="simple"></s:textfield>
 							</div>
 						</div>
 						<div class="col-lg-3 form-group" style="display: none;">
