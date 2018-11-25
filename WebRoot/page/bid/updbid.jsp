@@ -2696,7 +2696,7 @@
 							<div class="col-lg-4 form-group" style="margin-top: 20px;">
 								<label for="" class="col-lg-3 form-label">保证金</label>
 								<div class="col-lg-7">
-									<input type="text" class="form-control" maxlength="14">
+									<input type="text" class="form-control" maxlength="14" disabled="disabled" value="<s:property value="updateBidDto.BID_BOND"/>">
 								</div>
 								<label for="" class="col-lg-1 form-label" style="text-align:left;">万元</label>
 							</div>

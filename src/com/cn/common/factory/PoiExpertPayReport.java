@@ -107,7 +107,7 @@ public class PoiExpertPayReport extends Poi2007Base {
 			cell5 = row.createCell(5);
 			cell6 = row.createCell(6);
 			
-			cell0.setCellValue(i);
+			cell0.setCellValue((i + 1));
 			cell0.setCellStyle(style);
 			cell1.setCellValue(bidrpt.getPROJECT_NAME());
 			cell1.setCellStyle(style);

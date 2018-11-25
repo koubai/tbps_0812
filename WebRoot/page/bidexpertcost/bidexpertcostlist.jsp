@@ -74,8 +74,26 @@
 		}
 	}
 	
-	//专家费信息导出
+	//专家费信息导出（导出所有）
+	function expertcostexportall(){
+		document.mainform.action = '<c:url value="/bidexpertcost/expertAllCostExportAction.action"></c:url>';
+		document.mainform.submit();		
+	}
+	
+	//专家费信息导出指定BID
 	function expertcostexport(){
+		var nos = "";
+		var list = document.getElementsByName("radioKey");
+		for(var i = 0; i < list.length; i++) {
+			if(list[i].checked) {
+				nos += list[i].value + ",";
+			}
+		}
+		if(nos == "") {
+			alert("请选择要导出专家费的记录！");
+			return;
+		}
+		$("#strBidNosExpert").val(nos);
 		document.mainform.action = '<c:url value="/bidexpertcost/expertCostExportAction.action"></c:url>';
 		document.mainform.submit();		
 	}
@@ -304,6 +322,7 @@
 					<s:hidden name="strCNTRCT_ED_DATE" id="strCNTRCT_ED_DATE"/>
 					<s:hidden name="strBID_COMP_NO" id="strBID_COMP_NO"/>
 					<s:hidden name="strBID_COMP_NAME" id="strBID_COMP_NAME"/>
+					<s:hidden name="strBidNosExpert" id="strBidNosExpert"/>
 					<h3 class="title">专家费设定<a class="backHome" href="#" onclick="goHome();"><i class="fa fa-home" aria-hidden="true"></i>返回首页</a></h3>
 					<div class="row">
 						<s:if test="hasActionMessages()">
@@ -375,7 +394,7 @@
 						</tr>
 						<s:iterator id="listBid" value="listBid" status="st1">
 							<tr>
-								<td><input name="radioKey" type="radio" value="<s:property value="BID_NO"/>"/></td>
+								<td><input name="radioKey" type="checkbox" value="<s:property value="BID_NO"/>"/></td>
 								<td>
 									<input name="tmpBID_NO" type="hidden" value="<s:property value="BID_NO"/>">
 									<a class="goBidUpd" href="#" onclick='goBidUpd("<s:property value="BID_NO"/>",8)'; ><s:property value="BID_NO"/></a>

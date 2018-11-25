@@ -206,6 +206,13 @@ public interface BidService {
 	public List<BidDto> queryBidExportByYear(String strBidNoStart, String strBidNoEnd);
 	
 	/**
+	 * 根据招标编号查询记录
+	 * @param bidNos
+	 * @return
+	 */
+	public List<BidDto> queryBidByNos(String bidNos);
+	
+	/**
 	 * 根据年份查询委托公司（Excel导出用）
 	 * @param strBidNoStart
 	 * @param strBidNoEnd

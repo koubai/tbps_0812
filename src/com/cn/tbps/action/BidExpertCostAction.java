@@ -3,7 +3,6 @@ package com.cn.tbps.action;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
@@ -13,7 +12,6 @@ import com.cn.common.factory.PoiFactory;
 import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
-import com.cn.tbps.dto.AuditDto;
 import com.cn.tbps.dto.BidDto;
 import com.cn.tbps.dto.UserInfoDto;
 import com.cn.tbps.service.BidService;
@@ -51,6 +49,9 @@ public class BidExpertCostAction extends BaseAction {
 	private List<BidDto> listBid;
 	
 	private List<BidDto> expertCostBidList;
+	
+	//指定BIDNO导出专家费
+	private String strBidNosExpert;
 	
 	//多个合同编号
 	private String strCntrctNos;
@@ -127,6 +128,7 @@ public class BidExpertCostAction extends BaseAction {
 			this.clearMessages();
 			listBid = new ArrayList<BidDto>();
 			expertCostBidList = new ArrayList<BidDto>();
+			strBidNosExpert = "";
 			strCNTRCT_YEAR = "";
 			strCNTRCT_ST_DATE = "";
 			strCNTRCT_ED_DATE = "";
@@ -179,6 +181,7 @@ public class BidExpertCostAction extends BaseAction {
 	
 	@SuppressWarnings("unchecked")
 	private void queryData() {
+		strBidNosExpert = "";
 		listUserInfo = userInfoService.queryAllUser();
 		expertCostBidList = new ArrayList<BidDto>();
 		listBid = new ArrayList<BidDto>();
@@ -193,9 +196,9 @@ public class BidExpertCostAction extends BaseAction {
 		listBid = (List<BidDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
-
-	// 专家费信息导出
-	public String expertCostExportAction(){
+	
+	// 专家费信息导出所有BID
+	public String expertAllCostExportAction(){
 		try {
 			this.clearMessages();
 			String name = StringUtil.createFileName(Constants.EXCEL_TYPE_EXPERTPAYREPORT);
@@ -208,6 +211,28 @@ public class BidExpertCostAction extends BaseAction {
 					"", "", "", "", "",
 					"", "", "", "", "",
 					strCNTRCT_ST_DATE, strCNTRCT_ED_DATE);
+			
+			base.setDatas(listBid);
+			base.setSheetName(Constants.EXCEL_TYPE_EXPERTPAYREPORT);
+			base.exportExcel(response.getOutputStream());
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+		
+	}
+
+	// 专家费信息导出指定BID
+	public String expertCostExportAction(){
+		try {
+			this.clearMessages();
+			String name = StringUtil.createFileName(Constants.EXCEL_TYPE_EXPERTPAYREPORT);
+			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
+			response.setContentType("application/vnd.ms-excel");
+			Poi2007Base base = PoiFactory.getPoi(Constants.EXCEL_TYPE_EXPERTPAYREPORT);
+			
+			listBid = bidService.queryBidByNos(strBidNosExpert);
 			
 			base.setDatas(listBid);
 			base.setSheetName(Constants.EXCEL_TYPE_EXPERTPAYREPORT);
@@ -330,5 +355,13 @@ public class BidExpertCostAction extends BaseAction {
 
 	public void setExpertCostBidList(List<BidDto> expertCostBidList) {
 		this.expertCostBidList = expertCostBidList;
+	}
+
+	public String getStrBidNosExpert() {
+		return strBidNosExpert;
+	}
+
+	public void setStrBidNosExpert(String strBidNosExpert) {
+		this.strBidNosExpert = strBidNosExpert;
 	}
 }

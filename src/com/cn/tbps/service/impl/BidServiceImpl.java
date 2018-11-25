@@ -38,6 +38,7 @@ import com.cn.tbps.dto.SuperviseLibDto;
 import com.cn.tbps.dto.UserInfoDto;
 import com.cn.tbps.service.BidService;
 
+import antlr.StringUtils;
 import net.sf.json.JSONArray;
 
 /**
@@ -1247,6 +1248,23 @@ public class BidServiceImpl extends BaseService implements BidService {
 							BID_EXPERT_NAME_LIST += expert.getEXPERT_NAME() + ",";
 						}
 						bid.setBID_EXPERT_NAME_LIST(BID_EXPERT_NAME_LIST);
+					}
+				}
+			}
+		}
+		return list;
+	}
+	
+	@Override
+	public List<BidDto> queryBidByNos(String bidNos) {
+		List<BidDto> list = new ArrayList<BidDto>();
+		if(StringUtil.isNotBlank(bidNos)) {
+			String ll[] = bidNos.split(",");
+			for(String no : ll) {
+				if(StringUtil.isNotBlank(no)) {
+					BidDto bid = bidDao.queryBidByID(no);
+					if(bid != null) {
+						list.add(bid);
 					}
 				}
 			}

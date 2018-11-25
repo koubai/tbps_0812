@@ -30,6 +30,10 @@
 			<result name="success">/page/bidexpertcost/bidexpertcostlist.jsp</result>
 		</action>
 		
+		<action name="expertAllCostExportAction" class="bidExpertCostAction" method="expertAllCostExportAction">
+			<result name="success">/page/bidexpertcost/bidexpertcostlist.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>
