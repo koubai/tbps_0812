@@ -57,19 +57,6 @@
                       <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-envelope"></i> Messages <span id="mesgSpan1" class="badge">0</span> <b class="caret"></b></a>
                       <ul class="dropdown-menu">
                           <li id="mesgCount" class="dropdown-header" onclick="goMesgPage();">0 New Messages</li>
-                          <li class="message-preview">
-                              <a href="#">
-                                  <span class="avatar"><i class="fa fa-bell"></i></span>
-                                  <span class="message">Security alert</span>
-                              </a>
-                          </li>
-                          <li class="divider"></li>
-                          <li class="message-preview">
-                              <a href="#">
-                                  <span class="avatar"><i class="fa fa-bell"></i></span>
-                                  <span class="message">Security alert</span>
-                              </a>
-                          </li>
                           <li class="divider"></li>
                           <li><a href="<%=request.getContextPath()%>/mesg/queryMesgList.action">消息&nbsp;&nbsp;&nbsp;&nbsp;<span id="mesgSpan2" class="badge">0</span></a></li>
                       </ul>
