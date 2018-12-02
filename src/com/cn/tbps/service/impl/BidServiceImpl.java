@@ -177,11 +177,18 @@ public class BidServiceImpl extends BaseService implements BidService {
 		//查询各个合同对应的招标数量以及对应状态、金额等
 		if(list != null && list.size() > 0) {
 			for(BidDto bid : list) {
+				List<BidCompDto> joinBidCompList = bidCompDao.queryAllBidCompExport(bid.getBID_NO(), "", "");
 				//缴纳保证金单位数
 				List<BidCompDto> bondList = new ArrayList<BidCompDto>();
+				if(joinBidCompList != null && joinBidCompList.size() > 0) {
+					for(BidCompDto comp : joinBidCompList) {
+						if(comp.getBID_VALUE_DATE() != null) {
+							bondList.add(comp);
+						}
+					}
+				}
 				bid.setBondBidCompList(bondList);
 				//报名单位数
-				List<BidCompDto> joinBidCompList = bidCompDao.queryAllBidCompExport(bid.getBID_NO(), "", "");
 				bid.setJoinBidCompList(joinBidCompList);
 			}
 		}
@@ -1209,6 +1216,23 @@ public class BidServiceImpl extends BaseService implements BidService {
 				}
 			}
 			for(BidDto bid : list) {
+				BidCntrctDto bidCntrct = bidCntrctDao.queryBidCntrctByID(bid.getCNTRCT_NO());
+				if(bidCntrct != null) {
+					bid.setCNTRCT_NAME(bidCntrct.getCNTRCT_NAME());
+					//合同类别名称从合同表中带出
+					bid.setCNTRCT_TYPE_NAME(bidCntrct.getCNTRCT_TYPE_NAME());
+					bid.setCNTRCT_YEAR(bidCntrct.getCNTRCT_YEAR());
+					bid.setCNTRCT_ST_DATE(bidCntrct.getCNTRCT_ST_DATE());
+					bid.setCNTRCT_ED_DATE(bidCntrct.getCNTRCT_ED_DATE());
+					bid.setBID_COMP_NO(bidCntrct.getBID_COMP_NO());
+					bid.setBID_COMP_NAME(bidCntrct.getBID_COMP_NAME());
+					bid.setCO_MANAGER1(bidCntrct.getCO_MANAGER1());
+					bid.setCO_MANAGER_TEL1(bidCntrct.getCO_MANAGER_TEL1());
+					bid.setCO_ADDRESS1(bidCntrct.getCO_ADDRESS1());
+					bid.setCO_MANAGER_EMAIL1(bidCntrct.getCO_MANAGER_EMAIL1());
+					bid.setCO_TAX(bidCntrct.getCO_TAX());
+				}
+				
 				//会审监管人
 				if(StringUtil.isNotBlank(bid.getPROJECT_AUTH())) {
 					SuperviseLibDto superviseLib = superviseLibDao.querySuperviseLibByID(bid.getPROJECT_AUTH());

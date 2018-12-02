@@ -84,7 +84,7 @@
 		if(CNTRCT_TYPE == "9") {
 			var CNTRCT_TYPE_NAME = $("#CNTRCT_TYPE_NAME").val();
 			if(CNTRCT_TYPE_NAME == "") {
-				alert("请输入类别名称！");
+				alert("请输入类别备注！");
 				$("#CNTRCT_TYPE_NAME").focus();
 				return false;
 			}
@@ -384,7 +384,7 @@
 						<s:else>
 						<div id="divCNTRCT_TYPE_NAME" class="col-lg-3 form-group" style="display: none;">
 						</s:else>
-							<label for="" class="col-lg-3 form-label"><span class="red">*</span>类别名称</label>
+							<label for="" class="col-lg-3 form-label"><span class="red">*</span>类别备注</label>
 							<div class="col-lg-9">
 								<s:textfield name="updBidCntrctDto.CNTRCT_TYPE_NAME" id="CNTRCT_TYPE_NAME" maxlength="32" cssClass="form-control" theme="simple"></s:textfield>
 							</div>
