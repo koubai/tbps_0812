@@ -1403,7 +1403,7 @@
 		}
 		
 		if(tmpBidCompManager == "") {
-			alert("负责人不能为空！");
+			alert("联系人不能为空！");
 			$("#tmpBidCompManager").focus();
 			return;
 		}
@@ -2472,8 +2472,8 @@
 											<th>法定代表人</th>
 											<th>项目负责人</th>
 											<th>项目负责人联系方式</th>
-											<th>负责人</th>
-											<th>负责人联系方式</th>
+											<th>联系人</th>
+											<th>联系人联系方式</th>
 											<th>邮箱</th>
 											<th colspan="3">报名内容</th>
 										</tr>
@@ -3658,15 +3658,15 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label">负责人</label>
+							<label class="col-sm-3 control-label">联系人</label>
 							<div class="col-sm-8">
-								<input type="text" id="tmpBidCompManager" class="form-control" maxlength="8" placeholder="请输入负责人">
+								<input type="text" id="tmpBidCompManager" class="form-control" maxlength="8" placeholder="请输入联系人">
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label">负责人联系方式</label>
+							<label class="col-sm-3 control-label">联系人联系方式</label>
 							<div class="col-sm-8">
-								<input type="text"  id="tmpBidCompTel" class="form-control" maxlength="25" placeholder="请输入负责人联系方式">
+								<input type="text"  id="tmpBidCompTel" class="form-control" maxlength="25" placeholder="请输入联系人联系方式">
 							</div>
 						</div>
 						<div class="form-group">

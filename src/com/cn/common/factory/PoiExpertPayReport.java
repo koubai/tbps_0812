@@ -223,17 +223,17 @@ public class PoiExpertPayReport extends Poi2007Base {
 		//专家费申请金额（元）
 		sheet.setColumnWidth(3, 15 * 256);
 		cell = row3.createCell(3);
-		cell.setCellValue("专家费申请金额（元）");
+		cell.setCellValue("专家费申请金额（万元）");
 		cell.setCellStyle(style);
 		//专家费实际使用金额（元）
 		sheet.setColumnWidth(4, 15 * 256);
 		cell = row3.createCell(4);
-		cell.setCellValue("专家费实际使用金额（元）");
+		cell.setCellValue("专家费实际使用金额（万元）");
 		cell.setCellStyle(style);
 		//退还差额（元）
 		sheet.setColumnWidth(5, 15 * 256);
 		cell = row3.createCell(5);
-		cell.setCellValue("退还差额（元）");
+		cell.setCellValue("退还差额（万元）");
 		cell.setCellStyle(style);
 		
 		//备注
