@@ -18,9 +18,12 @@ import com.cn.tbps.dto.AuditCntrctDto;
 import com.cn.tbps.dto.AuditCompDto;
 import com.cn.tbps.dto.AuditDto;
 import com.cn.tbps.dto.AuditHistDto;
+import com.cn.tbps.dto.AuditListDisp;
+import com.cn.tbps.dto.AuditListDispEnum;
 import com.cn.tbps.dto.AuditStatCostDto;
 import com.cn.tbps.dto.AuditStatPaidDto;
 import com.cn.tbps.dto.AuditStatisticsDto;
+import com.cn.tbps.dto.ConfigTabDto;
 import com.cn.tbps.dto.UserInfoDto;
 import com.cn.tbps.service.AuditCntrctService;
 import com.cn.tbps.service.AuditCompService;
@@ -246,6 +249,12 @@ public class AuditAction extends BaseAction {
 	
 	private AuditCntrctDto updAuditCntrctDtoOld;
 	private String updAuditCntrctNo;
+	
+	//审价显示项目
+	private List<AuditListDisp> auditListDisp;
+	
+	//审价显示项目
+	private List<AuditListDisp> auditAllDisp;
 	
 	//审价履历
 	/**
@@ -968,6 +977,48 @@ public class AuditAction extends BaseAction {
 		}
 		return SUCCESS;
 	}
+
+	/**
+	 * 显示项目显示及输出设定
+	 * @return
+	 */
+	public String showAuditListDisp() {
+		try {
+			this.clearMessages();
+			//全项目
+			auditAllDisp = new ArrayList<AuditListDisp>();
+			ConfigTabDto auditAllDispConfig = configTabService.queryConfigTabByKey(Constants.CONFIG_TAB_AUDIT_ALLDISP, Constants.CONFIG_TAB_AUDIT_ALLDISP);
+			String auditAllDispValue = auditAllDispConfig.getCONFIG_VAL();
+			String[] valArrayAll = auditAllDispValue.split(",");
+			for(String id : valArrayAll) {
+				AuditListDisp auditDisp = new AuditListDisp();
+				auditDisp.setId(Integer.parseInt(id));
+				auditDisp.setEnName(AuditListDispEnum.getNameByID(Integer.parseInt(id)).getEnName());
+				auditDisp.setCnName(AuditListDispEnum.getNameByID(Integer.parseInt(id)).getCnName());
+				auditAllDisp.add(auditDisp);
+			}
+			//设定项目
+			auditListDisp = new ArrayList<AuditListDisp>();
+			ConfigTabDto auditListDispConfig = configTabService.queryConfigTabByKey(Constants.CONFIG_TAB_AUDIT_DISP, Constants.CONFIG_TAB_AUDIT_DISP);
+			String auditListDispValue = auditListDispConfig.getCONFIG_VAL();
+			String[] valArray = auditListDispValue.split(",");
+			for(String id : valArray) {
+				AuditListDisp auditDisp = new AuditListDisp();
+				auditDisp.setId(Integer.parseInt(id));
+				auditDisp.setEnName(AuditListDispEnum.getNameByID(Integer.parseInt(id)).getEnName());
+				auditDisp.setCnName(AuditListDispEnum.getNameByID(Integer.parseInt(id)).getCnName());
+				auditListDisp.add(auditDisp);
+			}
+			listUserInfo = userInfoService.queryAllUser();
+			UserInfoDto userinfo = new UserInfoDto();
+			userinfo.setLOGIN_NAME("");
+			listUserInfo.add(userinfo);
+			System.out.println("listUserInfo" + listUserInfo.size());
+		} catch(Exception e) {
+			return ERROR;
+		}
+		return SUCCESS;
+	}
 	
 	/**
 	 * 查询审价列表
@@ -1494,6 +1545,22 @@ public class AuditAction extends BaseAction {
 
 	public void setUpdAuditCntrctNo(String updAuditCntrctNo) {
 		this.updAuditCntrctNo = updAuditCntrctNo;
+	}
+
+	public List<AuditListDisp> getAuditListDisp() {
+		return auditListDisp;
+	}
+
+	public void setAuditListDisp(List<AuditListDisp> auditListDisp) {
+		this.auditListDisp = auditListDisp;
+	}
+
+	public List<AuditListDisp> getAuditAllDisp() {
+		return auditAllDisp;
+	}
+
+	public void setAuditAllDisp(List<AuditListDisp> auditAllDisp) {
+		this.auditAllDisp = auditAllDisp;
 	}
 
 }

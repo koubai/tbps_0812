@@ -1,16 +1,23 @@
 package com.cn.tbps.action;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.apache.struts2.ServletActionContext;
 
 import com.cn.common.action.BaseAction;
 import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
 import com.cn.tbps.dto.AgentCompDto;
+import com.cn.tbps.dto.AjaxDataDto;
 import com.cn.tbps.dto.AuditCntrctDto;
 import com.cn.tbps.dto.AuditCntrctHisDto;
 import com.cn.tbps.dto.AuditCompDto;
@@ -18,6 +25,8 @@ import com.cn.tbps.dto.UserInfoDto;
 import com.cn.tbps.service.AuditCntrctService;
 import com.cn.tbps.service.UserInfoService;
 import com.opensymphony.xwork2.ActionContext;
+
+import net.sf.json.JSONArray;
 
 public class AuditCntrctAction extends BaseAction {
 
@@ -160,6 +169,41 @@ public class AuditCntrctAction extends BaseAction {
 	
 	private AuditCntrctDto auditCntrctDto;
 	
+	//ajax查询数据列表
+	private Integer ajaxTotalCount;
+	private Integer ajaxPageIndex;
+	
+	/**
+	 * Ajax翻页查询函数
+	 * @return
+	 * @throws IOException
+	 */
+	public String queryAuditCntrAjax() throws IOException {
+		HttpServletResponse response = ServletActionContext.getResponse();
+		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out;
+		AjaxDataDto ajaxData = new AjaxDataDto();
+		try {
+			this.clearMessages();
+			Page pp = new Page(8);
+			pp.setTotalCount(ajaxTotalCount);
+			pp.setStartIndex(ajaxPageIndex);
+			pp = auditCntrctService.queryAuditCntrctByPage("", "", "", "", cntrctStDate, cntrctEdDate, pp);
+			ajaxData.setData(pp);
+		} catch(Exception e) {
+			ajaxData.setResultCode(-1);
+			ajaxData.setResultMessage("查询数据异常：" + e.getMessage());
+			return ERROR;
+		}
+		out = response.getWriter();
+		String result = JSONArray.fromObject(ajaxData).toString();
+		result = result.substring(1, result.length() - 1);
+		log.info(result);
+		out.write(result);
+		out.flush();
+		return null;
+	}
+	
 	
 	/**
 	 * 显示审计明细
@@ -229,6 +273,11 @@ public class AuditCntrctAction extends BaseAction {
 		try {
 			this.clearMessages();
 			addAuditCntrctDto = new AuditCntrctDto();
+			listUserInfo = userInfoService.queryAllUser();
+			UserInfoDto userinfo = new UserInfoDto();
+			userinfo.setLOGIN_NAME("");
+			listUserInfo.add(userinfo);
+			System.out.println("listUserInfo" + listUserInfo.size());
 		} catch(Exception e) {
 			return ERROR;
 		}
@@ -253,7 +302,11 @@ public class AuditCntrctAction extends BaseAction {
 			String auditCntrctNo = addAuditCntrctDto.getCNTRCT_NO();
 			auditCntrctService.insertAuditCntrct(addAuditCntrctDto);
 			addAuditCntrctDto = new AuditCntrctDto();
-			this.addActionMessage("添加审价成功！审价编号为：" + auditCntrctNo);
+			//this.addActionMessage("添加审价成功！审价编号为：" + auditCntrctNo);
+			log.info("添加审价成功！审价编号为：" + auditCntrctNo);
+			//刷新页面
+			startIndex = 0;
+			queryAuditCntrct();
 		} catch(Exception e) {
 			e.printStackTrace();
 			return ERROR;
@@ -503,6 +556,10 @@ public class AuditCntrctAction extends BaseAction {
 			page = new Page();
 		}
 		
+		if(StringUtil.isBlank(strCntrctType)) {
+			strCntrctType = "";
+		}
+		
 		//翻页查询所有审价
 		this.page.setStartIndex(startIndex);
 		page = auditCntrctService.queryAuditCntrctByPage(strCntrctBelong, strCntrctNO, strCntrctType,
@@ -741,6 +798,26 @@ public class AuditCntrctAction extends BaseAction {
 
 	public void setAuditCntrctDto(AuditCntrctDto auditCntrctDto) {
 		this.auditCntrctDto = auditCntrctDto;
+	}
+
+
+	public Integer getAjaxTotalCount() {
+		return ajaxTotalCount;
+	}
+
+
+	public void setAjaxTotalCount(Integer ajaxTotalCount) {
+		this.ajaxTotalCount = ajaxTotalCount;
+	}
+
+
+	public Integer getAjaxPageIndex() {
+		return ajaxPageIndex;
+	}
+
+
+	public void setAjaxPageIndex(Integer ajaxPageIndex) {
+		this.ajaxPageIndex = ajaxPageIndex;
 	}
 
 }

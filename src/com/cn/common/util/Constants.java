@@ -213,6 +213,16 @@ public class Constants {
 	public final static String CONFIG_TAB_AUDIT_COMP = "AUDIT_COMP";
 	
 	/**
+	 * 审价显示项目列表
+	 */
+	public final static String CONFIG_TAB_AUDIT_DISP = "AUDIT_LISTDISP";
+	
+	/**
+	 * 审价显示项目列表
+	 */
+	public final static String CONFIG_TAB_AUDIT_ALLDISP = "AUDIT_ALLDISP";
+	
+	/**
 	 * 审价流转表
 	 */
 	public final static String EXCEL_TYPE_SJLZ = "SJLZB";

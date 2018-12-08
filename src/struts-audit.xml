@@ -130,6 +130,10 @@
 			<result name="success">/page/audit/auditstatpaid.jsp</result>
 		</action>
 		
+		<action name="showAuditListDisp" class="auditAction" method="showAuditListDisp">
+			<result name="success">/page/audit/updauditlist.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

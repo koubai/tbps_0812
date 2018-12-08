@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import com.cn.common.dto.BaseDto;
+import com.cn.common.util.DateUtil;
 
 public class AuditCntrctDto extends BaseDto {
 
@@ -13,6 +14,11 @@ public class AuditCntrctDto extends BaseDto {
 	 * 合同归属
 	 */
 	private String CNTRCT_BELONG;
+	
+	/**
+	 * 合同归属
+	 */
+	private String CNTRCT_BELONG_SHOW;
 
 	/**
 	 * 合同编号
@@ -73,6 +79,16 @@ public class AuditCntrctDto extends BaseDto {
 	 * 合同结束时间
 	 */
 	private Date CNTRCT_ED_DATE;
+
+	/**
+	 * 合同开始时间
+	 */
+	private String CNTRCT_ST_DATE_SHOW;
+
+	/**
+	 * 合同结束时间
+	 */
+	private String CNTRCT_ED_DATE_SHOW;
 
 	/**
 	 * 委托内容
@@ -985,6 +1001,38 @@ public class AuditCntrctDto extends BaseDto {
 
 	public void setCNTRCT_INFO_SHOW(String cNTRCT_INFO_SHOW) {
 		CNTRCT_INFO_SHOW = cNTRCT_INFO_SHOW;
+	}
+
+	public String getCNTRCT_BELONG_SHOW() {
+		String cntrctBelongShow = "";
+		if("1".equals(this.CNTRCT_BELONG)) {
+			cntrctBelongShow = "联合";
+		} else if("2".equals(this.CNTRCT_BELONG)) {
+			cntrctBelongShow = "XX";
+		} else {
+			cntrctBelongShow = this.CNTRCT_BELONG;
+		}
+		return cntrctBelongShow;
+	}
+
+	public void setCNTRCT_BELONG_SHOW(String cNTRCT_BELONG_SHOW) {
+		CNTRCT_BELONG_SHOW = cNTRCT_BELONG_SHOW;
+	}
+
+	public String getCNTRCT_ST_DATE_SHOW() {
+		return DateUtil.dateToShortStr(this.CNTRCT_ST_DATE);
+	}
+
+	public void setCNTRCT_ST_DATE_SHOW(String cNTRCT_ST_DATE_SHOW) {
+		CNTRCT_ST_DATE_SHOW = cNTRCT_ST_DATE_SHOW;
+	}
+
+	public String getCNTRCT_ED_DATE_SHOW() {
+		return DateUtil.dateToShortStr(this.CNTRCT_ED_DATE);
+	}
+
+	public void setCNTRCT_ED_DATE_SHOW(String cNTRCT_ED_DATE_SHOW) {
+		CNTRCT_ED_DATE_SHOW = cNTRCT_ED_DATE_SHOW;
 	}
 
 }

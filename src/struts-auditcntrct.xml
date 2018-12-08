@@ -6,6 +6,10 @@
 
 	<package name="auditcntrct" extends="struts-tbps" namespace="/auditcntrct">
 	
+		<action name="queryAuditCntrAjax" class="auditCntrctAction" method="queryAuditCntrAjax">
+			<result type="json"></result>
+		</action>
+	
 		<action name="showAuditCntrctAction" class="auditCntrctAction" method="showAuditCntrctAction">
 			<result name="success">/page/auditcntrct/auditcntrctlist.jsp</result>
 		</action>
@@ -40,7 +44,7 @@
 		</action>
 		
 		<action name="addAuditCntrctAction" class="auditCntrctAction" method="addAuditCntrctAction">
-			<result name="success">/page/auditcntrct/addauditcntrct.jsp</result>
+			<result name="success">/page/auditcntrct/auditcntrctlist.jsp</result>
 			<result name="checkerror">/page/auditcntrct/addauditcntrct.jsp</result>
 		</action>
 		
