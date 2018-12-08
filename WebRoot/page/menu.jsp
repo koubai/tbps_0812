@@ -89,7 +89,11 @@
 			<div id="collapseFive" class="panel-collapse collapse">
 				<div class="panel-body">
 					<ul>
-						<li><a href="<%=request.getContextPath()%>/userinfo/showUserInfoAction.action">用户信息管理</a></li>
+						<s:if test='#session.user_rank >= "L"'>
+							<li><a href="<%=request.getContextPath()%>/userinfo/showUserInfoAction.action">用户信息管理</a></li>
+						</s:if>
+						<s:else><li></li>
+						</s:else>
 						<li><a href="<%=request.getContextPath()%>/superviselib/showSuperviseLibAction.action">会审监管人管理</a></li>
 					</ul>
 				</div>
