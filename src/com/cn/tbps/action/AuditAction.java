@@ -676,7 +676,8 @@ public class AuditAction extends BaseAction {
 			String username = (String) ActionContext.getContext().getSession().get(Constants.USER_NAME);
 			updAuditDto.setUPDATE_USER(username);
 			auditService.updateAudit(updAuditDto);
-			updAuditDtoOld = auditService.queryAuditByID(updAuditNo);
+			showUpdAuditAction();
+//			updAuditDtoOld = auditService.queryAuditByID(updAuditNo);
 			this.addActionMessage("修改审价成功！");
 		} catch(Exception e) {
 			return ERROR;

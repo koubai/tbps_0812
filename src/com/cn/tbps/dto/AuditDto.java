@@ -266,6 +266,11 @@ public class AuditDto extends BaseDto {
 	private String AGENT_INFO;
 
 	/**
+	 * 专业公司联系人及联系方式
+	 */
+	private String PROF_INFO;
+	
+	/**
 	 * 承揽单位
 	 */
 	private String CONTRACT_CO_ID;
@@ -1453,4 +1458,13 @@ public class AuditDto extends BaseDto {
 	public void setPROJECT_NAME_PASS(String pROJECT_NAME_PASS) {
 		PROJECT_NAME_PASS = pROJECT_NAME_PASS;
 	}
+	
+	public String getPROF_INFO() {
+		return PROF_INFO;
+	}
+
+	public void setPROF_INFO(String pROF_INFO) {
+		PROF_INFO = pROF_INFO;
+	}
+
 }
