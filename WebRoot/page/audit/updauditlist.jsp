@@ -10,6 +10,7 @@
 <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
 <title>审价项目新增</title><!-- Bootstrap -->
 <link href="<%=request.getContextPath()%>/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/node_modules/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/node_modules/font-awesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.css">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/global.css">
@@ -40,9 +41,80 @@
 		}
 	}
 	
-	function exportAuditReport() {
-		document.mainform.action = '<c:url value="/audit/exportAuditReportAction.action"></c:url>';
+	function addAllList() {
+		$("#setDisp").empty();
+		var select = document.getElementById("listDisp").options;
+		for(var i = 0; i < select.length; i++){
+			var value = select[i].value;
+			var text = select[i].text;
+			$("#setDisp").append("<option value='" + value + "'>" + text + "</option>");
+		}
+	}
+	
+	function addList() {
+		var strList = $("#listDisp").val();
+		if(strList == "") {
+			alert("请选择一条记录！");
+			return;
+		} else {
+			alert(strList);
+			var list = new Array();
+			for(var i = 0; i < strList.length; i++){
+				var selectset = document.getElementById("setDisp").options;
+				for(var k = 0; k < selectset.length; k++){
+					var valueset = selectset[k].value;
+					if(strList[i] == valueset){
+						strList.splice(i, 1);
+					}
+				}
+			}
+			alert(strList);
+			for(var i = 0; i < strList.length; i++){
+				var select = document.getElementById("listDisp").options;
+				for(var j = 0; j < select.length; j++){
+					var value = select[j].value;
+					if(strList[i] == value){
+						var text = select[j].text;
+						$("#setDisp").append("<option value='" + value + "'>" + text + "</option>");
+					}
+				}
+			}
+		}
+	}
+
+	function delList() {
+		var strList = $("#setDisp").val();
+		if(strList == "") {
+			alert("请选择一条记录！");
+			return;
+		} else {
+			for(var i = 0; i < strList.length; i++){
+				$("#setDisp option[value='" + strList[i] + "']").remove();
+			}
+		}
+	}
+
+	function delAllList() {
+		$("#setDisp").empty();
+	}
+
+	function upd() {
+		var list = "";
+		var selectset = document.getElementById("setDisp").options;
+		for(var k = 0; k < selectset.length; k++){
+			var valueset = selectset[k].value;
+			list = list + valueset + ",";
+		}
+		if(list != ""){
+			list = list.substring(0,list.length-1);
+		}
+		$("#strSetList").attr("value", list);
+		document.mainform.action = '<c:url value="/audit/updAuditListDisp.action"></c:url>';
 		document.mainform.submit();
+	}
+	
+	function goAuditList() {
+		window.location.href = '<c:url value="/audit/showAuditAction.action"></c:url>';
 	}
 </script>
 </head>
@@ -58,10 +130,11 @@
 		</s:if>
 			<div class="col-lg-12 right">
 				<s:form id="mainform" name="mainform" method="POST">
+					<s:hidden name="strSetList" id="strSetList"/>
 					<div class="row">
 						<div class="col-lg-12 form-group">
 							<div class="col-lg-2">
-								<table id="listDisp">
+								<table id="listDispTable">
 								<tbody id="">
 									<tr>
 										<td><label class="form-label" for="">显示及输出设定</label></td>
@@ -69,57 +142,39 @@
 								</tbody>
 								</table>
 							</div>
-							<div class="col-lg-4">
-								<table id="listDisp" border="1" cellspacing="0" cellpadding="0" width="100%">
-								<tbody id="">
+							<div class="col-lg-5">
+								<select multiple="multiple" size="16" name="listDisp" id="listDisp" class="form-control">
 									<s:iterator id="auditAllDisp" value="auditAllDisp" status="st1">
-									<tr onclick="checkCheckboxTr(this, event);">
-										<td>
-										<input type="checkbox" id="dispId<s:property value="id"/>" value="<s:property value="id"/>" />
-										<input type="hidden" value="<s:property value="enName"/>" />
-										<label class="form-label" for=""><s:property value="cnName"/></label>
-										</td>
-									</tr>
+										<option value="<s:property value="id"/>"><s:property value="cnName"/></option>
 									</s:iterator>
-								</tbody>
-								</table>
+								</select>
 							</div>
 							<div class="col-lg-1">
-								<table id="doAction">
-								<tbody>
-									<tr>
-										<td><button class="btn btn-success form-control" type="button" onclick="selectAuditCntrct();">》》</button></td>
-									</tr>
-									<tr>
-										<td><button class="btn btn-success form-control" type="button" onclick="selctAuditCntrct();">》</button></td>
-									</tr>
-									<tr>
-										<td><button class="btn btn-success form-control" type="button" onclick="selectAuditCntrct();">《</button></td>
-									</tr>
-									<tr>
-										<td><button class="btn btn-success form-control" type="button" onclick="selectAuditCntrct();">《《</button></td>
-									</tr>
-								</tbody>
-								</table>
+								<div class="col-lg-12">
+									<button class="btn btn-success form-control" type="button" onclick="addAllList();">》》</button>
+								</div>
+								<div class="col-lg-12">
+									<button class="btn btn-success form-control" type="button" onclick="addList();">》</button>
+								</div>
+								<div class="col-lg-12">
+									<button class="btn btn-success form-control" type="button" onclick="delList();">《</button>
+								</div>
+								<div class="col-lg-12">
+									<button class="btn btn-success form-control" type="button" onclick="delAllList();">《《</button>
+								</div>
 							</div>
 							<div class="col-lg-5">
-								<table id="listDisp" border="1" cellspacing="0" cellpadding="0" width="100%">
-								<tbody id="">
+								<select multiple size="16" name="setDisp" id="setDisp" class="form-control">
 									<s:iterator id="auditListDisp" value="auditListDisp" status="st1">
-									<tr>
-										<td>
-										<input type="hidden" value="<s:property value="id"/>" />
-										<input type="hidden" value="<s:property value="enName"/>" />
-										<label class="form-label" for=""><s:property value="cnName"/></label>
-										</td>
-									</tr>
+										<option value="<s:property value="id"/>"><s:property value="cnName"/></option>
 									</s:iterator>
-								</tbody>
-								</table>
+								</select>
 							</div>
 						</div>
 						<div class="col-lg-12 form-group">
-							<div class="col-lg-10">
+						</div>
+						<div class="col-lg-12 form-group">
+							<div class="col-lg-9">
 							</div>
 							<div class="col-lg-1">
 								<button class="btn btn-success form-control" type="button" onclick="goAuditList();">返回</button>
@@ -137,6 +192,7 @@
 <script src="<%=request.getContextPath()%>/node_modules/jquery/dist/jquery.min.js"></script>
 <!-- 加载 Bootstrap 的所有 JavaScript 插件。你也可以根据需要只加载单个插件。 -->
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="<%=request.getContextPath()%>/node_modules/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.min.js"></script>
 <script src="<%=request.getContextPath()%>/node_modules/bootstrap-datetimepicker/bootstrap-datepicker.zh-CN.min.js"></script>
 </body>

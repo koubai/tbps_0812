@@ -1,6 +1,8 @@
 package com.cn.tbps.action;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -255,6 +257,8 @@ public class AuditAction extends BaseAction {
 	
 	//审价显示项目
 	private List<AuditListDisp> auditAllDisp;
+	
+	private String strSetList;
 	
 	//审价履历
 	/**
@@ -1000,20 +1004,67 @@ public class AuditAction extends BaseAction {
 			//设定项目
 			auditListDisp = new ArrayList<AuditListDisp>();
 			ConfigTabDto auditListDispConfig = configTabService.queryConfigTabByKey(Constants.CONFIG_TAB_AUDIT_DISP, Constants.CONFIG_TAB_AUDIT_DISP);
-			String auditListDispValue = auditListDispConfig.getCONFIG_VAL();
-			String[] valArray = auditListDispValue.split(",");
-			for(String id : valArray) {
-				AuditListDisp auditDisp = new AuditListDisp();
-				auditDisp.setId(Integer.parseInt(id));
-				auditDisp.setEnName(AuditListDispEnum.getNameByID(Integer.parseInt(id)).getEnName());
-				auditDisp.setCnName(AuditListDispEnum.getNameByID(Integer.parseInt(id)).getCnName());
-				auditListDisp.add(auditDisp);
+			if(null != auditListDispConfig) {
+				String auditListDispValue = auditListDispConfig.getCONFIG_VAL();
+				if(StringUtils.isNotEmpty(auditListDispValue)) {
+					String[] valArray = auditListDispValue.split(",");
+					for(String id : valArray) {
+						AuditListDisp auditDisp = new AuditListDisp();
+						auditDisp.setId(Integer.parseInt(id));
+						auditDisp.setEnName(AuditListDispEnum.getNameByID(Integer.parseInt(id)).getEnName());
+						auditDisp.setCnName(AuditListDispEnum.getNameByID(Integer.parseInt(id)).getCnName());
+						auditListDisp.add(auditDisp);
+					}
+				}
 			}
 			listUserInfo = userInfoService.queryAllUser();
 			UserInfoDto userinfo = new UserInfoDto();
 			userinfo.setLOGIN_NAME("");
 			listUserInfo.add(userinfo);
 			System.out.println("listUserInfo" + listUserInfo.size());
+		} catch(Exception e) {
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+
+	/**
+	 * 显示项目显示及输出设定
+	 * @return
+	 */
+	public String updAuditListDisp() {
+		try {
+			this.clearMessages();
+			ConfigTabDto dto = configTabService.queryConfigTabByKey(Constants.CONFIG_TAB_AUDIT_DISP, Constants.CONFIG_TAB_AUDIT_DISP);
+			if(StringUtils.isNotEmpty(strSetList)) {
+				String[] strArray = strSetList.split(",");
+				Integer[] ids = new Integer[strArray.length];
+				for(int i=0;i<strArray.length;i++){
+					ids[i]=Integer.parseInt(strArray[i]);
+				}
+				List<Integer> strlist = Arrays.asList(ids);
+				Collections.sort(strlist);
+				strSetList = StringUtils.join(strlist, ",");
+			}
+			dto.setCONFIG_VAL(strSetList);
+			configTabService.updateConfigTab(dto);
+			this.addActionMessage("设定成功！");
+			//设定项目
+			auditListDisp = new ArrayList<AuditListDisp>();
+			ConfigTabDto auditListDispConfig = configTabService.queryConfigTabByKey(Constants.CONFIG_TAB_AUDIT_DISP, Constants.CONFIG_TAB_AUDIT_DISP);
+			if(null != auditListDispConfig) {
+				String auditListDispValue = auditListDispConfig.getCONFIG_VAL();
+				if(StringUtils.isNotEmpty(auditListDispValue)) {
+					String[] valArray = auditListDispValue.split(",");
+					for(String id : valArray) {
+						AuditListDisp auditDisp = new AuditListDisp();
+						auditDisp.setId(Integer.parseInt(id));
+						auditDisp.setEnName(AuditListDispEnum.getNameByID(Integer.parseInt(id)).getEnName());
+						auditDisp.setCnName(AuditListDispEnum.getNameByID(Integer.parseInt(id)).getCnName());
+						auditListDisp.add(auditDisp);
+					}
+				}
+			}
 		} catch(Exception e) {
 			return ERROR;
 		}
@@ -1561,6 +1612,14 @@ public class AuditAction extends BaseAction {
 
 	public void setAuditAllDisp(List<AuditListDisp> auditAllDisp) {
 		this.auditAllDisp = auditAllDisp;
+	}
+
+	public String getStrSetList() {
+		return strSetList;
+	}
+
+	public void setStrSetList(String strSetList) {
+		this.strSetList = strSetList;
 	}
 
 }

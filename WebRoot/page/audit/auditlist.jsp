@@ -282,9 +282,9 @@
 							<div class="col-lg-1 form-group">
 								<button class="btn btn-success form-control" type="button" onclick="queryList();">检索</button>
 							</div>
-							<!-- <div class="col-lg-1 form-group">
+							<div class="col-lg-1 form-group">
 								<button class="btn btn-success form-control" type="button" onclick="queryListDisp();">设定</button>
-							</div> -->
+							</div>
 						</div>
 						<%-- <div class="col-lg-12 form-group">
 							<label for="" class="col-lg-1 form-label">项目文号</label>

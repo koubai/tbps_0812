@@ -134,6 +134,10 @@
 			<result name="success">/page/audit/updauditlist.jsp</result>
 		</action>
 		
+		<action name="updAuditListDisp" class="auditAction" method="updAuditListDisp">
+			<result name="success">/page/audit/updauditlist.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>
