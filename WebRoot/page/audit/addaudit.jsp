@@ -156,12 +156,13 @@
 		$("#AGENT_INFO").attr("value", $("#agentInfo").val());
 		
 		//专业公司
-		//$("#PROF_NO").attr("value", $("#profNo").val());
-		//$("#PROF_CO_NAME").attr("value", $("#profCoName").val());
-		//$("#PROF_CO_MANAGER").attr("value", $("#profCoManager").val());
-		//$("#PROF_CO_MANAGER_TEL").attr("value", $("#profCoManagerTel").val());
-		//$("#PROF_CO_POST_ADDRESS").attr("value", $("#profCoPostAddress").val());
-		//$("#PROF_CO_MAIL").attr("value", $("#profCoMail").val());
+		$("#PROF_NO").attr("value", $("#profNo").val());
+		$("#PROF_CO_NAME").attr("value", $("#profCoName").val());
+		$("#PROF_CO_MANAGER").attr("value", $("#profCoManager").val());
+		$("#PROF_CO_MANAGER_TEL").attr("value", $("#profCoManagerTel").val());
+		$("#PROF_CO_POST_ADDRESS").attr("value", $("#profCoPostAddress").val());
+		$("#PROF_CO_MAIL").attr("value", $("#profCoMail").val());
+		$("#PROF_INFO").attr("value", $("#profInfo").val());
 		
 		//承包公司
 		$("#CONTRACT_CO_NO").attr("value", $("#contractCoNo").val());
@@ -273,6 +274,8 @@
 			document.getElementById('preSet').style.display='block';
 			//委托方
 			document.getElementById('agent').style.display='block';
+			//专业方
+			document.getElementById('prof').style.display='block';
 			//承揽单位
 			document.getElementById('contract').style.display='block';
 			//送审价等
@@ -307,6 +310,9 @@
 			//委托方
 			document.getElementById('agent').style.display='none';
 			$("#AGENT_INFO").prop("value", "");
+			//专业方
+			document.getElementById('prof').style.display='none';
+			$("#PROF_INFO").prop("value", "");
 			//承揽单位
 			document.getElementById('contract').style.display='none';
 			$("#CONTRACT_CO_ID").prop("value", "");
@@ -359,6 +365,9 @@
 			//委托方
 			document.getElementById('agent').style.display='none';
 			$("#AGENT_INFO").prop("value", "");
+			//专业方
+			document.getElementById('prof').style.display='none';
+			$("#PROF_INFO").prop("value", "");
 			//承揽单位
 			document.getElementById('contract').style.display='none';
 			$("#CONTRACT_CO_ID").prop("value", "");
@@ -422,6 +431,9 @@
 			//委托方
 			document.getElementById('agent').style.display='none';
 			$("#AGENT_INFO").prop("value", "");
+			//专业方
+			document.getElementById('prof').style.display='none';
+			$("#PROF_INFO").prop("value", "");
 			//承揽单位
 			document.getElementById('contract').style.display='none';
 			$("#CONTRACT_CO_ID").prop("value", "");
@@ -460,6 +472,8 @@
 			document.getElementById('prePriceLabel2').style.display='none';
 			//委托方
 			document.getElementById('agent').style.display='block';
+			//专业方
+			document.getElementById('prof').style.display='block';
 			//承揽单位
 			document.getElementById('contract').style.display='block';
 			//审定单发出日期
@@ -597,7 +611,7 @@
 	}
 	
 	//专业公司
-	function selectExpertComp() {
+	function selectProfComp() {
 		var url = '<c:url value="/agentcomp/showAgentCompAuditAction.action"></c:url>';
 		url += "?agentAddFlag=2&date=" + new Date();
 		
@@ -611,6 +625,7 @@
 		
 		window.showModalDialog(url, window, "dialogheight:550px;dialogwidth:800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
 	}
+	
 	
 	//计算发票开票金额合计=金额（甲方）+金额（乙方）
 	function calcRECEIPT1_AMOUNT_TOTAL() {
@@ -812,16 +827,29 @@
 		$("#agentCompNoHigh").val("");
 		$("#agentCompName").val("");
 		//查询委托公司
-		querySelectPageAjax("0");
+		querySelectAgentPageAjax("0");
 		//禁用 Bootstrap 模态框(Modal) 点击空白时自动关闭
 		$('#agentCompModal').modal({backdrop: 'static', keyboard: false});
 		$('#agentCompModal').modal('show');
 	}
 	
+	//专业公司
+	//显示列表选择模态窗体
+	function showProfComSelect() {
+		$("#profCompNoLow").val("");
+		$("#profCompNoHigh").val("");
+		$("#profCompName").val("");
+		//查询委托公司
+		querySelectProfPageAjax("0");
+		//禁用 Bootstrap 模态框(Modal) 点击空白时自动关闭
+		$('#profCompModal').modal({backdrop: 'static', keyboard: false});
+		$('#profCompModal').modal('show');
+	}
+	
 	/**
 	 * 注：翻页函数，每个列表选择模态窗体必须实现这个函数
 	 */
-	function querySelectPageAjax(index) {
+	function querySelectAgentPageAjax(index) {
 		//各个模块自己的参数
 		var agentCompNoLow = $("#agentCompNoLow").val();
 		var agentCompNoHigh = $("#agentCompNoHigh").val();
@@ -909,6 +937,96 @@
 		//agentCompData
 	}
 	
+	/**
+	 * 注：翻页函数，每个列表选择模态窗体必须实现这个函数
+	 */
+	function querySelectProfPageAjax(index) {
+		//各个模块自己的参数
+		var profCompNoLow = $("#profCompNoLow").val();
+		var profCompNoHigh = $("#profCompNoHigh").val();
+		var profCompName = $("#profCompName").val();
+		var param = new Object();
+		param.agentCompNoLow = profCompNoLow;
+		param.agentCompNoHigh = profCompNoHigh;
+		param.agentCompName = encodeURI(profCompName,"utf-8");
+		param.agentAddFlag = "1";
+		
+		//-----共通1 start-----
+		//页码
+		param.ajaxPageIndex = index;
+		//总记录数
+		var ajaxTotalCount = $("#ajaxTotalCount").val();
+		if(ajaxTotalCount == "") {
+			ajaxTotalCount = "0";
+		}
+		param.ajaxTotalCount = ajaxTotalCount;
+		//-----共通1 end-----
+		
+		$.getJSON('<%=request.getContextPath()%>/agentcomp/queryAgentCompAjax.action', param, function(data) {
+			if(data.resultCode == 0) {
+				var items = data.data.items;
+				//数据列表
+				$("#profCompData").empty();
+				$.each(items, function(i, n) {
+					var html = "";
+					html += '<tr>';
+					html += '	<td><input name="profCompKey" type="radio" value=""/></td>';
+					html += '	<td style="display: none;">';
+					html += '		<input type="hidden" value="' + n.ANGENT_COMP_NO + '">';
+					html += '		<input type="hidden" value="' + n.ANGENT_COMP_NAME + '">';
+					html += '		<input type="hidden" value="' + n.CO_MANAGER1 + '">';
+					html += '		<input type="hidden" value="' + n.CO_MANAGER_TEL1 + '">';
+					html += '		<input type="hidden" value="' + n.CO_ADDRESS1 + '">';
+					html += '		<input type="hidden" value="' + n.CO_MAIL1 + '">';
+					html += '	</td>';
+					html += '	<td>' + n.ANGENT_COMP_NO + '</td>';
+					html += '	<td>' + n.ANGENT_COMP_NAME + '</td>';
+					html += '	<td>' + n.CO_MANAGER1 + '</td>';
+					html += '	<td>' + n.CO_MANAGER_TEL1 + '</td>';
+					html += '</tr>';
+					$("#profCompData").append(html);
+				});
+				
+				//-----共通2 start-----
+				//分页页码
+				$("#ajaxpagenum").val("");
+				var totalPage = data.data.totalPage;
+				//总数据量
+				var totalCount = data.data.totalCount;
+				totalPage = parseInt(totalPage);
+				totalCount = parseInt(totalCount);
+				$("#ajaxTotalPage").val(totalPage);
+				$("#ajaxTotalCount").val(totalCount);
+				//分页
+				var skipList = data.data.skipList;
+				$("#ajaxskiplist").empty();
+				//第一页
+				$("#ajaxskiplist").append('<li><a href="javascript:void(0);" onclick="turningAjaxPage(1);">&laquo;</a></li>');
+				$.each(skipList, function(ii, nn) {
+					if((parseInt(nn) - 1) == parseInt(index)) {
+						$("#ajaxskiplist").append('<li class="active"><a href="javascript:void(0);">' + nn + '</a></li>');
+					} else {
+						$("#ajaxskiplist").append('<li><a href="javascript:void(0);" onclick="turningAjaxPage(' + nn + ');">' + nn + '</a></li>');
+					}
+				});
+				//页信息
+				$("#ajaxPageInfo").empty();
+				var startIndex = data.data.startIndex;
+				startIndex = parseInt(startIndex);
+				if(totalPage == 0) {
+					totalPage = 1;
+				}
+				var ajaxPageInfo = '第' + (startIndex + 1) + '页/共' + totalPage + '页&nbsp;&nbsp;&nbsp;&nbsp;共' + totalCount + '条记录';
+				$("#ajaxPageInfo").append(ajaxPageInfo);
+				//最后一页
+				$("#ajaxskiplist").append('<li><a href="javascript:void(0);" onclick="turningLastPage();">&raquo;</a></li>');
+				//-----共通2 end-----
+			} else {
+				alert(data.resultMessage);
+			}
+		});
+	}
+	
 	//列表页选择确定按钮
 	function selectAgentComp() {
 		var obj = null;
@@ -943,6 +1061,45 @@
 			$('#agentInfo').val(agent_info);
 			//隐藏模态窗体
 			$('#agentCompModal').modal('hide');
+		} else {
+			alert("请选择一条记录！");
+		}
+	}
+	
+	//列表页选择确定按钮
+	function selectProfComp() {
+		var obj = null;
+		var list = document.getElementsByName("profCompKey");
+		for(var i = 0; i < list.length; i++) {
+			if(list[i].checked) {
+				obj = list[i];
+				break;
+			}
+		}
+		if(obj != null) {
+			var tr = obj.parentNode.parentNode;
+			var tds = tr.getElementsByTagName("td");
+			//第二列是隐藏列
+			var inputs = tds[1].getElementsByTagName("input");
+			var PROF_COMP_NO = inputs[0].value;
+			var PROF_COMP_NAME = inputs[1].value;
+			var CO_MANAGER1 = inputs[2].value;
+			var CO_MANAGER_TEL1 = inputs[3].value;
+			var CO_ADDRESS1 = inputs[4].value;
+			var CO_MANAGER_EMAIL1 = inputs[5].value;
+			$('#profNo').val(PROF_COMP_NO);
+			$('#profCoName').val(PROF_COMP_NAME);
+			$('#profCoManager').val(CO_MANAGER1);
+			$('#profCoManagerTel').val(CO_MANAGER_TEL1);
+			$('#profCoPostAddress').val(CO_ADDRESS1);
+			$('#profCoMail').val(CO_MANAGER_EMAIL1);
+			var prof_info = CO_MANAGER1;
+			if(CO_MANAGER1 != ""){
+				prof_info = CO_MANAGER1 + "※" + CO_MANAGER_TEL1 + "※" + CO_ADDRESS1 + "※" + CO_MANAGER_EMAIL1;
+			}
+			$('#profInfo').val(prof_info);
+			//隐藏模态窗体
+			$('#profCompModal').modal('hide');
 		} else {
 			alert("请选择一条记录！");
 		}
@@ -1324,6 +1481,7 @@
 					<s:hidden name="addAuditDto.B_INVOICE_DATE" id="B_INVOICE_DATE"/>
 					<s:hidden name="addAuditDto.B_SET_DATE" id="B_SET_DATE"/>
 					<s:hidden name="addAuditDto.AGENT_INFO" id="AGENT_INFO"/>
+					<s:hidden name="addAuditDto.PROF_INFO" id="PROF_INFO"/>
 					<s:hidden name="addAuditDto.CONTRACT_CO_ID" id="CONTRACT_CO_ID"/>
 					<s:hidden name="addAuditDto.CONTRACT_CO_INFO" id="CONTRACT_CO_INFO"/>
 					<s:hidden name="addAuditDto.CNTRCT_INFO" id="CNTRCT_INFO"/>
@@ -1721,6 +1879,26 @@
 								<button class="btn btn-success form-control" type="button" id="selectAgent" onclick="showAgentComSelect();">选择</button>
 							</div>
 						</div>
+						<div class="col-lg-12 form-group" id="prof">
+							<div class="col-lg-2"></div>
+							<label for="" class="col-lg-2 form-label colorGold">专业公司联系人及联系方式</label>
+							<div class="col-lg-4">
+								<input type="hidden" id="profNo" value=""/>
+								<input type="hidden" id="profCoId" value=""/>
+								<input type="hidden" id="profCoManager" value=""/>
+								<input type="hidden" id="profCoManagerTel" value=""/>
+								<input type="hidden" id="profCoPostAddress" value=""/>
+								<input type="hidden" id="profCoMail" value=""/>
+								<s:textfield name="" id="profInfo" disabled="true" cssClass="col-lg-10 form-control" value="%{addAuditDto.PROF_INFO}" maxlength="200" theme="simple"></s:textfield>
+							</div>
+							<div class="col-lg-1">
+								<button class="btn btn-success form-control" type="button" id="selectProf" onclick="showProfComSelect();">选择</button>
+							</div>
+							<label for="" class="col-lg-1 form-label colorGold">专业公司</label>
+							<div class="col-lg-2">
+								<s:textfield name="" id="profCoName" disabled="true" cssClass="col-lg-10 form-control" value="%{addAuditDto.PROF_CO_NAME}" maxlength="20" theme="simple"></s:textfield>
+							</div>
+						</div>
 						<div class="col-lg-12 form-group" id="contract">
 							<div class="col-lg-2"></div>
 							<label for="" class="col-lg-2 form-label colorGold">承揽单位联系人及联系方式</label>
@@ -1732,8 +1910,7 @@
 								<input type="hidden" id="contractCoPostAddress" value=""/>
 								<input type="hidden" id="contractCoMail" value=""/>
 								<s:textfield name="" id="contractCoInfo" disabled="true" cssClass="col-lg-10 form-control" value="%{addAuditDto.CONTRACT_CO_INFO}" maxlength="200" theme="simple"></s:textfield>
-							</div>
-							
+							</div>							
 							<div class="col-lg-1">
 								<button class="btn btn-success form-control" type="button" id="selectContract" onclick="showContractComSelect();">选择</button>
 							</div>
@@ -2292,7 +2469,7 @@
 							</div>
 						</div>
 						<div class="col-lg-2 form-group" style="z-index: 1;">
-							<button type="button" class="btn btn-success form-control" onclick="querySelectPageAjax(0);">检索</button>
+							<button type="button" class="btn btn-success form-control" onclick="querySelectAgentPageAjax(0);">检索</button>
 						</div>
 					</div>
 					<div class="modal-body" style="height: 430px;">
@@ -2325,6 +2502,82 @@
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-primary" onclick="selectAgentComp();">确定</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!-- 模拟模态框 -->
+	<div class="modal fade" id="profCompModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" style="width: 1000px;">
+			<div class="modal-content">
+				<form class="form-horizontal" role="form">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+						&times;
+						</button>
+						<h4 class="modal-title" id="myModalLabel">
+							专业公司一览
+						</h4>
+					</div>
+					<div class="modal-body">
+						<div class="col-lg-6 form-group">
+							<label for="" class="col-lg-3 form-label">专业公司代码</label>
+							<div class="col-lg-4">
+								<div class="input-group">
+									<input id="profCompNoLow" maxlength="4" type="text" class="form-control">
+								</div>
+							</div>
+							<label for="" class="col-lg-1 form-label to">---</label>
+							<div class="col-lg-4">
+								<div class="input-group">
+									<input id="profCompNoHigh" maxlength="4" type="text" class="form-control">
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 form-group">
+							<label for="" class="col-lg-4 form-label">专业公司名称</label>
+							<div class="col-lg-8">
+								<div class="input-group">
+									<input id="profCompName" maxlength="20" type="text" class="form-control">
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-2 form-group" style="z-index: 1;">
+							<button type="button" class="btn btn-success form-control" onclick="querySelectProfPageAjax(0);">检索</button>
+						</div>
+					</div>
+					<div class="modal-body" style="height: 430px;">
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th></th>
+									<th style="display: none;"></th>
+									<th>公司编号</th>
+									<th>公司名称</th>
+									<th>联系人</th>
+									<th>联系电话</th>
+								</tr>
+							</thead>
+							<tbody id="profCompData">
+								<tr>
+									<td><input name="profCompKey" type="radio" value=""/></td>
+									<td style="display: none;">
+										<input type="hidden" value="">
+										<input type="hidden" value="">
+									</td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+								</tr>
+							</tbody>
+						</table>
+						<jsp:include page="../turning_select.jsp" flush="true" />
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" onclick="selectProfComp();">确定</button>
 						<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
 					</div>
 				</form>
@@ -2368,7 +2621,7 @@
 							</div>
 						</div>
 						<div class="col-lg-2 form-group" style="z-index: 1;">
-							<button type="button" class="btn btn-success form-control" onclick="querySelectPageAjax(0);">检索</button>
+							<button type="button" class="btn btn-success form-control" onclick="querySelectAgentPageAjax(0);">检索</button>
 						</div>
 					</div>
 					<div class="modal-body" style="height: 430px;">

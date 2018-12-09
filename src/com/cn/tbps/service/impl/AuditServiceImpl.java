@@ -259,14 +259,14 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 				BigDecimal standard = standardAmountCalc(auditDto);
 				BigDecimal brate = standardRateCalc(auditDto);
 				if(standard.compareTo(BigDecimal.ZERO) == 1) {
-/*					if(auditDto.getB_RATE().compareTo(BigDecimal.ZERO) == 1) {
+					if(auditDto.getB_RATE().compareTo(BigDecimal.ZERO) == 1) {
 						bAmount = auditDto.getB_RATE().multiply(standard).divide(new BigDecimal(100), 2, BigDecimal.ROUND_HALF_UP);
 					} else {
 						bAmount = standard;
 					}
-*/
-					bAmount = standard;
-					auditDto.setB_RATE(brate);
+
+//					bAmount = standard;
+//					auditDto.setB_RATE(brate);
 				}
 			} else if(bType.equals("2")) {
 				//收费金额
@@ -702,6 +702,7 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 		auditHist.setREPORT_ARR_DATE(audit.getREPORT_ARR_DATE());
 		auditHist.setREG_DATE(audit.getREG_DATE());
 		auditHist.setAGENT_INFO(audit.getAGENT_INFO());
+		auditHist.setPROF_INFO(audit.getPROF_INFO());
 		auditHist.setCONTRACT_CO_ID(audit.getCONTRACT_CO_ID());
 		auditHist.setCONTRACT_CO_INFO(audit.getCONTRACT_CO_INFO());
 		auditHist.setVERIFY_PER_AMOUNT(audit.getVERIFY_PER_AMOUNT());
