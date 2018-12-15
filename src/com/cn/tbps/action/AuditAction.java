@@ -3,7 +3,9 @@ package com.cn.tbps.action;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.LogManager;
@@ -340,12 +342,13 @@ public class AuditAction extends BaseAction {
 			
 			System.out.print("strAuditStatus: "+strAuditStatus);
 			//查询数据
-			List<AuditDto> list = auditService.queryAllAuditExport(strAuditNoLow, strAuditNoHigh,
-					strProjectStatus, strProjectManager, strValueDateLow, strValueDateHigh, strAgentNo,
-					strPreReport, strReportLow, strReportHigh, strAuditStatus, 
-					strProjectClass, strDocArrDateLow, strDocArrDateHigh, strAgentName, strContractName, strProjectName);
+			List<AuditDto> list = auditService.queryAllAuditExport("", "", "", strProjectManager, "", "", "",
+					"", "", "", "", "", "", "", "", "", strReportNo, strProjectName, strCntrctInfo);
 			base.setDatas(list);
 			base.setSheetName(Constants.EXCEL_TYPE_SJYL);
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("cntrctInfo", strCntrctInfo);
+			base.setMap(map);
 			base.exportExcel(response.getOutputStream());
 		} catch(Exception e) {
 			log.error(e);
@@ -404,7 +407,7 @@ public class AuditAction extends BaseAction {
 			List<AuditDto> list = auditService.queryAllAuditExport(strAuditNoLow, strAuditNoHigh,
 					strProjectStatus, strProjectManager, strValueDateLow, strValueDateHigh, strAgentNo,
 					strPreReport, strReportLow, strReportHigh, strAuditStatus, 
-					strProjectClass, strDocArrDateLow, strDocArrDateHigh, strAgentName, strContractName, strProjectName);
+					strProjectClass, strDocArrDateLow, strDocArrDateHigh, strAgentName, strContractName, strReportNo, strProjectName, strCntrctInfo);
 			base.setDatas(list);
 			base.setSheetName(Constants.EXCEL_TYPE_RECEIPT_SJYL);
 			base.exportExcel(response.getOutputStream());

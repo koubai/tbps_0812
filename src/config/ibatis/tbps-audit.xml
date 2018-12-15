@@ -1010,6 +1010,9 @@
 					T.CONTRACT_CO_NAME like '%$CONTRACT_CO_NAME$%' ESCAPE '/'
 				</isNotEmpty>
 				
+				<isNotEmpty prepend="and" property="REPORT_NO">
+					T.REPORT_NO like '%$REPORT_NO$%' ESCAPE '/'
+				</isNotEmpty>
 				<isNotEmpty prepend="and" property="PROJECT_NAME">
 					T.PROJECT_NAME like '%$PROJECT_NAME$%' ESCAPE '/'
 				</isNotEmpty>
@@ -1173,6 +1176,9 @@
 					T.CONTRACT_CO_NAME like '%$CONTRACT_CO_NAME$%' ESCAPE '/'
 				</isNotEmpty>
 				
+				<isNotEmpty prepend="and" property="REPORT_NO">
+					T.REPORT_NO like '%$REPORT_NO$%' ESCAPE '/'
+				</isNotEmpty>
 				<isNotEmpty prepend="and" property="PROJECT_NAME">
 					T.PROJECT_NAME like '%$PROJECT_NAME$%' ESCAPE '/'
 				</isNotEmpty>
@@ -1205,6 +1211,23 @@
 				DOC_REC_DATE <![CDATA[<=]]> #END_DATE#
 			</isNotEmpty>
 			and DOC_REC_DATE is not null
+			order by CNTRCT_NM
+	</select>
+	
+	<select id="queryAuditCntrctNMB" parameterClass="java.util.Map" resultClass="String">
+		select DISTINCT CNTRCT_NM 
+			from auditcntrct where DELETE_FLG = '1'
+			and CNTRCT_TYPE = '2'
+			and SUBSTR(CNTRCT_INFO,5) = 1
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_SENIOR_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				CNTRCT_ST_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				CNTRCT_ED_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
 			order by CNTRCT_NM
 	</select>
 	
@@ -1320,6 +1343,94 @@
 				DOC_REC_DATE <![CDATA[<=]]> #END_DATE#
 			</isNotEmpty>
 			and DOC_REC_DATE is not null
+	</select>
+	
+	<select id="queryAuditStatCostAllCountB" parameterClass="java.util.Map" resultMap="AuditStatCostDetailDto1">
+		select "" as PROJECT_MANAGER, 
+				SUM(CNTRCT_ALL_AMOUNT) as ALL_PER_AMOUNT,
+				SUM(CNTRCT_ALL_AMOUNT - CNTRCT_UNPAY_AMOUNT) as ALL_AMOUNT
+			from auditcntrct where DELETE_FLG = '1'
+			and CNTRCT_TYPE = '2'
+			and SUBSTR(CNTRCT_INFO,5) = 1
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_SENIOR_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				CNTRCT_ST_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				CNTRCT_ED_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+	</select>
+	
+	<select id="queryAuditStatCostCountB" parameterClass="java.util.Map" resultMap="AuditStatCostDetailDto">
+		select "" as PROJECT_MANAGER, 
+				CNTRCT_NM AS CNTRCT_NM, 
+				"" AS CNTRCT_NM_COUNT,
+				"" as VERIFY_PER_AMOUNT,
+				SUM(CNTRCT_ALL_AMOUNT) as A_PER_AMOUNT,
+				SUM(CNTRCT_ALL_AMOUNT - CNTRCT_UNPAY_AMOUNT) as A_AMOUNT,
+				0 as B_PER_AMOUNT,
+				0 as B_AMOUNT
+			from auditcntrct where DELETE_FLG = '1'
+			and CNTRCT_TYPE = '2'
+			and SUBSTR(CNTRCT_INFO,5) = 1
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_SENIOR_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				CNTRCT_ST_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				CNTRCT_ED_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+			group by CNTRCT_NM
+			order by CNTRCT_NM
+	</select>
+	
+	<select id="queryAuditStatCostB" parameterClass="java.util.Map" resultMap="AuditStatCostDetailDto">
+		select PROJECT_SENIOR_MANAGER AS PROJECT_MANAGER, 
+				CNTRCT_NM AS CNTRCT_NM, 
+				1 AS CNTRCT_NM_COUNT,
+				0 as VERIFY_PER_AMOUNT,
+				SUM(CNTRCT_ALL_AMOUNT) as A_PER_AMOUNT,
+				SUM(CNTRCT_ALL_AMOUNT - CNTRCT_UNPAY_AMOUNT) as A_AMOUNT,
+				0 as B_PER_AMOUNT,
+				0 as B_AMOUNT
+			from auditcntrct where DELETE_FLG = '1'
+			and CNTRCT_TYPE = '2'
+			and SUBSTR(CNTRCT_INFO,5) = 1
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_SENIOR_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				CNTRCT_ST_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				CNTRCT_ED_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+			group by PROJECT_MANAGER, CNTRCT_NM
+			order by PROJECT_MANAGER, CNTRCT_NM
+	</select>
+	
+	<select id="queryAuditStatCostByManagerB" parameterClass="java.util.Map" resultMap="AuditStatCostDetailDto1">
+		select PROJECT_SENIOR_MANAGER AS PROJECT_MANAGER,  
+				SUM(CNTRCT_ALL_AMOUNT) as ALL_PER_AMOUNT,
+				SUM(CNTRCT_ALL_AMOUNT - CNTRCT_UNPAY_AMOUNT) as ALL_AMOUNT
+			from auditcntrct where DELETE_FLG = '1'
+			and CNTRCT_TYPE = '2'
+			and SUBSTR(CNTRCT_INFO,5) = 1
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_SENIOR_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				CNTRCT_ST_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				CNTRCT_ED_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+			group by PROJECT_MANAGER
+			order by PROJECT_MANAGER
 	</select>
 	
 	<select id="queryAuditStatCostCount" parameterClass="java.util.Map" resultMap="AuditStatCostDetailDto">

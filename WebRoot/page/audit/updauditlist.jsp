@@ -57,7 +57,6 @@
 			alert("请选择一条记录！");
 			return;
 		} else {
-			alert(strList);
 			var list = new Array();
 			for(var i = 0; i < strList.length; i++){
 				var selectset = document.getElementById("setDisp").options;
@@ -68,7 +67,6 @@
 					}
 				}
 			}
-			alert(strList);
 			for(var i = 0; i < strList.length; i++){
 				var select = document.getElementById("listDisp").options;
 				for(var j = 0; j < select.length; j++){

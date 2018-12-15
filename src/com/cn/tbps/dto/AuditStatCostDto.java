@@ -34,6 +34,11 @@ public class AuditStatCostDto extends BaseDto {
 	private List<AuditStatCostDetailDto> listAudit5;
 	
 	/**
+	 * 投资监理B
+	 */
+	private List<AuditStatCostDetailDto> listAuditB;
+	
+	/**
 	 * 合计
 	 */
 	private AuditStatCostCountDto count;
@@ -84,5 +89,13 @@ public class AuditStatCostDto extends BaseDto {
 
 	public void setCount(AuditStatCostCountDto count) {
 		this.count = count;
+	}
+
+	public List<AuditStatCostDetailDto> getListAuditB() {
+		return listAuditB;
+	}
+
+	public void setListAuditB(List<AuditStatCostDetailDto> listAuditB) {
+		this.listAuditB = listAuditB;
 	}
 }

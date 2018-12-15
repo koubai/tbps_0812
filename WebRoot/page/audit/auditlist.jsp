@@ -824,7 +824,7 @@
 					</table>
 					<jsp:include page="../turning.jsp" flush="true" />
 					<div class="operationBtns">
-						<button class="btn btn-success" type="button" onclick="exportExcel();">导出</button>
+						<button class="btn btn-success" type="button" onclick="exportAudit();">导出</button>
 					</div>
 				</s:form>
 			</div>

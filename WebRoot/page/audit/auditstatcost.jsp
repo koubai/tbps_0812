@@ -186,6 +186,23 @@
 							</s:iterator>
 						</tr>
 						</s:iterator>
+						<s:iterator id="listAuditB" value="auditStatCost.listAuditB" status="st1">
+						<tr>
+							<td>投资监理B</td>
+							<td><s:property value="PROJECT_MANAGER"/></td>
+							<td><s:property value="ALL_PER_AMOUNT"/></td>
+							<td><s:property value="ALL_AMOUNT"/></td>
+							<s:iterator id="auditCostCount" value="listAuditCostCount" status="st1">
+							<td><s:property value="CNTRCT_NM_COUNT"/></td>
+							<td><s:property value="VERIFY_PER_AMOUNT"/></td>
+							<td><s:property value="A_PER_AMOUNT"/></td>
+							<td><s:property value="A_AMOUNT"/></td>
+							<td><s:property value="B_PER_AMOUNT"/></td>
+							<td><s:property value="B_AMOUNT"/></td>
+							<td><s:property value="B_AMOUNT_RATE"/></td>
+							</s:iterator>
+						</tr>
+						</s:iterator>
 						<tr>
 							<td>合计</td>
 							<td></td>

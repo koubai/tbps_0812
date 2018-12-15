@@ -43,7 +43,7 @@ public class PoiAudit extends Poi2007Base {
 		//合并单元格
 		sheet.addMergedRegion(new CellRangeAddress(1, 1, 0, 5));
 		XSSFCell cell = row.createCell(0);
-		cell.setCellValue("审价信息一览");
+		cell.setCellValue("审价项目一览");
 		//式样
 		XSSFCellStyle style = workbook.createCellStyle();
 		//水平居中
@@ -82,36 +82,55 @@ public class PoiAudit extends Poi2007Base {
 			XSSFCell cell3 = row.createCell(3);
 			XSSFCell cell4 = row.createCell(4);
 			XSSFCell cell5 = row.createCell(5);
-			XSSFCell cell6 = row.createCell(6);
-			XSSFCell cell7 = row.createCell(7);
-			XSSFCell cell8 = row.createCell(8);
-			XSSFCell cell9 = row.createCell(9);
-			XSSFCell cell10 = row.createCell(10);
-			XSSFCell cell11 = row.createCell(11);
-			XSSFCell cell12 = row.createCell(12);
-			XSSFCell cell13 = row.createCell(13);
-			XSSFCell cell14 = row.createCell(14);
-			XSSFCell cell15 = row.createCell(15);
-			XSSFCell cell16 = row.createCell(16);
-			XSSFCell cell17 = row.createCell(17);
-			XSSFCell cell18 = row.createCell(18);
-			XSSFCell cell19 = row.createCell(19);
-			XSSFCell cell20 = row.createCell(20);
-			XSSFCell cell21 = row.createCell(21);
-			XSSFCell cell22 = row.createCell(22);
-			XSSFCell cell23 = row.createCell(23);
-			XSSFCell cell24 = row.createCell(24);
-			XSSFCell cell25 = row.createCell(25);
-			XSSFCell cell26 = row.createCell(26);
-			XSSFCell cell27 = row.createCell(27);
-			XSSFCell cell28 = row.createCell(28);
-			XSSFCell cell29 = row.createCell(29);
-			XSSFCell cell30 = row.createCell(30);
-			XSSFCell cell31 = row.createCell(31);
-			XSSFCell cell32 = row.createCell(32);
-			XSSFCell cell33 = row.createCell(33);
-			XSSFCell cell34 = row.createCell(34);
-			XSSFCell cell35 = row.createCell(35);
+
+			cell0.setCellValue("" + (i + 1));
+			cell0.setCellStyle(style);
+			cell1.setCellValue(audit.getPROJECT_MANAGER());
+			cell1.setCellStyle(style);
+			cell2.setCellValue(audit.getREPORT_NO());
+			cell2.setCellStyle(style);
+			cell3.setCellValue(audit.getPROJECT_NAME());
+			cell3.setCellStyle(style);
+			if(map.get("cntrctInfo").equals("5")){
+				cell4.setCellValue(StringUtil.BigDecimal2Str(audit.getPRE_PRICE(), 2));
+				cell4.setCellStyle(style);
+			} else {
+				cell4.setCellValue(DateUtil.dateToStr(audit.getDOC_REC_DATE(), format));
+				cell4.setCellStyle(style);
+			}
+			if(map.get("cntrctInfo").equals("5")){
+				cell5.setCellValue(audit.getPROGRESS_STATUS_MEMO());
+				cell5.setCellStyle(style);
+			} else if(map.get("cntrctInfo").equals("1")) {
+				cell5.setCellValue(DateUtil.dateToStr(audit.getAPPROVAL_SND_DATE(), format));
+				cell5.setCellStyle(style);
+			} else {
+				cell5.setCellValue(DateUtil.dateToStr(audit.getREPORT_RAISE_DATE(), format));
+				cell5.setCellStyle(style);
+			}
+			
+			if(map.get("cntrctInfo").equals("1")){
+				XSSFCell cell6 = row.createCell(6);
+				XSSFCell cell7 = row.createCell(7);
+				XSSFCell cell8 = row.createCell(8);
+				cell6.setCellValue(DateUtil.dateToStr(audit.getREPORT_RAISE_DATE(), format));
+				cell6.setCellStyle(style);
+				cell7.setCellValue(StringUtil.BigDecimal2Str(audit.getVERIFY_PER_AMOUNT(), 2));
+				cell7.setCellStyle(style);
+				cell8.setCellValue(StringUtil.BigDecimal2Str(audit.getVERIFY_AMOUNT(), 2));
+				cell8.setCellStyle(style);
+			} else if(map.get("cntrctInfo").equals("2")){
+				XSSFCell cell6 = row.createCell(6);
+				XSSFCell cell7 = row.createCell(7);
+				cell6.setCellValue(StringUtil.BigDecimal2Str(audit.getVERIFY_PER_AMOUNT(), 2));
+				cell6.setCellStyle(style);
+				cell7.setCellValue(StringUtil.BigDecimal2Str(audit.getVERIFY_AMOUNT(), 2));
+				cell7.setCellStyle(style);
+			} else if(map.get("cntrctInfo").equals("4")){
+				XSSFCell cell6 = row.createCell(6);
+				cell6.setCellValue(StringUtil.BigDecimal2Str(audit.getCNT_PRICE(), 2));
+				cell6.setCellStyle(style);
+			}
 			
 //			cell0.setCellValue("" + (i + 1));
 //			cell0.setCellStyle(style);
@@ -200,76 +219,50 @@ public class PoiAudit extends Poi2007Base {
 		heads = new ArrayList<String>();
 		heads.add("序号");
 		sheet.setColumnWidth(0, 15 * 256);
-		heads.add("资料到达日期");
+		heads.add("工程师");
 		sheet.setColumnWidth(1, 15 * 256);
-		heads.add("项目进度");
+		heads.add("项目文号");
 		sheet.setColumnWidth(2, 15 * 256);
-		heads.add("审定单发出日期");
-		sheet.setColumnWidth(3, 15 * 256);
-		heads.add("审定单回复日期");
-		sheet.setColumnWidth(4, 15 * 256);
-		heads.add("报告日期");
-		sheet.setColumnWidth(5, 15 * 256);
-		heads.add("文号");
-		sheet.setColumnWidth(6, 15 * 256);
 		heads.add("项目名称");
-		sheet.setColumnWidth(7, 15 * 256);
-		heads.add("项目合同编号");
-		sheet.setColumnWidth(8, 15 * 256);
-		heads.add("项目性质");
-		sheet.setColumnWidth(9, 15 * 256);
-		heads.add("委托公司");
-		sheet.setColumnWidth(10, 15 * 256);
-		heads.add("委托公司负责人");
-		sheet.setColumnWidth(11, 15 * 256);
-		heads.add("委托公司负责人电话");
-		sheet.setColumnWidth(12, 15 * 256);
-		heads.add("委托公司项目负责人");
-		sheet.setColumnWidth(13, 15 * 256);
-		heads.add("委托公司项目负责人电话");
-		sheet.setColumnWidth(14, 15 * 256);
-		heads.add("专业公司");
-		sheet.setColumnWidth(15, 15 * 256);
-		heads.add("专业公司负责人");
-		sheet.setColumnWidth(16, 15 * 256);
-		heads.add("专业公司负责人电话");
-		sheet.setColumnWidth(17, 15 * 256);
-		heads.add("专业公司项目负责人");
-		sheet.setColumnWidth(18, 15 * 256);
-		heads.add("专业公司项目负责人电话");
-		sheet.setColumnWidth(19, 15 * 256);
-		heads.add("承包公司");
-		sheet.setColumnWidth(20, 15 * 256);
-		heads.add("承包公司负责人");
-		sheet.setColumnWidth(21, 15 * 256);
-		heads.add("承包公司负责人电话");
-		sheet.setColumnWidth(22, 15 * 256);
-		heads.add("承包公司项目负责人");
-		sheet.setColumnWidth(23, 15 * 256);
-		heads.add("承包公司项目负责人电话");
-		sheet.setColumnWidth(24, 15 * 256);
-		heads.add("送审价");
-		sheet.setColumnWidth(25, 15 * 256);
-		heads.add("审定价");
-		sheet.setColumnWidth(26, 15 * 256);
-		heads.add("净核减");
-		sheet.setColumnWidth(27, 15 * 256);
-		heads.add("核增");
-		sheet.setColumnWidth(28, 15 * 256);
-		heads.add("核减");
-		sheet.setColumnWidth(29, 15 * 256);
-		heads.add("审价费（甲方）");
-		sheet.setColumnWidth(30, 15 * 256);
-		heads.add("审价费（乙方）");
-		sheet.setColumnWidth(31, 15 * 256);
-		heads.add("开票日期");
-		sheet.setColumnWidth(32, 15 * 256);
-		heads.add("发票号");
-		sheet.setColumnWidth(33, 15 * 256);
-		heads.add("到帐日期");
-		sheet.setColumnWidth(34, 15 * 256);
-		heads.add("担当者");
-		sheet.setColumnWidth(35, 15 * 256);
+		sheet.setColumnWidth(3, 15 * 256);
+		if(map.get("cntrctInfo").equals("1")){
+			heads.add("资料收到日期");
+			sheet.setColumnWidth(4, 15 * 256);
+			heads.add("审定单发出日期");
+			sheet.setColumnWidth(5, 15 * 256);
+			heads.add("报告出具日期");
+			sheet.setColumnWidth(6, 15 * 256);
+			heads.add("送审价");
+			sheet.setColumnWidth(7, 15 * 256);
+			heads.add("审核价");
+			sheet.setColumnWidth(8, 15 * 256);
+		} else if(map.get("cntrctInfo").equals("2")){
+			heads.add("资料收到日期");
+			sheet.setColumnWidth(4, 15 * 256);
+			heads.add("报告出具日期");
+			sheet.setColumnWidth(5, 15 * 256);
+			heads.add("送审价");
+			sheet.setColumnWidth(6, 15 * 256);
+			heads.add("审核价");
+			sheet.setColumnWidth(7, 15 * 256);
+		} else if(map.get("cntrctInfo").equals("3")){
+			heads.add("资料收到日期");
+			sheet.setColumnWidth(4, 15 * 256);
+			heads.add("报告出具日期");
+			sheet.setColumnWidth(5, 15 * 256);
+		} else if(map.get("cntrctInfo").equals("4")){
+			heads.add("资料收到日期");
+			sheet.setColumnWidth(4, 15 * 256);
+			heads.add("报告出具日期");
+			sheet.setColumnWidth(5, 15 * 256);
+			heads.add("控制价金额");
+			sheet.setColumnWidth(6, 15 * 256);
+		} else {
+			heads.add("预算金额");
+			sheet.setColumnWidth(4, 15 * 256);
+			heads.add("项目大致进程简述");
+			sheet.setColumnWidth(5, 15 * 256);
+		}
 		
 		//Head部分颜色字体
 		XSSFFont font = workbook.createFont();

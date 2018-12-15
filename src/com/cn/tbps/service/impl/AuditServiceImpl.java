@@ -115,7 +115,7 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 			String valueDateLow, String valueDateHigh, String agentNo,
 			String reportNoComp, String reportNoLow, String reportNoHigh, String auditStatus, 
 			String projectClass, String docArrDateLow, String docArrDateHigh, String agentName, 
-			String contractName, String projectName) {
+			String contractName, String reportNo, String projectName, String cntrctInfo) {
 		
 		//add auditStatus condition 20150425  start--->
 		if(StringUtil.isBlank(auditStatus) || "00".equals(auditStatus)) {
@@ -148,11 +148,13 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 		if(StringUtil.isNotBlank(reportNoHigh)) {
 			reporthigh = StringUtil.replaceDatabaseKeyword_mysql(reportNoComp + "-" + reportNoHigh);
 		}
-		
+
+		projectManager = StringUtil.replaceDatabaseKeyword_mysql(projectManager);
+		projectName = StringUtil.replaceDatabaseKeyword_mysql(projectName);
 		return auditDao.queryAllAuditExport(auditNoLow, auditNoHigh, projectStatus,
 				projectManager, valueDateLow, valueDateHigh, agentNo,
 				comp, reportlow, reporthigh, auditStatus, 
-				projectClass, docArrDateLow, docArrDateHigh, agentName, contractName, projectName);
+				projectClass, docArrDateLow, docArrDateHigh, agentName, contractName, reportNo, projectName, cntrctInfo);
 	}
 
 	@Override

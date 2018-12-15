@@ -125,7 +125,7 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 			String valueDateLow, String valueDateHigh, String agentNo,
 			String reportNoComp, String reportNoLow, String reportNoHigh, String auditStatus, 
 			String projectClass, String docArrDateLow, String docArrDateHigh, String agentName, 
-			String contractName, String projectName) {
+			String contractName, String reportNo, String projectName, String cntrctInfo) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("AUDIT_NO_LOW", auditNoLow);
 		paramMap.put("AUDIT_NO_HIGH", auditNoHigh);
@@ -151,8 +151,12 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 		paramMap.put("AGENT_CO_NAME", agentName);
 		//承揽公司名称
 		paramMap.put("CONTRACT_CO_NAME", contractName);
+		//项目文号
+		paramMap.put("REPORT_NO", reportNo);
 		//项目名称
 		paramMap.put("PROJECT_NAME", projectName);
+		//委托内容
+		paramMap.put("CNTRCT_INFO", cntrctInfo);
 		@SuppressWarnings("unchecked")
 		List<AuditDto> list = getSqlMapClientTemplate().queryForList("queryAllAuditExport", paramMap);
 		return list;
@@ -493,15 +497,34 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 		//合同列表
 		@SuppressWarnings("unchecked")
 		List<String> listAuditCntrctNM = getSqlMapClientTemplate().queryForList("queryAuditCntrctNM", paramMap);
+		//投资监理B
+		@SuppressWarnings("unchecked")
+		List<String> listAuditCntrctNMB = getSqlMapClientTemplate().queryForList("queryAuditCntrctNMB", paramMap);
+		//合并list
+		listAuditCntrctNM.addAll(listAuditCntrctNMB);
 		auditStatCostDto.setListAuditCntrctNM(listAuditCntrctNM);
 		
 		//合计
 		AuditStatCostCountDto auditStatCostCountDto = new AuditStatCostCountDto();
 		AuditStatCostDetailDto allCount = (AuditStatCostDetailDto) getSqlMapClientTemplate().queryForObject("queryAuditStatCostAllCount", paramMap);
-		auditStatCostCountDto.setALL_PER_AMOUNT(allCount.getALL_PER_AMOUNT());
-		auditStatCostCountDto.setALL_AMOUNT(allCount.getALL_AMOUNT());
+		//投资监理B
+		AuditStatCostDetailDto allCountB = (AuditStatCostDetailDto) getSqlMapClientTemplate().queryForObject("queryAuditStatCostAllCountB", paramMap);
+		if(null == allCount && null != allCountB){
+			auditStatCostCountDto.setALL_PER_AMOUNT(allCountB.getALL_PER_AMOUNT());
+			auditStatCostCountDto.setALL_AMOUNT(allCountB.getALL_AMOUNT());
+		}
+		if(null != allCount && null == allCountB){
+			auditStatCostCountDto.setALL_PER_AMOUNT(allCount.getALL_PER_AMOUNT());
+			auditStatCostCountDto.setALL_AMOUNT(allCount.getALL_AMOUNT());
+		}
+		if(null != allCount && null != allCountB){
+			auditStatCostCountDto.setALL_PER_AMOUNT(allCount.getALL_PER_AMOUNT().add(allCountB.getALL_PER_AMOUNT()));
+			auditStatCostCountDto.setALL_AMOUNT(allCount.getALL_AMOUNT().add(allCountB.getALL_AMOUNT()));
+		}
 		@SuppressWarnings("unchecked")
 		List<AuditStatCostDetailDto> listAuditCostCount = getSqlMapClientTemplate().queryForList("queryAuditStatCostCount", paramMap);
+		@SuppressWarnings("unchecked")
+		List<AuditStatCostDetailDto> listAuditCostCountB = getSqlMapClientTemplate().queryForList("queryAuditStatCostCountB", paramMap);
 		List<AuditCostCountDto> listCount = new ArrayList<AuditCostCountDto>();
 		for(String s : listAuditCntrctNM) {
 			AuditCostCountDto auditCostCountDto = new AuditCostCountDto();
@@ -511,6 +534,15 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 			auditCostCountDto.setB_PER_AMOUNT(new BigDecimal("0.00"));
 			auditCostCountDto.setB_AMOUNT(new BigDecimal("0.00"));
 			for(AuditStatCostDetailDto dto : listAuditCostCount) {
+				if(s.equals(dto.getCNTRCT_NM())) {
+					auditCostCountDto.setA_PER_AMOUNT(dto.getA_PER_AMOUNT());
+					auditCostCountDto.setA_AMOUNT(dto.getA_AMOUNT());
+					auditCostCountDto.setB_PER_AMOUNT(dto.getB_PER_AMOUNT());
+					auditCostCountDto.setB_AMOUNT(dto.getB_AMOUNT());
+					break;
+				}
+			}
+			for(AuditStatCostDetailDto dto : listAuditCostCountB) {
 				if(s.equals(dto.getCNTRCT_NM())) {
 					auditCostCountDto.setA_PER_AMOUNT(dto.getA_PER_AMOUNT());
 					auditCostCountDto.setA_AMOUNT(dto.getA_AMOUNT());
@@ -679,6 +711,44 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 			dtoByManager5.setListAuditCostCount(listAuditCostCount5);;
 		}
 		auditStatCostDto.setListAudit5(listAuditByManager5);
+
+		//投资监理B
+		@SuppressWarnings("unchecked")
+		List<AuditStatCostDetailDto> listAuditB = getSqlMapClientTemplate().queryForList("queryAuditStatCostB", paramMap);
+		@SuppressWarnings("unchecked")
+		List<AuditStatCostDetailDto> listAuditByManagerB = getSqlMapClientTemplate().queryForList("queryAuditStatCostByManagerB", paramMap);
+		for(AuditStatCostDetailDto dtoByManagerB : listAuditByManagerB) {
+			List<AuditCostCountDto> listAuditCostCountB2 = new ArrayList<AuditCostCountDto>();
+			for(String s : listAuditCntrctNM) {
+				AuditCostCountDto auditCountDto = new AuditCostCountDto();
+				auditCountDto.setCNTRCT_NM(s);
+				auditCountDto.setCNTRCT_NM_COUNT(0);
+				auditCountDto.setVERIFY_PER_AMOUNT(new BigDecimal("0.00"));
+				auditCountDto.setA_PER_AMOUNT(new BigDecimal("0.00"));
+				auditCountDto.setA_AMOUNT(new BigDecimal("0.00"));
+				auditCountDto.setB_PER_AMOUNT(new BigDecimal("0.00"));
+				auditCountDto.setB_AMOUNT(new BigDecimal("0.00"));
+				auditCountDto.setB_AMOUNT_RATE(new BigDecimal("0.00"));
+				for(AuditStatCostDetailDto dtoB : listAuditB) {
+					if(s.equals(dtoB.getCNTRCT_NM()) && dtoB.getPROJECT_MANAGER().equals(dtoByManagerB.getPROJECT_MANAGER())) {
+						auditCountDto.setCNTRCT_NM_COUNT(dtoB.getCNTRCT_NM_COUNT());
+						auditCountDto.setVERIFY_PER_AMOUNT(dtoB.getVERIFY_PER_AMOUNT());
+						auditCountDto.setA_PER_AMOUNT(dtoB.getA_PER_AMOUNT());
+						auditCountDto.setA_AMOUNT(dtoB.getA_AMOUNT());
+						auditCountDto.setB_PER_AMOUNT(dtoB.getB_PER_AMOUNT());
+						auditCountDto.setB_AMOUNT(dtoB.getB_AMOUNT());
+						if(!(dtoB.getB_PER_AMOUNT().compareTo(BigDecimal.ZERO) == 0)) {
+							BigDecimal rate = dtoB.getB_PER_AMOUNT().divide(dtoB.getVERIFY_PER_AMOUNT(), 2, RoundingMode.HALF_UP);
+							auditCountDto.setB_AMOUNT_RATE(rate);
+						}
+						break;
+					}
+				}
+				listAuditCostCountB2.add(auditCountDto);
+			}
+			dtoByManagerB.setListAuditCostCount(listAuditCostCountB2);;
+		}
+		auditStatCostDto.setListAuditB(listAuditByManagerB);
 		
 		return auditStatCostDto;
 	}

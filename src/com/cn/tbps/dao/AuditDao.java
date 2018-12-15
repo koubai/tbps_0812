@@ -125,7 +125,7 @@ public interface AuditDao {
 			String projectManager, String valueDateLow, String valueDateHigh, String agentNo,
 			String reportNoComp, String reportNoLow, String reportNoHigh, String auditStatus, 
 			String projectClass, String docArrDateLow, String docArrDateHigh, String agentName, 
-			String contractName, String projectName);
+			String contractName, String reportNo, String projectName, String cntrctInfo);
 	
 	/**
 	 * 根据审价编号查询记录（查询未删除的记录）
