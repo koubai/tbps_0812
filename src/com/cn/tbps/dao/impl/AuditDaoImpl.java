@@ -509,18 +509,12 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 		AuditStatCostDetailDto allCount = (AuditStatCostDetailDto) getSqlMapClientTemplate().queryForObject("queryAuditStatCostAllCount", paramMap);
 		//投资监理B
 		AuditStatCostDetailDto allCountB = (AuditStatCostDetailDto) getSqlMapClientTemplate().queryForObject("queryAuditStatCostAllCountB", paramMap);
-		if(null == allCount && null != allCountB){
-			auditStatCostCountDto.setALL_PER_AMOUNT(allCountB.getALL_PER_AMOUNT());
-			auditStatCostCountDto.setALL_AMOUNT(allCountB.getALL_AMOUNT());
-		}
-		if(null != allCount && null == allCountB){
-			auditStatCostCountDto.setALL_PER_AMOUNT(allCount.getALL_PER_AMOUNT());
-			auditStatCostCountDto.setALL_AMOUNT(allCount.getALL_AMOUNT());
-		}
-		if(null != allCount && null != allCountB){
-			auditStatCostCountDto.setALL_PER_AMOUNT(allCount.getALL_PER_AMOUNT().add(allCountB.getALL_PER_AMOUNT()));
-			auditStatCostCountDto.setALL_AMOUNT(allCount.getALL_AMOUNT().add(allCountB.getALL_AMOUNT()));
-		}
+		if(null == allCount.getALL_AMOUNT()) allCount.setALL_AMOUNT(new BigDecimal("0.00"));
+		if(null == allCount.getALL_PER_AMOUNT()) allCount.setALL_PER_AMOUNT(new BigDecimal("0.00"));
+		if(null == allCountB.getALL_AMOUNT()) allCountB.setALL_AMOUNT(new BigDecimal("0.00"));
+		if(null == allCountB.getALL_PER_AMOUNT()) allCountB.setALL_PER_AMOUNT(new BigDecimal("0.00"));
+		auditStatCostCountDto.setALL_PER_AMOUNT(allCount.getALL_PER_AMOUNT().add(allCountB.getALL_PER_AMOUNT()));
+		auditStatCostCountDto.setALL_AMOUNT(allCount.getALL_AMOUNT().add(allCountB.getALL_AMOUNT()));
 		@SuppressWarnings("unchecked")
 		List<AuditStatCostDetailDto> listAuditCostCount = getSqlMapClientTemplate().queryForList("queryAuditStatCostCount", paramMap);
 		@SuppressWarnings("unchecked")
