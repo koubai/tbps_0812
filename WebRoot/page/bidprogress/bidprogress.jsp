@@ -44,23 +44,23 @@
 		var win_height = 0;
 		if (util_typ == 3 ){
 			win_height = 600 + member_picker;
-			window.open(url, window, "height=win_height;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
+			window.open(url, window, "height="+win_height+"px;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");
 		}
 		if (util_typ == 4){
 			win_height = 500 + member_picker;
-			window.open(url, window, "height=win_height;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");				
+			window.open(url, window, "height="+win_height+"px;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");				
 		}
 		if (util_typ == 5){
 			win_height = 500 + member_picker;
-			window.open(url, window, "height=win_height;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");				
+			window.open(url, window, "height="+win_height+"px;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");				
 		}
 		if (util_typ == 1 || util_typ == 2 ){
 			win_height = 400 + member_picker;
-			window.open(url, window, "height=win_height;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");				
+			window.open(url, window, "height="+win_height+"px;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");				
 		}
 		if (util_typ == 6){
 			win_height = 300 + member_picker;
-			window.open(url, window, "height=win_height;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");				
+			window.open(url, window, "height="+win_height+"px;width=800px;center:yes;status:0;resizable=no;Minimize=no;Maximize=no");				
 		}
 	}
 	
