@@ -77,136 +77,73 @@ public class PoiAudit extends Poi2007Base {
 			row = sheet.createRow(i + 3);
 			audit = (AuditDto) datas.get(i);
 			XSSFCell cell0 = row.createCell(0);
-			XSSFCell cell1 = row.createCell(1);
-			XSSFCell cell2 = row.createCell(2);
-			XSSFCell cell3 = row.createCell(3);
-			XSSFCell cell4 = row.createCell(4);
-			XSSFCell cell5 = row.createCell(5);
-
 			cell0.setCellValue("" + (i + 1));
 			cell0.setCellStyle(style);
-			cell1.setCellValue(audit.getPROJECT_MANAGER());
-			cell1.setCellStyle(style);
-			cell2.setCellValue(audit.getREPORT_NO());
-			cell2.setCellStyle(style);
-			cell3.setCellValue(audit.getPROJECT_NAME());
-			cell3.setCellStyle(style);
-			if(map.get("cntrctInfo").equals("5")){
-				cell4.setCellValue(StringUtil.BigDecimal2Str(audit.getPRE_PRICE(), 2));
-				cell4.setCellStyle(style);
-			} else {
-				cell4.setCellValue(DateUtil.dateToStr(audit.getDOC_REC_DATE(), format));
-				cell4.setCellStyle(style);
-			}
-			if(map.get("cntrctInfo").equals("5")){
-				cell5.setCellValue(audit.getPROGRESS_STATUS_MEMO());
-				cell5.setCellStyle(style);
-			} else if(map.get("cntrctInfo").equals("1")) {
-				cell5.setCellValue(DateUtil.dateToStr(audit.getAPPROVAL_SND_DATE(), format));
-				cell5.setCellStyle(style);
-			} else {
-				cell5.setCellValue(DateUtil.dateToStr(audit.getREPORT_RAISE_DATE(), format));
-				cell5.setCellStyle(style);
-			}
 			
-			if(map.get("cntrctInfo").equals("1")){
-				XSSFCell cell6 = row.createCell(6);
-				XSSFCell cell7 = row.createCell(7);
-				XSSFCell cell8 = row.createCell(8);
-				cell6.setCellValue(DateUtil.dateToStr(audit.getREPORT_RAISE_DATE(), format));
-				cell6.setCellStyle(style);
-				cell7.setCellValue(StringUtil.BigDecimal2Str(audit.getVERIFY_PER_AMOUNT(), 2));
-				cell7.setCellStyle(style);
-				cell8.setCellValue(StringUtil.BigDecimal2Str(audit.getVERIFY_AMOUNT(), 2));
-				cell8.setCellStyle(style);
-			} else if(map.get("cntrctInfo").equals("2")){
-				XSSFCell cell6 = row.createCell(6);
-				XSSFCell cell7 = row.createCell(7);
-				cell6.setCellValue(StringUtil.BigDecimal2Str(audit.getVERIFY_PER_AMOUNT(), 2));
-				cell6.setCellStyle(style);
-				cell7.setCellValue(StringUtil.BigDecimal2Str(audit.getVERIFY_AMOUNT(), 2));
-				cell7.setCellStyle(style);
-			} else if(map.get("cntrctInfo").equals("4")){
-				XSSFCell cell6 = row.createCell(6);
-				cell6.setCellValue(StringUtil.BigDecimal2Str(audit.getCNT_PRICE(), 2));
-				cell6.setCellStyle(style);
+			XSSFCell cell = null;
+
+			String[][] arrAuditShow = (String[][]) map.get("arrAuditShow");
+			int j = 0;
+			for(String[] one : arrAuditShow){
+				cell = row.createCell(j+1);
+				if(one[0].equals("PROJECT_MANAGER")){
+					cell.setCellValue(audit.getPROJECT_MANAGER());
+				} else if(one[0].equals("REPORT_NO")){
+					cell.setCellValue(audit.getREPORT_NO());
+				} else if(one[0].equals("PROJECT_NAME")){
+					cell.setCellValue(audit.getPROJECT_NAME());
+				} else if(one[0].equals("PRE_PRICE")){
+					cell.setCellValue(StringUtil.BigDecimal2Str(audit.getPRE_PRICE(), 2));
+				} else if(one[0].equals("DOC_REC_DATE")){
+					cell.setCellValue(DateUtil.dateToStr(audit.getDOC_REC_DATE(), format));
+				} else if(one[0].equals("PROGRESS_STATUS_MEMO")){
+					cell.setCellValue(audit.getPROGRESS_STATUS_MEMO());
+				} else if(one[0].equals("APPROVAL_SND_DATE")){
+					cell.setCellValue(DateUtil.dateToStr(audit.getAPPROVAL_SND_DATE(), format));
+				} else if(one[0].equals("REPORT_RAISE_DATE")){
+					cell.setCellValue(DateUtil.dateToStr(audit.getREPORT_RAISE_DATE(), format));
+				} else if(one[0].equals("VERIFY_PER_AMOUNT")){
+					cell.setCellValue(StringUtil.BigDecimal2Str(audit.getVERIFY_PER_AMOUNT(), 2));
+				} else if(one[0].equals("VERIFY_AMOUNT")){
+					cell.setCellValue(StringUtil.BigDecimal2Str(audit.getVERIFY_AMOUNT(), 2));
+				} else if(one[0].equals("CNT_PRICE")){
+					cell.setCellValue(StringUtil.BigDecimal2Str(audit.getCNT_PRICE(), 2));
+				} else if(one[0].equals("PROJECT_NAME_PASS")){
+					cell.setCellValue(audit.getPROJECT_NAME_PASS());
+				} else if(one[0].equals("CNTRCT_NO")){
+					cell.setCellValue(audit.getCNTRCT_NO());
+				} else if(one[0].equals("PROGRESS_STATUS")){
+					String status = "";
+					if("1".equals(audit.getPROGRESS_STATUS())){
+						status = "实施";
+					} else if("2".equals(audit.getPROGRESS_STATUS())){
+						status = "中止";
+					}
+					cell.setCellValue(status);
+				} else if(one[0].equals("PRE_SET")){
+					String set = "";
+					if("1".equals(audit.getPROGRESS_STATUS())){
+						set = "预算";
+					} else if("2".equals(audit.getPROGRESS_STATUS())){
+						set = "结算";
+					}
+					cell.setCellValue(set);
+				} else if(one[0].equals("AGENT_INFO")){
+					cell.setCellValue(audit.getAGENT_INFO());
+				} else if(one[0].equals("PROF_INFO")){
+					cell.setCellValue(audit.getPROF_INFO());
+				} else if(one[0].equals("CONTRACT_CO_ID")){
+					cell.setCellValue(audit.getCONTRACT_CO_ID());
+				} else if(one[0].equals("CONTRACT_CO_INFO")){
+					cell.setCellValue(audit.getCONTRACT_CO_INFO());
+				} else if(one[0].equals("VERIFY_INCREASE")){
+					cell.setCellValue(StringUtil.BigDecimal2Str(audit.getVERIFY_INCREASE(), 2));
+				} else if(one[0].equals("VERIFY_DECREASE")){
+					cell.setCellValue(StringUtil.BigDecimal2Str(audit.getVERIFY_DECREASE(), 2));
+				}
+				cell.setCellStyle(style);
+				j++;
 			}
-			
-//			cell0.setCellValue("" + (i + 1));
-//			cell0.setCellStyle(style);
-//			cell1.setCellValue(DateUtil.dateToStr(audit.getDOC_ARR_DATE(), format));
-//			cell1.setCellStyle(style);
-//			cell2.setCellValue(audit.getPROJECT_STATUS_NAME());
-//			cell2.setCellStyle(style);
-//			cell3.setCellValue(DateUtil.dateToStr(audit.getVERIFY_DOC_SEND_DATE(), format));
-//			cell3.setCellStyle(style);
-//			cell4.setCellValue(DateUtil.dateToStr(audit.getVERIFY_DOC_REPLY_DATE(), format));
-//			cell4.setCellStyle(style);
-//			cell5.setCellValue(DateUtil.dateToStr(audit.getLAST_REPORT_DATE(), format));
-//			cell5.setCellStyle(style);
-//			cell6.setCellValue(audit.getREPORT_NO());
-//			cell6.setCellStyle(style);
-//			cell7.setCellValue(audit.getPROJECT_NAME());
-//			cell7.setCellStyle(style);
-//			cell8.setCellValue(audit.getCONTRACT_NO());
-//			cell8.setCellStyle(style);
-//			cell9.setCellValue(audit.getPROJECT_TYPE_NAME());
-//			cell9.setCellStyle(style);
-//			cell10.setCellValue(audit.getAGENT_CO_NAME());
-//			cell10.setCellStyle(style);
-//			cell11.setCellValue(audit.getAGENT_CO_MANAGER());
-//			cell11.setCellStyle(style);
-//			cell12.setCellValue(audit.getAGENT_CO_MANAGER_TEL());
-//			cell12.setCellStyle(style);
-//			cell13.setCellValue(audit.getAGENT_CO_STAFF());
-//			cell13.setCellStyle(style);
-//			cell14.setCellValue(audit.getAGENT_CO_STAFF_TEL());
-//			cell14.setCellStyle(style);
-//			//专业公司
-//			cell15.setCellValue(audit.getPROF_CO_NAME());
-//			cell15.setCellStyle(style);
-//			cell16.setCellValue(audit.getPROF_CO_MANAGER());
-//			cell16.setCellStyle(style);
-//			cell17.setCellValue(audit.getPROF_CO_MANAGER_TEL());
-//			cell17.setCellStyle(style);
-//			cell18.setCellValue(audit.getPROF_CO_STAFF());
-//			cell18.setCellStyle(style);
-//			cell19.setCellValue(audit.getPROF_CO_STAFF_TEL());
-//			cell19.setCellStyle(style);
-//			//承包公司
-//			cell20.setCellValue(audit.getCONTRACT_CO_NAME());
-//			cell20.setCellStyle(style);
-//			cell21.setCellValue(audit.getCONTRACT_CO_MANAGER());
-//			cell21.setCellStyle(style);
-//			cell22.setCellValue(audit.getCONTRACT_CO_MANAGER_TEL());
-//			cell22.setCellStyle(style);
-//			cell23.setCellValue(audit.getCONTRACT_CO_STAFF());
-//			cell23.setCellStyle(style);
-//			cell24.setCellValue(audit.getCONTRACT_CO_STAFF_TEL());
-//			cell24.setCellStyle(style);
-//			//送审价
-//			cell25.setCellValue(StringUtil.BigDecimal2Str(audit.getVERIFY_PER_AMOUNT(), 2));
-//			cell25.setCellStyle(style);
-//			cell26.setCellValue(StringUtil.BigDecimal2Str(audit.getVERIFY_AMOUNT(), 2));
-//			cell26.setCellStyle(style);
-//			cell27.setCellValue(StringUtil.BigDecimal2Str(audit.getVERIFY_DIFF(), 2));
-//			cell27.setCellStyle(style);
-//			cell28.setCellValue(audit.getVERIFY_INCREASE());
-//			cell28.setCellStyle(style);
-//			cell29.setCellValue(StringUtil.BigDecimal2Str(audit.getVERIFY_DECREASE(), 2));
-//			cell29.setCellStyle(style);
-//			cell30.setCellValue(audit.getRECEIPT1_AMOUNT_A());
-//			cell30.setCellStyle(style);
-//			cell31.setCellValue(audit.getRECEIPT1_AMOUNT_B());
-//			cell31.setCellStyle(style);
-//			cell32.setCellValue(DateUtil.dateToStr(audit.getRECEIPT1_DATE(), format));
-//			cell32.setCellStyle(style);
-//			cell33.setCellValue(audit.getRECEIPT1_NO());
-//			cell33.setCellStyle(style);
-//			cell34.setCellValue(DateUtil.dateToStr(audit.getVALUE_DATE(), format));
-//			cell34.setCellStyle(style);
-//			cell35.setCellValue(audit.getPROJECT_MANAGER());
-//			cell35.setCellStyle(style);
 		}
 	}
 	
@@ -218,50 +155,12 @@ public class PoiAudit extends Poi2007Base {
 	public void writeHead(XSSFSheet sheet, XSSFWorkbook workbook) {
 		heads = new ArrayList<String>();
 		heads.add("序号");
-		sheet.setColumnWidth(0, 15 * 256);
-		heads.add("工程师");
-		sheet.setColumnWidth(1, 15 * 256);
-		heads.add("项目文号");
-		sheet.setColumnWidth(2, 15 * 256);
-		heads.add("项目名称");
-		sheet.setColumnWidth(3, 15 * 256);
-		if(map.get("cntrctInfo").equals("1")){
-			heads.add("资料收到日期");
-			sheet.setColumnWidth(4, 15 * 256);
-			heads.add("审定单发出日期");
-			sheet.setColumnWidth(5, 15 * 256);
-			heads.add("报告出具日期");
-			sheet.setColumnWidth(6, 15 * 256);
-			heads.add("送审价");
-			sheet.setColumnWidth(7, 15 * 256);
-			heads.add("审核价");
-			sheet.setColumnWidth(8, 15 * 256);
-		} else if(map.get("cntrctInfo").equals("2")){
-			heads.add("资料收到日期");
-			sheet.setColumnWidth(4, 15 * 256);
-			heads.add("报告出具日期");
-			sheet.setColumnWidth(5, 15 * 256);
-			heads.add("送审价");
-			sheet.setColumnWidth(6, 15 * 256);
-			heads.add("审核价");
-			sheet.setColumnWidth(7, 15 * 256);
-		} else if(map.get("cntrctInfo").equals("3")){
-			heads.add("资料收到日期");
-			sheet.setColumnWidth(4, 15 * 256);
-			heads.add("报告出具日期");
-			sheet.setColumnWidth(5, 15 * 256);
-		} else if(map.get("cntrctInfo").equals("4")){
-			heads.add("资料收到日期");
-			sheet.setColumnWidth(4, 15 * 256);
-			heads.add("报告出具日期");
-			sheet.setColumnWidth(5, 15 * 256);
-			heads.add("控制价金额");
-			sheet.setColumnWidth(6, 15 * 256);
-		} else {
-			heads.add("预算金额");
-			sheet.setColumnWidth(4, 15 * 256);
-			heads.add("项目大致进程简述");
-			sheet.setColumnWidth(5, 15 * 256);
+		String[][] arrAuditShow = (String[][]) map.get("arrAuditShow");
+		int j = 0;
+		for(String[] one : arrAuditShow){
+			sheet.setColumnWidth(j+1, 15 * 256);
+			heads.add(one[1]);
+			j++;
 		}
 		
 		//Head部分颜色字体

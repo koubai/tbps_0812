@@ -235,7 +235,9 @@ public class AuditAction extends BaseAction {
 	private AuditStatCostDto auditStatCost;
 	//到账统到账统计计
 	private AuditStatPaidDto auditStatPaid;
-	
+
+	//显示项
+	private String[][] arrAuditShow;
 	//审价
 	private String[][] arrAuditShow1;
 	//咨询
@@ -246,6 +248,10 @@ public class AuditAction extends BaseAction {
 	private String[][] arrAuditShow4;
 	//全过程投资监理
 	private String[][] arrAuditShow5;
+	//设定值
+	private String[][] arrAuditShowSet;
+	//设定值Flag
+	private String strSetFlag;
 	//项目文号
 	private String strReportNo;
 	//委托内容
@@ -330,6 +336,49 @@ public class AuditAction extends BaseAction {
 	public String exportAuditListAction() {
 		try {
 			this.clearMessages();
+			//显示列表
+			arrAuditShow = null;
+			if("1".equals(strSetFlag)){
+				//设定项目
+				auditListDisp = new ArrayList<AuditListDisp>();
+				ConfigTabDto auditListDispConfig = configTabService.queryConfigTabByKey(Constants.CONFIG_TAB_AUDIT_DISP, Constants.CONFIG_TAB_AUDIT_DISP);
+				if(null != auditListDispConfig) {
+					String auditListDispValue = auditListDispConfig.getCONFIG_VAL();
+					if(StringUtils.isNotEmpty(auditListDispValue)) {
+						String[] valArray = auditListDispValue.split(",");
+						arrAuditShow = new String[valArray.length][2];
+						int i = 0;
+						for(String id : valArray) {
+							arrAuditShow[i][0] = AuditListDispEnum.getNameByID(Integer.parseInt(id)).getEnName();
+							arrAuditShow[i][1] = AuditListDispEnum.getNameByID(Integer.parseInt(id)).getCnName();
+							i++;
+						}
+					} else {
+						//this.addActionMessage("请先设定显示列表！");
+						//return SUCCESS;
+					}
+				}
+			}
+			if(null == arrAuditShow || arrAuditShow.length <= 0){
+				if("2".equals(strCntrctInfo)){
+					arrAuditShow  = new String[][]{{"PROJECT_MANAGER","工程师"},{"REPORT_NO", "项目文号"},{"PROJECT_NAME", "项目名称"},
+							{"DOC_REC_DATE", "资料收到日期"},{"REPORT_RAISE_DATE", "报告出具日期"},
+							{"VERIFY_PER_AMOUNT", "送审价"},{"VERIFY_AMOUNT", "审核价"}};//咨询
+				} else if("3".equals(strCntrctInfo)){
+					arrAuditShow = new String[][]{{"PROJECT_MANAGER","工程师"},{"REPORT_NO", "项目文号"},{"PROJECT_NAME", "项目名称"},
+						{"DOC_REC_DATE", "资料收到日期"},{"REPORT_RAISE_DATE", "报告出具日期"}};//清单编制
+				} else if("4".equals(strCntrctInfo)){
+					arrAuditShow = new String[][]{{"PROJECT_MANAGER","工程师"},{"REPORT_NO", "项目文号"},{"PROJECT_NAME", "项目名称"},
+							{"DOC_REC_DATE", "资料收到日期"},{"REPORT_RAISE_DATE", "报告出具日期"},{"CNT_PRICE", "控制价金额"}};//控制价编制
+				} else if("5".equals(strCntrctInfo)){
+					arrAuditShow = new String[][]{{"PROJECT_MANAGER","工程师"},{"REPORT_NO", "项目文号"},{"PROJECT_NAME", "项目名称"},
+							{"PRE_PRICE", "预算金额"},{"PROGRESS_STATUS_MEMO", "项目大致进程简述"}};//全过程投资监理
+				} else {
+					arrAuditShow = new String[][]{{"PROJECT_MANAGER","工程师"},{"REPORT_NO", "项目文号"},{"PROJECT_NAME", "项目名称"},
+							{"DOC_REC_DATE", "资料收到日期"},{"APPROVAL_SND_DATE", "审定单发出日期"},{"REPORT_RAISE_DATE", "报告出具日期"},
+							{"VERIFY_PER_AMOUNT", "送审价"},{"VERIFY_AMOUNT", "审核价"}};//审价
+				}
+			}
 			String name = StringUtil.createFileName(Constants.EXCEL_TYPE_SJYL);
 			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
 			response.setContentType("application/vnd.ms-excel");
@@ -341,6 +390,7 @@ public class AuditAction extends BaseAction {
 			}
 			
 			System.out.print("strAuditStatus: "+strAuditStatus);
+
 			//查询数据
 			List<AuditDto> list = auditService.queryAllAuditExport("", "", "", strProjectManager, "", "", "",
 					"", "", "", "", "", "", "", "", "", strReportNo, strProjectName, strCntrctInfo);
@@ -348,6 +398,7 @@ public class AuditAction extends BaseAction {
 			base.setSheetName(Constants.EXCEL_TYPE_SJYL);
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("cntrctInfo", strCntrctInfo);
+			map.put("arrAuditShow", arrAuditShow);
 			base.setMap(map);
 			base.exportExcel(response.getOutputStream());
 		} catch(Exception e) {
@@ -805,6 +856,7 @@ public class AuditAction extends BaseAction {
 			strReportNo = "";
 			strProjectName = "";
 			strCntrctInfo = "";
+			strSetFlag = "";
 			updAuditCntrctNo = "";
 			auditCntrctDto = new AuditCntrctDto();
 			//审价
@@ -824,6 +876,8 @@ public class AuditAction extends BaseAction {
 			//全过程投资监理
 			arrAuditShow5 = new String[][]{{"PROJECT_MANAGER","工程师"},{"REPORT_NO", "项目文号"},{"PROJECT_NAME", "项目名称"},
 				{"PRE_PRICE", "预算金额"},{"PROGRESS_STATUS_MEMO", "项目大致进程简述"}};
+			//显示项
+			arrAuditShow = arrAuditShow1;
 		} catch(Exception e) {
 			return ERROR;
 		}
@@ -1084,23 +1138,48 @@ public class AuditAction extends BaseAction {
 			this.clearMessages();
 			page = new Page();
 			startIndex = 0;
-			//审价
-			arrAuditShow1 = new String[][]{{"PROJECT_MANAGER","工程师"},{"REPORT_NO", "项目文号"},{"PROJECT_NAME", "项目名称"},
-				{"DOC_REC_DATE", "资料收到日期"},{"APPROVAL_SND_DATE", "审定单发出日期"},{"REPORT_RAISE_DATE", "报告出具日期"},
-				{"VERIFY_PER_AMOUNT", "送审价"},{"VERIFY_AMOUNT", "审核价"}};
-			//咨询
-			arrAuditShow2 = new String[][]{{"PROJECT_MANAGER","工程师"},{"REPORT_NO", "项目文号"},{"PROJECT_NAME", "项目名称"},
-				{"DOC_REC_DATE", "资料收到日期"},{"REPORT_RAISE_DATE", "报告出具日期"},
-				{"VERIFY_PER_AMOUNT", "送审价"},{"VERIFY_AMOUNT", "审核价"}};
-			//清单编制
-			arrAuditShow3 = new String[][]{{"PROJECT_MANAGER","工程师"},{"REPORT_NO", "项目文号"},{"PROJECT_NAME", "项目名称"},
-				{"DOC_REC_DATE", "资料收到日期"},{"REPORT_RAISE_DATE", "报告出具日期"}};
-			//控制价编制
-			arrAuditShow4 = new String[][]{{"PROJECT_MANAGER","工程师"},{"REPORT_NO", "项目文号"},{"PROJECT_NAME", "项目名称"},
-				{"DOC_REC_DATE", "资料收到日期"},{"REPORT_RAISE_DATE", "报告出具日期"},{"CNT_PRICE", "控制价金额"}};
-			//全过程投资监理
-			arrAuditShow5 = new String[][]{{"PROJECT_MANAGER","工程师"},{"REPORT_NO", "项目文号"},{"PROJECT_NAME", "项目名称"},
-				{"PRE_PRICE", "预算金额"},{"PROGRESS_STATUS_MEMO", "项目大致进程简述"}};
+			//显示值
+			arrAuditShow = null;
+			if("1".equals(strSetFlag)){
+				//设定项目
+				auditListDisp = new ArrayList<AuditListDisp>();
+				ConfigTabDto auditListDispConfig = configTabService.queryConfigTabByKey(Constants.CONFIG_TAB_AUDIT_DISP, Constants.CONFIG_TAB_AUDIT_DISP);
+				if(null != auditListDispConfig) {
+					String auditListDispValue = auditListDispConfig.getCONFIG_VAL();
+					if(StringUtils.isNotEmpty(auditListDispValue)) {
+						String[] valArray = auditListDispValue.split(",");
+						arrAuditShow = new String[valArray.length][2];
+						int i = 0;
+						for(String id : valArray) {
+							arrAuditShow[i][0] = AuditListDispEnum.getNameByID(Integer.parseInt(id)).getEnName();
+							arrAuditShow[i][1] = AuditListDispEnum.getNameByID(Integer.parseInt(id)).getCnName();
+							i++;
+						}
+					} else {
+						this.addActionMessage("请先设定显示列表！");
+					}
+				}
+			}
+			if(null == arrAuditShow || arrAuditShow.length <= 0){
+				if("2".equals(strCntrctInfo)){
+					arrAuditShow  = new String[][]{{"PROJECT_MANAGER","工程师"},{"REPORT_NO", "项目文号"},{"PROJECT_NAME", "项目名称"},
+							{"DOC_REC_DATE", "资料收到日期"},{"REPORT_RAISE_DATE", "报告出具日期"},
+							{"VERIFY_PER_AMOUNT", "送审价"},{"VERIFY_AMOUNT", "审核价"}};//咨询
+				} else if("3".equals(strCntrctInfo)){
+					arrAuditShow = new String[][]{{"PROJECT_MANAGER","工程师"},{"REPORT_NO", "项目文号"},{"PROJECT_NAME", "项目名称"},
+						{"DOC_REC_DATE", "资料收到日期"},{"REPORT_RAISE_DATE", "报告出具日期"}};//清单编制
+				} else if("4".equals(strCntrctInfo)){
+					arrAuditShow = new String[][]{{"PROJECT_MANAGER","工程师"},{"REPORT_NO", "项目文号"},{"PROJECT_NAME", "项目名称"},
+							{"DOC_REC_DATE", "资料收到日期"},{"REPORT_RAISE_DATE", "报告出具日期"},{"CNT_PRICE", "控制价金额"}};//控制价编制
+				} else if("5".equals(strCntrctInfo)){
+					arrAuditShow = new String[][]{{"PROJECT_MANAGER","工程师"},{"REPORT_NO", "项目文号"},{"PROJECT_NAME", "项目名称"},
+							{"PRE_PRICE", "预算金额"},{"PROGRESS_STATUS_MEMO", "项目大致进程简述"}};//全过程投资监理
+				} else {
+					arrAuditShow = new String[][]{{"PROJECT_MANAGER","工程师"},{"REPORT_NO", "项目文号"},{"PROJECT_NAME", "项目名称"},
+							{"DOC_REC_DATE", "资料收到日期"},{"APPROVAL_SND_DATE", "审定单发出日期"},{"REPORT_RAISE_DATE", "报告出具日期"},
+							{"VERIFY_PER_AMOUNT", "送审价"},{"VERIFY_AMOUNT", "审核价"}};//审价
+				}
+			}
 			queryAudit();
 		} catch(Exception e) {
 			log.error(e);
@@ -1624,6 +1703,30 @@ public class AuditAction extends BaseAction {
 
 	public void setStrSetList(String strSetList) {
 		this.strSetList = strSetList;
+	}
+
+	public String[][] getArrAuditShowSet() {
+		return arrAuditShowSet;
+	}
+
+	public void setArrAuditShowSet(String[][] arrAuditShowSet) {
+		this.arrAuditShowSet = arrAuditShowSet;
+	}
+
+	public String getStrSetFlag() {
+		return strSetFlag;
+	}
+
+	public void setStrSetFlag(String strSetFlag) {
+		this.strSetFlag = strSetFlag;
+	}
+
+	public String[][] getArrAuditShow() {
+		return arrAuditShow;
+	}
+
+	public void setArrAuditShow(String[][] arrAuditShow) {
+		this.arrAuditShow = arrAuditShow;
 	}
 
 }

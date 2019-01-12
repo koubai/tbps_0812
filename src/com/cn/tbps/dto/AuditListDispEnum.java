@@ -3,7 +3,7 @@ package com.cn.tbps.dto;
 public enum AuditListDispEnum {
 	REPORT_NO(1,"REPORT_NO","项目文号"),
 	PROJECT_NAME(2,"PROJECT_NAME","项目名称"),
-	PROJECT_NAME_PASS(3,"PROJECT_NAME","曾用名"),
+	PROJECT_NAME_PASS(3,"PROJECT_NAME_PASS","曾用名"),
 	CNTRCT_NO(4,"CNTRCT_NO","合同编号"),
 	PROJECT_MANAGER(5,"PROJECT_MANAGER","工程师"),
 	DOC_REC_DATE(6,"DOC_REC_DATE","资料收到日期"),
