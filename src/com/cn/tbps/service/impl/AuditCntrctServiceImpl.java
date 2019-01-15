@@ -19,12 +19,13 @@ public class AuditCntrctServiceImpl extends BaseService implements AuditCntrctSe
 
 	@Override
 	public Page queryAuditCntrctByPage(String strCntrctBelong, String strCntrctNO, String strCntrctType,
-			String strCntrctName, String strCntrctStDate, String strCntrctEdDate, Page page) {
+			String strCntrctName, String strCntrctStDate, String strCntrctEdDate, String strCntrctNm, Page page) {
 		strCntrctName = StringUtil.replaceDatabaseKeyword_mysql(strCntrctName);
+		strCntrctNm = StringUtil.replaceDatabaseKeyword_mysql(strCntrctNm);
 		
 		//查询总记录数
 		int totalCount = auditCntrctDao.queryAuditCntrctCountByPage(strCntrctBelong, strCntrctNO, strCntrctType,
-				strCntrctName, strCntrctStDate, strCntrctEdDate);
+				strCntrctName, strCntrctStDate, strCntrctEdDate, strCntrctNm);
 		page.setTotalCount(totalCount);
 		if(totalCount % page.getPageSize() > 0) {
 			page.setTotalPage(totalCount / page.getPageSize() + 1);
@@ -33,7 +34,7 @@ public class AuditCntrctServiceImpl extends BaseService implements AuditCntrctSe
 		}
 		//翻页查询记录
 		List<AuditCntrctDto> list = auditCntrctDao.queryAuditCntrctByPage(strCntrctBelong, strCntrctNO, strCntrctType,
-				strCntrctName, strCntrctStDate, strCntrctEdDate,
+				strCntrctName, strCntrctStDate, strCntrctEdDate, strCntrctNm,
 				page.getStartIndex() * page.getPageSize(), page.getPageSize());
 		page.setItems(list);
 		return page;

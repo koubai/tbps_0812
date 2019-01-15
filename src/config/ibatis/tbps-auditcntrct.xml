@@ -97,6 +97,9 @@
 		<isNotEmpty prepend="and" property="CNTRCT_NAME">
 			T.CNTRCT_NAME like '%$CNTRCT_NAME$%'
 		</isNotEmpty>
+		<isNotEmpty prepend="and" property="CNTRCT_NM">
+			T.CNTRCT_NM like '%$CNTRCT_NM$%'
+		</isNotEmpty>
 		<isNotEmpty prepend="and" property="CNTRCT_ST_DATE">
 			T.CNTRCT_ST_DATE <![CDATA[>=]]> #CNTRCT_ST_DATE#
 		</isNotEmpty>
@@ -122,6 +125,9 @@
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="CNTRCT_NAME">
 			T.CNTRCT_NAME like '%$CNTRCT_NAME$%'
+		</isNotEmpty>
+		<isNotEmpty prepend="and" property="CNTRCT_NM">
+			T.CNTRCT_NM like '%$CNTRCT_NM$%'
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="CNTRCT_ST_DATE">
 			T.CNTRCT_ST_DATE <![CDATA[>=]]> #CNTRCT_ST_DATE#

@@ -12,7 +12,7 @@ public class AuditCntrctDaoImpl extends BaseDao implements AuditCntrctDao {
 
 	@Override
 	public int queryAuditCntrctCountByPage(String strCntrctBelong, String strCntrctNO, String strCntrctType,
-			String strCntrctName, String strCntrctStDate, String strCntrctEdDate) {
+			String strCntrctName, String strCntrctStDate, String strCntrctEdDate, String strCntrctNm) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("CNTRCT_BELONG", strCntrctBelong);
 		paramMap.put("CNTRCT_NO", strCntrctNO);
@@ -23,6 +23,7 @@ public class AuditCntrctDaoImpl extends BaseDao implements AuditCntrctDao {
 			paramMap.put("CNTRCT_TYPE", strCntrctType);
 		}
 		paramMap.put("CNTRCT_NAME", strCntrctName);
+		paramMap.put("CNTRCT_NM", strCntrctNm);
 		paramMap.put("CNTRCT_ST_DATE", strCntrctStDate);
 		paramMap.put("CNTRCT_ED_DATE", strCntrctEdDate);
 		return (Integer) getSqlMapClientTemplate().queryForObject("queryAuditCntrctCountByPage", paramMap);
@@ -30,7 +31,7 @@ public class AuditCntrctDaoImpl extends BaseDao implements AuditCntrctDao {
 
 	@Override
 	public List<AuditCntrctDto> queryAuditCntrctByPage(String strCntrctBelong, String strCntrctNO, String strCntrctType,
-			String strCntrctName, String strCntrctStDate, String strCntrctEdDate, int start, int end) {
+			String strCntrctName, String strCntrctStDate, String strCntrctEdDate, String strCntrctNm, int start, int end) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("CNTRCT_BELONG", strCntrctBelong);
 		paramMap.put("CNTRCT_NO", strCntrctNO);
@@ -41,6 +42,7 @@ public class AuditCntrctDaoImpl extends BaseDao implements AuditCntrctDao {
 			paramMap.put("CNTRCT_TYPE", strCntrctType);
 		}
 		paramMap.put("CNTRCT_NAME", strCntrctName);
+		paramMap.put("CNTRCT_NM", strCntrctNm);
 		paramMap.put("CNTRCT_ST_DATE", strCntrctStDate);
 		paramMap.put("CNTRCT_ED_DATE", strCntrctEdDate);
 		paramMap.put("start", start);

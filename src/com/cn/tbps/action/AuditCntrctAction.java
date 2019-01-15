@@ -166,6 +166,11 @@ public class AuditCntrctAction extends BaseAction {
 	 * 合同结束时间
 	 */
 	private String cntrctEdDate;
+
+	/**
+	 * 合同简称
+	 */
+	private String cntrctNm;
 	
 	private AuditCntrctDto auditCntrctDto;
 	
@@ -188,7 +193,7 @@ public class AuditCntrctAction extends BaseAction {
 			Page pp = new Page(8);
 			pp.setTotalCount(ajaxTotalCount);
 			pp.setStartIndex(ajaxPageIndex);
-			pp = auditCntrctService.queryAuditCntrctByPage("", "", "", "", cntrctStDate, cntrctEdDate, pp);
+			pp = auditCntrctService.queryAuditCntrctByPage("", "", "", "", cntrctStDate, cntrctEdDate, cntrctNm, pp);
 			ajaxData.setData(pp);
 		} catch(Exception e) {
 			ajaxData.setResultCode(-1);
@@ -563,7 +568,7 @@ public class AuditCntrctAction extends BaseAction {
 		//翻页查询所有审价
 		this.page.setStartIndex(startIndex);
 		page = auditCntrctService.queryAuditCntrctByPage(strCntrctBelong, strCntrctNO, strCntrctType,
-				strCntrctName, strCntrctStDate, strCntrctEdDate, page);
+				strCntrctName, strCntrctStDate, strCntrctEdDate, "", page);
 		listAuditCntrct = (List<AuditCntrctDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
@@ -818,6 +823,16 @@ public class AuditCntrctAction extends BaseAction {
 
 	public void setAjaxPageIndex(Integer ajaxPageIndex) {
 		this.ajaxPageIndex = ajaxPageIndex;
+	}
+
+
+	public String getCntrctNm() {
+		return cntrctNm;
+	}
+
+
+	public void setCntrctNm(String cntrctNm) {
+		this.cntrctNm = cntrctNm;
 	}
 
 }

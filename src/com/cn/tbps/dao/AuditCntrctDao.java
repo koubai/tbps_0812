@@ -7,10 +7,10 @@ import com.cn.tbps.dto.AuditCntrctDto;
 public interface AuditCntrctDao {
 
 	public int queryAuditCntrctCountByPage(String strCntrctBelong, String strCntrctNO, String strCntrctType,
-			String strCntrctName, String strCntrctStDate, String strCntrctEdDate);
+			String strCntrctName, String strCntrctStDate, String strCntrctEdDate, String strCntrctNm);
 	
 	public List<AuditCntrctDto> queryAuditCntrctByPage(String strCntrctBelong, String strCntrctNO, String strCntrctType,
-			String strCntrctName, String strCntrctStDate, String strCntrctEdDate, int start, int end);
+			String strCntrctName, String strCntrctStDate, String strCntrctEdDate, String strCntrctNm, int start, int end);
 	
 	public AuditCntrctDto queryAuditCntrctByID(String CNTRCT_NO);
 	
