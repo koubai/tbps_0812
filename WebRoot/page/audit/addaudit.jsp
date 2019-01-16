@@ -576,7 +576,7 @@
 		$('#REPORT_NO').attr('disabled',"true");
 		$('#PROJECT_MANAGER').attr('disabled',"true");
 		$('#PROJECT_NAME_PASS').attr('disabled',"true");
-		$('#PROJECT_NAME').attr('disabled',"true");
+		//$('#PROJECT_NAME').attr('disabled',"true");
 		$('#PROGRESS_STATUS').attr('disabled',"disabled");
 		$('#docRecDate').attr('disabled',"disabled");
 		$('#planDocRcvDate').attr('disabled',"disabled");
@@ -659,12 +659,12 @@
 		if(isReal2(VERIFY_AMOUNT)) {
 			tmp = tmp - parseFloat(VERIFY_AMOUNT);
 		}
-		tmp = tmp.toFixed(2);
+		tmp = tmp.toFixed(6);
 		//净核减=送审金额 - 审定金额
 		$("#VERIFY_DIFF").attr("value", tmp);
 		//净核减率=净核减/送审金额
 		var tmp2 = 0;
-		if(VERIFY_PER_AMOUNT == '0.00'){
+		if(VERIFY_PER_AMOUNT == '0.00' || VERIFY_PER_AMOUNT == '0.000000'){
 			tmp2 = parseFloat('0.00');
 		} else {
 			if(isReal2(VERIFY_PER_AMOUNT)) {
@@ -690,7 +690,7 @@
 		if(isReal2(VERIFY_INCREASE)) {
 			tmp += parseFloat(VERIFY_INCREASE);
 		}
-		tmp = tmp.toFixed(2);
+		tmp = tmp.toFixed(6);
 		//核减=净核减  + 核增
 		$("#VERIFY_DECREASE").attr("value", tmp);
 	}
@@ -732,55 +732,55 @@
 		//委托内容
 		var CNTRCT_INFO = $("#CNTRCT_INFO").val();
 		if(CNTRCT_INFO == 1){
-			if(VERIFY_PER_AMOUNT != '0.00' && CNTRCT_RATE_1 != '0.00'){
+			if(VERIFY_PER_AMOUNT != '0.00' && CNTRCT_RATE_1 != '0.00' && VERIFY_PER_AMOUNT != '0.000000' && CNTRCT_RATE_1 != '0.000000'){
 				if(isReal2(VERIFY_PER_AMOUNT)) {
 					tmp = parseFloat(VERIFY_PER_AMOUNT) * parseFloat(CNTRCT_RATE_1) / 100;
 				} else {
-					tmp = parseFloat('0.00');
+					tmp = parseFloat('0.000000');
 				}
 			} else {
-				tmp = parseFloat('0.00');
+				tmp = parseFloat('0.000000');
 			}
-			tmp = tmp.toFixed(2);
+			tmp = tmp.toFixed(6);
 			
 		} else if(CNTRCT_INFO == 2){
-			if(VERIFY_PER_AMOUNT != '0.00' && CNTRCT_RATE_2 != '0.00'){
+			if(VERIFY_PER_AMOUNT != '0.00' && CNTRCT_RATE_2 != '0.00' && VERIFY_PER_AMOUNT != '0.000000' && CNTRCT_RATE_2 != '0.000000'){
 				if(isReal2(VERIFY_PER_AMOUNT)) {
 					tmp = parseFloat(VERIFY_PER_AMOUNT) * parseFloat(CNTRCT_RATE_2) / 100;
 				} else {
-					tmp = parseFloat('0.00');
+					tmp = parseFloat('0.000000');
 				}
 			} else {
-				tmp = parseFloat('0.00');
+				tmp = parseFloat('0.000000');
 			}
-			tmp = tmp.toFixed(2);
+			tmp = tmp.toFixed(6);
 			
 		} else if(CNTRCT_INFO == 4){
-			if(LIMIT_PRICE != '0.00' && CNTRCT_RATE_4 != '0.00'){
+			if(LIMIT_PRICE != '0.00' && CNTRCT_RATE_4 != '0.00' && LIMIT_PRICE != '0.000000' && CNTRCT_RATE_4 != '0.000000'){
 				if(isReal2(LIMIT_PRICE)) {
 					tmp = parseFloat(LIMIT_PRICE) * parseFloat(CNTRCT_RATE_4) / 100;
 				} else {
-					tmp = parseFloat('0.00');
+					tmp = parseFloat('0.000000');
 				}
 			} else {
-				tmp = parseFloat('0.00');
+				tmp = parseFloat('0.000000');
 			}
-			tmp = tmp.toFixed(2);
+			tmp = tmp.toFixed(6);
 			
 		} else if(CNTRCT_INFO == 5){
-			if(PRE_PRICE != '0.00' && CNTRCT_RATE_5 != '0.00'){
+			if(PRE_PRICE != '0.00' && CNTRCT_RATE_5 != '0.00' && PRE_PRICE != '0.000000' && CNTRCT_RATE_5 != '0.000000'){
 				if(isReal2(PRE_PRICE)) {
 					tmp = parseFloat(PRE_PRICE) * parseFloat(CNTRCT_RATE_5) / 100;
 				} else {
-					tmp = parseFloat('0.00');
+					tmp = parseFloat('0.000000');
 				}
 			} else {
-				tmp = parseFloat('0.00');
+				tmp = parseFloat('0.000000');
 			}
-			tmp = tmp.toFixed(2);
+			tmp = tmp.toFixed(6);
 			
 		} else {
-			tmp = parseFloat('0.00');
+			tmp = parseFloat('0.000000');
 		}
 		$("#A_AMOUNT").attr("value", tmp);
 	}

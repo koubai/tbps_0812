@@ -831,7 +831,7 @@
 		$('#REPORT_NO').attr('disabled',"true");
 		$('#PROJECT_MANAGER').attr('disabled',"true");
 		$('#PROJECT_NAME_PASS').attr('disabled',"true");
-		$('#PROJECT_NAME').attr('disabled',"true");
+		//$('#PROJECT_NAME').attr('disabled',"true");
 		$('#PROGRESS_STATUS').attr('disabled',"disabled");
 		$('#docRecDate').attr('disabled',"disabled");
 		$('#planDocRcvDate').attr('disabled',"disabled");
@@ -904,12 +904,12 @@
 		if(isReal2(VERIFY_AMOUNT)) {
 			tmp = tmp - parseFloat(VERIFY_AMOUNT);
 		}
-		tmp = tmp.toFixed(2);
+		tmp = tmp.toFixed(6);
 		//净核减=送审金额 - 审定金额
 		$("#VERIFY_DIFF").attr("value", tmp);
 		//净核减率=净核减/送审金额
 		var tmp2 = 0;
-		if(VERIFY_PER_AMOUNT == '0.00'){
+		if(VERIFY_PER_AMOUNT == '0.00' || VERIFY_PER_AMOUNT == '0.000000'){
 			tmp2 = parseFloat('0.00');
 		} else {
 			if(isReal2(VERIFY_PER_AMOUNT)) {
@@ -935,7 +935,7 @@
 		if(isReal2(VERIFY_INCREASE)) {
 			tmp += parseFloat(VERIFY_INCREASE);
 		}
-		tmp = tmp.toFixed(2);
+		tmp = tmp.toFixed(6);
 		//核减=净核减  + 核增
 		$("#VERIFY_DECREASE").attr("value", tmp);
 	}
