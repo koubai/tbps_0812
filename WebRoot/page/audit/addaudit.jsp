@@ -154,7 +154,11 @@
 		$("#AGENT_CO_POST_ADDRESS").attr("value", $("#agentCoPostAddress").val());
 		$("#AGENT_CO_MAIL").attr("value", $("#agentCoMail").val());
 		$("#AGENT_INFO").attr("value", $("#agentInfo").val());
-		
+		var agent_no_audit = $("#AGENT_NO").val();
+		if(agent_no_audit == ""){
+			$("#AGENT_NO").attr("value", $("#AUDIT_COMP_NO").val());
+			$("#AGENT_CO_NAME").attr("value", $("#AUDIT_COMP_NAME").val());
+		}
 		//专业公司
 		$("#PROF_NO").attr("value", $("#profNo").val());
 		$("#PROF_CO_NAME").attr("value", $("#profCoName").val());
@@ -1308,6 +1312,7 @@
 					html += '		<input type="hidden" value="' + n.CNTRCT_RATE_2 + '">';
 					html += '		<input type="hidden" value="' + n.CNTRCT_RATE_4 + '">';
 					html += '		<input type="hidden" value="' + n.CNTRCT_RATE_5 + '">';
+					html += '		<input type="hidden" value="' + n.AUDIT_COMP_NO + '">';
 					html += '	</td>';
 					html += '	<td>' + n.CNTRCT_BELONG_SHOW + '</td>';
 					html += '	<td>' + n.CNTRCT_NO + '</td>';
@@ -1396,6 +1401,7 @@
 			var CNTRCT_RATE_2 = inputs[10].value;
 			var CNTRCT_RATE_4 = inputs[11].value;
 			var CNTRCT_RATE_5 = inputs[12].value;
+			var AUDIT_COMP_NO = inputs[13].value;
 			$('#CNTRCT_BELONG').val(CNTRCT_BELONG);
 			$('#CNTRCT_NO_MID').val(CNTRCT_NO);
 			$('#CNTRCT_TYPE').val(CNTRCT_TYPE);
@@ -1409,6 +1415,7 @@
 			$('#CNTRCT_RATE_2').val(CNTRCT_RATE_2);
 			$('#CNTRCT_RATE_4').val(CNTRCT_RATE_4);
 			$('#CNTRCT_RATE_5').val(CNTRCT_RATE_5);
+			$('#AUDIT_COMP_NO').val(AUDIT_COMP_NO);
 			//隐藏模态窗体
 			$('#cntrModal').modal('hide');
 		} else {
@@ -1490,6 +1497,7 @@
 					<!-- <s:hidden name="addAuditDto.B_AMOUNT" id="B_AMOUNT"/> -->
 					<s:hidden name="addAuditDto.CNTRCT_NO" id="CNTRCT_NO"/>
 					<s:hidden name="addAuditDto.CNTRCT_NM" id="CNTRCT_NM"/>
+					<s:hidden name="auditCntrctDto.AUDIT_COMP_NO" id="AUDIT_COMP_NO"/>
 					<h3 class="title"><label for="" class="col-lg-2 form-label">审价项目新增</label></h3>
 					<div class="row">
 						<div class="col-lg-12 form-group">
