@@ -267,7 +267,7 @@
 			alert("请选择一条记录！");
 		} else {
 			//计算总代理费
-			$("#tmpTotalCost").val(agentCost.toFixed(2));
+			$("#tmpTotalCost").val(agentCost.toFixed(6));
 			$("#tmpDiscount").val("");
 			$("#tmpDiscountPrice").val("");
 			$("#tmpReceiptDate").val("");
@@ -310,7 +310,7 @@
 				var ttr = list[i].parentNode.parentNode;
 				var childs = ttr.cells[1].getElementsByTagName("input");
 				var price = parseFloat(childs[1].value) * parseFloat(tmpDiscount);
-				price = price.toFixed(2);
+				price = price.toFixed(6);
 				
 				var pricechilds = ttr.cells[8].getElementsByTagName("input");
 				pricechilds[0].value = price;
@@ -348,7 +348,7 @@
 			return;
 		}
 		var tmpDiscountPrice = parseFloat(tmpTotalCost) * parseFloat(tmpDiscount);
-		$("#tmpDiscountPrice").val(tmpDiscountPrice.toFixed(2));
+		$("#tmpDiscountPrice").val(tmpDiscountPrice.toFixed(6));
 	}
 	
 	function goBidUpd(strBID_NO, updBidTabIndex) {

@@ -504,7 +504,7 @@ public class BidAction extends BaseAction {
 			//默认评审人=当前用户
 			addBidDto.setBID_AUTH(userid);
 			//标书费金额默认0.1万元
-			addBidDto.setBID_APPLY_PRICE(new BigDecimal(0.1).setScale(2, BigDecimal.ROUND_HALF_UP));
+			addBidDto.setBID_APPLY_PRICE(new BigDecimal(0.1).setScale(6, BigDecimal.ROUND_HALF_UP));
 		} catch(Exception e) {
 			return ERROR;
 		}
@@ -582,7 +582,7 @@ public class BidAction extends BaseAction {
 			//默认评审人=当前用户
 			addBidDto.setBID_AUTH(userid);
 			//标书费金额默认0.1万元
-			addBidDto.setBID_APPLY_PRICE(new BigDecimal(0.1).setScale(2, BigDecimal.ROUND_HALF_UP));
+			addBidDto.setBID_APPLY_PRICE(new BigDecimal(0.1).setScale(6, BigDecimal.ROUND_HALF_UP));
 			
 			listBidComp = new ArrayList<BidCompDto>();
 			listExpertLib = new ArrayList<ExpertLibDto>();

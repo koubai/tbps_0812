@@ -12,9 +12,9 @@ public class TbpsUtil {
 	 */
 	public static BigDecimal calcAgentPrice(BigDecimal price, BigDecimal discount) {
 		if(price != null) {
-			return price.multiply(discount).setScale(4, BigDecimal.ROUND_HALF_UP);
+			return price.multiply(discount).setScale(6, BigDecimal.ROUND_HALF_UP);
 		} else {
-			return new BigDecimal(0).setScale(4, BigDecimal.ROUND_HALF_UP);
+			return new BigDecimal(0).setScale(6, BigDecimal.ROUND_HALF_UP);
 		}
 	}
 }

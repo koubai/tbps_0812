@@ -38,7 +38,6 @@ import com.cn.tbps.dto.SuperviseLibDto;
 import com.cn.tbps.dto.UserInfoDto;
 import com.cn.tbps.service.BidService;
 
-import antlr.StringUtils;
 import net.sf.json.JSONArray;
 
 /**
@@ -457,13 +456,17 @@ public class BidServiceImpl extends BaseService implements BidService {
 						if(config == null) {
 							//新增配置表记录
 							ConfigTabDto newConfig = new ConfigTabDto();
-							if("1".equals(bidDto.getCNTRCT_TYPE())) {
+							if("1".equals(bidDto.getCNTRCT_TYPE())
+								|| "5".equals(bidDto.getCNTRCT_TYPE())
+								|| "9".equals(bidDto.getCNTRCT_TYPE())) {
 								//类型=招标
 								newConfig.setCONFIG_TYPE(Constants.CONFIG_TAB_BID_ZB_SEQ);
 							} else if("2".equals(bidDto.getCNTRCT_TYPE())) {
 								//类型=比选
 								newConfig.setCONFIG_TYPE(Constants.CONFIG_TAB_BID_BX_SEQ);
-							} else if("4".equals(bidDto.getCNTRCT_TYPE())) {
+							} else if("4".equals(bidDto.getCNTRCT_TYPE())
+									|| "6".equals(bidDto.getCNTRCT_TYPE())
+									|| "7".equals(bidDto.getCNTRCT_TYPE())) {
 								//类型=竞价
 								newConfig.setCONFIG_TYPE(Constants.CONFIG_TAB_BID_JJ_SEQ);
 							}
