@@ -116,9 +116,9 @@ public class PoiBidRegister extends Poi2007Base {
 				
 				row = sheet.getRow((short) 3);
 				cell = row.getCell((short) 1);
-				cell.setCellValue(bidComp.getRESERVE2());
+				cell.setCellValue(bidComp.getBID_CO_PRO_MANAGER());
 				cell = row.getCell((short) 3);
-				cell.setCellValue(bidComp.getRESERVE3());
+				cell.setCellValue(bidComp.getBID_CO_PRO_TEL());
 				
 				row = sheet.getRow((short) 4);
 				cell = row.getCell((short) 1);
@@ -136,7 +136,7 @@ public class PoiBidRegister extends Poi2007Base {
 				cell = row.getCell((short) 1);
 				cell.setCellValue(bidComp.getBID_CO_PS());
 				cell = row.getCell((short) 3);
-				cell.setCellValue(bidComp.getRESERVE4());
+				cell.setCellValue(bidComp.getBID_CO_ORGCODE());
 				
 				n++;
 			}

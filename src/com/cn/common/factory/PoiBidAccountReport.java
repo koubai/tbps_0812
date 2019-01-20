@@ -176,10 +176,16 @@ public class PoiBidAccountReport extends Poi2007Base {
 			cell8.setCellValue(biddata.getBID_CO_NAME());
 			cell8.setCellStyle(style);
 			// 中标单位
-			cell9.setCellValue(biddata.getBID_CO_NAME());
+			if (biddata.getBID_RESULT() != null && biddata.getBID_RESULT().equals("1"))
+				cell9.setCellValue(biddata.getBID_CO_NAME());
+			else 
+				cell9.setCellValue("");			
 			cell9.setCellStyle(style);
 			// 中标价（万元）
-			cell10.setCellValue(StringUtil.BigDecimal2Str(biddata.getBID_WIN_PRICE(),2));
+			if (biddata.getBID_RESULT() != null && biddata.getBID_RESULT().equals("1"))
+				cell10.setCellValue(StringUtil.BigDecimal2Str(biddata.getBID_WIN_PRICE(),2));
+			else 
+				cell10.setCellValue("");			
 			cell10.setCellStyle(style);
 			// 标书费
 			cell11.setCellValue(StringUtil.BigDecimal2Str(biddata.getBID_APPLY_PRICE(),2));
