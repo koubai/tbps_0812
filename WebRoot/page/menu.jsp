@@ -19,7 +19,7 @@
 			<div id="collapseOne" class="panel-collapse collapse">
 				<div class="panel-body">
 					<ul>
-						<li><a href="<%=request.getContextPath()%>/auditcntrct/showAuditCntrctAction.action">审价一览</a></li>
+						<li><a href="<%=request.getContextPath()%>/auditcntrct/showAuditCntrctAction.action">审价合同一览</a></li>
 						<li><a href="<%=request.getContextPath()%>/auditcntrct/showAddAuditCntrctAction.action">合同新增</a></li>
 						<li><a href="<%=request.getContextPath()%>/audit/showAuditAction.action">审价项目一览</a></li>
 						<li><a href="<%=request.getContextPath()%>/audit/showAddAuditAction.action">审价项目（新增）</a></li>

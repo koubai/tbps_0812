@@ -755,7 +755,7 @@
 								<input type="hidden" id="agentCoManagerTel" value=""/>
 								<input type="hidden" id="agentCoPostAddress" value=""/>
 								<input type="hidden" id="agentCoMail" value=""/>
-								<s:textfield id="agentCoName" cssClass="form-control" maxlength="40" theme="simple"></s:textfield>
+								<s:textfield id="agentCoName" cssClass="form-control" maxlength="40" theme="simple" disabled="true" ></s:textfield>
 							</div>
 							<div class="col-lg-1">
 								<button id="agentButton" class="btn btn-success form-control" type="button" onclick="showAgentComSelect();">检索</button>
@@ -764,7 +764,7 @@
 						<div class="col-lg-12 form-group">
 							<label for="" class="col-lg-2 form-label">联系人及联系方式</label>
 							<div class="col-lg-5">
-								<s:textfield id="agentInfo" cssClass="form-control" maxlength="100" theme="simple"></s:textfield>
+								<s:textfield id="agentInfo" cssClass="form-control" maxlength="100" theme="simple" disabled="true" ></s:textfield>
 							</div>
 						</div>
 						<div class="col-lg-12 form-group">

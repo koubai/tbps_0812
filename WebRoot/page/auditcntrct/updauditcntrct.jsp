@@ -1016,12 +1016,12 @@
 						<div class="col-lg-12 form-group">
 							<label for="" class="col-lg-2 form-label">委托单位</label>
 							<div class="col-lg-4">
-								<input type="hidden" id="agentNo" value="<s:property value="updAuditDto.AUDIT_COMP_NO"/>"/>
-								<input type="hidden" id="agentCoManager" value="<s:property value="updAuditDto.CO_MANAGER1"/>"/>
-								<input type="hidden" id="agentCoManagerTel" value="<s:property value="updAuditDto.CO_MANAGER_TEL1"/>"/>
-								<input type="hidden" id="agentCoPostAddress" value="<s:property value="updAuditDto.CO_ADDRESS1"/>"/>
+								<input type="hidden" id="agentNo" value="<s:property value="updAuditCntrctDto.AUDIT_COMP_NO"/>"/>
+								<input type="hidden" id="agentCoManager" value="<s:property value="updAuditCntrctDto.CO_MANAGER1"/>"/>
+								<input type="hidden" id="agentCoManagerTel" value="<s:property value="updAuditCntrctDto.CO_MANAGER_TEL1"/>"/>
+								<input type="hidden" id="agentCoPostAddress" value="<s:property value="updAuditCntrctDto.CO_ADDRESS1"/>"/>
 								<input type="hidden" id="agentCoMail" value=""/>
-								<s:textfield id="agentCoName" cssClass="form-control" value="%{updAuditCntrctDto.AUDIT_COMP_NAME}" maxlength="40" theme="simple"></s:textfield>
+								<s:textfield id="agentCoName" cssClass="form-control" value="%{updAuditCntrctDto.AUDIT_COMP_NAME}" maxlength="40" theme="simple" disabled="true" ></s:textfield>
 							</div>
 							<div class="col-lg-1">
 								<button class="btn btn-success form-control" type="button" onclick="showAgentComSelect();">检索</button>
@@ -1030,7 +1030,7 @@
 						<div class="col-lg-12 form-group">
 							<label for="" class="col-lg-2 form-label">联系人及联系方式</label>
 							<div class="col-lg-5">
-								<s:textfield id="agentInfo" cssClass="form-control" value="%{updAuditCntrctDto.CO_MANAGER_ADDRESS1}" maxlength="100" theme="simple"></s:textfield>
+								<s:textfield id="agentInfo" cssClass="form-control" value="%{updAuditCntrctDto.CO_MANAGER_ADDRESS1}" maxlength="100" theme="simple" disabled="true" ></s:textfield>
 							</div>
 						</div>
 						<div class="col-lg-12 form-group">

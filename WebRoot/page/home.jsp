@@ -93,7 +93,7 @@
 		<!-- <div class="row menuList">  -->
 		<div class="row menuList">
 			<div class="col-lg-6">
-				<a class="btn btn-primary" href="#" onclick="auditcntrct();">审价一览</a>
+				<a class="btn btn-primary" href="#" onclick="auditcntrct();">审价合同一览</a>
 			</div>
 			<div class="col-lg-6">
 				<a class="btn btn-primary" href="#" onclick="bidcntrct();">招标合同管理一览</a>
