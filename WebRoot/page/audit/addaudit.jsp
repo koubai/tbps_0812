@@ -675,7 +675,7 @@
 				tmp2 = tmp / parseFloat(VERIFY_PER_AMOUNT);
 			}
 		}
-		tmp2 = tmp2.toFixed(2);
+		tmp2 = tmp2.toFixed(4);
 		$("#VERIFY_DIFF_RATE").attr("value", tmp2);
 		//计算核减
 		calcVERIFY_DECREASE();
