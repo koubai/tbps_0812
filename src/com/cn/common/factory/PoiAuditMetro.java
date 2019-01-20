@@ -63,7 +63,7 @@ public class PoiAuditMetro extends Poi2007Base {
 		cell = row.getCell((short) 3);
 		String ssj = "";
 		if(null != auditDto.getVERIFY_PER_AMOUNT()) {
-			BigDecimal bignum = auditDto.getVERIFY_PER_AMOUNT().multiply(new BigDecimal("10000")); 
+			BigDecimal bignum = auditDto.getVERIFY_PER_AMOUNT().multiply(new BigDecimal("10000")).setScale(2,BigDecimal.ROUND_HALF_UP); 
 			ssj = bignum.toString();
 		}
 		cell.setCellValue(ssj);
@@ -72,7 +72,7 @@ public class PoiAuditMetro extends Poi2007Base {
 		cell = row.getCell((short) 14);
 		String shj = "";
 		if(null != auditDto.getVERIFY_AMOUNT()) {
-			BigDecimal bignum = auditDto.getVERIFY_AMOUNT().multiply(new BigDecimal("10000")); 
+			BigDecimal bignum = auditDto.getVERIFY_AMOUNT().multiply(new BigDecimal("10000")).setScale(2,BigDecimal.ROUND_HALF_UP); 
 			shj = bignum.toString();
 		}
 		cell.setCellValue(shj);
@@ -81,7 +81,7 @@ public class PoiAuditMetro extends Poi2007Base {
 		cell = row.getCell((short) 17);
 		String jhje = "";
 		if(null != auditDto.getVERIFY_DIFF()) {
-			BigDecimal bignum = auditDto.getVERIFY_DIFF().multiply(new BigDecimal("10000")); 
+			BigDecimal bignum = auditDto.getVERIFY_DIFF().multiply(new BigDecimal("10000")).setScale(2,BigDecimal.ROUND_HALF_UP); 
 			jhje = bignum.toString();
 		}
 		cell.setCellValue(jhje);

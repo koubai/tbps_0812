@@ -50,21 +50,21 @@ public class PoiAuditReport extends Poi2007Base {
 		//送审价
 		String ssj = "";
 		if(null != auditDto.getVERIFY_PER_AMOUNT()) {
-			BigDecimal bignum = auditDto.getVERIFY_PER_AMOUNT().multiply(new BigDecimal("10000")); 
+			BigDecimal bignum = auditDto.getVERIFY_PER_AMOUNT().multiply(new BigDecimal("10000")).setScale(2,BigDecimal.ROUND_HALF_UP); 
 			ssj = bignum.toString();
 		}
 		range.replaceText("（项目属性内的送审价）", ssj);
 		//审核价
 		String shj = "";
 		if(null != auditDto.getVERIFY_AMOUNT()) {
-			BigDecimal bignum = auditDto.getVERIFY_AMOUNT().multiply(new BigDecimal("10000")); 
+			BigDecimal bignum = auditDto.getVERIFY_AMOUNT().multiply(new BigDecimal("10000")).setScale(2,BigDecimal.ROUND_HALF_UP); 
 			shj = bignum.toString();
 		}
 		range.replaceText("（项目属性内的审核价）", shj);
 		//净核减额
 		String jhje = "";
 		if(null != auditDto.getVERIFY_DIFF()) {
-			BigDecimal bignum = auditDto.getVERIFY_DIFF().multiply(new BigDecimal("10000")); 
+			BigDecimal bignum = auditDto.getVERIFY_DIFF().multiply(new BigDecimal("10000")).setScale(2,BigDecimal.ROUND_HALF_UP); 
 			jhje = bignum.toString();
 		}
 		range.replaceText("（项目属性内的净核减额）", jhje);
