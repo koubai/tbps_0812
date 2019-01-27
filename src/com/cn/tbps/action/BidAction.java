@@ -606,7 +606,8 @@ public class BidAction extends BaseAction {
 	public String showUpdBidAction() {
 		try {
 			this.clearMessages();
-			updBidTabIndex = "1";
+			if (updBidTabIndex == null || updBidTabIndex.equals(""))
+				updBidTabIndex = "1";
 			updateBidDto = bidService.queryAllBidByID(updateBidNo);
 			if(updateBidDto == null) {
 				this.addActionMessage("该数据不存在！");

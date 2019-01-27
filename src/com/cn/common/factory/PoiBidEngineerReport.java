@@ -1,6 +1,7 @@
 package com.cn.common.factory;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
@@ -59,6 +60,8 @@ public class PoiBidEngineerReport extends Poi2007Base {
 	 */
 	@Override
 	public void writeData(XSSFSheet sheet, XSSFWorkbook workbook) {
+		SimpleDateFormat format0 = new SimpleDateFormat("yyyy-MM-dd");
+
 		XSSFRow row = null;
 		BidRptDto biddata = new BidRptDto();
 		//式样
@@ -181,7 +184,20 @@ public class PoiBidEngineerReport extends Poi2007Base {
 			cell8.setCellValue(biddata.getPROJECT_AUTH_NAME());
 			cell8.setCellStyle(style);
 			// 代理费用支付方
-			cell9.setCellValue(biddata.getBID_AGENT_PAY());
+			if (biddata.getBID_AGENT_PAY() == null)
+				cell9.setCellValue(biddata.getBID_AGENT_PAY());
+			else {
+				if (biddata.getBID_AGENT_PAY().equals("1"))
+					cell9.setCellValue("委托单位");
+				if (biddata.getBID_AGENT_PAY().equals("2"))
+					cell9.setCellValue("中标单位");
+				if (biddata.getBID_AGENT_PAY().equals("3"))
+					cell9.setCellValue("申通集团");
+				if (biddata.getBID_AGENT_PAY().equals("4"))
+					cell9.setCellValue("维保公司");							
+			}
+			
+//			cell9.setCellValue(biddata.getBID_AGENT_PAY());
 			cell9.setCellStyle(style);
 			// 保证金金额（万元）
 			cell10.setCellValue(StringUtil.BigDecimal2Str(biddata.getBID_BOND(), 6));
@@ -218,25 +234,25 @@ public class PoiBidEngineerReport extends Poi2007Base {
 			cell18.setCellStyle(style);
 			// 开标时间
 			if (biddata.getTENDER_OPEN_DATE() != null)
-				cell19.setCellValue(biddata.getTENDER_OPEN_DATE().toString());
+				cell19.setCellValue(format0.format(biddata.getTENDER_OPEN_DATE()));
 			else 
 				cell19.setCellValue("");
 			cell19.setCellStyle(style);
 			// 评标时间
 			if (biddata.getTENDER_VERIFY_DATE()!= null)
-				cell20.setCellValue(biddata.getTENDER_VERIFY_DATE().toString());
+				cell20.setCellValue(format0.format(biddata.getTENDER_VERIFY_DATE()));
 			else 
 				cell20.setCellValue("");				
 			cell20.setCellStyle(style);
 			// 招标公告开始时间
 			if (biddata.getREGISTE_ST_DATE1()!= null)
-				cell21.setCellValue(biddata.getREGISTE_ST_DATE1().toString());
+				cell21.setCellValue(format0.format(biddata.getREGISTE_ST_DATE1()));
 			else
 				cell21.setCellValue("");
 			cell21.setCellStyle(style);
 			// 招标公告结束时间
 			if (biddata.getREGISTE_ED_DATE1()!=null )
-				cell22.setCellValue(biddata.getREGISTE_ED_DATE1().toString());
+				cell22.setCellValue(format0.format(biddata.getREGISTE_ED_DATE1()));
 			else
 				cell22.setCellValue("");
 			cell22.setCellStyle(style);
@@ -244,7 +260,7 @@ public class PoiBidEngineerReport extends Poi2007Base {
 			if (biddata.getREGISTE_ST_DATE1() == null)
 				cell23.setCellValue("");
 			else{
-				if (StringUtil.isBlank(biddata.getREGISTE_ST_DATE1().toString()))
+				if (StringUtil.isBlank(format0.format(biddata.getREGISTE_ST_DATE1())))
 					cell23.setCellValue("");
 				else
 					cell23.setCellValue("是");				
@@ -252,13 +268,13 @@ public class PoiBidEngineerReport extends Poi2007Base {
 			cell23.setCellStyle(style);
 			// 中标公示开始时间
 			if (biddata.getBID_NOTICE_ST_DATE()!=null)
-				cell24.setCellValue(biddata.getBID_NOTICE_ST_DATE().toString());
+				cell24.setCellValue(format0.format(biddata.getBID_NOTICE_ST_DATE()));
 			else
 				cell24.setCellValue("");
 			cell24.setCellStyle(style);
 			// 中标公示结束时间
 			if (biddata.getBID_NOTICE_ED_DATE()!=null)
-				cell25.setCellValue(biddata.getBID_NOTICE_ED_DATE().toString());
+				cell25.setCellValue(format0.format(biddata.getBID_NOTICE_ED_DATE()));
 			else
 				cell25.setCellValue("");
 			cell25.setCellStyle(style);
@@ -274,25 +290,25 @@ public class PoiBidEngineerReport extends Poi2007Base {
 			cell26.setCellStyle(style);
 			// 评标报告扫描归档
 			if (biddata.getBID_VER_DOC_SCAN_DATE()!=null)
-				cell27.setCellValue(biddata.getBID_VER_DOC_SCAN_DATE().toString());
+				cell27.setCellValue(format0.format(biddata.getBID_VER_DOC_SCAN_DATE()));
 			else
 				cell27.setCellValue("");
 			cell27.setCellStyle(style);
 			// 招投标文件送至甲方
 			if (biddata.getBID_DOC_DELI_DATE1()!=null)
-				cell28.setCellValue(biddata.getBID_DOC_DELI_DATE1().toString());
+				cell28.setCellValue(format0.format(biddata.getBID_DOC_DELI_DATE1()));
 			else
 				cell28.setCellValue("");
 			cell28.setCellStyle(style);
 			// 评标报告送至甲方
 			if (biddata.getBID_VER_DOC_DELI_DATE1() != null)
-				cell29.setCellValue(biddata.getBID_VER_DOC_DELI_DATE1().toString());
+				cell29.setCellValue(format0.format(biddata.getBID_VER_DOC_DELI_DATE1()));
 			else
 				cell29.setCellValue("");
 			cell29.setCellStyle(style);
 			// 失败项目日期
 			if (biddata.getFINISH_DATE()!= null)
-				cell30.setCellValue(biddata.getFINISH_DATE().toString());
+				cell30.setCellValue(format0.format(biddata.getFINISH_DATE()));
 			else
 				cell30.setCellValue("");
 			cell30.setCellStyle(style);

@@ -1,5 +1,7 @@
 package com.cn.common.factory;
 
+import java.text.SimpleDateFormat;
+
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
 import org.apache.poi.hssf.util.CellRangeAddress;
@@ -58,6 +60,8 @@ public class PoiBidAccountReport extends Poi2007Base {
 	 */
 	@Override
 	public void writeData(XSSFSheet sheet, XSSFWorkbook workbook) {
+		SimpleDateFormat format0 = new SimpleDateFormat("yyyy-MM-dd");
+		
 		XSSFRow row = null;
 		BidRptDto biddata = new BidRptDto();
 		//式样
@@ -167,7 +171,19 @@ public class PoiBidAccountReport extends Poi2007Base {
 			cell5.setCellValue(biddata.getBID_COMP_NAME());
 			cell5.setCellStyle(style);
 			// 代理费用支付方
-			cell6.setCellValue(biddata.getBID_AGENT_PAY());
+			if (biddata.getBID_AGENT_PAY() == null)
+				cell6.setCellValue(biddata.getBID_AGENT_PAY());
+			else {
+				if (biddata.getBID_AGENT_PAY().equals("1"))
+					cell6.setCellValue("委托单位");
+				if (biddata.getBID_AGENT_PAY().equals("2"))
+					cell6.setCellValue("中标单位");
+				if (biddata.getBID_AGENT_PAY().equals("3"))
+					cell6.setCellValue("申通集团");
+				if (biddata.getBID_AGENT_PAY().equals("4"))
+					cell6.setCellValue("维保公司");							
+			}
+//			cell6.setCellValue(biddata.getBID_AGENT_PAY());
 			cell6.setCellStyle(style);
 			// 保证金金额（万元）
 			cell7.setCellValue(StringUtil.BigDecimal2Str(biddata.getBID_BOND(), 2));
@@ -201,14 +217,14 @@ public class PoiBidAccountReport extends Poi2007Base {
 			cell14.setCellStyle(style);
 			// 开标时间
 			if (biddata.getTENDER_OPEN_DATE() != null)
-				cell15.setCellValue(biddata.getTENDER_OPEN_DATE().toString());
+				cell15.setCellValue(format0.format(biddata.getTENDER_OPEN_DATE()));
 			else
 				cell15.setCellValue("");
 			cell15.setCellStyle(style);
 			// 专家费预借日期
 //			cell16.setCellValue(biddata.getBID_EXPERT_COMMISION_PRE_DATE().toString());
 			if (biddata.getBID_EXPERT_COMMISION_APPLY_DATE()!= null)
-				cell16.setCellValue(biddata.getBID_EXPERT_COMMISION_APPLY_DATE().toString());
+				cell16.setCellValue(format0.format(biddata.getBID_EXPERT_COMMISION_APPLY_DATE()));
 			else
 				cell16.setCellValue("");
 			cell16.setCellStyle(style);
@@ -220,37 +236,63 @@ public class PoiBidAccountReport extends Poi2007Base {
 			cell18.setCellStyle(style);			
 			// 专家费差价退还日期
 			if (biddata.getBID_EXPERT_COMMISION_DIFF_DATE()!=null)
-				cell19.setCellValue(biddata.getBID_EXPERT_COMMISION_DIFF_DATE().toString());
+				cell19.setCellValue(format0.format(biddata.getBID_EXPERT_COMMISION_DIFF_DATE()));
 			else
 				cell19.setCellValue("");
 			cell19.setCellStyle(style);			
 			// 保证金支付形式
-			cell20.setCellValue(biddata.getBID_PAYMENT_TYPE());
+			if (biddata.getBID_PAYMENT_TYPE()== null)
+				cell20.setCellValue(biddata.getBID_PAYMENT_TYPE());				
+			else {
+				if (biddata.getBID_PAYMENT_TYPE().equals("1"))
+					cell20.setCellValue("现金");
+				if (biddata.getBID_PAYMENT_TYPE().equals("2"))
+					cell20.setCellValue("支票");
+				if (biddata.getBID_PAYMENT_TYPE().equals("3"))
+					cell20.setCellValue("转账");
+				if (biddata.getBID_PAYMENT_TYPE().equals("4"))
+					cell20.setCellValue("汇票");
+				if (biddata.getBID_PAYMENT_TYPE().equals("5"))
+					cell20.setCellValue("保函");
+				if (biddata.getBID_PAYMENT_TYPE().equals("6"))
+					cell20.setCellValue("现金2");				
+			}
+//			cell20.setCellValue(biddata.getBID_PAYMENT_TYPE());
 			cell20.setCellStyle(style);			
 			// 保证金入账日期
 			if (biddata.getBID_VALUE_DATE()!=null)
-				cell21.setCellValue(biddata.getBID_VALUE_DATE().toString());
+				cell21.setCellValue(format0.format(biddata.getBID_VALUE_DATE()));
 			else
 				cell21.setCellValue("");
 			cell21.setCellStyle(style);			
 			// 保证金退还日期
 			if (biddata.getREFOUND_DEPOSIT_DATE()!= null)
-				cell22.setCellValue(biddata.getREFOUND_DEPOSIT_DATE().toString());
+				cell22.setCellValue(format0.format(biddata.getREFOUND_DEPOSIT_DATE()));
 			else
 				cell22.setCellValue("");
 			cell22.setCellStyle(style);			
 			// 标书费入账日期
 			if (biddata.getBID_APPLY_PRICE_DATE()!=null)
-				cell23.setCellValue(biddata.getBID_APPLY_PRICE_DATE().toString());
+				cell23.setCellValue(format0.format(biddata.getBID_APPLY_PRICE_DATE()));
 			else
 				cell23.setCellValue("");
 			cell23.setCellStyle(style);			
 			// 标书费开票形式
-			cell24.setCellValue(biddata.getINVOICE_TYPE());
+			if (biddata.getINVOICE_TYPE() == null)
+				cell24.setCellValue(biddata.getINVOICE_TYPE());
+			else {
+				if (biddata.getINVOICE_TYPE().equals("0"))
+					cell24.setCellValue("未支付");
+				if (biddata.getINVOICE_TYPE().equals("1"))
+					cell24.setCellValue("现金");
+				if (biddata.getINVOICE_TYPE().equals("3"))
+					cell24.setCellValue("转账");								
+			}
+//			cell24.setCellValue(biddata.getINVOICE_TYPE());
 			cell24.setCellStyle(style);			
 			// 标书费开票日期
 			if (biddata.getINVOICE_DATE()!= null)
-				cell25.setCellValue(biddata.getINVOICE_DATE().toString());
+				cell25.setCellValue(format0.format(biddata.getINVOICE_DATE()));
 			else
 				cell25.setCellValue("");
 			cell25.setCellStyle(style);			
@@ -259,7 +301,7 @@ public class PoiBidAccountReport extends Poi2007Base {
 			cell26.setCellStyle(style);			
 			// 代理费开票日期
 			if (biddata.getRECEIPT1_DATE()!= null)
-				cell27.setCellValue(biddata.getRECEIPT1_DATE().toString());
+				cell27.setCellValue(format0.format(biddata.getRECEIPT1_DATE()));
 			else 
 				cell27.setCellValue("");
 			cell27.setCellStyle(style);			
@@ -268,7 +310,7 @@ public class PoiBidAccountReport extends Poi2007Base {
 			cell28.setCellStyle(style);			
 			// 代理费入账日期
 			if (biddata.getRECEIPT1_VALUE_DATE()!= null)
-				cell29.setCellValue(biddata.getRECEIPT1_VALUE_DATE().toString());
+				cell29.setCellValue(format0.format(biddata.getRECEIPT1_VALUE_DATE()));
 			else
 				cell29.setCellValue("");
 			cell29.setCellStyle(style);			
@@ -307,7 +349,7 @@ public class PoiBidAccountReport extends Poi2007Base {
 		
 		XSSFCell cell2 = null;
 		XSSFCell cell3 = null;
-		for(int i = 0; i < 11; i++) {
+		for(int i = 0; i < 30; i++) {
 			cell2 = row2.createCell(i);
 			cell2.setCellStyle(style);
 			cell3 = row3.createCell(i);
@@ -464,10 +506,10 @@ public class PoiBidAccountReport extends Poi2007Base {
 		cell.setCellValue("标书费开票形式");
 		cell.setCellStyle(style);
 		
-		// 标书费开票形式
+		// 标书费开票日期
 		sheet.setColumnWidth(25, 15 * 256);
 		cell = row3.createCell(25);
-		cell.setCellValue("标书费开票形式");
+		cell.setCellValue("标书费开票日期");
 		cell.setCellStyle(style);
 		
 		// 标书费发票编号
