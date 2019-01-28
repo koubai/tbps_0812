@@ -140,6 +140,66 @@ public class PoiBidRegister extends Poi2007Base {
 				
 				n++;
 			}
+		} else {
+			// 未填投标公司信息时
+			Sheet sheet = workbook.getSheetAt(0);
+			
+			//项目编号
+			Row row = sheet.getRow((short) 0);
+			Cell cell = row.getCell((short) 0);
+			String bidNo = bidDto.getBID_NO();
+			String bidNoOld = String.valueOf(cell.getStringCellValue());
+			int startNo = bidNoOld.indexOf("：");
+			String bidNoNew = bidNoOld;
+			
+			bidNoNew = bidNoNew.substring(0, startNo + 1) + bidNo + bidNoNew.substring(startNo + 12, bidNoNew.length());
+			
+			//项目名称
+			int nameStart = bidNoOld.indexOf("=");
+			bidNoNew = bidNoOld.substring(0, nameStart + 1) + bidDto.getPROJECT_NAME() + bidNoNew.substring(nameStart + 2, bidNoOld.length());
+			
+			//cell.setCellValue(bidNoNew.toString());
+			//删除多余下划线
+			XSSFCellStyle style = (XSSFCellStyle ) cell.getCellStyle();
+			Font fontOld = style.getFont();
+			Font font = workbook.createFont();
+			font.setUnderline(Font.U_NONE); //下划线
+			PoiBidReply.copyFont(fontOld, font);
+			XSSFRichTextString  richString = null;
+			richString = new XSSFRichTextString (bidNoNew.toString());
+			richString.applyFont(richString.length() - 5, richString.length(), font);
+			cell.setCellValue(richString);
+			
+			Map<String, String> map = new HashMap<String, String>();
+			
+			//报名要求
+			if(StringUtil.isNotBlank(bidDto.getAPPLY_REQUIRE())){
+				String applyRequire = bidDto.getAPPLY_REQUIRE();
+				System.out.println("applyRequire: " + applyRequire);
+				String[] applyRequireList = applyRequire.split("\r\n");
+				System.out.println("applyRequireList.length: " + applyRequireList.length);
+				if(applyRequireList.length > 10){
+					insertRow(workbook, sheet, 17, applyRequireList.length-10, 3);
+				}
+				for(int i = 0; i < applyRequireList.length; i++){
+					row = sheet.getRow((short) i+8);
+					cell = row.getCell((short) 0);
+					if(StringUtil.isNotBlank(applyRequireList[i])){
+						cell.setCellValue(applyRequireList[i]);
+					}
+					//报名内容
+					if(map.containsKey(applyRequireList[i])) {
+						cell = row.getCell((short) 3);
+						//该报名要求存在
+						String lll[] = map.get(applyRequireList[i]).split("@@@@");
+						String note = "";
+						if(lll.length == 3) {
+							note = lll[2];
+						}
+						cell.setCellValue(note);
+					}
+				}
+			}
 		}
 	}
 	/** 

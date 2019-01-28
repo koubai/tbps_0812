@@ -2449,6 +2449,7 @@
 								</div>
 							</div>
 							<div class="operationBtns">
+								<button type="button" onclick="exportBidRegister();" class="btn btn-success">生成报名表</button>
 								<button type="button" class="btn btn-success" onclick="exportBidAudit();">生成审核表</button>
 							</div>
 						</div>
