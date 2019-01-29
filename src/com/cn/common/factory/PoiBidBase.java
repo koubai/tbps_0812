@@ -100,7 +100,8 @@ public class PoiBidBase extends Poi2007Base {
 			if (bidComp.getBID_APPLY_PRICE() == null)
 				bond = "";
 			else
-				bond = bidComp.getBID_APPLY_PRICE().divide(new BigDecimal("10000"),6,BigDecimal.ROUND_HALF_UP).toString();
+//				bond = bidComp.getBID_APPLY_PRICE().divide(new BigDecimal("10000"),6,BigDecimal.ROUND_HALF_UP).toString();
+				bond = bidComp.getBID_APPLY_PRICE().divide(new BigDecimal("1"),6,BigDecimal.ROUND_HALF_UP).toString();
 			int startBond = bidNoOld.indexOf("币");
 			int endBond = bidNoOld.indexOf("万");
 

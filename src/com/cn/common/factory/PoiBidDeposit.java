@@ -94,7 +94,8 @@ public class PoiBidDeposit extends Poi2007Base {
 
 			String bond = "";
 			if(bidComp.getBID_BOND() != null) {
-				bond = bidComp.getBID_BOND().divide(new BigDecimal("10000"),6,BigDecimal.ROUND_HALF_UP).toString();
+//				bond = bidComp.getBID_BOND().divide(new BigDecimal("10000"),6,BigDecimal.ROUND_HALF_UP).toString();
+				bond = bidComp.getBID_BOND().divide(new BigDecimal("1"),6,BigDecimal.ROUND_HALF_UP).toString();
 			}
 			int startBond = bidNoOld.indexOf("币");
 			int endBond = bidNoOld.indexOf("万");
@@ -144,27 +145,27 @@ public class PoiBidDeposit extends Poi2007Base {
 
 			//第二联
 			//公司名称
-			row = sheet.getRow((short) 13);
+			row = sheet.getRow((short) 16);
 			cell = row.getCell((short) 0);
 			cell.setCellValue(richStringComp);
 			
 			//项目名称
-			row = sheet.getRow((short) 14);
+			row = sheet.getRow((short) 17);
 			cell = row.getCell((short) 0);
 			cell.setCellValue(richStringPro);
 			
 			//项目编号、保证金
-			row = sheet.getRow((short) 15);
+			row = sheet.getRow((short) 18);
 			cell = row.getCell((short) 0);
 			cell.setCellValue(richStringNo);
 			
 			//递交方式
-			row = sheet.getRow((short) 16);
+			row = sheet.getRow((short) 19);
 			cell = row.getCell((short) 0);
 			cell.setCellValue(typeNew);
 			
 			//日期
-			row = sheet.getRow((short) 20);
+			row = sheet.getRow((short) 23);
 			cell = row.getCell((short) 0);
 			cell.setCellValue("日期： " + dateString);
 
@@ -214,12 +215,12 @@ public class PoiBidDeposit extends Poi2007Base {
 			
 			//第二联
 			//项目名称
-			row = sheet.getRow((short) 14);
+			row = sheet.getRow((short) 17);
 			cell = row.getCell((short) 0);
 			cell.setCellValue(richStringPro);
 			
 			//项目编号
-			row = sheet.getRow((short) 15);
+			row = sheet.getRow((short) 18);
 			cell = row.getCell((short) 0);
 			cell.setCellValue(richStringNo);
 		}

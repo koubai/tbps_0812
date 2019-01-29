@@ -2522,7 +2522,8 @@
 							</table>
 							<div class="operationBtns">
 								<!-- <button type="button" class="btn btn-success">标书费收据</button> -->
-								<!-- <button type="button" class="btn btn-success">打印签收单</button> -->
+								<!-- <button type="button" class="btn btn-success">中标签收单</button> -->
+								<!-- <button type="button" class="btn btn-success">标书费签收单</button> -->
 							</div>
 						</div>
 						<div class="tab-pane fade" id="tab7">

@@ -197,7 +197,7 @@ public class BidAction extends BaseAction {
 	}
 	
 	/**
-	 * 导出审核表签收
+	 * 导出标书费签收
 	 * @return
 	 */
 	public String exportBidReceiveAction() {
