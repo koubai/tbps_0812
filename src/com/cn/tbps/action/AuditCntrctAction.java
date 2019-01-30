@@ -193,7 +193,8 @@ public class AuditCntrctAction extends BaseAction {
 			Page pp = new Page(8);
 			pp.setTotalCount(ajaxTotalCount);
 			pp.setStartIndex(ajaxPageIndex);
-			pp = auditCntrctService.queryAuditCntrctByPage("", "", "", "", cntrctStDate, cntrctEdDate, cntrctNm, pp);
+//			System.out.println("cntrctNm:" + java.net.URLDecoder.decode(cntrctNm,"utf-8"));
+			pp = auditCntrctService.queryAuditCntrctByPage("", "", "", "", cntrctStDate, cntrctEdDate, java.net.URLDecoder.decode(cntrctNm,"utf-8"), pp);
 			ajaxData.setData(pp);
 		} catch(Exception e) {
 			ajaxData.setResultCode(-1);

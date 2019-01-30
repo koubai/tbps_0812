@@ -1276,8 +1276,7 @@
 		var param = new Object();
 		param.cntrctStDate = cntrctStDate;
 		param.cntrctEdDate = cntrctEdDate;
-		param.cntrctNm = cntrctNm;
-		
+		param.cntrctNm = encodeURIComponent(cntrctNm);
 		//-----共通1 start-----
 		//页码
 		param.ajaxPageIndex = index;
