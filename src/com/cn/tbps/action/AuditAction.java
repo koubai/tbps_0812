@@ -477,7 +477,8 @@ public class AuditAction extends BaseAction {
 	public String exportAuditMetroAction() {
 		try {
 			this.clearMessages();
-			String filename = "page/auditmetro.xlsx";
+			//String filename = "page/auditmetro.xlsx";
+			String filename = "page/audittempmetro.xlsx";
 			String name =  StringUtil.createFileName(Constants.EXCEL_TYPE_SJSDD);
 			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
 			response.setContentType("application/vnd.ms-excel");
@@ -505,7 +506,7 @@ public class AuditAction extends BaseAction {
 	public String exportAuditNoMetroAction() {
 		try {
 			this.clearMessages();
-			String filename = "page/auditnometro.xlsx";
+			String filename = "page/audittempnometro.xlsx";
 			String name =  StringUtil.createFileName(Constants.EXCEL_TYPE_SJSDD2);
 			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
 			response.setContentType("application/vnd.ms-excel");

@@ -20,6 +20,7 @@ public class PoiAuditMetro extends Poi2007Base {
 	@Override
 	public void writeData(Workbook workbook) {
 		AuditDto auditDto = (AuditDto) datas.get(0);
+		//审定单
 		Sheet sheet = workbook.getSheetAt(0);
 		//项目名称
 		Row row = sheet.getRow((short) 3);
@@ -85,6 +86,119 @@ public class PoiAuditMetro extends Poi2007Base {
 			jhje = bignum.toString();
 		}
 		cell.setCellValue(jhje);
+		//审计资料登记表
+		Sheet sheet1 = workbook.getSheetAt(1);
+		writeSheet1(sheet1);
+		//会商纪要
+		Sheet sheet2 = workbook.getSheetAt(2);
+		writeSheet2(sheet2);
+		//封面
+		Sheet sheet3 = workbook.getSheetAt(3);
+		writeSheet3(sheet3);
+		//签署页
+		Sheet sheet4 = workbook.getSheetAt(4);
+		writeSheet4(sheet4);
+	}
+	
+	public void writeSheet1(Sheet sheet) {
+		//审计资料登记表
+		AuditDto auditDto = (AuditDto) datas.get(0);
+		//项目名称
+		Row row = sheet.getRow((short) 2);
+		Cell cell = row.getCell((short) 2);
+		String projectName = "";
+		if(null != auditDto.getPROJECT_NAME()) {
+			projectName = auditDto.getPROJECT_NAME();
+		}
+		cell.setCellValue(projectName);
+	}
+	
+	public void writeSheet2(Sheet sheet) {
+		//会商纪要
+		AuditDto auditDto = (AuditDto) datas.get(0);
+		//项目名称
+		Row row = sheet.getRow((short) 3);
+		Cell cell = row.getCell((short) 1);
+		StringBuffer projectName = new StringBuffer("");
+		if(null != auditDto.getPROJECT_NAME()) {
+			projectName.append(auditDto.getPROJECT_NAME());
+		}
+		projectName.append("会议");	
+		cell.setCellValue(projectName.toString());
+		//当前时间
+		row = sheet.getRow((short) 5);
+		cell = row.getCell((short) 1);
+		Calendar c = Calendar.getInstance();
+		cell.setCellValue(DateUtil.dateToShortStr(c.getTime()));
+		//委托单位
+		row = sheet.getRow((short) 28);
+		cell = row.getCell((short) 1);
+		String agentCoName ="";
+		if(null != auditDto.getAGENT_CO_NAME()) {
+			agentCoName = auditDto.getAGENT_CO_NAME();
+		}
+		cell.setCellValue(agentCoName);
+		//承揽单位
+		row = sheet.getRow((short) 30);
+		cell = row.getCell((short) 1);
+		String contractCoName = "";
+		if(null != auditDto.getCONTRACT_CO_NAME()) {
+			contractCoName = auditDto.getCONTRACT_CO_NAME();
+		}
+		cell.setCellValue(contractCoName);
+	}
+	
+	public void writeSheet3(Sheet sheet) {
+		//封面
+		AuditDto auditDto = (AuditDto) datas.get(0);
+		//项目名称
+		Row row = sheet.getRow((short) 2);
+		Cell cell = row.getCell((short) 1);
+		String projectName = "";
+		if(null != auditDto.getPROJECT_NAME()) {
+			projectName = auditDto.getPROJECT_NAME();
+		}
+		cell.setCellValue(projectName);
+		//报告文号
+		row = sheet.getRow((short) 6);
+		cell = row.getCell((short) 3);
+		String reportNo = "";
+		if(null != auditDto.getREPORT_NO()) {
+			reportNo = auditDto.getREPORT_NO();
+		}
+		cell.setCellValue(reportNo);
+		//当前时间
+		row = sheet.getRow((short) 7);
+		cell = row.getCell((short) 3);
+		Calendar c = Calendar.getInstance();
+		cell.setCellValue(DateUtil.dateToShortStr(c.getTime()));
+	}
+	
+	public void writeSheet4(Sheet sheet) {
+		//签署页
+		AuditDto auditDto = (AuditDto) datas.get(0);
+		//项目名称
+		Row row = sheet.getRow((short) 1);
+		Cell cell = row.getCell((short) 1);
+		StringBuffer projectName = new StringBuffer("");
+		if(null != auditDto.getPROJECT_NAME()) {
+			projectName.append(auditDto.getPROJECT_NAME());
+		}
+		projectName.append("结算审价报告");	
+		cell.setCellValue(projectName.toString());
+		//报告文号
+		row = sheet.getRow((short) 3);
+		cell = row.getCell((short) 2);
+		String reportNo = "";
+		if(null != auditDto.getREPORT_NO()) {
+			reportNo = auditDto.getREPORT_NO();
+		}
+		cell.setCellValue(reportNo);
+		//当前时间
+		row = sheet.getRow((short) 4);
+		cell = row.getCell((short) 2);
+		Calendar c = Calendar.getInstance();
+		cell.setCellValue(DateUtil.dateToShortStr(c.getTime()));
 	}
 	
 	public static void main(String[] args) {

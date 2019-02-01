@@ -1037,7 +1037,7 @@
 		//页码
 		param.ajaxPageIndex = index;
 		//总记录数
-		var ajaxTotalCount = $("#ajaxTotalCount").val();
+		var ajaxTotalCount = $("#ajaxTotalCountAgent").val();
 		if(ajaxTotalCount == "") {
 			ajaxTotalCount = "0";
 		}
@@ -1071,37 +1071,37 @@
 				
 				//-----共通2 start-----
 				//分页页码
-				$("#ajaxpagenum").val("");
+				$("#ajaxpagenumAgent").val("");
 				var totalPage = data.data.totalPage;
 				//总数据量
 				var totalCount = data.data.totalCount;
 				totalPage = parseInt(totalPage);
 				totalCount = parseInt(totalCount);
-				$("#ajaxTotalPage").val(totalPage);
-				$("#ajaxTotalCount").val(totalCount);
+				$("#ajaxTotalPageAgent").val(totalPage);
+				$("#ajaxTotalCountAgent").val(totalCount);
 				//分页
 				var skipList = data.data.skipList;
-				$("#ajaxskiplist").empty();
+				$("#ajaxskiplistAgent").empty();
 				//第一页
-				$("#ajaxskiplist").append('<li><a href="javascript:void(0);" onclick="turningAjaxPage(1);">&laquo;</a></li>');
+				$("#ajaxskiplistAgent").append('<li><a href="javascript:void(0);" onclick="turningAjaxPageAgent(1);">&laquo;</a></li>');
 				$.each(skipList, function(ii, nn) {
 					if((parseInt(nn) - 1) == parseInt(index)) {
-						$("#ajaxskiplist").append('<li class="active"><a href="javascript:void(0);">' + nn + '</a></li>');
+						$("#ajaxskiplistAgent").append('<li class="active"><a href="javascript:void(0);">' + nn + '</a></li>');
 					} else {
-						$("#ajaxskiplist").append('<li><a href="javascript:void(0);" onclick="turningAjaxPage(' + nn + ');">' + nn + '</a></li>');
+						$("#ajaxskiplistAgent").append('<li><a href="javascript:void(0);" onclick="turningAjaxPageAgent(' + nn + ');">' + nn + '</a></li>');
 					}
 				});
 				//页信息
-				$("#ajaxPageInfo").empty();
+				$("#ajaxPageInfoAgent").empty();
 				var startIndex = data.data.startIndex;
 				startIndex = parseInt(startIndex);
 				if(totalPage == 0) {
 					totalPage = 1;
 				}
 				var ajaxPageInfo = '第' + (startIndex + 1) + '页/共' + totalPage + '页&nbsp;&nbsp;&nbsp;&nbsp;共' + totalCount + '条记录';
-				$("#ajaxPageInfo").append(ajaxPageInfo);
+				$("#ajaxPageInfoAgent").append(ajaxPageInfo);
 				//最后一页
-				$("#ajaxskiplist").append('<li><a href="javascript:void(0);" onclick="turningLastPage();">&raquo;</a></li>');
+				$("#ajaxskiplistAgent").append('<li><a href="javascript:void(0);" onclick="turningLastPageAgent();">&raquo;</a></li>');
 				//-----共通2 end-----
 			} else {
 				alert(data.resultMessage);
@@ -1128,7 +1128,7 @@
 		//页码
 		param.ajaxPageIndex = index;
 		//总记录数
-		var ajaxTotalCount = $("#ajaxTotalCount").val();
+		var ajaxTotalCount = $("#ajaxTotalCountProf").val();
 		if(ajaxTotalCount == "") {
 			ajaxTotalCount = "0";
 		}
@@ -1162,37 +1162,37 @@
 				
 				//-----共通2 start-----
 				//分页页码
-				$("#ajaxpagenum").val("");
+				$("#ajaxpagenumProf").val("");
 				var totalPage = data.data.totalPage;
 				//总数据量
 				var totalCount = data.data.totalCount;
 				totalPage = parseInt(totalPage);
 				totalCount = parseInt(totalCount);
-				$("#ajaxTotalPage").val(totalPage);
-				$("#ajaxTotalCount").val(totalCount);
+				$("#ajaxTotalPageProf").val(totalPage);
+				$("#ajaxTotalCountProf").val(totalCount);
 				//分页
 				var skipList = data.data.skipList;
-				$("#ajaxskiplist").empty();
+				$("#ajaxskiplistProf").empty();
 				//第一页
-				$("#ajaxskiplist").append('<li><a href="javascript:void(0);" onclick="turningAjaxPage(1);">&laquo;</a></li>');
+				$("#ajaxskiplistProf").append('<li><a href="javascript:void(0);" onclick="turningAjaxPageProf(1);">&laquo;</a></li>');
 				$.each(skipList, function(ii, nn) {
 					if((parseInt(nn) - 1) == parseInt(index)) {
-						$("#ajaxskiplist").append('<li class="active"><a href="javascript:void(0);">' + nn + '</a></li>');
+						$("#ajaxskiplistProf").append('<li class="active"><a href="javascript:void(0);">' + nn + '</a></li>');
 					} else {
-						$("#ajaxskiplist").append('<li><a href="javascript:void(0);" onclick="turningAjaxPage(' + nn + ');">' + nn + '</a></li>');
+						$("#ajaxskiplistProf").append('<li><a href="javascript:void(0);" onclick="turningAjaxPageProf(' + nn + ');">' + nn + '</a></li>');
 					}
 				});
 				//页信息
-				$("#ajaxPageInfo").empty();
+				$("#ajaxPageInfoProf").empty();
 				var startIndex = data.data.startIndex;
 				startIndex = parseInt(startIndex);
 				if(totalPage == 0) {
 					totalPage = 1;
 				}
 				var ajaxPageInfo = '第' + (startIndex + 1) + '页/共' + totalPage + '页&nbsp;&nbsp;&nbsp;&nbsp;共' + totalCount + '条记录';
-				$("#ajaxPageInfo").append(ajaxPageInfo);
+				$("#ajaxPageInfoProf").append(ajaxPageInfo);
 				//最后一页
-				$("#ajaxskiplist").append('<li><a href="javascript:void(0);" onclick="turningLastPage();">&raquo;</a></li>');
+				$("#ajaxskiplistProf").append('<li><a href="javascript:void(0);" onclick="turningLastPageProf();">&raquo;</a></li>');
 				//-----共通2 end-----
 			} else {
 				alert(data.resultMessage);
@@ -1309,7 +1309,7 @@
 		//页码
 		param.ajaxPageIndex = index;
 		//总记录数
-		var ajaxTotalCount = $("#ajaxTotalCount").val();
+		var ajaxTotalCount = $("#ajaxTotalCountContract").val();
 		if(ajaxTotalCount == "") {
 			ajaxTotalCount = "0";
 		}
@@ -1343,37 +1343,37 @@
 				
 				//-----共通2 start-----
 				//分页页码
-				$("#ajaxpagenum").val("");
+				$("#ajaxpagenumContract").val("");
 				var totalPage = data.data.totalPage;
 				//总数据量
 				var totalCount = data.data.totalCount;
 				totalPage = parseInt(totalPage);
 				totalCount = parseInt(totalCount);
-				$("#ajaxTotalPage").val(totalPage);
-				$("#ajaxTotalCount").val(totalCount);
+				$("#ajaxTotalPageContract").val(totalPage);
+				$("#ajaxTotalCountContract").val(totalCount);
 				//分页
 				var skipList = data.data.skipList;
-				$("#ajaxskiplist").empty();
+				$("#ajaxskiplistContract").empty();
 				//第一页
-				$("#ajaxskiplist").append('<li><a href="javascript:void(0);" onclick="turningAjaxPage(1);">&laquo;</a></li>');
+				$("#ajaxskiplistContract").append('<li><a href="javascript:void(0);" onclick="turningAjaxPageContract(1);">&laquo;</a></li>');
 				$.each(skipList, function(ii, nn) {
 					if((parseInt(nn) - 1) == parseInt(index)) {
-						$("#ajaxskiplist").append('<li class="active"><a href="javascript:void(0);">' + nn + '</a></li>');
+						$("#ajaxskiplistContract").append('<li class="active"><a href="javascript:void(0);">' + nn + '</a></li>');
 					} else {
-						$("#ajaxskiplist").append('<li><a href="javascript:void(0);" onclick="turningAjaxPage(' + nn + ');">' + nn + '</a></li>');
+						$("#ajaxskiplistContract").append('<li><a href="javascript:void(0);" onclick="turningAjaxPageContract(' + nn + ');">' + nn + '</a></li>');
 					}
 				});
 				//页信息
-				$("#ajaxPageInfo").empty();
+				$("#ajaxPageInfoContract").empty();
 				var startIndex = data.data.startIndex;
 				startIndex = parseInt(startIndex);
 				if(totalPage == 0) {
 					totalPage = 1;
 				}
 				var ajaxPageInfo = '第' + (startIndex + 1) + '页/共' + totalPage + '页&nbsp;&nbsp;&nbsp;&nbsp;共' + totalCount + '条记录';
-				$("#ajaxPageInfo").append(ajaxPageInfo);
+				$("#ajaxPageInfoContract").append(ajaxPageInfo);
 				//最后一页
-				$("#ajaxskiplist").append('<li><a href="javascript:void(0);" onclick="turningLastPage();">&raquo;</a></li>');
+				$("#ajaxskiplistContract").append('<li><a href="javascript:void(0);" onclick="turningLastPageContract();">&raquo;</a></li>');
 				//-----共通2 end-----
 			} else {
 				alert(data.resultMessage);
@@ -2504,7 +2504,7 @@
 							</div>
 						</div>
 						</div>
-						<div class="col-lg-12 form-group">
+						<!-- <div class="col-lg-12 form-group">
 							<div class="col-lg-2">
 							</div>
 							<div class="col-lg-2">
@@ -2516,20 +2516,23 @@
 							<div class="col-lg-2">
 								<button class="btn btn-success form-control" type="button" onclick="exportAuditSummary();">会商纪要</button>
 							</div>
-						</div>
+						</div> -->
 						<div class="col-lg-12 form-group">
-							<div class="col-lg-2">
+							<div class="col-lg-3">
 							</div>
-							<div class="col-lg-2">
+							<!-- <div class="col-lg-2">
 								<button class="btn btn-success form-control" type="button" onclick="exportAuditCover();">审价报告封面</button>
 							</div>
 							<div class="col-lg-2">
 								<button class="btn btn-success form-control" type="button" onclick="exportAuditSign();">签署页</button>
+							</div> -->
+							<div class="col-lg-1">
+								<button class="btn btn-success form-control" type="button" onclick="exportAudit();">审定单</button>
 							</div>
 							<div class="col-lg-2">
 								<button class="btn btn-success form-control" type="button" onclick="exportAuditReport();">审价报告文字稿</button>
 							</div>
-							<div class="col-lg-2">
+							<div class="col-lg-3">
 							</div>
 							<div class="col-lg-1">
 								<button class="btn btn-success form-control" type="button" onclick="goAuditList();">取消</button>
@@ -2609,7 +2612,7 @@
 								</tr>
 							</tbody>
 						</table>
-						<jsp:include page="../turning_select.jsp" flush="true" />
+						<jsp:include page="../turning_agent_select.jsp" flush="true" />
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-primary" onclick="selectAgentComp();">确定</button>
@@ -2685,7 +2688,7 @@
 								</tr>
 							</tbody>
 						</table>
-						<jsp:include page="../turning_select.jsp" flush="true" />
+						<jsp:include page="../turning_prof_select.jsp" flush="true" />
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-primary" onclick="selectProfComp();">确定</button>
@@ -2761,7 +2764,7 @@
 								</tr>
 							</tbody>
 						</table>
-						<jsp:include page="../turning_select.jsp" flush="true" />
+						<jsp:include page="../turning_contract_select.jsp" flush="true" />
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-primary" onclick="selectContractComp();">确定</button>
