@@ -586,6 +586,8 @@ public class BidAction extends BaseAction {
 			
 			listBidComp = new ArrayList<BidCompDto>();
 			listExpertLib = new ArrayList<ExpertLibDto>();
+			
+			response.sendRedirect("../bid/showUpdBidAction.action?updateBidNo=" + bidNo);
 		} catch(RuntimeException e) {
 			//运行异常
 			this.addActionMessage(e.getMessage());

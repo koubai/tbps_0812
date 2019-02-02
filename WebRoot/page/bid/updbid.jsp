@@ -343,6 +343,9 @@
 			var BID_CO_PRO_TEL = childs[12].value;
 			var BID_CO_PRO_MANAGER = childs[13].value;
 			
+			var BID_CO_LANDLINE_TEL = childs[14].value;
+			var BID_CO_FAX = childs[15].value;
+			
 			var tr = document.createElement("tr");
 			var td = document.createElement("td");
 			
@@ -419,6 +422,9 @@
 			td.appendChild(createInput("listBidCompTmp[" + i + "].BID_CO_ORGCODE", BID_CO_ORGCODE));
 			td.appendChild(createInput("listBidCompTmp[" + i + "].BID_CO_PRO_TEL", BID_CO_PRO_TEL));
 			td.appendChild(createInput("listBidCompTmp[" + i + "].BID_CO_PRO_MANAGER", BID_CO_PRO_MANAGER));
+			
+			td.appendChild(createInput("listBidCompTmp[" + i + "].BID_CO_LANDLINE_TEL", BID_CO_LANDLINE_TEL));
+			td.appendChild(createInput("listBidCompTmp[" + i + "].BID_CO_FAX", BID_CO_FAX));
 			
 			tr.appendChild(td);
 			document.getElementById("bidCompListTable").appendChild(tr);
@@ -1017,6 +1023,7 @@
 	
 	//招标合同选择
 	function showSelectBidCntrct() {
+		$("#strCNTRCT_NO").val("");
 		$("#strCNTRCT_YEAR").val("");
 		$("#strCNTRCT_ST_DATE").val("");
 		$("#strCNTRCT_ED_DATE").val("");
@@ -1032,10 +1039,12 @@
 	 */
 	function querySelectPageAjax(index) {
 		//各个模块自己的参数
+		var strCNTRCT_NO = $("#strCNTRCT_NO").val();
 		var strCNTRCT_YEAR = $("#strCNTRCT_YEAR").val();
 		var strCNTRCT_ST_DATE = $("#strCNTRCT_ST_DATE").val();
 		var strCNTRCT_ED_DATE = $("#strCNTRCT_ED_DATE").val();
 		var param = new Object();
+		param.strCNTRCT_NO = strCNTRCT_NO;
 		param.strCNTRCT_YEAR = strCNTRCT_YEAR;
 		param.strCNTRCT_ST_DATE = strCNTRCT_ST_DATE;
 		param.strCNTRCT_ED_DATE = strCNTRCT_ED_DATE;
@@ -1266,6 +1275,8 @@
 		$('#tmpBidCompManager').val("");
 		$('#tmpBidCompTel').val("");
 		$('#tmpBidCompPs').val("");
+		$('#tmpBidCompLandlineTel').val("");
+		$('#tmpBidCompFax').val("");
 		//禁用 Bootstrap 模态框(Modal) 点击空白时自动关闭
 		$('#bidCompModal').modal({backdrop: 'static', keyboard: false});
 		$('#bidCompModal').modal('show');
@@ -1297,6 +1308,8 @@
 			var BID_CO_ORGCODE = inputs[11].value;
 			var BID_CO_PRO_TEL = inputs[12].value;
 			var BID_CO_PRO_MANAGER = inputs[13].value;
+			var BID_CO_LANDLINE_TEL = inputs[14].value;
+			var BID_CO_FAX = inputs[15].value;
 			
 			var seq = tds[2].innerHTML;
 			$('#tmpBidCompId').val(BID_CO_NO);
@@ -1311,6 +1324,9 @@
 			$('#tmpBidCompManager').val(BID_CO_MANAGER);
 			$('#tmpBidCompTel').val(BID_CO_TEL);
 			$('#tmpBidCompPs').val(BID_CO_PS);
+			
+			$('#tmpBidCompLandlineTel').val(BID_CO_LANDLINE_TEL);
+			$('#tmpBidCompFax').val(BID_CO_FAX);
 			//禁用 Bootstrap 模态框(Modal) 点击空白时自动关闭
 			$('#bidCompModal').modal({backdrop: 'static', keyboard: false});
 			$('#bidCompModal').modal('show');
@@ -1374,7 +1390,10 @@
 		
 		var tmpBidCompManager = $('#tmpBidCompManager').val();
 		var tmpBidCompTel = $('#tmpBidCompTel').val(); 
-		var tmpBidCompPs = $('#tmpBidCompPs').val(); 
+		var tmpBidCompPs = $('#tmpBidCompPs').val();
+		
+		var tmpBidCompLandlineTel = $('#tmpBidCompLandlineTel').val();
+		var tmpBidCompFax = $('#tmpBidCompFax').val();
 		if(tmpBidCompName == "") {
 			alert("请输入单位名称！");
 			$("#tmpBidCompName").focus();
@@ -1485,7 +1504,12 @@
 			//项目负责人
 			var input = createHidden(tmpBidCompProManager);
 			td1.appendChild(input);
-			
+			//固定电话
+			var input = createHidden(tmpBidCompLandlineTel);
+			td1.appendChild(input);
+			//传真
+			var input = createHidden(tmpBidCompFax);
+			td1.appendChild(input);
 			
 			tr.appendChild(td1);
 			
@@ -1507,6 +1531,10 @@
 			tr.appendChild(createTd(tmpBidCompTel));
 			//邮箱
 			tr.appendChild(createTd(tmpBidCompPs));
+			//固定电话
+			tr.appendChild(createTd(tmpBidCompLandlineTel));
+			//传真
+			tr.appendChild(createTd(tmpBidCompFax));
 			//报名内容
 			tr.appendChild(createTd(""));
 			
@@ -1532,6 +1560,9 @@
 			ii[11].value = tmpBidCompOrgCode;
 			ii[12].value = tmpBidCompProTel;
 			ii[13].value = tmpBidCompProManager;
+			ii[14].value = tmpBidCompLandlineTel;
+			ii[15].value = tmpBidCompFax;
+			
 			//更新显示的值
 			rows[seq].cells[3].innerHTML = tmpBidCompName;
 			rows[seq].cells[4].innerHTML = tmpBidCompOrgCode;
@@ -1541,6 +1572,9 @@
 			rows[seq].cells[8].innerHTML = tmpBidCompManager;
 			rows[seq].cells[9].innerHTML = tmpBidCompTel;
 			rows[seq].cells[10].innerHTML = tmpBidCompPs;
+			
+			rows[seq].cells[11].innerHTML = tmpBidCompLandlineTel;
+			rows[seq].cells[12].innerHTML = tmpBidCompFax;
 		}
 		//刷新seq
 		var rows = document.getElementById("bidCompBody").rows;
@@ -2476,6 +2510,8 @@
 											<th>联系人</th>
 											<th>联系人联系方式</th>
 											<th>邮箱</th>
+											<th>固定电话</th>
+											<th>传真</th>
 											<th colspan="3">报名内容</th>
 										</tr>
 									</thead>
@@ -2498,6 +2534,8 @@
 													<input type="hidden" value="<s:property value="BID_CO_ORGCODE"/>"/>
 													<input type="hidden" value="<s:property value="BID_CO_PRO_TEL"/>"/>
 													<input type="hidden" value="<s:property value="BID_CO_PRO_MANAGER"/>"/>
+													<input type="hidden" value="<s:property value="BID_CO_LANDLINE_TEL"/>"/>
+													<input type="hidden" value="<s:property value="BID_CO_FAX"/>"/>
 												</td>
 												<td><s:property value="%{#st1.index + 1}"/></td>
 												<td><s:property value="BID_CO_NAME"/></td>
@@ -2508,6 +2546,8 @@
 												<td><s:property value="BID_CO_MANAGER"/></td>
 												<td><s:property value="BID_CO_TEL"/></td>
 												<td><s:property value="BID_CO_PS"/></td>
+												<td><s:property value="BID_CO_LANDLINE_TEL"/></td>
+												<td><s:property value="BID_CO_FAX"/></td>
 												<td>
 													<s:if test="BID_CO_NO != null">
 														<button type="button" onclick="setApplyContent('<s:property value="BID_CO_NO"/>');" class="btn btn-success">报名内容</button>
@@ -3539,6 +3579,14 @@
 					</div>
 					<div class="modal-body">
 						<div class="col-lg-4 form-group">
+							<label for="" class="col-lg-4 form-label">合同编号</label>
+							<div class="col-lg-8">
+								<div class="input-group">
+									<input id="strCNTRCT_NO" maxlength="20" type="text" class="form-control">
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 form-group">
 							<label for="" class="col-lg-4 form-label">合同年份</label>
 							<div class="col-lg-8">
 								<div class="input-group">
@@ -3675,6 +3723,18 @@
 							<label class="col-sm-3 control-label">邮箱</label>
 							<div class="col-sm-8">
 								<input type="text"  id="tmpBidCompPs" class="form-control" maxlength="100" placeholder="请输入邮箱">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">固定电话</label>
+							<div class="col-sm-8">
+								<input type="text"  id="tmpBidCompLandlineTel" class="form-control" maxlength="32" placeholder="请输入固定电话">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">传真</label>
+							<div class="col-sm-8">
+								<input type="text"  id="tmpBidCompFax" class="form-control" maxlength="32" placeholder="请输入传真">
 							</div>
 						</div>
 					</div>
