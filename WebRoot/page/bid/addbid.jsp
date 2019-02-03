@@ -1426,6 +1426,27 @@
 		}
 		$('#bidCompModal').modal('hide');
 	}
+	
+	function setTENDER_VERIFY_DATE(obj) {
+		$("#tmpTENDER_VERIFY_DATE").val($(obj).val());
+	}
+	
+	function setBidCheckPrice(obj) {
+		var tr = obj.parentNode.parentNode.parentNode;
+		var tds = tr.getElementsByTagName("td");
+		var inputs = tds[3].getElementsByTagName("input");
+		inputs[0].value = $(obj).val();
+	}
+	
+	function selectResult(obj) {
+		if($(obj).prop('checked')) {
+			var tr = obj.parentNode.parentNode;
+			var tds = tr.getElementsByTagName("td");
+			var inputs3 = tds[3].getElementsByTagName("input");
+			var inputs5 = tds[5].getElementsByTagName("input");
+			inputs5[0].value = inputs3[0].value;
+		}
+	}
 </script>
 </head>
 <body>
@@ -2177,7 +2198,7 @@
 									<label for="" class="col-lg-3 form-label">开标时间</label>
 									<div class="col-lg-9">
 										<div class="input-group date" data-provide="datepicker">
-											<input id="tmpTENDER_OPEN_DATE" value="<s:date name="addBidDto.TENDER_OPEN_DATE" format="yyyy-MM-dd"/>" maxlength="10" type="text" class="form-control datepicker" readonly>
+											<input id="tmpTENDER_OPEN_DATE" onchange="setTENDER_VERIFY_DATE(this);" value="<s:date name="addBidDto.TENDER_OPEN_DATE" format="yyyy-MM-dd"/>" maxlength="10" type="text" class="form-control datepicker" readonly>
 											<div class="input-group-addon">
 												<span class="glyphicon glyphicon-th"></span>
 											</div>
@@ -2251,7 +2272,7 @@
 											<td>
 												<input name="tmpBID_CO_NO1" type="hidden" value="<s:property value="BID_CO_NO"/>">
 												<div class="col-lg-8">
-													<input name="tmpBidPrice" type="text" value="<s:property value="BID_PRICE"/>" maxlength="18" class="form-control">
+													<input name="tmpBidPrice" type="text" onchange="setBidCheckPrice(this);" value="<s:property value="BID_PRICE"/>" maxlength="18" class="form-control">
 												</div>
 												<label for="" class="col-lg-1 form-label">万元</label>
 											</td>
@@ -2263,10 +2284,10 @@
 											</td>
 											<td>
 												<s:if test='%{BID_RESULT == "1"}'>
-													<input name="tmpBID_RESULT_<s:property value="BID_CO_NO"/>" type="checkbox" checked="checked" value="1" />
+													<input name="tmpBID_RESULT_<s:property value="BID_CO_NO"/>" onclick="selectResult(this);" type="checkbox" checked="checked" value="1" />
 												</s:if>
 												<s:else>
-													<input name="tmpBID_RESULT_<s:property value="BID_CO_NO"/>" type="checkbox" value="0" />
+													<input name="tmpBID_RESULT_<s:property value="BID_CO_NO"/>" onclick="selectResult(this);" type="checkbox" value="0" />
 												</s:else>
 											</td>
 											<td>
