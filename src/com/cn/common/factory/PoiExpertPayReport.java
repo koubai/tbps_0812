@@ -114,10 +114,10 @@ public class PoiExpertPayReport extends Poi2007Base {
 			cell2.setCellValue(bidrpt.getBID_NO());
 			cell2.setCellStyle(style);
 			//专家费申请金额（元）
-			cell3.setCellValue(StringUtil.BigDecimal2Str(bidrpt.getBID_EXPERT_COMMISION_PRE(), 2));
+			cell3.setCellValue(StringUtil.BigDecimal2Str(bidrpt.getBID_EXPERT_COMMISION_PRE_YUAN_SHOW(), 2));
 			cell3.setCellStyle(style);
 			//专家费实际使用金额（元）
-			cell4.setCellValue(StringUtil.BigDecimal2Str(bidrpt.getBID_EXPERT_COMMISION_ACT(), 2));
+			cell4.setCellValue(StringUtil.BigDecimal2Str(bidrpt.getBID_EXPERT_COMMISION_ACT_YUAN_SHOW(), 2));
 			cell4.setCellStyle(style);
 			//退还差额（元）
 			cell5.setCellValue(StringUtil.BigDecimal2Str(bidrpt.getBID_EXPERT_COMMISION_DIFF(), 2));
@@ -128,11 +128,11 @@ public class PoiExpertPayReport extends Poi2007Base {
 			if (bidrpt.getBID_EXPERT_COMMISION_PRE() == null)
 				Total_BID_EXPERT_COMMISION_PRE = Total_BID_EXPERT_COMMISION_PRE.add(new BigDecimal(0));
 			else
-				Total_BID_EXPERT_COMMISION_PRE = Total_BID_EXPERT_COMMISION_PRE.add(bidrpt.getBID_EXPERT_COMMISION_PRE());
+				Total_BID_EXPERT_COMMISION_PRE = Total_BID_EXPERT_COMMISION_PRE.add(bidrpt.getBID_EXPERT_COMMISION_PRE_YUAN_SHOW());
 			if (bidrpt.getBID_EXPERT_COMMISION_ACT() == null)
 				Total_BID_EXPERT_COMMISION_ACT = Total_BID_EXPERT_COMMISION_ACT.add(new BigDecimal(0));
 			else
-				Total_BID_EXPERT_COMMISION_ACT = Total_BID_EXPERT_COMMISION_ACT.add(bidrpt.getBID_EXPERT_COMMISION_ACT());
+				Total_BID_EXPERT_COMMISION_ACT = Total_BID_EXPERT_COMMISION_ACT.add(bidrpt.getBID_EXPERT_COMMISION_ACT_YUAN_SHOW());
 			if (bidrpt.getBID_EXPERT_COMMISION_DIFF() == null || bidrpt.getBID_EXPERT_COMMISION_PRE() == null || bidrpt.getBID_EXPERT_COMMISION_ACT() == null )
 				Total_BID_EXPERT_COMMISION_DIFF = Total_BID_EXPERT_COMMISION_DIFF.add(new BigDecimal(0));
 			else 
@@ -223,12 +223,12 @@ public class PoiExpertPayReport extends Poi2007Base {
 		//专家费申请金额（元）
 		sheet.setColumnWidth(3, 15 * 256);
 		cell = row3.createCell(3);
-		cell.setCellValue("专家费申请金额（万元）");
+		cell.setCellValue("专家费申请金额（元）");
 		cell.setCellStyle(style);
 		//专家费实际使用金额（元）
 		sheet.setColumnWidth(4, 15 * 256);
 		cell = row3.createCell(4);
-		cell.setCellValue("专家费实际使用金额（万元）");
+		cell.setCellValue("专家费实际使用金额（元）");
 		cell.setCellStyle(style);
 		//退还差额（元）
 		sheet.setColumnWidth(5, 15 * 256);

@@ -250,6 +250,12 @@ public class BidRptDto extends BaseDto {
 	 * 预借专家费
 	 */
 	private BigDecimal BID_EXPERT_COMMISION_PRE;
+	
+	/**
+	 * 预借专家费（元）显示用
+	 */
+	private BigDecimal BID_EXPERT_COMMISION_PRE_YUAN_SHOW;
+	
 	/**
 	 * 合计预借专家费
 	 */
@@ -258,6 +264,12 @@ public class BidRptDto extends BaseDto {
 	 * 实际专家费
 	 */
 	private BigDecimal BID_EXPERT_COMMISION_ACT;
+	
+	/**
+	 * 实际专家费（元）显示用
+	 */
+	private BigDecimal BID_EXPERT_COMMISION_ACT_YUAN_SHOW;
+	
 	/**
 	 * 合计实际专家费
 	 */
@@ -2846,4 +2858,27 @@ public class BidRptDto extends BaseDto {
 		BID_WIN_DOC_SCAN_FLG = bID_WIN_DOC_SCAN_FLG;
 	}
 
+	public BigDecimal getBID_EXPERT_COMMISION_PRE_YUAN_SHOW() {
+		BID_EXPERT_COMMISION_PRE_YUAN_SHOW = new BigDecimal(0);
+		if(BID_EXPERT_COMMISION_PRE != null) {
+			BID_EXPERT_COMMISION_PRE_YUAN_SHOW = BID_EXPERT_COMMISION_PRE.multiply(new BigDecimal(10000)).setScale(2, BigDecimal.ROUND_HALF_UP);
+		}
+		return BID_EXPERT_COMMISION_PRE_YUAN_SHOW;
+	}
+
+	public void setBID_EXPERT_COMMISION_PRE_YUAN_SHOW(BigDecimal bID_EXPERT_COMMISION_PRE_YUAN_SHOW) {
+		BID_EXPERT_COMMISION_PRE_YUAN_SHOW = bID_EXPERT_COMMISION_PRE_YUAN_SHOW;
+	}
+
+	public BigDecimal getBID_EXPERT_COMMISION_ACT_YUAN_SHOW() {
+		BID_EXPERT_COMMISION_ACT_YUAN_SHOW = new BigDecimal(0);
+		if(BID_EXPERT_COMMISION_ACT != null) {
+			BID_EXPERT_COMMISION_ACT_YUAN_SHOW = BID_EXPERT_COMMISION_ACT.multiply(new BigDecimal(10000)).setScale(2, BigDecimal.ROUND_HALF_UP);
+		}
+		return BID_EXPERT_COMMISION_ACT_YUAN_SHOW;
+	}
+
+	public void setBID_EXPERT_COMMISION_ACT_YUAN_SHOW(BigDecimal bID_EXPERT_COMMISION_ACT_YUAN_SHOW) {
+		BID_EXPERT_COMMISION_ACT_YUAN_SHOW = bID_EXPERT_COMMISION_ACT_YUAN_SHOW;
+	}
 }

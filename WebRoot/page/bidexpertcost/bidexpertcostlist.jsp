@@ -56,7 +56,7 @@
 				var td = document.createElement("td");
 				td.appendChild(createInput("expertCostBidList[" + j + "].BID_NO", tmpBID_NO[j].value));
 				if(tmpBID_EXPERT_COMMISION_ACT[j].value != "") {
-					td.appendChild(createInput("expertCostBidList[" + j + "].BID_EXPERT_COMMISION_ACT", tmpBID_EXPERT_COMMISION_ACT[j].value));
+					td.appendChild(createInput("expertCostBidList[" + j + "].BID_EXPERT_COMMISION_ACT_YUAN", tmpBID_EXPERT_COMMISION_ACT[j].value));
 				}
 				if(tmpBID_EXPERT_COMMISION_APPLY_DATE[j].value != "") {
 					td.appendChild(createInput("expertCostBidList[" + j + "].BID_EXPERT_COMMISION_APPLY_DATE", tmpBID_EXPERT_COMMISION_APPLY_DATE[j].value));
@@ -388,7 +388,7 @@
 							<th>项目名称</th>
 							<th>委托单位</th>
 							<th>项目进展</th>
-							<th>专家实际费用</th>
+							<th>专家实际费用（元）</th>
 							<th>专家费申请时间</th>
 							<th>申请人</th>
 						</tr>
@@ -413,7 +413,7 @@
 								</td>
 								<td>
 									<div class="col-lg-10">
-										<input name="tmpBID_EXPERT_COMMISION_ACT" type="text" value="<s:property value="BID_EXPERT_COMMISION_ACT"/>" maxlength="14" class="form-control">
+										<input name="tmpBID_EXPERT_COMMISION_ACT" type="text" value="<s:property value="BID_EXPERT_COMMISION_ACT_YUAN_SHOW"/>" maxlength="14" class="form-control">
 									</div>
 								</td>
 								<td>

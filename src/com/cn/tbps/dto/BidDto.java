@@ -297,14 +297,34 @@ public class BidDto extends BaseDto {
 	private Date BID_EXPERT_COMMISION_PRE_DATE;
 	
 	/**
-	 * 预借专家费
+	 * 预借专家费（万元）
 	 */
 	private BigDecimal BID_EXPERT_COMMISION_PRE;
+	
+	/**
+	 * 预借专家费（元）
+	 */
+	private BigDecimal BID_EXPERT_COMMISION_PRE_YUAN;
+	
+	/**
+	 * 预借专家费（元）显示用
+	 */
+	private BigDecimal BID_EXPERT_COMMISION_PRE_YUAN_SHOW;
 
 	/**
-	 * 实际专家费
+	 * 实际专家费（万元）
 	 */
 	private BigDecimal BID_EXPERT_COMMISION_ACT;
+	
+	/**
+	 * 实际专家费（元）
+	 */
+	private BigDecimal BID_EXPERT_COMMISION_ACT_YUAN;
+	
+	/**
+	 * 实际专家费（元）显示用
+	 */
+	private BigDecimal BID_EXPERT_COMMISION_ACT_YUAN_SHOW;
 
 	/**
 	 * 差价退还
@@ -2152,6 +2172,46 @@ public class BidDto extends BaseDto {
 
 	public void setBID_EXPERT_NOTIFY_DATE(Date bID_EXPERT_NOTIFY_DATE) {
 		BID_EXPERT_NOTIFY_DATE = bID_EXPERT_NOTIFY_DATE;
+	}
+
+	public BigDecimal getBID_EXPERT_COMMISION_PRE_YUAN() {
+		return BID_EXPERT_COMMISION_PRE_YUAN;
+	}
+
+	public void setBID_EXPERT_COMMISION_PRE_YUAN(BigDecimal bID_EXPERT_COMMISION_PRE_YUAN) {
+		BID_EXPERT_COMMISION_PRE_YUAN = bID_EXPERT_COMMISION_PRE_YUAN;
+	}
+
+	public BigDecimal getBID_EXPERT_COMMISION_ACT_YUAN() {
+		return BID_EXPERT_COMMISION_ACT_YUAN;
+	}
+
+	public void setBID_EXPERT_COMMISION_ACT_YUAN(BigDecimal bID_EXPERT_COMMISION_ACT_YUAN) {
+		BID_EXPERT_COMMISION_ACT_YUAN = bID_EXPERT_COMMISION_ACT_YUAN;
+	}
+
+	public BigDecimal getBID_EXPERT_COMMISION_PRE_YUAN_SHOW() {
+		BID_EXPERT_COMMISION_PRE_YUAN_SHOW = new BigDecimal(0);
+		if(BID_EXPERT_COMMISION_PRE != null) {
+			BID_EXPERT_COMMISION_PRE_YUAN_SHOW = BID_EXPERT_COMMISION_PRE.multiply(new BigDecimal(10000)).setScale(2, BigDecimal.ROUND_HALF_UP);
+		}
+		return BID_EXPERT_COMMISION_PRE_YUAN_SHOW;
+	}
+
+	public void setBID_EXPERT_COMMISION_PRE_YUAN_SHOW(BigDecimal bID_EXPERT_COMMISION_PRE_YUAN_SHOW) {
+		BID_EXPERT_COMMISION_PRE_YUAN_SHOW = bID_EXPERT_COMMISION_PRE_YUAN_SHOW;
+	}
+
+	public BigDecimal getBID_EXPERT_COMMISION_ACT_YUAN_SHOW() {
+		BID_EXPERT_COMMISION_ACT_YUAN_SHOW = new BigDecimal(0);
+		if(BID_EXPERT_COMMISION_ACT != null) {
+			BID_EXPERT_COMMISION_ACT_YUAN_SHOW = BID_EXPERT_COMMISION_ACT.multiply(new BigDecimal(10000)).setScale(2, BigDecimal.ROUND_HALF_UP);
+		}
+		return BID_EXPERT_COMMISION_ACT_YUAN_SHOW;
+	}
+
+	public void setBID_EXPERT_COMMISION_ACT_YUAN_SHOW(BigDecimal bID_EXPERT_COMMISION_ACT_YUAN_SHOW) {
+		BID_EXPERT_COMMISION_ACT_YUAN_SHOW = bID_EXPERT_COMMISION_ACT_YUAN_SHOW;
 	}
 
 

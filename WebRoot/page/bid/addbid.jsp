@@ -63,8 +63,8 @@
 		var BID_AGENT_PRICE_ACT = $("#BID_AGENT_PRICE_ACT").val();
 		//var BID_PRICE = $("#BID_PRICE").val();
 		//#tab8
-		var BID_EXPERT_COMMISION_PRE = $("#BID_EXPERT_COMMISION_PRE").val();
-		var BID_EXPERT_COMMISION_ACT = $("#BID_EXPERT_COMMISION_ACT").val();
+		var BID_EXPERT_COMMISION_PRE_YUAN = $("#BID_EXPERT_COMMISION_PRE_YUAN").val();
+		var BID_EXPERT_COMMISION_ACT_YUAN = $("#BID_EXPERT_COMMISION_ACT_YUAN").val();
 		
 		if(CNTRCT_NO == "") {
 			alert("请选择合同编号！");
@@ -213,16 +213,16 @@
 			$("#BID_APPLY_PRICE").focus();
 			return false;
 		}
-		if(BID_EXPERT_COMMISION_PRE != "" && !isReal(BID_EXPERT_COMMISION_PRE)) {
+		if(BID_EXPERT_COMMISION_PRE_YUAN != "" && !isReal(BID_EXPERT_COMMISION_PRE_YUAN)) {
 			showtab("8");
 			alert("预借费用格式不正确！");
-			$("#BID_EXPERT_COMMISION_PRE").focus();
+			$("#BID_EXPERT_COMMISION_PRE_YUAN").focus();
 			return false;
 		}
-		if(BID_EXPERT_COMMISION_ACT != "" && !isReal(BID_EXPERT_COMMISION_ACT)) {
+		if(BID_EXPERT_COMMISION_ACT_YUAN != "" && !isReal(BID_EXPERT_COMMISION_ACT_YUAN)) {
 			showtab("8");
 			alert("实际费用格式不正确！");
-			$("#BID_EXPERT_COMMISION_ACT").focus();
+			$("#BID_EXPERT_COMMISION_ACT_YUAN").focus();
 			return false;
 		}
 		return true;
@@ -283,11 +283,11 @@
 		/* if($("#BID_EXPERT_COMMISION").val() == "") {
 			$("#BID_EXPERT_COMMISION").val("0");
 		} */
-		if($("#BID_EXPERT_COMMISION_PRE").val() == "") {
-			$("#BID_EXPERT_COMMISION_PRE").val("0");
+		if($("#BID_EXPERT_COMMISION_PRE_YUAN").val() == "") {
+			$("#BID_EXPERT_COMMISION_PRE_YUAN").val("0");
 		}
-		if($("#BID_EXPERT_COMMISION_ACT").val() == "") {
-			$("#BID_EXPERT_COMMISION_ACT").val("0");
+		if($("#BID_EXPERT_COMMISION_ACT_YUAN").val() == "") {
+			$("#BID_EXPERT_COMMISION_ACT_YUAN").val("0");
 		}
 		if($("#BID_APPLY_PRICE").val() == "") {
 			$("#BID_APPLY_PRICE").val("0");
@@ -2314,9 +2314,9 @@
 								<div class="col-lg-4">
 									<label for="" class="col-lg-3 form-label">专家费支出</label>
 									<div class="col-lg-6">
-										<input type="text" disabled="disabled" class="form-control" value="<s:property value="addBidDto.BID_EXPERT_COMMISION_ACT" />">
+										<input type="text" disabled="disabled" class="form-control" value="<s:property value="addBidDto.BID_EXPERT_COMMISION_ACT_YUAN" />">
 									</div>
-									<label for="" class="col-lg-3 form-label" style="text-align:left;">万元</label>
+									<label for="" class="col-lg-3 form-label" style="text-align:left;">元</label>
 								</div>
 							</div>
 							<table class="table table-bordered">
@@ -2720,9 +2720,9 @@
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-4 form-label">预借费用</label>
 									<div class="col-lg-7">
-										<s:textfield name="addBidDto.BID_EXPERT_COMMISION_PRE" id="BID_EXPERT_COMMISION_PRE" cssClass="form-control" maxlength="18" theme="simple"></s:textfield>
+										<s:textfield name="addBidDto.BID_EXPERT_COMMISION_PRE_YUAN" id="BID_EXPERT_COMMISION_PRE_YUAN" cssClass="form-control" maxlength="18" theme="simple"></s:textfield>
 									</div>
-									<label for="" class="col-lg-1 form-label" style="text-align:left;">万元</label>
+									<label for="" class="col-lg-1 form-label" style="text-align:left;">元</label>
 								</div>
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-4 form-label">申请日期</label>
@@ -2749,9 +2749,9 @@
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-4 form-label">实际费用</label>
 									<div class="col-lg-7">
-										<s:textfield name="addBidDto.BID_EXPERT_COMMISION_ACT" id="BID_EXPERT_COMMISION_ACT" cssClass="form-control" maxlength="18" theme="simple"></s:textfield>
+										<s:textfield name="addBidDto.BID_EXPERT_COMMISION_ACT_YUAN" id="BID_EXPERT_COMMISION_ACT_YUAN" cssClass="form-control" maxlength="18" theme="simple"></s:textfield>
 									</div>
-									<label for="" class="col-lg-1 form-label" style="text-align:left;">万元</label>
+									<label for="" class="col-lg-1 form-label" style="text-align:left;">元</label>
 								</div>
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-4 form-label">差价退还日期</label>

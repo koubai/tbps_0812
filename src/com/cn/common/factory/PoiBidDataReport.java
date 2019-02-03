@@ -398,10 +398,10 @@ public class PoiBidDataReport extends Poi2007Base {
 				cell40.setCellValue("");
 			cell40.setCellStyle(style);
 			// 专家费预借费用
-			cell41.setCellValue(StringUtil.BigDecimal2Str(biddata.getBID_EXPERT_COMMISION_PRE(),6));
+			cell41.setCellValue(StringUtil.BigDecimal2Str(biddata.getBID_EXPERT_COMMISION_PRE_YUAN_SHOW(),2));
 			cell41.setCellStyle(style);
 			// 专家费实际费用
-			cell42.setCellValue(StringUtil.BigDecimal2Str(biddata.getBID_EXPERT_COMMISION_ACT(),6));
+			cell42.setCellValue(StringUtil.BigDecimal2Str(biddata.getBID_EXPERT_COMMISION_ACT_YUAN_SHOW(),2));
 			cell42.setCellStyle(style);			
 		}
 	}
@@ -694,13 +694,13 @@ public class PoiBidDataReport extends Poi2007Base {
 		// 专家费预借费用
 		sheet.setColumnWidth(41, 15 * 256);
 		cell = row3.createCell(41);
-		cell.setCellValue("专家费预借费用");
+		cell.setCellValue("专家费预借费用（元）");
 		cell.setCellStyle(style);
 		
 		// 专家费实际费用
 		sheet.setColumnWidth(42, 15 * 256);
 		cell = row3.createCell(42);
-		cell.setCellValue("专家费实际费用");
+		cell.setCellValue("专家费实际费用（元）");
 		cell.setCellStyle(style);
 
 	}

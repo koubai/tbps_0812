@@ -229,10 +229,10 @@ public class PoiBidAccountReport extends Poi2007Base {
 				cell16.setCellValue("");
 			cell16.setCellStyle(style);
 			// 专家费预借费用
-			cell17.setCellValue(StringUtil.BigDecimal2Str(biddata.getBID_EXPERT_COMMISION_PRE(),2));
+			cell17.setCellValue(StringUtil.BigDecimal2Str(biddata.getBID_EXPERT_COMMISION_PRE_YUAN_SHOW(),2));
 			cell17.setCellStyle(style);
 			// 专家费实际费用
-			cell18.setCellValue(StringUtil.BigDecimal2Str(biddata.getBID_EXPERT_COMMISION_ACT(),2));
+			cell18.setCellValue(StringUtil.BigDecimal2Str(biddata.getBID_EXPERT_COMMISION_ACT_YUAN_SHOW(),2));
 			cell18.setCellStyle(style);			
 			// 专家费差价退还日期
 			if (biddata.getBID_EXPERT_COMMISION_DIFF_DATE()!=null)
@@ -461,13 +461,13 @@ public class PoiBidAccountReport extends Poi2007Base {
 		// 专家费预借费用
 		sheet.setColumnWidth(17, 15 * 256);
 		cell = row3.createCell(17);
-		cell.setCellValue("专家费预借费用");
+		cell.setCellValue("专家费预借费用（元）");
 		cell.setCellStyle(style);
 		
 		// 专家费实际费用
 		sheet.setColumnWidth(18, 15 * 256);
 		cell = row3.createCell(18);
-		cell.setCellValue("专家费实际费用");
+		cell.setCellValue("专家费实际费用（元）");
 		cell.setCellStyle(style);
 		
 		// 专家费差价退还日期
