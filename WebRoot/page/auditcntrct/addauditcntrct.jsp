@@ -1172,7 +1172,7 @@
 <script>
 	showByUserRank();
 	$('.datepicker').parent().datepicker({
-		"autoclose":true,"format":"yyyy-mm-dd","language":"zh-CN"
+		"autoclose":true,"format":"yyyy-mm-dd","daysOfWeekHighlighted":"[0,6]","language":"zh-CN",clearBtn: true
 	});
 	
 	$('.toggle i').click(function(){

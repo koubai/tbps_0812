@@ -1258,7 +1258,7 @@
 			html += '</div>';
 			$("#registeDateDiv").append(html);
 			$('.datepicker').parent().datepicker({
-				"autoclose":true,"format":"yyyy-mm-dd","language":"zh-CN",clearBtn: true
+				"autoclose":true,"format":"yyyy-mm-dd","language":"zh-CN","daysOfWeekHighlighted":"[0,6]",clearBtn: true
 			});
 		}
 	}
@@ -3194,7 +3194,7 @@
 	<div class="modal fade" id="expertCompModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1050;">
 		<div class="modal-dialog" style="width: 700px;">
 			<div class="modal-content">
-				<form id="file_form" name="file_form" enctype="multipart/form-data" method="post">
+				<form enctype="multipart/form-data" method="post">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 						&times;
@@ -3801,7 +3801,7 @@
 	<div class="modal fade" id="bidCompApplyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog" style="width: 900px;">
 			<div class="modal-content">
-				<form id="file_form" name="file_form" enctype="multipart/form-data" method="post">
+				<form enctype="multipart/form-data" method="post">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 						&times;
@@ -3854,7 +3854,11 @@
 	showtab('${updBidTabIndex}');
 	
 	$('.datepicker').parent().datepicker({
-		"autoclose":true,"format":"yyyy-mm-dd","language":"zh-CN",clearBtn: true
+		"autoclose":true,
+		"format":"yyyy-mm-dd",
+		"language":"zh-CN",
+		"daysOfWeekHighlighted":"[0,6]",
+		clearBtn: true
 	});
 </script>
 </body>
