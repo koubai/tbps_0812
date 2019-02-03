@@ -267,8 +267,10 @@ public class BidAction extends BaseAction {
 			Poi2007Base base = PoiFactory.getPoi(Constants.EXCEL_TYPE_ZBTD);
 			
 			//查询数据
-			List<BidDto> list = new ArrayList<BidDto>();
+			//List<BidDto> list = new ArrayList<BidDto>();
+			List<Object> list = new ArrayList<Object>();
 			list.add(updateBidDto);
+			list.add(listBidComp);
 			base.setDatas(list);
 			base.setFilepath(filename);
 			base.exportExcel2(response.getOutputStream());
