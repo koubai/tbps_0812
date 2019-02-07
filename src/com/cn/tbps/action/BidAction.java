@@ -569,6 +569,21 @@ public class BidAction extends BaseAction {
 			String username = (String) ActionContext.getContext().getSession().get(Constants.USER_NAME);
 			addBidDto.setUPDATE_USER(username);
 			
+			//预借专家费单位元转化为万元
+			if(addBidDto.getBID_EXPERT_COMMISION_PRE_YUAN() != null) {
+				addBidDto.setBID_EXPERT_COMMISION_PRE(
+						addBidDto.getBID_EXPERT_COMMISION_PRE_YUAN().divide(new BigDecimal(10000)).setScale(6, BigDecimal.ROUND_HALF_EVEN));
+			} else {
+				addBidDto.setBID_EXPERT_COMMISION_PRE(null);
+			}
+			//实际专家费单位元转化为万元
+			if(addBidDto.getBID_EXPERT_COMMISION_ACT_YUAN() != null) {
+				addBidDto.setBID_EXPERT_COMMISION_ACT(
+						addBidDto.getBID_EXPERT_COMMISION_ACT_YUAN().divide(new BigDecimal(10000)).setScale(6, BigDecimal.ROUND_HALF_EVEN));
+			} else {
+				addBidDto.setBID_EXPERT_COMMISION_ACT(null);
+			}
+			
 			String bidNo = bidService.insertBidNew(addBidDto, listBidComp, listExpertLib);
 			this.addActionMessage("新增招标记录成功！招标编号：" + bidNo);
 			//初始化数据
@@ -588,6 +603,8 @@ public class BidAction extends BaseAction {
 			
 			listBidComp = new ArrayList<BidCompDto>();
 			listExpertLib = new ArrayList<ExpertLibDto>();
+			
+			response.sendRedirect("../bid/showUpdBidAction.action?updateBidNo=" + bidNo);
 		} catch(RuntimeException e) {
 			//运行异常
 			this.addActionMessage(e.getMessage());
@@ -674,6 +691,22 @@ public class BidAction extends BaseAction {
 			if (listExpertLib.size() != 0 && updateBidDto.getBID_EXPERT_NOTIFY_DATE()== null){
 				updateBidDto.setBID_EXPERT_NOTIFY_DATE(new Date());
 			}
+			
+			//预借专家费单位元转化为万元
+			if(updateBidDto.getBID_EXPERT_COMMISION_PRE_YUAN() != null) {
+				updateBidDto.setBID_EXPERT_COMMISION_PRE(
+						updateBidDto.getBID_EXPERT_COMMISION_PRE_YUAN().divide(new BigDecimal(10000)).setScale(6, BigDecimal.ROUND_HALF_UP));
+			} else {
+				updateBidDto.setBID_EXPERT_COMMISION_PRE(null);
+			}
+			//实际专家费单位元转化为万元
+			if(updateBidDto.getBID_EXPERT_COMMISION_ACT_YUAN() != null) {
+				updateBidDto.setBID_EXPERT_COMMISION_ACT(
+						updateBidDto.getBID_EXPERT_COMMISION_ACT_YUAN().divide(new BigDecimal(10000)).setScale(6, BigDecimal.ROUND_HALF_UP));
+			} else {
+				updateBidDto.setBID_EXPERT_COMMISION_ACT(null);
+			}
+			
 			bidService.updateBidNew(updateBidDto, listBidComp, listExpertLib);
 			this.addActionMessage("修改招标成功！");
 			updateBidDtoOld = bidService.queryAllBidByID(updateBidNo);

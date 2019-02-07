@@ -109,7 +109,11 @@ public class BidServiceImpl extends BaseService implements BidService {
 				if(StringUtil.isNotBlank(bid.getBID_NO())) {
 					BidDto newBid = bidDao.queryAllBidByID(bid.getBID_NO());
 					if(newBid != null) {
-						newBid.setBID_EXPERT_COMMISION_ACT(bid.getBID_EXPERT_COMMISION_ACT());
+						if(bid.getBID_EXPERT_COMMISION_ACT_YUAN() != null) {
+							newBid.setBID_EXPERT_COMMISION_ACT(bid.getBID_EXPERT_COMMISION_ACT_YUAN().divide(new BigDecimal(10000)).setScale(6, BigDecimal.ROUND_HALF_UP));
+						} else {
+							newBid.setBID_EXPERT_COMMISION_ACT(new BigDecimal(0));
+						}
 						newBid.setBID_EXPERT_COMMISION_APPLY_DATE(bid.getBID_EXPERT_COMMISION_APPLY_DATE());
 						newBid.setBID_EXPERT_COMMISION_APPLY(bid.getBID_EXPERT_COMMISION_APPLY());
 						newBid.setUPDATE_USER(userid);
@@ -374,6 +378,8 @@ public class BidServiceImpl extends BaseService implements BidService {
 	public BidDto queryAllBidByID(String bidNo) {
 		BidDto bid = bidDao.queryAllBidByID(bidNo);
 		if(bid != null) {
+			bid.setBID_EXPERT_COMMISION_ACT_YUAN(bid.getBID_EXPERT_COMMISION_ACT_YUAN_SHOW());
+			bid.setBID_EXPERT_COMMISION_PRE_YUAN(bid.getBID_EXPERT_COMMISION_PRE_YUAN_SHOW());
 			BidCntrctDto bidCntrct = bidCntrctDao.queryBidCntrctByID(bid.getCNTRCT_NO());
 			if(bidCntrct != null) {
 				bid.setCNTRCT_NAME(bidCntrct.getCNTRCT_NAME());
@@ -437,15 +443,15 @@ public class BidServiceImpl extends BaseService implements BidService {
 						|| "9".equals(bidDto.getCNTRCT_TYPE())) {
 						//招标编号，类型=招标
 						//其他类别9，默认为招标
-						bidNo = "LHZB-" + key.substring(0, 4) + "-" + StringUtil.replenishStr("" + newValue, 4);
+						bidNo = "LHZB-" + key.substring(0, 4) + "-" + StringUtil.replenishStr("" + newValue, 3);
 					} else if("2".equals(bidDto.getCNTRCT_TYPE())) {
 						//招标编号，类型=比选
-						bidNo = "LHBX-" + key.substring(0, 4) + "-" + StringUtil.replenishStr("" + newValue, 4);
+						bidNo = "LHBX-" + key.substring(0, 4) + "-" + StringUtil.replenishStr("" + newValue, 3);
 					} else if("4".equals(bidDto.getCNTRCT_TYPE())
 							|| "6".equals(bidDto.getCNTRCT_TYPE())
 							|| "7".equals(bidDto.getCNTRCT_TYPE())) {
 						//招标编号，类型=竞价
-						bidNo = "LHJJ-" + key.substring(0, 4) + "-" + StringUtil.replenishStr("" + newValue, 4);
+						bidNo = "LHJJ-" + key.substring(0, 4) + "-" + StringUtil.replenishStr("" + newValue, 3);
 					}
 
 					//验证自动生成的招标编号是否已存在

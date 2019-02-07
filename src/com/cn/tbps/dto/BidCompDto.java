@@ -102,6 +102,16 @@ public class BidCompDto extends BaseDto {
 	 * 邮箱后缀
 	 */
 	private String mail_suffix;
+	
+	/**
+	 * 传真
+	 */
+	private String BID_CO_FAX;
+	
+	/**
+	 * 固定电话
+	 */
+	private String BID_CO_LANDLINE_TEL;
 
 	/**
 	 * 开票信息
@@ -977,5 +987,21 @@ public class BidCompDto extends BaseDto {
 
 	public void setBID_CO_PRO_TEL(String bID_CO_PRO_TEL) {
 		BID_CO_PRO_TEL = bID_CO_PRO_TEL;
+	}
+
+	public String getBID_CO_FAX() {
+		return BID_CO_FAX;
+	}
+
+	public void setBID_CO_FAX(String bID_CO_FAX) {
+		BID_CO_FAX = bID_CO_FAX;
+	}
+
+	public String getBID_CO_LANDLINE_TEL() {
+		return BID_CO_LANDLINE_TEL;
+	}
+
+	public void setBID_CO_LANDLINE_TEL(String bID_CO_LANDLINE_TEL) {
+		BID_CO_LANDLINE_TEL = bID_CO_LANDLINE_TEL;
 	}
 }

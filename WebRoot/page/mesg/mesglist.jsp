@@ -332,7 +332,7 @@
 	$(function () { $('#collapseSix').collapse('toggle')});
 	
 	$('.datepicker').parent().datepicker({
-		"autoclose":true,"format":"yyyy-mm-dd","language":"zh-CN"
+		"autoclose":true,"format":"yyyy-mm-dd","language":"zh-CN","daysOfWeekHighlighted":"[0,6]",clearBtn: true
 	});
 	
 	$('.toggle i').click(function(){

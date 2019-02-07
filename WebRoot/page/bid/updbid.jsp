@@ -71,8 +71,8 @@
 		var BID_AGENT_PRICE_ACT = $("#BID_AGENT_PRICE_ACT").val();
 		//var BID_PRICE = $("#BID_PRICE").val();
 		//#tab8
-		var BID_EXPERT_COMMISION_PRE = $("#BID_EXPERT_COMMISION_PRE").val();
-		var BID_EXPERT_COMMISION_ACT = $("#BID_EXPERT_COMMISION_ACT").val();
+		var BID_EXPERT_COMMISION_PRE_YUAN = $("#BID_EXPERT_COMMISION_PRE_YUAN").val();
+		var BID_EXPERT_COMMISION_ACT_YUAN = $("#BID_EXPERT_COMMISION_ACT_YUAN").val();
 		
 		if(CNTRCT_NO == "") {
 			alert("请选择合同编号！");
@@ -280,16 +280,16 @@
 		
 		setBidTableValue();
 		
-		if(BID_EXPERT_COMMISION_PRE != "" && !isReal(BID_EXPERT_COMMISION_PRE)) {
+		if(BID_EXPERT_COMMISION_PRE_YUAN != "" && !isReal(BID_EXPERT_COMMISION_PRE_YUAN)) {
 			showtab("8");
 			alert("预借费用格式不正确！");
-			$("#BID_EXPERT_COMMISION_PRE").focus();
+			$("#BID_EXPERT_COMMISION_PRE_YUAN").focus();
 			return false;
 		}
-		if(BID_EXPERT_COMMISION_ACT != "" && !isReal(BID_EXPERT_COMMISION_ACT)) {
+		if(BID_EXPERT_COMMISION_ACT_YUAN != "" && !isReal(BID_EXPERT_COMMISION_ACT_YUAN)) {
 			showtab("8");
 			alert("实际费用格式不正确！");
-			$("#BID_EXPERT_COMMISION_ACT").focus();
+			$("#BID_EXPERT_COMMISION_ACT_YUAN").focus();
 			return false;
 		}
 		return true;
@@ -342,6 +342,9 @@
 			var BID_CO_ORGCODE = childs[11].value;
 			var BID_CO_PRO_TEL = childs[12].value;
 			var BID_CO_PRO_MANAGER = childs[13].value;
+			
+			var BID_CO_LANDLINE_TEL = childs[14].value;
+			var BID_CO_FAX = childs[15].value;
 			
 			var tr = document.createElement("tr");
 			var td = document.createElement("td");
@@ -419,6 +422,9 @@
 			td.appendChild(createInput("listBidCompTmp[" + i + "].BID_CO_ORGCODE", BID_CO_ORGCODE));
 			td.appendChild(createInput("listBidCompTmp[" + i + "].BID_CO_PRO_TEL", BID_CO_PRO_TEL));
 			td.appendChild(createInput("listBidCompTmp[" + i + "].BID_CO_PRO_MANAGER", BID_CO_PRO_MANAGER));
+			
+			td.appendChild(createInput("listBidCompTmp[" + i + "].BID_CO_LANDLINE_TEL", BID_CO_LANDLINE_TEL));
+			td.appendChild(createInput("listBidCompTmp[" + i + "].BID_CO_FAX", BID_CO_FAX));
 			
 			tr.appendChild(td);
 			document.getElementById("bidCompListTable").appendChild(tr);
@@ -508,11 +514,11 @@
 		/* if($("#BID_EXPERT_COMMISION").val() == "") {
 			$("#BID_EXPERT_COMMISION").val("0");
 		} */
-		if($("#BID_EXPERT_COMMISION_PRE").val() == "") {
-			$("#BID_EXPERT_COMMISION_PRE").val("0");
+		if($("#BID_EXPERT_COMMISION_PRE_YUAN").val() == "") {
+			$("#BID_EXPERT_COMMISION_PRE_YUAN").val("0");
 		}
-		if($("#BID_EXPERT_COMMISION_ACT").val() == "") {
-			$("#BID_EXPERT_COMMISION_ACT").val("0");
+		if($("#BID_EXPERT_COMMISION_ACT_YUAN").val() == "") {
+			$("#BID_EXPERT_COMMISION_ACT_YUAN").val("0");
 		}
 		if($("#BID_APPLY_PRICE").val() == "") {
 			$("#BID_APPLY_PRICE").val("0");
@@ -1017,6 +1023,7 @@
 	
 	//招标合同选择
 	function showSelectBidCntrct() {
+		$("#strCNTRCT_NO").val("");
 		$("#strCNTRCT_YEAR").val("");
 		$("#strCNTRCT_ST_DATE").val("");
 		$("#strCNTRCT_ED_DATE").val("");
@@ -1032,10 +1039,12 @@
 	 */
 	function querySelectPageAjax(index) {
 		//各个模块自己的参数
+		var strCNTRCT_NO = $("#strCNTRCT_NO").val();
 		var strCNTRCT_YEAR = $("#strCNTRCT_YEAR").val();
 		var strCNTRCT_ST_DATE = $("#strCNTRCT_ST_DATE").val();
 		var strCNTRCT_ED_DATE = $("#strCNTRCT_ED_DATE").val();
 		var param = new Object();
+		param.strCNTRCT_NO = strCNTRCT_NO;
 		param.strCNTRCT_YEAR = strCNTRCT_YEAR;
 		param.strCNTRCT_ST_DATE = strCNTRCT_ST_DATE;
 		param.strCNTRCT_ED_DATE = strCNTRCT_ED_DATE;
@@ -1249,7 +1258,7 @@
 			html += '</div>';
 			$("#registeDateDiv").append(html);
 			$('.datepicker').parent().datepicker({
-				"autoclose":true,"format":"yyyy-mm-dd","language":"zh-CN",clearBtn: true
+				"autoclose":true,"format":"yyyy-mm-dd","language":"zh-CN","daysOfWeekHighlighted":"[0,6]",clearBtn: true
 			});
 		}
 	}
@@ -1266,6 +1275,8 @@
 		$('#tmpBidCompManager').val("");
 		$('#tmpBidCompTel').val("");
 		$('#tmpBidCompPs').val("");
+		$('#tmpBidCompLandlineTel').val("");
+		$('#tmpBidCompFax').val("");
 		//禁用 Bootstrap 模态框(Modal) 点击空白时自动关闭
 		$('#bidCompModal').modal({backdrop: 'static', keyboard: false});
 		$('#bidCompModal').modal('show');
@@ -1297,6 +1308,8 @@
 			var BID_CO_ORGCODE = inputs[11].value;
 			var BID_CO_PRO_TEL = inputs[12].value;
 			var BID_CO_PRO_MANAGER = inputs[13].value;
+			var BID_CO_LANDLINE_TEL = inputs[14].value;
+			var BID_CO_FAX = inputs[15].value;
 			
 			var seq = tds[2].innerHTML;
 			$('#tmpBidCompId').val(BID_CO_NO);
@@ -1311,6 +1324,9 @@
 			$('#tmpBidCompManager').val(BID_CO_MANAGER);
 			$('#tmpBidCompTel').val(BID_CO_TEL);
 			$('#tmpBidCompPs').val(BID_CO_PS);
+			
+			$('#tmpBidCompLandlineTel').val(BID_CO_LANDLINE_TEL);
+			$('#tmpBidCompFax').val(BID_CO_FAX);
 			//禁用 Bootstrap 模态框(Modal) 点击空白时自动关闭
 			$('#bidCompModal').modal({backdrop: 'static', keyboard: false});
 			$('#bidCompModal').modal('show');
@@ -1374,7 +1390,10 @@
 		
 		var tmpBidCompManager = $('#tmpBidCompManager').val();
 		var tmpBidCompTel = $('#tmpBidCompTel').val(); 
-		var tmpBidCompPs = $('#tmpBidCompPs').val(); 
+		var tmpBidCompPs = $('#tmpBidCompPs').val();
+		
+		var tmpBidCompLandlineTel = $('#tmpBidCompLandlineTel').val();
+		var tmpBidCompFax = $('#tmpBidCompFax').val();
 		if(tmpBidCompName == "") {
 			alert("请输入单位名称！");
 			$("#tmpBidCompName").focus();
@@ -1485,7 +1504,12 @@
 			//项目负责人
 			var input = createHidden(tmpBidCompProManager);
 			td1.appendChild(input);
-			
+			//固定电话
+			var input = createHidden(tmpBidCompLandlineTel);
+			td1.appendChild(input);
+			//传真
+			var input = createHidden(tmpBidCompFax);
+			td1.appendChild(input);
 			
 			tr.appendChild(td1);
 			
@@ -1507,6 +1531,10 @@
 			tr.appendChild(createTd(tmpBidCompTel));
 			//邮箱
 			tr.appendChild(createTd(tmpBidCompPs));
+			//固定电话
+			tr.appendChild(createTd(tmpBidCompLandlineTel));
+			//传真
+			tr.appendChild(createTd(tmpBidCompFax));
 			//报名内容
 			tr.appendChild(createTd(""));
 			
@@ -1532,6 +1560,9 @@
 			ii[11].value = tmpBidCompOrgCode;
 			ii[12].value = tmpBidCompProTel;
 			ii[13].value = tmpBidCompProManager;
+			ii[14].value = tmpBidCompLandlineTel;
+			ii[15].value = tmpBidCompFax;
+			
 			//更新显示的值
 			rows[seq].cells[3].innerHTML = tmpBidCompName;
 			rows[seq].cells[4].innerHTML = tmpBidCompOrgCode;
@@ -1541,6 +1572,9 @@
 			rows[seq].cells[8].innerHTML = tmpBidCompManager;
 			rows[seq].cells[9].innerHTML = tmpBidCompTel;
 			rows[seq].cells[10].innerHTML = tmpBidCompPs;
+			
+			rows[seq].cells[11].innerHTML = tmpBidCompLandlineTel;
+			rows[seq].cells[12].innerHTML = tmpBidCompFax;
 		}
 		//刷新seq
 		var rows = document.getElementById("bidCompBody").rows;
@@ -1777,6 +1811,27 @@
 					alert(errorThrown);
 				}
 			});//*/
+		}
+	}
+	
+	function setTENDER_VERIFY_DATE(obj) {
+		$("#tmpTENDER_VERIFY_DATE").val($(obj).val());
+	}
+	
+	function setBidCheckPrice(obj) {
+		var tr = obj.parentNode.parentNode.parentNode;
+		var tds = tr.getElementsByTagName("td");
+		var inputs = tds[3].getElementsByTagName("input");
+		inputs[0].value = $(obj).val();
+	}
+	
+	function selectResult(obj) {
+		if($(obj).prop('checked')) {
+			var tr = obj.parentNode.parentNode;
+			var tds = tr.getElementsByTagName("td");
+			var inputs3 = tds[3].getElementsByTagName("input");
+			var inputs5 = tds[5].getElementsByTagName("input");
+			inputs5[0].value = inputs3[0].value;
 		}
 	}
 </script>
@@ -2476,6 +2531,8 @@
 											<th>联系人</th>
 											<th>联系人联系方式</th>
 											<th>邮箱</th>
+											<th>固定电话</th>
+											<th>传真</th>
 											<th colspan="3">报名内容</th>
 										</tr>
 									</thead>
@@ -2498,6 +2555,8 @@
 													<input type="hidden" value="<s:property value="BID_CO_ORGCODE"/>"/>
 													<input type="hidden" value="<s:property value="BID_CO_PRO_TEL"/>"/>
 													<input type="hidden" value="<s:property value="BID_CO_PRO_MANAGER"/>"/>
+													<input type="hidden" value="<s:property value="BID_CO_LANDLINE_TEL"/>"/>
+													<input type="hidden" value="<s:property value="BID_CO_FAX"/>"/>
 												</td>
 												<td><s:property value="%{#st1.index + 1}"/></td>
 												<td><s:property value="BID_CO_NAME"/></td>
@@ -2508,6 +2567,8 @@
 												<td><s:property value="BID_CO_MANAGER"/></td>
 												<td><s:property value="BID_CO_TEL"/></td>
 												<td><s:property value="BID_CO_PS"/></td>
+												<td><s:property value="BID_CO_LANDLINE_TEL"/></td>
+												<td><s:property value="BID_CO_FAX"/></td>
 												<td>
 													<s:if test="BID_CO_NO != null">
 														<button type="button" onclick="setApplyContent('<s:property value="BID_CO_NO"/>');" class="btn btn-success">报名内容</button>
@@ -2531,7 +2592,7 @@
 									<label for="" class="col-lg-3 form-label">开标时间</label>
 									<div class="col-lg-9">
 										<div class="input-group date" data-provide="datepicker">
-											<input id="tmpTENDER_OPEN_DATE" value="<s:date name="updateBidDto.TENDER_OPEN_DATE" format="yyyy-MM-dd"/>" maxlength="10" type="text" class="form-control datepicker" readonly>
+											<input id="tmpTENDER_OPEN_DATE" onchange="setTENDER_VERIFY_DATE(this);" value="<s:date name="updateBidDto.TENDER_OPEN_DATE" format="yyyy-MM-dd"/>" maxlength="10" type="text" class="form-control datepicker" readonly>
 											<div class="input-group-addon">
 												<span class="glyphicon glyphicon-th"></span>
 											</div>
@@ -2605,7 +2666,7 @@
 											<td>
 												<input name="tmpBID_CO_NO1" type="hidden" value="<s:property value="BID_CO_NO"/>">
 												<div class="col-lg-8">
-													<input name="tmpBidPrice" type="text" value="<s:property value="BID_PRICE"/>" maxlength="18" class="form-control">
+													<input name="tmpBidPrice" type="text" onchange="setBidCheckPrice(this);" value="<s:property value="BID_PRICE"/>" maxlength="18" class="form-control">
 												</div>
 												<label for="" class="col-lg-1 form-label">万元</label>
 											</td>
@@ -2617,10 +2678,10 @@
 											</td>
 											<td>
 												<s:if test='%{BID_RESULT == "1"}'>
-													<input name="tmpBID_RESULT_<s:property value="BID_CO_NO"/>" type="checkbox" checked="checked" value="1" />
+													<input name="tmpBID_RESULT_<s:property value="BID_CO_NO"/>" onclick="selectResult(this);" type="checkbox" checked="checked" value="1" />
 												</s:if>
 												<s:else>
-													<input name="tmpBID_RESULT_<s:property value="BID_CO_NO"/>" type="checkbox" value="0" />
+													<input name="tmpBID_RESULT_<s:property value="BID_CO_NO"/>" onclick="selectResult(this);" type="checkbox" value="0" />
 												</s:else>
 											</td>
 											<td>
@@ -2647,9 +2708,9 @@
 								<div class="col-lg-4">
 									<label for="" class="col-lg-3 form-label">专家费支出</label>
 									<div class="col-lg-6">
-										<input type="text" disabled="disabled" class="form-control" value="<s:property value="updateBidDto.BID_EXPERT_COMMISION_ACT" />">
+										<input type="text" disabled="disabled" class="form-control" value="<s:property value="updateBidDto.BID_EXPERT_COMMISION_ACT_YUAN" />">
 									</div>
-									<label for="" class="col-lg-3 form-label" style="text-align:left;">万元</label>
+									<label for="" class="col-lg-3 form-label" style="text-align:left;">元</label>
 								</div>
 							</div>
 							<table class="table table-bordered">
@@ -3075,9 +3136,9 @@
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-4 form-label">预借费用</label>
 									<div class="col-lg-7">
-										<s:textfield name="updateBidDto.BID_EXPERT_COMMISION_PRE" id="BID_EXPERT_COMMISION_PRE" cssClass="form-control" maxlength="18" theme="simple"></s:textfield>
+										<s:textfield name="updateBidDto.BID_EXPERT_COMMISION_PRE_YUAN" id="BID_EXPERT_COMMISION_PRE_YUAN" cssClass="form-control" maxlength="18" theme="simple"></s:textfield>
 									</div>
-									<label for="" class="col-lg-1 form-label" style="text-align:left;">万元</label>
+									<label for="" class="col-lg-1 form-label" style="text-align:left;">元</label>
 								</div>
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-4 form-label">申请日期</label>
@@ -3104,9 +3165,9 @@
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-4 form-label">实际费用</label>
 									<div class="col-lg-7">
-										<s:textfield name="updateBidDto.BID_EXPERT_COMMISION_ACT" id="BID_EXPERT_COMMISION_ACT" cssClass="form-control" maxlength="18" theme="simple"></s:textfield>
+										<s:textfield name="updateBidDto.BID_EXPERT_COMMISION_ACT_YUAN" id="BID_EXPERT_COMMISION_ACT_YUAN" cssClass="form-control" maxlength="18" theme="simple"></s:textfield>
 									</div>
-									<label for="" class="col-lg-1 form-label" style="text-align:left;">万元</label>
+									<label for="" class="col-lg-1 form-label" style="text-align:left;">元</label>
 								</div>
 								<div class="col-lg-4 form-group">
 									<label for="" class="col-lg-4 form-label">差价退还日期</label>
@@ -3133,7 +3194,7 @@
 	<div class="modal fade" id="expertCompModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="z-index: 1050;">
 		<div class="modal-dialog" style="width: 700px;">
 			<div class="modal-content">
-				<form id="file_form" name="file_form" enctype="multipart/form-data" method="post">
+				<form enctype="multipart/form-data" method="post">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 						&times;
@@ -3539,6 +3600,14 @@
 					</div>
 					<div class="modal-body">
 						<div class="col-lg-4 form-group">
+							<label for="" class="col-lg-4 form-label">合同编号</label>
+							<div class="col-lg-8">
+								<div class="input-group">
+									<input id="strCNTRCT_NO" maxlength="20" type="text" class="form-control">
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-4 form-group">
 							<label for="" class="col-lg-4 form-label">合同年份</label>
 							<div class="col-lg-8">
 								<div class="input-group">
@@ -3677,6 +3746,18 @@
 								<input type="text"  id="tmpBidCompPs" class="form-control" maxlength="100" placeholder="请输入邮箱">
 							</div>
 						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">固定电话</label>
+							<div class="col-sm-8">
+								<input type="text"  id="tmpBidCompLandlineTel" class="form-control" maxlength="32" placeholder="请输入固定电话">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">传真</label>
+							<div class="col-sm-8">
+								<input type="text"  id="tmpBidCompFax" class="form-control" maxlength="32" placeholder="请输入传真">
+							</div>
+						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-primary" onclick="saveBidComp();">确认</button>
@@ -3720,7 +3801,7 @@
 	<div class="modal fade" id="bidCompApplyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		<div class="modal-dialog" style="width: 900px;">
 			<div class="modal-content">
-				<form id="file_form" name="file_form" enctype="multipart/form-data" method="post">
+				<form enctype="multipart/form-data" method="post">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 						&times;
@@ -3773,7 +3854,11 @@
 	showtab('${updBidTabIndex}');
 	
 	$('.datepicker').parent().datepicker({
-		"autoclose":true,"format":"yyyy-mm-dd","language":"zh-CN",clearBtn: true
+		"autoclose":true,
+		"format":"yyyy-mm-dd",
+		"language":"zh-CN",
+		"daysOfWeekHighlighted":"[0,6]",
+		clearBtn: true
 	});
 </script>
 </body>

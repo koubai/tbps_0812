@@ -55,7 +55,7 @@ public class BidCntrctServiceImpl extends BaseService implements BidCntrctServic
 				int failProject = 0;
 				//标书费
 				BigDecimal bidAmount = new BigDecimal(0);
-				//专家费
+				//专家费（元）
 				BigDecimal expertAmount = new BigDecimal(0);
 				//应收代理费
 				BigDecimal BID_AGENT_PRICE = new BigDecimal(0);
@@ -90,8 +90,8 @@ public class BidCntrctServiceImpl extends BaseService implements BidCntrctServic
 							}
 						}
 						//专家费
-						if(bid.getBID_EXPERT_COMMISION_ACT() != null) {
-							expertAmount = expertAmount.add(bid.getBID_EXPERT_COMMISION_ACT());
+						if(bid.getBID_EXPERT_COMMISION_ACT_YUAN_SHOW() != null) {
+							expertAmount = expertAmount.add(bid.getBID_EXPERT_COMMISION_ACT_YUAN_SHOW());
 						}
 						//应收代理费
 						if(bid.getBID_AGENT_PRICE() != null) {

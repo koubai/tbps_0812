@@ -355,7 +355,7 @@
 							<th>应收代理费</th>
 							<th>实收代理费</th>
 							<th>标书费</th>
-							<th>专家费支出</th>
+							<th>专家费支出(元)</th>
 						</tr>
 						<s:iterator id="listBidCntrct" value="listBidCntrct" status="st1">
 							<tr>
@@ -468,7 +468,7 @@
 	$(function () { $('#collapseTwo').collapse('toggle')});
 	
 	$('.datepicker').parent().datepicker({
-		"autoclose":true,"format":"yyyy-mm-dd","language":"zh-CN"
+		"autoclose":true,"format":"yyyy-mm-dd","language":"zh-CN","daysOfWeekHighlighted":"[0,6]",clearBtn: true
 	});
 	
 	$('.toggle i').click(function(){

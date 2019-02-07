@@ -251,9 +251,9 @@ public class PoiBid extends Poi2007Base {
 			cell34.setCellStyle(style);
 			cell35.setCellValue(StringUtil.BigDecimal2Str(bid.getBID_EXPERT_COMMISION(), 2));
 			cell35.setCellStyle(style);
-			cell36.setCellValue(StringUtil.BigDecimal2Str(bid.getBID_EXPERT_COMMISION_PRE(), 2));
+			cell36.setCellValue(StringUtil.BigDecimal2Str(bid.getBID_EXPERT_COMMISION_PRE_YUAN_SHOW(), 2));
 			cell36.setCellStyle(style);
-			cell37.setCellValue(StringUtil.BigDecimal2Str(bid.getBID_EXPERT_COMMISION_ACT(), 2));
+			cell37.setCellValue(StringUtil.BigDecimal2Str(bid.getBID_EXPERT_COMMISION_ACT_YUAN_SHOW(), 2));
 			cell37.setCellStyle(style);
 			cell38.setCellValue(DateUtil.dateToStr(bid.getBID_EXPERT_COMMISION_DIFF_DATE(), format));
 			cell38.setCellStyle(style);
@@ -394,9 +394,9 @@ public class PoiBid extends Poi2007Base {
 		heads.add("中标公司标书费");
 		heads.add("中标价");
 		heads.add("中标价一览");
-		heads.add("专家费");
-		heads.add("预借专家费");
-		heads.add("实际专家费");
+		heads.add("专家费（元）");
+		heads.add("预借专家费（元）");
+		heads.add("实际专家费（元）");
 		heads.add("差价退还日期");
 		heads.add("标书费");
 		heads.add("专家费申请人");
