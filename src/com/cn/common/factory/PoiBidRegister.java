@@ -51,11 +51,11 @@ public class PoiBidRegister extends Poi2007Base {
 				int startNo = bidNoOld.indexOf("：");
 				String bidNoNew = bidNoOld;
 				
-				bidNoNew = bidNoNew.substring(0, startNo + 1) + bidNo + bidNoNew.substring(startNo + 12, bidNoNew.length());
+				bidNoNew = bidNoNew.substring(0, startNo + 1) + bidNo + bidNoNew.substring(startNo + 1);
 				
 				//项目名称
 				int nameStart = bidNoOld.indexOf("=");
-				bidNoNew = bidNoOld.substring(0, nameStart + 1) + bidDto.getPROJECT_NAME() + bidNoNew.substring(nameStart + 2, bidNoOld.length());
+				bidNoNew = bidNoOld.substring(0, nameStart + 1) + bidDto.getPROJECT_NAME() + bidNoNew.substring(nameStart + 1);
 				
 				//cell.setCellValue(bidNoNew.toString());
 				//删除多余下划线
@@ -128,10 +128,12 @@ public class PoiBidRegister extends Poi2007Base {
 				
 				row = sheet.getRow((short) 5);
 				cell = row.getCell((short) 1);
-				cell.setCellValue(bidComp.getRESERVE5());
+//				cell.setCellValue(bidComp.getRESERVE5());
+				cell.setCellValue(bidComp.getBID_CO_LANDLINE_TEL());
 				cell = row.getCell((short) 3);
-				cell.setCellValue(bidComp.getRESERVE6());
-
+//				cell.setCellValue(bidComp.getRESERVE6());
+				cell.setCellValue(bidComp.getBID_CO_FAX());
+				
 				row = sheet.getRow((short) 6);
 				cell = row.getCell((short) 1);
 				cell.setCellValue(bidComp.getBID_CO_PS());
@@ -152,11 +154,11 @@ public class PoiBidRegister extends Poi2007Base {
 			int startNo = bidNoOld.indexOf("：");
 			String bidNoNew = bidNoOld;
 			
-			bidNoNew = bidNoNew.substring(0, startNo + 1) + bidNo + bidNoNew.substring(startNo + 12, bidNoNew.length());
+			bidNoNew = bidNoNew.substring(0, startNo + 1) + bidNo + bidNoNew.substring(startNo);
 			
 			//项目名称
 			int nameStart = bidNoOld.indexOf("=");
-			bidNoNew = bidNoOld.substring(0, nameStart + 1) + bidDto.getPROJECT_NAME() + bidNoNew.substring(nameStart + 2, bidNoOld.length());
+			bidNoNew = bidNoOld.substring(0, nameStart + 1) + bidDto.getPROJECT_NAME() + bidNoNew.substring(nameStart + 1);
 			
 			//cell.setCellValue(bidNoNew.toString());
 			//删除多余下划线
