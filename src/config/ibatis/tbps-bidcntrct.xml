@@ -113,7 +113,7 @@
 			T.CNTRCT_YEAR = #CNTRCT_YEAR#
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="CNTRCT_NO">
-			T.CNTRCT_NO = #CNTRCT_NO#
+			T.CNTRCT_NO like '%$CNTRCT_NO$%'
 		</isNotEmpty>
 		<isNotEmpty prepend="and" property="BID_COMP_NO">
 			T.BID_COMP_NO = #BID_COMP_NO#

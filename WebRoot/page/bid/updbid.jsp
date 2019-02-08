@@ -1040,11 +1040,14 @@
 	function querySelectPageAjax(index) {
 		//各个模块自己的参数
 		var strCNTRCT_NO = $("#strCNTRCT_NO").val();
+		// var strCNTRCT_NM = $("#strCNTRCT_NM").val();
 		var strCNTRCT_YEAR = $("#strCNTRCT_YEAR").val();
 		var strCNTRCT_ST_DATE = $("#strCNTRCT_ST_DATE").val();
 		var strCNTRCT_ED_DATE = $("#strCNTRCT_ED_DATE").val();
 		var param = new Object();
 		param.strCNTRCT_NO = strCNTRCT_NO;
+		// param.strCNTRCT_NM = strCNTRCT_NM;
+		param.strCNTRCT_NM = "";
 		param.strCNTRCT_YEAR = strCNTRCT_YEAR;
 		param.strCNTRCT_ST_DATE = strCNTRCT_ST_DATE;
 		param.strCNTRCT_ED_DATE = strCNTRCT_ED_DATE;
@@ -1087,6 +1090,7 @@
 					html += '	</td>';
 					html += '	<td>' + n.CNTRCT_YEAR + '</td>';
 					html += '	<td>' + n.CNTRCT_NO + '</td>';
+					// html += '	<td>' + n.CNTRCT_NM + '</td>';
 					html += '	<td>' + n.BID_COMP_NAME + '</td>';
 					html += '</tr>';
 					$("#bidCntrctData").append(html);
@@ -3599,7 +3603,7 @@
 						</h4>
 					</div>
 					<div class="modal-body">
-						<div class="col-lg-4 form-group">
+						<div class="col-lg-3 form-group">
 							<label for="" class="col-lg-4 form-label">合同编号</label>
 							<div class="col-lg-8">
 								<div class="input-group">
@@ -3607,7 +3611,15 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-lg-4 form-group">
+						<!-- <div class="col-lg-3 form-group">
+							<label for="" class="col-lg-4 form-label">合同简称</label>
+							<div class="col-lg-8">
+								<div class="input-group">
+									<input id="strCNTRCT_NM" maxlength="20" type="text" class="form-control">
+								</div>
+							</div>
+						</div> -->
+						<div class="col-lg-3 form-group">
 							<label for="" class="col-lg-4 form-label">合同年份</label>
 							<div class="col-lg-8">
 								<div class="input-group">
@@ -3647,6 +3659,7 @@
 									<th style="display: none;"></th>
 									<th>合同年份</th>
 									<th>合同编号</th>
+									<!-- <th>合同简称</th> -->
 									<th>委托单位</th>
 								</tr>
 							</thead>
@@ -3669,6 +3682,7 @@
 									</td>
 									<td></td>
 									<td></td>
+									<!--  <td></td> -->
 									<td></td>
 								</tr>
 							</tbody>

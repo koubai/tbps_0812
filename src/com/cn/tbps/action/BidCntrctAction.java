@@ -2,6 +2,7 @@ package com.cn.tbps.action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,6 +58,8 @@ public class BidCntrctAction extends BaseAction {
 	private String strCNTRCT_ED_DATE;
 	//合同编号
 	private String strCNTRCT_NO;
+	//合同简称
+	private String 	strCNTRCT_NM;	
 	//委托单位
 	private String strBID_COMP_NO;
 	private String strBID_COMP_NAME;
@@ -88,10 +91,12 @@ public class BidCntrctAction extends BaseAction {
 			//ajax中文乱码处理
 			//strCNTRCT_NO = URLDecoder.decode(strCNTRCT_NO, "UTF-8");
 			//strBID_COMP_NO = URLDecoder.decode(strBID_COMP_NO, "UTF-8");
+			strCNTRCT_NO = URLDecoder.decode(strCNTRCT_NO, "UTF-8");
+			strCNTRCT_NM = URLDecoder.decode(strCNTRCT_NM, "UTF-8");
 			Page pp = new Page(8);
 			pp.setTotalCount(ajaxTotalCount);
 			pp.setStartIndex(ajaxPageIndex);
-			pp = bidCntrctService.queryBidCntrctByPage(strCNTRCT_YEAR, strCNTRCT_NO, strBID_COMP_NO, "",
+			pp = bidCntrctService.queryBidCntrctByPage(strCNTRCT_YEAR, strCNTRCT_NO, strBID_COMP_NO, strCNTRCT_NM,
 					"", strCNTRCT_ST_DATE, strCNTRCT_ED_DATE, pp);
 			ajaxData.setData(pp);
 		} catch(Exception e) {
@@ -436,4 +441,13 @@ public class BidCntrctAction extends BaseAction {
 	public void setListUserInfo(List<UserInfoDto> listUserInfo) {
 		this.listUserInfo = listUserInfo;
 	}
+	public String getStrCNTRCT_NM() {
+		return strCNTRCT_NM;
+	}
+
+	public void setStrCNTRCT_NM(String strCNTRCT_NM) {
+		this.strCNTRCT_NM = strCNTRCT_NM;
+	}
+
+
 }

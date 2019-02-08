@@ -394,6 +394,8 @@ public class AuditAction extends BaseAction {
 			//查询数据
 			List<AuditDto> list = auditService.queryAllAuditExport("", "", "", strProjectManager, "", "", "",
 					"", "", "", "", "", "", "", "", "", strReportNo, strProjectName, strCntrctInfo);
+			//2019.02.08 
+			Collections.reverse(list);
 			base.setDatas(list);
 			base.setSheetName(Constants.EXCEL_TYPE_SJYL);
 			Map<String, Object> map = new HashMap<String, Object>();
