@@ -120,6 +120,8 @@ public class PoiExpertPayReport extends Poi2007Base {
 			cell4.setCellValue(StringUtil.BigDecimal2Str(bidrpt.getBID_EXPERT_COMMISION_ACT_YUAN_SHOW(), 2));
 			cell4.setCellStyle(style);
 			//退还差额（元）
+			if(bidrpt.getBID_EXPERT_COMMISION_PRE_YUAN_SHOW() != null && bidrpt.getBID_EXPERT_COMMISION_ACT_YUAN_SHOW() != null)
+				bidrpt.setBID_EXPERT_COMMISION_DIFF(bidrpt.getBID_EXPERT_COMMISION_PRE_YUAN_SHOW().add(bidrpt.getBID_EXPERT_COMMISION_ACT_YUAN_SHOW().negate()));
 			cell5.setCellValue(StringUtil.BigDecimal2Str(bidrpt.getBID_EXPERT_COMMISION_DIFF(), 2));
 			cell5.setCellStyle(style);
 			cell6.setCellValue("");
@@ -233,7 +235,7 @@ public class PoiExpertPayReport extends Poi2007Base {
 		//退还差额（元）
 		sheet.setColumnWidth(5, 15 * 256);
 		cell = row3.createCell(5);
-		cell.setCellValue("退还差额（万元）");
+		cell.setCellValue("退还差额（元）");
 		cell.setCellStyle(style);
 		
 		//备注
