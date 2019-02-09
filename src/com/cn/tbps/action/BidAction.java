@@ -64,6 +64,8 @@ public class BidAction extends BaseAction {
 	
 	private MajorService majorService;
 	
+	public boolean blBidCreateFlg = false;
+	
 	/**
 	 * 页码
 	 */
@@ -476,7 +478,9 @@ public class BidAction extends BaseAction {
 	 */
 	public String showAddBidAction() {
 		try {
-			this.clearMessages();
+			if (blBidCreateFlg == false)
+				this.clearMessages();
+			blBidCreateFlg = false;
 			listBidComp = new ArrayList<BidCompDto>();
 			listExpertLib = new ArrayList<ExpertLibDto>();
 			listBidCompTmp = new ArrayList<BidCompDto>();
@@ -604,6 +608,7 @@ public class BidAction extends BaseAction {
 			listBidComp = new ArrayList<BidCompDto>();
 			listExpertLib = new ArrayList<ExpertLibDto>();
 			
+			blBidCreateFlg = true;
 			response.sendRedirect("../bid/showUpdBidAction.action?updateBidNo=" + bidNo);
 		} catch(RuntimeException e) {
 			//运行异常
@@ -624,7 +629,8 @@ public class BidAction extends BaseAction {
 	 */
 	public String showUpdBidAction() {
 		try {
-			this.clearMessages();
+			if (blBidCreateFlg == false)
+				this.clearMessages();
 			if (updBidTabIndex == null || updBidTabIndex.equals(""))
 				updBidTabIndex = "1";
 			updateBidDto = bidService.queryAllBidByID(updateBidNo);
