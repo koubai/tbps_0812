@@ -144,6 +144,18 @@
 									</div>
 								</div>
 								<div class="row">
+									<label class="col-lg-2 form-label">地址</label>
+									<div class="col-lg-8">
+										<s:textfield name="updateAgentCompDto.RESERVE4" id="RESERVE4" cssClass="form-control" maxlength="40" theme="simple"></s:textfield>
+									</div>
+								</div>
+								<div class="row">
+									<label class="col-lg-2 form-label">电话</label>
+									<div class="col-lg-8">
+										<s:textfield name="updateAgentCompDto.RESERVE5" id="RESERVE5" cssClass="form-control" maxlength="40" theme="simple"></s:textfield>
+									</div>
+								</div>
+								<div class="row">
 									<label class="col-lg-2 form-label">纳税人识别号</label>
 									<div class="col-lg-8">
 										<s:textfield name="updateAgentCompDto.RESERVE1" id="RESERVE1" cssClass="form-control" maxlength="40" theme="simple"></s:textfield>

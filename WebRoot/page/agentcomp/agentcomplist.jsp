@@ -184,8 +184,8 @@
 							<th>联系人1</th>
 							<th>联系人2</th>
 							<th>联系人3</th>
-							<th>联系人4</th>
-							<th>联系人5</th>
+							<th>电话</th>
+							<th>地址</th>
 							<th>纳税人识别号</th>
 							<th>开户行</th>
 							<th>账号</th>
@@ -203,8 +203,8 @@
 								<td><s:property value="CO_MANAGER1"/></td>
 								<td><s:property value="CO_MANAGER2"/></td>
 								<td><s:property value="CO_MANAGER3"/></td>
-								<td><s:property value="CO_MANAGER4"/></td>
-								<td><s:property value="CO_MANAGER5"/></td>
+								<td><s:property value="RESERVE5"/></td>
+								<td><s:property value="RESERVE4"/></td>
 								<td><s:property value="RESERVE1"/></td>
 								<td><s:property value="RESERVE2"/></td>
 								<td><s:property value="RESERVE3"/></td>

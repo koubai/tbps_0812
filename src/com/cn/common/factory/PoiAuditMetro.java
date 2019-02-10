@@ -77,6 +77,25 @@ public class PoiAuditMetro extends Poi2007Base {
 			shj = bignum.toString();
 		}
 		cell.setCellValue(shj);
+		//核减金额
+		row = sheet.getRow((short) 7);
+		cell = row.getCell((short) 3);
+		String hje = "";
+		if(null != auditDto.getVERIFY_DECREASE()) {
+			BigDecimal bignum = auditDto.getVERIFY_DECREASE().multiply(new BigDecimal("10000")).setScale(2,BigDecimal.ROUND_HALF_UP); 
+			hje = bignum.toString();
+		}
+		cell.setCellValue(hje);
+		//核增金额
+		row = sheet.getRow((short) 7);
+		cell = row.getCell((short) 10);
+		String hze = "";
+		if(null != auditDto.getVERIFY_INCREASE()) {
+			BigDecimal bignum = auditDto.getVERIFY_INCREASE().multiply(new BigDecimal("10000")).setScale(2,BigDecimal.ROUND_HALF_UP); 
+			hze = bignum.toString();
+		}
+		cell.setCellValue(hze);
+
 		//净核减额
 		row = sheet.getRow((short) 7);
 		cell = row.getCell((short) 17);

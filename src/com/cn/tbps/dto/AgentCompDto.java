@@ -193,12 +193,12 @@ public class AgentCompDto extends BaseDto {
 	private String RESERVE3;
 
 	/**
-	 * 备用4
+	 * 委托公司地址
 	 */
 	private String RESERVE4;
 
 	/**
-	 * 备用5
+	 * 委托公司电话
 	 */
 	private String RESERVE5;
 	

@@ -767,9 +767,11 @@ public class BidProgressAction extends BaseAction {
 //			setStatus0202(bidStatusInfo.substring(7,8));
 //			setStatus0203(bidStatusInfo.substring(8,9));
 			if (bidDto.getGEN_REGISTE_RPT_DATE() != null && StringUtil.isNotBlank(bidDto.getGEN_REGISTE_RPT_DATE().toString())){
-				setStatus0203("9");
+				setStatus0202("9");
+//				setStatus0203("9");
 			}else{
-				setStatus0203("0");
+				setStatus0202("9");
+//				setStatus0203("0");
 			}
 			
 			//专家费申请
@@ -872,7 +874,7 @@ public class BidProgressAction extends BaseAction {
 			//报名审核表编制
 //			setStatus0502(bidStatusInfo.substring(22,23));
 //			setStatus0503(bidStatusInfo.substring(23,24));
-			if (bidDto.getAPPLY_FORM_EDIT_DATE() != null && StringUtil.isNotBlank(bidDto.getAPPLY_FORM_EDIT_DATE().toString())){
+			if (bidDto.getGEN_VERIFY_RPT_DATE() != null && StringUtil.isNotBlank(bidDto.getGEN_VERIFY_RPT_DATE().toString())){
 				setStatus0502("9");
 			}else{
 				setStatus0502("0");
