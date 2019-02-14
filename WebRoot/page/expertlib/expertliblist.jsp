@@ -231,7 +231,7 @@
 							<th>备注</th>
 						</tr>
 						<s:iterator id="listExpertLib" value="listExpertLib" status="st1">
-							<tr>
+							<tr onclick="checkRadioTr(this, event);">
 								<td><input name="radioKey" type="radio" value="<s:property value="EXPERT_SEQ"/>"/></td>
 								<td><s:property value="EXPERT_NAME"/></td>
 								<td>

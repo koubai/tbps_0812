@@ -357,7 +357,7 @@
 							</s:iterator>
 						</tr>
 						<s:iterator id="listAudit" value="listAudit" status="st1">
-							<tr>
+							<tr onclick="checkRadioTr(this, event);">
 								<td><input name="radioKey" type="radio" value="<s:property value="AUDIT_NO"/>"/></td>
 								<s:iterator id="arrAuditShow" value="arrAuditShow" status="st1">
 									<s:if test='#arrAuditShow[0] == "REPORT_NO"'>

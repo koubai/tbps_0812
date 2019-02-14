@@ -468,3 +468,11 @@ function bidPaymentTypeCode2Name(code) {
 	}
 	return "";
 }
+
+function checkRadioTr(tr, evt) {
+	var tds = tr.getElementsByTagName("td");
+	var inputs = tds[0].getElementsByTagName("input");
+	inputs[0].checked = true;
+}
+
+

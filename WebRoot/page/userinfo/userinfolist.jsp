@@ -159,7 +159,7 @@
 							<th>备注</th>
 						</tr>
 						<s:iterator id="listUserInfo" value="listUserInfo" status="st1">
-							<tr>
+							<tr onclick="checkRadioTr(this, event);">
 								<td><input name="radioKey" type="radio" value="<s:property value="LOGIN_ID"/>"/></td>
 								<td><s:property value="LOGIN_ID"/></td>
 								<td><s:property value="LOGIN_NAME"/></td>

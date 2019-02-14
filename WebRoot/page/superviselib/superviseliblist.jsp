@@ -164,7 +164,7 @@
 							<th>更新日期</th>
 						</tr>
 						<s:iterator id="listSuperviseLib" value="listSuperviseLib" status="st1">
-							<tr>
+							<tr onclick="checkRadioTr(this, event);">
 								<td><input name="radioKey" type="radio" value="<s:property value="SUPERVISE_SEQ"/>"/></td>
 								<td><s:property value="SUPERVISE_NAME"/></td>
 								<td><s:property value="SUPERVISE_TEL1"/></td>

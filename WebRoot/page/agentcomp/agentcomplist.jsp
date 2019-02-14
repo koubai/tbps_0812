@@ -192,7 +192,7 @@
 							<th>备注</th>
 						</tr>
 						<s:iterator id="listAgentComp" value="listAgentComp" status="st1">
-							<tr>
+							<tr onclick="checkRadioTr(this, event);">
 								<td><input name="radioKey" type="radio" value="<s:property value="ANGENT_COMP_NO"/>"/></td>
 								<td><s:property value="ANGENT_COMP_NO"/></td>
 								<td>

@@ -278,7 +278,7 @@
 							<th>委托方收费</th>
 						</tr>
 						<s:iterator id="listAuditCntrct" value="listAuditCntrct" status="st1">
-							<tr>
+							<tr onclick="checkRadioTr(this, event);">
 								<td><input name="radioKey" type="radio" value="<s:property value="CNTRCT_NO"/>"/></td>
 								<td align="center">
 									<s:if test='CNTRCT_BELONG == "1"'>

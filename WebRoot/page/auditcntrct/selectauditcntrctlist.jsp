@@ -180,7 +180,7 @@
 							<th>委托单位</th>
 						</tr>
 						<s:iterator id="listAuditCntrct" value="listAuditCntrct" status="st1">
-							<tr>
+							<tr onclick="checkRadioTr(this, event);">
 								<td style="display: none;">
 									<input type="hidden" value="<s:property value="CNTRCT_BELONG"/>"/>
 									<input type="hidden" value="<s:property value="CNTRCT_NO"/>"/>

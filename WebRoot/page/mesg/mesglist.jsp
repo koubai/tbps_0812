@@ -218,7 +218,7 @@
 							<th>发送日期</th>
 						</tr>
 						<s:iterator id="mesgList" value="mesgList" status="st1">
-							<tr>
+							<tr onclick="checkRadioTr(this, event);">
 								<td><input name="radioKey" type="radio" value="<s:property value="MSG_SEQ"/>"/></td>
 								<td>
 									<a href="javascript:;" onclick="showMesgDetail(this,'<s:property value="MSG_SEQ"/>', '<s:property value="MSG_TYPE"/>');"><s:property value="MSG_TITLE"/></a>

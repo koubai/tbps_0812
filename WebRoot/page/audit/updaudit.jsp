@@ -961,6 +961,10 @@
 		window.location.href = '<c:url value="/audit/showAuditAction.action"></c:url>';
 	}
 	
+	function goAuditListDetail() {
+		window.location.href = '<c:url value="/audit/queryAuditList.action"></c:url>';
+	}
+	
 	function exportAudit() {
 		var CNTRCT_TYPE = $("#CNTRCT_TYPE").val();
 //		alert(CNTRCT_TYPE);
@@ -1051,7 +1055,7 @@
 				$("#agentCompData").empty();
 				$.each(items, function(i, n) {
 					var html = "";
-					html += '<tr>';
+					html += '<tr onclick="checkRadioTr(this, event);">';
 					html += '	<td><input name="agentCompKey" type="radio" value=""/></td>';
 					html += '	<td style="display: none;">';
 					html += '		<input type="hidden" value="' + n.ANGENT_COMP_NO + '">';
@@ -1142,7 +1146,7 @@
 				$("#profCompData").empty();
 				$.each(items, function(i, n) {
 					var html = "";
-					html += '<tr>';
+					html += '<tr onclick="checkRadioTr(this, event);">';
 					html += '	<td><input name="profCompKey" type="radio" value=""/></td>';
 					html += '	<td style="display: none;">';
 					html += '		<input type="hidden" value="' + n.ANGENT_COMP_NO + '">';
@@ -1323,7 +1327,7 @@
 				$("#contractCompData").empty();
 				$.each(items, function(i, n) {
 					var html = "";
-					html += '<tr>';
+					html += '<tr onclick="checkRadioTr(this, event);">';
 					html += '	<td><input name="contractCompKey" type="radio" value=""/></td>';
 					html += '	<td style="display: none;">';
 					html += '		<input type="hidden" value="' + n.ANGENT_COMP_NO + '">';
@@ -2540,6 +2544,9 @@
 							<div class="col-lg-1">
 								<button class="btn btn-success form-control" type="button" onclick="upd();">保存</button>
 							</div>
+							<div class="col-lg-1">
+								<button class="btn btn-success form-control" type="button" onclick="goAuditListDetail();">返回上级</button>
+							</div>
 						</div>
 					</div>
 				</s:form>
@@ -2599,7 +2606,7 @@
 								</tr>
 							</thead>
 							<tbody id="agentCompData">
-								<tr>
+								<tr onclick="checkRadioTr(this, event);">
 									<td><input name="agentCompKey" type="radio" value=""/></td>
 									<td style="display: none;">
 										<input type="hidden" value="">
@@ -2675,7 +2682,7 @@
 								</tr>
 							</thead>
 							<tbody id="profCompData">
-								<tr>
+								<tr onclick="checkRadioTr(this, event);">
 									<td><input name="profCompKey" type="radio" value=""/></td>
 									<td style="display: none;">
 										<input type="hidden" value="">
@@ -2751,7 +2758,7 @@
 								</tr>
 							</thead>
 							<tbody id="contractCompData">
-								<tr>
+								<tr onclick="checkRadioTr(this, event);">
 									<td><input name="contractCompKey" type="radio" value=""/></td>
 									<td style="display: none;">
 										<input type="hidden" value="">
