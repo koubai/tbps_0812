@@ -475,4 +475,12 @@ function checkRadioTr(tr, evt) {
 	inputs[0].checked = true;
 }
 
-
+function checkCheckboxTr(tr, evt) {
+	var tds = tr.getElementsByTagName("td");
+	var inputs = tds[0].getElementsByTagName("input");
+	if(inputs[0].checked) {
+		inputs[0].checked = false;
+	} else {
+		inputs[0].checked = true;
+	}
+}

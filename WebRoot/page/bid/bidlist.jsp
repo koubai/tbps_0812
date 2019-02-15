@@ -225,7 +225,7 @@
 							<th>缴纳保证金单位数</th>
 						</tr>
 						<s:iterator id="listBid" value="listBid" status="st1">
-							<tr>
+							<tr onclick="checkRadioTr(this, event);">
 								<td><input name="radioKey" type="radio" value="<s:property value="BID_NO"/>"/></td>
 								<td>
 									<!-- <a href="javascript:void(0);" onclick="goBidProgress('<s:property value="BID_NO"/>');"><s:property value="BID_NO"/></a> -->

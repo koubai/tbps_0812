@@ -145,7 +145,7 @@
 				$("#agentCompData").empty();
 				$.each(items, function(i, n) {
 					var html = "";
-					html += '<tr>';
+					html += '<tr onclick="checkRadioTr(this, event);">';
 					html += '	<td><input name="agentCompKey" type="radio" value=""/></td>';
 					html += '	<td style="display: none;">';
 					html += '		<input type="hidden" value="' + n.ANGENT_COMP_NO + '">';
@@ -319,7 +319,7 @@
 								</div>
 							</div>
 							<div class="col-lg-6 form-group">
-								<div class="col-lg-2">
+								<div class="col-lg-3">
 									<label for="" class="col-lg3 form-label">委托公司</label>
 								</div>
 								<div class="col-lg-8">
@@ -358,7 +358,7 @@
 							<th>专家费支出(元)</th>
 						</tr>
 						<s:iterator id="listBidCntrct" value="listBidCntrct" status="st1">
-							<tr>
+							<tr onclick="checkCheckboxTr(this, event);">
 								<td><input name="radioKey" type="checkbox" value="<s:property value="CNTRCT_NO"/>"/></td>
 								<td><s:property value="CNTRCT_YEAR"/></td>
 								<td><s:property value="CNTRCT_NO"/></td>
