@@ -133,7 +133,7 @@
 				$("#agentCompData").empty();
 				$.each(items, function(i, n) {
 					var html = "";
-					html += '<tr>';
+					html += '<tr onclick="checkRadioTr(this, event);">';
 					html += '	<td><input name="agentCompKey" type="radio" value=""/></td>';
 					html += '	<td style="display: none;">';
 					html += '		<input type="hidden" value="' + n.ANGENT_COMP_NO + '">';
@@ -533,7 +533,7 @@
 							<th>代理费支付方</th>
 						</tr>
 						<s:iterator id="listBid" value="listBid" status="st1">
-							<tr>
+							<tr onclick="checkRadioTr(this, event);">
 								<td><input name="radioKey" type="checkbox" value="<s:property value="BID_NO"/>"/></td>
 								<td style="display: none;">
 									<input name="tmpBID_NO" type="hidden" value="<s:property value="BID_NO"/>">
@@ -648,7 +648,7 @@
 								</tr>
 							</thead>
 							<tbody id="agentCompData">
-								<tr>
+								<tr onclick="checkRadioTr(this, event);">
 									<td><input name="agentCompKey" type="radio" value=""/></td>
 									<td style="display: none;">
 										<input type="hidden" value="">

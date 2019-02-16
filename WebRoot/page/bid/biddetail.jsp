@@ -552,10 +552,10 @@
 								<tbody id="bidCompData">
 									<s:iterator id="listBidComp" value="listBidComp" status="st1">
 										<s:if test="#st1.odd==true">
-											<tr class="tr_bg">
+											<tr class="tr_bg" onclick="checkRadioTr01(this, event);">
 										</s:if>
 										<s:else>
-											<tr>
+											<tr onclick="checkRadioTr01(this, event);">
 										</s:else>
 											<td style="width: 0px; display: none;">
 												<input type="hidden" value="<s:property value="BID_NO"/>" />
@@ -655,10 +655,10 @@
 								<tbody id="bidExportData">
 									<s:iterator id="listExpertLib" value="listExpertLib" status="st1">
 										<s:if test="#st1.odd==true">
-											<tr class="tr_bg">
+											<tr class="tr_bg" onclick="checkRadioTr01(this, event);">
 										</s:if>
 										<s:else>
-											<tr>
+											<tr onclick="checkRadioTr01(this, event);">
 										</s:else>
 											<td style="width: 0px; display: none;">
 												<input type="hidden" value="<s:property value="EXPERT_NAME"/>"/>

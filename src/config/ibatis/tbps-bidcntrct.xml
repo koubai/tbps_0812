@@ -130,7 +130,7 @@
 		<isNotEmpty prepend="and" property="CNTRCT_ED_DATE">
 			T.CNTRCT_ED_DATE <![CDATA[<=]]> #CNTRCT_ED_DATE#
 		</isNotEmpty>
-		order by CNTRCT_NO desc
+		order by CNTRCT_YEAR desc, CNTRCT_NO desc
 		LIMIT #start#, #end#
 	</select>
 	

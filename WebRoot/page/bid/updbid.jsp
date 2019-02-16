@@ -728,7 +728,7 @@
 				$("#expertLibData").empty();
 				$.each(items, function(i, n) {
 					var html = "";
-					html += '<tr>';
+					html += '<tr onclick="checkCheckboxTr(this, event);">';
 					html += '	<td><input name="expertLibKey" type="checkbox" value=""/></td>';
 					html += '	<td style="display: none;">';
 					html += '		<input type="hidden" value="' + n.EXPERT_SEQ + '">';
@@ -1070,7 +1070,7 @@
 				$("#bidCntrctData").empty();
 				$.each(items, function(i, n) {
 					var html = "";
-					html += '<tr>';
+					html += '<tr onclick="checkRadioTr(this, event);">';
 					html += '	<td><input name="bidCntrctKey" type="radio" value=""/></td>';
 					html += '	<td style="display: none;">';
 					html += '		<input type="hidden" value="' + n.CNTRCT_NO + '">';
@@ -1342,7 +1342,7 @@
 		var list = document.getElementsByName("bidCompRadio");
 		for(var i = 0; i < list.length; i++) {
 			if(list[i].checked) {
-				obj = list[i]
+				obj = list[i];
 				break;
 			}
 		}
@@ -1350,7 +1350,7 @@
 			alert("请选择一条记录！");
 		} else {
 			if(confirm("确定删除吗?")) {
-				obj.parentNode.parentNode.remove();
+				obj.parentNode.parentNode.parentNode.removeChild(obj.parentNode.parentNode);
 				//刷新seq
 				var rows = document.getElementById("bidCompBody").rows;
 				for(var i = 0; i < rows.length; i++) {
@@ -1452,7 +1452,7 @@
 			//新增
 			var bidCompBody = document.getElementById("bidCompBody");
 			var tr = document.createElement("tr");
-			
+			tr.onclick="checkRadioTr(this, event);";
 			var td0 = document.createElement("td");
 			//单选框
 			var radio = document.createElement("input");
@@ -2542,7 +2542,7 @@
 									</thead>
 									<tbody id="bidCompBody">
 										<s:iterator id="listBidComp" value="listBidComp" status="st1">
-											<tr>
+											<tr onclick="checkRadioTr(this, event);">
 												<td><input type="radio" name="bidCompRadio" value=""></td>
 												<td style="display: none;">
 													<input type="hidden" value="<s:property value="BID_CO_NO"/>"/>
@@ -2732,7 +2732,7 @@
 								</thead>
 								<tbody id="bidExpertLibBody">
 									<s:iterator id="listExpertLib" value="listExpertLib" status="st1">
-										<tr>
+										<tr onclick="checkRadioTr(this, event);">
 											<td><input type="radio" name="bidExpertLibRadio" value="<s:property value="EXPERT_SEQ"/>"></td>
 											<td style="display: none;">
 												<input type="hidden" value="<s:property value="EXPERT_SEQ"/>" />
@@ -3217,7 +3217,7 @@
 							</thead>
 							<tbody>
 								<s:iterator id="listExpertComp" value="listExpertComp" status="st1">
-								<tr>
+								<tr onclick="checkCheckboxTr(this, event);">
 									<td><input name="expertCompKey" type="checkbox" value="<s:property value="EXPERT_COMP"/>"/></td>
 									<td><s:property value="EXPERT_COMP"/></td>
 								</tr>
@@ -3565,7 +3565,7 @@
 								</tr>
 							</thead>
 							<tbody id="expertLibData">
-								<tr>
+								<tr onclick="checkCheckboxTr(this, event);">
 									<td><input name="expertLibKey" type="checkbox" style="" value=""/></td>
 									<td style="display: none;">
 										<input type="hidden" value="">
@@ -3664,7 +3664,7 @@
 								</tr>
 							</thead>
 							<tbody id="bidCntrctData">
-								<tr>
+								<tr onclick="checkRadioTr(this, event);">
 									<td><input name="bidCntrctKey" type="radio" value=""/></td>
 									<td style="display: none;">
 										<input type="hidden" value="">

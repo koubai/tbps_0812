@@ -1184,7 +1184,7 @@
 		var list = document.getElementsByName("bidCompRadio");
 		for(var i = 0; i < list.length; i++) {
 			if(list[i].checked) {
-				obj = list[i]
+				obj = list[i];
 				break;
 			}
 		}
@@ -1192,7 +1192,8 @@
 			alert("请选择一条记录！");
 		} else {
 			if(confirm("确定删除吗?")) {
-				obj.parentNode.parentNode.remove();
+			//	obj.parentNode.parentNode.remove();
+				obj.parentNode.parentNode.parentNode.removeChild(obj.parentNode.parentNode);
 				//刷新seq
 				var rows = document.getElementById("bidCompBody").rows;
 				for(var i = 0; i < rows.length; i++) {
@@ -1294,7 +1295,7 @@
 			//新增
 			var bidCompBody = document.getElementById("bidCompBody");
 			var tr = document.createElement("tr");
-			
+			tr.onclick="checkRadioTr(this, event);";
 			var td0 = document.createElement("td");
 			//单选框
 			var radio = document.createElement("input");
