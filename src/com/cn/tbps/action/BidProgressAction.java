@@ -392,9 +392,9 @@ public class BidProgressAction extends BaseAction {
 				if (bidDto.getBID_WIN_DOC_SCAN_FLG()!= null)
 					ScanFlg = bidDto.getBID_WIN_DOC_SCAN_FLG();
 			}
-			System.out.println("showBidProgressUtilAction");
-			System.out.println("招标编号：" + strBID_NO);
-			System.out.println("按钮编号：" + BTN_NO);
+//			System.out.println("showBidProgressUtilAction");
+//			System.out.println("招标编号：" + strBID_NO);
+//			System.out.println("按钮编号：" + BTN_NO);
 			this.clearMessages();
 		} catch(Exception e) {
 			return ERROR;
@@ -406,13 +406,13 @@ public class BidProgressAction extends BaseAction {
 		this.clearMessages();
 
 //		String strMember1 = new String(Member1.getBytes("iso-8859-1"),"utf-8");
-		System.out.println("saveBidProgressUtilAction");
-		System.out.println("招标编号：" + strBID_NO);
-		System.out.println("按钮编号：" + BTN_NO);
-		System.out.println("日期：" + Date1);
-		System.out.println("姓名：" + Member1);
-		System.out.println("File01：" + File01);
-		System.out.println("File01_URL：" + File01_URL);
+//		System.out.println("saveBidProgressUtilAction");
+//		System.out.println("招标编号：" + strBID_NO);
+//		System.out.println("按钮编号：" + BTN_NO);
+//		System.out.println("日期：" + Date1);
+//		System.out.println("姓名：" + Member1);
+//		System.out.println("File01：" + File01);
+//		System.out.println("File01_URL：" + File01_URL);
 		String rtn ="";
 		String msgsnd = "";
 		
@@ -551,11 +551,11 @@ public class BidProgressAction extends BaseAction {
 	public String uploadBidProgressUtilAction() throws Exception {
 		this.clearMessages();
 
-		System.out.println("uploadBidProgressUtilAction");
-		System.out.println("招标编号：" + strBID_NO);
-		System.out.println("按钮编号：" + BTN_NO);
-		System.out.println("日期：" + Date1);
-		System.out.println("姓名：" + Member1);
+//		System.out.println("uploadBidProgressUtilAction");
+//		System.out.println("招标编号：" + strBID_NO);
+//		System.out.println("按钮编号：" + BTN_NO);
+//		System.out.println("日期：" + Date1);
+//		System.out.println("姓名：" + Member1);
 		try {
 			this.clearMessages();
 			String filename = getUploadFile();
@@ -617,9 +617,9 @@ public class BidProgressAction extends BaseAction {
 	public String saveBidProgress() {
 		try {
 			this.clearMessages();
-			System.out.println("saveBidProgressAction");
-			System.out.println("招标编号：" + strBID_NO);
-			System.out.println("按钮编号：" + BTN_NO);
+//			System.out.println("saveBidProgressAction");
+//			System.out.println("招标编号：" + strBID_NO);
+//			System.out.println("按钮编号：" + BTN_NO);
 			
 			String bidStatusInfo = "";
 			//新项目登记
