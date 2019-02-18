@@ -59,6 +59,11 @@ public class BidCompDto extends BaseDto {
 	private String BID_CO_ORGCODE;
 	
 	/**
+	 * 企业固定资产
+	 */
+	private String BID_CO_FUND;
+	
+	/**
 	 * 法定代表人
 	 */
 	private String BID_CO_LEGAL;
@@ -113,6 +118,7 @@ public class BidCompDto extends BaseDto {
 	 */
 	private String BID_CO_LANDLINE_TEL;
 
+	
 	/**
 	 * 开票信息
 	 */
@@ -1004,4 +1010,14 @@ public class BidCompDto extends BaseDto {
 	public void setBID_CO_LANDLINE_TEL(String bID_CO_LANDLINE_TEL) {
 		BID_CO_LANDLINE_TEL = bID_CO_LANDLINE_TEL;
 	}
+	
+	public String getBID_CO_FUND() {
+		return BID_CO_FUND;
+	}
+
+	public void setBID_CO_FUND(String bID_CO_FUND) {
+		BID_CO_FUND = bID_CO_FUND;
+	}
+
+
 }

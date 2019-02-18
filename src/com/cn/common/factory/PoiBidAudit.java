@@ -164,11 +164,11 @@ public class PoiBidAudit extends Poi2007Base {
 				cell = row.getCell((short) i+2);
 				// 万元单位，数据库万元单位
 				String strFund ="";
-				if (!StringUtil.isBlank(bidComp.getRESERVE8())){
-					if (!StringUtil.isNumeric(bidComp.getRESERVE8())){
-						strFund = String.valueOf(bidComp.getRESERVE8());								
+				if (!StringUtil.isBlank(bidComp.getBID_CO_FUND())){
+					if (!StringUtil.isNumeric(bidComp.getBID_CO_FUND())){
+						strFund = String.valueOf(bidComp.getBID_CO_FUND());								
 					}else{
-						BigDecimal bd_Fund = new BigDecimal(Double.parseDouble(bidComp.getRESERVE8())*10000);
+						BigDecimal bd_Fund = new BigDecimal(Double.parseDouble(bidComp.getBID_CO_FUND())*10000);
 						strFund = String.valueOf(bd_Fund);								
 					}
 				}
@@ -176,19 +176,19 @@ public class PoiBidAudit extends Poi2007Base {
 				// add 组织机构代码
 				row = sheet.getRow((short) rowMidCount + 5);
 				cell = row.getCell((short) i+2);
-				cell.setCellValue(bidComp.getRESERVE4());
+				cell.setCellValue(bidComp.getBID_CO_ORGCODE());
 				// add 法定代表人
 				row = sheet.getRow((short) rowMidCount + 6);
 				cell = row.getCell((short) i+2);
-				cell.setCellValue(bidComp.getRESERVE7());
+				cell.setCellValue(bidComp.getBID_CO_LEGAL());
 				// add 项目负责人
 				row = sheet.getRow((short) rowMidCount + 7);
 				cell = row.getCell((short) i+2);
-				cell.setCellValue(bidComp.getRESERVE2());
+				cell.setCellValue(bidComp.getBID_CO_PRO_MANAGER());
 				// add 项目负责人联系方式
 				row = sheet.getRow((short) rowMidCount + 8);
 				cell = row.getCell((short) i+2);
-				cell.setCellValue(bidComp.getRESERVE3());
+				cell.setCellValue(bidComp.getBID_CO_PRO_TEL());
 				// add 联系人
 				// add 联系人联系方式
 				row = sheet.getRow((short) rowMidCount + 9);

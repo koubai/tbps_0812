@@ -316,6 +316,7 @@
 			var BID_CO_PRO_MANAGER = childs[13].value;
 			var BID_CO_LANDLINE_TEL = childs[14].value;
 			var BID_CO_FAX = childs[15].value;
+			var BID_CO_FUND = childs[16].value;
 			
 			var tr = document.createElement("tr");
 			var td = document.createElement("td");
@@ -335,6 +336,7 @@
 			
 			td.appendChild(createInput("listBidCompTmp[" + i + "].BID_CO_LANDLINE_TEL", BID_CO_LANDLINE_TEL));
 			td.appendChild(createInput("listBidCompTmp[" + i + "].BID_CO_FAX", BID_CO_FAX));
+			td.appendChild(createInput("listBidCompTmp[" + i + "].BID_CO_FUND", BID_CO_FUND));
 			
 			td.appendChild(createInput("listBidCompTmp[" + i + "].BID_CO_SEQ", BID_CO_SEQ));
 			
@@ -1123,6 +1125,7 @@
 		$('#tmpBidCompPs').val("");
 		$('#tmpBidCompLandlineTel').val("");
 		$('#tmpBidCompFax').val("");
+		$('#tmpBidCompFund').val("");
 		//禁用 Bootstrap 模态框(Modal) 点击空白时自动关闭
 		$('#bidCompModal').modal({backdrop: 'static', keyboard: false});
 		$('#bidCompModal').modal('show');
@@ -1156,6 +1159,7 @@
 			var BID_CO_PRO_MANAGER = inputs[13].value;
 			var BID_CO_LANDLINE_TEL = inputs[14].value;
 			var BID_CO_FAX = inputs[15].value;
+			var BID_CO_FUND = inputs[16].value;
 			
 			var seq = tds[2].innerHTML;
 			$('#tmpBidCompId').val(BID_CO_NO);
@@ -1173,6 +1177,7 @@
 			
 			$('#tmpBidCompLandlineTel').val(BID_CO_LANDLINE_TEL);
 			$('#tmpBidCompFax').val(BID_CO_FAX);
+			$('#tmpBidCompFund').val(BID_CO_FUND);
 			//禁用 Bootstrap 模态框(Modal) 点击空白时自动关闭
 			$('#bidCompModal').modal({backdrop: 'static', keyboard: false});
 			$('#bidCompModal').modal('show');
@@ -1231,6 +1236,7 @@
 		var tmpBidCompName = $('#tmpBidCompName').val(); 
 		
 		var tmpBidCompOrgCode = $('#tmpBidCompOrgCode').val();
+		var tmpBidCompFund = $('#tmpBidCompFund').val();
 		var tmpBidCompLegal = $('#tmpBidCompLegal').val();
 		var tmpBidCompProManager = $('#tmpBidCompProManager').val();
 		var tmpBidCompProTel = $('#tmpBidCompProTel').val();
@@ -1245,11 +1251,15 @@
 			alert("请输入单位名称！");
 			$("#tmpBidCompName").focus();
 			return;
-		}
-		
+		}		
 		if(tmpBidCompOrgCode == "") {
 			alert("组织机构代码不能为空！");
 			$("#tmpBidCompOrgCode").focus();
+			return;
+		}
+		if(tmpBidCompFund == "") {
+			alert("请输入企业注册资金！");
+			$("#tmpBidCompFund").focus();
 			return;
 		}
 		if(tmpBidCompLegal == "") {
@@ -1357,7 +1367,9 @@
 			//传真
 			var input = createHidden(tmpBidCompFax);
 			td1.appendChild(input);
-			
+			//企业注册资金
+			var input = createHidden(tmpBidCompFund);
+			td1.appendChild(input);
 			tr.appendChild(td1);
 			
 			//序号
@@ -1383,6 +1395,8 @@
 			tr.appendChild(createTd(tmpBidCompLandlineTel));
 			//传真
 			tr.appendChild(createTd(tmpBidCompFax));
+			//企业注册资金
+			tr.appendChild(createTd(tmpBidCompFund));
 			
 			//报名内容
 			tr.appendChild(createTd(""));
@@ -1411,17 +1425,19 @@
 			ii[13].value = tmpBidCompProManager;
 			ii[14].value = tmpBidCompLandlineTel;
 			ii[15].value = tmpBidCompFax;
+			ii[16].value = tmpBidCompFund;
 			//更新显示的值
 			rows[seq].cells[3].innerHTML = tmpBidCompName;
 			rows[seq].cells[4].innerHTML = tmpBidCompOrgCode;
-			rows[seq].cells[5].innerHTML = tmpBidCompLegal;
-			rows[seq].cells[6].innerHTML = tmpBidCompProManager;
-			rows[seq].cells[7].innerHTML = tmpBidCompProTel;
-			rows[seq].cells[8].innerHTML = tmpBidCompManager;
-			rows[seq].cells[9].innerHTML = tmpBidCompTel;
-			rows[seq].cells[10].innerHTML = tmpBidCompPs;
-			rows[seq].cells[11].innerHTML = tmpBidCompLandlineTel;
-			rows[seq].cells[12].innerHTML = tmpBidCompFax;
+			rows[seq].cells[5].innerHTML = tmpBidCompFund;
+			rows[seq].cells[6].innerHTML = tmpBidCompLegal;
+			rows[seq].cells[7].innerHTML = tmpBidCompProManager;
+			rows[seq].cells[8].innerHTML = tmpBidCompProTel;
+			rows[seq].cells[9].innerHTML = tmpBidCompManager;
+			rows[seq].cells[10].innerHTML = tmpBidCompTel;
+			rows[seq].cells[11].innerHTML = tmpBidCompPs;
+			rows[seq].cells[12].innerHTML = tmpBidCompLandlineTel;
+			rows[seq].cells[13].innerHTML = tmpBidCompFax;
 		}
 		//刷新seq
 		var rows = document.getElementById("bidCompBody").rows;
@@ -2150,6 +2166,7 @@
 											<th>邮箱</th>
 											<th>固定电话</th>
 											<th>传真</th>
+											<th>固定资产</th>
 											<th colspan="3">报名内容</th>
 										</tr>
 									</thead>
@@ -2174,6 +2191,7 @@
 													<input type="hidden" value="<s:property value="BID_CO_PRO_MANAGER"/>"/>
 													<input type="hidden" value="<s:property value="BID_CO_LANDLINE_TEL"/>"/>
 													<input type="hidden" value="<s:property value="BID_CO_FAX"/>"/>
+													<input type="hidden" value="<s:property value="BID_CO_FUND"/>"/>
 												</td>
 												<td><s:property value="%{#st1.index + 1}"/></td>
 												<td><s:property value="BID_CO_NAME"/></td>
@@ -2186,6 +2204,7 @@
 												<td><s:property value="BID_CO_PS"/></td>
 												<td><s:property value="BID_CO_LANDLINE_TEL"/></td>
 												<td><s:property value="BID_CO_FAX"/></td>
+												<td><s:property value="BID_CO_FUND"/></td>
 												<td></td>
 											</tr>
 										</s:iterator>
@@ -3308,6 +3327,12 @@
 							<label class="col-sm-3 control-label">组织机构代码</label>
 							<div class="col-sm-8">
 								<input type="text" id="tmpBidCompOrgCode" class="form-control" maxlength="32" placeholder="请输入组织机构代码">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">企业注册资金（万元）</label>
+							<div class="col-sm-8">
+								<input type="text" id="tmpBidCompFund" class="form-control" maxlength="32" placeholder="请输入企业注册资金">
 							</div>
 						</div>
 						<div class="form-group">
