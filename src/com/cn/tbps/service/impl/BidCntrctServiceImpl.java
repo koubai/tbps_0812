@@ -136,6 +136,26 @@ public class BidCntrctServiceImpl extends BaseService implements BidCntrctServic
 		insertBidCntrctHis(bidCntrct);
 	}
 	
+	@Override
+	public void deleteBidCntrctLogic(String CNTRCT_NO, String username) {
+		BidCntrctDto bidCntrct = bidCntrctDao.queryBidCntrctByID(CNTRCT_NO);
+		if(bidCntrct != null) {
+			bidCntrct.setDELETE_FLG(Constants.IS_DELETE_DEL);
+			bidCntrct.setUPDATE_USER(username);
+			bidCntrctDao.updateBidCntrct(bidCntrct);
+			
+			//逻辑删除招标
+			List<BidDto> bidList = bidDao.queryAllBidByCntrctNo(CNTRCT_NO);
+			if(bidList != null && bidList.size() > 0) {
+				for(BidDto bid : bidList) {
+					bid.setDELETE_FLG(Constants.IS_DELETE_DEL);
+					bid.setUPDATE_USER(username);
+					bidDao.updateBid(bid);
+				}
+			}
+		}
+	}
+	
 	private void insertBidCntrctHis(BidCntrctDto bidCntrct) {
 		BidCntrctHisDto bidCntrctHis = new BidCntrctHisDto();
 		bidCntrctHis.setCNTRCT_NO(bidCntrct.getCNTRCT_NO());

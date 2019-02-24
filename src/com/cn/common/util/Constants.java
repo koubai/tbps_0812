@@ -1,9 +1,5 @@
 package com.cn.common.util;
 
-import com.cn.common.factory.PoiBidAccountReport;
-import com.cn.common.factory.PoiBidDataReport;
-import com.cn.common.factory.PoiBidEngineerReport;
-
 /**
  * 常量类
  * @name Constants.java

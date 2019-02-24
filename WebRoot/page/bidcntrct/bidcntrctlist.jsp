@@ -29,9 +29,15 @@
 			alert("请选择一条记录！");
 			return;
 		} else {
-			$("#strUpdCNTRCT_NO").val(id);
-			document.mainform.action = '<c:url value="/bidcntrct/showUpdBidCntrct.action"></c:url>';
-			document.mainform.submit();
+			var ll = id.split(",");
+			if(ll.length == 2) {
+				$("#strUpdCNTRCT_NO").val(ll[0]);
+				document.mainform.action = '<c:url value="/bidcntrct/showUpdBidCntrct.action"></c:url>';
+				document.mainform.submit();
+			} else {
+				alert("不能同时操作多条记录！");
+				return;
+			}
 		}
 	}
 
@@ -40,13 +46,32 @@
 		document.mainform.submit();
 	}
 	
+	function del() {
+		var id = getSelectedID();
+		if(id == "") {
+			alert("请选择一条记录！");
+			return;
+		} else {
+			var ll = id.split(",");
+			if(ll.length == 2) {
+				if(confirm("删除此合同记录同时也会删除合同下所有的招标记录，确定删除吗？")) {
+					$("#strDelCNTRCT_NO").val(ll[0]);
+					document.mainform.action = '<c:url value="/bidcntrct/delBidCntrct.action"></c:url>';
+					document.mainform.submit();
+				}
+			} else {
+				alert("不能同时操作多条记录！");
+				return;
+			}
+		}
+	}
+	
 	function getSelectedID() {
 		var id = "";
 		var list = document.getElementsByName("radioKey");
 		for(var i = 0; i < list.length; i++) {
 			if(list[i].checked) {
-				id = list[i].value;
-				break;
+				id += list[i].value + ",";
 			}
 		}
 		return id;
@@ -274,6 +299,7 @@
 					<s:hidden name="strCNTRCT_ED_DATE" id="strCNTRCT_ED_DATE"/>
 					<s:hidden name="strBID_COMP_NO" id="strBID_COMP_NO"/>
 					<s:hidden name="strBID_COMP_NAME" id="strBID_COMP_NAME"/>
+					<s:hidden name="strDelCNTRCT_NO" id="strDelCNTRCT_NO"/>
 					<s:hidden name="strCntrctNos" id="strCntrctNos"/>
 					<h3 class="title">招标合同管理一览<a class="backHome" href="#" onclick="goHome();"><i class="fa fa-home" aria-hidden="true"></i>返回首页</a></h3>
 					<div class="row">
@@ -339,7 +365,7 @@
 						<ul>
 							<li><a href="#" onclick="add();"><i class="fa fa-plus" aria-hidden="true"></i>新增</a></li>
 							<li><a href="#" onclick="upd();"><i class="fa fa-pencil" aria-hidden="true"></i>修改</a></li>
-							<!-- <li><a href="#" onclick="del();"><i class="fa fa-trash" aria-hidden="true"></i>删除</a></li> -->
+							<li><a href="#" onclick="del();"><i class="fa fa-trash" aria-hidden="true"></i>删除</a></li>
 						</ul>
 					</div>
 					<table class="table table-bordered">
