@@ -818,17 +818,29 @@
 			return;
 		}
 		
-		//清空原来的专家数据
-		$("#bidExpertLibBody").empty();
+		var oldexpertlist = ",";
+		//是否随机
+		if(document.getElementById("exportrandom").checked) {
+			//清空原来的专家数据----非随机则不清空
+			$("#bidExpertLibBody").empty();
+		} else {
+			var rows = document.getElementById("bidExpertLibBody").rows;
+			for(var i = 0; i < rows.length; i++) {
+				var childs = rows[i].cells[1].getElementsByTagName("input");
+				var EXPERT_SEQ = childs[0].value;
+				oldexpertlist += EXPERT_SEQ + ",";
+			}
+		}
+		
 		for(var i = 0; i < list.length; i++) {
 			//是否随机
 			if(document.getElementById("exportrandom").checked) {
 				//随机
-				selectExpertlibToList(list[i]);
+				selectExpertlibToList(list[i], "");
 			} else {
 				//非随机
 				if(list[i].checked) {
-					selectExpertlibToList(list[i]);
+					selectExpertlibToList(list[i], oldexpertlist);
 					expertLib = true;
 				}
 			}
@@ -844,7 +856,7 @@
 		$('#expertLibModal').modal('hide');
 	}
 	
-	function selectExpertlibToList(obj) {
+	function selectExpertlibToList(obj, oldexpertlist) {
 		var tr = obj.parentNode.parentNode;
 		var tds = tr.getElementsByTagName("td");
 		//第二列是隐藏列
@@ -856,6 +868,12 @@
 		var EXPERT_MAJOR_NAME = inputs[4].value;
 		var EXPERT_QULI = inputs[5].value;
 		var EXPERT_TEL1 = inputs[6].value;
+		
+		//专家已存在，不添加专家
+		if(oldexpertlist.indexOf("," + EXPERT_SEQ + ",") >= 0) {
+			return;
+		}
+		
 		//新增
 		var bidExpertLibBody = document.getElementById("bidExpertLibBody");
 		//验证专家是否存在
