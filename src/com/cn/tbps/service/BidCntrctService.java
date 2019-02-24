@@ -13,4 +13,11 @@ public interface BidCntrctService {
 	public void insertBidCntrct(BidCntrctDto bidCntrct);
 	
 	public void updateBidCntrct(BidCntrctDto bidCntrct);
+	
+	/**
+	 * 逻辑删除招标合同
+	 * @param CNTRCT_NO
+	 * @param username
+	 */
+	public void deleteBidCntrctLogic(String CNTRCT_NO, String username);
 }

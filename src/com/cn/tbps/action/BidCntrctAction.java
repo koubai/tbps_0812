@@ -71,6 +71,8 @@ public class BidCntrctAction extends BaseAction {
 	//修改
 	private String strUpdCNTRCT_NO;
 	private BidCntrctDto updBidCntrctDto;
+	//删除
+	private String strDelCNTRCT_NO;
 	
 	//ajax查询数据列表
 	private Integer ajaxTotalCount;
@@ -113,6 +115,28 @@ public class BidCntrctAction extends BaseAction {
 	}
 	
 	/**
+	 * 删除招标合同
+	 * @return
+	 */
+	public String delBidCntrct() {
+		try {
+			this.clearMessages();
+			String username = (String) ActionContext.getContext().getSession().get(Constants.USER_NAME);
+			bidCntrctService.deleteBidCntrctLogic(strDelCNTRCT_NO, username);
+			
+			//刷新页面数据
+			strDelCNTRCT_NO = "";
+			startIndex = 0;
+			queryData();
+			this.addActionMessage("删除招标合同成功！");
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
 	 * 显示修改页面
 	 * @return
 	 */
@@ -140,6 +164,8 @@ public class BidCntrctAction extends BaseAction {
 			if(!checkData(updBidCntrctDto)) {
 				return "checkerror";
 			}
+			String username = (String) ActionContext.getContext().getSession().get(Constants.USER_NAME);
+			updBidCntrctDto.setUPDATE_USER(username);
 			bidCntrctService.updateBidCntrct(updBidCntrctDto);
 			this.addActionMessage("数据更新成功！");
 		} catch(Exception e) {
@@ -447,6 +473,14 @@ public class BidCntrctAction extends BaseAction {
 
 	public void setStrCNTRCT_NM(String strCNTRCT_NM) {
 		this.strCNTRCT_NM = strCNTRCT_NM;
+	}
+
+	public String getStrDelCNTRCT_NO() {
+		return strDelCNTRCT_NO;
+	}
+
+	public void setStrDelCNTRCT_NO(String strDelCNTRCT_NO) {
+		this.strDelCNTRCT_NO = strDelCNTRCT_NO;
 	}
 
 

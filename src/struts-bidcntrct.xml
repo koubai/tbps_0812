@@ -22,6 +22,10 @@
 			<result name="success">/page/bidcntrct/bidcntrctlist.jsp</result>
 		</action>
 		
+		<action name="delBidCntrct" class="bidCntrctAction" method="delBidCntrct">
+			<result name="success">/page/bidcntrct/bidcntrctlist.jsp</result>
+		</action>
+		
 		<action name="showAddBidCntrct" class="bidCntrctAction" method="showAddBidCntrct">
 			<result name="success">/page/bidcntrct/addbidcntrct.jsp</result>
 		</action>
