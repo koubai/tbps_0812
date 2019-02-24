@@ -166,25 +166,25 @@ public class BidCompServiceImpl extends BaseService implements BidCompService {
                 	item.put("BID_CO_ADD", bidcompdto.getBID_CO_ADD());
                 	item.put("BID_CO_PS", bidcompdto.getBID_CO_PS());
                 	/*** 负责人*/
-                	item.put("RESERVE2", (bidcompdto.getRESERVE2()==null)?"":bidcompdto.getRESERVE2());
+                	item.put("BID_CO_PRO_MANAGER", (bidcompdto.getBID_CO_PRO_MANAGER()==null)?"":bidcompdto.getBID_CO_PRO_MANAGER());
 
                 	/*** 负责人联系方式*/
-                	item.put("RESERVE3", (bidcompdto.getRESERVE3()==null)?"":bidcompdto.getRESERVE3());
+                	item.put("BID_CO_PRO_TEL", (bidcompdto.getBID_CO_PRO_TEL()==null)?"":bidcompdto.getBID_CO_PRO_TEL());
 
                 	/*** 组织机构代码证*/
-                	item.put("RESERVE4", (bidcompdto.getRESERVE4()==null)?"":bidcompdto.getRESERVE4());
+                	item.put("BID_CO_ORGCODE", (bidcompdto.getBID_CO_ORGCODE()==null)?"":bidcompdto.getBID_CO_ORGCODE());
 
                 	/*** 固定电话*/
-                	item.put("RESERVE5", (bidcompdto.getRESERVE5()==null)?"":bidcompdto.getRESERVE5());
+                	item.put("BID_CO_LANDLINE_TEL", (bidcompdto.getBID_CO_LANDLINE_TEL()==null)?"":bidcompdto.getBID_CO_LANDLINE_TEL());
                 	
                 	/*** 传真*/
-                	item.put("RESERVE6", (bidcompdto.getRESERVE6()==null)?"":bidcompdto.getRESERVE6());
+                	item.put("BID_CO_FAX", (bidcompdto.getBID_CO_FAX()==null)?"":bidcompdto.getBID_CO_FAX());
                 	
                 	/*** 法定代表人*/
-                	item.put("RESERVE7", (bidcompdto.getRESERVE7()==null)?"":bidcompdto.getRESERVE7());
+                	item.put("BID_CO_LEGAL", (bidcompdto.getBID_CO_LEGAL()==null)?"":bidcompdto.getBID_CO_LEGAL());
                 	
                 	/*** 企业注册资金*/
-                	item.put("RESERVE8", (bidcompdto.getRESERVE8()==null)?"":bidcompdto.getRESERVE8());
+                	item.put("BID_CO_FUND", (bidcompdto.getBID_CO_FUND()==null)?"":bidcompdto.getBID_CO_FUND());
 
                 	System.out.println("GetData:" + item);
                 	jsonArr.add(item);            	

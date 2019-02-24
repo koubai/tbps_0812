@@ -9,6 +9,36 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
 <title>招标信息更新</title>
+<style type="text/css">
+ #searchresult
+ {
+  width: 500px;
+  position: absolute;
+  z-index: 1;
+  overflow: hidden;
+  left: 270px;
+  top: 153px;
+  background: #E0E0E0;
+  border-top: none;
+ }
+ .line
+ {
+  font-size: 12px;
+  background: #E0E0E0;
+  width: 130px;
+  padding: 2px;
+ }
+ .hover
+ {
+  background: #007ab8;
+  width: 130px;
+  color: #fff;
+ }
+ .std
+ {
+  width: 200px;
+ }
+</style>
 <!-- Bootstrap -->
 <link href="<%=request.getContextPath()%>/node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/node_modules/font-awesome/css/font-awesome.min.css">
@@ -16,6 +46,7 @@
 <link rel="stylesheet" href="<%=request.getContextPath()%>/css/global.css">
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/local.css" />
 <script type="text/javascript" src="<%=request.getContextPath()%>/js/common.js"></script>
+<script type="text/javascript" src="<%=request.getContextPath()%>/js/jquery-1.5.1.js"></script>
 <!-- HTML5 shim 和 Respond.js 是为了让 IE8 支持 HTML5 元素和媒体查询（media queries）功能 -->
 <!-- 警告：通过 file:// 协议（就是直接将 html 页面拖拽到浏览器中）访问页面时 Respond.js 不起作用 -->
 <!--[if lt IE 9]>
@@ -23,6 +54,159 @@
 <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
 <![endif]-->
 <script type="text/javascript">
+	$(function() {
+		//////////////////////////////
+		$("#tmpBidCompName").keyup(function (evt) {
+			  ChangeCoords(); //控制查询结果div坐标
+			  var k = window.event ? evt.keyCode : evt.which;
+			  //输入框的id为txt_search，这里监听输入框的keyup事件
+			  //不为空 && 不为上箭头或下箭头或回车
+			  if ($("#tmpBidCompName").val() != "" && k != 38 && k != 40 && k != 13) {
+				  $.ajax({
+			    	type: 'POST',
+			    	//async: false, //同步执行，不然会有问题
+			    	dataType: "json",
+			    	url: '<c:url value="/tbpsServlet.servlet"></c:url>' + '?compname=' + encodeURI($("#tmpBidCompName").val()) + "&&date" + new Date(), 			//提交的页面/方法名
+			    	data: "{'compname':'" + encodeURI($("#tmpBidCompName").val()) + "'}",    	//参数（如果没有参数：null）
+			    	contentType: "application/json; charset=utf-8",
+			    	error: function (msg) {//请求失败处理函数
+			     		alert("数据加载失败");
+			    	},
+			    	success: function (data) { //请求成功后处理函数。
+			     		var objData = eval(data);
+			     		if (objData.length > 0) {
+			      			var layer = "";
+			      			layer = "<table id='aa'>";
+			      			$.each(objData, function (idx, item) {
+			       				layer += "<tr class='line'><td class='std'>" + item.BID_CO_NAME + 
+			       				"</td><td style='display:none'>^^</td><td >" + item.BID_CO_MANAGER + 
+			       				"</td><td style='display:none'>^^</td><td style='display:none'>" + item.BID_CO_TEL + 
+			       				"</td><td style='display:none'>^^</td><td style='display:none'>" + item.BID_CO_ADD + 
+			       				"</td><td style='display:none'>^^</td><td style='display:none'>" + item.BID_CO_PS + 
+			       				"</td><td style='display:none'>^^</td><td style='display:none'>" + item.BID_CO_PRO_MANAGER + 
+			       				"</td><td style='display:none'>^^</td><td style='display:none'>" + item.BID_CO_PRO_TEL + 
+			       				"</td><td style='display:none'>^^</td><td >" + item.BID_CO_ORGCODE + 
+			       				"</td><td style='display:none'>^^</td><td style='display:none'>" + item.BID_CO_LANDLINE_TEL + 
+			       				"</td><td style='display:none'>^^</td><td style='display:none'>" + item.BID_CO_FAX + 
+			       				"</td><td style='display:none'>^^</td><td style='display:none'>" + item.BID_CO_LEGAL + 
+			       				"</td><td style='display:none'>^^</td><td >" + item.BID_CO_FUND + "</td></tr>";			       				
+			      			});
+			      			layer += "</table>";
+			     			//将结果添加到div中
+			      			$("#searchresult").empty();
+			      			$("#searchresult").append(layer);
+			      			$(".line:first").addClass("hover");
+			      			$("#searchresult").css("display", "");
+			      			//鼠标移动事件
+			      			$(".line").hover(function () {
+			       				$(".line").removeClass("hover");
+			       				$(this).addClass("hover");
+			      			}, function () {
+			       				$(this).removeClass("hover");
+			       				//$("#searchresult").css("display", "none");
+			      			});
+			      			//鼠标点击事件
+			      			$(".line").click(function () {
+			       				$("#txt_search").val($(this).text());
+			       				$("#searchresult").css("display", "none");
+			       				splitRec($(this).text());
+			      			});
+			     		} else {
+			      			$("#searchresult").empty();
+			     			$("#searchresult").css("display", "none");
+			     		}			     		
+			    	}
+			   });
+			} else if (k == 38) {//上箭头
+					$('#aa tr.hover').prev().addClass("hover");
+					$('#aa tr.hover').next().removeClass("hover");
+					$('#txt_search').val($('#aa tr.hover').text());
+			} else if (k == 40) {//下箭头
+				$('#aa tr.hover').next().addClass("hover");
+				$('#aa tr.hover').prev().removeClass("hover");
+				$('#txt_search').val($('#aa tr.hover').text());
+			}
+			else if (k == 13) {//回车
+				$('#txt_search').val($('#aa tr.hover').text());
+				$("#searchresult").empty();
+				$("#searchresult").css("display", "none");
+		//			$("#tmpBidCompName").val($('#txt_search').val());
+					splitRec($('#txt_search').val());
+			}
+			else {
+				$("#searchresult").empty();
+				$("#searchresult").css("display", "none");
+			}
+		});
+		$("#searchresult").bind("mouseleave", function () {
+			$("#searchresult").empty();
+			$("#searchresult").css("display", "none");
+		});
+	});
+	
+	function splitRec(recdata) {
+		if (recdata !=""){
+			temArryStr = recdata.split("^^");
+			if (temArryStr[0]!= null && temArryStr[0]!="")
+				$("#tmpBidCompName").val(temArryStr[0]);
+			else
+				$("#tmpBidCompName").val("");
+			if (temArryStr[0]!= null && temArryStr[1]!="")
+				$("#tmpBidCompManager").val(temArryStr[1]);
+			else
+				$("#tmpBidCompManager").val("");
+			if (temArryStr[0]!= null && temArryStr[2]!="")
+				$("#tmpBidCompTel").val(temArryStr[2]);
+			else
+				$("#tmpBidCompTel").val("");
+			if (temArryStr[0]!= null && temArryStr[3]!="")
+				$("#tmpBidCompAdd").val(temArryStr[3]);
+			else
+				$("#tmpBidCompAdd").val("");				
+			if (temArryStr[0]!= null && temArryStr[4]!="")
+				$("#tmpBidCompPs").val(temArryStr[4]);
+			else
+				$("#tmpBidCompPs").val("");
+			if (temArryStr[0]!= null && temArryStr[5]!="")
+				$("#tmpBidCompProManager").val(temArryStr[5]);
+			else
+				$("#tmpBidCompProManager").val("");
+			if (temArryStr[0]!= null && temArryStr[6]!="")
+				$("#tmpBidCompProTel").val(temArryStr[6]);
+			else
+				$("#tmpBidCompProTel").val("");
+			if (temArryStr[0]!= null && temArryStr[7]!="")
+				$("#tmpBidCompOrgCode").val(temArryStr[7]);
+			else
+				$("#tmpBidCompOrgCode").val("");
+			if (temArryStr[0]!= null && temArryStr[8]!="")
+				$("#tmpBidCompLandlineTel").val(temArryStr[8]);
+			else
+				$("#tmpBidCompLandlineTel").val("");
+			if (temArryStr[0]!= null && temArryStr[9]!="")
+				$("#tmpBidCompFax").val(temArryStr[9]);
+			else
+				$("#tmpBidCompFax").val("");
+			if (temArryStr[0]!= null && temArryStr[10]!="")
+				$("#tmpBidCompLegal").val(temArryStr[10]);
+			else
+				$("#tmpBidCompLegal").val("");
+			if (temArryStr[0]!= null && temArryStr[11]!="")
+				$("#tmpBidCompFund").val(temArryStr[11]);			
+			else
+				$("#tmpBidCompFund").val("");
+		}
+	}
+	
+	//设置查询结果div坐标
+	function ChangeCoords() {
+		var left = $("#tmpBidCompName").css("left");			//获取距离最左端的距离，像素，整型
+		var top = $("#tmpBidCompName").css("top")+ 20; ; 		//获取距离最顶端的距离，像素，整型（20为搜索输入框的高度）
+		$("#searchresult").css("left", left + "px"); 		//重新定义CSS属性
+		$("#searchresult").css("top", top + "px"); 			//同上
+	}
+
+
 	function upd() {
 		if(checkdata()) {
 			for(var i = 1; i <= 8; i++) {
@@ -1284,6 +1468,8 @@
 		$('#tmpBidCompLandlineTel').val("");
 		$('#tmpBidCompFax').val("");
 		$('#tmpBidCompFund').val("");
+		$('#tmpBidCompAdd').val("");
+		
 		//禁用 Bootstrap 模态框(Modal) 点击空白时自动关闭
 		$('#bidCompModal').modal({backdrop: 'static', keyboard: false});
 		$('#bidCompModal').modal('show');
@@ -1336,6 +1522,8 @@
 			$('#tmpBidCompLandlineTel').val(BID_CO_LANDLINE_TEL);
 			$('#tmpBidCompFax').val(BID_CO_FAX);
 			$('#tmpBidCompFund').val(BID_CO_FUND);
+			$('#tmpBidCompAdd').val(BID_CO_ADD);
+			
 			//禁用 Bootstrap 模态框(Modal) 点击空白时自动关闭
 			$('#bidCompModal').modal({backdrop: 'static', keyboard: false});
 			$('#bidCompModal').modal('show');
@@ -1404,6 +1592,7 @@
 		var tmpBidCompLandlineTel = $('#tmpBidCompLandlineTel').val();
 		var tmpBidCompFax = $('#tmpBidCompFax').val();
 		var tmpBidCompFund = $('#tmpBidCompFund').val();
+		var tmpBidCompAdd = $('#tmpBidCompAdd').val();
 		if(tmpBidCompName == "") {
 			alert("请输入单位名称！");
 			$("#tmpBidCompName").focus();
@@ -1441,15 +1630,15 @@
 			$("#tmpBidCompManager").focus();
 			return;
 		}
+		if(tmpBidCompAdd == "") {
+			alert("联系地址不能为空！");
+			$("#tmpBidCompAdd").focus();
+			return;
+		}
 		/*
 		if(tmpBidCompTel == "") {
 			alert("负责人电话不能为空！");
 			$("#tmpBidCompTel").focus();
-			return;
-		}
-		if(tmpBidCompAddress == "") {
-			alert("联系地址不能为空！");
-			$("#tmpBidCompAddress").focus();
 			return;
 		}
 		if(tmpBidCompPs == "") {
@@ -1488,7 +1677,7 @@
 			var input = createHidden(tmpBidCompTel);
 			td1.appendChild(input);
 			//公司联系地址
-			var input = createHidden("");
+			var input = createHidden(tmpBidCompAdd);
 			td1.appendChild(input);
 			//邮箱
 			var input = createHidden(tmpBidCompPs);
@@ -1528,7 +1717,6 @@
 			//企业注册资金
 			var input = createHidden(tmpBidCompFund);
 			td1.appendChild(input);
-			
 			tr.appendChild(td1);
 			
 			//序号
@@ -1568,7 +1756,7 @@
 			ii[1].value = tmpBidCompName;
 			ii[2].value = tmpBidCompManager;
 			ii[3].value = tmpBidCompTel;
-			ii[4].value = "";
+			ii[4].value = tmpBidCompAdd;
 			ii[5].value = tmpBidCompPs;
 			ii[6].value = "";
 			ii[7].value = "";
@@ -3722,6 +3910,12 @@
 		<div class="modal-dialog" style="width: 700px;">
 			<div class="modal-content">
 				<form class="form-horizontal" role="form">
+ <div>
+  <input id="txt_search" type="text" style="width: 250px;display:none" />
+  <div id="searchresult" style="display: none;">
+  </div>
+ </div>
+				
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">
 						&times;
@@ -3773,6 +3967,12 @@
 							<label class="col-sm-3 control-label">联系人</label>
 							<div class="col-sm-8">
 								<input type="text" id="tmpBidCompManager" class="form-control" maxlength="8" placeholder="请输入联系人">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-3 control-label">联系人地址</label>
+							<div class="col-sm-8">
+								<input type="text"  id="tmpBidCompAdd" class="form-control" maxlength="25" placeholder="请输入联系人地址">
 							</div>
 						</div>
 						<div class="form-group">
