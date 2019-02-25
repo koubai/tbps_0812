@@ -1648,15 +1648,15 @@
 			$("#tmpBidCompManager").focus();
 			return;
 		}
-		if(tmpBidCompAdd == "") {
-			alert("联系地址不能为空！");
-			$("#tmpBidCompAdd").focus();
-			return;
-		}
 		/*
 		if(tmpBidCompTel == "") {
 			alert("负责人电话不能为空！");
 			$("#tmpBidCompTel").focus();
+			return;
+		}
+		if(tmpBidCompAdd == "") {
+			alert("联系地址不能为空！");
+			$("#tmpBidCompAdd").focus();
 			return;
 		}
 		if(tmpBidCompPs == "") {
@@ -3987,12 +3987,13 @@
 								<input type="text" id="tmpBidCompManager" class="form-control" maxlength="8" placeholder="请输入联系人">
 							</div>
 						</div>
-						<div class="form-group">
+						<input type="hidden" id="tmpBidCompAdd" name="tmpBidCompAdd"/>
+						<!-- <div class="form-group">
 							<label class="col-sm-3 control-label">联系人地址</label>
 							<div class="col-sm-8">
 								<input type="text"  id="tmpBidCompAdd" class="form-control" maxlength="25" placeholder="请输入联系人地址">
 							</div>
-						</div>
+						</div> -->
 						<div class="form-group">
 							<label class="col-sm-3 control-label">联系人联系方式</label>
 							<div class="col-sm-8">
