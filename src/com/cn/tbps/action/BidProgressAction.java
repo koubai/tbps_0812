@@ -733,7 +733,13 @@ public class BidProgressAction extends BaseAction {
 			
 			//专家抽取、通知
 //			setStatus0104(bidStatusInfo.substring(4,5));
-			if (StringUtil.isNotBlank(bidDto.getBID_EXPERT_LIST())){
+/*			if (StringUtil.isNotBlank(bidDto.getBID_EXPERT_LIST())){
+				setStatus0104("9");
+			}else{
+				setStatus0104("0");
+			}*/
+			//根据专家通知时间判断
+			if (bidDto.getBID_EXPERT_NOTIFY_DATE()!=null && StringUtil.isNotBlank(bidDto.getBID_EXPERT_NOTIFY_DATE().toString())){
 				setStatus0104("9");
 			}else{
 				setStatus0104("0");
@@ -913,35 +919,50 @@ public class BidProgressAction extends BaseAction {
 					if (complist.get(z).getREFOUND_DEPOSIT_DATE() != null && StringUtil.isNotBlank(complist.get(z).getREFOUND_DEPOSIT_DATE().toString()))
 						cnt4 += 1;
 				}
-				if (cnt1 < 3)
-					setStatus0602("2");
-				else
-					setStatus0602("9");
-				if (cnt2 < 3)
-					setStatus0605("2");
-				else
-					setStatus0605("9");
-				if (cnt3 < 3)
-					setStatus0702("2");
-				else
-					setStatus0702("9");					
-				if (cnt4 < 3)
-					setStatus0705("2");
-				else
-					setStatus0705("9");					
-				
+				if (cnt1 == 0)
+					setStatus0602("0");
+				else {
+					if (cnt1 == complist.size())
+						setStatus0602("9");
+					else
+						setStatus0602("2");					
+				}
+				if (cnt2 == 0)
+					setStatus0605("0");
+				else{
+					if (cnt2 == complist.size())
+						setStatus0605("9");
+					else
+						setStatus0605("2");					
+				}
+				if (cnt3 == 0)
+					setStatus0702("0");
+				else{
+					if (cnt3 == complist.size())
+						setStatus0702("9");
+					else
+						setStatus0702("2");										
+				}
+				if (cnt4 == 0)
+					setStatus0705("0");
+				else {
+					if (cnt4 == complist.size())
+						setStatus0705("9");
+					else
+						setStatus0705("2");										
+				}
 			}else {
 				//标书费收取
-				// if 招标单位的标书费入账日期=0为0, 0<X<3 为2, >=3为9
+				// if 招标单位的标书费入账日期=0为0, 0<X<complist.count 为2, =complist.count为9
 				setStatus0602("0");
 				//标书费开票完成			
-				// if 招标单位的标书费开票日期=0为0, 0<X<3 为2, >=3为9
+				// if 招标单位的标书费开票日期=0为0, 0<X<complist.count 为2, =complist.count为9
 				setStatus0605("0");
 				//保证金收取
-				// if 招标单位的保证金入账日期=0为0, 0<X<3 为2, >=3为9
+				// if 招标单位的保证金入账日期=0为0, 0<X<complist.count 为2, =complist.count为9
 				setStatus0702("0");
 				//退保证金完成
-				// if 招标单位的退定日期=0为0, 0<X<3 为2, >=3为9
+				// if 招标单位的退定日期=0为0, 0<X<complist.count 为2, =complist.count为9
 				setStatus0705("0");				
 			}
 						

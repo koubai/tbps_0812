@@ -106,7 +106,7 @@ public class BidExpertCostAction extends BaseAction {
 			strCNTRCT_NO = "";
 			strBID_COMP_NO = "";
 			strBID_COMP_NAME = "";
-			page = new Page();
+			page = new Page(50);
 			startIndex = 0;
 			if(StringUtil.isNotBlank(strCntrctNos)) {
 				//查询招标列表
@@ -136,7 +136,7 @@ public class BidExpertCostAction extends BaseAction {
 			strBID_COMP_NO = "";
 			strBID_COMP_NAME = "";
 			strCntrctNos = "";
-			page = new Page();
+			page = new Page(50);
 			startIndex = 0;
 		} catch(Exception e) {
 			log.error("showBidExpertCostAction:" + e);
@@ -154,7 +154,7 @@ public class BidExpertCostAction extends BaseAction {
 			this.clearMessages();
 			//直接清空
 			strCntrctNos = "";
-			page = new Page();
+			page = new Page(50);
 			startIndex = 0;
 			queryData();
 		} catch(Exception e) {
@@ -186,7 +186,7 @@ public class BidExpertCostAction extends BaseAction {
 		expertCostBidList = new ArrayList<BidDto>();
 		listBid = new ArrayList<BidDto>();
 		if(page == null) {
-			page = new Page();
+			page = new Page(50);
 		}
 		//翻页查询所有招标
 		this.page.setStartIndex(startIndex);
