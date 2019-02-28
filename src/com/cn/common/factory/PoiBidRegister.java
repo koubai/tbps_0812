@@ -196,7 +196,7 @@ public class PoiBidRegister extends Poi2007Base {
 			int startNo = bidNoOld.indexOf("：");
 			String bidNoNew = bidNoOld;
 			
-			bidNoNew = bidNoNew.substring(0, startNo + 1) + bidNo + bidNoNew.substring(startNo);
+			bidNoNew = bidNoNew.substring(0, startNo + 1) + bidNo + bidNoNew.substring(startNo + 1);
 			
 			//项目名称
 			int nameStart = bidNoOld.indexOf("=");
@@ -244,6 +244,46 @@ public class PoiBidRegister extends Poi2007Base {
 					}
 				}
 			}
+			
+			//报名日期，报名时间
+			row = sheet.getRow((short) 1);
+			cell = row.getCell((short) 0);
+			String regist_date = "";
+			Date currentTime = new Date();
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd");
+
+			if (bidDto.getREGISTE_ST_DATE1()!= null){
+				regist_date +=formatter.format(bidDto.getREGISTE_ST_DATE1());
+			}
+			if (bidDto.getREGISTE_ED_DATE1()!= null){
+				regist_date = regist_date +" - "+formatter.format(bidDto.getREGISTE_ED_DATE1()) + ";";
+			}
+			if (bidDto.getREGISTE_ST_DATE2()!= null){
+				regist_date +=formatter.format(bidDto.getREGISTE_ST_DATE2());
+			}
+			if (bidDto.getREGISTE_ED_DATE2()!= null){
+				regist_date = regist_date +" - "+formatter.format(bidDto.getREGISTE_ED_DATE2()) + ";";
+			}
+			if (bidDto.getREGISTE_ST_DATE3()!= null){
+				regist_date +=formatter.format(bidDto.getREGISTE_ST_DATE3());
+			}
+			if (bidDto.getREGISTE_ED_DATE3()!= null){
+				regist_date = regist_date +" - "+formatter.format(bidDto.getREGISTE_ED_DATE3()) + ";";
+			}
+			if (bidDto.getREGISTE_ST_DATE4()!= null){
+				regist_date +=formatter.format(bidDto.getREGISTE_ST_DATE4());
+			}
+			if (bidDto.getREGISTE_ED_DATE4()!= null){
+				regist_date = regist_date +" - "+formatter.format(bidDto.getREGISTE_ED_DATE4()) + ";";
+			}
+			if (bidDto.getREGISTE_ST_DATE5()!= null){
+				regist_date +=formatter.format(bidDto.getREGISTE_ST_DATE5());
+			}
+			if (bidDto.getREGISTE_ED_DATE5()!= null){
+				regist_date = regist_date +" - "+formatter.format(bidDto.getREGISTE_ED_DATE5()) + ";";
+			}
+			String regist_buf = "报名日期："+ regist_date + "                    "+"报名时间：" + formatter.format(currentTime);
+			cell.setCellValue(regist_buf);
 		}
 	}
 	/** 
