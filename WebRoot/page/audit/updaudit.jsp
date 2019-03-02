@@ -516,8 +516,8 @@
 			document.getElementById('prePrice').style.display='none';
 			$("#PRE_PRICE").prop("value", "");
 			//初稿日期
-			document.getElementById('draftDateDiv').style.display='none';
-			$("#draftDate").prop("value", "");
+			//document.getElementById('draftDateDiv').style.display='none';
+			//$("#draftDate").prop("value", "");
 			//审定单发出日期
 			document.getElementById('approvalDiv').style.display='none';
 			$("#approvalSndDate").prop("value", "");
@@ -614,8 +614,8 @@
 			document.getElementById('prePrice').style.display='none';
 			$("#PRE_PRICE").prop("value", "");
 			//初稿日期
-			document.getElementById('draftDateDiv').style.display='none';
-			$("#draftDate").prop("value", "");
+			//document.getElementById('draftDateDiv').style.display='none';
+			//$("#draftDate").prop("value", "");
 			//委托方
 			document.getElementById('agent').style.display='none';
 			$("#AGENT_INFO").prop("value", "");
@@ -830,9 +830,9 @@
 	function disableC(){
 		$('#REPORT_NO').attr('disabled',"true");
 		$('#PROJECT_MANAGER').attr('disabled',"true");
-		$('#PROJECT_NAME_PASS').attr('disabled',"true");
+		//$('#PROJECT_NAME_PASS').attr('disabled',"true");
 		//$('#PROJECT_NAME').attr('disabled',"true");
-		$('#PROGRESS_STATUS').attr('disabled',"disabled");
+		//$('#PROGRESS_STATUS').attr('disabled',"disabled");
 		$('#docRecDate').attr('disabled',"disabled");
 		$('#planDocRcvDate').attr('disabled',"disabled");
 		$('#bidDocRcvDate').attr('disabled',"disabled");

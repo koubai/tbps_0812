@@ -252,19 +252,29 @@
 							<label for="" class="col-lg-1 form-label">委托内容</label>
 							<div class="col-lg-2">
 								<select id="strCntrctInfo" name="strCntrctInfo" class="form-control">
-									<s:if test='strCntrctInfo == "2"'>
+									<s:if test='strCntrctInfo == "1"'>
+										<option value="1" selected="selected">审价</option>
+										<option value="2">咨询</option>
+										<option value="3">清单编制</option>
+										<option value="4">控制价编制</option>
+										<option value="5">全过程投资监理</option>
+										<option value="">全类别</option>
+									</s:if>
+									<s:elseif test='strCntrctInfo == "2"'>
 										<option value="1">审价</option>
 										<option value="2" selected="selected">咨询</option>
 										<option value="3">清单编制</option>
 										<option value="4">控制价编制</option>
 										<option value="5">全过程投资监理</option>
-									</s:if>
+										<option value="">全类别</option>
+									</s:elseif>
 									<s:elseif test='strCntrctInfo == "3"'>
 										<option value="1">审价</option>
 										<option value="2">咨询</option>
 										<option value="3" selected="selected">清单编制</option>
 										<option value="4">控制价编制</option>
 										<option value="5">全过程投资监理</option>
+										<option value="">全类别</option>
 									</s:elseif>
 									<s:elseif test='strCntrctInfo == "4"'>
 										<option value="1">审价</option>
@@ -272,6 +282,7 @@
 										<option value="3">清单编制</option>
 										<option value="4" selected="selected">控制价编制</option>
 										<option value="5">全过程投资监理</option>
+										<option value="">全类别</option>
 									</s:elseif>
 									<s:elseif test='strCntrctInfo == "5"'>
 										<option value="1">审价</option>
@@ -279,6 +290,7 @@
 										<option value="3">清单编制</option>
 										<option value="4">控制价编制</option>
 										<option value="5" selected="selected">全过程投资监理</option>
+										<option value="">全类别</option>
 									</s:elseif>
 									<s:else>
 										<option value="1" selected="selected">审价</option>
@@ -286,6 +298,7 @@
 										<option value="3">清单编制</option>
 										<option value="4">控制价编制</option>
 										<option value="5">全过程投资监理</option>
+										<option value=""  selected="selected">全类别</option>
 									</s:else>
 								</select>
 							</div>
