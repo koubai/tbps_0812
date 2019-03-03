@@ -15,6 +15,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.cn.common.util.StringUtil;
+import com.cn.common.util.TbpsUtil;
 import com.cn.tbps.dto.BidRptDto;
 
 /**
@@ -157,35 +158,35 @@ public class PoiBidEngineerReport extends Poi2007Base {
 			XSSFCell cell31 = row.createCell(31);
 
 			// 合同编号
-			cell0.setCellValue(biddata.getCNTRCT_NO());
+			cell0.setCellValue(TbpsUtil.obj2string(biddata.getCNTRCT_NO()));
 			cell0.setCellStyle(style);
 			// 承接项目日期
-			cell1.setCellValue(biddata.getPROJECT_DEVIEW_DATE());
+			cell1.setCellValue(TbpsUtil.obj2string(biddata.getPROJECT_DEVIEW_DATE()));
 			cell1.setCellStyle(style);
 			// 招标编号
-			cell2.setCellValue(biddata.getBID_NO());
+			cell2.setCellValue(TbpsUtil.obj2string(biddata.getBID_NO()));
 			cell2.setCellStyle(style);
 			// 分类
-			cell3.setCellValue(biddata.getCNTRCT_TYPE_NAME());
+			cell3.setCellValue(TbpsUtil.obj2string(biddata.getCNTRCT_TYPE_NAME()));
 			cell3.setCellStyle(style);
 			// 项目性质
-			cell4.setCellValue(biddata.getPROJECT_PROPERTY_NAME());
+			cell4.setCellValue(TbpsUtil.obj2string(biddata.getPROJECT_PROPERTY_NAME()));
 			cell4.setCellStyle(style);
 			// 项目名称
-			cell5.setCellValue(biddata.getPROJECT_NAME());
+			cell5.setCellValue(TbpsUtil.obj2string(biddata.getPROJECT_NAME()));
 			cell5.setCellStyle(style);
 			// 委托单位
-			cell6.setCellValue(biddata.getBID_COMP_NAME());
+			cell6.setCellValue(TbpsUtil.obj2string(biddata.getBID_COMP_NAME()));
 			cell6.setCellStyle(style);
 			// 联系人
-			cell7.setCellValue(biddata.getCO_MANAGER1());
+			cell7.setCellValue(TbpsUtil.obj2string(biddata.getCO_MANAGER1()));
 			cell7.setCellStyle(style);
 			// 会审监管人
-			cell8.setCellValue(biddata.getPROJECT_AUTH_NAME());
+			cell8.setCellValue(TbpsUtil.obj2string(biddata.getPROJECT_AUTH_NAME()));
 			cell8.setCellStyle(style);
 			// 代理费用支付方
 			if (biddata.getBID_AGENT_PAY() == null)
-				cell9.setCellValue(biddata.getBID_AGENT_PAY());
+				cell9.setCellValue(TbpsUtil.obj2string(biddata.getBID_AGENT_PAY()));
 			else {
 				if (biddata.getBID_AGENT_PAY().equals("1"))
 					cell9.setCellValue("委托单位");

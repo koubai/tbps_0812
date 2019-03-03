@@ -1170,6 +1170,18 @@ public class BidServiceImpl extends BaseService implements BidService {
 			bid.setDELETE_FLG(Constants.IS_DELETE_DEL);
 			bid.setUPDATE_USER(username);
 			bidDao.updateBid(bid);
+			
+			//删除招标合同
+			List<BidCompDto> bidCompList = bidCompDao.queryAllBidCompExport(bidNo, "", "");
+			if(bidCompList != null && bidCompList.size() > 0) {
+				for(BidCompDto bidcomp : bidCompList) {
+					//删除标记=已删除
+					bidcomp.setDELETE_FLG(Constants.IS_DELETE_DEL);
+					bidcomp.setUPDATE_USER(username);
+					bidCompDao.updateBidComp(bidcomp);
+				}
+			}
+			
 			//插入招标履历
 			insertBidHist(bid);
 		}

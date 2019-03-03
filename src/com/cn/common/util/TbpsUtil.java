@@ -3,6 +3,18 @@ package com.cn.common.util;
 import java.math.BigDecimal;
 
 public class TbpsUtil {
+	
+	/**
+	 * 对象转为字符串（EXCEL导出用）
+	 * @param obj
+	 * @return
+	 */
+	public static String obj2string(Object obj) {
+		if(obj != null) {
+			return "" + obj;
+		}
+		return null;
+	}
 
 	/**
 	 * 根据折扣计算实收代理费

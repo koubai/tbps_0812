@@ -16,6 +16,7 @@ import com.cn.tbps.dto.BidCntrctHisDto;
 import com.cn.tbps.dto.BidCompDto;
 import com.cn.tbps.dto.BidDto;
 import com.cn.tbps.service.BidCntrctService;
+import com.cn.tbps.service.BidService;
 
 public class BidCntrctServiceImpl extends BaseService implements BidCntrctService {
 	
@@ -23,6 +24,8 @@ public class BidCntrctServiceImpl extends BaseService implements BidCntrctServic
 	private BidCntrctHisDao bidCntrctHisDao;
 	private BidDao bidDao;
 	private BidCompDao bidCompDao;
+	//删除逻辑用
+	private BidService bidService;
 
 	@Override
 	public Page queryBidCntrctByPage(String CNTRCT_YEAR, String CNTRCT_NO, String BID_COMP_NO,
@@ -148,9 +151,7 @@ public class BidCntrctServiceImpl extends BaseService implements BidCntrctServic
 			List<BidDto> bidList = bidDao.queryAllBidByCntrctNo(CNTRCT_NO);
 			if(bidList != null && bidList.size() > 0) {
 				for(BidDto bid : bidList) {
-					bid.setDELETE_FLG(Constants.IS_DELETE_DEL);
-					bid.setUPDATE_USER(username);
-					bidDao.updateBid(bid);
+					bidService.deleteBid(bid.getBID_NO(), username);
 				}
 			}
 		}
@@ -264,5 +265,13 @@ public class BidCntrctServiceImpl extends BaseService implements BidCntrctServic
 
 	public void setBidCompDao(BidCompDao bidCompDao) {
 		this.bidCompDao = bidCompDao;
+	}
+
+	public BidService getBidService() {
+		return bidService;
+	}
+
+	public void setBidService(BidService bidService) {
+		this.bidService = bidService;
 	}
 }

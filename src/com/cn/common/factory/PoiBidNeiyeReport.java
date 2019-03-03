@@ -15,6 +15,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.cn.common.util.StringUtil;
+import com.cn.common.util.TbpsUtil;
 import com.cn.tbps.dto.BidDto;
 import com.cn.tbps.dto.BidRptDto;
 
@@ -154,29 +155,29 @@ public class PoiBidNeiyeReport extends Poi2007Base {
 			XSSFCell cell29 = row.createCell(29);
 
 			// 合同编号
-			cell0.setCellValue(biddata.getCNTRCT_NO());
+			cell0.setCellValue(TbpsUtil.obj2string(biddata.getCNTRCT_NO()));
 			cell0.setCellStyle(style);
 			// 承接项目日期
-			cell1.setCellValue(biddata.getPROJECT_DEVIEW_DATE());
+			cell1.setCellValue(TbpsUtil.obj2string(biddata.getPROJECT_DEVIEW_DATE()));
 			cell1.setCellStyle(style);
 			// 招标编号
-			cell2.setCellValue(biddata.getBID_NO());
+			cell2.setCellValue(TbpsUtil.obj2string(biddata.getBID_NO()));
 			cell2.setCellStyle(style);
 			// 分类
-			cell3.setCellValue(biddata.getCNTRCT_TYPE_NAME());
+			cell3.setCellValue(TbpsUtil.obj2string(biddata.getCNTRCT_TYPE_NAME()));
 			cell3.setCellStyle(style);
 			// 项目名称
-			cell4.setCellValue(biddata.getPROJECT_NAME());
+			cell4.setCellValue(TbpsUtil.obj2string(biddata.getPROJECT_NAME()));
 			cell4.setCellStyle(style);
 			// 委托单位
-			cell5.setCellValue(biddata.getBID_COMP_NAME());
+			cell5.setCellValue(TbpsUtil.obj2string(biddata.getBID_COMP_NAME()));
 			cell5.setCellStyle(style);
 			// 投标单位
-			cell6.setCellValue(biddata.getBID_CO_NAME());
+			cell6.setCellValue(TbpsUtil.obj2string(biddata.getBID_CO_NAME()));
 			cell6.setCellStyle(style);
 			// 中标单位
 			if (biddata.getBID_RESULT() != null && biddata.getBID_RESULT().equals("1"))
-				cell7.setCellValue(biddata.getBID_CO_NAME());
+				cell7.setCellValue(TbpsUtil.obj2string(biddata.getBID_CO_NAME()));
 			else 
 				cell7.setCellValue("");
 			cell7.setCellStyle(style);
