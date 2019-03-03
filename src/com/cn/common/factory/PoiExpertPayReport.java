@@ -14,6 +14,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.cn.common.util.StringUtil;
+import com.cn.common.util.TbpsUtil;
 import com.cn.tbps.dto.BidDto;
 
 /**
@@ -121,7 +122,7 @@ public class PoiExpertPayReport extends Poi2007Base {
 			cell4.setCellStyle(style);
 			//退还差额（元）
 			if(bidrpt.getBID_EXPERT_COMMISION_PRE_YUAN_SHOW() != null && bidrpt.getBID_EXPERT_COMMISION_ACT_YUAN_SHOW() != null)
-				bidrpt.setBID_EXPERT_COMMISION_DIFF(bidrpt.getBID_EXPERT_COMMISION_PRE_YUAN_SHOW().add(bidrpt.getBID_EXPERT_COMMISION_ACT_YUAN_SHOW().negate()));
+				bidrpt.setBID_EXPERT_COMMISION_DIFF(TbpsUtil.bigDecimal2str(bidrpt.getBID_EXPERT_COMMISION_PRE_YUAN_SHOW().add(bidrpt.getBID_EXPERT_COMMISION_ACT_YUAN_SHOW().negate())));
 			cell5.setCellValue(StringUtil.BigDecimal2Str(bidrpt.getBID_EXPERT_COMMISION_DIFF(), 2));
 			cell5.setCellStyle(style);
 			cell6.setCellValue("");

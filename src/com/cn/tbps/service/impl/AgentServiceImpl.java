@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import com.cn.common.service.BaseService;
+import com.cn.common.util.TbpsUtil;
 import com.cn.tbps.dto.BidDto;
 import com.cn.tbps.service.AgentService;
 
@@ -35,10 +36,10 @@ public class AgentServiceImpl extends BaseService implements AgentService {
 			BidDto bid;
 			for (int i = 0; i< bidlist.size(); i++){
 				bid = bidlist.get(i);
-				bid.setBID_AGENT_PRICE_ACT(bid.getBID_AGENT_PRICE().multiply(m_discount).setScale(6,BigDecimal.ROUND_HALF_UP));
+				bid.setBID_AGENT_PRICE_ACT(TbpsUtil.bigDecimal2str(bid.getBID_AGENT_PRICE().multiply(m_discount).setScale(6,BigDecimal.ROUND_HALF_UP)));
 				leave_diff = leave_diff.min(bid.getBID_AGENT_PRICE().multiply(bid.getBID_AGENT_PRICE_ACT())).setScale(6,BigDecimal.ROUND_HALF_UP); 
 				if (i == m_bidlist.size() - 1)
-					bid.setBID_AGENT_PRICE(bid.getBID_AGENT_PRICE_ACT().add(leave_diff).setScale(6,BigDecimal.ROUND_HALF_UP));
+					bid.setBID_AGENT_PRICE(TbpsUtil.bigDecimal2str(bid.getBID_AGENT_PRICE_ACT().add(leave_diff).setScale(6,BigDecimal.ROUND_HALF_UP)));
 			}			
 		}
 		return bidlist;

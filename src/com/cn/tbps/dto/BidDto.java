@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.cn.common.dto.BaseDto;
 import com.cn.common.util.DateUtil;
+import com.cn.common.util.TbpsUtil;
 
 /**
  * 招标
@@ -950,16 +951,8 @@ public class BidDto extends BaseDto {
 		return BID_PRICE;
 	}
 
-	public void setBID_PRICE(BigDecimal bID_PRICE) {
-		BID_PRICE = bID_PRICE;
-	}
-
 	public BigDecimal getBID_APPLY_PRICE() {
 		return BID_APPLY_PRICE;
-	}
-
-	public void setBID_APPLY_PRICE(BigDecimal bID_APPLY_PRICE) {
-		BID_APPLY_PRICE = bID_APPLY_PRICE;
 	}
 
 	public String getPROJ_APPROVAL() {
@@ -996,10 +989,6 @@ public class BidDto extends BaseDto {
 
 	public BigDecimal getBID_AGENT_PRICE() {
 		return BID_AGENT_PRICE;
-	}
-
-	public void setBID_AGENT_PRICE(BigDecimal bID_AGENT_PRICE) {
-		BID_AGENT_PRICE = bID_AGENT_PRICE;
 	}
 
 	public String getFINISH_STATUS() {
@@ -1102,10 +1091,6 @@ public class BidDto extends BaseDto {
 		return BID_BOND;
 	}
 
-	public void setBID_BOND(BigDecimal bID_BOND) {
-		BID_BOND = bID_BOND;
-	}
-
 	public List<String[]> getAGENT_CO_LIST() {
 		return AGENT_CO_LIST;
 	}
@@ -1172,10 +1157,6 @@ public class BidDto extends BaseDto {
 
 	public BigDecimal getBID_AGENT_PRICE_ACT() {
 		return BID_AGENT_PRICE_ACT;
-	}
-
-	public void setBID_AGENT_PRICE_ACT(BigDecimal bID_AGENT_PRICE_ACT) {
-		BID_AGENT_PRICE_ACT = bID_AGENT_PRICE_ACT;
 	}
 
 	public Date getREGISTE_ST_DATE1() {
@@ -1286,10 +1267,6 @@ public class BidDto extends BaseDto {
 		return BID_LIMIT_PRICE;
 	}
 
-	public void setBID_LIMIT_PRICE(BigDecimal bID_LIMIT_PRICE) {
-		BID_LIMIT_PRICE = bID_LIMIT_PRICE;
-	}
-
 	public String getBID_CO_SEQ() {
 		return BID_CO_SEQ;
 	}
@@ -1302,32 +1279,16 @@ public class BidDto extends BaseDto {
 		return BID_CO_PRICE;
 	}
 
-	public void setBID_CO_PRICE(BigDecimal bID_CO_PRICE) {
-		BID_CO_PRICE = bID_CO_PRICE;
-	}
-
 	public BigDecimal getBID_EXPERT_COMMISION() {
 		return BID_EXPERT_COMMISION;
 	}
-
-	public void setBID_EXPERT_COMMISION(BigDecimal bID_EXPERT_COMMISION) {
-		BID_EXPERT_COMMISION = bID_EXPERT_COMMISION;
-	}
-
+	
 	public BigDecimal getBID_EXPERT_COMMISION_PRE() {
 		return BID_EXPERT_COMMISION_PRE;
 	}
 
-	public void setBID_EXPERT_COMMISION_PRE(BigDecimal bID_EXPERT_COMMISION_PRE) {
-		BID_EXPERT_COMMISION_PRE = bID_EXPERT_COMMISION_PRE;
-	}
-
 	public BigDecimal getBID_EXPERT_COMMISION_ACT() {
 		return BID_EXPERT_COMMISION_ACT;
-	}
-
-	public void setBID_EXPERT_COMMISION_ACT(BigDecimal bID_EXPERT_COMMISION_ACT) {
-		BID_EXPERT_COMMISION_ACT = bID_EXPERT_COMMISION_ACT;
 	}
 
 	public Date getBID_EXPERT_COMMISION_DIFF_DATE() {
@@ -1822,10 +1783,6 @@ public class BidDto extends BaseDto {
 		return BID_WIN_PRICE;
 	}
 
-	public void setBID_WIN_PRICE(BigDecimal bID_WIN_PRICE) {
-		BID_WIN_PRICE = bID_WIN_PRICE;
-	}
-
 	public Date getBID_VALUE_DATE() {
 		return BID_VALUE_DATE;
 	}
@@ -2146,10 +2103,6 @@ public class BidDto extends BaseDto {
 		return BID_EXPERT_COMMISION_DIFF;
 	}
 
-	public void setBID_EXPERT_COMMISION_DIFF(BigDecimal bID_EXPERT_COMMISION_DIFF) {
-		BID_EXPERT_COMMISION_DIFF = bID_EXPERT_COMMISION_DIFF;
-	}
-
 	public String getBID_WIN_DOC_SCAN_FLG() {
 		return BID_WIN_DOC_SCAN_FLG;
 	}
@@ -2178,16 +2131,8 @@ public class BidDto extends BaseDto {
 		return BID_EXPERT_COMMISION_PRE_YUAN;
 	}
 
-	public void setBID_EXPERT_COMMISION_PRE_YUAN(BigDecimal bID_EXPERT_COMMISION_PRE_YUAN) {
-		BID_EXPERT_COMMISION_PRE_YUAN = bID_EXPERT_COMMISION_PRE_YUAN;
-	}
-
 	public BigDecimal getBID_EXPERT_COMMISION_ACT_YUAN() {
 		return BID_EXPERT_COMMISION_ACT_YUAN;
-	}
-
-	public void setBID_EXPERT_COMMISION_ACT_YUAN(BigDecimal bID_EXPERT_COMMISION_ACT_YUAN) {
-		BID_EXPERT_COMMISION_ACT_YUAN = bID_EXPERT_COMMISION_ACT_YUAN;
 	}
 
 	public BigDecimal getBID_EXPERT_COMMISION_PRE_YUAN_SHOW() {
@@ -2198,10 +2143,6 @@ public class BidDto extends BaseDto {
 		return BID_EXPERT_COMMISION_PRE_YUAN_SHOW;
 	}
 
-	public void setBID_EXPERT_COMMISION_PRE_YUAN_SHOW(BigDecimal bID_EXPERT_COMMISION_PRE_YUAN_SHOW) {
-		BID_EXPERT_COMMISION_PRE_YUAN_SHOW = bID_EXPERT_COMMISION_PRE_YUAN_SHOW;
-	}
-
 	public BigDecimal getBID_EXPERT_COMMISION_ACT_YUAN_SHOW() {
 		BID_EXPERT_COMMISION_ACT_YUAN_SHOW = new BigDecimal(0);
 		if(BID_EXPERT_COMMISION_ACT != null) {
@@ -2210,9 +2151,69 @@ public class BidDto extends BaseDto {
 		return BID_EXPERT_COMMISION_ACT_YUAN_SHOW;
 	}
 
-	public void setBID_EXPERT_COMMISION_ACT_YUAN_SHOW(BigDecimal bID_EXPERT_COMMISION_ACT_YUAN_SHOW) {
-		BID_EXPERT_COMMISION_ACT_YUAN_SHOW = bID_EXPERT_COMMISION_ACT_YUAN_SHOW;
+
+	//
+	public void setBID_AGENT_PRICE(String bID_AGENT_PRICE) {
+		BID_AGENT_PRICE = TbpsUtil.str2BigDecimal(bID_AGENT_PRICE, 6);
 	}
 
+	public void setBID_AGENT_PRICE_ACT(String bID_AGENT_PRICE_ACT) {
+		BID_AGENT_PRICE_ACT = TbpsUtil.str2BigDecimal(bID_AGENT_PRICE_ACT, 6);
+	}
 
+	public void setBID_BOND(String bID_BOND) {
+		BID_BOND = TbpsUtil.str2BigDecimal(bID_BOND, 6);
+	}
+
+	public void setBID_LIMIT_PRICE(String bID_LIMIT_PRICE) {
+		BID_LIMIT_PRICE = TbpsUtil.str2BigDecimal(bID_LIMIT_PRICE, 6);
+	}
+
+	public void setBID_CO_PRICE(String bID_CO_PRICE) {
+		BID_CO_PRICE = TbpsUtil.str2BigDecimal(bID_CO_PRICE, 6);
+	}
+
+	public void setBID_PRICE(String bID_PRICE) {
+		BID_PRICE = TbpsUtil.str2BigDecimal(bID_PRICE, 6);
+	}
+
+	public void setBID_EXPERT_COMMISION(String bID_EXPERT_COMMISION) {
+		BID_EXPERT_COMMISION = TbpsUtil.str2BigDecimal(bID_EXPERT_COMMISION, 6);
+	}
+
+	public void setBID_EXPERT_COMMISION_PRE(String bID_EXPERT_COMMISION_PRE) {
+		BID_EXPERT_COMMISION_PRE = TbpsUtil.str2BigDecimal(bID_EXPERT_COMMISION_PRE, 6);
+	}
+
+	public void setBID_EXPERT_COMMISION_PRE_YUAN(String bID_EXPERT_COMMISION_PRE_YUAN) {
+		BID_EXPERT_COMMISION_PRE_YUAN = TbpsUtil.str2BigDecimal(bID_EXPERT_COMMISION_PRE_YUAN, 6);
+	}
+
+	public void setBID_EXPERT_COMMISION_PRE_YUAN_SHOW(String bID_EXPERT_COMMISION_PRE_YUAN_SHOW) {
+		BID_EXPERT_COMMISION_PRE_YUAN_SHOW = TbpsUtil.str2BigDecimal(bID_EXPERT_COMMISION_PRE_YUAN_SHOW, 6);
+	}
+
+	public void setBID_EXPERT_COMMISION_ACT(String bID_EXPERT_COMMISION_ACT) {
+		BID_EXPERT_COMMISION_ACT = TbpsUtil.str2BigDecimal(bID_EXPERT_COMMISION_ACT, 6);
+	}
+
+	public void setBID_EXPERT_COMMISION_ACT_YUAN(String bID_EXPERT_COMMISION_ACT_YUAN) {
+		BID_EXPERT_COMMISION_ACT_YUAN = TbpsUtil.str2BigDecimal(bID_EXPERT_COMMISION_ACT_YUAN, 6);
+	}
+
+	public void setBID_EXPERT_COMMISION_ACT_YUAN_SHOW(String bID_EXPERT_COMMISION_ACT_YUAN_SHOW) {
+		BID_EXPERT_COMMISION_ACT_YUAN_SHOW = TbpsUtil.str2BigDecimal(bID_EXPERT_COMMISION_ACT_YUAN_SHOW, 6);
+	}
+
+	public void setBID_EXPERT_COMMISION_DIFF(String bID_EXPERT_COMMISION_DIFF) {
+		BID_EXPERT_COMMISION_DIFF = TbpsUtil.str2BigDecimal(bID_EXPERT_COMMISION_DIFF, 6);
+	}
+	
+	public void setBID_APPLY_PRICE(String bID_APPLY_PRICE) {
+		BID_APPLY_PRICE = TbpsUtil.str2BigDecimal(bID_APPLY_PRICE, 6);
+	}
+
+	public void setBID_WIN_PRICE(String bID_WIN_PRICE) {
+		BID_WIN_PRICE = TbpsUtil.str2BigDecimal(bID_WIN_PRICE, 6);
+	}
 }

@@ -73,7 +73,7 @@ public class BidServiceImpl extends BaseService implements BidService {
 				if(StringUtil.isNotBlank(bid.getBID_NO())) {
 					BidDto newBid = bidDao.queryAllBidByID(bid.getBID_NO());
 					if(newBid != null) {
-						newBid.setBID_AGENT_PRICE_ACT(TbpsUtil.calcAgentPrice(newBid.getBID_AGENT_PRICE(), new BigDecimal(discount)));
+						newBid.setBID_AGENT_PRICE_ACT(TbpsUtil.bigDecimal2str(TbpsUtil.calcAgentPrice(newBid.getBID_AGENT_PRICE(), new BigDecimal(discount))));
 						newBid.setUPDATE_USER(userid);
 						newBid.setRECEIPT1_DATE(DateUtil.strToDate(receiptDate, DateUtil.DATE_FORMAT_SHORT));
 						newBid.setRECEIPT1_VALUE_DATE(DateUtil.strToDate(receiptValueDate, DateUtil.DATE_FORMAT_SHORT));
@@ -91,7 +91,7 @@ public class BidServiceImpl extends BaseService implements BidService {
 				if(StringUtil.isNotBlank(bid.getBID_NO())) {
 					BidDto newBid = bidDao.queryAllBidByID(bid.getBID_NO());
 					if(newBid != null) {
-						newBid.setBID_AGENT_PRICE_ACT(bid.getBID_AGENT_PRICE_ACT());
+						newBid.setBID_AGENT_PRICE_ACT(TbpsUtil.bigDecimal2str(bid.getBID_AGENT_PRICE_ACT()));
 						newBid.setUPDATE_USER(userid);
 						newBid.setRECEIPT1_DATE(bid.getRECEIPT1_DATE());
 						newBid.setRECEIPT1_VALUE_DATE(bid.getRECEIPT1_VALUE_DATE());
@@ -110,9 +110,9 @@ public class BidServiceImpl extends BaseService implements BidService {
 					BidDto newBid = bidDao.queryAllBidByID(bid.getBID_NO());
 					if(newBid != null) {
 						if(bid.getBID_EXPERT_COMMISION_ACT_YUAN() != null) {
-							newBid.setBID_EXPERT_COMMISION_ACT(bid.getBID_EXPERT_COMMISION_ACT_YUAN().divide(new BigDecimal(10000)).setScale(6, BigDecimal.ROUND_HALF_UP));
+							newBid.setBID_EXPERT_COMMISION_ACT(TbpsUtil.bigDecimal2str(bid.getBID_EXPERT_COMMISION_ACT_YUAN().divide(new BigDecimal(10000)).setScale(6, BigDecimal.ROUND_HALF_UP)));
 						} else {
-							newBid.setBID_EXPERT_COMMISION_ACT(new BigDecimal(0));
+							newBid.setBID_EXPERT_COMMISION_ACT(TbpsUtil.bigDecimal2str(new BigDecimal(0)));
 						}
 						newBid.setBID_EXPERT_COMMISION_APPLY_DATE(bid.getBID_EXPERT_COMMISION_APPLY_DATE());
 						newBid.setBID_EXPERT_COMMISION_APPLY(bid.getBID_EXPERT_COMMISION_APPLY());
@@ -378,8 +378,8 @@ public class BidServiceImpl extends BaseService implements BidService {
 	public BidDto queryAllBidByID(String bidNo) {
 		BidDto bid = bidDao.queryAllBidByID(bidNo);
 		if(bid != null) {
-			bid.setBID_EXPERT_COMMISION_ACT_YUAN(bid.getBID_EXPERT_COMMISION_ACT_YUAN_SHOW());
-			bid.setBID_EXPERT_COMMISION_PRE_YUAN(bid.getBID_EXPERT_COMMISION_PRE_YUAN_SHOW());
+			bid.setBID_EXPERT_COMMISION_ACT_YUAN(TbpsUtil.bigDecimal2str(bid.getBID_EXPERT_COMMISION_ACT_YUAN_SHOW()));
+			bid.setBID_EXPERT_COMMISION_PRE_YUAN(TbpsUtil.bigDecimal2str(bid.getBID_EXPERT_COMMISION_PRE_YUAN_SHOW()));
 			BidCntrctDto bidCntrct = bidCntrctDao.queryBidCntrctByID(bid.getCNTRCT_NO());
 			if(bidCntrct != null) {
 				bid.setCNTRCT_NAME(bidCntrct.getCNTRCT_NAME());
@@ -993,11 +993,11 @@ public class BidServiceImpl extends BaseService implements BidService {
 		//中标公司信息
 //		bidDto.setBID_CO_SEQ(bidCoNo);
 		bidDto.setBID_CO_NAME(bidCoName);
-		bidDto.setBID_PRICE(bidWinPrice);
+		bidDto.setBID_PRICE(TbpsUtil.bigDecimal2str(bidWinPrice));
 		bidDto.setBID_PRICE_LIST(bidWinPriceList);
 
 		//标书费
-		bidDto.setBID_APPLY_PRICE(bidApplyPrice);
+		bidDto.setBID_APPLY_PRICE(TbpsUtil.bigDecimal2str(bidApplyPrice));
 				
 		log.info("BID_CO_LIST=" + BID_CO_LIST);
 		bidDto.setBID_CO_LIST(BID_CO_LIST);
@@ -1149,10 +1149,10 @@ public class BidServiceImpl extends BaseService implements BidService {
 		//中标公司信息
 //		bidDto.setBID_CO_SEQ(bidCoNo);
 		bidDto.setBID_CO_NAME(bidCoName);
-		bidDto.setBID_PRICE(bidWinPrice);
+		bidDto.setBID_PRICE(TbpsUtil.bigDecimal2str(bidWinPrice));
 		bidDto.setBID_PRICE_LIST(bidWinPriceList);
 		//标书费
-		bidDto.setBID_APPLY_PRICE(bidApplyPrice);
+		bidDto.setBID_APPLY_PRICE(TbpsUtil.bigDecimal2str(bidApplyPrice));
 		
 		log.info("BID_CO_LIST=" + BID_CO_LIST);
 		bidDto.setBID_CO_LIST(BID_CO_LIST);

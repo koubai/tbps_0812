@@ -16,6 +16,7 @@ import com.cn.common.factory.PoiFactory;
 import com.cn.common.util.Constants;
 import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
+import com.cn.common.util.TbpsUtil;
 import com.cn.tbps.dto.BidCompDto;
 import com.cn.tbps.dto.BidDto;
 import com.cn.tbps.dto.BidRptDto;
@@ -510,7 +511,7 @@ public class BidAction extends BaseAction {
 			//默认评审人=当前用户
 			addBidDto.setBID_AUTH(userid);
 			//标书费金额默认0.1万元
-			addBidDto.setBID_APPLY_PRICE(new BigDecimal(0.1).setScale(6, BigDecimal.ROUND_HALF_UP));
+			addBidDto.setBID_APPLY_PRICE(TbpsUtil.bigDecimal2str(new BigDecimal(0.1).setScale(6, BigDecimal.ROUND_HALF_UP)));
 		} catch(Exception e) {
 			return ERROR;
 		}
@@ -576,14 +577,14 @@ public class BidAction extends BaseAction {
 			//预借专家费单位元转化为万元
 			if(addBidDto.getBID_EXPERT_COMMISION_PRE_YUAN() != null) {
 				addBidDto.setBID_EXPERT_COMMISION_PRE(
-						addBidDto.getBID_EXPERT_COMMISION_PRE_YUAN().divide(new BigDecimal(10000)).setScale(6, BigDecimal.ROUND_HALF_EVEN));
+						TbpsUtil.bigDecimal2str(addBidDto.getBID_EXPERT_COMMISION_PRE_YUAN().divide(new BigDecimal(10000)).setScale(6, BigDecimal.ROUND_HALF_EVEN)));
 			} else {
 				addBidDto.setBID_EXPERT_COMMISION_PRE(null);
 			}
 			//实际专家费单位元转化为万元
 			if(addBidDto.getBID_EXPERT_COMMISION_ACT_YUAN() != null) {
 				addBidDto.setBID_EXPERT_COMMISION_ACT(
-						addBidDto.getBID_EXPERT_COMMISION_ACT_YUAN().divide(new BigDecimal(10000)).setScale(6, BigDecimal.ROUND_HALF_EVEN));
+						TbpsUtil.bigDecimal2str(addBidDto.getBID_EXPERT_COMMISION_ACT_YUAN().divide(new BigDecimal(10000)).setScale(6, BigDecimal.ROUND_HALF_EVEN)));
 			} else {
 				addBidDto.setBID_EXPERT_COMMISION_ACT(null);
 			}
@@ -603,7 +604,7 @@ public class BidAction extends BaseAction {
 			//默认评审人=当前用户
 			addBidDto.setBID_AUTH(userid);
 			//标书费金额默认0.1万元
-			addBidDto.setBID_APPLY_PRICE(new BigDecimal(0.1).setScale(6, BigDecimal.ROUND_HALF_UP));
+			addBidDto.setBID_APPLY_PRICE(TbpsUtil.bigDecimal2str(new BigDecimal(0.1).setScale(6, BigDecimal.ROUND_HALF_UP)));
 			
 			listBidComp = new ArrayList<BidCompDto>();
 			listExpertLib = new ArrayList<ExpertLibDto>();
@@ -701,14 +702,14 @@ public class BidAction extends BaseAction {
 			//预借专家费单位元转化为万元
 			if(updateBidDto.getBID_EXPERT_COMMISION_PRE_YUAN() != null) {
 				updateBidDto.setBID_EXPERT_COMMISION_PRE(
-						updateBidDto.getBID_EXPERT_COMMISION_PRE_YUAN().divide(new BigDecimal(10000)).setScale(6, BigDecimal.ROUND_HALF_UP));
+						TbpsUtil.bigDecimal2str(updateBidDto.getBID_EXPERT_COMMISION_PRE_YUAN().divide(new BigDecimal(10000)).setScale(6, BigDecimal.ROUND_HALF_UP)));
 			} else {
 				updateBidDto.setBID_EXPERT_COMMISION_PRE(null);
 			}
 			//实际专家费单位元转化为万元
 			if(updateBidDto.getBID_EXPERT_COMMISION_ACT_YUAN() != null) {
 				updateBidDto.setBID_EXPERT_COMMISION_ACT(
-						updateBidDto.getBID_EXPERT_COMMISION_ACT_YUAN().divide(new BigDecimal(10000)).setScale(6, BigDecimal.ROUND_HALF_UP));
+						TbpsUtil.bigDecimal2str(updateBidDto.getBID_EXPERT_COMMISION_ACT_YUAN().divide(new BigDecimal(10000)).setScale(6, BigDecimal.ROUND_HALF_UP)));
 			} else {
 				updateBidDto.setBID_EXPERT_COMMISION_ACT(null);
 			}

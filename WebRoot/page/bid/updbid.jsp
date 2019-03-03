@@ -679,7 +679,7 @@
 		$("#BID_EXPERT_COMMISION_APPLY_DATE").attr("value", $("#tmpBID_EXPERT_COMMISION_APPLY_DATE").val());
 		
 		//默认0
-		if($("#BID_AGENT_PRICE").val() == "") {
+		/* if($("#BID_AGENT_PRICE").val() == "") {
 			$("#BID_AGENT_PRICE").val("0");
 		}
 		if($("#BID_AGENT_PRICE_ACT").val() == "") {
@@ -691,15 +691,9 @@
 		if($("#BID_LIMIT_PRICE").val() == "") {
 			$("#BID_LIMIT_PRICE").val("0");
 		}
-		/* if($("#BID_CO_PRICE").val() == "") {
-			$("#BID_CO_PRICE").val("0");
-		} */
 		if($("#BID_PRICE").val() == "") {
 			$("#BID_PRICE").val("0");
 		}
-		/* if($("#BID_EXPERT_COMMISION").val() == "") {
-			$("#BID_EXPERT_COMMISION").val("0");
-		} */
 		if($("#BID_EXPERT_COMMISION_PRE_YUAN").val() == "") {
 			$("#BID_EXPERT_COMMISION_PRE_YUAN").val("0");
 		}
@@ -708,7 +702,13 @@
 		}
 		if($("#BID_APPLY_PRICE").val() == "") {
 			$("#BID_APPLY_PRICE").val("0");
-		}
+		} */
+		/* if($("#BID_EXPERT_COMMISION").val() == "") {
+			$("#BID_EXPERT_COMMISION").val("0");
+		} */
+		/* if($("#BID_CO_PRICE").val() == "") {
+			$("#BID_CO_PRICE").val("0");
+		} */
 		/* if($("#BID_WIN_PRICE").val() == "") {
 			$("#BID_WIN_PRICE").val("0");
 		} */

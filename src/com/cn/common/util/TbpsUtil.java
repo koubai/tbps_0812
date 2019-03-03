@@ -17,4 +17,33 @@ public class TbpsUtil {
 			return new BigDecimal(0).setScale(6, BigDecimal.ROUND_HALF_UP);
 		}
 	}
+	
+	/**
+	 * BigDecimal转化为字符串
+	 * @param b
+	 * @return
+	 */
+	public static String bigDecimal2str(BigDecimal b) {
+		if(b != null) {
+			return b.toString();
+		}
+		return null;
+	}
+	
+	/**
+	 * 字符转化为BigDecimal
+	 * @param s
+	 * @param newScale
+	 * @return
+	 */
+	public static BigDecimal str2BigDecimal(String s, int newScale) {
+		if(StringUtil.isNotBlank(s)) {
+			try {
+				return new BigDecimal(s).setScale(newScale, BigDecimal.ROUND_HALF_UP);
+			} catch (Exception e) {
+				return null;
+			}
+		}
+		return null;
+	}
 }
