@@ -10,7 +10,7 @@ public class AuditStatisticsDetailDto extends BaseDto {
 	
 	private String PROJECT_MANAGER;
 	
-	private String DOC_REC_DATE;
+	private String DOC_REC_DATE_MONTH;
 	
 	private String MONTH_ALL_COUNT;
 	
@@ -25,12 +25,6 @@ public class AuditStatisticsDetailDto extends BaseDto {
 	}
 	public void setPROJECT_MANAGER(String pROJECT_MANAGER) {
 		PROJECT_MANAGER = pROJECT_MANAGER;
-	}
-	public String getDOC_REC_DATE() {
-		return DOC_REC_DATE;
-	}
-	public void setDOC_REC_DATE(String dOC_REC_DATE) {
-		DOC_REC_DATE = dOC_REC_DATE;
 	}
 	public String getMONTH_ALL_COUNT() {
 		return MONTH_ALL_COUNT;
@@ -55,5 +49,11 @@ public class AuditStatisticsDetailDto extends BaseDto {
 	}
 	public void setListAuditCount(List<AuditCountDto> listAuditCount) {
 		this.listAuditCount = listAuditCount;
+	}
+	public String getDOC_REC_DATE_MONTH() {
+		return DOC_REC_DATE_MONTH;
+	}
+	public void setDOC_REC_DATE_MONTH(String dOC_REC_DATE_MONTH) {
+		DOC_REC_DATE_MONTH = dOC_REC_DATE_MONTH;
 	}
 }

@@ -12,6 +12,11 @@ public class AuditStatisticsDto extends BaseDto {
 	 * 合同简称列表
 	 */
 	private List<String> listAuditCntrctNM;
+	
+	/**
+	 * 合同简称列表投资监理用
+	 */
+	private List<String> listAuditCntrctNM5;
 
 	/**
 	 * 审价
@@ -123,5 +128,13 @@ public class AuditStatisticsDto extends BaseDto {
 
 	public void setCount5(AuditStatisticsCountDto count5) {
 		this.count5 = count5;
+	}
+
+	public List<String> getListAuditCntrctNM5() {
+		return listAuditCntrctNM5;
+	}
+
+	public void setListAuditCntrctNM5(List<String> listAuditCntrctNM5) {
+		this.listAuditCntrctNM5 = listAuditCntrctNM5;
 	}
 }

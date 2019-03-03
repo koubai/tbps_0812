@@ -117,14 +117,14 @@
 
 	<resultMap id="AuditStatisticsDetailDto" class="com.cn.tbps.dto.AuditStatisticsDetailDto">
 		<result property="PROJECT_MANAGER" column="PROJECT_MANAGER" />
-		<result property="DOC_REC_DATE" column="DOC_REC_DATE" />
+		<result property="DOC_REC_DATE_MONTH" column="DOC_REC_DATE_MONTH" />
 		<result property="CNTRCT_NM" column="CNTRCT_NM" />
 		<result property="CNTRCT_NM_COUNT" column="CNTRCT_NM_COUNT" />
 	</resultMap>
 
 	<resultMap id="AuditStatisticsDetailDto1" class="com.cn.tbps.dto.AuditStatisticsDetailDto">
 		<result property="PROJECT_MANAGER" column="PROJECT_MANAGER" />
-		<result property="DOC_REC_DATE" column="DOC_REC_DATE" />
+		<result property="DOC_REC_DATE_MONTH" column="DOC_REC_DATE_MONTH" />
 		<result property="MONTH_ALL_COUNT" column="MONTH_ALL_COUNT" />
 	</resultMap>
 
@@ -1233,7 +1233,7 @@
 	
 	<select id="queryAuditStatistics" parameterClass="java.util.Map" resultMap="AuditStatisticsDetailDto">
 		select PROJECT_MANAGER, 
-				DATE_FORMAT(DOC_REC_DATE,'%Y.%m') AS DOC_REC_DATE, 
+				DATE_FORMAT(DOC_REC_DATE,'%Y.%m') AS DOC_REC_DATE_MONTH, 
 				CNTRCT_NM AS CNTRCT_NM, 
 				COUNT(CNTRCT_NM) AS CNTRCT_NM_COUNT
 			from audit where DELETE_FLG = '1'
@@ -1250,13 +1250,13 @@
 				DOC_REC_DATE <![CDATA[<=]]> #END_DATE#
 			</isNotEmpty>
 			and DOC_REC_DATE is not null
-			group by PROJECT_MANAGER, DOC_REC_DATE, CNTRCT_NM
-			order by PROJECT_MANAGER, DOC_REC_DATE, CNTRCT_NM
+			group by PROJECT_MANAGER, DOC_REC_DATE_MONTH, CNTRCT_NM
+			order by PROJECT_MANAGER, DOC_REC_DATE_MONTH, CNTRCT_NM
 	</select>
 	
 	<select id="queryAuditStatisticsByMonth" parameterClass="java.util.Map" resultMap="AuditStatisticsDetailDto1">
 		select PROJECT_MANAGER, 
-				DATE_FORMAT(DOC_REC_DATE,'%Y.%m') AS DOC_REC_DATE, 
+				DATE_FORMAT(DOC_REC_DATE,'%Y.%m') AS DOC_REC_DATE_MONTH, 
 				COUNT(CNTRCT_NM) AS MONTH_ALL_COUNT
 			from audit where DELETE_FLG = '1'
 			<isNotEmpty prepend="and" property="CNTRCT_INFO">
@@ -1272,8 +1272,8 @@
 				DOC_REC_DATE <![CDATA[<=]]> #END_DATE#
 			</isNotEmpty>
 			and DOC_REC_DATE is not null
-			group by PROJECT_MANAGER, DOC_REC_DATE
-			order by PROJECT_MANAGER, DOC_REC_DATE
+			group by PROJECT_MANAGER, DOC_REC_DATE_MONTH
+			order by PROJECT_MANAGER, DOC_REC_DATE_MONTH
 	</select>
 	
 	<select id="queryAuditStatCost" parameterClass="java.util.Map" resultMap="AuditStatCostDetailDto">
@@ -1498,9 +1498,25 @@
 			order by CNTRCT_NM
 	</select>
 	
+	<select id="queryAuditCntrctNM5" parameterClass="java.util.Map" resultClass="String">
+		select DISTINCT CNTRCT_NM 
+			from audit where DELETE_FLG = '1'
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				PLAN_DOC_RCV_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				PLAN_DOC_RCV_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+			and PLAN_DOC_RCV_DATE is not null
+			order by CNTRCT_NM
+	</select>
+	
 	<select id="queryAuditStatistics5" parameterClass="java.util.Map" resultMap="AuditStatisticsDetailDto">
 		select PROJECT_MANAGER, 
-				DATE_FORMAT(PLAN_DOC_RCV_DATE,'%Y.%m') AS DOC_REC_DATE, 
+				DATE_FORMAT(PLAN_DOC_RCV_DATE,'%Y.%m') AS DOC_REC_DATE_MONTH, 
 				CNTRCT_NM AS CNTRCT_NM, 
 				COUNT(CNTRCT_NM) AS CNTRCT_NM_COUNT
 			from audit where DELETE_FLG = '1'
@@ -1517,13 +1533,13 @@
 				PLAN_DOC_RCV_DATE <![CDATA[<=]]> #END_DATE#
 			</isNotEmpty>
 			and PLAN_DOC_RCV_DATE is not null
-			group by PROJECT_MANAGER, PLAN_DOC_RCV_DATE, CNTRCT_NM
-			order by PROJECT_MANAGER, PLAN_DOC_RCV_DATE, CNTRCT_NM
+			group by PROJECT_MANAGER, DOC_REC_DATE_MONTH, CNTRCT_NM
+			order by PROJECT_MANAGER, DOC_REC_DATE_MONTH, CNTRCT_NM
 	</select>
 	
 	<select id="queryAuditStatisticsByMonth5" parameterClass="java.util.Map" resultMap="AuditStatisticsDetailDto1">
 		select PROJECT_MANAGER, 
-				DATE_FORMAT(PLAN_DOC_RCV_DATE,'%Y.%m') AS DOC_REC_DATE, 
+				DATE_FORMAT(PLAN_DOC_RCV_DATE,'%Y.%m') AS DOC_REC_DATE_MONTH, 
 				COUNT(CNTRCT_NM) AS MONTH_ALL_COUNT
 			from audit where DELETE_FLG = '1'
 			<isNotEmpty prepend="and" property="CNTRCT_INFO">
@@ -1539,8 +1555,8 @@
 				PLAN_DOC_RCV_DATE <![CDATA[<=]]> #END_DATE#
 			</isNotEmpty>
 			and PLAN_DOC_RCV_DATE is not null
-			group by PROJECT_MANAGER, PLAN_DOC_RCV_DATE
-			order by PROJECT_MANAGER, PLAN_DOC_RCV_DATE
+			group by PROJECT_MANAGER, DOC_REC_DATE_MONTH
+			order by PROJECT_MANAGER, DOC_REC_DATE_MONTH
 	</select>
 	
 	<select id="queryAuditStatisticsAllCount5" parameterClass="java.util.Map" resultClass="Integer">

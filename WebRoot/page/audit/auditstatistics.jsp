@@ -110,7 +110,7 @@
 						<tr>
 							<td width="100">审价</td>
 							<td><s:property value="PROJECT_MANAGER"/></td>
-							<td><s:property value="DOC_REC_DATE"/></td>
+							<td><s:property value="DOC_REC_DATE_MONTH"/></td>
 							<td><s:property value="MONTH_ALL_COUNT"/></td>
 							<s:iterator id="auditCount" value="listAuditCount">
 								<td><s:property value="CNTRCT_NM_COUNT"/></td>
@@ -141,7 +141,7 @@
 						<tr>
 							<td width="100">咨询</td>
 							<td><s:property value="PROJECT_MANAGER"/></td>
-							<td><s:property value="DOC_REC_DATE"/></td>
+							<td><s:property value="DOC_REC_DATE_MONTH"/></td>
 							<td><s:property value="MONTH_ALL_COUNT"/></td>
 							<s:iterator id="auditCount" value="listAuditCount">
 								<td><s:property value="CNTRCT_NM_COUNT"/></td>
@@ -172,7 +172,7 @@
 						<tr>
 							<td width="100">控制价编制</td>
 							<td><s:property value="PROJECT_MANAGER"/></td>
-							<td><s:property value="DOC_REC_DATE"/></td>
+							<td><s:property value="DOC_REC_DATE_MONTH"/></td>
 							<td><s:property value="MONTH_ALL_COUNT"/></td>
 							<s:iterator id="auditCount" value="listAuditCount">
 								<td><s:property value="CNTRCT_NM_COUNT"/></td>
@@ -195,7 +195,7 @@
 							<td>工程师</td>
 							<td>时间</td>
 							<td>新增个数</td>
-							<s:iterator id="listAuditCntrctNM" value="auditStatistics.listAuditCntrctNM" status="st1">
+							<s:iterator id="listAuditCntrctNM" value="auditStatistics.listAuditCntrctNM5" status="st1">
 								<td><s:property /></td>
 							</s:iterator>
 						</tr>
@@ -203,7 +203,7 @@
 						<s:iterator id="listAudit5" value="auditStatistics.listAudit5">
 							<td width="100">投资监理</td>
 							<td><s:property value="PROJECT_MANAGER"/></td>
-							<td><s:property value="DOC_REC_DATE"/></td>
+							<td><s:property value="DOC_REC_DATE_MONTH"/></td>
 							<td><s:property value="MONTH_ALL_COUNT"/></td>
 							<s:iterator id="auditCount" value="listAuditCount">
 								<td><s:property value="CNTRCT_NM_COUNT"/></td>

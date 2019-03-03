@@ -304,7 +304,7 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 				int count = 0;
 				for(AuditStatisticsDetailDto dto1 : listAudit1) {
 					if(s.equals(dto1.getCNTRCT_NM()) && dto1.getPROJECT_MANAGER().equals(dtoByMonth1.getPROJECT_MANAGER()) 
-							&& dto1.getDOC_REC_DATE().equals(dtoByMonth1.getDOC_REC_DATE())) {
+							&& dto1.getDOC_REC_DATE_MONTH().equals(dtoByMonth1.getDOC_REC_DATE_MONTH())) {
 						count = dto1.getCNTRCT_NM_COUNT();
 						break;
 					}
@@ -352,7 +352,7 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 				int count = 0;
 				for(AuditStatisticsDetailDto dto2 : listAudit2) {
 					if(s.equals(dto2.getCNTRCT_NM()) && dto2.getPROJECT_MANAGER().equals(dtoByMonth2.getPROJECT_MANAGER()) 
-							&& dto2.getDOC_REC_DATE().equals(dtoByMonth2.getDOC_REC_DATE())) {
+							&& dto2.getDOC_REC_DATE_MONTH().equals(dtoByMonth2.getDOC_REC_DATE_MONTH())) {
 						count = dto2.getCNTRCT_NM_COUNT();
 						break;
 					}
@@ -399,7 +399,7 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 				int count = 0;
 				for(AuditStatisticsDetailDto dto4 : listAudit4) {
 					if(s.equals(dto4.getCNTRCT_NM()) && dto4.getPROJECT_MANAGER().equals(dtoByMonth4.getPROJECT_MANAGER()) 
-							&& dto4.getDOC_REC_DATE().equals(dtoByMonth4.getDOC_REC_DATE())) {
+							&& dto4.getDOC_REC_DATE_MONTH().equals(dtoByMonth4.getDOC_REC_DATE_MONTH())) {
 						count = dto4.getCNTRCT_NM_COUNT();
 						break;
 					}
@@ -433,6 +433,9 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 		auditStatisticsCountDto4.setListCount(listCount4);
 		auditStatisticsDto.setCount4(auditStatisticsCountDto4);
 		//投资监理
+		@SuppressWarnings("unchecked")
+		List<String> listAuditCntrctNM5 = getSqlMapClientTemplate().queryForList("queryAuditCntrctNM5", paramMap);
+		auditStatisticsDto.setListAuditCntrctNM5(listAuditCntrctNM5);
 		paramMap.put("CNTRCT_INFO", "5");
 		@SuppressWarnings("unchecked")
 		List<AuditStatisticsDetailDto> listAudit5 = getSqlMapClientTemplate().queryForList("queryAuditStatistics5", paramMap);
@@ -440,13 +443,13 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 		List<AuditStatisticsDetailDto> listAuditByMonth5 = getSqlMapClientTemplate().queryForList("queryAuditStatisticsByMonth5", paramMap);
 		for(AuditStatisticsDetailDto dtoByMonth5 : listAuditByMonth5) {
 			List<AuditCountDto> listAuditCount5 = new ArrayList<AuditCountDto>();
-			for(String s : listAuditCntrctNM) {
+			for(String s : listAuditCntrctNM5) {
 				AuditCountDto auditCountDto = new AuditCountDto();
 				auditCountDto.setCNTRCT_NM(s);
 				int count = 0;
 				for(AuditStatisticsDetailDto dto5 : listAudit5) {
 					if(s.equals(dto5.getCNTRCT_NM()) && dto5.getPROJECT_MANAGER().equals(dtoByMonth5.getPROJECT_MANAGER()) 
-							&& dto5.getDOC_REC_DATE().equals(dtoByMonth5.getDOC_REC_DATE())) {
+							&& dto5.getDOC_REC_DATE_MONTH().equals(dtoByMonth5.getDOC_REC_DATE_MONTH())) {
 						count = dto5.getCNTRCT_NM_COUNT();
 						break;
 					}
@@ -464,7 +467,7 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 		@SuppressWarnings("unchecked")
 		List<AuditCountDto> listAuditCount5 = getSqlMapClientTemplate().queryForList("queryAuditStatisticsCount5", paramMap);
 		List<AuditCountDto> listCount5 = new ArrayList<AuditCountDto>();
-		for(String s : listAuditCntrctNM) {
+		for(String s : listAuditCntrctNM5) {
 			AuditCountDto auditCountDto = new AuditCountDto();
 			auditCountDto.setCNTRCT_NM(s);
 			int count = 0;
