@@ -489,11 +489,16 @@ public class BidProgressAction extends BaseAction {
 		//报告送至甲方
 		else if (BTN_NO.equals("0405")){
 			bidDto.setBID_VER_DOC_DELI_DATE1(Date1);
-			bidDto.setBID_VER_DOC_DELI_FILE1(File01 + ";" + File01_URL);
-			bidDto.setBID_VER_DOC_DELI_FILE2(File02 + ";" + File02_URL);
-			bidDto.setBID_VER_DOC_DELI_FILE3(File03 + ";" + File03_URL);
-			bidDto.setBID_VER_DOC_DELI_FILE4(File04 + ";" + File04_URL);
-			bidDto.setBID_VER_DOC_DELI_FILE5(File05 + ";" + File05_URL);
+			if (!File01.equals(""))
+				bidDto.setBID_VER_DOC_DELI_FILE1(File01 + ";" + File01_URL);
+			if (!File02.equals(""))
+				bidDto.setBID_VER_DOC_DELI_FILE2(File02 + ";" + File02_URL);
+			if (!File03.equals(""))
+				bidDto.setBID_VER_DOC_DELI_FILE3(File03 + ";" + File03_URL);
+			if (!File04.equals(""))
+				bidDto.setBID_VER_DOC_DELI_FILE4(File04 + ";" + File04_URL);
+			if (!File05.equals(""))
+				bidDto.setBID_VER_DOC_DELI_FILE5(File05 + ";" + File05_URL);
 		}
 		//中标投标文件扫描
 		else if (BTN_NO.equals("0505")){
