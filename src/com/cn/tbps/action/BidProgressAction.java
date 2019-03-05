@@ -373,19 +373,19 @@ public class BidProgressAction extends BaseAction {
 				strHead3 = "";
 				if (bidDto.getBID_VER_DOC_DELI_DATE1()!= null)
 					Date1 = bidDto.getBID_VER_DOC_DELI_DATE1();
-				if (bidDto.getBID_VER_DOC_DELI_FILE1()!= null && StringUtil.isBlank(bidDto.getBID_VER_DOC_DELI_FILE1())){
+				if (bidDto.getBID_VER_DOC_DELI_FILE1()!= null && !StringUtil.isBlank(bidDto.getBID_VER_DOC_DELI_FILE1())){
 					File01 = StringUtil.splitFileName(bidDto.getBID_VER_DOC_DELI_FILE1());
 					File01_URL = StringUtil.splitFileNameURL(bidDto.getBID_VER_DOC_DELI_FILE1());
 				}
-				if (bidDto.getBID_VER_DOC_DELI_FILE2()!= null && StringUtil.isBlank(bidDto.getBID_VER_DOC_DELI_FILE2())){
+				if (bidDto.getBID_VER_DOC_DELI_FILE2()!= null && !StringUtil.isBlank(bidDto.getBID_VER_DOC_DELI_FILE2())){
 					File02 = StringUtil.splitFileName(bidDto.getBID_VER_DOC_DELI_FILE2());
 					File02_URL = StringUtil.splitFileNameURL(bidDto.getBID_VER_DOC_DELI_FILE2());
 				}
-				if (bidDto.getBID_VER_DOC_DELI_FILE3()!= null && StringUtil.isBlank(bidDto.getBID_VER_DOC_DELI_FILE3())){
+				if (bidDto.getBID_VER_DOC_DELI_FILE3()!= null && !StringUtil.isBlank(bidDto.getBID_VER_DOC_DELI_FILE3())){
 					File03 = StringUtil.splitFileName(bidDto.getBID_VER_DOC_DELI_FILE3());
 					File03_URL = StringUtil.splitFileNameURL(bidDto.getBID_VER_DOC_DELI_FILE3());
 				}
-				if (bidDto.getBID_VER_DOC_DELI_FILE4()!= null && StringUtil.isBlank(bidDto.getBID_VER_DOC_DELI_FILE4())){
+				if (bidDto.getBID_VER_DOC_DELI_FILE4()!= null && !StringUtil.isBlank(bidDto.getBID_VER_DOC_DELI_FILE4())){
 					File04 = StringUtil.splitFileName(bidDto.getBID_VER_DOC_DELI_FILE4());
 					File04_URL = StringUtil.splitFileNameURL(bidDto.getBID_VER_DOC_DELI_FILE4());
 				}
