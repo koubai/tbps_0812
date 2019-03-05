@@ -45,7 +45,7 @@
 						<li><a href="<%=request.getContextPath()%>/bidcntrct/showAddBidCntrct.action">招标合同增加</a></li>
 						<li><a href="<%=request.getContextPath()%>/bid/showBidAction.action">招标项目检索和一览</a></li>
 						<li><a href="<%=request.getContextPath()%>/bid/showAddBidAction.action">项目信息（新增）</a></li>
-						<li><a href="<%=request.getContextPath()%>/bid/showBidAction.action">招标项目进展</a></li>
+						<li><a href="<%=request.getContextPath()%>/bid/showBidProgressAction.action">招标项目进展</a></li>
 						<li><a href="<%=request.getContextPath()%>/bidagentcost/showBidAgentCostAction.action">代理费计算</a></li>
 						<li><a href="<%=request.getContextPath()%>/bidexpertcost/showBidExpertCostAction.action">专家费计算</a></li>
 					</ul>

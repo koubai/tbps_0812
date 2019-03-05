@@ -243,6 +243,14 @@ public class BidProgressAction extends BaseAction {
 	}
 	
 	/**
+	 * 显示项目状态信息(项目进展菜单专用，防止返回页面走错)
+	 * @return
+	 */
+	public String showBidProgress2Action() {
+		return showBidProgressAction();
+	}
+
+		/**
 	 * 显示项目状态信息
 	 * @return
 	 */

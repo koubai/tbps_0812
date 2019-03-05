@@ -9,6 +9,9 @@
 		<action name="showBidProgressAction" class="bidProgressAction" method="showBidProgressAction">
 			<result name="success">/page/bidprogress/bidprogress.jsp</result>
 		</action>
+		<action name="showBidProgress2Action" class="bidProgressAction" method="showBidProgress2Action">
+			<result name="success">/page/bidprogress/bidprogress2.jsp</result>
+		</action>
 		<action name="showBidProgressUtilAction" class="bidProgressAction" method="showBidProgressUtilAction">
 			<result name="success">/page/bidprogress/bidprogressutil.jsp</result>
 		</action>

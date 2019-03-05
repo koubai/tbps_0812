@@ -17,6 +17,20 @@
 		<action name="turnBidPage" class="bidAction" method="turnBidPage">
 			<result name="success">/page/bid/bidlist.jsp</result>
 		</action>
+
+		<action name="showBidProgressAction" class="bidAction" method="showBidProgressAction">
+			<result name="success">/page/bid/bidprogresslist.jsp</result>
+		</action>
+		
+		<action name="queryBidProgressList" class="bidAction" method="queryBidProgressList">
+			<result name="success">/page/bid/bidprogresslist.jsp</result>
+		</action>
+		
+		<action name="turnBidProgressPage" class="bidAction" method="turnBidProgressPage">
+			<result name="success">/page/bid/bidprogresslist.jsp</result>
+		</action>
+
+
 		
 		<action name="showAddBidAction" class="bidAction" method="showAddBidAction">
 			<result name="*">/page/bid/addbid.jsp</result>

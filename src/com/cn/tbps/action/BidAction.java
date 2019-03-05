@@ -1043,6 +1043,69 @@ public class BidAction extends BaseAction {
 		return SUCCESS;
 	}
 	
+	/////////////////////////////////////////////
+	/**
+	 * 显示招标项目进展一览页面
+	 * @return
+	 */
+	public String showBidProgressAction() {
+		try {
+			this.clearMessages();
+			//初期化
+			strBidNoLow = "";
+			strBidNoHigh = "";
+			strProjectName = "";
+			
+			strProjectType = "";
+			strOpenDateLow = "";
+			strOpenDateHigh = "";
+			updBidTabIndex = "";
+			page = new Page();
+			startIndex = 0;
+			listBid = new ArrayList<BidDto>();
+			addBidDto = new BidDto();
+			updateBidNo = "";
+			updateBidDto = new BidDto();
+			updateBidDtoOld = new BidDto();
+			delBidNo = "";
+		} catch(Exception e) {
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询招标进展列表
+	 * @return
+	 */
+	public String queryBidProgressList() {
+		try {
+			this.clearMessages();
+			page = new Page();
+			startIndex = 0;
+			queryBid();
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 翻页
+	 * @return
+	 */
+	public String turnBidProgressPage() {
+		try {
+			this.clearMessages();
+			queryBid();
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	/////////////////////////////////////////////
 	
 	public BidService getBidService() {
 		return bidService;
