@@ -68,6 +68,16 @@ public class BidExpertCostAction extends BaseAction {
 	private String strBID_COMP_NO;
 	//委托单位名
 	private String strBID_COMP_NAME;
+
+	//专家费申请开始时间
+	private String strBID_EXPERT_COMMISION_APPLY_ST_DATE;
+	//专家费申请结束时间
+	private String strBID_EXPERT_COMMISION_APPLY_ED_DATE;
+	//工程师
+	private String strPROJECT_MANAGER;
+	//招标编号
+	private String strBID_NO;
+
 	
 	private List<UserInfoDto> listUserInfo;
 	
@@ -99,6 +109,7 @@ public class BidExpertCostAction extends BaseAction {
 		try {
 			this.clearMessages();
 			listBid = new ArrayList<BidDto>();
+			listUserInfo = userInfoService.queryAllUser();
 			expertCostBidList = new ArrayList<BidDto>();
 			strCNTRCT_YEAR = "";
 			strCNTRCT_ST_DATE = "";
@@ -128,6 +139,7 @@ public class BidExpertCostAction extends BaseAction {
 			this.clearMessages();
 			listBid = new ArrayList<BidDto>();
 			expertCostBidList = new ArrayList<BidDto>();
+			listUserInfo = userInfoService.queryAllUser();
 			strBidNosExpert = "";
 			strCNTRCT_YEAR = "";
 			strCNTRCT_ST_DATE = "";
@@ -136,6 +148,10 @@ public class BidExpertCostAction extends BaseAction {
 			strBID_COMP_NO = "";
 			strBID_COMP_NAME = "";
 			strCntrctNos = "";
+			strBID_EXPERT_COMMISION_APPLY_ST_DATE = "";
+			strBID_EXPERT_COMMISION_APPLY_ED_DATE = "";
+			strPROJECT_MANAGER = "";
+			strBID_NO = "";
 			page = new Page(50);
 			startIndex = 0;
 		} catch(Exception e) {
@@ -190,9 +206,14 @@ public class BidExpertCostAction extends BaseAction {
 		}
 		//翻页查询所有招标
 		this.page.setStartIndex(startIndex);
+//		System.out.println("strBID_EXPERT_COMMISION_APPLY_ST_DATE:" + strBID_EXPERT_COMMISION_APPLY_ST_DATE);
+//		System.out.println("strBID_EXPERT_COMMISION_APPLY_ED_DATE:" + strBID_EXPERT_COMMISION_APPLY_ED_DATE);
+//		System.out.println("strPROJECT_MANAGER:" + strPROJECT_MANAGER);
+//		System.out.println("strBID_NO:" + strBID_NO);
 		page = bidService.queryBidAndBidCntrctByPage("", "", "",
 				strCntrctNos, "'20','90'", "", "", "", strCNTRCT_YEAR, strCNTRCT_NO, strBID_COMP_NO,
-				"", "", strCNTRCT_ST_DATE, strCNTRCT_ED_DATE, page);
+				"", "", strCNTRCT_ST_DATE, strCNTRCT_ED_DATE, strBID_EXPERT_COMMISION_APPLY_ST_DATE,strBID_EXPERT_COMMISION_APPLY_ED_DATE,
+				strPROJECT_MANAGER, strBID_NO, page);
 		listBid = (List<BidDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
@@ -364,4 +385,39 @@ public class BidExpertCostAction extends BaseAction {
 	public void setStrBidNosExpert(String strBidNosExpert) {
 		this.strBidNosExpert = strBidNosExpert;
 	}
+	public String getStrBID_EXPERT_COMMISION_APPLY_ST_DATE() {
+		return strBID_EXPERT_COMMISION_APPLY_ST_DATE;
+	}
+
+	public void setStrBID_EXPERT_COMMISION_APPLY_ST_DATE(
+			String strBID_EXPERT_COMMISION_APPLY_ST_DATE) {
+		this.strBID_EXPERT_COMMISION_APPLY_ST_DATE = strBID_EXPERT_COMMISION_APPLY_ST_DATE;
+	}
+
+	public String getStrBID_EXPERT_COMMISION_APPLY_ED_DATE() {
+		return strBID_EXPERT_COMMISION_APPLY_ED_DATE;
+	}
+
+	public void setStrBID_EXPERT_COMMISION_APPLY_ED_DATE(
+			String strBID_EXPERT_COMMISION_APPLY_ED_DATE) {
+		this.strBID_EXPERT_COMMISION_APPLY_ED_DATE = strBID_EXPERT_COMMISION_APPLY_ED_DATE;
+	}
+
+	public String getStrPROJECT_MANAGER() {
+		return strPROJECT_MANAGER;
+	}
+
+	public void setStrPROJECT_MANAGER(String strPROJECT_MANAGER) {
+		this.strPROJECT_MANAGER = strPROJECT_MANAGER;
+	}
+
+	public String getStrBID_NO() {
+		return strBID_NO;
+	}
+
+	public void setStrBID_NO(String strBID_NO) {
+		this.strBID_NO = strBID_NO;
+	}
+
+
 }
