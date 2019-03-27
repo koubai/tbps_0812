@@ -474,8 +474,8 @@
 									<s:elseif test='#arrAuditShow[0] == "PROF_INFO"'>
 										<td><s:property value="PROF_INFO"/></td>
 									</s:elseif>
-									<s:elseif test='#arrAuditShow[0] == "CONTRACT_CO_ID"'>
-										<td><s:property value="CONTRACT_CO_ID"/></td>
+									<s:elseif test='#arrAuditShow[0] == "CONTRACT_CO_NAME"'>
+										<td><s:property value="CONTRACT_CO_NAME"/></td>
 									</s:elseif>
 									<s:elseif test='#arrAuditShow[0] == "CONTRACT_CO_INFO"'>
 										<td><s:property value="CONTRACT_CO_INFO"/></td>

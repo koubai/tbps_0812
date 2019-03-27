@@ -132,8 +132,8 @@ public class PoiAudit extends Poi2007Base {
 					cell.setCellValue(audit.getAGENT_INFO());
 				} else if(one[0].equals("PROF_INFO")){
 					cell.setCellValue(audit.getPROF_INFO());
-				} else if(one[0].equals("CONTRACT_CO_ID")){
-					cell.setCellValue(audit.getCONTRACT_CO_ID());
+				} else if(one[0].equals("CONTRACT_CO_NAME")){
+					cell.setCellValue(audit.getCONTRACT_CO_NAME());
 				} else if(one[0].equals("CONTRACT_CO_INFO")){
 					cell.setCellValue(audit.getCONTRACT_CO_INFO());
 				} else if(one[0].equals("VERIFY_INCREASE")){

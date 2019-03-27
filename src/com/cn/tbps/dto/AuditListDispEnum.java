@@ -13,7 +13,7 @@ public enum AuditListDispEnum {
 	PRE_PRICE(9,"PRE_PRICE","预算金额"),
 	AGENT_INFO(10,"AGENT_INFO","委托方专业联系人及联系方式"),
 	PROF_INFO(11,"PROF_INFO","专业公司专业联系人及联系方式"),
-	CONTRACT_CO_ID(12,"CONTRACT_CO_ID","承揽单位"),
+	CONTRACT_CO_ID(12,"CONTRACT_CO_NAME","承揽单位"),
 	CONTRACT_CO_INFO(13,"CONTRACT_CO_INFO","承揽单位联系人及联系方式"),
 	VERIFY_PER_AMOUNT(14,"VERIFY_PER_AMOUNT","送审价"),
 	VERIFY_AMOUNT(15,"VERIFY_AMOUNT","审核价"),
