@@ -588,6 +588,22 @@ public class BidAction extends BaseAction {
 			} else {
 				addBidDto.setBID_EXPERT_COMMISION_ACT(null);
 			}
+
+			//承接项目日期默认=当天
+			addBidDto.setPROJECT_DEVIEW_DATE(new Date());
+			String userid = (String) ActionContext.getContext().getSession().get(Constants.USER_ID);
+			//默认专家费申请人=项目工程师，否则为当前用户
+			if (addBidDto.getPROJECT_MANAGER()!= null && addBidDto.getPROJECT_MANAGER()!="")
+				addBidDto.setBID_EXPERT_COMMISION_APPLY(addBidDto.getPROJECT_MANAGER());
+			else
+				addBidDto.setBID_EXPERT_COMMISION_APPLY(userid);
+			//默认评审人=项目工程师，否则为当前用户
+			if (addBidDto.getPROJECT_MANAGER()!= null && addBidDto.getPROJECT_MANAGER()!="")
+				addBidDto.setBID_AUTH(addBidDto.getPROJECT_MANAGER());
+			else
+				addBidDto.setBID_AUTH(userid);
+			//标书费金额默认0.1万元
+			addBidDto.setBID_APPLY_PRICE(TbpsUtil.bigDecimal2str(new BigDecimal(0.1).setScale(6, BigDecimal.ROUND_HALF_UP)));			
 			
 			String bidNo = bidService.insertBidNew(addBidDto, listBidComp, listExpertLib);
 			this.addActionMessage("新增招标记录成功！招标编号：" + bidNo);
@@ -596,16 +612,6 @@ public class BidAction extends BaseAction {
 			//默认为不随机
 //			addBidDto.setIS_RANDOM("0");
 			addBidDto.setSTATUS("0");
-			//承接项目日期默认=当天
-			addBidDto.setPROJECT_DEVIEW_DATE(new Date());
-			String userid = (String) ActionContext.getContext().getSession().get(Constants.USER_ID);
-			//默认专家费申请人=当前用户
-			addBidDto.setBID_EXPERT_COMMISION_APPLY(userid);
-			//默认评审人=当前用户
-			addBidDto.setBID_AUTH(userid);
-			//标书费金额默认0.1万元
-			addBidDto.setBID_APPLY_PRICE(TbpsUtil.bigDecimal2str(new BigDecimal(0.1).setScale(6, BigDecimal.ROUND_HALF_UP)));
-			
 			listBidComp = new ArrayList<BidCompDto>();
 			listExpertLib = new ArrayList<ExpertLibDto>();
 			
@@ -831,7 +837,7 @@ public class BidAction extends BaseAction {
 		//翻页查询所有招标
 		this.page.setStartIndex(startIndex);
 		bidService.queryBidAndBidCntrctByPage("", "", "", "", "", strProjectName, strBidNoLow, strBidNoHigh,
-				"", "", "", "", "", "", "", page);
+				"", "", "", "", "", "", "", "", "", "", "", page);
 		listBid = (List<BidDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
@@ -1043,6 +1049,69 @@ public class BidAction extends BaseAction {
 		return SUCCESS;
 	}
 	
+	/////////////////////////////////////////////
+	/**
+	 * 显示招标项目进展一览页面
+	 * @return
+	 */
+	public String showBidProgressAction() {
+		try {
+			this.clearMessages();
+			//初期化
+			strBidNoLow = "";
+			strBidNoHigh = "";
+			strProjectName = "";
+			
+			strProjectType = "";
+			strOpenDateLow = "";
+			strOpenDateHigh = "";
+			updBidTabIndex = "";
+			page = new Page();
+			startIndex = 0;
+			listBid = new ArrayList<BidDto>();
+			addBidDto = new BidDto();
+			updateBidNo = "";
+			updateBidDto = new BidDto();
+			updateBidDtoOld = new BidDto();
+			delBidNo = "";
+		} catch(Exception e) {
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询招标进展列表
+	 * @return
+	 */
+	public String queryBidProgressList() {
+		try {
+			this.clearMessages();
+			page = new Page();
+			startIndex = 0;
+			queryBid();
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 翻页
+	 * @return
+	 */
+	public String turnBidProgressPage() {
+		try {
+			this.clearMessages();
+			queryBid();
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	/////////////////////////////////////////////
 	
 	public BidService getBidService() {
 		return bidService;

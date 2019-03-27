@@ -27,7 +27,9 @@ public class BidDaoImpl extends BaseDao implements BidDao {
 			String strBID_AGENT_PRICE_ACT, String strRECEIPT1_DATE, String strRECEIPT1_VALUE_DATE,
 			String cntrctNos, String finishStatuss, String PROJECT_NAME, String BID_NO_LOW, String BID_NO_HIGH,
 			String CNTRCT_YEAR, String CNTRCT_NO, String BID_COMP_NO, String CNTRCT_NAME, String CNTRCT_TYPE,
-			String CNTRCT_ST_DATE, String CNTRCT_ED_DATE) {
+			String CNTRCT_ST_DATE, String CNTRCT_ED_DATE, String BID_EXPERT_COMMISION_APPLY_ST_DATE, 
+			String BID_EXPERT_COMMISION_APPLY_ED_DATE, String PROJECT_MANAGER, String BID_NO
+			) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("strBID_AGENT_PRICE_ACT", strBID_AGENT_PRICE_ACT);
 		paramMap.put("strRECEIPT1_DATE", strRECEIPT1_DATE);
@@ -44,6 +46,10 @@ public class BidDaoImpl extends BaseDao implements BidDao {
 		paramMap.put("CNTRCT_TYPE", CNTRCT_TYPE);
 		paramMap.put("CNTRCT_ST_DATE", CNTRCT_ST_DATE);
 		paramMap.put("CNTRCT_ED_DATE", CNTRCT_ED_DATE);
+		paramMap.put("BID_EXPERT_COMMISION_APPLY_ST_DATE", BID_EXPERT_COMMISION_APPLY_ST_DATE);
+		paramMap.put("BID_EXPERT_COMMISION_APPLY_ED_DATE", BID_EXPERT_COMMISION_APPLY_ED_DATE);
+		paramMap.put("PROJECT_MANAGER", PROJECT_MANAGER);
+		paramMap.put("BID_NO", BID_NO);
 		return (Integer) getSqlMapClientTemplate().queryForObject("queryBidAndBidCntrctCountByPage", paramMap);
 	}
 
@@ -52,7 +58,8 @@ public class BidDaoImpl extends BaseDao implements BidDao {
 			String strBID_AGENT_PRICE_ACT, String strRECEIPT1_DATE, String strRECEIPT1_VALUE_DATE,
 			String cntrctNos, String finishStatuss, String PROJECT_NAME, String BID_NO_LOW, String BID_NO_HIGH,
 			String CNTRCT_YEAR, String CNTRCT_NO, String BID_COMP_NO, String CNTRCT_NAME, String CNTRCT_TYPE,
-			String CNTRCT_ST_DATE, String CNTRCT_ED_DATE, int start, int end) {
+			String CNTRCT_ST_DATE, String CNTRCT_ED_DATE,String BID_EXPERT_COMMISION_APPLY_ST_DATE, 
+			String BID_EXPERT_COMMISION_APPLY_ED_DATE, String PROJECT_MANAGER, String BID_NO, int start, int end) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("strBID_AGENT_PRICE_ACT", strBID_AGENT_PRICE_ACT);
 		paramMap.put("strRECEIPT1_DATE", strRECEIPT1_DATE);
@@ -69,6 +76,10 @@ public class BidDaoImpl extends BaseDao implements BidDao {
 		paramMap.put("CNTRCT_TYPE", CNTRCT_TYPE);
 		paramMap.put("CNTRCT_ST_DATE", CNTRCT_ST_DATE);
 		paramMap.put("CNTRCT_ED_DATE", CNTRCT_ED_DATE);
+		paramMap.put("BID_EXPERT_COMMISION_APPLY_ST_DATE", BID_EXPERT_COMMISION_APPLY_ST_DATE);
+		paramMap.put("BID_EXPERT_COMMISION_APPLY_ED_DATE", BID_EXPERT_COMMISION_APPLY_ED_DATE);
+		paramMap.put("PROJECT_MANAGER", PROJECT_MANAGER);
+		paramMap.put("BID_NO", BID_NO);
 		paramMap.put("start", start);
 		paramMap.put("end", end);
 		@SuppressWarnings("unchecked")

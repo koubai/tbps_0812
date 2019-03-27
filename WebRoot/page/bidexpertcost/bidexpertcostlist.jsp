@@ -123,6 +123,8 @@
 		$("#strCNTRCT_ST_DATE").attr("value", $("#tmpCNTRCT_ST_DATE").val());
 		$("#strCNTRCT_ED_DATE").attr("value", $("#tmpCNTRCT_ED_DATE").val());
 		$("#strBID_COMP_NO").attr("value", $("#strAgentNo").val());
+		$("#strBID_EXPERT_COMMISION_APPLY_ST_DATE").attr("value", $("#tmpBID_EXPERT_COMMISION_APPLY_ST_DATE").val());
+		$("#strBID_EXPERT_COMMISION_APPLY_ED_DATE").attr("value", $("#tmpBID_EXPERT_COMMISION_APPLY_ED_DATE").val());		
 	}
 
 	function queryList() {
@@ -323,6 +325,8 @@
 					<s:hidden name="strBID_COMP_NO" id="strBID_COMP_NO"/>
 					<s:hidden name="strBID_COMP_NAME" id="strBID_COMP_NAME"/>
 					<s:hidden name="strBidNosExpert" id="strBidNosExpert"/>
+					<s:hidden name="strBID_EXPERT_COMMISION_APPLY_ST_DATE" id="strBID_EXPERT_COMMISION_APPLY_ST_DATE"/>
+					<s:hidden name="strBID_EXPERT_COMMISION_APPLY_ED_DATE" id="strBID_EXPERT_COMMISION_APPLY_ED_DATE"/>
 					<h3 class="title">专家费设定<a class="backHome" href="#" onclick="goHome();"><i class="fa fa-home" aria-hidden="true"></i>返回首页</a></h3>
 					<div class="row">
 						<s:if test="hasActionMessages()">
@@ -364,7 +368,48 @@
 								<s:textfield name="strCNTRCT_NO" id="strCNTRCT_NO" cssClass="form-control" maxlength="20" theme="simple"></s:textfield>
 							</div>
 						</div>
-						<div class="col-lg-5 form-group">
+					</div>
+					<div class="row">
+						<div class="col-lg-3 form-group">
+						 	<label for="" class="col-lg-3 form-label">工程师</label>
+						 	<div class="col-lg-9">
+						 		<select name="strPROJECT_MANAGER" id="strPROJECT_MANAGER" class="form-control">
+						 			<option value="" selected="selected">请选择</option>
+									<s:iterator id="listUserInfo" value="listUserInfo" status="st1">
+										<option value="<s:property value="LOGIN_ID"/>" <s:if test="%{strPROJECT_MANAGER == LOGIN_ID}">selected</s:if>><s:property value="LOGIN_NAME"/></option>
+									</s:iterator>
+								</select>
+						 	</div>
+						</div>
+						<div class="col-lg-6 form-group">
+							<label for="" class="col-lg-2 form-label to">费用申请时间</label>
+							<div class="col-lg-4">
+								<div class="input-group date" data-provide="datepicker">
+									<input id="tmpBID_EXPERT_COMMISION_APPLY_ST_DATE" value="<s:property value="strBID_EXPERT_COMMISION_APPLY_ST_DATE"/>" maxlength="10" type="text" class="form-control datepicker" readonly>
+									<div class="input-group-addon">
+										<span class="glyphicon glyphicon-th"></span>
+									</div>
+								</div>
+							</div>
+							<label for="" class="col-lg-1 form-label to">---</label>
+							<div class="col-lg-4">
+								<div class="input-group date" data-provide="datepicker">
+									<input id="tmpBID_EXPERT_COMMISION_APPLY_ED_DATE" value="<s:property value="strBID_EXPERT_COMMISION_APPLY_ED_DATE"/>" maxlength="10" type="text" class="form-control datepicker" readonly>
+									<div class="input-group-addon">
+										<span class="glyphicon glyphicon-th"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-3 form-group">
+							<label for="" class="col-lg-3 form-label">招标编号</label>
+							<div class="col-lg-9">
+								<s:textfield name="strBID_NO" id="strBID_NO" cssClass="form-control" maxlength="20" theme="simple"></s:textfield>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-lg-7 form-group">
 							<label for="" class="col-lg-3 form-label">委托公司</label>
 							<div class="col-lg-7">
 								<input type="text" id="strAgentName" disabled="disabled" class="form-control" value="<s:property value="strBID_COMP_NAME"/>">
@@ -373,8 +418,10 @@
 								<button type="button" class="btn btn-success" onclick="showAgentComSelect();">选择</button>
 							</div>
 						</div>
-						<div class="col-lg-2 form-group">
-							<button type="button" class="btn btn-success form-control" onclick="queryList();">检索</button>
+						<div class="col-lg-5 form-group">	
+							<div class="col-lg-3 form-group">
+								<button type="button" class="btn btn-success form-control" onclick="queryList();">检索</button>
+							</div>
 						</div>
 					</div>
 					<div class="btns">

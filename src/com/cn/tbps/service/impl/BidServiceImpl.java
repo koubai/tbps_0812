@@ -128,7 +128,8 @@ public class BidServiceImpl extends BaseService implements BidService {
 	public Page queryBidAndBidCntrctByPage(String strBID_AGENT_PRICE_ACT, String strRECEIPT1_DATE, String strRECEIPT1_VALUE_DATE,
 			String cntrctNos, String finishStatuss, String PROJECT_NAME, String BID_NO_LOW, String BID_NO_HIGH,
 			String CNTRCT_YEAR, String CNTRCT_NO, String BID_COMP_NO, String CNTRCT_NAME, String CNTRCT_TYPE,
-			String CNTRCT_ST_DATE, String CNTRCT_ED_DATE, Page page) {
+			String CNTRCT_ST_DATE, String CNTRCT_ED_DATE, String BID_EXPERT_COMMISION_APPLY_ST_DATE,String BID_EXPERT_COMMISION_APPLY_ED_DATE,
+			String PROJECT_MANAGER, String BID_NO, Page page) {
 		String newCntrctNos = "";
 		if(StringUtil.isNotBlank(cntrctNos)) {
 			String[] cntrctNoList = cntrctNos.split(",");
@@ -165,7 +166,8 @@ public class BidServiceImpl extends BaseService implements BidService {
 		//查询总记录数
 		int totalCount = bidDao.queryBidAndBidCntrctCountByPage(strBID_AGENT_PRICE_ACT,
 				strRECEIPT1_DATE, strRECEIPT1_VALUE_DATE, newCntrctNos, finishStatuss, PROJECT_NAME, BID_NO_LOW,
-				BID_NO_HIGH, CNTRCT_YEAR, CNTRCT_NO, BID_COMP_NO, CNTRCT_NAME, CNTRCT_TYPE, CNTRCT_ST_DATE, CNTRCT_ED_DATE);
+				BID_NO_HIGH, CNTRCT_YEAR, CNTRCT_NO, BID_COMP_NO, CNTRCT_NAME, CNTRCT_TYPE, CNTRCT_ST_DATE, CNTRCT_ED_DATE,
+				BID_EXPERT_COMMISION_APPLY_ST_DATE,BID_EXPERT_COMMISION_APPLY_ED_DATE,PROJECT_MANAGER, BID_NO);
 		page.setTotalCount(totalCount);
 		if(totalCount % page.getPageSize() > 0) {
 			page.setTotalPage(totalCount / page.getPageSize() + 1);
@@ -176,6 +178,7 @@ public class BidServiceImpl extends BaseService implements BidService {
 		List<BidDto> list = bidDao.queryBidAndBidCntrctByPage(strBID_AGENT_PRICE_ACT,
 				strRECEIPT1_DATE, strRECEIPT1_VALUE_DATE, newCntrctNos, finishStatuss, PROJECT_NAME, BID_NO_LOW,
 				BID_NO_HIGH, CNTRCT_YEAR, CNTRCT_NO, BID_COMP_NO, CNTRCT_NAME, CNTRCT_TYPE, CNTRCT_ST_DATE, CNTRCT_ED_DATE,
+				BID_EXPERT_COMMISION_APPLY_ST_DATE,BID_EXPERT_COMMISION_APPLY_ED_DATE,PROJECT_MANAGER, BID_NO,
 				page.getStartIndex() * page.getPageSize(), page.getPageSize());
 		//查询各个合同对应的招标数量以及对应状态、金额等
 		if(list != null && list.size() > 0) {

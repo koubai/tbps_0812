@@ -221,7 +221,7 @@ public class BidAgentCostAction extends BaseAction {
 		this.page.setStartIndex(startIndex);
 		page = bidService.queryBidAndBidCntrctByPage(strBID_AGENT_PRICE_ACT, strRECEIPT1_DATE, strRECEIPT1_VALUE_DATE,
 				strCntrctNos, "'20','90'", "", strBidNoLow, strBidNoHigh, strCNTRCT_YEAR, strCNTRCT_NO, strBID_COMP_NO,
-				strCNTRCT_NAME, "", strCNTRCT_ST_DATE, strCNTRCT_ED_DATE, page);
+				strCNTRCT_NAME, "", strCNTRCT_ST_DATE, strCNTRCT_ED_DATE,"","","","", page);
 		listBid = (List<BidDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}

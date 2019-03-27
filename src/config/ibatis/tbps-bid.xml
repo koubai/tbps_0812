@@ -383,6 +383,18 @@
 			<isNotEmpty prepend="and" property="strRECEIPT1_VALUE_DATE">
 				$strRECEIPT1_VALUE_DATE$
 			</isNotEmpty>
+			<isNotEmpty prepend="and" property="BID_EXPERT_COMMISION_APPLY_ST_DATE">
+				B.BID_EXPERT_COMMISION_APPLY_DATE <![CDATA[>=]]> #BID_EXPERT_COMMISION_APPLY_ST_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="BID_EXPERT_COMMISION_APPLY_ED_DATE">
+				B.BID_EXPERT_COMMISION_APPLY_DATE <![CDATA[<=]]> #BID_EXPERT_COMMISION_APPLY_ED_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				B.PROJECT_MANAGER = #PROJECT_MANAGER#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="BID_NO">
+				B.BID_NO like '%$BID_NO$%'
+			</isNotEmpty>
 		) A where 1 = 1
 			<isNotEmpty prepend="and" property="cntrctNos">
 				A.CNTRCT_NO in ($cntrctNos$)
@@ -436,6 +448,18 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="strRECEIPT1_VALUE_DATE">
 				$strRECEIPT1_VALUE_DATE$
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="BID_EXPERT_COMMISION_APPLY_ST_DATE">
+				B.BID_EXPERT_COMMISION_APPLY_DATE <![CDATA[>=]]> #BID_EXPERT_COMMISION_APPLY_ST_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="BID_EXPERT_COMMISION_APPLY_ED_DATE">
+				B.BID_EXPERT_COMMISION_APPLY_DATE <![CDATA[<=]]> #BID_EXPERT_COMMISION_APPLY_ED_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				B.PROJECT_MANAGER = #PROJECT_MANAGER#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="BID_NO">
+				B.BID_NO like '%$BID_NO$%'
 			</isNotEmpty>
 		) A where 1 = 1
 			<isNotEmpty prepend="and" property="cntrctNos">

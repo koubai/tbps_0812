@@ -243,6 +243,14 @@ public class BidProgressAction extends BaseAction {
 	}
 	
 	/**
+	 * 显示项目状态信息(项目进展菜单专用，防止返回页面走错)
+	 * @return
+	 */
+	public String showBidProgress2Action() {
+		return showBidProgressAction();
+	}
+
+		/**
 	 * 显示项目状态信息
 	 * @return
 	 */
@@ -321,7 +329,8 @@ public class BidProgressAction extends BaseAction {
 					Date1 = bidDto.getBID_DOC_DELI_DATE1();
 				if (bidDto.getBID_DOC_DELI_FILE1()!= null){
 					File01 = StringUtil.splitFileName(bidDto.getBID_DOC_DELI_FILE1());
-					File01_URL = StringUtil.splitFileNameURL(bidDto.getBID_DOC_DELI_FILE1());
+					File01_URL = StringUtil.splitFileNameURL(bidDto.getBID_DOC_DELI_FILE1());		
+					System.out.println(File01);
 				}
 				if (bidDto.getBID_DOC_DELI_FILE2()!=null){
 					File02 = StringUtil.splitFileName(bidDto.getBID_DOC_DELI_FILE2());
@@ -365,19 +374,19 @@ public class BidProgressAction extends BaseAction {
 				strHead3 = "";
 				if (bidDto.getBID_VER_DOC_DELI_DATE1()!= null)
 					Date1 = bidDto.getBID_VER_DOC_DELI_DATE1();
-				if (bidDto.getBID_VER_DOC_DELI_FILE1()!= null && StringUtil.isBlank(bidDto.getBID_VER_DOC_DELI_FILE1())){
+				if (bidDto.getBID_VER_DOC_DELI_FILE1()!= null && !StringUtil.isBlank(bidDto.getBID_VER_DOC_DELI_FILE1())){
 					File01 = StringUtil.splitFileName(bidDto.getBID_VER_DOC_DELI_FILE1());
 					File01_URL = StringUtil.splitFileNameURL(bidDto.getBID_VER_DOC_DELI_FILE1());
 				}
-				if (bidDto.getBID_VER_DOC_DELI_FILE2()!= null && StringUtil.isBlank(bidDto.getBID_VER_DOC_DELI_FILE2())){
+				if (bidDto.getBID_VER_DOC_DELI_FILE2()!= null && !StringUtil.isBlank(bidDto.getBID_VER_DOC_DELI_FILE2())){
 					File02 = StringUtil.splitFileName(bidDto.getBID_VER_DOC_DELI_FILE2());
 					File02_URL = StringUtil.splitFileNameURL(bidDto.getBID_VER_DOC_DELI_FILE2());
 				}
-				if (bidDto.getBID_VER_DOC_DELI_FILE3()!= null && StringUtil.isBlank(bidDto.getBID_VER_DOC_DELI_FILE3())){
+				if (bidDto.getBID_VER_DOC_DELI_FILE3()!= null && !StringUtil.isBlank(bidDto.getBID_VER_DOC_DELI_FILE3())){
 					File03 = StringUtil.splitFileName(bidDto.getBID_VER_DOC_DELI_FILE3());
 					File03_URL = StringUtil.splitFileNameURL(bidDto.getBID_VER_DOC_DELI_FILE3());
 				}
-				if (bidDto.getBID_VER_DOC_DELI_FILE4()!= null && StringUtil.isBlank(bidDto.getBID_VER_DOC_DELI_FILE4())){
+				if (bidDto.getBID_VER_DOC_DELI_FILE4()!= null && !StringUtil.isBlank(bidDto.getBID_VER_DOC_DELI_FILE4())){
 					File04 = StringUtil.splitFileName(bidDto.getBID_VER_DOC_DELI_FILE4());
 					File04_URL = StringUtil.splitFileNameURL(bidDto.getBID_VER_DOC_DELI_FILE4());
 				}
@@ -467,16 +476,41 @@ public class BidProgressAction extends BaseAction {
 		//文件送至甲方
 		else if (BTN_NO.equals("0105")){
 			bidDto.setBID_DOC_DELI_DATE1(Date1);
-			if (!File01.equals(""))
-				bidDto.setBID_DOC_DELI_FILE1(File01 + ";" + File01_URL);
-			if (!File02.equals(""))
-				bidDto.setBID_DOC_DELI_FILE2(File02 + ";" + File02_URL);
-			if (!File03.equals(""))
-				bidDto.setBID_DOC_DELI_FILE3(File03 + ";" + File03_URL);
-			if (!File04.equals(""))
-				bidDto.setBID_DOC_DELI_FILE4(File04 + ";" + File04_URL);
-			if (!File05.equals(""))
-				bidDto.setBID_DOC_DELI_FILE5(File05 + ";" + File05_URL);
+			if (!File01.equals("")){
+				bidDto.setBID_DOC_DELI_FILE1(new String(File01.getBytes("ISO-8859-1"),"UTF-8") + ";" + File01_URL);
+				File01 = new String(File01.getBytes("ISO-8859-1"),"UTF-8");
+			}else{
+				bidDto.setBID_DOC_DELI_FILE1(null);				
+				File01 = "";
+			}
+			if (!File02.equals("")){
+				bidDto.setBID_DOC_DELI_FILE2(new String(File02.getBytes("ISO-8859-1"),"UTF-8") + ";" + File02_URL);
+				File02 = new String(File02.getBytes("ISO-8859-1"),"UTF-8");
+			}else{
+				bidDto.setBID_DOC_DELI_FILE2(null);				
+				File02 = "";
+			}
+			if (!File03.equals("")){
+				bidDto.setBID_DOC_DELI_FILE3(new String(File03.getBytes("ISO-8859-1"),"UTF-8") + ";" + File03_URL);
+				File03 = new String(File03.getBytes("ISO-8859-3"),"UTF-8");
+			}else{
+				bidDto.setBID_DOC_DELI_FILE3(null);				
+				File03 = "";
+			}
+			if (!File04.equals("")){
+				bidDto.setBID_DOC_DELI_FILE4(new String(File04.getBytes("ISO-8859-1"),"UTF-8") + ";" + File04_URL);
+				File04 = new String(File04.getBytes("ISO-8859-1"),"UTF-8");
+			}else{
+				bidDto.setBID_DOC_DELI_FILE4(null);				
+				File04 = "";
+			}
+			if (!File05.equals("")){
+				bidDto.setBID_DOC_DELI_FILE5(new String(File05.getBytes("ISO-8859-1"),"UTF-8") + ";" + File05_URL);
+				File05 = new String(File05.getBytes("ISO-8859-1"),"UTF-8");
+			}else{
+				bidDto.setBID_DOC_DELI_FILE5(null);				
+				File05 = "";
+			}			
 		}
 		//中标通知书签收
 		else if (BTN_NO.equals("0205")){
@@ -489,11 +523,41 @@ public class BidProgressAction extends BaseAction {
 		//报告送至甲方
 		else if (BTN_NO.equals("0405")){
 			bidDto.setBID_VER_DOC_DELI_DATE1(Date1);
-			bidDto.setBID_VER_DOC_DELI_FILE1(File01 + ";" + File01_URL);
-			bidDto.setBID_VER_DOC_DELI_FILE2(File02 + ";" + File02_URL);
-			bidDto.setBID_VER_DOC_DELI_FILE3(File03 + ";" + File03_URL);
-			bidDto.setBID_VER_DOC_DELI_FILE4(File04 + ";" + File04_URL);
-			bidDto.setBID_VER_DOC_DELI_FILE5(File05 + ";" + File05_URL);
+			if (!File01.equals("")){
+				bidDto.setBID_VER_DOC_DELI_FILE1(new String(File01.getBytes("ISO-8859-1"),"UTF-8") + ";" + File01_URL);
+				File01 = new String(File01.getBytes("ISO-8859-1"),"UTF-8");
+			}else{
+				bidDto.setBID_VER_DOC_DELI_FILE1(null);				
+				File01 = "";
+			}
+			if (!File02.equals("")){
+				bidDto.setBID_VER_DOC_DELI_FILE2(new String(File02.getBytes("ISO-8859-1"),"UTF-8") + ";" + File02_URL);
+				File02 = new String(File02.getBytes("ISO-8859-1"),"UTF-8");
+			}else{
+				bidDto.setBID_VER_DOC_DELI_FILE2(null);				
+				File02 = "";
+			}
+			if (!File03.equals("")){
+				bidDto.setBID_VER_DOC_DELI_FILE3(new String(File03.getBytes("ISO-8859-1"),"UTF-8") + ";" + File03_URL);
+				File03 = new String(File03.getBytes("ISO-8859-1"),"UTF-8");
+			}else{
+				bidDto.setBID_VER_DOC_DELI_FILE3(null);				
+				File03 = "";
+			}
+			if (!File04.equals("")){
+				bidDto.setBID_VER_DOC_DELI_FILE4(new String(File04.getBytes("ISO-8859-1"),"UTF-8") + ";" + File04_URL);
+				File04 = new String(File04.getBytes("ISO-8859-1"),"UTF-8");
+			}else{
+				bidDto.setBID_VER_DOC_DELI_FILE4(null);				
+				File04 = "";
+			}
+			if (!File05.equals("")){
+				bidDto.setBID_VER_DOC_DELI_FILE5(new String(File05.getBytes("ISO-8859-1"),"UTF-8") + ";" + File05_URL);
+				File05 = new String(File05.getBytes("ISO-8859-1"),"UTF-8");
+			}else{
+				bidDto.setBID_VER_DOC_DELI_FILE5(null);				
+				File05 = "";
+			}
 		}
 		//中标投标文件扫描
 		else if (BTN_NO.equals("0505")){
@@ -585,19 +649,19 @@ public class BidProgressAction extends BaseAction {
 			String newfile = FileUtil.uploadFile(file, file_path, fname);
 //		    File ff = new File(file_path + newfile);
 			if 	(upload_fileNo.equals("1")) {
-				File01 = fname;
+				File01 = new String(fname.getBytes("ISO-8859-1"),"UTF-8");
 				File01_URL = file_path + newfile;
 			} else if (upload_fileNo.equals("2")) {
-				File02 = fname;
+				File02 = new String(fname.getBytes("ISO-8859-1"),"UTF-8");
 				File02_URL = file_path + newfile;
 			} else if (upload_fileNo.equals("3")) {
-				File03 = fname;
+				File03 = new String(fname.getBytes("ISO-8859-1"),"UTF-8");
 				File03_URL = file_path + newfile;
 			} else if (upload_fileNo.equals("4")) {
-				File04 = fname;
+				File04 = new String(fname.getBytes("ISO-8859-1"),"UTF-8");
 				File04_URL = file_path + newfile;
 			} else if (upload_fileNo.equals("5")) {
-				File05 = fname;
+				File05 = new String(fname.getBytes("ISO-8859-1"),"UTF-8");
 				File05_URL = file_path + newfile;
 			} 
 		    System.out.println("ff:"+ file_path + newfile);		    
@@ -749,9 +813,18 @@ public class BidProgressAction extends BaseAction {
 //			setStatus0105(bidStatusInfo.substring(5,6));
 			if (bidDto.getBID_DOC_DELI_DATE1()!= null && StringUtil.isNotBlank(bidDto.getBID_DOC_DELI_DATE1().toString())){
 				setStatus0105("9");
-				setFile01(bidDto.getBID_DOC_DELI_FILE1());
+				setFile01(StringUtil.splitFileName(new String(bidDto.getBID_DOC_DELI_FILE1().getBytes("ISO-8859-1"),"UTF-8")));
+				setFile02(StringUtil.splitFileName(new String(bidDto.getBID_DOC_DELI_FILE2().getBytes("ISO-8859-1"),"UTF-8")));
+				setFile03(StringUtil.splitFileName(new String(bidDto.getBID_DOC_DELI_FILE3().getBytes("ISO-8859-1"),"UTF-8")));
+				setFile04(StringUtil.splitFileName(new String(bidDto.getBID_DOC_DELI_FILE4().getBytes("ISO-8859-1"),"UTF-8")));
+				setFile05(StringUtil.splitFileName(new String(bidDto.getBID_DOC_DELI_FILE5().getBytes("ISO-8859-1"),"UTF-8")));
 			}else{
 				setStatus0105("0");
+				setFile01(StringUtil.splitFileName(new String(bidDto.getBID_DOC_DELI_FILE1().getBytes("ISO-8859-1"),"UTF-8")));
+				setFile02(StringUtil.splitFileName(new String(bidDto.getBID_DOC_DELI_FILE2().getBytes("ISO-8859-1"),"UTF-8")));
+				setFile03(StringUtil.splitFileName(new String(bidDto.getBID_DOC_DELI_FILE3().getBytes("ISO-8859-1"),"UTF-8")));
+				setFile04(StringUtil.splitFileName(new String(bidDto.getBID_DOC_DELI_FILE4().getBytes("ISO-8859-1"),"UTF-8")));
+				setFile05(StringUtil.splitFileName(new String(bidDto.getBID_DOC_DELI_FILE5().getBytes("ISO-8859-1"),"UTF-8")));
 			}
 			
 			//项目完成情况
@@ -865,8 +938,18 @@ public class BidProgressAction extends BaseAction {
 //			setStatus0405(bidStatusInfo.substring(20,21));
 			if (bidDto.getBID_VER_DOC_DELI_DATE1() != null && StringUtil.isNotBlank(bidDto.getBID_VER_DOC_DELI_DATE1().toString())){
 				setStatus0405("9");
+				setFile01(StringUtil.splitFileName(new String(bidDto.getBID_VER_DOC_DELI_FILE1().getBytes("ISO-8859-1"),"UTF-8")));
+				setFile02(StringUtil.splitFileName(new String(bidDto.getBID_VER_DOC_DELI_FILE2().getBytes("ISO-8859-1"),"UTF-8")));
+				setFile03(StringUtil.splitFileName(new String(bidDto.getBID_VER_DOC_DELI_FILE3().getBytes("ISO-8859-1"),"UTF-8")));
+				setFile04(StringUtil.splitFileName(new String(bidDto.getBID_VER_DOC_DELI_FILE4().getBytes("ISO-8859-1"),"UTF-8")));
+				setFile05(StringUtil.splitFileName(new String(bidDto.getBID_VER_DOC_DELI_FILE5().getBytes("ISO-8859-1"),"UTF-8")));
 			}else{
 				setStatus0405("0");
+				setFile01(StringUtil.splitFileName(new String(bidDto.getBID_VER_DOC_DELI_FILE1().getBytes("ISO-8859-1"),"UTF-8")));
+				setFile02(StringUtil.splitFileName(new String(bidDto.getBID_VER_DOC_DELI_FILE2().getBytes("ISO-8859-1"),"UTF-8")));
+				setFile03(StringUtil.splitFileName(new String(bidDto.getBID_VER_DOC_DELI_FILE3().getBytes("ISO-8859-1"),"UTF-8")));
+				setFile04(StringUtil.splitFileName(new String(bidDto.getBID_VER_DOC_DELI_FILE4().getBytes("ISO-8859-1"),"UTF-8")));
+				setFile05(StringUtil.splitFileName(new String(bidDto.getBID_VER_DOC_DELI_FILE5().getBytes("ISO-8859-1"),"UTF-8")));
 			}
 			
 			//招标文件定稿

@@ -38,6 +38,10 @@
 	function bid() {
 		window.location.href = '<c:url value="/bid/showBidAction.action"></c:url>';
 	}
+	// 招标项目进展一览
+	function bidprogress() {
+		window.location.href = '<c:url value="/bid/showBidProgressAction.action"></c:url>';
+	}
 	// 项目情况检查
 	function auditinfo() {
 		window.location.href = '<c:url value="/audit/showAuditAuth.action"></c:url>';
@@ -92,42 +96,49 @@
 		<jsp:include page="info.jsp" flush="true" />
 		<!-- <div class="row menuList">  -->
 		<div class="row menuList">
+			<!-- 1 -->
 			<div class="col-lg-6">
 				<a class="btn btn-primary" href="#" onclick="auditcntrct();">审价合同一览</a>
 			</div>
 			<div class="col-lg-6">
 				<a class="btn btn-primary" href="#" onclick="bidcntrct();">招标合同管理一览</a>
 			</div>
+			<!-- 2 -->
 			<div class="col-lg-6">
 				<a class="btn btn-primary" href="#" onclick="audit();">审价项目一览</a>
 			</div>
 			<div class="col-lg-6">
 				<a class="btn btn-primary" href="#" onclick="bid();">招标项目检索和一览</a>
 			</div>
+			<!-- 3 -->
 			<div class="col-lg-6">
 				<a class="btn btn-primary" href="#" onclick="auditinfo();">项目情况检查</a>
 			</div>
 			<div class="col-lg-6">
 				<a class="btn btn-primary" href="#" onclick="agentcalc();">代理费计算</a>
 			</div>
+			<!-- 4 -->
 			<div class="col-lg-6">
 				<a class="btn btn-primary" href="#" onclick="accurate();">统计界面</a>
 			</div>
 			<div class="col-lg-6">
 				<a class="btn btn-primary" href="#" onclick="expertcost();">专家费计算</a>
 			</div>
+			<!-- 5 -->
 			<div class="col-lg-6">
 				<a class="btn btn-primary" href="#" onclick="auditcostaccurate();">项目收费统计输出</a>
 			</div>
 			<div class="col-lg-6">
 				<a class="btn btn-primary" href="#" onclick="showAgentCompAction();">委托公司信息</a>
 			</div>
+			<!-- 6 -->
 			<div class="col-lg-6">
 				<a class="btn btn-primary" href="#" onclick="accountaccurate();">到账统计</a>
 			</div>
 			<div class="col-lg-6">
 				<a class="btn btn-primary" href="#" onclick="showExpertLibAction();">专家库信息</a>
 			</div>
+			<!-- 7 -->
 			<div class="col-lg-6">
 				<a class="btn btn-primary" href="#" onclick="showauditB();">投资监理B项目一览</a>
 			</div>
@@ -138,6 +149,7 @@
 			</s:if>
 			<s:else>
 			</s:else>
+			<!-- 8 -->
 			<s:if test='#session.user_rank >= "B"'>
 			<div class="col-lg-6">
 				<a class="btn btn-primary" href="#" onclick="manageSuperviselib();">会审监管人管理</a>
@@ -145,6 +157,13 @@
 			</s:if>
 			<div class="col-lg-6">
 				<a class="btn btn-primary" href="#" onclick="manageMesg();">消息管理</a>
+			</div>
+			<!-- 9 -->
+			<div class="col-lg-6">
+				<a class="btn btn-primary" href="#" onclick="">-----</a>
+			</div>
+			<div class="col-lg-6">
+				<a class="btn btn-primary" href="#" onclick="bidprogress();">招标项目进展一览</a>
 			</div>
 		</div>
 	</div>

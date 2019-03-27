@@ -241,6 +241,13 @@
 	
 	function getSelectCntrctInfo() {
 		var list = document.getElementsByName("CNTRCT_INFO");
+		var userRank="<%=session.getAttribute("user_rank")%>";
+		if(userRank == "A" || userRank == "B"){
+			for(var k = 0; k < list.length; k++) {
+				list[k].disabled = true;
+			}
+		}
+		
 		for(var i = 0; i < list.length; i++) {
 			if(list[i].checked) {
 				$("#CNTRCT_INFO").val(i+1);
@@ -547,6 +554,7 @@
 	
 	function disableB(){
 		//$('#docRecDate').removeAttr("disabled");
+		$('#cntrct_sel').attr('disabled',"true");
 		$('#PROGRESS_STATUS_MEMO').attr('disabled',"true");
 		$('#PRE_SET').attr('disabled',"true");
 		$('#PRE_PRICE').attr('disabled',"true");
@@ -577,6 +585,7 @@
 	}
 	
 	function disableC(){
+		$('#cntrct_sel').attr('disabled',"true");
 		$('#REPORT_NO').attr('disabled',"true");
 		$('#PROJECT_MANAGER').attr('disabled',"true");
 		//$('#PROJECT_NAME_PASS').attr('disabled',"true");
@@ -1513,7 +1522,7 @@
 								</s:else>
 							</div>
 							<div class="col-lg-1">
-								<button class="btn btn-success form-control" type="button" onclick="showCntrSelect();">合同选择</button>
+								<button class="btn btn-success form-control" type="button" id="cntrct_sel"  onclick="showCntrSelect();">合同选择</button>
 							</div>
 							<label for="" class="col-lg-1 form-label">合同编号</label>
 							<div class="col-lg-2">
