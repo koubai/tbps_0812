@@ -225,6 +225,13 @@
 		}
 	}
 	
+	function progress(bidNo) {
+		$("#strBID_NO").val(bidNo);
+//		alert(bidNo);
+		document.mainform.action = '<c:url value="/bidprogress/showBidProgressAction.action"></c:url>';
+		document.mainform.submit();
+	}
+	
 	function checkdata() {
 		setBidValue();
 		var CNTRCT_NO = $("#CNTRCT_NO").val();
@@ -2069,6 +2076,7 @@
 	<div class="container-fluid">
 		<jsp:include page="../info.jsp" flush="true" />
 		<s:form id="mainform" name="mainform" method="POST" theme="simple">
+			<s:hidden name="strBID_NO" id="strBID_NO"/>
 			<s:hidden name="updateBidDto.IS_RANDOM" id="IS_RANDOM"/>
 			<s:hidden name="updateBidDto.CNTRCT_NO" id="CNTRCT_NO"/>
 			<s:hidden name="updateBidDto.CNTRCT_YEAR" id="CNTRCT_YEAR"/>
@@ -3417,6 +3425,7 @@
 					<div class="operationBtns addBtns mgt15 btn3">
 						<button type="button" class="btn btn-success" onclick="upd();">保存</button>
 						<button type="button" class="btn btn-success" onclick="goBidList();">返回</button>
+						&nbsp;&nbsp;<button type="button" class="btn btn-success" onclick="progress('<s:property value="updateBidDto.BID_NO"/>');">项目状态</button>
 					</div>
 			</div>
 		</s:form>

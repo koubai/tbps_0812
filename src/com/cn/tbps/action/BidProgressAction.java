@@ -141,13 +141,13 @@ public class BidProgressAction extends BaseAction {
 	public String showBidProgressAction() {
 		try {
 			this.clearMessages();
-			System.out.println("showBidProgressAction");
-			System.out.println("招标编号：" + strBID_NO);
+//			System.out.println("showBidProgressAction");
+//			System.out.println("招标编号：" + strBID_NO);
 			listUserInfo = userInfoService.queryAllUser();
 			if (bidService == null){
-				System.out.println("bidService is null");
+//				System.out.println("bidService is null");
 			}else{
-				System.out.println("bidService is not Null");
+//				System.out.println("bidService is not Null");
 				bidDto = bidService.queryBidByID(strBID_NO);
 			}
 /*			bidDto.setPROGRESS_STATUS("92000000000000000000000000000000000000000000000000");
