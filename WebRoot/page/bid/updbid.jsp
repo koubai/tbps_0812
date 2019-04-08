@@ -1388,8 +1388,8 @@
 			$('#tmpCO_MANAGER_EMAIL1').val(CO_MANAGER_EMAIL1);
 			$('#tmpCO_MANAGER_TEL1').val(CO_MANAGER_TEL1);
 			$('#tmpCNTRCT_TYPE').val(CNTRCT_TYPE);
-			$('#tmpPROJECT_MANAGER').val(PROJECT_SENIOR_MANAGER);
-			$('#PROJECT_MANAGER').val(PROJECT_SENIOR_MANAGER);
+//			$('#tmpPROJECT_MANAGER').val(PROJECT_SENIOR_MANAGER);
+//			$('#PROJECT_MANAGER').val(PROJECT_SENIOR_MANAGER);
 			$('#CNTRCT_TYPE_NAME').val("");
 			if(CNTRCT_TYPE == "1") {
 				$('#tmpCNTRCT_TYPE_NAME').val("招标");
@@ -2130,7 +2130,7 @@
 								<input id="tmpCNTRCT_NO" value="<s:property value="updateBidDto.CNTRCT_NO"/>" type="text" class="form-control" readonly>
 							</div>
 							<div class="col-lg-2" style="z-index: 1;">
-								<!-- <button type="button" class="btn btn-success" onclick="showSelectBidCntrct();">合同选择</button> -->
+								<button type="button" class="btn btn-success" onclick="showSelectBidCntrct();">合同选择</button>
 							</div>
 						</div>
 						 <div class="col-lg-3 form-group">
