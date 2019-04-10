@@ -468,7 +468,7 @@
 			<isNotEmpty prepend="and" property="finishStatuss">
 				A.FINISH_STATUS in ($finishStatuss$)
 			</isNotEmpty>
-			order by A.CNTRCT_NO desc,A.BID_NO desc
+			order by A.BID_NO desc
 			LIMIT #start#, #end#
 	</select>
 	
