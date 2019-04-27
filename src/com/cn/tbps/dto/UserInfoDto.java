@@ -25,6 +25,11 @@ public class UserInfoDto extends BaseDto {
 	private String LOGIN_NAME;
 
 	/**
+	 * 旧密码
+	 */
+	private String LOGIN_PW_OLD;
+
+	/**
 	 * 登录密码
 	 */
 	private String LOGIN_PW;
@@ -207,5 +212,13 @@ public class UserInfoDto extends BaseDto {
 
 	public void setCONFIRM_PW(String cONFIRM_PW) {
 		CONFIRM_PW = cONFIRM_PW;
+	}
+
+	public String getLOGIN_PW_OLD() {
+		return LOGIN_PW_OLD;
+	}
+
+	public void setLOGIN_PW_OLD(String lOGIN_PW_OLD) {
+		LOGIN_PW_OLD = lOGIN_PW_OLD;
 	}
 }
