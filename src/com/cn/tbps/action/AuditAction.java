@@ -919,6 +919,7 @@ public class AuditAction extends BaseAction {
 			this.clearMessages();
 			auditAuth = new AuditAuthDto();
 			auditAuth = auditService.queryAuditAuth(strProjectManager, strStartDate, strEndDate);
+//			System.out.println(auditAuth.getAPPROVAL_RCV_DATE_NULL1_NU());
 		} catch(Exception e) {
 			log.error(e);
 			return ERROR;
