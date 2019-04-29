@@ -2,6 +2,7 @@ package com.cn.tbps.action;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -341,7 +342,8 @@ public class AuditAction extends BaseAction {
 			if("1".equals(strSetFlag)){
 				//设定项目
 				auditListDisp = new ArrayList<AuditListDisp>();
-				ConfigTabDto auditListDispConfig = configTabService.queryConfigTabByKey(Constants.CONFIG_TAB_AUDIT_DISP, Constants.CONFIG_TAB_AUDIT_DISP);
+				String userid = (String) ActionContext.getContext().getSession().get(Constants.USER_ID);
+				ConfigTabDto auditListDispConfig = configTabService.queryConfigTabByKey(Constants.CONFIG_TAB_AUDIT_DISP+"_"+userid, Constants.CONFIG_TAB_AUDIT_DISP);
 				if(null != auditListDispConfig) {
 					String auditListDispValue = auditListDispConfig.getCONFIG_VAL();
 					if(StringUtils.isNotEmpty(auditListDispValue)) {
@@ -1052,7 +1054,7 @@ public class AuditAction extends BaseAction {
 			this.clearMessages();
 			//全项目
 			auditAllDisp = new ArrayList<AuditListDisp>();
-			ConfigTabDto auditAllDispConfig = configTabService.queryConfigTabByKey(Constants.CONFIG_TAB_AUDIT_ALLDISP, Constants.CONFIG_TAB_AUDIT_ALLDISP);
+			/*ConfigTabDto auditAllDispConfig = configTabService.queryConfigTabByKey(Constants.CONFIG_TAB_AUDIT_ALLDISP, Constants.CONFIG_TAB_AUDIT_ALLDISP);
 			String auditAllDispValue = auditAllDispConfig.getCONFIG_VAL();
 			String[] valArrayAll = auditAllDispValue.split(",");
 			for(String id : valArrayAll) {
@@ -1061,10 +1063,18 @@ public class AuditAction extends BaseAction {
 				auditDisp.setEnName(AuditListDispEnum.getNameByID(Integer.parseInt(id)).getEnName());
 				auditDisp.setCnName(AuditListDispEnum.getNameByID(Integer.parseInt(id)).getCnName());
 				auditAllDisp.add(auditDisp);
+			}*/
+			for(int id=1; id<=72; id++) {
+				AuditListDisp auditDisp = new AuditListDisp();
+				auditDisp.setId(id);
+				auditDisp.setEnName(AuditListDispEnum.getNameByID(id).getEnName());
+				auditDisp.setCnName(AuditListDispEnum.getNameByID(id).getCnName());
+				auditAllDisp.add(auditDisp);
 			}
 			//设定项目
 			auditListDisp = new ArrayList<AuditListDisp>();
-			ConfigTabDto auditListDispConfig = configTabService.queryConfigTabByKey(Constants.CONFIG_TAB_AUDIT_DISP, Constants.CONFIG_TAB_AUDIT_DISP);
+			String userid = (String) ActionContext.getContext().getSession().get(Constants.USER_ID);
+			ConfigTabDto auditListDispConfig = configTabService.queryConfigTabByKey(Constants.CONFIG_TAB_AUDIT_DISP+"_"+userid, Constants.CONFIG_TAB_AUDIT_DISP);
 			if(null != auditListDispConfig) {
 				String auditListDispValue = auditListDispConfig.getCONFIG_VAL();
 				if(StringUtils.isNotEmpty(auditListDispValue)) {
@@ -1084,6 +1094,7 @@ public class AuditAction extends BaseAction {
 			listUserInfo.add(userinfo);
 			System.out.println("listUserInfo" + listUserInfo.size());
 		} catch(Exception e) {
+			log.error(e);
 			return ERROR;
 		}
 		return SUCCESS;
@@ -1096,7 +1107,7 @@ public class AuditAction extends BaseAction {
 	public String updAuditListDisp() {
 		try {
 			this.clearMessages();
-			ConfigTabDto dto = configTabService.queryConfigTabByKey(Constants.CONFIG_TAB_AUDIT_DISP, Constants.CONFIG_TAB_AUDIT_DISP);
+			String userid = (String) ActionContext.getContext().getSession().get(Constants.USER_ID);
 			if(StringUtils.isNotEmpty(strSetList)) {
 				String[] strArray = strSetList.split(",");
 				Integer[] ids = new Integer[strArray.length];
@@ -1107,12 +1118,24 @@ public class AuditAction extends BaseAction {
 				Collections.sort(strlist);
 				strSetList = StringUtils.join(strlist, ",");
 			}
-			dto.setCONFIG_VAL(strSetList);
-			configTabService.updateConfigTab(dto);
+			ConfigTabDto dto = configTabService.queryConfigTabByKey(Constants.CONFIG_TAB_AUDIT_DISP+"_"+userid, Constants.CONFIG_TAB_AUDIT_DISP);
+			if(null == dto){
+				dto = new ConfigTabDto();
+				dto.setCONFIG_TYPE(Constants.CONFIG_TAB_AUDIT_DISP);
+				dto.setCONFIG_KEY(Constants.CONFIG_TAB_AUDIT_DISP+"_"+userid);
+				dto.setCONFIG_VAL(strSetList);
+				dto.setINSERT_DATE(Calendar.getInstance().getTime());
+				dto.setUPDATE_DATE(Calendar.getInstance().getTime());
+				configTabService.insertConfigTab(dto);
+			} else {
+				dto.setCONFIG_VAL(strSetList);
+				dto.setUPDATE_DATE(Calendar.getInstance().getTime());
+				configTabService.updateConfigTab(dto);
+			}
 			this.addActionMessage("设定成功！");
 			//设定项目
 			auditListDisp = new ArrayList<AuditListDisp>();
-			ConfigTabDto auditListDispConfig = configTabService.queryConfigTabByKey(Constants.CONFIG_TAB_AUDIT_DISP, Constants.CONFIG_TAB_AUDIT_DISP);
+			ConfigTabDto auditListDispConfig = configTabService.queryConfigTabByKey(Constants.CONFIG_TAB_AUDIT_DISP+"_"+userid, Constants.CONFIG_TAB_AUDIT_DISP);
 			if(null != auditListDispConfig) {
 				String auditListDispValue = auditListDispConfig.getCONFIG_VAL();
 				if(StringUtils.isNotEmpty(auditListDispValue)) {
@@ -1146,7 +1169,8 @@ public class AuditAction extends BaseAction {
 			if("1".equals(strSetFlag)){
 				//设定项目
 				auditListDisp = new ArrayList<AuditListDisp>();
-				ConfigTabDto auditListDispConfig = configTabService.queryConfigTabByKey(Constants.CONFIG_TAB_AUDIT_DISP, Constants.CONFIG_TAB_AUDIT_DISP);
+				String userid = (String) ActionContext.getContext().getSession().get(Constants.USER_ID);
+				ConfigTabDto auditListDispConfig = configTabService.queryConfigTabByKey(Constants.CONFIG_TAB_AUDIT_DISP+"_"+userid, Constants.CONFIG_TAB_AUDIT_DISP);
 				if(null != auditListDispConfig) {
 					String auditListDispValue = auditListDispConfig.getCONFIG_VAL();
 					if(StringUtils.isNotEmpty(auditListDispValue)) {
