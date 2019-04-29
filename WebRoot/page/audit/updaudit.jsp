@@ -1937,21 +1937,21 @@
 									<s:elseif test='updAuditDto.REPORT_ARR_TYPE == "3"'>
 										<option value="">请选择</option>
 										<option value="1">快递</option>
-										<option value="2">其他</option>
+										<option value="2">自送</option>
 										<option value="3" selected="selected">自取</option>
 										<option value="4">附带</option>
 									</s:elseif>
 									<s:elseif test='updAuditDto.REPORT_ARR_TYPE == "4"'>
 										<option value="">请选择</option>
 										<option value="1">快递</option>
-										<option value="2">其他</option>
+										<option value="2">自送</option>
 										<option value="3">自取</option>
 										<option value="4" selected="selected">附带</option>
 									</s:elseif>
 									<s:else>
 										<option value="" selected="selected">请选择</option>
 										<option value="1">快递</option>
-										<option value="2">其他</option>
+										<option value="2">自送</option>
 										<option value="3">自取</option>
 										<option value="4">附带</option>
 									</s:else>
@@ -2120,21 +2120,21 @@
 									<s:elseif test='updAuditDto.PLAN_DOC_SND_TYPE == "3"'>
 										<option value="">请选择</option>
 										<option value="1">快递</option>
-										<option value="2">其他</option>
+										<option value="2">自送</option>
 										<option value="3" selected="selected">自取</option>
 										<option value="4">附带</option>
 									</s:elseif>
 									<s:elseif test='updAuditDto.PLAN_DOC_SND_TYPE == "4"'>
 										<option value="">请选择</option>
 										<option value="1">快递</option>
-										<option value="2">其他</option>
+										<option value="2">自送</option>
 										<option value="3">自取</option>
 										<option value="4" selected="selected">附带</option>
 									</s:elseif>
 									<s:else>
 										<option value="" selected="selected">请选择</option>
 										<option value="1">快递</option>
-										<option value="2">其他</option>
+										<option value="2">自送</option>
 										<option value="3">自取</option>
 										<option value="4">附带</option>
 									</s:else>
@@ -2198,21 +2198,21 @@
 									<s:elseif test='updAuditDto.BID_DOC_SND_TYPE == "3"'>
 										<option value="">请选择</option>
 										<option value="1">快递</option>
-										<option value="2">其他</option>
+										<option value="2">自送</option>
 										<option value="3" selected="selected">自取</option>
 										<option value="4">附带</option>
 									</s:elseif>
 									<s:elseif test='updAuditDto.BID_DOC_SND_TYPE == "4"'>
 										<option value="">请选择</option>
 										<option value="1">快递</option>
-										<option value="2">其他</option>
+										<option value="2">自送</option>
 										<option value="3">自取</option>
 										<option value="4" selected="selected">附带</option>
 									</s:elseif>
 									<s:else>
 										<option value="" selected="selected">请选择</option>
 										<option value="1">快递</option>
-										<option value="2">其他</option>
+										<option value="2">自送</option>
 										<option value="3">自取</option>
 										<option value="4">附带</option>
 									</s:else>
@@ -2276,21 +2276,21 @@
 									<s:elseif test='updAuditDto.SIGN_DOC_SND_TYPE == "3"'>
 										<option value="">请选择</option>
 										<option value="1">快递</option>
-										<option value="2">其他</option>
+										<option value="2">自送</option>
 										<option value="3" selected="selected">自取</option>
 										<option value="4">附带</option>
 									</s:elseif>
 									<s:elseif test='updAuditDto.SIGN_DOC_SND_TYPE == "4"'>
 										<option value="">请选择</option>
 										<option value="1">快递</option>
-										<option value="2">其他</option>
+										<option value="2">自送</option>
 										<option value="3">自取</option>
 										<option value="4" selected="selected">附带</option>
 									</s:elseif>
 									<s:else>
 										<option value="" selected="selected">请选择</option>
 										<option value="1">快递</option>
-										<option value="2">其他</option>
+										<option value="2">自送</option>
 										<option value="3">自取</option>
 										<option value="4">附带</option>
 									</s:else>
@@ -2359,21 +2359,21 @@
 									<s:elseif test='updAuditDto.SET_DOC_SND_TYPE == "3"'>
 										<option value="">请选择</option>
 										<option value="1">快递</option>
-										<option value="2">其他</option>
+										<option value="2">自送</option>
 										<option value="3" selected="selected">自取</option>
 										<option value="4">附带</option>
 									</s:elseif>
 									<s:elseif test='updAuditDto.SET_DOC_SND_TYPE == "4"'>
 										<option value="">请选择</option>
 										<option value="1">快递</option>
-										<option value="2">其他</option>
+										<option value="2">自送</option>
 										<option value="3">自取</option>
 										<option value="4" selected="selected">附带</option>
 									</s:elseif>
 									<s:else>
 										<option value="" selected="selected">请选择</option>
 										<option value="1">快递</option>
-										<option value="2">其他</option>
+										<option value="2">自送</option>
 										<option value="3">自取</option>
 										<option value="4">附带</option>
 									</s:else>

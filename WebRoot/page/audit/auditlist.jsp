@@ -372,31 +372,22 @@
 						<s:iterator id="listAudit" value="listAudit" status="st1">
 							<tr onclick="checkRadioTr(this, event);">
 								<td><input name="radioKey" type="radio" value="<s:property value="AUDIT_NO"/>"/></td>
-								<s:iterator id="arrAuditShow" value="arrAuditShow" status="st1">
-									<s:if test='#arrAuditShow[0] == "REPORT_NO"'>
-										<td><s:property value="REPORT_NO"/></td>
-									</s:if> 
-									<s:elseif test='#arrAuditShow[0] == "PROJECT_NAME"'>
-										<td><s:property value="PROJECT_NAME"/></td>
-									</s:elseif> 
-									<s:elseif test='#arrAuditShow[0] == "CNTRCT_NO"'>
-										<td><s:property value="CNTRCT_NO"/></td>
-									</s:elseif> 
-									<s:elseif test='#arrAuditShow[0] == "PROJECT_MANAGER"'>
-										<td><s:property value="PROJECT_MANAGER"/></td>
-									</s:elseif> 
+								<s:iterator id="arrAuditShow" value="arrAuditShow" status="st2">
+									<s:if test='#arrAuditShow[0] == "REPORT_NO"'><td><s:property value="REPORT_NO"/></td></s:if>
+									<s:elseif test='#arrAuditShow[0] == "PROJECT_MANAGER"'><td><s:property value="PROJECT_MANAGER"/></td></s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "PROJECT_NAME"'><td><s:property value="PROJECT_NAME"/></td></s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "AGENT_CO_NAME"'><td><s:property value="AGENT_CO_NAME"/></td></s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "AGENT_CO_MANAGER"'><td><s:property value="AGENT_CO_MANAGER"/></td></s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "AGENT_CO_MANAGER_TEL"'><td><s:property value="AGENT_CO_MANAGER_TEL"/></td></s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "PROF_CO_NAME"'><td><s:property value="PROF_CO_NAME"/></td></s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "PROF_CO_MANAGER"'><td><s:property value="PROF_CO_MANAGER"/></td></s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "PROF_CO_MANAGER_TEL"'><td><s:property value="PROF_CO_MANAGER_TEL"/></td></s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "CONTRACT_CO_NAME"'><td><s:property value="CONTRACT_CO_NAME"/></td></s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "CONTRACT_CO_MANAGER"'><td><s:property value="CONTRACT_CO_MANAGER"/></td></s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "CONTRACT_CO_MANAGER_TEL"'><td><s:property value="CONTRACT_CO_MANAGER_TEL"/></td></s:elseif>
 									<s:elseif test='#arrAuditShow[0] == "DOC_REC_DATE"'>
 										<td align="center"><s:date name="DOC_REC_DATE" format="yyyy/MM/dd" /></td>
-									</s:elseif> 
-									<s:elseif test='#arrAuditShow[0] == "APPROVAL_SND_DATE"'>
-										<td align="center"><s:date name="APPROVAL_SND_DATE" format="yyyy/MM/dd" /></td>
-									</s:elseif> 
-									<s:elseif test='#arrAuditShow[0] == "REPORT_RAISE_DATE"'>
-										<td align="center"><s:date name="REPORT_RAISE_DATE" format="yyyy/MM/dd" /></td>
 									</s:elseif>
-									<s:elseif test='#arrAuditShow[0] == "REPORT_SEAL_DATE"'>
-										<td align="center"><s:date name="REPORT_SEAL_DATE" format="yyyy/MM/dd" /></td>
-									</s:elseif> 
 									<s:elseif test='#arrAuditShow[0] == "PROGRESS_STATUS"'>
 									<td align="center">
 									        <s:if test='PROGRESS_STATUS == "1"'>
@@ -423,69 +414,256 @@
 									        </s:else>
 									</td>
 									</s:elseif> 
-									<s:elseif test='#arrAuditShow[0] == "PRE_PRICE"'>
-										<td><s:property value="PRE_PRICE"/></td>
-									</s:elseif> 
-									<s:elseif test='#arrAuditShow[0] == "AGENT_CO_MANAGER"'>
-										<td><s:property value="AGENT_CO_MANAGER"/></td>
-									</s:elseif> 
-									<s:elseif test='#arrAuditShow[0] == "CONTRACT_CO_NAME"'>
-										<td><s:property value="CONTRACT_CO_NAME"/></td>
-									</s:elseif> 
-									<s:elseif test='#arrAuditShow[0] == "CONTRACT_CO_MANAGER"'>
-										<td><s:property value="CONTRACT_CO_MANAGER"/></td>
-									</s:elseif> 
-									<s:elseif test='#arrAuditShow[0] == "VERIFY_PER_AMOUNT"'>
-										<td><s:property value="VERIFY_PER_AMOUNT"/></td>
-									</s:elseif> 
-									<s:elseif test='#arrAuditShow[0] == "VERIFY_AMOUNT"'>
-										<td><s:property value="VERIFY_AMOUNT"/></td>
-									</s:elseif> 
-									<s:elseif test='#arrAuditShow[0] == "VERIFY_INCREASE"'>
-										<td><s:property value="VERIFY_INCREASE"/></td>
-									</s:elseif> 
-									<s:elseif test='#arrAuditShow[0] == "VERIFY_DECREASE"'>
-										<td><s:property value="VERIFY_DECREASE"/></td>
-									</s:elseif> 
-									<s:elseif test='#arrAuditShow[0] == "VERIFY_DIFF"'>
-										<td><s:property value="VERIFY_DIFF"/></td>
-									</s:elseif> 
-									<s:elseif test='#arrAuditShow[0] == "VERIFY_DIFF_RATE"'>
-										<td><s:property value="VERIFY_DIFF_RATE"/></td>
-									</s:elseif> 
-									<s:elseif test='#arrAuditShow[0] == "CNT_PRICE"'>
-										<td><s:property value="CNT_PRICE"/></td>
-									</s:elseif> 
-									<s:elseif test='#arrAuditShow[0] == "PROJ_PRICE"'>
-										<td><s:property value="PROJ_PRICE"/></td>
-									</s:elseif> 
-									<s:elseif test='#arrAuditShow[0] == "LIMIT_PRICE"'>
-										<td><s:property value="LIMIT_PRICE"/></td>
-									</s:elseif> 
-									<s:elseif test='#arrAuditShow[0] == "CNTRCT_PRICE"'>
-										<td><s:property value="CNTRCT_PRICE"/></td>
-									</s:elseif> 
-									<s:elseif test='#arrAuditShow[0] == "PROGRESS_STATUS_MEMO"'>
-										<td><s:property value="PROGRESS_STATUS_MEMO"/></td>
+									<s:elseif test='#arrAuditShow[0] == "PRE_PRICE"'><td><s:property value="PRE_PRICE"/></td></s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "SUPPORT_DOC_DATE"'>
+										<td align="center"><s:date name="SUPPORT_DOC_DATE" format="yyyy/MM/dd" /></td>
 									</s:elseif>
-									<s:elseif test='#arrAuditShow[0] == "AGENT_INFO"'>
-										<td><s:property value="AGENT_INFO"/></td>
+									<s:elseif test='#arrAuditShow[0] == "DRAFT_DATE"'>
+										<td align="center"><s:date name="DRAFT_DATE" format="yyyy/MM/dd" /></td>
 									</s:elseif>
-									<s:elseif test='#arrAuditShow[0] == "PROF_INFO"'>
-										<td><s:property value="PROF_INFO"/></td>
+									<s:elseif test='#arrAuditShow[0] == "APPROVAL_SND_DATE"'>
+										<td align="center"><s:date name="APPROVAL_SND_DATE" format="yyyy/MM/dd" /></td>
 									</s:elseif>
-									<s:elseif test='#arrAuditShow[0] == "CONTRACT_CO_NAME"'>
-										<td><s:property value="CONTRACT_CO_NAME"/></td>
+									<s:elseif test='#arrAuditShow[0] == "APPROVAL_RCV_DATE"'>
+										<td align="center"><s:date name="APPROVAL_RCV_DATE" format="yyyy/MM/dd" /></td>
 									</s:elseif>
-									<s:elseif test='#arrAuditShow[0] == "CONTRACT_CO_INFO"'>
-										<td><s:property value="CONTRACT_CO_INFO"/></td>
+									<s:elseif test='#arrAuditShow[0] == "DELI_NO"'><td><s:property value="DELI_NO"/></td></s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "REPORT_RAISE_DATE"'>
+										<td align="center"><s:date name="REPORT_RAISE_DATE" format="yyyy/MM/dd" /></td>
 									</s:elseif>
-									<s:elseif test='#arrAuditShow[0] == "PROJECT_NAME_PASS"'>
-										<td><s:property value="PROJECT_NAME_PASS"/></td>
+									<s:elseif test='#arrAuditShow[0] == "REPORT_SEAL_DATE"'>
+										<td align="center"><s:date name="REPORT_SEAL_DATE" format="yyyy/MM/dd" /></td>
 									</s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "REPORT_ARR_TYPE"'>
+									<td align="center">
+									        <s:if test='REPORT_ARR_TYPE == "1"'>
+									                快递
+									        </s:if>
+									        <s:elseif test='REPORT_ARR_TYPE == "2"'>
+									                自送
+									        </s:elseif>
+									        <s:elseif test='REPORT_ARR_TYPE == "3"'>
+									                自取
+									        </s:elseif>
+									        <s:elseif test='REPORT_ARR_TYPE == "4"'>
+									                附带
+									        </s:elseif>
+									        <s:else>
+									                <s:property value="REPORT_ARR_TYPE"/>
+									        </s:else>
+									</td>
+									</s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "REPORT_ARR_DATE"'>
+										<td align="center"><s:date name="REPORT_ARR_DATE" format="yyyy/MM/dd" /></td>
+									</s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "REG_DATE"'>
+										<td align="center"><s:date name="REG_DATE" format="yyyy/MM/dd" /></td>
+									</s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "AGENT_INFO"'><td><s:property value="AGENT_INFO"/></td></s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "PROF_INFO"'><td><s:property value="PROF_INFO"/></td></s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "CONTRACT_CO_ID"'><td><s:property value="CONTRACT_CO_ID"/></td></s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "CONTRACT_CO_INFO"'><td><s:property value="CONTRACT_CO_INFO"/></td></s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "VERIFY_PER_AMOUNT"'><td><s:property value="VERIFY_PER_AMOUNT"/></td></s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "VERIFY_AMOUNT"'><td><s:property value="VERIFY_AMOUNT"/></td></s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "VERIFY_INCREASE"'><td><s:property value="VERIFY_INCREASE"/></td></s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "VERIFY_DECREASE"'><td><s:property value="VERIFY_DECREASE"/></td></s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "VERIFY_DIFF"'><td><s:property value="VERIFY_DIFF"/></td></s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "VERIFY_DIFF_RATE"'><td><s:property value="VERIFY_DIFF_RATE"/></td></s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "CNT_PRICE"'><td><s:property value="CNT_PRICE"/></td></s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "PROJ_PRICE"'><td><s:property value="PROJ_PRICE"/></td></s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "LIMIT_PRICE"'><td><s:property value="LIMIT_PRICE"/></td></s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "CNTRCT_PRICE"'><td><s:property value="CNTRCT_PRICE"/></td></s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "PLAN_DOC_RCV_DATE"'>
+										<td align="center"><s:date name="PLAN_DOC_RCV_DATE" format="yyyy/MM/dd" /></td>
+									</s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "PLAN_DOC_RPT_DATE"'>
+										<td align="center"><s:date name="PLAN_DOC_RPT_DATE" format="yyyy/MM/dd" /></td>
+									</s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "PLAN_DOC_SND_TYPE"'>
+									<td align="center">
+									        <s:if test='PLAN_DOC_SND_TYPE == "1"'>
+									                快递
+									        </s:if>
+									        <s:elseif test='PLAN_DOC_SND_TYPE == "2"'>
+									                自送
+									        </s:elseif>
+									        <s:elseif test='PLAN_DOC_SND_TYPE == "3"'>
+									                自取
+									        </s:elseif>
+									        <s:elseif test='PLAN_DOC_SND_TYPE == "4"'>
+									                附带
+									        </s:elseif>
+									        <s:else>
+									                <s:property value="PLAN_DOC_SND_TYPE"/>
+									        </s:else>
+									</td>
+									</s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "PLAN_DOC_ARR_DATE"'>
+										<td align="center"><s:date name="PLAN_DOC_ARR_DATE" format="yyyy/MM/dd" /></td>
+									</s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "BID_DOC_RCV_DATE"'>
+										<td align="center"><s:date name="BID_DOC_RCV_DATE" format="yyyy/MM/dd" /></td>
+									</s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "BID_DOC_RPT_DATE"'>
+										<td align="center"><s:date name="BID_DOC_RPT_DATE" format="yyyy/MM/dd" /></td>
+									</s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "BID_DOC_SND_TYPE"'>
+									<td align="center">
+									        <s:if test='BID_DOC_SND_TYPE == "1"'>
+									                快递
+									        </s:if>
+									        <s:elseif test='BID_DOC_SND_TYPE == "2"'>
+									                自送
+									        </s:elseif>
+									        <s:elseif test='BID_DOC_SND_TYPE == "3"'>
+									                自取
+									        </s:elseif>
+									        <s:elseif test='BID_DOC_SND_TYPE == "4"'>
+									                附带
+									        </s:elseif>
+									        <s:else>
+									                <s:property value="BID_DOC_SND_TYPE"/>
+									        </s:else>
+									</td>
+									</s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "BID_DOC_ARR_DATE"'>
+										<td align="center"><s:date name="BID_DOC_ARR_DATE" format="yyyy/MM/dd" /></td>
+									</s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "SIGN_DOC_RCV_DATE"'>
+										<td align="center"><s:date name="SIGN_DOC_RCV_DATE" format="yyyy/MM/dd" /></td>
+									</s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "SIGN_DOC_RPT_DATE"'>
+										<td align="center"><s:date name="SIGN_DOC_RPT_DATE" format="yyyy/MM/dd" /></td>
+									</s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "SIGN_DOC_SND_TYPE"'>
+									<td align="center">
+									        <s:if test='SIGN_DOC_SND_TYPE == "1"'>
+									                快递
+									        </s:if>
+									        <s:elseif test='SIGN_DOC_SND_TYPE == "2"'>
+									                自送
+									        </s:elseif>
+									        <s:elseif test='SIGN_DOC_SND_TYPE == "3"'>
+									                自取
+									        </s:elseif>
+									        <s:elseif test='SIGN_DOC_SND_TYPE == "4"'>
+									                附带
+									        </s:elseif>
+									        <s:else>
+									                <s:property value="SIGN_DOC_SND_TYPE"/>
+									        </s:else>
+									</td>
+									</s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "SIGN_DOC_ARR_DATE"'>
+										<td align="center"><s:date name="SIGN_DOC_ARR_DATE" format="yyyy/MM/dd" /></td>
+									</s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "SET_DOC_RCV_DATE"'>
+										<td align="center"><s:date name="SET_DOC_RCV_DATE" format="yyyy/MM/dd" /></td>
+									</s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "SET_DOC_RPT_DATE"'>
+										<td align="center"><s:date name="SET_DOC_RPT_DATE" format="yyyy/MM/dd" /></td>
+									</s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "SET_DOC_SND_TYPE"'>
+									<td align="center">
+									        <s:if test='SET_DOC_SND_TYPE == "1"'>
+									                快递
+									        </s:if>
+									        <s:elseif test='SET_DOC_SND_TYPE == "2"'>
+									                自送
+									        </s:elseif>
+									        <s:elseif test='SET_DOC_SND_TYPE == "3"'>
+									                自取
+									        </s:elseif>
+									        <s:elseif test='SET_DOC_SND_TYPE == "4"'>
+									                附带
+									        </s:elseif>
+									        <s:else>
+									                <s:property value="SET_DOC_SND_TYPE"/>
+									        </s:else>
+									</td>
+									</s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "SET_DOC_ARR_DATE"'>
+										<td align="center"><s:date name="SET_DOC_ARR_DATE" format="yyyy/MM/dd" /></td>
+									</s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "PROGRESS_STATUS_MEMO"'><td><s:property value="PROGRESS_STATUS_MEMO"/></td></s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "A_AMOUNT"'><td><s:property value="A_AMOUNT"/></td></s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "A_STATUS"'>
+									<td align="center">
+									        <s:if test='A_STATUS == "1"'>
+									                未收费
+									        </s:if>
+									        <s:elseif test='A_STATUS == "2"'>
+									                已收费
+									        </s:elseif>
+									        <s:else>
+									                <s:property value="A_STATUS"/>
+									        </s:else>
+									</td>
+									</s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "B_TYPE"'>
+									<td align="center">
+									        <s:if test='B_TYPE == "1"'>
+									                标准收费
+									        </s:if>
+									        <s:elseif test='B_TYPE == "2"'>
+									                收费金额
+									        </s:elseif>
+									        <s:elseif test='B_TYPE == "3"'>
+									                送审金额
+									        </s:elseif>
+									        <s:else>
+									                <s:property value="B_TYPE"/>
+									        </s:else>
+									</td>
+									</s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "B_AMOUNT"'><td><s:property value="B_AMOUNT"/></td></s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "A_INVOICE_DELI_DATE"'>
+										<td align="center"><s:date name="A_INVOICE_DELI_DATE" format="yyyy/MM/dd" /></td>
+									</s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "A_INVOICE_DATE"'>
+										<td align="center"><s:date name="A_INVOICE_DATE" format="yyyy/MM/dd" /></td>
+									</s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "A_INVOICE_NO"'><td><s:property value="A_INVOICE_NO"/></td></s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "A_SET_DATE"'>
+										<td align="center"><s:date name="A_SET_DATE" format="yyyy/MM/dd" /></td>
+									</s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "B_INVOICE_DELI_DATE"'>
+										<td align="center"><s:date name="B_INVOICE_DELI_DATE" format="yyyy/MM/dd" /></td>
+									</s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "B_INVOICE_DATE"'>
+										<td align="center"><s:date name="B_INVOICE_DATE" format="yyyy/MM/dd" /></td>
+									</s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "B_INVOICE_NO"'><td><s:property value="B_INVOICE_NO"/></td></s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "B_SET_DATE"'>
+										<td align="center"><s:date name="B_SET_DATE" format="yyyy/MM/dd" /></td>
+									</s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "B_RATE"'><td><s:property value="B_RATE"/></td></s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "CNTRCT_INFO"'>
+									<td align="center">
+									        <s:if test='CNTRCT_INFO == "1"'>
+									                审价
+									        </s:if>
+									        <s:elseif test='CNTRCT_INFO == "2"'>
+									                咨询
+									        </s:elseif>
+									        <s:elseif test='CNTRCT_INFO == "3"'>
+									                清单编制
+									        </s:elseif>
+									        <s:elseif test='CNTRCT_INFO == "4"'>
+									                控制价编制
+									        </s:elseif>
+									        <s:elseif test='CNTRCT_INFO == "5"'>
+									               全过程投资监理
+									        </s:elseif>
+									        <s:else>
+									                <s:property value="CNTRCT_INFO"/>
+									        </s:else>
+									</td>
+									</s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "PROJECT_NAME_PASS"'><td><s:property value="PROJECT_NAME_PASS"/></td></s:elseif>
 									<s:else>
 										<td></td>
-									</s:else> 
+									</s:else>
 								</s:iterator>
 							</tr>
 						</s:iterator>
