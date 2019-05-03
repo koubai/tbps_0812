@@ -3,6 +3,7 @@ package com.cn.tbps.service;
 import java.util.List;
 
 import com.cn.common.util.Page;
+import com.cn.tbps.dto.AuditAnnualDataDto;
 import com.cn.tbps.dto.AuditAuthDto;
 import com.cn.tbps.dto.AuditDto;
 import com.cn.tbps.dto.AuditHistDto;
@@ -58,6 +59,16 @@ public interface AuditService {
 	 * @return
 	 */
 	public AuditStatisticsDto queryAuditStatistics(String projectManager, String startDate, String endDate);
+	
+	/**
+	 * 查询审价年度统计数据
+	 * @param projectManager
+	 * @param startDate
+	 * @param endDate
+	 * @param auditStatus 是否完成
+	 * @return
+	 */
+	public List<AuditAnnualDataDto> queryAuditAnnualData(String projectManager, String startDate, String endDate, String auditStatus);
 	
 	/**
 	 * 项目收费统计输出

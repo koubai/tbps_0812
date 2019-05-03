@@ -10,6 +10,7 @@ import java.util.Map;
 import com.cn.common.dao.BaseDao;
 import com.cn.common.util.StringUtil;
 import com.cn.tbps.dao.AuditDao;
+import com.cn.tbps.dto.AuditAnnualDataDto;
 import com.cn.tbps.dto.AuditAuthDto;
 import com.cn.tbps.dto.AuditCostCountDto;
 import com.cn.tbps.dto.AuditCountDto;
@@ -272,6 +273,75 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 		if(null != list && list.size() > 0)
 			dto = list.get(0);
 		return dto;
+	}
+	
+	@Override
+	public List<AuditAnnualDataDto> queryAuditAnnualData(String projectManager, String startDate, String endDate, String auditStatus) {
+		List<AuditAnnualDataDto> list = new ArrayList<AuditAnnualDataDto>();
+		AuditAnnualDataDto tmp1 = new AuditAnnualDataDto();
+		tmp1.setShowtime("1月");
+		tmp1.setReceiveAudit(101);
+		tmp1.setCompleteAuditCurrentMonth(111);
+		tmp1.setCompleteAuditHis(112);
+		tmp1.setSubmitAuditAmount(new BigDecimal(1001));
+		tmp1.setCompleteAuditAmount(new BigDecimal(1002));
+		tmp1.setAuthorizeAuditAmount(new BigDecimal(1003));
+		tmp1.setIncompleteAuditCurrentMonth(113);
+		tmp1.setIncompleteAuditHis(114);
+		tmp1.setReviewAudit(115);
+		tmp1.setAuditAmountMonthConfirm(new BigDecimal(1004));
+		tmp1.setAuditAmountMonthUnconfirmed(new BigDecimal(1005));
+		tmp1.setAuditAmountMonthConfirming(new BigDecimal(1006));
+		tmp1.setReceiptAuditPieceMonth(116);
+		tmp1.setReceiptAuditAmountMonth(new BigDecimal(1007));
+		tmp1.setReceiptAuditPieceHis(117);
+		tmp1.setReceiptAuditAmountHis(new BigDecimal(1008));
+		tmp1.setTotalNumMonth(118);
+		tmp1.setTotalAmountMonth(new BigDecimal(1009));
+		tmp1.setUnreceivedNumMonth(119);
+		tmp1.setUnreceivedAmountMonth(new BigDecimal(1010));
+		tmp1.setUnreceivedNumHis(120);
+		tmp1.setUnreceivedAmountHis(new BigDecimal(1011));
+		
+		AuditAnnualDataDto tmp2 = new AuditAnnualDataDto();
+		tmp2.setShowtime("2月");
+		tmp2.setReceiveAudit(201);
+		tmp2.setCompleteAuditCurrentMonth(211);
+		tmp2.setCompleteAuditHis(212);
+		tmp2.setSubmitAuditAmount(new BigDecimal(2001));
+		tmp2.setCompleteAuditAmount(new BigDecimal(2002));
+		tmp2.setAuthorizeAuditAmount(new BigDecimal(2003));
+		tmp2.setIncompleteAuditCurrentMonth(213);
+		tmp2.setIncompleteAuditHis(214);
+		tmp2.setReviewAudit(215);
+		tmp2.setAuditAmountMonthConfirm(new BigDecimal(2004));
+		tmp2.setAuditAmountMonthUnconfirmed(new BigDecimal(2005));
+		tmp2.setAuditAmountMonthConfirming(new BigDecimal(2006));
+		tmp2.setReceiptAuditPieceMonth(216);
+		tmp2.setReceiptAuditAmountMonth(new BigDecimal(2007));
+		tmp2.setReceiptAuditPieceHis(217);
+		tmp2.setReceiptAuditAmountHis(new BigDecimal(2008));
+		tmp2.setTotalNumMonth(218);
+		tmp2.setTotalAmountMonth(new BigDecimal(2009));
+		tmp2.setUnreceivedNumMonth(219);
+		tmp2.setUnreceivedAmountMonth(new BigDecimal(2010));
+		tmp2.setUnreceivedNumHis(220);
+		tmp2.setUnreceivedAmountHis(new BigDecimal(2011));
+		list.add(tmp1);
+		list.add(tmp2);
+//		Map<String, Object> paramMap = new HashMap<String, Object>();
+//		String pm = projectManager;
+//		if(StringUtil.isNotBlank(pm)) {
+//			pm = pm.replace(",", "','");
+//			pm = "'" + pm + "'";
+//		}
+//		paramMap.put("PROJECT_MANAGER", pm);
+//		paramMap.put("START_DATE", startDate);
+//		paramMap.put("END_DATE", endDate);
+//		paramMap.put("auditStatus", auditStatus);
+//		@SuppressWarnings("unchecked")
+//		List<AuditAnnualDataDto> list = getSqlMapClientTemplate().queryForList("queryAuditAnnualData", paramMap);
+		return list;
 	}
 
 	@Override

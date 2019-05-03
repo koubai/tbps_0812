@@ -187,6 +187,32 @@
 		<result property="REPORT_SEAL_DATE_NULL4" column="REPORT_SEAL_DATE_NULL4" />
 	</resultMap>
 	
+	<resultMap id="AuditAnnualDataDto" class="com.cn.tbps.dto.AuditAnnualDataDto">
+		<result property="showtime" column="showtime" />
+		<result property="receiveAudit" column="receiveAudit" />
+		<result property="completeAuditCurrentMonth" column="completeAuditCurrentMonth" />
+		<result property="completeAuditHis" column="completeAuditHis" />
+		<result property="submitAuditAmount" column="submitAuditAmount" />
+		<result property="completeAuditAmount" column="completeAuditAmount" />
+		<result property="authorizeAuditAmount" column="authorizeAuditAmount" />
+		<result property="incompleteAuditCurrentMonth" column="incompleteAuditCurrentMonth" />
+		<result property="incompleteAuditHis" column="incompleteAuditHis" />
+		<result property="reviewAudit" column="reviewAudit" />
+		<result property="auditAmountMonthConfirm" column="auditAmountMonthConfirm" />
+		<result property="auditAmountMonthUnconfirmed" column="auditAmountMonthUnconfirmed" />
+		<result property="auditAmountMonthConfirming" column="auditAmountMonthConfirming" />
+		<result property="receiptAuditPieceMonth" column="receiptAuditPieceMonth" />
+		<result property="receiptAuditAmountMonth" column="receiptAuditAmountMonth" />
+		<result property="receiptAuditPieceHis" column="receiptAuditPieceHis" />
+		<result property="receiptAuditAmountHis" column="receiptAuditAmountHis" />
+		<result property="totalNumMonth" column="totalNumMonth" />
+		<result property="totalAmountMonth" column="totalAmountMonth" />
+		<result property="unreceivedNumMonth" column="unreceivedNumMonth" />
+		<result property="unreceivedAmountMonth" column="unreceivedAmountMonth" />
+		<result property="unreceivedNumHis" column="unreceivedNumHis" />
+		<result property="unreceivedAmountHis" column="unreceivedAmountHis" />
+	</resultMap>
+	
 	<select id="queryAuditCountByPage" resultClass="int" parameterClass="java.util.Map">
 		select count(*) from (
 			select TT.* from
@@ -1238,6 +1264,26 @@
 				CNTRCT_ED_DATE <![CDATA[<=]]> #END_DATE#
 			</isNotEmpty>
 			order by CNTRCT_NM
+	</select>
+	
+	<select id="queryAuditAnnualData" parameterClass="java.util.Map" resultMap="AuditAnnualDataDto">
+		select A.* from (
+		select DATE_FORMAT(DOC_REC_DATE,'%Y.%m') AS showtime,
+				CNTRCT_NM AS CNTRCT_NM, 
+				COUNT(CNTRCT_NM) AS CNTRCT_NM_COUNT
+			from audit where DELETE_FLG = '1'
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				DOC_REC_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				DOC_REC_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+		) A
+		group by A.showtime
+		order by A.showtime
 	</select>
 	
 	<select id="queryAuditStatistics" parameterClass="java.util.Map" resultMap="AuditStatisticsDetailDto">

@@ -2,7 +2,6 @@ package com.cn.tbps.service.impl;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -14,6 +13,7 @@ import com.cn.tbps.dao.AuditCntrctDao;
 import com.cn.tbps.dao.AuditCntrctHisDao;
 import com.cn.tbps.dao.AuditDao;
 import com.cn.tbps.dao.ConfigTabDao;
+import com.cn.tbps.dto.AuditAnnualDataDto;
 import com.cn.tbps.dto.AuditAuthDto;
 import com.cn.tbps.dto.AuditCntrctDto;
 import com.cn.tbps.dto.AuditCntrctHisDto;
@@ -872,6 +872,11 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 	@Override
 	public AuditStatisticsDto queryAuditStatistics(String projectManager, String startDate, String endDate) {
 		return auditDao.queryAuditStatistics(projectManager, startDate, endDate);
+	}
+	
+	@Override
+	public List<AuditAnnualDataDto> queryAuditAnnualData(String projectManager, String startDate, String endDate, String auditStatus) {
+		return auditDao.queryAuditAnnualData(projectManager, startDate, endDate, auditStatus);
 	}
 
 	@Override

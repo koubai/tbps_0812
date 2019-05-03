@@ -98,12 +98,12 @@
 					</div>
 					<table class="table table-bordered">
 						<tr>
-							<td>委托内容</td>
-							<td>工程师</td>
-							<td>时间</td>
-							<td>新增个数</td>
+							<th>委托内容</th>
+							<th>工程师</th>
+							<th>时间</th>
+							<th>新增个数</th>
 							<s:iterator id="listAuditCntrctNM" value="auditStatistics.listAuditCntrctNM" status="st1">
-								<td><s:property /></td>
+								<th><s:property /></th>
 							</s:iterator>
 						</tr>
 						<s:iterator id="listAudit1" value="auditStatistics.listAudit1">
@@ -129,12 +129,12 @@
 					</table>
 					<table class="table table-bordered">
 						<tr>
-							<td>委托内容</td>
-							<td>工程师</td>
-							<td>时间</td>
-							<td>新增个数</td>
+							<th>委托内容</th>
+							<th>工程师</th>
+							<th>时间</th>
+							<th>新增个数</th>
 							<s:iterator id="listAuditCntrctNM" value="auditStatistics.listAuditCntrctNM" status="st1">
-								<td><s:property /></td>
+								<th><s:property /></th>
 							</s:iterator>
 						</tr>
 						<s:iterator id="listAudit2" value="auditStatistics.listAudit2">
@@ -160,12 +160,12 @@
 					</table>
 					<table class="table table-bordered">
 						<tr>
-							<td>委托内容</td>
-							<td>工程师</td>
-							<td>时间</td>
-							<td>新增个数</td>
+							<th>委托内容</th>
+							<th>工程师</th>
+							<th>时间</th>
+							<th>新增个数</th>
 							<s:iterator id="listAuditCntrctNM" value="auditStatistics.listAuditCntrctNM" status="st1">
-								<td><s:property /></td>
+								<th><s:property /></th>
 							</s:iterator>
 						</tr>
 						<s:iterator id="listAudit4" value="auditStatistics.listAudit4">
@@ -191,12 +191,12 @@
 					</table>
 					<table class="table table-bordered">
 						<tr>
-							<td>委托内容</td>
-							<td>工程师</td>
-							<td>时间</td>
-							<td>新增个数</td>
+							<th>委托内容</th>
+							<th>工程师</th>
+							<th>时间</th>
+							<th>新增个数</th>
 							<s:iterator id="listAuditCntrctNM" value="auditStatistics.listAuditCntrctNM5" status="st1">
-								<td><s:property /></td>
+								<th><s:property /></th>
 							</s:iterator>
 						</tr>
 						<tr>
@@ -220,6 +220,112 @@
 							</s:iterator>
 						</tr>
 					</table>
+					<div style="overflow-x: auto; width: 100%;">
+						<table class="table table-bordered" style="width: 2580px;">
+							<tr>
+								<th colspan="1">时间</th>
+								<th colspan="1">收到审价</th>
+								<th colspan="2">完成审价（个）</th>
+								<th colspan="2">总金额（元）</th>
+								<th colspan="1">审定总金额</th>
+								<th colspan="2">未完成（个）</th>
+								<th colspan="1">复核项目</th>
+								<th colspan="3">审价费（元）</th>
+								<th colspan="4">实收审价费（元）</th>
+								<th colspan="2">本月总发票</th>
+								<th colspan="2">本月未收</th>
+								<th colspan="2">历史未收发票</th>
+							</tr>
+							<tr>
+								<th style="width: 140px;">累计</th>
+								<th style="width: 120px;">个</th>
+								<th style="width: 100px;">本月</th>
+								<th style="width: 100px;">历史</th>
+								<th style="width: 100px;">本月送审</th>
+								<th style="width: 120px;">本月完成送审</th>
+								<th style="width: 120px;">元</th>
+								<th style="width: 100px;">当月</th>
+								<th style="width: 100px;">历史</th>
+								<th style="width: 100px;">个</th>
+								<th style="width: 140px;">本月确认应收</th>
+								<th style="width: 120px;">未确认</th>
+								<th style="width: 140px;">未确认后确认</th>
+								<th style="width: 140px;">本月发票（张）</th>
+								<th style="width: 120px;">本月</th>
+								<th style="width: 120px;">历史（张）</th>
+								<th style="width: 120px;">历史</th>
+								<th style="width: 100px;">张</th>
+								<th style="width: 100px;">金额</th>
+								<th style="width: 100px;">张</th>
+								<th style="width: 100px;">金额</th>
+								<th style="width: 100px;">张</th>
+								<th style="width: 100px;">金额</th>
+							</tr>
+							<tr>
+								<td><s:property value="lastYearAuditDataSum.showtime"/></td>
+								<td><s:property value="lastYearAuditDataSum.receiveAudit"/></td>
+								<td><s:property value="lastYearAuditDataSum.completeAuditCurrentMonth"/></td>
+								<td><s:property value="lastYearAuditDataSum.completeAuditHis"/></td>
+								<td><s:property value="lastYearAuditDataSum.submitAuditAmount"/></td>
+								<td><s:property value="lastYearAuditDataSum.completeAuditAmount"/></td>
+								<td><s:property value="lastYearAuditDataSum.authorizeAuditAmount"/></td>
+								<td><s:property value="lastYearAuditDataSum.incompleteAuditCurrentMonth"/></td>
+								<td><s:property value="lastYearAuditDataSum.incompleteAuditHis"/></td>
+								<td><s:property value="lastYearAuditDataSum.reviewAudit"/></td>
+								<td><s:property value="lastYearAuditDataSum.auditAmountMonthConfirm"/></td>
+								<td><s:property value="lastYearAuditDataSum.auditAmountMonthUnconfirmed"/></td>
+								<td><s:property value="lastYearAuditDataSum.auditAmountMonthConfirming"/></td>
+								<td><s:property value="lastYearAuditDataSum.receiptAuditPieceMonth"/></td>
+								<td><s:property value="lastYearAuditDataSum.receiptAuditAmountMonth"/></td>
+								<td><s:property value="lastYearAuditDataSum.receiptAuditPieceHis"/></td>
+								<td><s:property value="lastYearAuditDataSum.receiptAuditAmountHis"/></td>
+								<td><s:property value="lastYearAuditDataSum.totalNumMonth"/></td>
+								<td><s:property value="lastYearAuditDataSum.totalAmountMonth"/></td>
+								<td><s:property value="lastYearAuditDataSum.unreceivedNumMonth"/></td>
+								<td><s:property value="lastYearAuditDataSum.unreceivedAmountMonth"/></td>
+								<td><s:property value="lastYearAuditDataSum.unreceivedNumHis"/></td>
+								<td><s:property value="lastYearAuditDataSum.unreceivedAmountHis"/></td>
+							</tr>
+							<tr>
+								<th colspan="15" style="text-align: center;">地铁审价项目</tg>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+								<th></th>
+							</tr>
+							<s:iterator id="currentYearAuditData" value="currentYearAuditData" status="st1">
+							<tr>
+								<td><s:property value="showtime"/></td>
+								<td><s:property value="receiveAudit"/></td>
+								<td><s:property value="completeAuditCurrentMonth"/></td>
+								<td><s:property value="completeAuditHis"/></td>
+								<td><s:property value="submitAuditAmount"/></td>
+								<td><s:property value="completeAuditAmount"/></td>
+								<td><s:property value="authorizeAuditAmount"/></td>
+								<td><s:property value="incompleteAuditCurrentMonth"/></td>
+								<td><s:property value="incompleteAuditHis"/></td>
+								<td><s:property value="reviewAudit"/></td>
+								<td><s:property value="auditAmountMonthConfirm"/></td>
+								<td><s:property value="auditAmountMonthUnconfirmed"/></td>
+								<td><s:property value="auditAmountMonthConfirming"/></td>
+								<td><s:property value="receiptAuditPieceMonth"/></td>
+								<td><s:property value="receiptAuditAmountMonth"/></td>
+								<td><s:property value="receiptAuditPieceHis"/></td>
+								<td><s:property value="receiptAuditAmountHis"/></td>
+								<td><s:property value="totalNumMonth"/></td>
+								<td><s:property value="totalAmountMonth"/></td>
+								<td><s:property value="unreceivedNumMonth"/></td>
+								<td><s:property value="unreceivedAmountMonth"/></td>
+								<td><s:property value="unreceivedNumHis"/></td>
+								<td><s:property value="unreceivedAmountHis"/></td>
+							</tr>
+							</s:iterator>
+						</table>
+					</div>
 				</s:form>
 			</div>
 		</div>

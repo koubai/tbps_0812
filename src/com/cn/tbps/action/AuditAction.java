@@ -1,9 +1,11 @@
 package com.cn.tbps.action;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,8 +18,10 @@ import com.cn.common.action.BaseAction;
 import com.cn.common.factory.Poi2007Base;
 import com.cn.common.factory.PoiFactory;
 import com.cn.common.util.Constants;
+import com.cn.common.util.DateUtil;
 import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
+import com.cn.tbps.dto.AuditAnnualDataDto;
 import com.cn.tbps.dto.AuditAuthDto;
 import com.cn.tbps.dto.AuditCntrctDto;
 import com.cn.tbps.dto.AuditCompDto;
@@ -268,6 +272,10 @@ public class AuditAction extends BaseAction {
 	private List<AuditListDisp> auditAllDisp;
 	
 	private String strSetList;
+	//去年一年审价数据
+	private AuditAnnualDataDto lastYearAuditDataSum;
+	//今年按月审价数据
+	private List<AuditAnnualDataDto> currentYearAuditData;
 	
 	//审价履历
 	/**
@@ -946,6 +954,9 @@ public class AuditAction extends BaseAction {
 			userinfo.setLOGIN_NAME("");
 			listUserInfo.add(userinfo);
 			System.out.println("listUserInfo" + listUserInfo.size());
+			
+			//审价统计（新）--add by frank
+			queryAnnualAuditStatistics();
 		} catch(Exception e) {
 			return ERROR;
 		}
@@ -961,11 +972,131 @@ public class AuditAction extends BaseAction {
 			this.clearMessages();
 			auditStatistics = new AuditStatisticsDto();
 			auditStatistics = auditService.queryAuditStatistics(strProjectManager, strStartDate, strEndDate);
+			
+			//审价统计（新）--add by frank
+			queryAnnualAuditStatistics();
 		} catch(Exception e) {
 			log.error(e);
 			return ERROR;
 		}
 		return SUCCESS;
+	}
+	
+	/**
+	 * 按年统计审价数据
+	 */
+	private void queryAnnualAuditStatistics() {
+		try {
+			Date now = new Date();
+			SimpleDateFormat sdfyear = new SimpleDateFormat("yyyy");
+			
+			//去年审价数据
+			Date lastYearDate = DateUtil.addYears(now, -1);
+			String lastyear = sdfyear.format(lastYearDate);
+			String lastyearStart = lastyear + "-01-01";
+			String lastyearEnd = lastyear + "-12-31";
+			List<AuditAnnualDataDto> lastYearList = auditService.queryAuditAnnualData("", lastyearStart, lastyearEnd, "0");
+			lastYearAuditDataSum = sumAuditAnnualData(lastYearList);
+			lastYearAuditDataSum.setShowtime(lastyear + "未完成项目");
+			
+			//今年按月份数据
+			currentYearAuditData = new ArrayList<AuditAnnualDataDto>();
+			String currentyear = sdfyear.format(now);
+			String currentYearStart = currentyear + "-01-01";
+			String currentYearEnd = DateUtil.dateToShortStr(now);
+			List<AuditAnnualDataDto> currentYearList = auditService.queryAuditAnnualData("", currentYearStart, currentYearEnd, "");
+			
+			//当前年份合计
+			AuditAnnualDataDto currentYearAuditDataSum = sumAuditAnnualData(currentYearList);
+			currentYearAuditDataSum.setShowtime("本年");
+			
+			if(currentYearList != null && currentYearList.size() > 0) {
+				currentYearAuditData.addAll(currentYearList);
+			}
+			currentYearAuditData.add(currentYearAuditDataSum);
+		} catch(Exception e) {
+			log.error(e);
+		}
+	}
+	
+	/**
+	 * 根据列表汇总数据
+	 * @param list
+	 * @return
+	 */
+	private AuditAnnualDataDto sumAuditAnnualData(List<AuditAnnualDataDto> list) {
+		AuditAnnualDataDto sumAuditAnnualData = new AuditAnnualDataDto();
+		if(list != null && list.size() > 0) {
+			for(AuditAnnualDataDto auditAnnualData : list) {
+				if(auditAnnualData.getReceiveAudit() != null) {
+					sumAuditAnnualData.setReceiveAudit(sumAuditAnnualData.getReceiveAudit() + auditAnnualData.getReceiveAudit());
+				}
+				if(auditAnnualData.getCompleteAuditCurrentMonth() != null) {
+					sumAuditAnnualData.setCompleteAuditCurrentMonth(sumAuditAnnualData.getCompleteAuditCurrentMonth() + auditAnnualData.getCompleteAuditCurrentMonth());
+				}
+				if(auditAnnualData.getCompleteAuditHis() != null) {
+					sumAuditAnnualData.setCompleteAuditHis(sumAuditAnnualData.getCompleteAuditHis() + auditAnnualData.getCompleteAuditHis());
+				}
+				if(auditAnnualData.getSubmitAuditAmount() != null) {
+					sumAuditAnnualData.setSubmitAuditAmount(sumAuditAnnualData.getSubmitAuditAmount().add(auditAnnualData.getSubmitAuditAmount()));
+				}
+				if(auditAnnualData.getCompleteAuditAmount() != null) {
+					sumAuditAnnualData.setCompleteAuditAmount(sumAuditAnnualData.getCompleteAuditAmount().add(auditAnnualData.getCompleteAuditAmount()));
+				}
+				if(auditAnnualData.getAuthorizeAuditAmount() != null) {
+					sumAuditAnnualData.setAuthorizeAuditAmount(sumAuditAnnualData.getAuthorizeAuditAmount().add(auditAnnualData.getAuthorizeAuditAmount()));
+				}
+				if(auditAnnualData.getIncompleteAuditCurrentMonth() != null) {
+					sumAuditAnnualData.setIncompleteAuditCurrentMonth(sumAuditAnnualData.getIncompleteAuditCurrentMonth() + auditAnnualData.getIncompleteAuditCurrentMonth());
+				}
+				if(auditAnnualData.getIncompleteAuditHis() != null) {
+					sumAuditAnnualData.setIncompleteAuditHis(sumAuditAnnualData.getIncompleteAuditHis() + auditAnnualData.getIncompleteAuditHis());
+				}
+				if(auditAnnualData.getReviewAudit() != null) {
+					sumAuditAnnualData.setReviewAudit(sumAuditAnnualData.getReviewAudit() + auditAnnualData.getReviewAudit());
+				}
+				if(auditAnnualData.getAuditAmountMonthConfirm() != null) {
+					sumAuditAnnualData.setAuditAmountMonthConfirm(sumAuditAnnualData.getAuditAmountMonthConfirm().add(auditAnnualData.getAuditAmountMonthConfirm()));
+				}
+				if(auditAnnualData.getAuditAmountMonthUnconfirmed() != null) {
+					sumAuditAnnualData.setAuditAmountMonthUnconfirmed(sumAuditAnnualData.getAuditAmountMonthUnconfirmed().add(auditAnnualData.getAuditAmountMonthUnconfirmed()));
+				}
+				if(auditAnnualData.getAuditAmountMonthConfirming() != null) {
+					sumAuditAnnualData.setAuditAmountMonthConfirming(sumAuditAnnualData.getAuditAmountMonthConfirming().add(auditAnnualData.getAuditAmountMonthConfirming()));
+				}
+				if(auditAnnualData.getReceiptAuditPieceMonth() != null) {
+					sumAuditAnnualData.setReceiptAuditPieceMonth(sumAuditAnnualData.getReceiptAuditPieceMonth() + auditAnnualData.getReceiptAuditPieceMonth());
+				}
+				if(auditAnnualData.getReceiptAuditAmountMonth() != null) {
+					sumAuditAnnualData.setReceiptAuditAmountMonth(sumAuditAnnualData.getReceiptAuditAmountMonth().add(auditAnnualData.getReceiptAuditAmountMonth()));
+				}
+				if(auditAnnualData.getReceiptAuditPieceHis() != null) {
+					sumAuditAnnualData.setReceiptAuditPieceHis(sumAuditAnnualData.getReceiptAuditPieceHis() + auditAnnualData.getReceiptAuditPieceHis());
+				}
+				if(auditAnnualData.getReceiptAuditAmountHis() != null) {
+					sumAuditAnnualData.setReceiptAuditAmountHis(sumAuditAnnualData.getReceiptAuditAmountHis().add(auditAnnualData.getReceiptAuditAmountHis()));
+				}
+				if(auditAnnualData.getTotalNumMonth() != null) {
+					sumAuditAnnualData.setTotalNumMonth(sumAuditAnnualData.getTotalNumMonth() + auditAnnualData.getTotalNumMonth());
+				}
+				if(auditAnnualData.getTotalAmountMonth() != null) {
+					sumAuditAnnualData.setTotalAmountMonth(sumAuditAnnualData.getTotalAmountMonth().add(auditAnnualData.getTotalAmountMonth()));
+				}
+				if(auditAnnualData.getUnreceivedNumMonth() != null) {
+					sumAuditAnnualData.setUnreceivedNumMonth(sumAuditAnnualData.getUnreceivedNumMonth() + auditAnnualData.getUnreceivedNumMonth());
+				}
+				if(auditAnnualData.getUnreceivedAmountMonth() != null) {
+					sumAuditAnnualData.setUnreceivedAmountMonth(sumAuditAnnualData.getUnreceivedAmountMonth().add(auditAnnualData.getUnreceivedAmountMonth()));
+				}
+				if(auditAnnualData.getUnreceivedNumHis() != null) {
+					sumAuditAnnualData.setUnreceivedNumHis(sumAuditAnnualData.getUnreceivedNumHis() + auditAnnualData.getUnreceivedNumHis());
+				}
+				if(auditAnnualData.getUnreceivedAmountHis() != null) {
+					sumAuditAnnualData.setUnreceivedAmountHis(sumAuditAnnualData.getUnreceivedAmountHis().add(auditAnnualData.getUnreceivedAmountHis()));
+				}
+			}
+		}
+		return sumAuditAnnualData;
 	}
 
 	/**
@@ -1755,6 +1886,22 @@ public class AuditAction extends BaseAction {
 
 	public void setArrAuditShow(String[][] arrAuditShow) {
 		this.arrAuditShow = arrAuditShow;
+	}
+
+	public List<AuditAnnualDataDto> getCurrentYearAuditData() {
+		return currentYearAuditData;
+	}
+
+	public void setCurrentYearAuditData(List<AuditAnnualDataDto> currentYearAuditData) {
+		this.currentYearAuditData = currentYearAuditData;
+	}
+
+	public AuditAnnualDataDto getLastYearAuditDataSum() {
+		return lastYearAuditDataSum;
+	}
+
+	public void setLastYearAuditDataSum(AuditAnnualDataDto lastYearAuditDataSum) {
+		this.lastYearAuditDataSum = lastYearAuditDataSum;
 	}
 
 }
