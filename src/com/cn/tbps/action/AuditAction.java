@@ -983,6 +983,37 @@ public class AuditAction extends BaseAction {
 	}
 	
 	/**
+	 * 导出审价统计数据
+	 * @return
+	 */
+	public String exportAuditAnnualStatistics() {
+		try {
+			this.clearMessages();
+			String name = StringUtil.createFileName(Constants.EXCEL_TYPE_SJTJ);
+			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
+			response.setContentType("application/vnd.ms-excel");
+			Poi2007Base base = PoiFactory.getPoi(Constants.EXCEL_TYPE_SJTJ);
+			
+			//查询审价统计数据
+			queryAnnualAuditStatistics();
+			
+			//上一年份数据
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("last_year_audit_sum", lastYearAuditDataSum);
+			base.setMap(map);
+			
+			base.setDatas(currentYearAuditData);
+			
+			base.setSheetName(Constants.EXCEL_TYPE_SJTJ);
+			base.exportExcel(response.getOutputStream());
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
 	 * 按年统计审价数据
 	 */
 	private void queryAnnualAuditStatistics() {

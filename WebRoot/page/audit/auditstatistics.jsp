@@ -37,6 +37,10 @@
 		document.mainform.submit();
 	}
 	
+	function exportAuditAnnualData() {
+		document.mainform.action = '<c:url value="/audit/exportAuditAnnualStatistics.action"></c:url>';
+		document.mainform.submit();
+	}
 </script>
 </head>
 <body>
@@ -325,6 +329,9 @@
 							</tr>
 							</s:iterator>
 						</table>
+						<div class="operationBtns">
+							<button type="button" class="btn btn-success" onclick="exportAuditAnnualData();">导出审价统计</button>
+						</div>
 					</div>
 				</s:form>
 			</div>

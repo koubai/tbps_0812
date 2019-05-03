@@ -133,6 +133,11 @@ public class Constants {
 	public final static String EXCEL_TYPE_RECEIPT_SJYL = "RECEIPT_SJYL";
 	
 	/**
+	 * 审价统计数据
+	 */
+	public final static String EXCEL_TYPE_SJTJ = "SJTJ";
+	
+	/**
 	 * 保证金汇总
 	 */
 	public final static String EXCEL_TYPE_BZJHZ = "BZJHZ";
