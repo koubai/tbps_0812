@@ -110,6 +110,44 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 	}
 
 	@Override
+	public Page queryAuditByPage(String keyword, String auditStatus, Page page) {
+		
+		System.out.println("queryAuditByPage  auditStatus: "+auditStatus);
+
+		//add auditStatus condition 20150425  start--->
+		if(StringUtil.isBlank(auditStatus) || "00".equals(auditStatus)) {
+			auditStatus = "'2','3'";
+		} else {
+			String tmp = "";
+			auditStatus = auditStatus.replace("0", "");
+			for(int i = 0; i < auditStatus.length(); i++) {
+				tmp += "'" + auditStatus.subSequence(i, i + 1) + "',";
+			}
+			if(StringUtil.isNotBlank(tmp)) {
+				tmp = tmp.substring(0, tmp.length() - 1);
+			}
+			auditStatus = tmp;
+		}
+		//add auditStatus condition 20150425  end<---------
+		System.out.println("queryAuditByPage  auditStatus2: "+auditStatus);
+
+		keyword = StringUtil.replaceDatabaseKeyword_mysql(keyword);
+		//查询总记录数
+		int totalCount = auditDao.queryAuditCountByPage(keyword, auditStatus);
+		page.setTotalCount(totalCount);
+		if(totalCount % page.getPageSize() > 0) {
+			page.setTotalPage(totalCount / page.getPageSize() + 1);
+		} else {
+			page.setTotalPage(totalCount / page.getPageSize());
+		}
+		//翻页查询记录
+		List<AuditDto> list = auditDao.queryAuditByPage(keyword, auditStatus,
+				page.getStartIndex() * page.getPageSize(), page.getPageSize());
+		page.setItems(list);
+		return page;
+	}
+
+	@Override
 	public List<AuditDto> queryAllAuditExport(String auditNoLow,
 			String auditNoHigh, String projectStatus, String projectManager,
 			String valueDateLow, String valueDateHigh, String agentNo,
@@ -155,6 +193,29 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 				projectManager, valueDateLow, valueDateHigh, agentNo,
 				comp, reportlow, reporthigh, auditStatus, 
 				projectClass, docArrDateLow, docArrDateHigh, agentName, contractName, reportNo, projectName, cntrctInfo);
+	}
+
+	@Override
+	public List<AuditDto> queryAllAuditExport(String keyword, String auditStatus) {
+		
+		//add auditStatus condition 20150425  start--->
+		if(StringUtil.isBlank(auditStatus) || "00".equals(auditStatus)) {
+			auditStatus = "'2','3'";
+		} else {
+			String tmp = "";
+			auditStatus = auditStatus.replace("0", "");
+			for(int i = 0; i < auditStatus.length(); i++) {
+				tmp += "'" + auditStatus.subSequence(i, i + 1) + "',";
+			}
+			if(StringUtil.isNotBlank(tmp)) {
+				tmp = tmp.substring(0, tmp.length() - 1);
+			}
+			auditStatus = tmp;
+		}
+		//add auditStatus condition 20150425  end<---------
+
+		keyword = StringUtil.replaceDatabaseKeyword_mysql(keyword);
+		return auditDao.queryAllAuditExport(keyword, auditStatus);
 	}
 
 	@Override

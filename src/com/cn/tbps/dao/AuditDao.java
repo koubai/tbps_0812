@@ -61,6 +61,43 @@ public interface AuditDao {
 			String reportNoComp, String reportNoLow, String reportNoHigh, String auditStatus, 
 			String projectClass, String docArrDateLow, String docArrDateHigh, String agentName, 
 			String contractName, String reportNo, String projectName, String cntrctInfo, int start, int end);
+
+	//审价
+	/**
+	 * 查询总记录数根据关键字
+	 * @param auditNoLow
+	 * @param auditNoHigh
+	 * @param projectStatus
+	 * @param projectManager
+	 * @param valueDateLow
+	 * @param valueDateHigh
+	 * @param agentNo
+	 * @param reportNoComp
+	 * @param reportNoLow
+	 * @param reportNoHigh
+	 * @param auditStatus
+	 * @return
+	 */
+	public int queryAuditCountByPage(String keyword, String auditStatus);
+	
+	/**
+	 * 翻页查询记录根据关键字
+	 * @param auditNoLow
+	 * @param auditNoHigh
+	 * @param projectStatus
+	 * @param projectManager
+	 * @param valueDateLow
+	 * @param valueDateHigh
+	 * @param agentNo
+	 * @param reportNoComp
+	 * @param reportNoLow
+	 * @param reportNoHigh
+	 * @param auditStatus
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public List<AuditDto> queryAuditByPage(String keyword, String auditStatus, int start, int end);
 	
 	/**
 	 * 查询合同所以项目记录
@@ -126,6 +163,14 @@ public interface AuditDao {
 			String reportNoComp, String reportNoLow, String reportNoHigh, String auditStatus, 
 			String projectClass, String docArrDateLow, String docArrDateHigh, String agentName, 
 			String contractName, String reportNo, String projectName, String cntrctInfo);
+	
+	/**
+	 * 查询审价（导出数据用）使用关键字
+	 * @param keyword
+	 * @param auditStatus
+	 * @return
+	 */
+	public List<AuditDto> queryAllAuditExport(String keyword, String auditStatus);
 	
 	/**
 	 * 根据审价编号查询记录（查询未删除的记录）

@@ -40,6 +40,14 @@ public interface AuditService {
 			String reportNoComp, String reportNoLow, String reportNoHigh, Page page, String auditStatus, 
 			String projectClass, String docArrDateLow, String docArrDateHigh, String agentName, 
 			String contractName, String strReportNo, String strProjectName, String strCntrctInfo);
+
+	//审价
+	/**
+	 * 翻页查询审价根据关键字
+	 * @param strKeyword
+	 * @return
+	 */
+	public Page queryAuditByPage(String keyword, String auditStatus, Page page);
 	
 	/**
 	 * 项目情况检查
@@ -97,6 +105,14 @@ public interface AuditService {
 			String reportNoComp, String reportNoLow, String reportNoHigh, String auditStatus, 
 			String projectClass, String docArrDateLow, String docArrDateHigh, String agentName, 
 			String contractName, String reportNo, String projectName, String cntrctInfo);
+	
+	/**
+	 * 查询审价（导出数据用）使用关键字
+	 * @param keyword
+	 * @param auditStatus
+	 * @return
+	 */
+	public List<AuditDto> queryAllAuditExport(String keyword, String auditStatus);
 	
 	/**
 	 * 根据审价编号查询记录（查询未删除的记录）

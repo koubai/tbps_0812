@@ -128,11 +128,28 @@
 			strSetFlag = "1";
 		}
 		$("#strSetFlag").attr("value", strSetFlag);
+		var keywordFlag = document.getElementById("keywordFlag");
+		var strKeywordFlag = "0";
+		if(keywordFlag.checked) {
+			strKeywordFlag = "1";
+		}
+		$("#strKeywordFlag").attr("value", strKeywordFlag);
 	}
 
 	function queryList() {
 		setQueryDate();
-		document.mainform.action = '<c:url value="/audit/queryAuditList.action"></c:url>';
+		var keywordFlag = document.getElementById("keywordFlag");
+		if(keywordFlag.checked) {
+			document.mainform.action = '<c:url value="/audit/queryAuditListByKeyword.action"></c:url>';
+		} else {
+			document.mainform.action = '<c:url value="/audit/queryAuditList.action"></c:url>';
+		}
+		document.mainform.submit();
+	}
+
+	function queryListByKeyword() {
+		setQueryDate();
+		document.mainform.action = '<c:url value="/audit/queryAuditListByKeyword.action"></c:url>';
 		document.mainform.submit();
 	}
 
@@ -147,7 +164,13 @@
 	function changePage(pageNum) {
 		setQueryDate();
 		document.getElementById("startIndex").value = pageNum;
-		document.mainform.action = '<c:url value="/audit/turnAuditPage.action"></c:url>';
+
+		var keywordFlag = document.getElementById("keywordFlag");
+		if(keywordFlag.checked) {
+			document.mainform.action = '<c:url value="/audit/turnAuditByKeywordPage.action"></c:url>';
+		} else {
+			document.mainform.action = '<c:url value="/audit/turnAuditPage.action"></c:url>';
+		}
 		document.mainform.submit();
 	}
 
@@ -223,6 +246,7 @@
 				<s:form id="mainform" name="mainform" method="POST">
 					<s:hidden name="startIndex" id="startIndex"/>
 					<s:hidden name="strSetFlag" id="strSetFlag"/>
+					<s:hidden name="strKeywordFlag" id="strKeywordFlag"/>
 					<h3 class="title">审价项目一览<a class="backHome" href="#" onclick="goHome();"><i class="fa fa-home" aria-hidden="true"></i>返回首页</a></h3>
 					<div class="row">
 						<s:if test="hasActionMessages()">
@@ -305,9 +329,6 @@
 							<div class="col-lg-1 form-group">
 							</div>
 							<div class="col-lg-1 form-group">
-								<button class="btn btn-success form-control" type="button" onclick="queryList();">检索</button>
-							</div>
-							<div class="col-lg-1 form-group">
 								<button class="btn btn-success form-control" type="button" onclick="queryListDisp();">设定</button>
 							</div>
 							<div class="col-lg-2 form-group">
@@ -318,6 +339,27 @@
 								<s:else>
 									<input id="setFlag" type="checkbox"/>
 									<label class="form-label" for="">使用设定值</label>　
+								</s:else>
+							</div>
+						</div>
+						<div class="col-lg-12 form-group">
+							<label for="" class="col-lg-1 form-label">关键字</label>
+							<div class="col-lg-5">
+								<s:textfield name="strKeyword" id="strKeyword" cssClass="form-control" maxlength="80" theme="simple"></s:textfield>
+							</div>
+							<div class="col-lg-1 form-group">
+							</div>
+							<div class="col-lg-1 form-group">
+								<button class="btn btn-success form-control" type="button" onclick="queryList();">检索</button>
+							</div>
+							<div class="col-lg-2 form-group">
+								<s:if test='%{strKeywordFlag == "1"}'>
+									<input id="keywordFlag" type="checkbox" checked="checked"/>
+									<label class="form-label" for="">使用关键字检索</label>　
+								</s:if>
+								<s:else>
+									<input id="keywordFlag" type="checkbox"/>
+									<label class="form-label" for="">使用关键字检索</label>　
 								</s:else>
 							</div>
 						</div>

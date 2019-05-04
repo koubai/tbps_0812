@@ -253,6 +253,8 @@ public class AuditAction extends BaseAction {
 	private String[][] arrAuditShowSet;
 	//设定值Flag
 	private String strSetFlag;
+	//关键字Flag
+	private String strKeywordFlag;
 	//项目文号
 	private String strReportNo;
 	//委托内容
@@ -268,6 +270,8 @@ public class AuditAction extends BaseAction {
 	private List<AuditListDisp> auditAllDisp;
 	
 	private String strSetList;
+	
+	private String strKeyword;
 	
 	//审价履历
 	/**
@@ -394,8 +398,14 @@ public class AuditAction extends BaseAction {
 			System.out.print("strAuditStatus: "+strAuditStatus);
 
 			//查询数据
-			List<AuditDto> list = auditService.queryAllAuditExport("", "", "", strProjectManager, "", "", "",
-					"", "", "", "", "", "", "", "", "", strReportNo, strProjectName, strCntrctInfo);
+			List<AuditDto> list = null;
+			if("1".equals(strKeywordFlag)){
+				list = auditService.queryAllAuditExport(strKeyword, "");
+			} else {
+				list = auditService.queryAllAuditExport("", "", "", strProjectManager, "", "", "",
+						"", "", "", "", "", "", "", "", "", strReportNo, strProjectName, strCntrctInfo);
+			}
+			
 			//2019.02.08 
 			Collections.reverse(list);
 			base.setDatas(list);
@@ -862,6 +872,8 @@ public class AuditAction extends BaseAction {
 			strProjectName = "";
 			strCntrctInfo = "";
 			strSetFlag = "";
+			strKeywordFlag = "";
+			strKeyword = "";
 			updAuditCntrctNo = "";
 			auditCntrctDto = new AuditCntrctDto();
 			//审价
@@ -1216,6 +1228,66 @@ public class AuditAction extends BaseAction {
 	}
 	
 	/**
+	 * 查询审价列表by关键字
+	 * @return
+	 */
+	public String queryAuditListByKeyword() {
+		try {
+			this.clearMessages();
+			page = new Page();
+			startIndex = 0;
+			//显示值
+			arrAuditShow = null;
+			if("1".equals(strSetFlag)){
+				//设定项目
+				auditListDisp = new ArrayList<AuditListDisp>();
+				String userid = (String) ActionContext.getContext().getSession().get(Constants.USER_ID);
+				ConfigTabDto auditListDispConfig = configTabService.queryConfigTabByKey(Constants.CONFIG_TAB_AUDIT_DISP+"_"+userid, Constants.CONFIG_TAB_AUDIT_DISP);
+				if(null != auditListDispConfig) {
+					String auditListDispValue = auditListDispConfig.getCONFIG_VAL();
+					if(StringUtils.isNotEmpty(auditListDispValue)) {
+						String[] valArray = auditListDispValue.split(",");
+						arrAuditShow = new String[valArray.length][2];
+						int i = 0;
+						for(String id : valArray) {
+							arrAuditShow[i][0] = AuditListDispEnum.getNameByID(Integer.parseInt(id)).getEnName();
+							arrAuditShow[i][1] = AuditListDispEnum.getNameByID(Integer.parseInt(id)).getCnName();
+							i++;
+						}
+					} else {
+						this.addActionMessage("请先设定显示列表！");
+					}
+				}
+			}
+			if(null == arrAuditShow || arrAuditShow.length <= 0){
+				if("2".equals(strCntrctInfo)){
+					arrAuditShow  = new String[][]{{"PROJECT_MANAGER","工程师"},{"REPORT_NO", "项目文号"},{"PROJECT_NAME", "项目名称"},
+							{"DOC_REC_DATE", "资料收到日期"},{"REPORT_RAISE_DATE", "报告出具日期"},
+							{"VERIFY_PER_AMOUNT", "送审价"},{"VERIFY_AMOUNT", "审核价"}};//咨询
+				} else if("3".equals(strCntrctInfo)){
+					arrAuditShow = new String[][]{{"PROJECT_MANAGER","工程师"},{"REPORT_NO", "项目文号"},{"PROJECT_NAME", "项目名称"},
+						{"DOC_REC_DATE", "资料收到日期"},{"REPORT_RAISE_DATE", "报告出具日期"}};//清单编制
+				} else if("4".equals(strCntrctInfo)){
+					arrAuditShow = new String[][]{{"PROJECT_MANAGER","工程师"},{"REPORT_NO", "项目文号"},{"PROJECT_NAME", "项目名称"},
+							{"DOC_REC_DATE", "资料收到日期"},{"REPORT_RAISE_DATE", "报告出具日期"},{"CNT_PRICE", "控制价金额"}};//控制价编制
+				} else if("5".equals(strCntrctInfo)){
+					arrAuditShow = new String[][]{{"PROJECT_MANAGER","工程师"},{"REPORT_NO", "项目文号"},{"PROJECT_NAME", "项目名称"},
+							{"PRE_PRICE", "预算金额"},{"PROGRESS_STATUS_MEMO", "项目大致进程简述"}};//全过程投资监理
+				} else {
+					arrAuditShow = new String[][]{{"PROJECT_MANAGER","工程师"},{"REPORT_NO", "项目文号"},{"PROJECT_NAME", "项目名称"},
+							{"DOC_REC_DATE", "资料收到日期"},{"APPROVAL_SND_DATE", "审定单发出日期"},{"REPORT_RAISE_DATE", "报告出具日期"},
+							{"VERIFY_PER_AMOUNT", "送审价"},{"VERIFY_AMOUNT", "审核价"}};//审价
+				}
+			}
+			queryAuditByKeyword();
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
 	 * 翻页
 	 * @return
 	 */
@@ -1223,6 +1295,21 @@ public class AuditAction extends BaseAction {
 		try {
 			this.clearMessages();
 			queryAudit();
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 翻页
+	 * @return
+	 */
+	public String turnAuditByKeywordPage() {
+		try {
+			this.clearMessages();
+			queryAuditByKeyword();
 		} catch(Exception e) {
 			log.error(e);
 			return ERROR;
@@ -1280,6 +1367,20 @@ public class AuditAction extends BaseAction {
 				strPreReport, strReportLow, strReportHigh, page, strAuditStatus, 
 				strProjectClass, strDocArrDateLow, strDocArrDateHigh, strAgentName, strContractName, 
 				strReportNo, strProjectName, strCntrctInfo);
+		listAudit = (List<AuditDto>) page.getItems();
+		this.setStartIndex(page.getStartIndex());
+	}
+	
+	@SuppressWarnings("unchecked")
+	private void queryAuditByKeyword() {
+		listAudit = new ArrayList<AuditDto>();
+		if(page == null) {
+			page = new Page();
+		}
+		
+		//翻页查询所有审价根据关键字
+		this.page.setStartIndex(startIndex);
+		page = auditService.queryAuditByPage(strKeyword, strAuditStatus, page);
 		listAudit = (List<AuditDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
@@ -1754,6 +1855,22 @@ public class AuditAction extends BaseAction {
 
 	public void setArrAuditShow(String[][] arrAuditShow) {
 		this.arrAuditShow = arrAuditShow;
+	}
+
+	public String getStrKeyword() {
+		return strKeyword;
+	}
+
+	public void setStrKeyword(String strKeyword) {
+		this.strKeyword = strKeyword;
+	}
+
+	public String getStrKeywordFlag() {
+		return strKeywordFlag;
+	}
+
+	public void setStrKeywordFlag(String strKeywordFlag) {
+		this.strKeywordFlag = strKeywordFlag;
 	}
 
 }

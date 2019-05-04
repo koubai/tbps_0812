@@ -14,7 +14,15 @@
 			<result name="success">/page/audit/auditlist.jsp</result>
 		</action>
 		
+		<action name="queryAuditListByKeyword" class="auditAction" method="queryAuditListByKeyword">
+			<result name="success">/page/audit/auditlist.jsp</result>
+		</action>
+		
 		<action name="turnAuditPage" class="auditAction" method="turnAuditPage">
+			<result name="success">/page/audit/auditlist.jsp</result>
+		</action>
+		
+		<action name="turnAuditByKeywordPage" class="auditAction" method="turnAuditByKeywordPage">
 			<result name="success">/page/audit/auditlist.jsp</result>
 		</action>
 		
