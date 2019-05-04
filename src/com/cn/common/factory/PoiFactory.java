@@ -126,6 +126,9 @@ public class PoiFactory {
 		}else if(Constants.EXCEL_TYPE_EXPERTPAYREPORT.equals(type)) {
 			//招标专家评审费申请发放表
 			return new PoiExpertPayReport();
+		}else if(Constants.EXCEL_TYPE_SJTJ.equals(type)) {
+			//审价统计数据导出
+			return new PoiAuditAnnualData();
 		}
 		return null;
 	}

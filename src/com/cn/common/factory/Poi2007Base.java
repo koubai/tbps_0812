@@ -15,8 +15,10 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.hssf.util.CellRangeAddress;
 import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.RegionUtil;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -132,6 +134,25 @@ public class Poi2007Base {
 		} catch (Exception e) {
 			log.error("exportExcel error:" + e);
 		}
+	}
+	
+	/**
+	 * 合并单元格并且加边框
+	 * @param firstRow
+	 * @param lastRow
+	 * @param firstCol
+	 * @param lastCol
+	 * @param sheet
+	 * @param workbook
+	 * @return
+	 */
+	public CellRangeAddress cellRange(int firstRow, int lastRow, int firstCol, int lastCol, XSSFSheet sheet, XSSFWorkbook workbook) {
+		CellRangeAddress cra = new CellRangeAddress(firstRow, lastRow, firstCol, lastCol);
+		RegionUtil.setBorderBottom(1, cra, sheet, workbook);
+		RegionUtil.setBorderLeft(1, cra, sheet, workbook);
+		RegionUtil.setBorderRight(1, cra, sheet, workbook);
+		RegionUtil.setBorderTop(1, cra, sheet, workbook);
+		return cra;
 	}
 	
 	/**

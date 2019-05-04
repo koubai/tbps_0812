@@ -1680,16 +1680,25 @@
 										<option value="">请选择</option>
 										<option value="1" selected="selected">实施</option>
 										<option value="2">中止</option>
+										<option value="3">暂停</option>
 									</s:if>
 									<s:elseif test='addAuditDto.PROGRESS_STATUS == "2"'>
 										<option value="">请选择</option>
 										<option value="1">实施</option>
 										<option value="2" selected="selected">中止</option>
+										<option value="3">暂停</option>
+									</s:elseif>
+									<s:elseif test='addAuditDto.PROGRESS_STATUS == "3"'>
+										<option value="">请选择</option>
+										<option value="1">实施</option>
+										<option value="2">中止</option>
+										<option value="3" selected="selected">暂停</option>
 									</s:elseif>
 									<s:else>
 										<option value="" selected="selected">请选择</option>
 										<option value="1">实施</option>
 										<option value="2">中止</option>
+										<option value="3">暂停</option>
 									</s:else>
 								</select>
 							</div>

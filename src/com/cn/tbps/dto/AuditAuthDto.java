@@ -9,6 +9,12 @@ public class AuditAuthDto extends BaseDto {
 	private int COUNT1;
 
 	private int COUNT_NULL1;
+
+	private String APPROVAL_SND_DATE_NULL1_NU;
+	
+	private String APPROVAL_RCV_DATE_NULL1_NU;
+
+	private String DRAFT_DATE_NULL1;
 	
 	private String APPROVAL_SND_DATE_NULL1;
 	
@@ -28,6 +34,12 @@ public class AuditAuthDto extends BaseDto {
 
 	private int COUNT_NULL2;
 	
+	private String APPROVAL_SND_DATE_NULL2_NU;
+	
+	private String APPROVAL_RCV_DATE_NULL2_NU;
+
+	private String DRAFT_DATE_NULL2;
+	
 	private String REPORT_RAISE_DATE_NULL2;
 	
 	private String REG_DATE_NULL2;
@@ -38,6 +50,12 @@ public class AuditAuthDto extends BaseDto {
 
 	private int COUNT_NULL4;
 	
+	private String APPROVAL_SND_DATE_NULL4_NU;
+	
+	private String APPROVAL_RCV_DATE_NULL4_NU;
+
+	private String DRAFT_DATE_NULL4
+	;
 	private String REPORT_RAISE_DATE_NULL4;
 	
 	private String REG_DATE_NULL4;
@@ -194,6 +212,78 @@ public class AuditAuthDto extends BaseDto {
 
 	public void setCOUNT4(int cOUNT4) {
 		COUNT4 = cOUNT4;
+	}
+
+	public String getAPPROVAL_SND_DATE_NULL1_NU() {
+		return APPROVAL_SND_DATE_NULL1_NU;
+	}
+
+	public void setAPPROVAL_SND_DATE_NULL1_NU(String aPPROVAL_SND_DATE_NULL1_NU) {
+		APPROVAL_SND_DATE_NULL1_NU = aPPROVAL_SND_DATE_NULL1_NU;
+	}
+
+	public String getAPPROVAL_RCV_DATE_NULL1_NU() {
+		return APPROVAL_RCV_DATE_NULL1_NU;
+	}
+
+	public void setAPPROVAL_RCV_DATE_NULL1_NU(String aPPROVAL_RCV_DATE_NULL1_NU) {
+		APPROVAL_RCV_DATE_NULL1_NU = aPPROVAL_RCV_DATE_NULL1_NU;
+	}
+
+	public String getDRAFT_DATE_NULL1() {
+		return DRAFT_DATE_NULL1;
+	}
+
+	public void setDRAFT_DATE_NULL1(String dRAFT_DATE_NULL1) {
+		DRAFT_DATE_NULL1 = dRAFT_DATE_NULL1;
+	}
+
+	public String getAPPROVAL_SND_DATE_NULL2_NU() {
+		return APPROVAL_SND_DATE_NULL2_NU;
+	}
+
+	public void setAPPROVAL_SND_DATE_NULL2_NU(String aPPROVAL_SND_DATE_NULL2_NU) {
+		APPROVAL_SND_DATE_NULL2_NU = aPPROVAL_SND_DATE_NULL2_NU;
+	}
+
+	public String getAPPROVAL_RCV_DATE_NULL2_NU() {
+		return APPROVAL_RCV_DATE_NULL2_NU;
+	}
+
+	public void setAPPROVAL_RCV_DATE_NULL2_NU(String aPPROVAL_RCV_DATE_NULL2_NU) {
+		APPROVAL_RCV_DATE_NULL2_NU = aPPROVAL_RCV_DATE_NULL2_NU;
+	}
+
+	public String getDRAFT_DATE_NULL2() {
+		return DRAFT_DATE_NULL2;
+	}
+
+	public void setDRAFT_DATE_NULL2(String dRAFT_DATE_NULL2) {
+		DRAFT_DATE_NULL2 = dRAFT_DATE_NULL2;
+	}
+
+	public String getAPPROVAL_SND_DATE_NULL4_NU() {
+		return APPROVAL_SND_DATE_NULL4_NU;
+	}
+
+	public void setAPPROVAL_SND_DATE_NULL4_NU(String aPPROVAL_SND_DATE_NULL4_NU) {
+		APPROVAL_SND_DATE_NULL4_NU = aPPROVAL_SND_DATE_NULL4_NU;
+	}
+
+	public String getAPPROVAL_RCV_DATE_NULL4_NU() {
+		return APPROVAL_RCV_DATE_NULL4_NU;
+	}
+
+	public void setAPPROVAL_RCV_DATE_NULL4_NU(String aPPROVAL_RCV_DATE_NULL4_NU) {
+		APPROVAL_RCV_DATE_NULL4_NU = aPPROVAL_RCV_DATE_NULL4_NU;
+	}
+
+	public String getDRAFT_DATE_NULL4() {
+		return DRAFT_DATE_NULL4;
+	}
+
+	public void setDRAFT_DATE_NULL4(String dRAFT_DATE_NULL4) {
+		DRAFT_DATE_NULL4 = dRAFT_DATE_NULL4;
 	}
 	
 }

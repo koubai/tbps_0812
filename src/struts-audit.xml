@@ -146,6 +146,10 @@
 			<result name="success">/page/audit/updauditlist.jsp</result>
 		</action>
 		
+		<action name="exportAuditAnnualStatistics" class="auditAction" method="exportAuditAnnualStatistics">
+			<result name="success">/page/download.jsp</result>
+		</action>
+		
 	</package>
 
 </struts>

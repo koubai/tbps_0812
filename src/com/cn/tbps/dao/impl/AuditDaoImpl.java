@@ -312,6 +312,22 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 			dto = list.get(0);
 		return dto;
 	}
+	
+	@Override
+	public List<AuditDto> queryAuditMonthSumList(String projectManager, String CNTRCT_TYPE, String dateCondition) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		String pm = projectManager;
+		if(StringUtil.isNotBlank(pm)) {
+			pm = pm.replace(",", "','");
+			pm = "'" + pm + "'";
+		}
+		paramMap.put("PROJECT_MANAGER", pm);
+		paramMap.put("dateCondition", dateCondition);
+		paramMap.put("CNTRCT_TYPE", CNTRCT_TYPE);
+		@SuppressWarnings("unchecked")
+		List<AuditDto> list = getSqlMapClientTemplate().queryForList("queryAuditMonthSumList", paramMap);
+		return list;
+	}
 
 	@Override
 	public AuditStatisticsDto queryAuditStatistics(String projectManager, String startDate, String endDate) {

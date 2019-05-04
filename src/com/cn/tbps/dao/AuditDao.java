@@ -126,6 +126,15 @@ public interface AuditDao {
 	public AuditStatisticsDto queryAuditStatistics(String projectManager, String startDate, String endDate);
 	
 	/**
+	 * 查询审月度统计数据列表
+	 * @param projectManager
+	 * @param CNTRCT_TYPE 项目性质
+	 * @param dateCondition 完成日期，收到资料日期等查询条件
+	 * @return
+	 */
+	public List<AuditDto> queryAuditMonthSumList(String projectManager, String CNTRCT_TYPE, String dateCondition);
+	
+	/**
 	 * 到账统计
 	 * @param projectManager
 	 * @param startDate
