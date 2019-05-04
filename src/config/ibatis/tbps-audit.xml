@@ -114,6 +114,116 @@
 		<result property="INSERT_DATE" column="INSERT_DATE" />
 		<result property="UPDATE_DATE" column="UPDATE_DATE" />
 	</resultMap>
+	
+	<resultMap id="AuditDto1" class="com.cn.tbps.dto.AuditDto">
+		<result property="AUDIT_NO" column="AUDIT_NO" />
+		<result property="CNTRCT_NO" column="CNTRCT_NO" />
+		<result property="CNTRCT_NM" column="CNTRCT_NM" />
+		<result property="REPORT_NO" column="REPORT_NO" />
+		<result property="PROJECT_MANAGER" column="PROJECT_MANAGER" />
+		<result property="PROJECT_NAME" column="PROJECT_NAME" />
+		<result property="PROJECT_TYPE" column="PROJECT_TYPE" />
+		<result property="PROJECT_STATUS" column="PROJECT_STATUS" />
+		<result property="AGENT_NO" column="AGENT_NO" />
+		<result property="AGENT_CO_NAME" column="AGENT_CO_NAME" />
+		<result property="AGENT_CO_MANAGER" column="AGENT_CO_MANAGER" />
+		<result property="AGENT_CO_MANAGER_TEL" column="AGENT_CO_MANAGER_TEL" />
+		<result property="AGENT_CO_STAFF" column="AGENT_CO_STAFF" />
+		<result property="AGENT_CO_STAFF_TEL" column="AGENT_CO_STAFF_TEL" />
+		<result property="AGENT_CO_POST_ADDRESS" column="AGENT_CO_POST_ADDRESS" />
+		<result property="AGENT_CO_MAIL" column="AGENT_CO_MAIL" />
+		<result property="PROF_NO" column="PROF_NO" />
+		<result property="PROF_CO_NAME" column="PROF_CO_NAME" />
+		<result property="PROF_CO_MANAGER" column="PROF_CO_MANAGER" />
+		<result property="PROF_CO_MANAGER_TEL" column="PROF_CO_MANAGER_TEL" />
+		<result property="PROF_CO_STAFF" column="PROF_CO_STAFF" />
+		<result property="PROF_CO_STAFF_TEL" column="PROF_CO_STAFF_TEL" />
+		<result property="PROF_CO_POST_ADDRESS" column="PROF_CO_POST_ADDRESS" />
+		<result property="PROF_CO_MAIL" column="PROF_CO_MAIL" />
+		<result property="CONTRACT_CO_NO" column="CONTRACT_CO_NO" />
+		<result property="CONTRACT_CO_NAME" column="CONTRACT_CO_NAME" />
+		<result property="CONTRACT_CO_MANAGER" column="CONTRACT_CO_MANAGER" />
+		<result property="CONTRACT_CO_MANAGER_TEL" column="CONTRACT_CO_MANAGER_TEL" />
+		<result property="CONTRACT_CO_STAFF" column="CONTRACT_CO_STAFF" />
+		<result property="CONTRACT_CO_STAFF_TEL" column="CONTRACT_CO_STAFF_TEL" />
+		<result property="CONTRACT_CO_POST_ADDRESS" column="CONTRACT_CO_POST_ADDRESS" />
+		<result property="CONTRACT_CO_MAIL" column="CONTRACT_CO_MAIL" />
+		<result property="DOC_REC_DATE" column="DOC_REC_DATE" />
+		<result property="PROGRESS_STATUS" column="PROGRESS_STATUS" />
+		<result property="PRE_SET" column="PRE_SET" />
+		<result property="PRE_PRICE" column="PRE_PRICE" />
+		<result property="SUPPORT_DOC_DATE" column="SUPPORT_DOC_DATE" />
+		<result property="DRAFT_DATE" column="DRAFT_DATE" />
+		<result property="APPROVAL_SND_DATE" column="APPROVAL_SND_DATE" />
+		<result property="APPROVAL_RCV_DATE" column="APPROVAL_RCV_DATE" />
+		<result property="DELI_NO" column="DELI_NO" />
+		<result property="REPORT_RAISE_DATE" column="REPORT_RAISE_DATE" />
+		<result property="REPORT_SEAL_DATE" column="REPORT_SEAL_DATE" />
+		<result property="REPORT_ARR_TYPE" column="REPORT_ARR_TYPE" />
+		<result property="REPORT_ARR_DATE" column="REPORT_ARR_DATE" />
+		<result property="REG_DATE" column="REG_DATE" />
+		<result property="AGENT_INFO" column="AGENT_INFO" />
+		<result property="PROF_INFO" column="PROF_INFO" />
+		<result property="CONTRACT_CO_ID" column="CONTRACT_CO_ID" />
+		<result property="CONTRACT_CO_INFO" column="CONTRACT_CO_INFO" />
+		<result property="VERIFY_PER_AMOUNT" column="VERIFY_PER_AMOUNT" />
+		<result property="VERIFY_AMOUNT" column="VERIFY_AMOUNT" />
+		<result property="VERIFY_INCREASE" column="VERIFY_INCREASE" />
+		<result property="VERIFY_DECREASE" column="VERIFY_DECREASE" />
+		<result property="VERIFY_DIFF" column="VERIFY_DIFF" />
+		<result property="VERIFY_DIFF_RATE" column="VERIFY_DIFF_RATE" />
+		<result property="CNT_PRICE" column="CNT_PRICE" />
+		<result property="PROJ_PRICE" column="PROJ_PRICE" />
+		<result property="LIMIT_PRICE" column="LIMIT_PRICE" />
+		<result property="CNTRCT_PRICE" column="CNTRCT_PRICE" />
+		<result property="PLAN_DOC_RCV_DATE" column="PLAN_DOC_RCV_DATE" />
+		<result property="PLAN_DOC_RPT_DATE" column="PLAN_DOC_RPT_DATE" />
+		<result property="PLAN_DOC_SND_TYPE" column="PLAN_DOC_SND_TYPE" />
+		<result property="PLAN_DOC_ARR_DATE" column="PLAN_DOC_ARR_DATE" />
+		<result property="BID_DOC_RCV_DATE" column="BID_DOC_RCV_DATE" />
+		<result property="BID_DOC_RPT_DATE" column="BID_DOC_RPT_DATE" />
+		<result property="BID_DOC_SND_TYPE" column="BID_DOC_SND_TYPE" />
+		<result property="BID_DOC_ARR_DATE" column="BID_DOC_ARR_DATE" />
+		<result property="SIGN_DOC_RCV_DATE" column="SIGN_DOC_RCV_DATE" />
+		<result property="SIGN_DOC_RPT_DATE" column="SIGN_DOC_RPT_DATE" />
+		<result property="SIGN_DOC_SND_TYPE" column="SIGN_DOC_SND_TYPE" />
+		<result property="SIGN_DOC_ARR_DATE" column="SIGN_DOC_ARR_DATE" />
+		<result property="SET_DOC_RCV_DATE" column="SET_DOC_RCV_DATE" />
+		<result property="SET_DOC_RPT_DATE" column="SET_DOC_RPT_DATE" />
+		<result property="SET_DOC_SND_TYPE" column="SET_DOC_SND_TYPE" />
+		<result property="SET_DOC_ARR_DATE" column="SET_DOC_ARR_DATE" />
+		<result property="PROGRESS_STATUS_MEMO" column="PROGRESS_STATUS_MEMO" />
+		<result property="A_AMOUNT" column="A_AMOUNT" />
+		<result property="A_STATUS" column="A_STATUS" />
+		<result property="B_TYPE" column="B_TYPE" />
+		<result property="B_AMOUNT" column="B_AMOUNT" />
+		<result property="A_INVOICE_DELI_DATE" column="A_INVOICE_DELI_DATE" />
+		<result property="A_INVOICE_DATE" column="A_INVOICE_DATE" />
+		<result property="A_INVOICE_NO" column="A_INVOICE_NO" />
+		<result property="A_SET_DATE" column="A_SET_DATE" />
+		<result property="B_INVOICE_DELI_DATE" column="B_INVOICE_DELI_DATE" />
+		<result property="B_INVOICE_DATE" column="B_INVOICE_DATE" />
+		<result property="B_INVOICE_NO" column="B_INVOICE_NO" />
+		<result property="B_SET_DATE" column="B_SET_DATE" />
+		<result property="B_RATE" column="B_RATE" />
+		<result property="CNTRCT_INFO" column="CNTRCT_INFO" />
+		<result property="PROJECT_NAME_PASS" column="PROJECT_NAME_PASS" />
+		<result property="RESERVE1" column="RESERVE1" />
+		<result property="RESERVE2" column="RESERVE2" />
+		<result property="RESERVE3" column="RESERVE3" />
+		<result property="RESERVE4" column="RESERVE4" />
+		<result property="RESERVE5" column="RESERVE5" />
+		<result property="RESERVE6" column="RESERVE6" />
+		<result property="RESERVE7" column="RESERVE7" />
+		<result property="RESERVE8" column="RESERVE8" />
+		<result property="RESERVE9" column="RESERVE9" />
+		<result property="RESERVE10" column="RESERVE10" />
+		<result property="LATEST_FLG" column="LATEST_FLG" />
+		<result property="DELETE_FLG" column="DELETE_FLG" />
+		<result property="UPDATE_USER" column="UPDATE_USER" />
+		<result property="INSERT_DATE" column="INSERT_DATE" />
+		<result property="UPDATE_DATE" column="UPDATE_DATE" />
+	</resultMap>
 
 	<resultMap id="AuditStatisticsDetailDto" class="com.cn.tbps.dto.AuditStatisticsDetailDto">
 		<result property="PROJECT_MANAGER" column="PROJECT_MANAGER" />
@@ -213,7 +323,7 @@
 		<result property="unreceivedAmountHis" column="unreceivedAmountHis" />
 	</resultMap>
 	
-	<select id="queryAuditMonthSumList" parameterClass="java.util.Map" resultMap="AuditDto">
+	<select id="queryAuditMonthSumList" parameterClass="java.util.Map" resultMap="AuditDto1">
 		select A.* from (
 			select T.*,
 			(select C.CNTRCT_TYPE from auditcntrct C where C.CNTRCT_NO = T.CNTRCT_NO and C.DELETE_FLG = '1') as CNTRCT_TYPE

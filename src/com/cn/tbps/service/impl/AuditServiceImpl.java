@@ -7,6 +7,7 @@ import java.util.List;
 
 import com.cn.common.service.BaseService;
 import com.cn.common.util.Constants;
+import com.cn.common.util.DateUtil;
 import com.cn.common.util.Page;
 import com.cn.common.util.StringUtil;
 import com.cn.tbps.dao.AuditCntrctDao;
@@ -877,41 +878,230 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 	@Override
 	public AuditAnnualDataDto queryAuditMonthData(String projectManager, String startDate, String endDate, String CNTRCT_TYPE) {
 		AuditAnnualDataDto auditAnnualData = new AuditAnnualDataDto();
+		BigDecimal zero = new BigDecimal(0);
+		Date start = DateUtil.strToDate(startDate, DateUtil.DATE_FORMAT_SHORT);
+		Date end = DateUtil.strToDate(endDate, DateUtil.DATE_FORMAT_SHORT);
+		Date tmpdate = null;
 		
 		//本月收到项目
-		String dateCondition = " T.PLAN_DOC_RCV_DATE >= '" + startDate + "' and T.PLAN_DOC_RCV_DATE <= '" + endDate + "' ";
-		List<AuditDto> list = auditDao.queryAuditMonthSumList(projectManager, CNTRCT_TYPE, dateCondition);
-		if(list != null) {
-			for(AuditDto audit : list) {
-				//本月完成
-			}
-			auditAnnualData.setReceiveAudit(list.size());
-		} else {
-			auditAnnualData.setReceiveAudit(0);
-		}
+		int receiveAudit = 0;
+		//本月完成项目
+		int completeAuditCurrentMonth = 0;
+		//历史完成项目
+		int completeAuditHis = 0;
+		//总金额本月送审（元）
+		BigDecimal submitAuditAmount = new BigDecimal(0);
+		//总金额本月完成送审（元）
+		BigDecimal completeAuditAmount = new BigDecimal(0);
+		//审定总额（元）
+		BigDecimal authorizeAuditAmount = new BigDecimal(0);
+		//未完成审价本月（个）
+		Integer incompleteAuditCurrentMonth = 0;
+		//未完成审价历史（个）
+		Integer incompleteAuditHis = 0;
+		//本月总发票（张）
+		Integer totalNumMonth = 0;
+		//本月总发票（元）
+		BigDecimal totalAmountMonth = new BigDecimal(0);
+		//本月未收（张）
+		Integer unreceivedNumMonth = 0;
+		//本月未收（元）
+		BigDecimal unreceivedAmountMonth = new BigDecimal(0);
+		//历史未收发票（张）
+		Integer unreceivedNumHis = 0;
+		//历史未收发票（元）
+		BigDecimal unreceivedAmountHis = new BigDecimal(0);
 		
-		auditAnnualData.setCompleteAuditCurrentMonth(111);
-		auditAnnualData.setCompleteAuditHis(112);
-		auditAnnualData.setSubmitAuditAmount(new BigDecimal(1001));
-		auditAnnualData.setCompleteAuditAmount(new BigDecimal(1002));
-		auditAnnualData.setAuthorizeAuditAmount(new BigDecimal(1003));
-		auditAnnualData.setIncompleteAuditCurrentMonth(113);
-		auditAnnualData.setIncompleteAuditHis(114);
-		auditAnnualData.setReviewAudit(115);
-		auditAnnualData.setAuditAmountMonthConfirm(new BigDecimal(1004));
-		auditAnnualData.setAuditAmountMonthUnconfirmed(new BigDecimal(1005));
-		auditAnnualData.setAuditAmountMonthConfirming(new BigDecimal(1006));
-		auditAnnualData.setReceiptAuditPieceMonth(116);
-		auditAnnualData.setReceiptAuditAmountMonth(new BigDecimal(1007));
-		auditAnnualData.setReceiptAuditPieceHis(117);
-		auditAnnualData.setReceiptAuditAmountHis(new BigDecimal(1008));
-		auditAnnualData.setTotalNumMonth(118);
-		auditAnnualData.setTotalAmountMonth(new BigDecimal(1009));
-		auditAnnualData.setUnreceivedNumMonth(119);
-		auditAnnualData.setUnreceivedAmountMonth(new BigDecimal(1010));
-		auditAnnualData.setUnreceivedNumHis(120);
-		auditAnnualData.setUnreceivedAmountHis(new BigDecimal(1011));
+		//本月收到项目
+		//判断条件是“资料收到日期”为统计日期范围
+		String dateCondition = " T.PLAN_DOC_RCV_DATE >= '" + startDate + "' and T.PLAN_DOC_RCV_DATE <= '" + endDate + "' ";
+		List<AuditDto> list1 = auditDao.queryAuditMonthSumList(projectManager, CNTRCT_TYPE, dateCondition);
+		if(list1 != null) {
+			receiveAudit = list1.size();
+			for(AuditDto audit : list1) {
+				//本月送审项目金额
+				if(audit.getVERIFY_PER_AMOUNT() != null) {
+					submitAuditAmount = submitAuditAmount.add(audit.getVERIFY_PER_AMOUNT());
+					if(calcCompleteAudit(audit, start, end)) {
+						//完成送审项目数
+						completeAuditCurrentMonth++;
+						//完成送审项目金额
+						completeAuditAmount = completeAuditAmount.add(audit.getVERIFY_PER_AMOUNT());
+						//本月完成送审
+						authorizeAuditAmount = authorizeAuditAmount.add(audit.getVERIFY_AMOUNT());
+					}
+					
+					//乙方发票号不为空
+					if(StringUtil.isNotBlank(audit.getB_INVOICE_NO())) {
+						//本月总发票数
+						//本统计月的审价项目的“乙方发票号”不为空的件数，如果内容有；需要分割统计。（不会每个都加；只会在多个中间加；）
+						if(audit.getB_INVOICE_NO().indexOf(";") >= 0) {
+							String[] ss = audit.getB_INVOICE_NO().split(";");
+							for(String s : ss) {
+								if(StringUtil.isNotBlank(s)) {
+									totalNumMonth++;
+								}
+							}
+						} else {
+							totalNumMonth++;
+						}
+						
+						//本月总发票金额
+						//本统计月的审价项目的“乙方发票号”不为空的“乙方收费”金额。
+						if(audit.getB_AMOUNT() != null) {
+							totalAmountMonth = totalAmountMonth.add(audit.getB_AMOUNT());
+						}
+						
+						//本月未收发票
+						//本统计月的审价项目的“乙方发票号”不为空但是“乙方到账日期”为空的件数，如果内容有；需要分割统计。
+						if(audit.getB_SET_DATE() == null) {
+							if(audit.getB_INVOICE_NO().indexOf(";") >= 0) {
+								String[] ss = audit.getB_INVOICE_NO().split(";");
+								for(String s : ss) {
+									if(StringUtil.isNotBlank(s)) {
+										unreceivedNumMonth++;
+									}
+								}
+							} else {
+								unreceivedNumMonth++;
+							}
+							
+							//本月未收发票金额
+							//本统计月的审价项目的“乙方发票号”不为空但是“乙方到账日期”为空的“乙方收费”金额。
+							if(audit.getB_AMOUNT() != null) {
+								unreceivedAmountMonth = unreceivedAmountMonth.add(audit.getB_AMOUNT());
+							}
+						}
+					}
+				}
+			}
+		}
+		auditAnnualData.setReceiveAudit(receiveAudit);
+		
+		//本月完成项目
+		//本月的判断条件是“资料收到日期”为统计日期范围，完成的判断条件是
+		auditAnnualData.setCompleteAuditCurrentMonth(completeAuditCurrentMonth);
+		
+		//历史完成项目
+		//历史的判断条件是“资料收到日期”在本统计日期范围以前即小于3/29， 完成条件同上
+		dateCondition = " T.PLAN_DOC_RCV_DATE < '" + startDate + "' ";
+		List<AuditDto> list2 = auditDao.queryAuditMonthSumList(projectManager, CNTRCT_TYPE, dateCondition);
+		if(list2 != null) {
+			for(AuditDto audit : list2) {
+				//本月送审总金额
+				if(audit.getVERIFY_PER_AMOUNT() != null) {
+					if(calcCompleteAudit(audit, start, end)) {
+						//历史完成送审
+						completeAuditHis++;
+					}
+				}
+				//乙方发票号不为空
+				if(StringUtil.isNotBlank(audit.getB_INVOICE_NO())) {
+					//历史未收发票（张）
+					//3/29以前（不含3/29）的审价项目的“乙方发票号”不为空但是“乙方到账日期”为空的件数，如果内容有；需要分割统计。
+					if(audit.getB_SET_DATE() == null) {
+						if(audit.getB_INVOICE_NO().indexOf(";") >= 0) {
+							String[] ss = audit.getB_INVOICE_NO().split(";");
+							for(String s : ss) {
+								if(StringUtil.isNotBlank(s)) {
+									unreceivedNumHis++;
+								}
+							}
+						} else {
+							unreceivedNumHis++;
+						}
+						
+						//历史未收发票金额
+						//3/29以前（不含3/29）的审价项目的“乙方发票号”不为空但是“乙方到账日期”为空的“乙方收费”金额。
+						if(audit.getB_AMOUNT() != null) {
+							unreceivedAmountHis = unreceivedAmountHis.add(audit.getB_AMOUNT());
+						}
+					}
+				}
+			}
+			//历史未完成项目数=历史项目数-历史完成项目数
+			incompleteAuditHis = list2.size() - completeAuditHis;
+		}
+		auditAnnualData.setCompleteAuditHis(completeAuditHis);
+		
+		//总金额本月送审（元）
+		//本统计月的收到项目的"送审价"合计
+		auditAnnualData.setSubmitAuditAmount(submitAuditAmount.setScale(2, BigDecimal.ROUND_HALF_UP));
+		
+		//总金额本月完成送审（元）
+		//本统计月的完成审价项目的"送审价"合计
+		auditAnnualData.setCompleteAuditAmount(completeAuditAmount.setScale(2, BigDecimal.ROUND_HALF_UP));
+		
+		//审定总额（元）
+		//本统计月的完成审价项目的"审核价"合计
+		auditAnnualData.setAuthorizeAuditAmount(authorizeAuditAmount.setScale(2, BigDecimal.ROUND_HALF_UP));
+		
+		//本月未完成项目（个）=本月收到项目-本月完成审价项目
+		incompleteAuditCurrentMonth = receiveAudit - completeAuditCurrentMonth;
+		auditAnnualData.setIncompleteAuditCurrentMonth(incompleteAuditCurrentMonth);
+		
+		//历史未完成项目
+		//3/29以前（不含3/29）的未完成项目个数
+		auditAnnualData.setIncompleteAuditHis(incompleteAuditHis);
+		
+		//本月总发票（张）
+		//本统计月的审价项目的“乙方发票号”不为空的件数，如果内容有；需要分割统计。（不会每个都加；只会在多个中间加；）
+		auditAnnualData.setTotalNumMonth(totalNumMonth);
+		
+		//本月总发票金额
+		//本统计月的审价项目的“乙方发票号”不为空的“乙方收费”金额。
+		auditAnnualData.setTotalAmountMonth(totalAmountMonth.setScale(2, BigDecimal.ROUND_HALF_UP));
+		
+		//本月未收发票（张）
+		//本统计月的审价项目的“乙方发票号”不为空但是“乙方到账日期”为空的件数，如果内容有；需要分割统计。
+		auditAnnualData.setUnreceivedNumMonth(unreceivedNumMonth);
+		
+		//本月未收发票金额
+		//本统计月的审价项目的“乙方发票号”不为空但是“乙方到账日期”为空的“乙方收费”金额。
+		auditAnnualData.setUnreceivedAmountMonth(unreceivedAmountMonth.setScale(2, BigDecimal.ROUND_HALF_UP));
+		
+		//历史未收发票（张）
+		//3/29以前（不含3/29）的审价项目的“乙方发票号”不为空但是“乙方到账日期”为空的件数，如果内容有；需要分割统计。
+		auditAnnualData.setUnreceivedNumHis(unreceivedNumHis);
+		
+		//历史未收发票金额
+		//3/29以前（不含3/29）的审价项目的“乙方发票号”不为空但是“乙方到账日期”为空的“乙方收费”金额。
+		auditAnnualData.setUnreceivedAmountHis(unreceivedAmountHis.setScale(2, BigDecimal.ROUND_HALF_UP));
 		return auditAnnualData;
+	}
+	
+	/**
+	 * 判断是否是完成审价
+	 * @param audit
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	private boolean calcCompleteAudit(AuditDto audit, Date start, Date end) {
+		Date tmpdate = null;
+		boolean isCompleteAudit = false;
+		BigDecimal zero = new BigDecimal(0);
+		
+		//（如果“乙方收费”为0或空，“报告出具日期"不为空且在本统计日期范围内。）
+		//或（如果"乙方收费"不为空也不为0，“乙方到账日期”也不为空，"报告出具日期"也不为空，取“乙方到账日期”和“报告出具日期”两者离现在近的那个判断是否落在本统计日期范围内）
+		//乙方收费为0或空
+		if(audit.getB_AMOUNT() == null || zero.equals(audit.getB_AMOUNT())) {
+			//“报告出具日期"不为空且在本统计日期范围内
+			if(audit.getREPORT_RAISE_DATE() != null && audit.getREPORT_RAISE_DATE().after(start) && audit.getREPORT_RAISE_DATE().before(end)) {
+				isCompleteAudit = true;
+			}
+		} else {
+			//乙方收费不为空也不为0
+			//“乙方到账日期”也不为空，"报告出具日期"也不为空
+			if(audit.getB_SET_DATE() != null && audit.getREPORT_RAISE_DATE() != null) {
+				//取“乙方到账日期”和“报告出具日期”两者离现在近的那个判断是否落在本统计日期范围内
+				tmpdate = (audit.getB_SET_DATE().after(audit.getREPORT_RAISE_DATE())) ? audit.getB_SET_DATE() : audit.getREPORT_RAISE_DATE();
+				if(tmpdate.after(start) && tmpdate.before(end)) {
+					isCompleteAudit = true;
+				}
+			}
+		}
+		return isCompleteAudit;
 	}
 
 	@Override

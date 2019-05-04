@@ -65,7 +65,7 @@ public interface AuditService {
 	 * @param projectManager
 	 * @param startDate
 	 * @param endDate
-	 * @param CNTRCT_TYPE 合同性质
+	 * @param CNTRCT_TYPE 合同性质：1为地铁，2位非地铁
 	 * @return
 	 */
 	public AuditAnnualDataDto queryAuditMonthData(String projectManager, String startDate, String endDate, String CNTRCT_TYPE);

@@ -1039,7 +1039,8 @@ public class AuditAction extends BaseAction {
 				showtime = sdfmonth1.format(lastMonth);
 			}
 			
-			auditDataMonthSum = auditService.queryAuditMonthData("", startdate, enddate, "");
+			//只查询合同性质=地铁类的
+			auditDataMonthSum = auditService.queryAuditMonthData("", startdate, enddate, "1");
 			auditDataMonthSum.setShowtime(showtime);
 			
 		} catch(Exception e) {
