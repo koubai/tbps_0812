@@ -14,7 +14,7 @@ import com.cn.common.util.StringUtil;
 import com.cn.tbps.dto.AuditAnnualDataDto;
 
 /**
- * @name PoiAuditAnnualData.java
+ * @name PoiauditMonthSumData.java
  * @author Frank
  * @time 2013-11-15下午11:48:13
  * @version 1.0
@@ -25,7 +25,6 @@ public class PoiAuditAnnualData extends Poi2007Base {
 	 * 输出大标题
 	 * @param sheet
 	 */
-	@SuppressWarnings("deprecation")
 	@Override
 	public void writeTitle(XSSFSheet sheet, XSSFWorkbook workbook) {
 		//Head部分颜色字体
@@ -72,7 +71,7 @@ public class PoiAuditAnnualData extends Poi2007Base {
 		sheet.addMergedRegion(cellRange(1, 1, 19, 20, sheet, workbook));
 		sheet.addMergedRegion(cellRange(1, 1, 21, 22, sheet, workbook));
 		//地铁审价项目
-		sheet.addMergedRegion(cellRange(4, 4, 0, 15, sheet, workbook));
+		sheet.addMergedRegion(cellRange(3, 3, 0, 15, sheet, workbook));
 		
 		//式样
 		XSSFCellStyle style = workbook.createCellStyle();
@@ -238,19 +237,8 @@ public class PoiAuditAnnualData extends Poi2007Base {
 	@Override
 	public void writeData(XSSFSheet sheet, XSSFWorkbook workbook) {
 		XSSFRow row = null;
-		AuditAnnualDataDto auditAnnualData = null;
-		//式样
-		XSSFCellStyle style = workbook.createCellStyle();
-		//水平居中
-		style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
-		//添加边框
-		style.setBorderBottom(HSSFCellStyle.BORDER_THIN);
-		style.setBorderLeft(HSSFCellStyle.BORDER_THIN);
-		style.setBorderTop(HSSFCellStyle.BORDER_THIN);
-		style.setBorderRight(HSSFCellStyle.BORDER_THIN);
 		
-		//上一年未完成审价汇总
-		auditAnnualData = (AuditAnnualDataDto) map.get("last_year_audit_sum");
+		//地铁审价项目（标题）
 		row = sheet.createRow(3);
 		XSSFCell cell0 = row.createCell(0);
 		XSSFCell cell1 = row.createCell(1);
@@ -276,55 +264,6 @@ public class PoiAuditAnnualData extends Poi2007Base {
 		XSSFCell cell21 = row.createCell(21);
 		XSSFCell cell22 = row.createCell(22);
 		
-		cell0.setCellValue(auditAnnualData.getShowtime());
-		cell0.setCellStyle(style);
-		cell1.setCellValue(auditAnnualData.getReceiveAudit());
-		cell1.setCellStyle(style);
-		cell2.setCellValue(auditAnnualData.getCompleteAuditCurrentMonth());
-		cell2.setCellStyle(style);
-		cell3.setCellValue(auditAnnualData.getCompleteAuditHis());
-		cell3.setCellStyle(style);
-		cell4.setCellValue(StringUtil.BigDecimal2Str(auditAnnualData.getSubmitAuditAmount(), 2));
-		cell4.setCellStyle(style);
-		cell5.setCellValue(StringUtil.BigDecimal2Str(auditAnnualData.getCompleteAuditAmount(), 2));
-		cell5.setCellStyle(style);
-		cell6.setCellValue(StringUtil.BigDecimal2Str(auditAnnualData.getAuthorizeAuditAmount(), 2));
-		cell6.setCellStyle(style);
-		cell7.setCellValue(auditAnnualData.getIncompleteAuditCurrentMonth());
-		cell7.setCellStyle(style);
-		cell8.setCellValue(auditAnnualData.getIncompleteAuditHis());
-		cell8.setCellStyle(style);
-		cell9.setCellValue(auditAnnualData.getReviewAudit());
-		cell9.setCellStyle(style);
-		cell10.setCellValue(StringUtil.BigDecimal2Str(auditAnnualData.getAuditAmountMonthConfirm(), 2));
-		cell10.setCellStyle(style);
-		cell11.setCellValue(StringUtil.BigDecimal2Str(auditAnnualData.getAuditAmountMonthUnconfirmed(), 2));
-		cell11.setCellStyle(style);
-		cell12.setCellValue(StringUtil.BigDecimal2Str(auditAnnualData.getAuditAmountMonthConfirming(), 2));
-		cell12.setCellStyle(style);
-		cell13.setCellValue(auditAnnualData.getReceiptAuditPieceMonth());
-		cell13.setCellStyle(style);
-		cell14.setCellValue(StringUtil.BigDecimal2Str(auditAnnualData.getReceiptAuditAmountMonth(), 2));
-		cell14.setCellStyle(style);
-		cell15.setCellValue(auditAnnualData.getReceiptAuditPieceHis());
-		cell15.setCellStyle(style);
-		cell16.setCellValue(StringUtil.BigDecimal2Str(auditAnnualData.getReceiptAuditAmountHis(), 2));
-		cell16.setCellStyle(style);
-		cell17.setCellValue(auditAnnualData.getTotalNumMonth());
-		cell17.setCellStyle(style);
-		cell18.setCellValue(StringUtil.BigDecimal2Str(auditAnnualData.getTotalAmountMonth(), 2));
-		cell18.setCellStyle(style);
-		cell19.setCellValue(auditAnnualData.getUnreceivedNumMonth());
-		cell19.setCellStyle(style);
-		cell20.setCellValue(StringUtil.BigDecimal2Str(auditAnnualData.getUnreceivedAmountMonth(), 2));
-		cell20.setCellStyle(style);
-		cell21.setCellValue(auditAnnualData.getUnreceivedNumHis());
-		cell21.setCellStyle(style);
-		cell22.setCellValue(StringUtil.BigDecimal2Str(auditAnnualData.getUnreceivedAmountHis(), 2));
-		cell22.setCellStyle(style);
-		
-		//地铁审价项目（标题）
-		row = sheet.createRow(4);
 		//Head部分颜色字体
 		XSSFFont font = workbook.createFont();
 		//加粗
@@ -346,101 +285,178 @@ public class PoiAuditAnnualData extends Poi2007Base {
 		styleTitle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
 		
 		//合并单元格
-		cell0 = row.createCell(0);
 		cell0.setCellValue("地铁审价项目");
 		cell0.setCellStyle(styleTitle);
-		cell15 = row.createCell(15);
 		cell15.setCellStyle(styleTitle);
-		cell16 = row.createCell(16);
 		cell16.setCellStyle(styleTitle);
-		cell17 = row.createCell(17);
 		cell17.setCellStyle(styleTitle);
-		cell18 = row.createCell(18);
 		cell18.setCellStyle(styleTitle);
-		cell19 = row.createCell(19);
 		cell19.setCellStyle(styleTitle);
-		cell20 = row.createCell(20);
 		cell20.setCellStyle(styleTitle);
-		cell21 = row.createCell(21);
 		cell21.setCellStyle(styleTitle);
-		cell22 = row.createCell(22);
 		cell22.setCellStyle(styleTitle);
 		
+		AuditAnnualDataDto auditMonthSumData = null;
+		//式样
+		XSSFCellStyle style = workbook.createCellStyle();
+		//水平居中
+		style.setAlignment(HSSFCellStyle.ALIGN_CENTER);
+		//添加边框
+		style.setBorderBottom(HSSFCellStyle.BORDER_THIN);
+		style.setBorderLeft(HSSFCellStyle.BORDER_THIN);
+		style.setBorderTop(HSSFCellStyle.BORDER_THIN);
+		style.setBorderRight(HSSFCellStyle.BORDER_THIN);
+		
+		//审价统计汇总
+		auditMonthSumData = (AuditAnnualDataDto) map.get("audit_data_month_sum");
+		row = sheet.createRow(4);
+		
+		cell0 = row.createCell(0);
+		cell1 = row.createCell(1);
+		cell2 = row.createCell(2);
+		cell3 = row.createCell(3);
+		cell4 = row.createCell(4);
+		cell5 = row.createCell(5);
+		cell6 = row.createCell(6);
+		cell7 = row.createCell(7);
+		cell8 = row.createCell(8);
+		cell9 = row.createCell(9);
+		cell10 = row.createCell(10);
+		cell11 = row.createCell(11);
+		cell12 = row.createCell(12);
+		cell13 = row.createCell(13);
+		cell14 = row.createCell(14);
+		cell15 = row.createCell(15);
+		cell16 = row.createCell(16);
+		cell17 = row.createCell(17);
+		cell18 = row.createCell(18);
+		cell19 = row.createCell(19);
+		cell20 = row.createCell(20);
+		cell21 = row.createCell(21);
+		cell22 = row.createCell(22);
+		
+		cell0.setCellValue(auditMonthSumData.getShowtime());
+		cell0.setCellStyle(style);
+		cell1.setCellValue(auditMonthSumData.getReceiveAudit());
+		cell1.setCellStyle(style);
+		cell2.setCellValue(auditMonthSumData.getCompleteAuditCurrentMonth());
+		cell2.setCellStyle(style);
+		cell3.setCellValue(auditMonthSumData.getCompleteAuditHis());
+		cell3.setCellStyle(style);
+		cell4.setCellValue(StringUtil.BigDecimal2Str(auditMonthSumData.getSubmitAuditAmount(), 2));
+		cell4.setCellStyle(style);
+		cell5.setCellValue(StringUtil.BigDecimal2Str(auditMonthSumData.getCompleteAuditAmount(), 2));
+		cell5.setCellStyle(style);
+		cell6.setCellValue(StringUtil.BigDecimal2Str(auditMonthSumData.getAuthorizeAuditAmount(), 2));
+		cell6.setCellStyle(style);
+		cell7.setCellValue(auditMonthSumData.getIncompleteAuditCurrentMonth());
+		cell7.setCellStyle(style);
+		cell8.setCellValue(auditMonthSumData.getIncompleteAuditHis());
+		cell8.setCellStyle(style);
+		//cell9.setCellValue(auditMonthSumData.getReviewAudit());
+		cell9.setCellStyle(style);
+		//cell10.setCellValue(StringUtil.BigDecimal2Str(auditMonthSumData.getAuditAmountMonthConfirm(), 2));
+		cell10.setCellStyle(style);
+		//cell11.setCellValue(StringUtil.BigDecimal2Str(auditMonthSumData.getAuditAmountMonthUnconfirmed(), 2));
+		cell11.setCellStyle(style);
+		//cell12.setCellValue(StringUtil.BigDecimal2Str(auditMonthSumData.getAuditAmountMonthConfirming(), 2));
+		cell12.setCellStyle(style);
+		//cell13.setCellValue(auditMonthSumData.getReceiptAuditPieceMonth());
+		cell13.setCellStyle(style);
+		//cell14.setCellValue(StringUtil.BigDecimal2Str(auditMonthSumData.getReceiptAuditAmountMonth(), 2));
+		cell14.setCellStyle(style);
+		//cell15.setCellValue(auditMonthSumData.getReceiptAuditPieceHis());
+		cell15.setCellStyle(style);
+		//cell16.setCellValue(StringUtil.BigDecimal2Str(auditMonthSumData.getReceiptAuditAmountHis(), 2));
+		cell16.setCellStyle(style);
+		cell17.setCellValue(auditMonthSumData.getTotalNumMonth());
+		cell17.setCellStyle(style);
+		cell18.setCellValue(StringUtil.BigDecimal2Str(auditMonthSumData.getTotalAmountMonth(), 2));
+		cell18.setCellStyle(style);
+		cell19.setCellValue(auditMonthSumData.getUnreceivedNumMonth());
+		cell19.setCellStyle(style);
+		cell20.setCellValue(StringUtil.BigDecimal2Str(auditMonthSumData.getUnreceivedAmountMonth(), 2));
+		cell20.setCellStyle(style);
+		cell21.setCellValue(auditMonthSumData.getUnreceivedNumHis());
+		cell21.setCellStyle(style);
+		cell22.setCellValue(StringUtil.BigDecimal2Str(auditMonthSumData.getUnreceivedAmountHis(), 2));
+		cell22.setCellStyle(style);
+		
 		//添加数据
-		for(int i = 0; i < datas.size(); i++) {
-			row = sheet.createRow(i + 5);
-			auditAnnualData = (AuditAnnualDataDto) datas.get(i);
-			cell0 = row.createCell(0);
-			cell1 = row.createCell(1);
-			cell2 = row.createCell(2);
-			cell3 = row.createCell(3);
-			cell4 = row.createCell(4);
-			cell5 = row.createCell(5);
-			cell6 = row.createCell(6);
-			cell7 = row.createCell(7);
-			cell8 = row.createCell(8);
-			cell9 = row.createCell(9);
-			cell10 = row.createCell(10);
-			cell11 = row.createCell(11);
-			cell12 = row.createCell(12);
-			cell13 = row.createCell(13);
-			cell14 = row.createCell(14);
-			cell15 = row.createCell(15);
-			cell16 = row.createCell(16);
-			cell17 = row.createCell(17);
-			cell18 = row.createCell(18);
-			cell19 = row.createCell(19);
-			cell20 = row.createCell(20);
-			cell21 = row.createCell(21);
-			cell22 = row.createCell(22);
-			
-			cell0.setCellValue(auditAnnualData.getShowtime());
-			cell0.setCellStyle(style);
-			cell1.setCellValue(auditAnnualData.getReceiveAudit());
-			cell1.setCellStyle(style);
-			cell2.setCellValue(auditAnnualData.getCompleteAuditCurrentMonth());
-			cell2.setCellStyle(style);
-			cell3.setCellValue(auditAnnualData.getCompleteAuditHis());
-			cell3.setCellStyle(style);
-			cell4.setCellValue(StringUtil.BigDecimal2Str(auditAnnualData.getSubmitAuditAmount(), 2));
-			cell4.setCellStyle(style);
-			cell5.setCellValue(StringUtil.BigDecimal2Str(auditAnnualData.getCompleteAuditAmount(), 2));
-			cell5.setCellStyle(style);
-			cell6.setCellValue(StringUtil.BigDecimal2Str(auditAnnualData.getAuthorizeAuditAmount(), 2));
-			cell6.setCellStyle(style);
-			cell7.setCellValue(auditAnnualData.getIncompleteAuditCurrentMonth());
-			cell7.setCellStyle(style);
-			cell8.setCellValue(auditAnnualData.getIncompleteAuditHis());
-			cell8.setCellStyle(style);
-			cell9.setCellValue(auditAnnualData.getReviewAudit());
-			cell9.setCellStyle(style);
-			cell10.setCellValue(StringUtil.BigDecimal2Str(auditAnnualData.getAuditAmountMonthConfirm(), 2));
-			cell10.setCellStyle(style);
-			cell11.setCellValue(StringUtil.BigDecimal2Str(auditAnnualData.getAuditAmountMonthUnconfirmed(), 2));
-			cell11.setCellStyle(style);
-			cell12.setCellValue(StringUtil.BigDecimal2Str(auditAnnualData.getAuditAmountMonthConfirming(), 2));
-			cell12.setCellStyle(style);
-			cell13.setCellValue(auditAnnualData.getReceiptAuditPieceMonth());
-			cell13.setCellStyle(style);
-			cell14.setCellValue(StringUtil.BigDecimal2Str(auditAnnualData.getReceiptAuditAmountMonth(), 2));
-			cell14.setCellStyle(style);
-			cell15.setCellValue(auditAnnualData.getReceiptAuditPieceHis());
-			cell15.setCellStyle(style);
-			cell16.setCellValue(StringUtil.BigDecimal2Str(auditAnnualData.getReceiptAuditAmountHis(), 2));
-			cell16.setCellStyle(style);
-			cell17.setCellValue(auditAnnualData.getTotalNumMonth());
-			cell17.setCellStyle(style);
-			cell18.setCellValue(StringUtil.BigDecimal2Str(auditAnnualData.getTotalAmountMonth(), 2));
-			cell18.setCellStyle(style);
-			cell19.setCellValue(auditAnnualData.getUnreceivedNumMonth());
-			cell19.setCellStyle(style);
-			cell20.setCellValue(StringUtil.BigDecimal2Str(auditAnnualData.getUnreceivedAmountMonth(), 2));
-			cell20.setCellStyle(style);
-			cell21.setCellValue(auditAnnualData.getUnreceivedNumHis());
-			cell21.setCellStyle(style);
-			cell22.setCellValue(StringUtil.BigDecimal2Str(auditAnnualData.getUnreceivedAmountHis(), 2));
-			cell22.setCellStyle(style);
-		}
+//		for(int i = 0; i < datas.size(); i++) {
+//			row = sheet.createRow(i + 5);
+//			auditMonthSumData = (AuditAnnualDataDto) datas.get(i);
+//			cell0 = row.createCell(0);
+//			cell1 = row.createCell(1);
+//			cell2 = row.createCell(2);
+//			cell3 = row.createCell(3);
+//			cell4 = row.createCell(4);
+//			cell5 = row.createCell(5);
+//			cell6 = row.createCell(6);
+//			cell7 = row.createCell(7);
+//			cell8 = row.createCell(8);
+//			cell9 = row.createCell(9);
+//			cell10 = row.createCell(10);
+//			cell11 = row.createCell(11);
+//			cell12 = row.createCell(12);
+//			cell13 = row.createCell(13);
+//			cell14 = row.createCell(14);
+//			cell15 = row.createCell(15);
+//			cell16 = row.createCell(16);
+//			cell17 = row.createCell(17);
+//			cell18 = row.createCell(18);
+//			cell19 = row.createCell(19);
+//			cell20 = row.createCell(20);
+//			cell21 = row.createCell(21);
+//			cell22 = row.createCell(22);
+//			
+//			cell0.setCellValue(auditMonthSumData.getShowtime());
+//			cell0.setCellStyle(style);
+//			cell1.setCellValue(auditMonthSumData.getReceiveAudit());
+//			cell1.setCellStyle(style);
+//			cell2.setCellValue(auditMonthSumData.getCompleteAuditCurrentMonth());
+//			cell2.setCellStyle(style);
+//			cell3.setCellValue(auditMonthSumData.getCompleteAuditHis());
+//			cell3.setCellStyle(style);
+//			cell4.setCellValue(StringUtil.BigDecimal2Str(auditMonthSumData.getSubmitAuditAmount(), 2));
+//			cell4.setCellStyle(style);
+//			cell5.setCellValue(StringUtil.BigDecimal2Str(auditMonthSumData.getCompleteAuditAmount(), 2));
+//			cell5.setCellStyle(style);
+//			cell6.setCellValue(StringUtil.BigDecimal2Str(auditMonthSumData.getAuthorizeAuditAmount(), 2));
+//			cell6.setCellStyle(style);
+//			cell7.setCellValue(auditMonthSumData.getIncompleteAuditCurrentMonth());
+//			cell7.setCellStyle(style);
+//			cell8.setCellValue(auditMonthSumData.getIncompleteAuditHis());
+//			cell8.setCellStyle(style);
+//			cell9.setCellValue(auditMonthSumData.getReviewAudit());
+//			cell9.setCellStyle(style);
+//			cell10.setCellValue(StringUtil.BigDecimal2Str(auditMonthSumData.getAuditAmountMonthConfirm(), 2));
+//			cell10.setCellStyle(style);
+//			cell11.setCellValue(StringUtil.BigDecimal2Str(auditMonthSumData.getAuditAmountMonthUnconfirmed(), 2));
+//			cell11.setCellStyle(style);
+//			cell12.setCellValue(StringUtil.BigDecimal2Str(auditMonthSumData.getAuditAmountMonthConfirming(), 2));
+//			cell12.setCellStyle(style);
+//			cell13.setCellValue(auditMonthSumData.getReceiptAuditPieceMonth());
+//			cell13.setCellStyle(style);
+//			cell14.setCellValue(StringUtil.BigDecimal2Str(auditMonthSumData.getReceiptAuditAmountMonth(), 2));
+//			cell14.setCellStyle(style);
+//			cell15.setCellValue(auditMonthSumData.getReceiptAuditPieceHis());
+//			cell15.setCellStyle(style);
+//			cell16.setCellValue(StringUtil.BigDecimal2Str(auditMonthSumData.getReceiptAuditAmountHis(), 2));
+//			cell16.setCellStyle(style);
+//			cell17.setCellValue(auditMonthSumData.getTotalNumMonth());
+//			cell17.setCellStyle(style);
+//			cell18.setCellValue(StringUtil.BigDecimal2Str(auditMonthSumData.getTotalAmountMonth(), 2));
+//			cell18.setCellStyle(style);
+//			cell19.setCellValue(auditMonthSumData.getUnreceivedNumMonth());
+//			cell19.setCellStyle(style);
+//			cell20.setCellValue(StringUtil.BigDecimal2Str(auditMonthSumData.getUnreceivedAmountMonth(), 2));
+//			cell20.setCellStyle(style);
+//			cell21.setCellValue(auditMonthSumData.getUnreceivedNumHis());
+//			cell21.setCellStyle(style);
+//			cell22.setCellValue(StringUtil.BigDecimal2Str(auditMonthSumData.getUnreceivedAmountHis(), 2));
+//			cell22.setCellStyle(style);
+//		}
 	}
 	
 	/**

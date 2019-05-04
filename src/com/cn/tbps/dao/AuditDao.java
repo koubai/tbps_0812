@@ -2,7 +2,6 @@ package com.cn.tbps.dao;
 
 import java.util.List;
 
-import com.cn.tbps.dto.AuditAnnualDataDto;
 import com.cn.tbps.dto.AuditAuthDto;
 import com.cn.tbps.dto.AuditDto;
 import com.cn.tbps.dto.AuditHistDto;
@@ -90,14 +89,13 @@ public interface AuditDao {
 	public AuditStatisticsDto queryAuditStatistics(String projectManager, String startDate, String endDate);
 	
 	/**
-	 * 查询审价年度统计数据
+	 * 查询审月度统计数据列表
 	 * @param projectManager
-	 * @param startDate
-	 * @param endDate
-	 * @param auditStatus 是否完成
+	 * @param CNTRCT_TYPE 项目性质
+	 * @param dateCondition 完成日期，收到资料日期等查询条件
 	 * @return
 	 */
-	public List<AuditAnnualDataDto> queryAuditAnnualData(String projectManager, String startDate, String endDate, String auditStatus);
+	public List<AuditDto> queryAuditMonthSumList(String projectManager, String CNTRCT_TYPE, String dateCondition);
 	
 	/**
 	 * 到账统计

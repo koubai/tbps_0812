@@ -875,8 +875,43 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 	}
 	
 	@Override
-	public List<AuditAnnualDataDto> queryAuditAnnualData(String projectManager, String startDate, String endDate, String auditStatus) {
-		return auditDao.queryAuditAnnualData(projectManager, startDate, endDate, auditStatus);
+	public AuditAnnualDataDto queryAuditMonthData(String projectManager, String startDate, String endDate, String CNTRCT_TYPE) {
+		AuditAnnualDataDto auditAnnualData = new AuditAnnualDataDto();
+		
+		//本月收到项目
+		String dateCondition = " T.PLAN_DOC_RCV_DATE >= '" + startDate + "' and T.PLAN_DOC_RCV_DATE <= '" + endDate + "' ";
+		List<AuditDto> list = auditDao.queryAuditMonthSumList(projectManager, CNTRCT_TYPE, dateCondition);
+		if(list != null) {
+			for(AuditDto audit : list) {
+				//本月完成
+			}
+			auditAnnualData.setReceiveAudit(list.size());
+		} else {
+			auditAnnualData.setReceiveAudit(0);
+		}
+		
+		auditAnnualData.setCompleteAuditCurrentMonth(111);
+		auditAnnualData.setCompleteAuditHis(112);
+		auditAnnualData.setSubmitAuditAmount(new BigDecimal(1001));
+		auditAnnualData.setCompleteAuditAmount(new BigDecimal(1002));
+		auditAnnualData.setAuthorizeAuditAmount(new BigDecimal(1003));
+		auditAnnualData.setIncompleteAuditCurrentMonth(113);
+		auditAnnualData.setIncompleteAuditHis(114);
+		auditAnnualData.setReviewAudit(115);
+		auditAnnualData.setAuditAmountMonthConfirm(new BigDecimal(1004));
+		auditAnnualData.setAuditAmountMonthUnconfirmed(new BigDecimal(1005));
+		auditAnnualData.setAuditAmountMonthConfirming(new BigDecimal(1006));
+		auditAnnualData.setReceiptAuditPieceMonth(116);
+		auditAnnualData.setReceiptAuditAmountMonth(new BigDecimal(1007));
+		auditAnnualData.setReceiptAuditPieceHis(117);
+		auditAnnualData.setReceiptAuditAmountHis(new BigDecimal(1008));
+		auditAnnualData.setTotalNumMonth(118);
+		auditAnnualData.setTotalAmountMonth(new BigDecimal(1009));
+		auditAnnualData.setUnreceivedNumMonth(119);
+		auditAnnualData.setUnreceivedAmountMonth(new BigDecimal(1010));
+		auditAnnualData.setUnreceivedNumHis(120);
+		auditAnnualData.setUnreceivedAmountHis(new BigDecimal(1011));
+		return auditAnnualData;
 	}
 
 	@Override

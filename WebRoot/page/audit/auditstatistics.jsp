@@ -266,31 +266,6 @@
 								<th style="width: 100px;">金额</th>
 							</tr>
 							<tr>
-								<td><s:property value="lastYearAuditDataSum.showtime"/></td>
-								<td><s:property value="lastYearAuditDataSum.receiveAudit"/></td>
-								<td><s:property value="lastYearAuditDataSum.completeAuditCurrentMonth"/></td>
-								<td><s:property value="lastYearAuditDataSum.completeAuditHis"/></td>
-								<td><s:property value="lastYearAuditDataSum.submitAuditAmount"/></td>
-								<td><s:property value="lastYearAuditDataSum.completeAuditAmount"/></td>
-								<td><s:property value="lastYearAuditDataSum.authorizeAuditAmount"/></td>
-								<td><s:property value="lastYearAuditDataSum.incompleteAuditCurrentMonth"/></td>
-								<td><s:property value="lastYearAuditDataSum.incompleteAuditHis"/></td>
-								<td><s:property value="lastYearAuditDataSum.reviewAudit"/></td>
-								<td><s:property value="lastYearAuditDataSum.auditAmountMonthConfirm"/></td>
-								<td><s:property value="lastYearAuditDataSum.auditAmountMonthUnconfirmed"/></td>
-								<td><s:property value="lastYearAuditDataSum.auditAmountMonthConfirming"/></td>
-								<td><s:property value="lastYearAuditDataSum.receiptAuditPieceMonth"/></td>
-								<td><s:property value="lastYearAuditDataSum.receiptAuditAmountMonth"/></td>
-								<td><s:property value="lastYearAuditDataSum.receiptAuditPieceHis"/></td>
-								<td><s:property value="lastYearAuditDataSum.receiptAuditAmountHis"/></td>
-								<td><s:property value="lastYearAuditDataSum.totalNumMonth"/></td>
-								<td><s:property value="lastYearAuditDataSum.totalAmountMonth"/></td>
-								<td><s:property value="lastYearAuditDataSum.unreceivedNumMonth"/></td>
-								<td><s:property value="lastYearAuditDataSum.unreceivedAmountMonth"/></td>
-								<td><s:property value="lastYearAuditDataSum.unreceivedNumHis"/></td>
-								<td><s:property value="lastYearAuditDataSum.unreceivedAmountHis"/></td>
-							</tr>
-							<tr>
 								<th colspan="15" style="text-align: center;">地铁审价项目</tg>
 								<th></th>
 								<th></th>
@@ -301,6 +276,32 @@
 								<th></th>
 								<th></th>
 							</tr>
+							<tr>
+								<td><s:property value="auditDataMonthSum.showtime"/></td>
+								<td><s:property value="auditDataMonthSum.receiveAudit"/></td>
+								<td><s:property value="auditDataMonthSum.completeAuditCurrentMonth"/></td>
+								<td><s:property value="auditDataMonthSum.completeAuditHis"/></td>
+								<td><s:property value="auditDataMonthSum.submitAuditAmount"/></td>
+								<td><s:property value="auditDataMonthSum.completeAuditAmount"/></td>
+								<td><s:property value="auditDataMonthSum.authorizeAuditAmount"/></td>
+								<td><s:property value="auditDataMonthSum.incompleteAuditCurrentMonth"/></td>
+								<td><s:property value="auditDataMonthSum.incompleteAuditHis"/></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td><s:property value="auditDataMonthSum.totalNumMonth"/></td>
+								<td><s:property value="auditDataMonthSum.totalAmountMonth"/></td>
+								<td><s:property value="auditDataMonthSum.unreceivedNumMonth"/></td>
+								<td><s:property value="auditDataMonthSum.unreceivedAmountMonth"/></td>
+								<td><s:property value="auditDataMonthSum.unreceivedNumHis"/></td>
+								<td><s:property value="auditDataMonthSum.unreceivedAmountHis"/></td>
+							</tr>
+							<%--
 							<s:iterator id="currentYearAuditData" value="currentYearAuditData" status="st1">
 							<tr>
 								<td><s:property value="showtime"/></td>
@@ -327,7 +328,7 @@
 								<td><s:property value="unreceivedNumHis"/></td>
 								<td><s:property value="unreceivedAmountHis"/></td>
 							</tr>
-							</s:iterator>
+							</s:iterator> --%>
 						</table>
 						<div class="operationBtns">
 							<button type="button" class="btn btn-success" onclick="exportAuditAnnualData();">导出审价统计</button>

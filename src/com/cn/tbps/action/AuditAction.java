@@ -273,9 +273,7 @@ public class AuditAction extends BaseAction {
 	
 	private String strSetList;
 	//去年一年审价数据
-	private AuditAnnualDataDto lastYearAuditDataSum;
-	//今年按月审价数据
-	private List<AuditAnnualDataDto> currentYearAuditData;
+	private AuditAnnualDataDto auditDataMonthSum;
 	
 	//审价履历
 	/**
@@ -999,10 +997,8 @@ public class AuditAction extends BaseAction {
 			
 			//上一年份数据
 			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("last_year_audit_sum", lastYearAuditDataSum);
+			map.put("audit_data_month_sum", auditDataMonthSum);
 			base.setMap(map);
-			
-			base.setDatas(currentYearAuditData);
 			
 			base.setSheetName(Constants.EXCEL_TYPE_SJTJ);
 			base.exportExcel(response.getOutputStream());
@@ -1019,32 +1015,33 @@ public class AuditAction extends BaseAction {
 	private void queryAnnualAuditStatistics() {
 		try {
 			Date now = new Date();
-			SimpleDateFormat sdfyear = new SimpleDateFormat("yyyy");
+			SimpleDateFormat sdfmonth = new SimpleDateFormat("yyyy-MM");
+			SimpleDateFormat sdfday = new SimpleDateFormat("dd");
+			SimpleDateFormat sdfmonth1 = new SimpleDateFormat("M月");
 			
-			//去年审价数据
-			Date lastYearDate = DateUtil.addYears(now, -1);
-			String lastyear = sdfyear.format(lastYearDate);
-			String lastyearStart = lastyear + "-01-01";
-			String lastyearEnd = lastyear + "-12-31";
-			List<AuditAnnualDataDto> lastYearList = auditService.queryAuditAnnualData("", lastyearStart, lastyearEnd, "0");
-			lastYearAuditDataSum = sumAuditAnnualData(lastYearList);
-			lastYearAuditDataSum.setShowtime(lastyear + "未完成项目");
-			
-			//今年按月份数据
-			currentYearAuditData = new ArrayList<AuditAnnualDataDto>();
-			String currentyear = sdfyear.format(now);
-			String currentYearStart = currentyear + "-01-01";
-			String currentYearEnd = DateUtil.dateToShortStr(now);
-			List<AuditAnnualDataDto> currentYearList = auditService.queryAuditAnnualData("", currentYearStart, currentYearEnd, "");
-			
-			//当前年份合计
-			AuditAnnualDataDto currentYearAuditDataSum = sumAuditAnnualData(currentYearList);
-			currentYearAuditDataSum.setShowtime("本年");
-			
-			if(currentYearList != null && currentYearList.size() > 0) {
-				currentYearAuditData.addAll(currentYearList);
+			String startdate = "";
+			String enddate = "";
+			String showtime = "";
+			//判断当前时间是否是大于28号
+			int day = Integer.valueOf(sdfday.format(now));
+			if(day > 28) {
+				//大于28号，则取当前月的
+				Date lastMonth = DateUtil.addMonths(now, -1);
+				startdate = sdfmonth.format(lastMonth) + "-29";
+				enddate = sdfmonth.format(now) + "-28";
+				showtime = sdfmonth1.format(now);
+			} else {
+				//小于28号，则取上一个月的
+				Date lastLastMonth = DateUtil.addMonths(now, -2);
+				Date lastMonth = DateUtil.addMonths(now, -1);
+				startdate = sdfmonth.format(lastLastMonth) + "-29";
+				enddate = sdfmonth.format(lastMonth) + "-28";
+				showtime = sdfmonth1.format(lastMonth);
 			}
-			currentYearAuditData.add(currentYearAuditDataSum);
+			
+			auditDataMonthSum = auditService.queryAuditMonthData("", startdate, enddate, "");
+			auditDataMonthSum.setShowtime(showtime);
+			
 		} catch(Exception e) {
 			log.error(e);
 		}
@@ -1919,20 +1916,11 @@ public class AuditAction extends BaseAction {
 		this.arrAuditShow = arrAuditShow;
 	}
 
-	public List<AuditAnnualDataDto> getCurrentYearAuditData() {
-		return currentYearAuditData;
+	public AuditAnnualDataDto getAuditDataMonthSum() {
+		return auditDataMonthSum;
 	}
 
-	public void setCurrentYearAuditData(List<AuditAnnualDataDto> currentYearAuditData) {
-		this.currentYearAuditData = currentYearAuditData;
+	public void setAuditDataMonthSum(AuditAnnualDataDto auditDataMonthSum) {
+		this.auditDataMonthSum = auditDataMonthSum;
 	}
-
-	public AuditAnnualDataDto getLastYearAuditDataSum() {
-		return lastYearAuditDataSum;
-	}
-
-	public void setLastYearAuditDataSum(AuditAnnualDataDto lastYearAuditDataSum) {
-		this.lastYearAuditDataSum = lastYearAuditDataSum;
-	}
-
 }
