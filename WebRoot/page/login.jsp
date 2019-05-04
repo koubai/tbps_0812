@@ -63,7 +63,7 @@
 </head>
 <body onload='createCode()' class="login">
 	<label style="margin-left: 600px; margin-top: 20px; text-align: center; color: #fff; font: DFKai-SB, bold; font-size:30px;" >审价招标信息管理系统</label>	
-	<br/><label style="margin-left: 850px; margin-top: 0px; text-align: center; color: #fff; font: DFKai-SB, bold; font-size:12px;" >ver 2019.0.4</label>
+	<br/><label style="margin-left: 850px; margin-top: 0px; text-align: center; color: #fff; font: DFKai-SB, bold; font-size:12px;" >ver 2019.1.0</label>
 	<div class="container">
 		<div style="position:absolute; margin-left: 430px; margin-top: 10px; text-align: center; color: red;">
 			<s:actionmessage />

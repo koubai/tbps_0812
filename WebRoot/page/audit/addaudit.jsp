@@ -347,7 +347,11 @@
 			document.getElementById('cntPrice').style.display='none';
 			$("#CNT_PRICE").prop("value", "");
 			//甲乙方
-			document.getElementById('ab').style.display='none';
+//			document.getElementById('ab').style.display='none';
+			document.getElementById('ab2').style.display='none';
+			document.getElementById('ab3').style.display='none';
+			document.getElementById('ab4').style.display='none';
+			document.getElementById('ab5').style.display='none';
 			setABBlack();
 			//报告出具日期列
 			document.getElementById('reportDiv').style.display='block';
@@ -399,7 +403,11 @@
 			$("#VERIFY_DIFF").prop("value", "");
 			$("#VERIFY_DIFF_RATE").prop("value", "");
 			//甲乙方
-			document.getElementById('ab').style.display='none';
+//			document.getElementById('ab').style.display='none';
+			document.getElementById('ab2').style.display='none';
+			document.getElementById('ab3').style.display='none';
+			document.getElementById('ab4').style.display='none';
+			document.getElementById('ab5').style.display='none';
 			setABBlack();
 			//控制价金额
 			document.getElementById('cntPrice').style.display='block';	
@@ -461,7 +469,7 @@
 			document.getElementById('verify').style.display='block';
 			document.getElementById('verify2').style.display='block';
 			//甲乙方
-			document.getElementById('ab').style.display='block';
+//			document.getElementById('ab').style.display='block';
 			
 		} else {//审价
 			//项目大致进度简述
@@ -1819,76 +1827,6 @@
 									</div>
 								</div>
 							</div>
-							<label for="" class="col-lg-1 form-label colorGray">报告敲章日期</label>
-							<div class="col-lg-2">
-								<div class="input-group date" data-provide="datepicker">
-									<input type="text" class="form-control datepicker" readonly id="reportSealDate" value="<s:date format="yyyy-MM-dd" name="addAuditDto.REPORT_SEAL_DATE"/>" maxlength="10" />
-									<div class="input-group-addon">
-										<span class="glyphicon glyphicon-th"></span>
-									</div>
-								</div>
-							</div>
-							<label for="" class="col-lg-1 form-label colorGray">报告送达方式</label>
-							<div class="col-lg-2">
-								<select id="REPORT_ARR_TYPE" name="addAuditDto.REPORT_ARR_TYPE" class="form-control" onclick="show();">
-									<s:if test='addAuditDto.REPORT_ARR_TYPE == "1"'>
-										<option value="">请选择</option>
-										<option value="1" selected="selected">快递</option>
-										<option value="2">自送</option>
-										<option value="3">自取</option>
-										<option value="4">附带</option>
-									</s:if>
-									<s:elseif test='addAuditDto.REPORT_ARR_TYPE == "2"'>
-										<option value="">请选择</option>
-										<option value="1">快递</option>
-										<option value="2" selected="selected">自送</option>
-										<option value="3">自取</option>
-										<option value="4">附带</option>
-									</s:elseif>
-									<s:elseif test='addAuditDto.REPORT_ARR_TYPE == "3"'>
-										<option value="">请选择</option>
-										<option value="1">快递</option>
-										<option value="2">自送</option>
-										<option value="3" selected="selected">自取</option>
-										<option value="4">附带</option>
-									</s:elseif>
-									<s:elseif test='addAuditDto.REPORT_ARR_TYPE == "4"'>
-										<option value="">请选择</option>
-										<option value="1">快递</option>
-										<option value="2">自送</option>
-										<option value="3">自取</option>
-										<option value="4" selected="selected">附带</option>
-									</s:elseif>
-									<s:else>
-										<option value="" selected="selected">请选择</option>
-										<option value="1">快递</option>
-										<option value="2">自送</option>
-										<option value="3">自取</option>
-										<option value="4">附带</option>
-									</s:else>
-								</select>
-							</div>
-						</div>
-						<div class="col-lg-12 form-group" id="reportDiv2">
-							<div class="col-lg-6"></div>
-							<label for="" class="col-lg-1 form-label colorGray">报告送达日期</label>
-							<div class="col-lg-2">
-								<div class="input-group date" data-provide="datepicker">
-									<input type="text" class="form-control datepicker" readonly id="reportArrDate" value="<s:date format="yyyy-MM-dd" name="addAuditDto.REPORT_ARR_DATE"/>" maxlength="10" />
-									<div class="input-group-addon">
-										<span class="glyphicon glyphicon-th"></span>
-									</div>
-								</div>
-							</div>
-							<label for="" class="col-lg-1 form-label colorGray">入档日期</label>
-							<div class="col-lg-2">
-								<div class="input-group date" data-provide="datepicker">
-									<input type="text" class="form-control datepicker" readonly id="regDate" value="<s:date format="yyyy-MM-dd" name="addAuditDto.REG_DATE"/>" maxlength="10" />
-									<div class="input-group-addon">
-										<span class="glyphicon glyphicon-th"></span>
-									</div>
-								</div>
-							</div>
 						</div>
 						<div class="col-lg-12 form-group" id="agent">
 							<div class="col-lg-2"></div>
@@ -2330,7 +2268,7 @@
 							</div>
 						</div>
 						<div id="ab">
-						<div class="col-lg-12 form-group">
+						<div class="col-lg-12 form-group" id="ab2">
 							<div class="col-lg-2"></div>
 							<label for="" class="col-lg-2 form-label colorGold">乙方收费方式</label>
 							<div class="col-lg-2">
@@ -2372,7 +2310,7 @@
 								<s:textfield name="addAuditDto.B_AMOUNT" id="B_AMOUNT" disabled="true" cssClass="col-lg-10 form-control" maxlength="14" theme="simple"></s:textfield>
 							</div>
 						</div>
-						<div class="col-lg-12 form-group">
+						<div class="col-lg-12 form-group" id="ab3">
 							<div class="col-lg-2"></div>
 							<label for="" class="col-lg-2 form-label colorGold">甲方发票流转单日期</label>
 							<div class="col-lg-2">
@@ -2383,6 +2321,90 @@
 									</div>
 								</div>
 							</div>
+							<div class="col-lg-2"></div>
+							<label for="" class="col-lg-2 form-label colorGold">乙方发票流转单日期</label>
+							<div class="col-lg-2">
+								<div class="input-group date" data-provide="datepicker">
+									<input type="text" class="form-control datepicker" readonly id="bInvoiceDeliDate" value="<s:date format="yyyy-MM-dd" name="addAuditDto.B_INVOICE_DELI_DATE"/>" maxlength="10" />
+									<div class="input-group-addon">
+										<span class="glyphicon glyphicon-th"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-12 form-group">
+							<hr style="height:3px;border:none;border-top:1px solid #bbbcbc;" />
+						<div class="col-lg-12 form-group" id="reportDiv2">
+							<label for="" class="col-lg-1 form-label colorGray">报告敲章日期</label>
+							<div class="col-lg-2">
+								<div class="input-group date" data-provide="datepicker">
+									<input type="text" class="form-control datepicker" readonly id="reportSealDate" value="<s:date format="yyyy-MM-dd" name="addAuditDto.REPORT_SEAL_DATE"/>" maxlength="10" />
+									<div class="input-group-addon">
+										<span class="glyphicon glyphicon-th"></span>
+									</div>
+								</div>
+							</div>
+							<label for="" class="col-lg-1 form-label colorGray">报告送达方式</label>
+							<div class="col-lg-2">
+								<select id="REPORT_ARR_TYPE" name="addAuditDto.REPORT_ARR_TYPE" class="form-control" onclick="show();">
+									<s:if test='addAuditDto.REPORT_ARR_TYPE == "1"'>
+										<option value="">请选择</option>
+										<option value="1" selected="selected">快递</option>
+										<option value="2">自送</option>
+										<option value="3">自取</option>
+										<option value="4">附带</option>
+									</s:if>
+									<s:elseif test='addAuditDto.REPORT_ARR_TYPE == "2"'>
+										<option value="">请选择</option>
+										<option value="1">快递</option>
+										<option value="2" selected="selected">自送</option>
+										<option value="3">自取</option>
+										<option value="4">附带</option>
+									</s:elseif>
+									<s:elseif test='addAuditDto.REPORT_ARR_TYPE == "3"'>
+										<option value="">请选择</option>
+										<option value="1">快递</option>
+										<option value="2">自送</option>
+										<option value="3" selected="selected">自取</option>
+										<option value="4">附带</option>
+									</s:elseif>
+									<s:elseif test='addAuditDto.REPORT_ARR_TYPE == "4"'>
+										<option value="">请选择</option>
+										<option value="1">快递</option>
+										<option value="2">自送</option>
+										<option value="3">自取</option>
+										<option value="4" selected="selected">附带</option>
+									</s:elseif>
+									<s:else>
+										<option value="" selected="selected">请选择</option>
+										<option value="1">快递</option>
+										<option value="2">自送</option>
+										<option value="3">自取</option>
+										<option value="4">附带</option>
+									</s:else>
+								</select>
+							</div>
+							<div class="col-lg-6"></div>
+							<label for="" class="col-lg-1 form-label colorGray">报告送达日期</label>							
+							<div class="col-lg-2">
+								<div class="input-group date" data-provide="datepicker">
+									<input type="text" class="form-control datepicker" readonly id="reportArrDate" value="<s:date format="yyyy-MM-dd" name="addAuditDto.REPORT_ARR_DATE"/>" maxlength="10" />
+									<div class="input-group-addon">
+										<span class="glyphicon glyphicon-th"></span>
+									</div>
+								</div>
+							</div>
+							<label for="" class="col-lg-1 form-label colorGray">入档日期</label>
+							<div class="col-lg-2">
+								<div class="input-group date" data-provide="datepicker">
+									<input type="text" class="form-control datepicker" readonly id="regDate" value="<s:date format="yyyy-MM-dd" name="addAuditDto.REG_DATE"/>" maxlength="10" />
+									<div class="input-group-addon">
+										<span class="glyphicon glyphicon-th"></span>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-12 form-group"  id="ab4">						
 							<label for="" class="col-lg-1 form-label colorGray">甲方开票日期</label>
 							<div class="col-lg-2">
 								<div class="input-group date" data-provide="datepicker">
@@ -2396,18 +2418,6 @@
 							<div class="col-lg-2">
 								<div class="input-group date" data-provide="datepicker">
 									<input type="text" class="form-control datepicker" readonly id="aSetDate" value="<s:date format="yyyy-MM-dd" name="addAuditDto.A_SET_DATE"/>" maxlength="10" />
-									<div class="input-group-addon">
-										<span class="glyphicon glyphicon-th"></span>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="col-lg-12 form-group">
-							<div class="col-lg-2"></div>
-							<label for="" class="col-lg-2 form-label colorGold">乙方发票流转单日期</label>
-							<div class="col-lg-2">
-								<div class="input-group date" data-provide="datepicker">
-									<input type="text" class="form-control datepicker" readonly id="bInvoiceDeliDate" value="<s:date format="yyyy-MM-dd" name="addAuditDto.B_INVOICE_DELI_DATE"/>" maxlength="10" />
 									<div class="input-group-addon">
 										<span class="glyphicon glyphicon-th"></span>
 									</div>
@@ -2432,16 +2442,18 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-lg-12 form-group">
-							<div class="col-lg-6"></div>
+						</div>
+						<div class="col-lg-12 form-group"  id="ab5">
 							<label for="" class="col-lg-1 form-label colorGray">甲方发票号</label>
 							<div class="col-lg-2">
-								<s:textfield name="addAuditDto.A_INVOICE_NO" id="A_INVOICE_NO" cssClass="col-lg-10 form-control" maxlength="20" theme="simple"></s:textfield>
-							</div>
+								<s:textfield name="addAuditDto.A_INVOICE_NO" id="A_INVOICE_NO" cssClass="col-lg-10 form-control" maxlength="20" theme="simple"></s:textfield>							
+								</div>
+							<div class="col-lg-3"></div>
 							<label for="" class="col-lg-1 form-label colorGray">乙方发票号</label>
 							<div class="col-lg-2">
 								<s:textfield name="addAuditDto.B_INVOICE_NO" id="B_INVOICE_NO" cssClass="col-lg-10 form-control" maxlength="20" theme="simple"></s:textfield>
 							</div>
+						</div>
 						</div>
 						</div>
 						<div class="col-lg-12 form-group">
