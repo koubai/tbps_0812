@@ -61,6 +61,43 @@ public interface AuditDao {
 			String reportNoComp, String reportNoLow, String reportNoHigh, String auditStatus, 
 			String projectClass, String docArrDateLow, String docArrDateHigh, String agentName, 
 			String contractName, String reportNo, String projectName, String cntrctInfo, int start, int end);
+
+	//审价
+	/**
+	 * 查询总记录数根据关键字
+	 * @param auditNoLow
+	 * @param auditNoHigh
+	 * @param projectStatus
+	 * @param projectManager
+	 * @param valueDateLow
+	 * @param valueDateHigh
+	 * @param agentNo
+	 * @param reportNoComp
+	 * @param reportNoLow
+	 * @param reportNoHigh
+	 * @param auditStatus
+	 * @return
+	 */
+	public int queryAuditCountByPage(String keyword, String auditStatus);
+	
+	/**
+	 * 翻页查询记录根据关键字
+	 * @param auditNoLow
+	 * @param auditNoHigh
+	 * @param projectStatus
+	 * @param projectManager
+	 * @param valueDateLow
+	 * @param valueDateHigh
+	 * @param agentNo
+	 * @param reportNoComp
+	 * @param reportNoLow
+	 * @param reportNoHigh
+	 * @param auditStatus
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public List<AuditDto> queryAuditByPage(String keyword, String auditStatus, int start, int end);
 	
 	/**
 	 * 查询合同所以项目记录
@@ -87,6 +124,15 @@ public interface AuditDao {
 	 * @return
 	 */
 	public AuditStatisticsDto queryAuditStatistics(String projectManager, String startDate, String endDate);
+	
+	/**
+	 * 查询审月度统计数据列表
+	 * @param projectManager
+	 * @param CNTRCT_TYPE 项目性质
+	 * @param dateCondition 完成日期，收到资料日期等查询条件
+	 * @return
+	 */
+	public List<AuditDto> queryAuditMonthSumList(String projectManager, String CNTRCT_TYPE, String dateCondition);
 	
 	/**
 	 * 到账统计
@@ -126,6 +172,14 @@ public interface AuditDao {
 			String reportNoComp, String reportNoLow, String reportNoHigh, String auditStatus, 
 			String projectClass, String docArrDateLow, String docArrDateHigh, String agentName, 
 			String contractName, String reportNo, String projectName, String cntrctInfo);
+	
+	/**
+	 * 查询审价（导出数据用）使用关键字
+	 * @param keyword
+	 * @param auditStatus
+	 * @return
+	 */
+	public List<AuditDto> queryAllAuditExport(String keyword, String auditStatus);
 	
 	/**
 	 * 根据审价编号查询记录（查询未删除的记录）

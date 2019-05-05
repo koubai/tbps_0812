@@ -565,6 +565,11 @@ public class AuditDto extends BaseDto {
 	 */
 	private Date UPDATE_DATE;
 
+	/**
+	 * 关键字
+	 */
+	private String KEYWORD;
+
 	public String getAUDIT_NO() {
 		return AUDIT_NO;
 	}
@@ -1465,6 +1470,14 @@ public class AuditDto extends BaseDto {
 
 	public void setPROF_INFO(String pROF_INFO) {
 		PROF_INFO = pROF_INFO;
+	}
+
+	public String getKEYWORD() {
+		return KEYWORD;
+	}
+
+	public void setKEYWORD(String kEYWORD) {
+		KEYWORD = kEYWORD;
 	}
 
 }

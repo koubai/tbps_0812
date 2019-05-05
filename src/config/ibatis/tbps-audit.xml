@@ -114,6 +114,116 @@
 		<result property="INSERT_DATE" column="INSERT_DATE" />
 		<result property="UPDATE_DATE" column="UPDATE_DATE" />
 	</resultMap>
+	
+	<resultMap id="AuditDto1" class="com.cn.tbps.dto.AuditDto">
+		<result property="AUDIT_NO" column="AUDIT_NO" />
+		<result property="CNTRCT_NO" column="CNTRCT_NO" />
+		<result property="CNTRCT_NM" column="CNTRCT_NM" />
+		<result property="REPORT_NO" column="REPORT_NO" />
+		<result property="PROJECT_MANAGER" column="PROJECT_MANAGER" />
+		<result property="PROJECT_NAME" column="PROJECT_NAME" />
+		<result property="PROJECT_TYPE" column="PROJECT_TYPE" />
+		<result property="PROJECT_STATUS" column="PROJECT_STATUS" />
+		<result property="AGENT_NO" column="AGENT_NO" />
+		<result property="AGENT_CO_NAME" column="AGENT_CO_NAME" />
+		<result property="AGENT_CO_MANAGER" column="AGENT_CO_MANAGER" />
+		<result property="AGENT_CO_MANAGER_TEL" column="AGENT_CO_MANAGER_TEL" />
+		<result property="AGENT_CO_STAFF" column="AGENT_CO_STAFF" />
+		<result property="AGENT_CO_STAFF_TEL" column="AGENT_CO_STAFF_TEL" />
+		<result property="AGENT_CO_POST_ADDRESS" column="AGENT_CO_POST_ADDRESS" />
+		<result property="AGENT_CO_MAIL" column="AGENT_CO_MAIL" />
+		<result property="PROF_NO" column="PROF_NO" />
+		<result property="PROF_CO_NAME" column="PROF_CO_NAME" />
+		<result property="PROF_CO_MANAGER" column="PROF_CO_MANAGER" />
+		<result property="PROF_CO_MANAGER_TEL" column="PROF_CO_MANAGER_TEL" />
+		<result property="PROF_CO_STAFF" column="PROF_CO_STAFF" />
+		<result property="PROF_CO_STAFF_TEL" column="PROF_CO_STAFF_TEL" />
+		<result property="PROF_CO_POST_ADDRESS" column="PROF_CO_POST_ADDRESS" />
+		<result property="PROF_CO_MAIL" column="PROF_CO_MAIL" />
+		<result property="CONTRACT_CO_NO" column="CONTRACT_CO_NO" />
+		<result property="CONTRACT_CO_NAME" column="CONTRACT_CO_NAME" />
+		<result property="CONTRACT_CO_MANAGER" column="CONTRACT_CO_MANAGER" />
+		<result property="CONTRACT_CO_MANAGER_TEL" column="CONTRACT_CO_MANAGER_TEL" />
+		<result property="CONTRACT_CO_STAFF" column="CONTRACT_CO_STAFF" />
+		<result property="CONTRACT_CO_STAFF_TEL" column="CONTRACT_CO_STAFF_TEL" />
+		<result property="CONTRACT_CO_POST_ADDRESS" column="CONTRACT_CO_POST_ADDRESS" />
+		<result property="CONTRACT_CO_MAIL" column="CONTRACT_CO_MAIL" />
+		<result property="DOC_REC_DATE" column="DOC_REC_DATE" />
+		<result property="PROGRESS_STATUS" column="PROGRESS_STATUS" />
+		<result property="PRE_SET" column="PRE_SET" />
+		<result property="PRE_PRICE" column="PRE_PRICE" />
+		<result property="SUPPORT_DOC_DATE" column="SUPPORT_DOC_DATE" />
+		<result property="DRAFT_DATE" column="DRAFT_DATE" />
+		<result property="APPROVAL_SND_DATE" column="APPROVAL_SND_DATE" />
+		<result property="APPROVAL_RCV_DATE" column="APPROVAL_RCV_DATE" />
+		<result property="DELI_NO" column="DELI_NO" />
+		<result property="REPORT_RAISE_DATE" column="REPORT_RAISE_DATE" />
+		<result property="REPORT_SEAL_DATE" column="REPORT_SEAL_DATE" />
+		<result property="REPORT_ARR_TYPE" column="REPORT_ARR_TYPE" />
+		<result property="REPORT_ARR_DATE" column="REPORT_ARR_DATE" />
+		<result property="REG_DATE" column="REG_DATE" />
+		<result property="AGENT_INFO" column="AGENT_INFO" />
+		<result property="PROF_INFO" column="PROF_INFO" />
+		<result property="CONTRACT_CO_ID" column="CONTRACT_CO_ID" />
+		<result property="CONTRACT_CO_INFO" column="CONTRACT_CO_INFO" />
+		<result property="VERIFY_PER_AMOUNT" column="VERIFY_PER_AMOUNT" />
+		<result property="VERIFY_AMOUNT" column="VERIFY_AMOUNT" />
+		<result property="VERIFY_INCREASE" column="VERIFY_INCREASE" />
+		<result property="VERIFY_DECREASE" column="VERIFY_DECREASE" />
+		<result property="VERIFY_DIFF" column="VERIFY_DIFF" />
+		<result property="VERIFY_DIFF_RATE" column="VERIFY_DIFF_RATE" />
+		<result property="CNT_PRICE" column="CNT_PRICE" />
+		<result property="PROJ_PRICE" column="PROJ_PRICE" />
+		<result property="LIMIT_PRICE" column="LIMIT_PRICE" />
+		<result property="CNTRCT_PRICE" column="CNTRCT_PRICE" />
+		<result property="PLAN_DOC_RCV_DATE" column="PLAN_DOC_RCV_DATE" />
+		<result property="PLAN_DOC_RPT_DATE" column="PLAN_DOC_RPT_DATE" />
+		<result property="PLAN_DOC_SND_TYPE" column="PLAN_DOC_SND_TYPE" />
+		<result property="PLAN_DOC_ARR_DATE" column="PLAN_DOC_ARR_DATE" />
+		<result property="BID_DOC_RCV_DATE" column="BID_DOC_RCV_DATE" />
+		<result property="BID_DOC_RPT_DATE" column="BID_DOC_RPT_DATE" />
+		<result property="BID_DOC_SND_TYPE" column="BID_DOC_SND_TYPE" />
+		<result property="BID_DOC_ARR_DATE" column="BID_DOC_ARR_DATE" />
+		<result property="SIGN_DOC_RCV_DATE" column="SIGN_DOC_RCV_DATE" />
+		<result property="SIGN_DOC_RPT_DATE" column="SIGN_DOC_RPT_DATE" />
+		<result property="SIGN_DOC_SND_TYPE" column="SIGN_DOC_SND_TYPE" />
+		<result property="SIGN_DOC_ARR_DATE" column="SIGN_DOC_ARR_DATE" />
+		<result property="SET_DOC_RCV_DATE" column="SET_DOC_RCV_DATE" />
+		<result property="SET_DOC_RPT_DATE" column="SET_DOC_RPT_DATE" />
+		<result property="SET_DOC_SND_TYPE" column="SET_DOC_SND_TYPE" />
+		<result property="SET_DOC_ARR_DATE" column="SET_DOC_ARR_DATE" />
+		<result property="PROGRESS_STATUS_MEMO" column="PROGRESS_STATUS_MEMO" />
+		<result property="A_AMOUNT" column="A_AMOUNT" />
+		<result property="A_STATUS" column="A_STATUS" />
+		<result property="B_TYPE" column="B_TYPE" />
+		<result property="B_AMOUNT" column="B_AMOUNT" />
+		<result property="A_INVOICE_DELI_DATE" column="A_INVOICE_DELI_DATE" />
+		<result property="A_INVOICE_DATE" column="A_INVOICE_DATE" />
+		<result property="A_INVOICE_NO" column="A_INVOICE_NO" />
+		<result property="A_SET_DATE" column="A_SET_DATE" />
+		<result property="B_INVOICE_DELI_DATE" column="B_INVOICE_DELI_DATE" />
+		<result property="B_INVOICE_DATE" column="B_INVOICE_DATE" />
+		<result property="B_INVOICE_NO" column="B_INVOICE_NO" />
+		<result property="B_SET_DATE" column="B_SET_DATE" />
+		<result property="B_RATE" column="B_RATE" />
+		<result property="CNTRCT_INFO" column="CNTRCT_INFO" />
+		<result property="PROJECT_NAME_PASS" column="PROJECT_NAME_PASS" />
+		<result property="RESERVE1" column="RESERVE1" />
+		<result property="RESERVE2" column="RESERVE2" />
+		<result property="RESERVE3" column="RESERVE3" />
+		<result property="RESERVE4" column="RESERVE4" />
+		<result property="RESERVE5" column="RESERVE5" />
+		<result property="RESERVE6" column="RESERVE6" />
+		<result property="RESERVE7" column="RESERVE7" />
+		<result property="RESERVE8" column="RESERVE8" />
+		<result property="RESERVE9" column="RESERVE9" />
+		<result property="RESERVE10" column="RESERVE10" />
+		<result property="LATEST_FLG" column="LATEST_FLG" />
+		<result property="DELETE_FLG" column="DELETE_FLG" />
+		<result property="UPDATE_USER" column="UPDATE_USER" />
+		<result property="INSERT_DATE" column="INSERT_DATE" />
+		<result property="UPDATE_DATE" column="UPDATE_DATE" />
+	</resultMap>
 
 	<resultMap id="AuditStatisticsDetailDto" class="com.cn.tbps.dto.AuditStatisticsDetailDto">
 		<result property="PROJECT_MANAGER" column="PROJECT_MANAGER" />
@@ -186,6 +296,49 @@
 		<result property="REG_DATE_NULL4" column="REG_DATE_NULL4" />
 		<result property="REPORT_SEAL_DATE_NULL4" column="REPORT_SEAL_DATE_NULL4" />
 	</resultMap>
+	
+	<resultMap id="AuditAnnualDataDto" class="com.cn.tbps.dto.AuditAnnualDataDto">
+		<result property="showtime" column="showtime" />
+		<result property="receiveAudit" column="receiveAudit" />
+		<result property="completeAuditCurrentMonth" column="completeAuditCurrentMonth" />
+		<result property="completeAuditHis" column="completeAuditHis" />
+		<result property="submitAuditAmount" column="submitAuditAmount" />
+		<result property="completeAuditAmount" column="completeAuditAmount" />
+		<result property="authorizeAuditAmount" column="authorizeAuditAmount" />
+		<result property="incompleteAuditCurrentMonth" column="incompleteAuditCurrentMonth" />
+		<result property="incompleteAuditHis" column="incompleteAuditHis" />
+		<result property="reviewAudit" column="reviewAudit" />
+		<result property="auditAmountMonthConfirm" column="auditAmountMonthConfirm" />
+		<result property="auditAmountMonthUnconfirmed" column="auditAmountMonthUnconfirmed" />
+		<result property="auditAmountMonthConfirming" column="auditAmountMonthConfirming" />
+		<result property="receiptAuditPieceMonth" column="receiptAuditPieceMonth" />
+		<result property="receiptAuditAmountMonth" column="receiptAuditAmountMonth" />
+		<result property="receiptAuditPieceHis" column="receiptAuditPieceHis" />
+		<result property="receiptAuditAmountHis" column="receiptAuditAmountHis" />
+		<result property="totalNumMonth" column="totalNumMonth" />
+		<result property="totalAmountMonth" column="totalAmountMonth" />
+		<result property="unreceivedNumMonth" column="unreceivedNumMonth" />
+		<result property="unreceivedAmountMonth" column="unreceivedAmountMonth" />
+		<result property="unreceivedNumHis" column="unreceivedNumHis" />
+		<result property="unreceivedAmountHis" column="unreceivedAmountHis" />
+	</resultMap>
+	
+	<select id="queryAuditMonthSumList" parameterClass="java.util.Map" resultMap="AuditDto1">
+		select A.* from (
+			select T.*,
+			(select C.CNTRCT_TYPE from auditcntrct C where C.CNTRCT_NO = T.CNTRCT_NO and C.DELETE_FLG = '1') as CNTRCT_TYPE
+			from audit T where 1 = 1
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				T.PROJECT_MANAGER like '%$PROJECT_MANAGER$%' ESCAPE '/'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dateCondition">
+				$dateCondition$
+			</isNotEmpty>
+		) A where 1 = 1
+		<isNotEmpty prepend="and" property="CNTRCT_TYPE">
+			A.CNTRCT_TYPE = #CNTRCT_TYPE#
+		</isNotEmpty>
+	</select>
 	
 	<select id="queryAuditCountByPage" resultClass="int" parameterClass="java.util.Map">
 		select count(*) from (
@@ -867,6 +1020,732 @@
 		LIMIT #start#, #end#
 	</select>
 	
+	<select id="queryAuditKeywordCountByPage" resultClass="int" parameterClass="java.util.Map">
+		select count(*) from (
+			select TT.* from
+			(select T.AUDIT_NO,
+				'2' AS AUDIT_STATUS,
+				T.CNTRCT_NO,
+				T.CNTRCT_NM,
+				T.REPORT_NO,
+				T.PROJECT_MANAGER,
+				T.PROJECT_NAME,
+				T.PROJECT_TYPE,
+				T.PROJECT_STATUS,
+				T.AGENT_NO,
+				T.AGENT_CO_NAME,
+				T.AGENT_CO_MANAGER,
+				T.AGENT_CO_MANAGER_TEL,
+				T.AGENT_CO_STAFF,
+				T.AGENT_CO_STAFF_TEL,
+				T.AGENT_CO_POST_ADDRESS,
+				T.AGENT_CO_MAIL,
+				T.PROF_NO,
+				T.PROF_CO_NAME,
+				T.PROF_CO_MANAGER,
+				T.PROF_CO_MANAGER_TEL,
+				T.PROF_CO_STAFF,
+				T.PROF_CO_STAFF_TEL,
+				T.PROF_CO_POST_ADDRESS,
+				T.PROF_CO_MAIL,
+				T.CONTRACT_CO_NO,
+				T.CONTRACT_CO_NAME,
+				T.CONTRACT_CO_MANAGER,
+				T.CONTRACT_CO_MANAGER_TEL,
+				T.CONTRACT_CO_STAFF,
+				T.CONTRACT_CO_STAFF_TEL,
+				T.CONTRACT_CO_POST_ADDRESS,
+				T.CONTRACT_CO_MAIL,
+				T.DOC_REC_DATE,
+				T.PROGRESS_STATUS,
+				T.PRE_SET,
+				T.PRE_PRICE,
+				T.SUPPORT_DOC_DATE,
+				T.DRAFT_DATE,
+				T.APPROVAL_SND_DATE,
+				T.APPROVAL_RCV_DATE,
+				T.DELI_NO,
+				T.REPORT_RAISE_DATE,
+				T.REPORT_SEAL_DATE,
+				T.REPORT_ARR_TYPE,
+				T.REPORT_ARR_DATE,
+				T.REG_DATE,
+				T.AGENT_INFO,
+				T.PROF_INFO,
+				T.CONTRACT_CO_ID,
+				T.CONTRACT_CO_INFO,
+				T.VERIFY_PER_AMOUNT,
+				T.VERIFY_AMOUNT,
+				T.VERIFY_INCREASE,
+				T.VERIFY_DECREASE,
+				T.VERIFY_DIFF,
+				T.VERIFY_DIFF_RATE,
+				T.CNT_PRICE,
+				T.PROJ_PRICE,
+				T.LIMIT_PRICE,
+				T.CNTRCT_PRICE,
+				T.PLAN_DOC_RCV_DATE,
+				T.PLAN_DOC_RPT_DATE,
+				T.PLAN_DOC_SND_TYPE,
+				T.PLAN_DOC_ARR_DATE,
+				T.BID_DOC_RCV_DATE,
+				T.BID_DOC_RPT_DATE,
+				T.BID_DOC_SND_TYPE,
+				T.BID_DOC_ARR_DATE,
+				T.SIGN_DOC_RCV_DATE,
+				T.SIGN_DOC_RPT_DATE,
+				T.SIGN_DOC_SND_TYPE,
+				T.SIGN_DOC_ARR_DATE,
+				T.SET_DOC_RCV_DATE,
+				T.SET_DOC_RPT_DATE,
+				T.SET_DOC_SND_TYPE,
+				T.SET_DOC_ARR_DATE,
+				T.PROGRESS_STATUS_MEMO,
+				T.A_AMOUNT,
+				T.A_STATUS,
+				T.B_TYPE,
+				T.B_AMOUNT,
+				T.A_INVOICE_DELI_DATE,
+				T.A_INVOICE_DATE,
+				T.A_INVOICE_NO,
+				T.A_SET_DATE,
+				T.B_INVOICE_DELI_DATE,
+				T.B_INVOICE_DATE,
+				T.B_INVOICE_NO,
+				T.B_SET_DATE,
+				T.B_RATE,
+				T.CNTRCT_INFO,
+				T.PROJECT_NAME_PASS,
+				T.RESERVE1,
+				T.RESERVE2,
+				T.RESERVE3,
+				T.RESERVE4,
+				T.RESERVE5,
+				T.RESERVE6,
+				T.RESERVE7,
+				T.RESERVE8,
+				T.RESERVE9,
+				T.RESERVE10,
+				T.LATEST_FLG,
+				T.DELETE_FLG,
+				T.UPDATE_USER,
+				T.INSERT_DATE,
+				T.UPDATE_DATE
+				from audit_keyword T where 1 = 1
+				and T.DELETE_FLG = '1'
+				<isNotEmpty prepend="and" property="KEYWORD">
+					T.KEYWORD like '%$KEYWORD$%' ESCAPE '/'
+				</isNotEmpty>
+			) TT where 1 = 1
+				AND (TT.B_SET_DATE IS NULL OR TT.B_SET_DATE <![CDATA[>]]> NOW())
+			UNION
+			select TT.* from
+			(select T.AUDIT_NO,
+				'3' AS AUDIT_STATUS,
+				T.CNTRCT_NO,
+				T.CNTRCT_NM,
+				T.REPORT_NO,
+				T.PROJECT_MANAGER,
+				T.PROJECT_NAME,
+				T.PROJECT_TYPE,
+				T.PROJECT_STATUS,
+				T.AGENT_NO,
+				T.AGENT_CO_NAME,
+				T.AGENT_CO_MANAGER,
+				T.AGENT_CO_MANAGER_TEL,
+				T.AGENT_CO_STAFF,
+				T.AGENT_CO_STAFF_TEL,
+				T.AGENT_CO_POST_ADDRESS,
+				T.AGENT_CO_MAIL,
+				T.PROF_NO,
+				T.PROF_CO_NAME,
+				T.PROF_CO_MANAGER,
+				T.PROF_CO_MANAGER_TEL,
+				T.PROF_CO_STAFF,
+				T.PROF_CO_STAFF_TEL,
+				T.PROF_CO_POST_ADDRESS,
+				T.PROF_CO_MAIL,
+				T.CONTRACT_CO_NO,
+				T.CONTRACT_CO_NAME,
+				T.CONTRACT_CO_MANAGER,
+				T.CONTRACT_CO_MANAGER_TEL,
+				T.CONTRACT_CO_STAFF,
+				T.CONTRACT_CO_STAFF_TEL,
+				T.CONTRACT_CO_POST_ADDRESS,
+				T.CONTRACT_CO_MAIL,
+				T.DOC_REC_DATE,
+				T.PROGRESS_STATUS,
+				T.PRE_SET,
+				T.PRE_PRICE,
+				T.SUPPORT_DOC_DATE,
+				T.DRAFT_DATE,
+				T.APPROVAL_SND_DATE,
+				T.APPROVAL_RCV_DATE,
+				T.DELI_NO,
+				T.REPORT_RAISE_DATE,
+				T.REPORT_SEAL_DATE,
+				T.REPORT_ARR_TYPE,
+				T.REPORT_ARR_DATE,
+				T.REG_DATE,
+				T.AGENT_INFO,
+				T.PROF_INFO,
+				T.CONTRACT_CO_ID,
+				T.CONTRACT_CO_INFO,
+				T.VERIFY_PER_AMOUNT,
+				T.VERIFY_AMOUNT,
+				T.VERIFY_INCREASE,
+				T.VERIFY_DECREASE,
+				T.VERIFY_DIFF,
+				T.VERIFY_DIFF_RATE,
+				T.CNT_PRICE,
+				T.PROJ_PRICE,
+				T.LIMIT_PRICE,
+				T.CNTRCT_PRICE,
+				T.PLAN_DOC_RCV_DATE,
+				T.PLAN_DOC_RPT_DATE,
+				T.PLAN_DOC_SND_TYPE,
+				T.PLAN_DOC_ARR_DATE,
+				T.BID_DOC_RCV_DATE,
+				T.BID_DOC_RPT_DATE,
+				T.BID_DOC_SND_TYPE,
+				T.BID_DOC_ARR_DATE,
+				T.SIGN_DOC_RCV_DATE,
+				T.SIGN_DOC_RPT_DATE,
+				T.SIGN_DOC_SND_TYPE,
+				T.SIGN_DOC_ARR_DATE,
+				T.SET_DOC_RCV_DATE,
+				T.SET_DOC_RPT_DATE,
+				T.SET_DOC_SND_TYPE,
+				T.SET_DOC_ARR_DATE,
+				T.PROGRESS_STATUS_MEMO,
+				T.A_AMOUNT,
+				T.A_STATUS,
+				T.B_TYPE,
+				T.B_AMOUNT,
+				T.A_INVOICE_DELI_DATE,
+				T.A_INVOICE_DATE,
+				T.A_INVOICE_NO,
+				T.A_SET_DATE,
+				T.B_INVOICE_DELI_DATE,
+				T.B_INVOICE_DATE,
+				T.B_INVOICE_NO,
+				T.B_SET_DATE,
+				T.B_RATE,
+				T.CNTRCT_INFO,
+				T.PROJECT_NAME_PASS,
+				T.RESERVE1,
+				T.RESERVE2,
+				T.RESERVE3,
+				T.RESERVE4,
+				T.RESERVE5,
+				T.RESERVE6,
+				T.RESERVE7,
+				T.RESERVE8,
+				T.RESERVE9,
+				T.RESERVE10,
+				T.LATEST_FLG,
+				T.DELETE_FLG,
+				T.UPDATE_USER,
+				T.INSERT_DATE,
+				T.UPDATE_DATE
+				from audit_keyword T where 1 = 1
+				and T.DELETE_FLG = '1'
+				<isNotEmpty prepend="and" property="KEYWORD">
+					T.KEYWORD like '%$KEYWORD$%' ESCAPE '/'
+				</isNotEmpty>
+			) TT where 1 = 1
+				AND TT.B_SET_DATE IS NOT NULL AND TT.B_SET_DATE <![CDATA[<=]]> NOW()
+		) B where 1 = 1
+		<isNotEmpty prepend="and" property="AUDIT_STATUS">
+			B.AUDIT_STATUS in ($AUDIT_STATUS$)
+		</isNotEmpty>
+	</select>
+	
+	<select id="queryAuditKeywordByPage" parameterClass="java.util.Map" resultMap="AuditDto">
+		select B.* from (
+			select TT.* from
+			(select T.AUDIT_NO,
+				'2' AS AUDIT_STATUS,
+				T.CNTRCT_NO,
+				T.CNTRCT_NM,
+				T.REPORT_NO,
+				T.PROJECT_MANAGER,
+				T.PROJECT_NAME,
+				T.PROJECT_TYPE,
+				T.PROJECT_STATUS,
+				T.AGENT_NO,
+				T.AGENT_CO_NAME,
+				T.AGENT_CO_MANAGER,
+				T.AGENT_CO_MANAGER_TEL,
+				T.AGENT_CO_STAFF,
+				T.AGENT_CO_STAFF_TEL,
+				T.AGENT_CO_POST_ADDRESS,
+				T.AGENT_CO_MAIL,
+				T.PROF_NO,
+				T.PROF_CO_NAME,
+				T.PROF_CO_MANAGER,
+				T.PROF_CO_MANAGER_TEL,
+				T.PROF_CO_STAFF,
+				T.PROF_CO_STAFF_TEL,
+				T.PROF_CO_POST_ADDRESS,
+				T.PROF_CO_MAIL,
+				T.CONTRACT_CO_NO,
+				T.CONTRACT_CO_NAME,
+				T.CONTRACT_CO_MANAGER,
+				T.CONTRACT_CO_MANAGER_TEL,
+				T.CONTRACT_CO_STAFF,
+				T.CONTRACT_CO_STAFF_TEL,
+				T.CONTRACT_CO_POST_ADDRESS,
+				T.CONTRACT_CO_MAIL,
+				T.DOC_REC_DATE,
+				T.PROGRESS_STATUS,
+				T.PRE_SET,
+				T.PRE_PRICE,
+				T.SUPPORT_DOC_DATE,
+				T.DRAFT_DATE,
+				T.APPROVAL_SND_DATE,
+				T.APPROVAL_RCV_DATE,
+				T.DELI_NO,
+				T.REPORT_RAISE_DATE,
+				T.REPORT_SEAL_DATE,
+				T.REPORT_ARR_TYPE,
+				T.REPORT_ARR_DATE,
+				T.REG_DATE,
+				T.AGENT_INFO,
+				T.PROF_INFO,
+				T.CONTRACT_CO_ID,
+				T.CONTRACT_CO_INFO,
+				T.VERIFY_PER_AMOUNT,
+				T.VERIFY_AMOUNT,
+				T.VERIFY_INCREASE,
+				T.VERIFY_DECREASE,
+				T.VERIFY_DIFF,
+				T.VERIFY_DIFF_RATE,
+				T.CNT_PRICE,
+				T.PROJ_PRICE,
+				T.LIMIT_PRICE,
+				T.CNTRCT_PRICE,
+				T.PLAN_DOC_RCV_DATE,
+				T.PLAN_DOC_RPT_DATE,
+				T.PLAN_DOC_SND_TYPE,
+				T.PLAN_DOC_ARR_DATE,
+				T.BID_DOC_RCV_DATE,
+				T.BID_DOC_RPT_DATE,
+				T.BID_DOC_SND_TYPE,
+				T.BID_DOC_ARR_DATE,
+				T.SIGN_DOC_RCV_DATE,
+				T.SIGN_DOC_RPT_DATE,
+				T.SIGN_DOC_SND_TYPE,
+				T.SIGN_DOC_ARR_DATE,
+				T.SET_DOC_RCV_DATE,
+				T.SET_DOC_RPT_DATE,
+				T.SET_DOC_SND_TYPE,
+				T.SET_DOC_ARR_DATE,
+				T.PROGRESS_STATUS_MEMO,
+				T.A_AMOUNT,
+				T.A_STATUS,
+				T.B_TYPE,
+				T.B_AMOUNT,
+				T.A_INVOICE_DELI_DATE,
+				T.A_INVOICE_DATE,
+				T.A_INVOICE_NO,
+				T.A_SET_DATE,
+				T.B_INVOICE_DELI_DATE,
+				T.B_INVOICE_DATE,
+				T.B_INVOICE_NO,
+				T.B_SET_DATE,
+				T.B_RATE,
+				T.CNTRCT_INFO,
+				T.PROJECT_NAME_PASS,
+				T.RESERVE1,
+				T.RESERVE2,
+				T.RESERVE3,
+				T.RESERVE4,
+				T.RESERVE5,
+				T.RESERVE6,
+				T.RESERVE7,
+				T.RESERVE8,
+				T.RESERVE9,
+				T.RESERVE10,
+				T.LATEST_FLG,
+				T.DELETE_FLG,
+				T.UPDATE_USER,
+				T.INSERT_DATE,
+				T.UPDATE_DATE
+				from audit_keyword T where 1 = 1
+				and T.DELETE_FLG = '1'
+				<isNotEmpty prepend="and" property="KEYWORD">
+					T.KEYWORD like '%$KEYWORD$%' ESCAPE '/'
+				</isNotEmpty>
+			) TT where 1 = 1
+				AND (TT.B_SET_DATE IS NULL OR TT.B_SET_DATE <![CDATA[>]]> NOW())
+			UNION
+			select TT.* from
+			(select T.AUDIT_NO,
+				'3' AS AUDIT_STATUS,
+				T.CNTRCT_NO,
+				T.CNTRCT_NM,
+				T.REPORT_NO,
+				T.PROJECT_MANAGER,
+				T.PROJECT_NAME,
+				T.PROJECT_TYPE,
+				T.PROJECT_STATUS,
+				T.AGENT_NO,
+				T.AGENT_CO_NAME,
+				T.AGENT_CO_MANAGER,
+				T.AGENT_CO_MANAGER_TEL,
+				T.AGENT_CO_STAFF,
+				T.AGENT_CO_STAFF_TEL,
+				T.AGENT_CO_POST_ADDRESS,
+				T.AGENT_CO_MAIL,
+				T.PROF_NO,
+				T.PROF_CO_NAME,
+				T.PROF_CO_MANAGER,
+				T.PROF_CO_MANAGER_TEL,
+				T.PROF_CO_STAFF,
+				T.PROF_CO_STAFF_TEL,
+				T.PROF_CO_POST_ADDRESS,
+				T.PROF_CO_MAIL,
+				T.CONTRACT_CO_NO,
+				T.CONTRACT_CO_NAME,
+				T.CONTRACT_CO_MANAGER,
+				T.CONTRACT_CO_MANAGER_TEL,
+				T.CONTRACT_CO_STAFF,
+				T.CONTRACT_CO_STAFF_TEL,
+				T.CONTRACT_CO_POST_ADDRESS,
+				T.CONTRACT_CO_MAIL,
+				T.DOC_REC_DATE,
+				T.PROGRESS_STATUS,
+				T.PRE_SET,
+				T.PRE_PRICE,
+				T.SUPPORT_DOC_DATE,
+				T.DRAFT_DATE,
+				T.APPROVAL_SND_DATE,
+				T.APPROVAL_RCV_DATE,
+				T.DELI_NO,
+				T.REPORT_RAISE_DATE,
+				T.REPORT_SEAL_DATE,
+				T.REPORT_ARR_TYPE,
+				T.REPORT_ARR_DATE,
+				T.REG_DATE,
+				T.AGENT_INFO,
+				T.PROF_INFO,
+				T.CONTRACT_CO_ID,
+				T.CONTRACT_CO_INFO,
+				T.VERIFY_PER_AMOUNT,
+				T.VERIFY_AMOUNT,
+				T.VERIFY_INCREASE,
+				T.VERIFY_DECREASE,
+				T.VERIFY_DIFF,
+				T.VERIFY_DIFF_RATE,
+				T.CNT_PRICE,
+				T.PROJ_PRICE,
+				T.LIMIT_PRICE,
+				T.CNTRCT_PRICE,
+				T.PLAN_DOC_RCV_DATE,
+				T.PLAN_DOC_RPT_DATE,
+				T.PLAN_DOC_SND_TYPE,
+				T.PLAN_DOC_ARR_DATE,
+				T.BID_DOC_RCV_DATE,
+				T.BID_DOC_RPT_DATE,
+				T.BID_DOC_SND_TYPE,
+				T.BID_DOC_ARR_DATE,
+				T.SIGN_DOC_RCV_DATE,
+				T.SIGN_DOC_RPT_DATE,
+				T.SIGN_DOC_SND_TYPE,
+				T.SIGN_DOC_ARR_DATE,
+				T.SET_DOC_RCV_DATE,
+				T.SET_DOC_RPT_DATE,
+				T.SET_DOC_SND_TYPE,
+				T.SET_DOC_ARR_DATE,
+				T.PROGRESS_STATUS_MEMO,
+				T.A_AMOUNT,
+				T.A_STATUS,
+				T.B_TYPE,
+				T.B_AMOUNT,
+				T.A_INVOICE_DELI_DATE,
+				T.A_INVOICE_DATE,
+				T.A_INVOICE_NO,
+				T.A_SET_DATE,
+				T.B_INVOICE_DELI_DATE,
+				T.B_INVOICE_DATE,
+				T.B_INVOICE_NO,
+				T.B_SET_DATE,
+				T.B_RATE,
+				T.CNTRCT_INFO,
+				T.PROJECT_NAME_PASS,
+				T.RESERVE1,
+				T.RESERVE2,
+				T.RESERVE3,
+				T.RESERVE4,
+				T.RESERVE5,
+				T.RESERVE6,
+				T.RESERVE7,
+				T.RESERVE8,
+				T.RESERVE9,
+				T.RESERVE10,
+				T.LATEST_FLG,
+				T.DELETE_FLG,
+				T.UPDATE_USER,
+				T.INSERT_DATE,
+				T.UPDATE_DATE
+				from audit_keyword T where 1 = 1
+				and T.DELETE_FLG = '1'
+				<isNotEmpty prepend="and" property="KEYWORD">
+					T.KEYWORD like '%$KEYWORD$%' ESCAPE '/'
+				</isNotEmpty>
+			) TT where 1 = 1
+				AND TT.B_SET_DATE IS NOT NULL AND TT.B_SET_DATE <![CDATA[<=]]> NOW()
+		) B where 1 = 1
+		<isNotEmpty prepend="and" property="AUDIT_STATUS">
+			B.AUDIT_STATUS in ($AUDIT_STATUS$)
+		</isNotEmpty>
+		order by B.REPORT_NO desc
+		LIMIT #start#, #end#
+	</select>
+	
+	<select id="queryAllAuditKeywordExport" parameterClass="java.util.Map" resultMap="AuditDto">
+		select B.* from (
+			select TT.* from
+			(select T.AUDIT_NO,
+				'2' AS AUDIT_STATUS,
+				T.CNTRCT_NO,
+				T.CNTRCT_NM,
+				T.REPORT_NO,
+				T.PROJECT_MANAGER,
+				T.PROJECT_NAME,
+				T.PROJECT_TYPE,
+				T.PROJECT_STATUS,
+				T.AGENT_NO,
+				T.AGENT_CO_NAME,
+				T.AGENT_CO_MANAGER,
+				T.AGENT_CO_MANAGER_TEL,
+				T.AGENT_CO_STAFF,
+				T.AGENT_CO_STAFF_TEL,
+				T.AGENT_CO_POST_ADDRESS,
+				T.AGENT_CO_MAIL,
+				T.PROF_NO,
+				T.PROF_CO_NAME,
+				T.PROF_CO_MANAGER,
+				T.PROF_CO_MANAGER_TEL,
+				T.PROF_CO_STAFF,
+				T.PROF_CO_STAFF_TEL,
+				T.PROF_CO_POST_ADDRESS,
+				T.PROF_CO_MAIL,
+				T.CONTRACT_CO_NO,
+				T.CONTRACT_CO_NAME,
+				T.CONTRACT_CO_MANAGER,
+				T.CONTRACT_CO_MANAGER_TEL,
+				T.CONTRACT_CO_STAFF,
+				T.CONTRACT_CO_STAFF_TEL,
+				T.CONTRACT_CO_POST_ADDRESS,
+				T.CONTRACT_CO_MAIL,
+				T.DOC_REC_DATE,
+				T.PROGRESS_STATUS,
+				T.PRE_SET,
+				T.PRE_PRICE,
+				T.SUPPORT_DOC_DATE,
+				T.DRAFT_DATE,
+				T.APPROVAL_SND_DATE,
+				T.APPROVAL_RCV_DATE,
+				T.DELI_NO,
+				T.REPORT_RAISE_DATE,
+				T.REPORT_SEAL_DATE,
+				T.REPORT_ARR_TYPE,
+				T.REPORT_ARR_DATE,
+				T.REG_DATE,
+				T.AGENT_INFO,
+				T.PROF_INFO,
+				T.CONTRACT_CO_ID,
+				T.CONTRACT_CO_INFO,
+				T.VERIFY_PER_AMOUNT,
+				T.VERIFY_AMOUNT,
+				T.VERIFY_INCREASE,
+				T.VERIFY_DECREASE,
+				T.VERIFY_DIFF,
+				T.VERIFY_DIFF_RATE,
+				T.CNT_PRICE,
+				T.PROJ_PRICE,
+				T.LIMIT_PRICE,
+				T.CNTRCT_PRICE,
+				T.PLAN_DOC_RCV_DATE,
+				T.PLAN_DOC_RPT_DATE,
+				T.PLAN_DOC_SND_TYPE,
+				T.PLAN_DOC_ARR_DATE,
+				T.BID_DOC_RCV_DATE,
+				T.BID_DOC_RPT_DATE,
+				T.BID_DOC_SND_TYPE,
+				T.BID_DOC_ARR_DATE,
+				T.SIGN_DOC_RCV_DATE,
+				T.SIGN_DOC_RPT_DATE,
+				T.SIGN_DOC_SND_TYPE,
+				T.SIGN_DOC_ARR_DATE,
+				T.SET_DOC_RCV_DATE,
+				T.SET_DOC_RPT_DATE,
+				T.SET_DOC_SND_TYPE,
+				T.SET_DOC_ARR_DATE,
+				T.PROGRESS_STATUS_MEMO,
+				T.A_AMOUNT,
+				T.A_STATUS,
+				T.B_TYPE,
+				T.B_AMOUNT,
+				T.A_INVOICE_DELI_DATE,
+				T.A_INVOICE_DATE,
+				T.A_INVOICE_NO,
+				T.A_SET_DATE,
+				T.B_INVOICE_DELI_DATE,
+				T.B_INVOICE_DATE,
+				T.B_INVOICE_NO,
+				T.B_SET_DATE,
+				T.B_RATE,
+				T.CNTRCT_INFO,
+				T.PROJECT_NAME_PASS,
+				T.RESERVE1,
+				T.RESERVE2,
+				T.RESERVE3,
+				T.RESERVE4,
+				T.RESERVE5,
+				T.RESERVE6,
+				T.RESERVE7,
+				T.RESERVE8,
+				T.RESERVE9,
+				T.RESERVE10,
+				T.LATEST_FLG,
+				T.DELETE_FLG,
+				T.UPDATE_USER,
+				T.INSERT_DATE,
+				T.UPDATE_DATE
+				from audit_keyword T where 1 = 1
+				and T.DELETE_FLG = '1'
+				<isNotEmpty prepend="and" property="KEYWORD">
+					T.KEYWORD like '%$KEYWORD$%' ESCAPE '/'
+				</isNotEmpty>
+			) TT where 1 = 1
+				AND (TT.B_SET_DATE IS NULL OR TT.B_SET_DATE <![CDATA[>]]> NOW())
+			UNION
+			select TT.* from
+			(select T.AUDIT_NO,
+				'3' AS AUDIT_STATUS,
+				T.CNTRCT_NO,
+				T.CNTRCT_NM,
+				T.REPORT_NO,
+				T.PROJECT_MANAGER,
+				T.PROJECT_NAME,
+				T.PROJECT_TYPE,
+				T.PROJECT_STATUS,
+				T.AGENT_NO,
+				T.AGENT_CO_NAME,
+				T.AGENT_CO_MANAGER,
+				T.AGENT_CO_MANAGER_TEL,
+				T.AGENT_CO_STAFF,
+				T.AGENT_CO_STAFF_TEL,
+				T.AGENT_CO_POST_ADDRESS,
+				T.AGENT_CO_MAIL,
+				T.PROF_NO,
+				T.PROF_CO_NAME,
+				T.PROF_CO_MANAGER,
+				T.PROF_CO_MANAGER_TEL,
+				T.PROF_CO_STAFF,
+				T.PROF_CO_STAFF_TEL,
+				T.PROF_CO_POST_ADDRESS,
+				T.PROF_CO_MAIL,
+				T.CONTRACT_CO_NO,
+				T.CONTRACT_CO_NAME,
+				T.CONTRACT_CO_MANAGER,
+				T.CONTRACT_CO_MANAGER_TEL,
+				T.CONTRACT_CO_STAFF,
+				T.CONTRACT_CO_STAFF_TEL,
+				T.CONTRACT_CO_POST_ADDRESS,
+				T.CONTRACT_CO_MAIL,
+				T.DOC_REC_DATE,
+				T.PROGRESS_STATUS,
+				T.PRE_SET,
+				T.PRE_PRICE,
+				T.SUPPORT_DOC_DATE,
+				T.DRAFT_DATE,
+				T.APPROVAL_SND_DATE,
+				T.APPROVAL_RCV_DATE,
+				T.DELI_NO,
+				T.REPORT_RAISE_DATE,
+				T.REPORT_SEAL_DATE,
+				T.REPORT_ARR_TYPE,
+				T.REPORT_ARR_DATE,
+				T.REG_DATE,
+				T.AGENT_INFO,
+				T.PROF_INFO,
+				T.CONTRACT_CO_ID,
+				T.CONTRACT_CO_INFO,
+				T.VERIFY_PER_AMOUNT,
+				T.VERIFY_AMOUNT,
+				T.VERIFY_INCREASE,
+				T.VERIFY_DECREASE,
+				T.VERIFY_DIFF,
+				T.VERIFY_DIFF_RATE,
+				T.CNT_PRICE,
+				T.PROJ_PRICE,
+				T.LIMIT_PRICE,
+				T.CNTRCT_PRICE,
+				T.PLAN_DOC_RCV_DATE,
+				T.PLAN_DOC_RPT_DATE,
+				T.PLAN_DOC_SND_TYPE,
+				T.PLAN_DOC_ARR_DATE,
+				T.BID_DOC_RCV_DATE,
+				T.BID_DOC_RPT_DATE,
+				T.BID_DOC_SND_TYPE,
+				T.BID_DOC_ARR_DATE,
+				T.SIGN_DOC_RCV_DATE,
+				T.SIGN_DOC_RPT_DATE,
+				T.SIGN_DOC_SND_TYPE,
+				T.SIGN_DOC_ARR_DATE,
+				T.SET_DOC_RCV_DATE,
+				T.SET_DOC_RPT_DATE,
+				T.SET_DOC_SND_TYPE,
+				T.SET_DOC_ARR_DATE,
+				T.PROGRESS_STATUS_MEMO,
+				T.A_AMOUNT,
+				T.A_STATUS,
+				T.B_TYPE,
+				T.B_AMOUNT,
+				T.A_INVOICE_DELI_DATE,
+				T.A_INVOICE_DATE,
+				T.A_INVOICE_NO,
+				T.A_SET_DATE,
+				T.B_INVOICE_DELI_DATE,
+				T.B_INVOICE_DATE,
+				T.B_INVOICE_NO,
+				T.B_SET_DATE,
+				T.B_RATE,
+				T.CNTRCT_INFO,
+				T.PROJECT_NAME_PASS,
+				T.RESERVE1,
+				T.RESERVE2,
+				T.RESERVE3,
+				T.RESERVE4,
+				T.RESERVE5,
+				T.RESERVE6,
+				T.RESERVE7,
+				T.RESERVE8,
+				T.RESERVE9,
+				T.RESERVE10,
+				T.LATEST_FLG,
+				T.DELETE_FLG,
+				T.UPDATE_USER,
+				T.INSERT_DATE,
+				T.UPDATE_DATE
+				from audit_keyword T where 1 = 1
+				and T.DELETE_FLG = '1'
+				<isNotEmpty prepend="and" property="KEYWORD">
+					T.KEYWORD like '%$KEYWORD$%' ESCAPE '/'
+				</isNotEmpty>
+			) TT where 1 = 1
+				AND TT.B_SET_DATE IS NOT NULL AND TT.B_SET_DATE <![CDATA[<=]]> NOW()
+		) B where 1 = 1
+		<isNotEmpty prepend="and" property="AUDIT_STATUS">
+			B.AUDIT_STATUS in ($AUDIT_STATUS$)
+		</isNotEmpty>
+		order by B.AUDIT_NO desc
+	</select>
+	
 	<select id="queryAllAuditExport" parameterClass="java.util.Map" resultMap="AuditDto">
 		select B.* from (
 			select TT.* from
@@ -1238,6 +2117,26 @@
 				CNTRCT_ED_DATE <![CDATA[<=]]> #END_DATE#
 			</isNotEmpty>
 			order by CNTRCT_NM
+	</select>
+	
+	<select id="queryAuditAnnualData" parameterClass="java.util.Map" resultMap="AuditAnnualDataDto">
+		select A.* from (
+		select DATE_FORMAT(DOC_REC_DATE,'%Y.%m') AS showtime,
+				CNTRCT_NM AS CNTRCT_NM, 
+				COUNT(CNTRCT_NM) AS CNTRCT_NM_COUNT
+			from audit where DELETE_FLG = '1'
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				PROJECT_MANAGER in ($PROJECT_MANAGER$)
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="START_DATE">
+				DOC_REC_DATE <![CDATA[>=]]> #START_DATE#
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="END_DATE">
+				DOC_REC_DATE <![CDATA[<=]]> #END_DATE#
+			</isNotEmpty>
+		) A
+		group by A.showtime
+		order by A.showtime
 	</select>
 	
 	<select id="queryAuditStatistics" parameterClass="java.util.Map" resultMap="AuditStatisticsDetailDto">

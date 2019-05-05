@@ -14,7 +14,15 @@
 			<result name="success">/page/audit/auditlist.jsp</result>
 		</action>
 		
+		<action name="queryAuditListByKeyword" class="auditAction" method="queryAuditListByKeyword">
+			<result name="success">/page/audit/auditlist.jsp</result>
+		</action>
+		
 		<action name="turnAuditPage" class="auditAction" method="turnAuditPage">
+			<result name="success">/page/audit/auditlist.jsp</result>
+		</action>
+		
+		<action name="turnAuditByKeywordPage" class="auditAction" method="turnAuditByKeywordPage">
 			<result name="success">/page/audit/auditlist.jsp</result>
 		</action>
 		
@@ -136,6 +144,10 @@
 		
 		<action name="updAuditListDisp" class="auditAction" method="updAuditListDisp">
 			<result name="success">/page/audit/updauditlist.jsp</result>
+		</action>
+		
+		<action name="exportAuditAnnualStatistics" class="auditAction" method="exportAuditAnnualStatistics">
+			<result name="success">/page/download.jsp</result>
 		</action>
 		
 	</package>

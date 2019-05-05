@@ -3,6 +3,7 @@ package com.cn.tbps.service;
 import java.util.List;
 
 import com.cn.common.util.Page;
+import com.cn.tbps.dto.AuditAnnualDataDto;
 import com.cn.tbps.dto.AuditAuthDto;
 import com.cn.tbps.dto.AuditDto;
 import com.cn.tbps.dto.AuditHistDto;
@@ -40,6 +41,14 @@ public interface AuditService {
 			String reportNoComp, String reportNoLow, String reportNoHigh, Page page, String auditStatus, 
 			String projectClass, String docArrDateLow, String docArrDateHigh, String agentName, 
 			String contractName, String strReportNo, String strProjectName, String strCntrctInfo);
+
+	//审价
+	/**
+	 * 翻页查询审价根据关键字
+	 * @param strKeyword
+	 * @return
+	 */
+	public Page queryAuditByPage(String keyword, String auditStatus, Page page);
 	
 	/**
 	 * 项目情况检查
@@ -58,6 +67,16 @@ public interface AuditService {
 	 * @return
 	 */
 	public AuditStatisticsDto queryAuditStatistics(String projectManager, String startDate, String endDate);
+	
+	/**
+	 * 查询审价月度统计数据（只查询合同性质为地铁类）
+	 * @param projectManager
+	 * @param startDate
+	 * @param endDate
+	 * @param CNTRCT_TYPE 合同性质：1为地铁，2位非地铁
+	 * @return
+	 */
+	public AuditAnnualDataDto queryAuditMonthData(String projectManager, String startDate, String endDate, String CNTRCT_TYPE);
 	
 	/**
 	 * 项目收费统计输出
@@ -97,6 +116,14 @@ public interface AuditService {
 			String reportNoComp, String reportNoLow, String reportNoHigh, String auditStatus, 
 			String projectClass, String docArrDateLow, String docArrDateHigh, String agentName, 
 			String contractName, String reportNo, String projectName, String cntrctInfo);
+	
+	/**
+	 * 查询审价（导出数据用）使用关键字
+	 * @param keyword
+	 * @param auditStatus
+	 * @return
+	 */
+	public List<AuditDto> queryAllAuditExport(String keyword, String auditStatus);
 	
 	/**
 	 * 根据审价编号查询记录（查询未删除的记录）

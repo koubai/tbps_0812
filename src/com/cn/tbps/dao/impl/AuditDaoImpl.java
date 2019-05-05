@@ -119,6 +119,33 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 		return list;
 	}
 
+	//审价
+	@Override
+	public int queryAuditCountByPage(String keyword, String auditStatus) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		//审价状态
+		paramMap.put("AUDIT_STATUS", auditStatus);
+		//关键字
+		paramMap.put("KEYWORD", keyword);
+		
+		return (Integer) getSqlMapClientTemplate().queryForObject("queryAuditKeywordCountByPage", paramMap);
+	}
+
+	@Override
+	public List<AuditDto> queryAuditByPage(String keyword, String auditStatus, int start, int end) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		//审价状态
+		paramMap.put("AUDIT_STATUS", auditStatus);
+		//关键字
+		paramMap.put("KEYWORD", keyword);
+				
+		paramMap.put("start", start);
+		paramMap.put("end", end);
+		@SuppressWarnings("unchecked")
+		List<AuditDto> list = getSqlMapClientTemplate().queryForList("queryAuditKeywordByPage", paramMap);
+		return list;
+	}
+
 	@Override
 	public List<AuditDto> queryAllAuditExport(String auditNoLow,
 			String auditNoHigh, String projectStatus, String projectManager,
@@ -159,6 +186,18 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 		paramMap.put("CNTRCT_INFO", cntrctInfo);
 		@SuppressWarnings("unchecked")
 		List<AuditDto> list = getSqlMapClientTemplate().queryForList("queryAllAuditExport", paramMap);
+		return list;
+	}
+
+	@Override
+	public List<AuditDto> queryAllAuditExport(String keyword, String auditStatus) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		//审价状态		
+		paramMap.put("AUDIT_STATUS", auditStatus);
+		//关键字
+		paramMap.put("KEYWORD", keyword);
+		@SuppressWarnings("unchecked")
+		List<AuditDto> list = getSqlMapClientTemplate().queryForList("queryAllAuditKeywordExport", paramMap);
 		return list;
 	}
 
@@ -272,6 +311,22 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 		if(null != list && list.size() > 0)
 			dto = list.get(0);
 		return dto;
+	}
+	
+	@Override
+	public List<AuditDto> queryAuditMonthSumList(String projectManager, String CNTRCT_TYPE, String dateCondition) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		String pm = projectManager;
+		if(StringUtil.isNotBlank(pm)) {
+			pm = pm.replace(",", "','");
+			pm = "'" + pm + "'";
+		}
+		paramMap.put("PROJECT_MANAGER", pm);
+		paramMap.put("dateCondition", dateCondition);
+		paramMap.put("CNTRCT_TYPE", CNTRCT_TYPE);
+		@SuppressWarnings("unchecked")
+		List<AuditDto> list = getSqlMapClientTemplate().queryForList("queryAuditMonthSumList", paramMap);
+		return list;
 	}
 
 	@Override
