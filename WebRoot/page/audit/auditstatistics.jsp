@@ -230,12 +230,12 @@
 								<th colspan="1">时间</th>
 								<th colspan="1">收到审价</th>
 								<th colspan="2">完成审价（个）</th>
-								<th colspan="2">总金额（元）</th>
+								<th colspan="2">总金额（万元）</th>
 								<th colspan="1">审定总金额</th>
 								<th colspan="2">未完成（个）</th>
 								<th colspan="1">复核项目</th>
-								<th colspan="3">审价费（元）</th>
-								<th colspan="4">实收审价费（元）</th>
+								<th colspan="3">审价费（万元）</th>
+								<th colspan="4">实收审价费（万元）</th>
 								<th colspan="2">本月总发票</th>
 								<th colspan="2">本月未收</th>
 								<th colspan="2">历史未收发票</th>
@@ -247,7 +247,7 @@
 								<th style="width: 100px;">历史</th>
 								<th style="width: 100px;">本月送审</th>
 								<th style="width: 120px;">本月完成送审</th>
-								<th style="width: 120px;">元</th>
+								<th style="width: 120px;">万元</th>
 								<th style="width: 100px;">当月</th>
 								<th style="width: 100px;">历史</th>
 								<th style="width: 100px;">个</th>
@@ -259,11 +259,11 @@
 								<th style="width: 120px;">历史（张）</th>
 								<th style="width: 120px;">历史</th>
 								<th style="width: 100px;">张</th>
-								<th style="width: 100px;">金额</th>
+								<th style="width: 100px;">金额（万元）</th>
 								<th style="width: 100px;">张</th>
-								<th style="width: 100px;">金额</th>
+								<th style="width: 100px;">金额（万元）</th>
 								<th style="width: 100px;">张</th>
-								<th style="width: 100px;">金额</th>
+								<th style="width: 100px;">金额（万元）</th>
 							</tr>
 							<tr>
 								<th colspan="15" style="text-align: center;">地铁审价项目</tg>

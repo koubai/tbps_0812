@@ -100,7 +100,7 @@ public class PoiAuditAnnualData extends Poi2007Base {
 		cell.setCellStyle(style);
 		
 		cell = row.createCell(4);
-		cell.setCellValue("总金额（元）");
+		cell.setCellValue("总金额（万元）");
 		cell.setCellStyle(style);
 		
 		cell = row.createCell(6);
@@ -116,11 +116,11 @@ public class PoiAuditAnnualData extends Poi2007Base {
 		cell.setCellStyle(style);
 		
 		cell = row.createCell(10);
-		cell.setCellValue("审价费（元）");
+		cell.setCellValue("审价费（万元）");
 		cell.setCellStyle(style);
 		
 		cell = row.createCell(13);
-		cell.setCellValue("实收审价费（元）");
+		cell.setCellValue("实收审价费（万元）");
 		cell.setCellStyle(style);
 		
 		cell = row.createCell(17);
@@ -162,7 +162,7 @@ public class PoiAuditAnnualData extends Poi2007Base {
 		cell.setCellStyle(style);
 		
 		cell = row.createCell(6);
-		cell.setCellValue("元");
+		cell.setCellValue("万元");
 		cell.setCellStyle(style);
 		
 		cell = row.createCell(7);
@@ -210,7 +210,7 @@ public class PoiAuditAnnualData extends Poi2007Base {
 		cell.setCellStyle(style);
 		
 		cell = row.createCell(18);
-		cell.setCellValue("金额");
+		cell.setCellValue("金额（万元）");
 		cell.setCellStyle(style);
 		
 		cell = row.createCell(19);
@@ -218,7 +218,7 @@ public class PoiAuditAnnualData extends Poi2007Base {
 		cell.setCellStyle(style);
 		
 		cell = row.createCell(20);
-		cell.setCellValue("金额");
+		cell.setCellValue("金额（万元）");
 		cell.setCellStyle(style);
 		
 		cell = row.createCell(21);
@@ -226,7 +226,7 @@ public class PoiAuditAnnualData extends Poi2007Base {
 		cell.setCellStyle(style);
 		
 		cell = row.createCell(22);
-		cell.setCellValue("金额");
+		cell.setCellValue("金额（万元）");
 		cell.setCellStyle(style);
 	}
 	
@@ -343,11 +343,11 @@ public class PoiAuditAnnualData extends Poi2007Base {
 		cell2.setCellStyle(style);
 		cell3.setCellValue(auditMonthSumData.getCompleteAuditHis());
 		cell3.setCellStyle(style);
-		cell4.setCellValue(StringUtil.BigDecimal2Str(auditMonthSumData.getSubmitAuditAmount(), 2));
+		cell4.setCellValue(StringUtil.BigDecimal2Str(auditMonthSumData.getSubmitAuditAmount(), 6));
 		cell4.setCellStyle(style);
-		cell5.setCellValue(StringUtil.BigDecimal2Str(auditMonthSumData.getCompleteAuditAmount(), 2));
+		cell5.setCellValue(StringUtil.BigDecimal2Str(auditMonthSumData.getCompleteAuditAmount(), 6));
 		cell5.setCellStyle(style);
-		cell6.setCellValue(StringUtil.BigDecimal2Str(auditMonthSumData.getAuthorizeAuditAmount(), 2));
+		cell6.setCellValue(StringUtil.BigDecimal2Str(auditMonthSumData.getAuthorizeAuditAmount(), 6));
 		cell6.setCellStyle(style);
 		cell7.setCellValue(auditMonthSumData.getIncompleteAuditCurrentMonth());
 		cell7.setCellStyle(style);
@@ -371,15 +371,15 @@ public class PoiAuditAnnualData extends Poi2007Base {
 		cell16.setCellStyle(style);
 		cell17.setCellValue(auditMonthSumData.getTotalNumMonth());
 		cell17.setCellStyle(style);
-		cell18.setCellValue(StringUtil.BigDecimal2Str(auditMonthSumData.getTotalAmountMonth(), 2));
+		cell18.setCellValue(StringUtil.BigDecimal2Str(auditMonthSumData.getTotalAmountMonth(), 6));
 		cell18.setCellStyle(style);
 		cell19.setCellValue(auditMonthSumData.getUnreceivedNumMonth());
 		cell19.setCellStyle(style);
-		cell20.setCellValue(StringUtil.BigDecimal2Str(auditMonthSumData.getUnreceivedAmountMonth(), 2));
+		cell20.setCellValue(StringUtil.BigDecimal2Str(auditMonthSumData.getUnreceivedAmountMonth(), 6));
 		cell20.setCellStyle(style);
 		cell21.setCellValue(auditMonthSumData.getUnreceivedNumHis());
 		cell21.setCellStyle(style);
-		cell22.setCellValue(StringUtil.BigDecimal2Str(auditMonthSumData.getUnreceivedAmountHis(), 2));
+		cell22.setCellValue(StringUtil.BigDecimal2Str(auditMonthSumData.getUnreceivedAmountHis(), 6));
 		cell22.setCellStyle(style);
 		
 		//添加数据
