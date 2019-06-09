@@ -272,7 +272,7 @@
 			//预算金额
 			document.getElementById('prePriceLabel').innerhtml='初审金额';
 			document.getElementById('prePriceLabel').style.display='block';
-			document.getElementById('prePriceLabe2').style.display='none';
+			document.getElementById('prePriceLabel2').style.display='none';
 //			document.getElementById('prePrice').style.display='none';
 			$("#PRE_PRICE").prop("value", "");
 			//初稿日期
