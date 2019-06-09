@@ -516,12 +516,12 @@ public class AuditDto extends BaseDto {
 	private String RESERVE5;
 
 	/**
-	 * 备用6
+	 * 备用6  (计价方式)
 	 */
 	private String RESERVE6;
 
 	/**
-	 * 备用7
+	 * 备用7  (计价方式：选单价时的总价金额)
 	 */
 	private BigDecimal RESERVE7;
 

@@ -526,8 +526,10 @@
 			document.getElementById('fourStage').style.display='none';$("#planDocRcvDate").prop("value", "");
 			setFourStageBlack();
 			//预算金额
-			document.getElementById('prePrice').style.display='none';
-			$("#PRE_PRICE").prop("value", "");
+			document.getElementById('prePriceLabel').innerhtml='初审金额';
+			document.getElementById('prePriceLabel').style.display='block';
+			document.getElementById('prePriceLabe2').style.display='none';
+//			document.getElementById('prePrice').style.display='none';
 			//初稿日期
 			//document.getElementById('draftDateDiv').style.display='none';
 			//$("#draftDate").prop("value", "");
@@ -569,8 +571,10 @@
 			document.getElementById('preSet').style.display='none';
 			$("#PRE_SET").prop("value", "");
 			//预算金额
+			document.getElementById('prePriceLabel').style.display='none';
+			document.getElementById('prePriceLabel2').style.display='none';			
 			document.getElementById('prePrice').style.display='none';
-			$("#PRE_PRICE").prop("value", "");
+			
 			//初稿日期
 			document.getElementById('draftDateDiv').style.display='none';
 			$("#draftDate").prop("value", "");
@@ -627,8 +631,12 @@
 			document.getElementById('preSet').style.display='none';
 			$("#PRE_SET").prop("value", "");
 			//预算金额
-			document.getElementById('prePrice').style.display='none';
-			$("#PRE_PRICE").prop("value", "");
+			document.getElementById('prePriceLabel').innerhtml='初审金额';
+			document.getElementById('prePriceLabel').style.display='block';
+			document.getElementById('prePriceLabel2').style.display='none';
+			document.getElementById('prePrice').style.display='block';
+//			document.getElementById('prePrice').style.display='none';
+			
 			//初稿日期
 			//document.getElementById('draftDateDiv').style.display='none';
 			//$("#draftDate").prop("value", "");
@@ -684,6 +692,11 @@
 			//预结算
 			document.getElementById('preSet').style.display='none';
 			$("#PRE_SET").prop("value", "");
+			//预算金额
+			document.getElementById('prePrice').style.display='block';
+			document.getElementById('prePriceLabel').style.display='none';
+			document.getElementById('prePriceLabel2').style.display='block';
+
 			//审定单发出日期
 			document.getElementById('approvalDiv').style.display='none';
 			$("#approvalSndDate").prop("value", "");
@@ -715,10 +728,6 @@
 			document.getElementById('progressStatusMemo').style.display='block';
 			//4个阶段
 			document.getElementById('fourStage').style.display='block';
-			//预算金额
-			document.getElementById('prePrice').style.display='block';
-			document.getElementById('prePriceLabel').style.display='none';
-			document.getElementById('prePriceLabel2').style.display='block';
 			//送审价等
 			document.getElementById('verify').style.display='block';
 			document.getElementById('verify2').style.display='block';
@@ -741,8 +750,10 @@
 			document.getElementById('preSet').style.display='block';
 			//预算金额
 			document.getElementById('prePrice').style.display='block';
+			document.getElementById('prePriceLabel').innerText='初审金额';
 			document.getElementById('prePriceLabel').style.display='block';
 			document.getElementById('prePriceLabel2').style.display='none';
+			
 			//委托方
 			document.getElementById('agent').style.display='block';
 			//专业方
@@ -766,8 +777,21 @@
 			//补充资料日期等
 			document.getElementById('supportDocDateDiv').style.display='block';
 		}
+		reserve6Change();
 	}
 	
+	function reserve6Change(){
+		//计价方式
+		var reserve6 = $("#RESERVE6").val();
+		document.getElementById('RESERVE6').style.display='block';
+		if (reserve6 =='2') {
+			document.getElementById('PriceTypeTotal').style.display='block';
+		} else {
+			document.getElementById('PriceTypeTotal').style.display='none';				
+		}
+		
+	}
+
 	function setFourStageBlack(){
 		$("#PROJ_PRICE").prop("value", "");
 		$("#planDocRptDate").prop("value", "");
@@ -1845,7 +1869,9 @@
 							</div>
 							</div>
 							<div id="prePrice">
-							<label for="" id="prePriceLabel" class="col-lg-1 form-label colorGold" style="display: block;">预算金额</label>
+							<!-- <label for="" id="prePriceLabel" class="col-lg-1 form-label colorGold" style="display: block;">预算金额</label>
+							<label for="" id="prePriceLabel2" class="col-lg-2 form-label colorGold" style="display: none;">预算金额</label> -->
+							<label for="" id="prePriceLabel" class="col-lg-1 form-label colorGold" style="display: block;"></label>
 							<label for="" id="prePriceLabel2" class="col-lg-2 form-label colorGold" style="display: none;">预算金额</label>
 							<div class="col-lg-2">
 								<s:textfield name="updAuditDto.PRE_PRICE" id="PRE_PRICE" cssClass="col-lg-10 form-control" maxlength="14" theme="simple"></s:textfield>
@@ -1969,6 +1995,36 @@
 							<div class="col-lg-2">
 								<s:textfield name="" id="contractCoName" disabled="true" cssClass="col-lg-10 form-control" value="%{updAuditDto.CONTRACT_CO_NAME}" maxlength="20" theme="simple"></s:textfield>
 							</div>
+						</div>
+						<div class="col-lg-12 form-group" id="pricetype">
+							<div class="col-lg-2"></div>
+							<label for="" class="col-lg-2 form-label colorGold">计价方式</label>
+							<div class="col-lg-2">
+								<!-- <s:textfield name="updAuditDto.RESERVE6" id="RESERVE6" cssClass="col-lg-10 form-control" maxlength="14" theme="simple"></s:textfield> -->
+								<select id="RESERVE6" name="updAuditDto.RESERVE6" class="form-control" onchange="reserve6Change()" >
+									<s:if test='updAuditDto.RESERVE6 == "1"'>
+										<option value="">请选择</option>
+										<option value="1" selected="selected">总价</option>
+										<option value="2">单价</option>
+									</s:if>
+									<s:elseif test='updAuditDto.RESERVE6 == "2"'>
+										<option value="">请选择</option>
+										<option value="1">总价</option>
+										<option value="2" selected="selected">单价</option>
+									</s:elseif>
+									<s:else>
+										<option value="" selected="selected">请选择</option>
+										<option value="1">总价</option>
+										<option value="2">单价</option>
+									</s:else>
+								</select>
+							</div>
+							<div id="PriceTypeTotal">
+								<label for="" class="col-lg-1 form-label colorGold">总金额</label>
+								<div class="col-lg-2">
+									<s:textfield name="updAuditDto.RESERVE7" id="RESERVE7" cssClass="col-lg-10 form-control" maxlength="14" theme="simple"></s:textfield>
+								</div>
+							</div>							
 						</div>
 						<div class="col-lg-12 form-group" id="verify">
 							<div class="col-lg-2"></div>
