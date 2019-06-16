@@ -329,6 +329,20 @@ public class AgentCompAction extends BaseAction {
 	}
 	
 	/**
+	 * 显示添加委托公司页面(来自审价项目)
+	 * @return
+	 */
+	public String showAddAgentComp2Action() {
+		try {
+			this.clearMessages();
+			addAgentCompDto = new AgentCompDto();
+		} catch(Exception e) {
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
 	 * 添加委托公司
 	 * @return
 	 */
@@ -361,6 +375,15 @@ public class AgentCompAction extends BaseAction {
 		}
 		return SUCCESS;
 	}
+	
+	/**
+	 * 添加委托公司
+	 * @return
+	 */
+	public String addAgentComp2Action() {
+		return addAgentCompAction();
+	}
+
 	
 	/**
 	 * 显示修改委托公司页面

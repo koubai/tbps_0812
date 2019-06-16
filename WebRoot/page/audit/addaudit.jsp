@@ -1460,6 +1460,12 @@
 			alert("请选择一条记录！");
 		}
 	}
+	
+	function addAgentCom() {
+		document.mainform.action = '<c:url value="/agentcomp/showAddAgentComp2Action.action"></c:url>';
+		document.mainform.submit();
+	}
+
 </script>
 </head>
 <body>
@@ -1852,8 +1858,8 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-lg-12 form-group" id="agent">
-							<div class="col-lg-2"></div>
+						<div class="col-lg-11 form-group" id="agent">
+							<div class="col-lg-1"></div>
 							<label for="" class="col-lg-2 form-label colorGold">委托方专业联系人及联系方式</label>
 							<div class="col-lg-4">
 								<input type="hidden" id="agentNo" value=""/>
@@ -1867,9 +1873,12 @@
 							<div class="col-lg-1">
 								<button class="btn btn-success form-control" type="button" id="selectAgent" onclick="showAgentComSelect();">选择</button>
 							</div>
+							<div class="col-lg-1">
+								<button class="btn btn-success form-control" type="button" id="addAgent" onclick="addAgentCom();">新增</button>								
+							</div>
 						</div>
-						<div class="col-lg-12 form-group" id="prof">
-							<div class="col-lg-2"></div>
+						<div class="col-lg-11 form-group" id="prof">
+							<div class="col-lg-1"></div>
 							<label for="" class="col-lg-2 form-label colorGold">专业公司联系人及联系方式</label>
 							<div class="col-lg-4">
 								<input type="hidden" id="profNo" value=""/>
@@ -1883,13 +1892,16 @@
 							<div class="col-lg-1">
 								<button class="btn btn-success form-control" type="button" id="selectProf" onclick="showProfComSelect();">选择</button>
 							</div>
+							<div class="col-lg-1">
+								<button class="btn btn-success form-control" type="button" id="addAgent" onclick="addAgentCom();">新增</button>								
+							</div>
 							<label for="" class="col-lg-1 form-label colorGold">专业公司</label>
 							<div class="col-lg-2">
 								<s:textfield name="" id="profCoName" disabled="true" cssClass="col-lg-10 form-control" value="%{addAuditDto.PROF_CO_NAME}" maxlength="20" theme="simple"></s:textfield>
 							</div>
 						</div>
-						<div class="col-lg-12 form-group" id="contract">
-							<div class="col-lg-2"></div>
+						<div class="col-lg-11 form-group" id="contract">
+							<div class="col-lg-1"></div>
 							<label for="" class="col-lg-2 form-label colorGold">承揽单位联系人及联系方式</label>
 							<div class="col-lg-4">
 								<input type="hidden" id="contractCoNo" value=""/>
@@ -1902,6 +1914,9 @@
 							</div>							
 							<div class="col-lg-1">
 								<button class="btn btn-success form-control" type="button" id="selectContract" onclick="showContractComSelect();">选择</button>
+							</div>
+							<div class="col-lg-1">
+								<button class="btn btn-success form-control" type="button" id="addAgent" onclick="addAgentCom();">新增</button>								
 							</div>
 							<label for="" class="col-lg-1 form-label colorGold">承揽单位</label>
 							<div class="col-lg-2">
