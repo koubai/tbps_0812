@@ -1237,7 +1237,7 @@ public class AuditAction extends BaseAction {
 				auditDisp.setCnName(AuditListDispEnum.getNameByID(Integer.parseInt(id)).getCnName());
 				auditAllDisp.add(auditDisp);
 			}*/
-			for(int id=1; id<=72; id++) {
+			for(int id=1; id<=74; id++) {
 				AuditListDisp auditDisp = new AuditListDisp();
 				auditDisp.setId(id);
 				auditDisp.setEnName(AuditListDispEnum.getNameByID(id).getEnName());

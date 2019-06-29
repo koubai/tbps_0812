@@ -72,7 +72,9 @@ public enum AuditListDispEnum {
 	B_SET_DATE(69,"B_SET_DATE","乙方到账日期"),
 	B_RATE(70,"B_RATE","乙方费率"),
 	CNTRCT_INFO(71,"CNTRCT_INFO","委托内容"),
-	PROJECT_NAME_PASS(72,"PROJECT_NAME_PASS","曾用名");
+	PROJECT_NAME_PASS(72,"PROJECT_NAME_PASS","曾用名"),
+	RESERVE6(73,"RESERVE6","计价方式"),
+	RESERVE7(74,"RESERVE7","总金额");
 	
     private final Integer id; 
     

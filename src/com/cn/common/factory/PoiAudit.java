@@ -117,7 +117,7 @@ public class PoiAudit extends Poi2007Base {
 					}
 					cell.setCellValue(set);
 				} 
-				else if(one[0].equals("PRE_PRICE")){ cell.setCellValue(StringUtil.BigDecimal2Str(audit.getPRE_PRICE(), 2)); } 
+				else if(one[0].equals("PRE_PRICE")){ cell.setCellValue(StringUtil.BigDecimal2Str(audit.getPRE_PRICE(), 6)); } 
 				else if(one[0].equals("SUPPORT_DOC_DATE")){ cell.setCellValue(DateUtil.dateToStr(audit.getSUPPORT_DOC_DATE(), format)); } 
 				else if(one[0].equals("DRAFT_DATE")){ cell.setCellValue(DateUtil.dateToStr(audit.getDRAFT_DATE(), format)); } 
 				else if(one[0].equals("APPROVAL_SND_DATE")){ cell.setCellValue(DateUtil.dateToStr(audit.getAPPROVAL_SND_DATE(), format)); } 
@@ -144,16 +144,16 @@ public class PoiAudit extends Poi2007Base {
 				else if(one[0].equals("PROF_INFO")){ cell.setCellValue(audit.getPROF_INFO()); } 
 				else if(one[0].equals("CONTRACT_CO_ID")){ cell.setCellValue(audit.getCONTRACT_CO_ID()); } 
 				else if(one[0].equals("CONTRACT_CO_INFO")){ cell.setCellValue(audit.getCONTRACT_CO_INFO()); } 
-				else if(one[0].equals("VERIFY_PER_AMOUNT")){ cell.setCellValue(StringUtil.BigDecimal2Str(audit.getVERIFY_PER_AMOUNT(), 2)); } 
-				else if(one[0].equals("VERIFY_AMOUNT")){ cell.setCellValue(StringUtil.BigDecimal2Str(audit.getVERIFY_AMOUNT(), 2)); } 
-				else if(one[0].equals("VERIFY_INCREASE")){ cell.setCellValue(StringUtil.BigDecimal2Str(audit.getVERIFY_INCREASE(), 2)); } 
-				else if(one[0].equals("VERIFY_DECREASE")){ cell.setCellValue(StringUtil.BigDecimal2Str(audit.getVERIFY_DECREASE(), 2)); } 
-				else if(one[0].equals("VERIFY_DIFF")){ cell.setCellValue(StringUtil.BigDecimal2Str(audit.getVERIFY_DIFF(), 2)); } 
+				else if(one[0].equals("VERIFY_PER_AMOUNT")){ cell.setCellValue(StringUtil.BigDecimal2Str(audit.getVERIFY_PER_AMOUNT(), 6)); } 
+				else if(one[0].equals("VERIFY_AMOUNT")){ cell.setCellValue(StringUtil.BigDecimal2Str(audit.getVERIFY_AMOUNT(), 6)); } 
+				else if(one[0].equals("VERIFY_INCREASE")){ cell.setCellValue(StringUtil.BigDecimal2Str(audit.getVERIFY_INCREASE(), 6)); } 
+				else if(one[0].equals("VERIFY_DECREASE")){ cell.setCellValue(StringUtil.BigDecimal2Str(audit.getVERIFY_DECREASE(), 6)); } 
+				else if(one[0].equals("VERIFY_DIFF")){ cell.setCellValue(StringUtil.BigDecimal2Str(audit.getVERIFY_DIFF(), 6)); } 
 				else if(one[0].equals("VERIFY_DIFF_RATE")){ cell.setCellValue(StringUtil.BigDecimal2Str(audit.getVERIFY_DIFF_RATE(), 2)); } 
-				else if(one[0].equals("CNT_PRICE")){ cell.setCellValue(StringUtil.BigDecimal2Str(audit.getCNT_PRICE(), 2)); } 
-				else if(one[0].equals("PROJ_PRICE")){ cell.setCellValue(StringUtil.BigDecimal2Str(audit.getPROJ_PRICE(), 2)); } 
-				else if(one[0].equals("LIMIT_PRICE")){ cell.setCellValue(StringUtil.BigDecimal2Str(audit.getLIMIT_PRICE(), 2)); } 
-				else if(one[0].equals("CNTRCT_PRICE")){ cell.setCellValue(StringUtil.BigDecimal2Str(audit.getCNTRCT_PRICE(), 2)); } 
+				else if(one[0].equals("CNT_PRICE")){ cell.setCellValue(StringUtil.BigDecimal2Str(audit.getCNT_PRICE(), 6)); } 
+				else if(one[0].equals("PROJ_PRICE")){ cell.setCellValue(StringUtil.BigDecimal2Str(audit.getPROJ_PRICE(), 6)); } 
+				else if(one[0].equals("LIMIT_PRICE")){ cell.setCellValue(StringUtil.BigDecimal2Str(audit.getLIMIT_PRICE(), 6)); } 
+				else if(one[0].equals("CNTRCT_PRICE")){ cell.setCellValue(StringUtil.BigDecimal2Str(audit.getCNTRCT_PRICE(), 6)); } 
 				else if(one[0].equals("PLAN_DOC_RCV_DATE")){ cell.setCellValue(DateUtil.dateToStr(audit.getPLAN_DOC_RCV_DATE(), format)); } 
 				else if(one[0].equals("PLAN_DOC_RPT_DATE")){ cell.setCellValue(DateUtil.dateToStr(audit.getPLAN_DOC_RPT_DATE(), format)); } 
 				else if(one[0].equals("PLAN_DOC_SND_TYPE")){ 
@@ -219,7 +219,7 @@ public class PoiAudit extends Poi2007Base {
 				} 
 				else if(one[0].equals("SET_DOC_ARR_DATE")){ cell.setCellValue(DateUtil.dateToStr(audit.getSET_DOC_ARR_DATE(), format)); } 
 				else if(one[0].equals("PROGRESS_STATUS_MEMO")){ cell.setCellValue(audit.getPROGRESS_STATUS_MEMO()); } 
-				else if(one[0].equals("A_AMOUNT")){ cell.setCellValue(StringUtil.BigDecimal2Str(audit.getA_AMOUNT(), 2)); } 
+				else if(one[0].equals("A_AMOUNT")){ cell.setCellValue(StringUtil.BigDecimal2Str(audit.getA_AMOUNT(), 6)); } 
 				else if(one[0].equals("A_STATUS")){ 
 					String type = "";
 					if("1".equals(audit.getA_STATUS())){
@@ -240,7 +240,7 @@ public class PoiAudit extends Poi2007Base {
 					}
 					cell.setCellValue(type);
 				} 
-				else if(one[0].equals("B_AMOUNT")){ cell.setCellValue(StringUtil.BigDecimal2Str(audit.getB_AMOUNT(), 2)); } 
+				else if(one[0].equals("B_AMOUNT")){ cell.setCellValue(StringUtil.BigDecimal2Str(audit.getB_AMOUNT(), 6)); } 
 				else if(one[0].equals("A_INVOICE_DELI_DATE")){ cell.setCellValue(DateUtil.dateToStr(audit.getA_INVOICE_DELI_DATE(), format)); } 
 				else if(one[0].equals("A_INVOICE_DATE")){ cell.setCellValue(DateUtil.dateToStr(audit.getA_INVOICE_DATE(), format)); } 
 				else if(one[0].equals("A_INVOICE_NO")){ cell.setCellValue(audit.getA_INVOICE_NO()); } 
@@ -265,7 +265,17 @@ public class PoiAudit extends Poi2007Base {
 					}
 					cell.setCellValue(type);
 				} 
-				else if(one[0].equals("PROJECT_NAME_PASS")){ cell.setCellValue(audit.getPROJECT_NAME_PASS()); } 
+				else if(one[0].equals("PROJECT_NAME_PASS")){ cell.setCellValue(audit.getPROJECT_NAME_PASS()); }
+				else if(one[0].equals("RESERVE6")){ 
+					String reserve6 = "";
+					if("1".equals(audit.getRESERVE6())){
+						reserve6 = "总价";
+					} else if("2".equals(audit.getRESERVE6())){
+						reserve6 = "单价";
+					}
+					cell.setCellValue(reserve6); 
+				} 
+				else if(one[0].equals("RESERVE7")){ cell.setCellValue(StringUtil.BigDecimal2Str(audit.getRESERVE7(), 6)); } 
 				cell.setCellStyle(style);
 				j++;
 			}

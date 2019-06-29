@@ -703,6 +703,20 @@
 									</td>
 									</s:elseif>
 									<s:elseif test='#arrAuditShow[0] == "PROJECT_NAME_PASS"'><td><s:property value="PROJECT_NAME_PASS"/></td></s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "RESERVE6"'>
+									<td align="center">
+									        <s:if test='RESERVE6 == "1"'>
+									                单价
+									        </s:if>
+									        <s:elseif test='RESERVE6 == "2"'>
+									                总价
+									        </s:elseif>
+									        <s:else>
+									                <s:property value="RESERVE6"/>
+									        </s:else>
+									</td>
+									</s:elseif>
+									<s:elseif test='#arrAuditShow[0] == "RESERVE7"'><td><s:property value="RESERVE7"/></td></s:elseif>
 									<s:else>
 										<td></td>
 									</s:else>
