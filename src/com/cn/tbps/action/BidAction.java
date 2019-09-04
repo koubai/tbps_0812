@@ -640,6 +640,7 @@ public class BidAction extends BaseAction {
 				this.clearMessages();
 			if (updBidTabIndex == null || updBidTabIndex.equals(""))
 				updBidTabIndex = "1";
+			
 			updateBidDto = bidService.queryAllBidByID(updateBidNo);
 			if(updateBidDto == null) {
 				this.addActionMessage("该数据不存在！");
@@ -700,7 +701,7 @@ public class BidAction extends BaseAction {
 			}
 			//修改数据
 			String username = (String) ActionContext.getContext().getSession().get(Constants.USER_NAME);
-			updateBidDto.setUPDATE_USER(username);
+			updateBidDto.setUPDATE_USER(username);			
 			if (listExpertLib.size() != 0 && updateBidDto.getBID_EXPERT_NOTIFY_DATE()== null){
 				updateBidDto.setBID_EXPERT_NOTIFY_DATE(new Date());
 			}

@@ -673,6 +673,7 @@
 		$("#CO_ADDRESS1").val($("#tmpCO_ADDRESS1").val());
 		$("#CO_MANAGER_EMAIL1").val($("#tmpCO_MANAGER_EMAIL1").val());
 		$("#CO_TAX").val($("#tmpCO_TAX").val());
+		$("#PROJECT_MANAGER").val($("#tmpPROJECT_MANAGER").val());
 		
 		$("#PROJECT_DEVIEW_DATE").val($("#tmpPROJECT_DEVIEW_DATE").val());
 		$("#PROJ_APPROVAL").attr("value", $("#tmpPROJ_APPROVAL").val());
@@ -1375,7 +1376,7 @@
 			var CO_MANAGER_TEL1 = inputs[9].value;
 			var CNTRCT_TYPE = inputs[10].value;
 			var CO_TAX = inputs[11].value;
-			var PROJECT_SENIOR_MANAGER = inputs[12].value;
+//			var PROJECT_SENIOR_MANAGER = inputs[12].value;
 			var CNTRCT_TYPE_NAME = inputs[13].value;
 			$('#tmpCNTRCT_NO').val(CNTRCT_NO);
 			$('#tmpCNTRCT_YEAR').val(CNTRCT_YEAR);
@@ -2233,7 +2234,8 @@
 						<div class="col-lg-4 form-group">
 						 	<label for="" class="col-lg-3 form-label">工程师</label>
 						 	<div class="col-lg-9">
-						 		<select id="tmpPROJECT_MANAGER" class="form-control" disabled="disabled">
+						 		<!-- <select id="tmpPROJECT_MANAGER" class="form-control" disabled="disabled"> -->
+						 		<select id="tmpPROJECT_MANAGER" class="form-control" >
 						 			<option value="" selected="selected">请选择</option>
 									<s:iterator id="listUserInfo" value="listUserInfo" status="st1">
 										<option value="<s:property value="LOGIN_ID"/>" <s:if test="%{updateBidDto.PROJECT_MANAGER == LOGIN_ID}">selected</s:if>><s:property value="LOGIN_NAME"/></option>
