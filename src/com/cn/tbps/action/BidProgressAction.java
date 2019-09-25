@@ -813,18 +813,28 @@ public class BidProgressAction extends BaseAction {
 //			setStatus0105(bidStatusInfo.substring(5,6));
 			if (bidDto.getBID_DOC_DELI_DATE1()!= null && StringUtil.isNotBlank(bidDto.getBID_DOC_DELI_DATE1().toString())){
 				setStatus0105("9");
-				setFile01(StringUtil.splitFileName(new String(bidDto.getBID_DOC_DELI_FILE1().getBytes("ISO-8859-1"),"UTF-8")));
-				setFile02(StringUtil.splitFileName(new String(bidDto.getBID_DOC_DELI_FILE2().getBytes("ISO-8859-1"),"UTF-8")));
-				setFile03(StringUtil.splitFileName(new String(bidDto.getBID_DOC_DELI_FILE3().getBytes("ISO-8859-1"),"UTF-8")));
-				setFile04(StringUtil.splitFileName(new String(bidDto.getBID_DOC_DELI_FILE4().getBytes("ISO-8859-1"),"UTF-8")));
-				setFile05(StringUtil.splitFileName(new String(bidDto.getBID_DOC_DELI_FILE5().getBytes("ISO-8859-1"),"UTF-8")));
+				if (StringUtil.isNotNull(bidDto.getBID_DOC_DELI_FILE1()))
+					setFile01(StringUtil.splitFileName(new String(bidDto.getBID_DOC_DELI_FILE1().getBytes("ISO-8859-1"),"UTF-8")));
+				if (StringUtil.isNotNull(bidDto.getBID_DOC_DELI_FILE2()))
+					setFile02(StringUtil.splitFileName(new String(bidDto.getBID_DOC_DELI_FILE2().getBytes("ISO-8859-1"),"UTF-8")));
+				if (StringUtil.isNotNull(bidDto.getBID_DOC_DELI_FILE3()))
+					setFile03(StringUtil.splitFileName(new String(bidDto.getBID_DOC_DELI_FILE3().getBytes("ISO-8859-1"),"UTF-8")));
+				if (StringUtil.isNotNull(bidDto.getBID_DOC_DELI_FILE4()))
+					setFile04(StringUtil.splitFileName(new String(bidDto.getBID_DOC_DELI_FILE4().getBytes("ISO-8859-1"),"UTF-8")));
+				if (StringUtil.isNotNull(bidDto.getBID_DOC_DELI_FILE5()))
+					setFile05(StringUtil.splitFileName(new String(bidDto.getBID_DOC_DELI_FILE5().getBytes("ISO-8859-1"),"UTF-8")));
 			}else{
 				setStatus0105("0");
-				setFile01(StringUtil.splitFileName(new String(bidDto.getBID_DOC_DELI_FILE1().getBytes("ISO-8859-1"),"UTF-8")));
-				setFile02(StringUtil.splitFileName(new String(bidDto.getBID_DOC_DELI_FILE2().getBytes("ISO-8859-1"),"UTF-8")));
-				setFile03(StringUtil.splitFileName(new String(bidDto.getBID_DOC_DELI_FILE3().getBytes("ISO-8859-1"),"UTF-8")));
-				setFile04(StringUtil.splitFileName(new String(bidDto.getBID_DOC_DELI_FILE4().getBytes("ISO-8859-1"),"UTF-8")));
-				setFile05(StringUtil.splitFileName(new String(bidDto.getBID_DOC_DELI_FILE5().getBytes("ISO-8859-1"),"UTF-8")));
+				if (StringUtil.isNotNull(bidDto.getBID_DOC_DELI_FILE1()))
+					setFile01(StringUtil.splitFileName(new String(bidDto.getBID_DOC_DELI_FILE1().getBytes("ISO-8859-1"),"UTF-8")));
+				if (StringUtil.isNotNull(bidDto.getBID_DOC_DELI_FILE2()))
+					setFile02(StringUtil.splitFileName(new String(bidDto.getBID_DOC_DELI_FILE2().getBytes("ISO-8859-1"),"UTF-8")));
+				if (StringUtil.isNotNull(bidDto.getBID_DOC_DELI_FILE3()))
+					setFile03(StringUtil.splitFileName(new String(bidDto.getBID_DOC_DELI_FILE3().getBytes("ISO-8859-1"),"UTF-8")));
+				if (StringUtil.isNotNull(bidDto.getBID_DOC_DELI_FILE4()))
+					setFile04(StringUtil.splitFileName(new String(bidDto.getBID_DOC_DELI_FILE4().getBytes("ISO-8859-1"),"UTF-8")));
+				if (StringUtil.isNotNull(bidDto.getBID_DOC_DELI_FILE5()))
+					setFile05(StringUtil.splitFileName(new String(bidDto.getBID_DOC_DELI_FILE5().getBytes("ISO-8859-1"),"UTF-8")));
 			}
 			
 			//项目完成情况
@@ -938,18 +948,28 @@ public class BidProgressAction extends BaseAction {
 //			setStatus0405(bidStatusInfo.substring(20,21));
 			if (bidDto.getBID_VER_DOC_DELI_DATE1() != null && StringUtil.isNotBlank(bidDto.getBID_VER_DOC_DELI_DATE1().toString())){
 				setStatus0405("9");
-				setFile01(StringUtil.splitFileName(new String(bidDto.getBID_VER_DOC_DELI_FILE1().getBytes("ISO-8859-1"),"UTF-8")));
-				setFile02(StringUtil.splitFileName(new String(bidDto.getBID_VER_DOC_DELI_FILE2().getBytes("ISO-8859-1"),"UTF-8")));
-				setFile03(StringUtil.splitFileName(new String(bidDto.getBID_VER_DOC_DELI_FILE3().getBytes("ISO-8859-1"),"UTF-8")));
-				setFile04(StringUtil.splitFileName(new String(bidDto.getBID_VER_DOC_DELI_FILE4().getBytes("ISO-8859-1"),"UTF-8")));
-				setFile05(StringUtil.splitFileName(new String(bidDto.getBID_VER_DOC_DELI_FILE5().getBytes("ISO-8859-1"),"UTF-8")));
+				if (StringUtil.isNotNull(bidDto.getBID_VER_DOC_DELI_FILE1()))
+					setFile01(StringUtil.splitFileName(new String(bidDto.getBID_VER_DOC_DELI_FILE1().getBytes("ISO-8859-1"),"UTF-8")));
+				if (StringUtil.isNotNull(bidDto.getBID_VER_DOC_DELI_FILE2()))
+					setFile02(StringUtil.splitFileName(new String(bidDto.getBID_VER_DOC_DELI_FILE2().getBytes("ISO-8859-1"),"UTF-8")));
+				if (StringUtil.isNotNull(bidDto.getBID_VER_DOC_DELI_FILE3()))
+					setFile03(StringUtil.splitFileName(new String(bidDto.getBID_VER_DOC_DELI_FILE3().getBytes("ISO-8859-1"),"UTF-8")));
+				if (StringUtil.isNotNull(bidDto.getBID_VER_DOC_DELI_FILE4()))
+					setFile04(StringUtil.splitFileName(new String(bidDto.getBID_VER_DOC_DELI_FILE4().getBytes("ISO-8859-1"),"UTF-8")));
+				if (StringUtil.isNotNull(bidDto.getBID_VER_DOC_DELI_FILE5()))
+					setFile05(StringUtil.splitFileName(new String(bidDto.getBID_VER_DOC_DELI_FILE5().getBytes("ISO-8859-1"),"UTF-8")));
 			}else{
 				setStatus0405("0");
-				setFile01(StringUtil.splitFileName(new String(bidDto.getBID_VER_DOC_DELI_FILE1().getBytes("ISO-8859-1"),"UTF-8")));
-				setFile02(StringUtil.splitFileName(new String(bidDto.getBID_VER_DOC_DELI_FILE2().getBytes("ISO-8859-1"),"UTF-8")));
-				setFile03(StringUtil.splitFileName(new String(bidDto.getBID_VER_DOC_DELI_FILE3().getBytes("ISO-8859-1"),"UTF-8")));
-				setFile04(StringUtil.splitFileName(new String(bidDto.getBID_VER_DOC_DELI_FILE4().getBytes("ISO-8859-1"),"UTF-8")));
-				setFile05(StringUtil.splitFileName(new String(bidDto.getBID_VER_DOC_DELI_FILE5().getBytes("ISO-8859-1"),"UTF-8")));
+				if (StringUtil.isNotNull(bidDto.getBID_VER_DOC_DELI_FILE1()))
+					setFile01(StringUtil.splitFileName(new String(bidDto.getBID_VER_DOC_DELI_FILE1().getBytes("ISO-8859-1"),"UTF-8")));
+				if (StringUtil.isNotNull(bidDto.getBID_VER_DOC_DELI_FILE2()))
+					setFile02(StringUtil.splitFileName(new String(bidDto.getBID_VER_DOC_DELI_FILE2().getBytes("ISO-8859-1"),"UTF-8")));
+				if (StringUtil.isNotNull(bidDto.getBID_VER_DOC_DELI_FILE3()))
+					setFile03(StringUtil.splitFileName(new String(bidDto.getBID_VER_DOC_DELI_FILE3().getBytes("ISO-8859-1"),"UTF-8")));
+				if (StringUtil.isNotNull(bidDto.getBID_VER_DOC_DELI_FILE4()))
+					setFile04(StringUtil.splitFileName(new String(bidDto.getBID_VER_DOC_DELI_FILE4().getBytes("ISO-8859-1"),"UTF-8")));
+				if (StringUtil.isNotNull(bidDto.getBID_VER_DOC_DELI_FILE5()))
+					setFile05(StringUtil.splitFileName(new String(bidDto.getBID_VER_DOC_DELI_FILE5().getBytes("ISO-8859-1"),"UTF-8")));
 			}
 			
 			//招标文件定稿
@@ -980,14 +1000,15 @@ public class BidProgressAction extends BaseAction {
 			//中标投标文件扫描
 //			setStatus0505(bidStatusInfo.substring(25,26));
 //			setStatus0601(bidStatusInfo.substring(26,27));
-			if (bidDto.getBID_VER_DOC_SCAN_DATE()!= null && StringUtil.isNotBlank(bidDto.getBID_VER_DOC_SCAN()) && StringUtil.isNotBlank(bidDto.getBID_VER_DOC_SCAN_DATE().toString())){
+//			if (bidDto.getBID_VER_DOC_SCAN_DATE()!= null && StringUtil.isNotBlank(bidDto.getBID_VER_DOC_SCAN()) && StringUtil.isNotBlank(bidDto.getBID_VER_DOC_SCAN_DATE().toString())){
+			if (bidDto.getBID_VER_DOC_SCAN_DATE()!= null && StringUtil.isNotBlank(bidDto.getBID_VER_DOC_SCAN_DATE().toString())){
 				setStatus0505("9");
 			}else{
 				setStatus0505("0");
 			}
 			
 			List<BidCompDto> complist = bidService.queryBidComp(bidDto); 
-			if (complist.size() > 0) {
+			if (complist!= null && complist.size() > 0) {
 				int cnt1=0; //标书费入账日期
 				int cnt2=0; //标书费开票日期
 				int cnt3=0; //保证金入账日期
