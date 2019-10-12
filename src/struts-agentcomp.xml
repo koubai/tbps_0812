@@ -30,6 +30,10 @@
 			<result name="*">/page/agentcomp/addagent2.jsp</result>
 		</action>
 		
+		<action name="showAddAgentComp3Action" class="agentCompAction" method="showAddAgentComp3Action">
+			<result name="*">/page/agentcomp/addagent2.jsp</result>
+		</action>
+		
 		<action name="addAgentCompAction" class="agentCompAction" method="addAgentCompAction">
 			<result name="success">/page/agentcomp/addagent.jsp</result>
 			<result name="checkerror">/page/agentcomp/addagent.jsp</result>

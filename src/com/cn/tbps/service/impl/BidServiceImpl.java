@@ -404,6 +404,32 @@ public class BidServiceImpl extends BaseService implements BidService {
 	}
 	
 	@Override
+	public BidDto queryAllBidByID2(String bidNo) {
+		BidDto bid = bidDao.queryAllBidByID2(bidNo);
+		if(bid != null) {
+			bid.setBID_EXPERT_COMMISION_ACT_YUAN(TbpsUtil.bigDecimal2str(bid.getBID_EXPERT_COMMISION_ACT_YUAN_SHOW()));
+			bid.setBID_EXPERT_COMMISION_PRE_YUAN(TbpsUtil.bigDecimal2str(bid.getBID_EXPERT_COMMISION_PRE_YUAN_SHOW()));
+			BidCntrctDto bidCntrct = bidCntrctDao.queryBidCntrctByID(bid.getCNTRCT_NO());
+			if(bidCntrct != null) {
+				bid.setCNTRCT_NAME(bidCntrct.getCNTRCT_NAME());
+				//合同类别名称从合同表中带出
+				bid.setCNTRCT_TYPE_NAME(bidCntrct.getCNTRCT_TYPE_NAME());
+				bid.setCNTRCT_YEAR(bidCntrct.getCNTRCT_YEAR());
+				bid.setCNTRCT_ST_DATE(bidCntrct.getCNTRCT_ST_DATE());
+				bid.setCNTRCT_ED_DATE(bidCntrct.getCNTRCT_ED_DATE());
+				bid.setBID_COMP_NO(bidCntrct.getBID_COMP_NO());
+				bid.setBID_COMP_NAME(bidCntrct.getBID_COMP_NAME());
+				bid.setCO_MANAGER1(bidCntrct.getCO_MANAGER1());
+				bid.setCO_MANAGER_TEL1(bidCntrct.getCO_MANAGER_TEL1());
+				bid.setCO_ADDRESS1(bidCntrct.getCO_ADDRESS1());
+				bid.setCO_MANAGER_EMAIL1(bidCntrct.getCO_MANAGER_EMAIL1());
+				bid.setCO_TAX(bidCntrct.getCO_TAX());
+			}
+		}
+		return bid;
+	}
+	
+	@Override
 	public String insertBidNew(BidDto bidDto, List<BidCompDto> listBidComp, List<ExpertLibDto> listExpertLib) {
 		//招标编号
 		String bidNo = "";
@@ -458,7 +484,7 @@ public class BidServiceImpl extends BaseService implements BidService {
 					}
 
 					//验证自动生成的招标编号是否已存在
-					BidDto b = bidDao.queryAllBidByID(bidNo);
+					BidDto b = bidDao.queryAllBidByID2(bidNo);
 					//循环生成招标编号，直到招标编号不存在为止
 					if(b == null) {
 						//招标编号不存在，则更新配置标，并跳出循环
@@ -502,7 +528,7 @@ public class BidServiceImpl extends BaseService implements BidService {
 				bidNo = bidDto.getBID_NO();
 				int i = 1;
 				while(true) {
-					BidDto b = bidDao.queryAllBidByID(bidNo);
+					BidDto b = bidDao.queryAllBidByID2(bidNo);
 					if(b == null) {
 						break;
 					} else {
@@ -796,7 +822,7 @@ public class BidServiceImpl extends BaseService implements BidService {
 //					}
 
 					//验证自动生成的招标编号是否已存在
-					BidDto b = bidDao.queryAllBidByID(bidNo);
+					BidDto b = bidDao.queryAllBidByID2(bidNo);
 					//循环生成招标编号，直到招标编号不存在为止
 					if(b == null) {
 						//招标编号不存在，则更新配置标，并跳出循环
@@ -836,7 +862,7 @@ public class BidServiceImpl extends BaseService implements BidService {
 				bidNo = bidDto.getBID_NO();
 				int i = 1;
 				while(true) {
-					BidDto b = bidDao.queryAllBidByID(bidNo);
+					BidDto b = bidDao.queryAllBidByID2(bidNo);
 					if(b == null) {
 						break;
 					} else {

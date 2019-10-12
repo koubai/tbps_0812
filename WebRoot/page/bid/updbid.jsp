@@ -3167,7 +3167,7 @@
 										<th>支付形式</th>
 										<th>开票信息</th>
 										<th>开票时间</th>
-										<th>发票编号</th>
+										<th style="display:none">发票编号22</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -3230,7 +3230,7 @@
 													</div>
 												</div>
 											</td>
-											<td>
+											<td style="display:none">
 												<input name="tmpBID_RECEIPT_NO" type="text" value="<s:property value="BID_RECEIPT_NO"/>" class="form-control">
 											</td>
 										</tr>
@@ -3989,7 +3989,7 @@
 						<div class="form-group">
 							<label class="col-sm-3 control-label">项目负责人联系方式</label>
 							<div class="col-sm-8">
-								<input type="text" id="tmpBidCompProTel" class="form-control" maxlength="20" placeholder="请输入项目负责人联系方式">
+								<input type="text" id="tmpBidCompProTel" class="form-control" maxlength="50" placeholder="请输入项目负责人联系方式">
 							</div>
 						</div>
 						<div class="form-group">
@@ -4008,7 +4008,7 @@
 						<div class="form-group">
 							<label class="col-sm-3 control-label">联系人联系方式</label>
 							<div class="col-sm-8">
-								<input type="text"  id="tmpBidCompTel" class="form-control" maxlength="25" placeholder="请输入联系人联系方式">
+								<input type="text"  id="tmpBidCompTel" class="form-control" maxlength="50" placeholder="请输入联系人联系方式">
 							</div>
 						</div>
 						<div class="form-group">

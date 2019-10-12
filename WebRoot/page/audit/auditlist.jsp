@@ -412,7 +412,12 @@
 							</s:iterator>
 						</tr>
 						<s:iterator id="listAudit" value="listAudit" status="st1">
-							<tr onclick="checkRadioTr(this, event);">
+							<s:if test='PROGRESS_STATUS == "2" or PROGRESS_STATUS == "3"'>
+								<tr onclick="checkRadioTr(this, event);" style="background-color: #9F9F9F;">
+							</s:if>
+							<s:else>
+								<tr onclick="checkRadioTr(this, event);">
+							</s:else>
 								<td><input name="radioKey" type="radio" value="<s:property value="AUDIT_NO"/>"/></td>
 								<s:iterator id="arrAuditShow" value="arrAuditShow" status="st2">
 									<s:if test='#arrAuditShow[0] == "REPORT_NO"'><td><s:property value="REPORT_NO"/></td></s:if>
@@ -437,6 +442,9 @@
 									        </s:if>
 									        <s:elseif test='PROGRESS_STATUS == "2"'>
 									                中止
+									        </s:elseif>
+									        <s:elseif test='PROGRESS_STATUS == "3"'>
+									                暂停
 									        </s:elseif>
 									        <s:else>
 									                <s:property value="PROGRESS_STATUS"/>

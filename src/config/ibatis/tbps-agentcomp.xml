@@ -108,6 +108,10 @@
 	<select id="queryAllAgentComp" parameterClass="java.util.Map" resultMap="AgentCompDto">
 		select * from agentcomp where 1 = 1 and DELETE_FLG = '1' order by UPDATE_DATE desc
 	</select>
+
+	<select id="queryAllAgentComp2" parameterClass="java.util.Map" resultMap="AgentCompDto">
+		select * from agentcomp where 1 = 1 order by UPDATE_DATE desc
+	</select>
 	
 	<insert id="insertAgentComp" parameterClass="com.cn.tbps.dto.AgentCompDto">
 		insert into agentcomp(ANGENT_COMP_NO,ANGENT_COMP_NAME,MEMO1,DELETE_FLG,UPDATE_USER,INSERT_DATE,UPDATE_DATE,

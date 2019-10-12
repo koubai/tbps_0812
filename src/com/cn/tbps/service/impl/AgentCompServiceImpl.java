@@ -70,6 +70,11 @@ public class AgentCompServiceImpl extends BaseService implements AgentCompServic
 	public List<AgentCompDto> queryAllAgentComp() {
 		return agentCompDao.queryAllAgentComp();
 	}
+	
+	@Override
+	public List<AgentCompDto> queryAllAgentComp2() {
+		return agentCompDao.queryAllAgentComp2();
+	}
 
 	@Override
 	public void insertAgentComp(AgentCompDto agentComp) {

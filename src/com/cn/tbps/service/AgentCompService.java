@@ -45,6 +45,12 @@ public interface AgentCompService {
 	public List<AgentCompDto> queryAllAgentComp();
 	
 	/**
+	 * 查询所有的委托公司（含删除）
+	 * @return
+	 */
+	public List<AgentCompDto> queryAllAgentComp2();
+	
+	/**
 	 * 新增委托公司
 	 * @param agentComp
 	 */

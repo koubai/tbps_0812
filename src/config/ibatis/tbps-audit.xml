@@ -2958,6 +2958,7 @@
 			and PROGRESS_STATUS <![CDATA[<>]]> '3'
 			and CNTRCT_INFO = '1'
 			and B_SET_DATE is null
+			and B_TYPE <![CDATA[<>]]> '9'
 			and datediff(curdate(), B_INVOICE_DATE) <![CDATA[>=]]> 30
 			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
 				PROJECT_MANAGER in ($PROJECT_MANAGER$)

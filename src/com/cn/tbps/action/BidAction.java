@@ -549,7 +549,7 @@ public class BidAction extends BaseAction {
 			//分类=招标办，则校验招标编号是否存在
 			if("3".equals(addBidDto.getCNTRCT_TYPE())) {
 				//分类=招标办，则校验招标编号是否存在
-				BidDto bid = bidService.queryAllBidByID(addBidDto.getBID_NO());
+				BidDto bid = bidService.queryAllBidByID2(addBidDto.getBID_NO());
 				if(bid != null) {
 					this.addActionMessage("招标编号" + addBidDto.getBID_NO() + "已经存在！");
 					return "checkerror";
@@ -557,7 +557,7 @@ public class BidAction extends BaseAction {
 			} else {
 				if("0".equals(addBidDto.getIS_RANDOM())) {
 					//非随机生成招标编号
-					BidDto bid = bidService.queryAllBidByID(addBidDto.getBID_NO());
+					BidDto bid = bidService.queryAllBidByID2(addBidDto.getBID_NO());
 					if(bid != null) {
 						this.addActionMessage("招标编号" + addBidDto.getBID_NO() + "已经存在！");
 						return "checkerror";

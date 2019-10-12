@@ -1471,11 +1471,17 @@
 		}
 	}
 	
+	//甲方
 	function addAgentCom() {
 		document.mainform.action = '<c:url value="/agentcomp/showAddAgentComp2Action.action"></c:url>';
 		document.mainform.submit();
 	}
 
+	//乙方
+	function addAgentCom2() {
+		document.mainform.action = '<c:url value="/agentcomp/showAddAgentComp3Action.action"></c:url>';
+		document.mainform.submit();
+	}
 </script>
 </head>
 <body>
@@ -1631,6 +1637,11 @@
 				<input id="A_SET_DATE_OLD" type="hidden" value="<s:date name="updAuditDtoOld.A_SET_DATE" format="yyyy-MM-dd"/>"/>
 				<input id="B_SET_DATE_OLD" type="hidden" value="<s:date name="updAuditDtoOld.B_SET_DATE" format="yyyy-MM-dd"/>"/>
 					
+					<div class="row">
+						<div class="col-lg-1">
+							<button class="btn btn-success form-control" type="button" onclick="goAuditListDetail();">返回上级</button>
+						</div>
+					</div>
 					<h3 class="title"><label for="" class="col-lg-2 form-label">审价项目更新</label></h3>
 					<div class="row">
 						<div class="col-lg-12 form-group">
@@ -2004,7 +2015,7 @@
 								<button class="btn btn-success form-control" type="button" id="selectContract" onclick="showContractComSelect();">选择</button>
 							</div>
 							<div class="col-lg-1">
-								<button class="btn btn-success form-control" type="button" id="addAgent" onclick="addAgentCom();">新增</button>								
+								<button class="btn btn-success form-control" type="button" id="addAgent" onclick="addAgentCom2();">新增</button>								
 							</div>
 							<label for="" class="col-lg-1 form-label colorGold">承揽单位</label>
 							<div class="col-lg-2">
@@ -2435,24 +2446,35 @@
 										<option value="1" selected="selected">标准收费</option>
 										<option value="2">收费金额</option>
 										<option value="3">送审金额</option>
+										<option value="9">不收费</option>
 									</s:if>
 									<s:elseif test='updAuditDto.B_TYPE == "2"'>
 										<option value="">请选择</option>
 										<option value="1">标准收费</option>
 										<option value="2" selected="selected">收费金额</option>
 										<option value="3">送审金额</option>
+										<option value="9">不收费</option>
 									</s:elseif>
 									<s:elseif test='updAuditDto.B_TYPE == "3"'>
 										<option value="">请选择</option>
 										<option value="1">标准收费</option>
 										<option value="2">收费金额</option>
 										<option value="3" selected="selected">送审金额</option>
+										<option value="9">不收费</option>
+									</s:elseif>
+									<s:elseif test='updAuditDto.B_TYPE == "9"'>
+										<option value="">请选择</option>
+										<option value="1">标准收费</option>
+										<option value="2">收费金额</option>
+										<option value="3">送审金额</option>
+										<option value="9" selected="selected">不收费</option>
 									</s:elseif>
 									<s:else>
 										<option value="" selected="selected">请选择</option>
 										<option value="1">标准收费</option>
 										<option value="2">收费金额</option>
 										<option value="3">送审金额</option>
+										<option value="9">不收费</option>
 									</s:else>
 								</select>
 							</div>
@@ -2641,8 +2663,6 @@
 							<div class="col-lg-2">
 								<button class="btn btn-success form-control" type="button" onclick="exportAuditReport();">审价报告文字稿</button>
 							</div>
-							<div class="col-lg-3">
-							</div>
 							<div class="col-lg-1">
 								<button class="btn btn-success form-control" type="button" onclick="goAuditList();">取消</button>
 							</div>
@@ -2651,6 +2671,8 @@
 							</div>
 							<div class="col-lg-1">
 								<button class="btn btn-success form-control" type="button" onclick="goAuditListDetail();">返回上级</button>
+							</div>
+							<div class="col-lg-3">
 							</div>
 						</div>
 					</div>

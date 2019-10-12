@@ -124,6 +124,13 @@ public class AgentCompDaoImpl extends BaseDao implements AgentCompDao {
 	}
 
 	@Override
+	public List<AgentCompDto> queryAllAgentComp2() {
+		@SuppressWarnings("unchecked")
+		List<AgentCompDto> list = getSqlMapClientTemplate().queryForList("queryAllAgentComp2");
+		return list;
+	}
+	
+	@Override
 	public void insertAgentComp(AgentCompDto agentComp) {
 		getSqlMapClientTemplate().insert("insertAgentComp", agentComp);
 	}

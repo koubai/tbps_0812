@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
@@ -329,18 +331,78 @@ public class AgentCompAction extends BaseAction {
 	}
 	
 	/**
-	 * 显示添加委托公司页面(来自审价项目)
+	 * 显示添加委托公司页面甲方(来自审价项目)
 	 * @return
 	 */
 	public String showAddAgentComp2Action() {
 		try {
 			this.clearMessages();
 			addAgentCompDto = new AgentCompDto();
+			String j_comp = showComp("J");
+//			System.out.println("JJJ: " + j_comp);
+			addAgentCompDto.setANGENT_COMP_NO(j_comp);
+			
 		} catch(Exception e) {
 			return ERROR;
 		}
 		return SUCCESS;
 	}
+
+	/**
+	 * 显示添加委托公司页面乙方(来自审价项目  )
+	 * @return
+	 */
+	public String showAddAgentComp3Action() {
+		try {
+			this.clearMessages();
+			addAgentCompDto = new AgentCompDto();
+			String y_comp = showComp("Y");
+//			System.out.println("YYY: " + y_comp);
+			addAgentCompDto.setANGENT_COMP_NO(y_comp);
+	
+		} catch(Exception e) {
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+
+	public String showComp(String JY_flg) {
+		//get AgentComp list
+		List<AgentCompDto> agentcomplst = null;
+		agentcomplst = agentCompService.queryAllAgentComp2();
+		
+		List<String> j_complst = new ArrayList<String>();
+		List<String> y_complst = new ArrayList<String>();
+		if(!agentcomplst.isEmpty()) {
+			for (AgentCompDto ag : agentcomplst) {
+		        // do stuff here 
+				if (ag.getANGENT_COMP_NO().charAt(0)== 'J'){
+					j_complst.add(new String(ag.getANGENT_COMP_NO()));
+				}
+				if (ag.getANGENT_COMP_NO().charAt(0)== 'Y'){
+					y_complst.add(new String(ag.getANGENT_COMP_NO()));
+				}
+		    }
+		}
+		if (JY_flg.equals("J")){
+			for (int i= 1; i<=999; i++){
+				String j_comp_no = String.format("J%03d", i);
+				if (!j_complst.contains(j_comp_no)){
+					return j_comp_no;
+				}
+			}
+		}
+		if (JY_flg.equals("Y")){
+			for (int j= 1; j<=999; j++){
+				String y_comp_no = String.format("Y%03d", j);
+				if (!y_complst.contains(y_comp_no)){
+					return y_comp_no;
+				}
+			}
+		}
+		
+		return "";
+	}	
 	
 	/**
 	 * 添加委托公司

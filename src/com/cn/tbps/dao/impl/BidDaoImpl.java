@@ -152,6 +152,18 @@ public class BidDaoImpl extends BaseDao implements BidDao {
 	}
 
 	@Override
+	public BidDto queryAllBidByID2(String bidNo) {
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("BID_NO", bidNo);
+		@SuppressWarnings("unchecked")
+		List<BidDto> list = getSqlMapClientTemplate().queryForList("queryAllBidByID2", paramMap);
+		if(list != null && list.size() > 0) {
+			return list.get(0);
+		}
+		return null;
+	}
+	
+	@Override
 	public void insertBid(BidDto bidDto) {
 		getSqlMapClientTemplate().insert("insertBid", bidDto);
 	}

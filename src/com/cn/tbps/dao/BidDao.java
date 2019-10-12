@@ -130,11 +130,18 @@ public interface BidDao {
 	public BidDto queryBidByID(String bidNo);
 	
 	/**
-	 * 根据ID查询投标（查询所有记录）
+	 * 根据ID查询投标（查询所有记录，不含删除）
 	 * @param bidNo
 	 * @return
 	 */
 	public BidDto queryAllBidByID(String bidNo);
+	
+	/**
+	 * 根据ID查询投标（查询所有记录，含删除）
+	 * @param bidNo
+	 * @return
+	 */
+	public BidDto queryAllBidByID2(String bidNo);
 	
 	/**
 	 * 新增招标
