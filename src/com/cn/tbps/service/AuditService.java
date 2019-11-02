@@ -143,21 +143,24 @@ public interface AuditService {
 	 * 新增审价
 	 * @param audit
 	 * @return 审价编号
+	 * @throws Exception 
 	 */
-	public String insertAudit(AuditDto audit);
+	public String insertAudit(AuditDto audit) throws Exception;
 	
 	/**
 	 * 修改审价
 	 * @param audit
+	 * @throws Exception 
 	 */
-	public void updateAudit(AuditDto audit);
+	public void updateAudit(AuditDto audit) throws Exception;
 	
 	/**
 	 * 删除审价（逻辑删除）
 	 * @param auditNo
 	 * @param user
+	 * @throws Exception 
 	 */
-	public void deleteAudit(String auditNo, String user);
+	public void deleteAudit(String auditNo, String user) throws Exception;
 	
 	//审价履历
 	/**

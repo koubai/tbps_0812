@@ -307,6 +307,19 @@
 			}
 		}
 		
+		//甲方收费
+		var list = document.getElementsByName("stageAAmount");
+		for(var i = 0; i < list.length; i++) {
+			var STAGE_A_AMOUNT = list[i].value;
+			if (STAGE_A_AMOUNT != ""){
+				if(!isReal2(STAGE_A_AMOUNT)) {
+					alert("甲方收费不正确！");
+					list[i].focus();
+					return;
+				}
+			}
+		}
+		
 		if(confirm("确定追加吗？")) {
 			document.mainform.action = '<c:url value="/auditcntrct/addAuditCntrctAction.action"></c:url>';
 			document.mainform.submit();
@@ -384,6 +397,7 @@
 		setDefaultValue("PROJ_PROGRESS_MEET_CNT");
 
 	}
+	
 	
 	//对数字类型的，为空时设为0
 	function setDefaultValue(id) {
@@ -654,6 +668,77 @@
 			alert("请选择一条记录！");
 		}
 	}
+	
+	function addStageAmount() {
+		var stageAAmountList = $("[name='stageAAmount']");
+		if(stageAAmountList.length >= 5) {
+			//alert("节点收费不能超过5条记录！");
+			return;
+		} else {
+			var html = "";			
+			html += '	<div class="row">';	
+			html += '		<div class="col-lg-2" style="text-align: center;">';
+			html += '			<a href="javascript:void(0);" onclick="addStageAmount();">';
+			html += '				<img src="<%=request.getContextPath()%>/images/add.png" />';
+			html += '			</a>';
+			html += '			<a href="javascript:void(0);" onclick="delStageAmount(this);">';
+			html += '				<img src="<%=request.getContextPath()%>/images/minus.png" />';
+			html += '			</a>';
+			html += '		</div>';
+			html += '		<div class="col-lg-2">';
+			html += '			<div class="col-lg-4">';
+			html += '				<input type="text" style="width:150px;" name="stageAAmount" value="" class="form-control">';
+			html += '			</div>';				
+			html += '		</div>';				
+			html += '		<div class="col-lg-2">';
+			html += '			<div class="col-lg-4">';
+			html += '			<div class="input-group date" data-provide="datepicker">';
+			html += '				<input type="text" style="width:150px;" name="stageAInvoiceDeliDate" value="" class="form-control datepicker" readonly>';
+			html += '				<div class="input-group-addon">';
+			html += '					<span class="glyphicon glyphicon-th"></span>';
+			html += '				</div>';
+			html += '			</div>';
+			html += '			</div>';
+			html += '		</div>';
+			html += '		<div class="col-lg-2">';
+			html += '			<div class="col-lg-4">';
+			html += '			<div class="input-group date" data-provide="datepicker">';
+			html += '				<input type="text" style="width:150px;" name="stageAInvoiceDate" value="" class="form-control datepicker" readonly>';
+			html += '				<div class="input-group-addon">';
+			html += '					<span class="glyphicon glyphicon-th"></span>';
+			html += '				</div>';
+			html += '			</div>';
+			html += '			</div>';
+			html += '		</div>';
+			html += '		<div class="col-lg-2">';
+			html += '			<div class="col-lg-4">';
+			html += '			<div class="input-group date" data-provide="datepicker">';
+			html += '				<input type="text" style="width:150px;" name="stageASetDate" value="" class="form-control datepicker" readonly>';
+			html += '				<div class="input-group-addon">';
+			html += '					<span class="glyphicon glyphicon-th"></span>';
+			html += '				</div>';
+			html += '			</div>';
+			html += '			</div>';
+			html += '		</div>';
+			html += '	</div>';
+			$("#stageDataDiv").append(html);
+			$('.datepicker').parent().datepicker({
+				"autoclose":true,"format":"yyyy-mm-dd","language":"zh-CN","daysOfWeekHighlighted":"[0,6]",clearBtn: true
+			});
+		}
+	}
+	
+	function delStageAmount(obj) {
+		var stageAAmountList = $("[name='stageAAmount']");
+		if(stageAAmountList.length <= 1) {
+			//保证至少有一条记录
+			return;
+		} else {
+			//删除当前日期
+			$(obj).parent().parent().remove();
+		}
+	}
+	
 </script>
 </head>
 <body>
@@ -944,6 +1029,492 @@
 								<label for="" class="form-label">金额(万元)</label>
 							</div>
 						</div>
+						
+						<!-- START-->
+						<div class="row" >
+							<div class="col-lg-12 form-group">
+								<div class="col-lg-2" style="text-align: center;">
+									<label class="col-lg-6 form-label">节点收费</label>
+								</div>
+								<div class="col-lg-2">
+									<label class="col-lg-6 form-label">甲方收费(万元)</label>
+								</div>
+								<div class="col-lg-2">
+									<label class="col-lg-6 form-label">开票流转单日期</label>
+								</div>
+								<div class="col-lg-2">
+									<label class="col-lg-6 form-label">开票日期</label>
+								</div>
+								<div class="col-lg-2">
+									<label class="col-lg-6 form-label">到账日期</label>
+								</div>
+							</div>
+						</div>
+						<div id="stageDataDiv" class="col-lg-12">
+							<s:if test='addAuditCntrctDto.STAGE_A_AMOUNT1 != null'>
+								<div class="row">
+									<div class="col-lg-2" style="text-align: center;">
+										<s:if test='#session.user_rank >= "B"'>
+											<a href="javascript:void(0);" onclick="addStageAmount();">
+												<img src="<%=request.getContextPath()%>/images/add.png" />
+											</a>
+											<a href="javascript:void(0);" onclick="delStageAmount(this);">
+												<img src="<%=request.getContextPath()%>/images/minus.png" />
+											</a>
+										</s:if>
+									</div>
+									<div class="col-lg-2">
+										<s:if test='#session.user_rank >= "B"'>
+											<div class="col-lg-4">
+												<input type="text" style="width:150px;" name="stageAAmount" value="<s:property value="addAuditCntrctDto.STAGE_A_AMOUNT1"/>" class="form-control" >
+											</div>
+										</s:if>
+										<s:else>				
+											<div class="col-lg-4">								
+												<input type="text" style="width:150px;" name="stageAAmount" value="<s:property value="addAuditCntrctDto.STAGE_A_AMOUNT1"/>" class="form-control" readonly>
+											</div>
+										</s:else>
+									</div>
+									<div class="col-lg-2">
+										<s:if test='#session.user_rank >= "B"'>
+											<div class="col-lg-4">	
+												<div class="input-group date" data-provide="datepicker">
+													<input type="text" style="width:150px;" name="stageAInvoiceDeliDate" value="<s:date name="addAuditCntrctDto.STAGE_A_INVOICE_DELI_DATE1" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
+													<div class="input-group-addon">
+														<span class="glyphicon glyphicon-th"></span>
+													</div>
+												</div>
+											</div>
+										</s:if>
+										<s:else>
+											<div class="col-lg-4">	
+												<input type="text" style="width:150px;" name="stageAInvoiceDeliDate" value="<s:date name="updateBidDto.STAGE_A_INVOICE_DELI_DATE1" format="yyyy-MM-dd"/>"  class="form-control" readonly>
+											</div>
+										</s:else>
+									</div>
+									<div class="col-lg-2">
+										<s:if test='#session.user_rank >= "B"'>
+											<div class="col-lg-4">	
+												<div class="input-group date" data-provide="datepicker">
+													<input type="text" style="width:150px;" name="stageAInvoiceDate" value="<s:date name="addAuditCntrctDto.STAGE_A_INVOICE_DATE1" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
+													<div class="input-group-addon">
+														<span class="glyphicon glyphicon-th"></span>
+													</div>
+												</div>
+											</div>
+										</s:if>
+										<s:else>
+											<div class="col-lg-4">	
+												<input type="text" style="width:150px;" name="stageAInvoiceDate" value="<s:date name="addAuditCntrctDto.STAGE_A_INVOICE_DATE1" format="yyyy-MM-dd"/>" class="form-control" readonly>
+											</div>
+										</s:else>
+									</div>
+									<div class="col-lg-2">
+										<s:if test='#session.user_rank >= "B"'>
+											<div class="col-lg-4">	
+												<div class="input-group date" data-provide="datepicker">
+													<input type="text" style="width:150px;" name="stageASetDate" value="<s:date name="addAuditCntrctDto.STAGE_A_SET_DATE1" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
+													<div class="input-group-addon">
+														<span class="glyphicon glyphicon-th"></span>
+													</div>
+												</div>
+											</div>
+										</s:if>
+										<s:else>
+											<div class="col-lg-4">	
+												<input type="text" style="width:150px;" name="stageASetDate" value="<s:date name="addAuditCntrctDto.STAGE_A_SET_DATE1" format="yyyy-MM-dd"/>" class="form-control" readonly>
+											</div>
+										</s:else>
+									</div>
+								</div>
+							</s:if>
+							<s:else>
+							<!-- 默认至少有一个日期 -->
+								<div class="row">
+									<div class="col-lg-2" style="text-align: center;">
+										<s:if test='#session.user_rank >= "B"'>
+											<a href="javascript:void(0);" onclick="addStageAmount();">
+												<img src="<%=request.getContextPath()%>/images/add.png" />
+											</a>
+											<a href="javascript:void(0);" onclick="delStageAmount(this);">
+												<img src="<%=request.getContextPath()%>/images/minus.png" />
+											</a>
+										</s:if>
+									</div>
+									<div class="col-lg-2">
+										<s:if test='#session.user_rank >= "B"'>
+											<div class="col-lg-4">
+												<input type="text" style="width:150px;" name="stageAAmount" value="<s:property value="addAuditCntrctDto.STAGE_A_AMOUNT1"/>" class="form-control" >
+											</div>
+										</s:if>
+										<s:else>
+											<div class="col-lg-4">
+												<input type="text" style="width:150px;" name="stageAAmount" value="<s:property value="addAuditCntrctDto.STAGE_A_AMOUNT1"/>" class="form-control" readonly>
+											</div>
+										</s:else>
+									</div>				
+									<div class="col-lg-2">
+										<s:if test='#session.user_rank >= "B"'>
+											<div class="col-lg-4">
+												<div class="input-group date" data-provide="datepicker">
+													<input type="text" style="width:150px;" name="stageAInvoiceDeliDate" value="" class="form-control datepicker" readonly>
+													<div class="input-group-addon">
+														<span class="glyphicon glyphicon-th"></span>
+													</div>
+												</div>
+											</div>
+										</s:if>
+										<s:else>
+											<div class="col-lg-4">
+												<input type="text" style="width:150px;" name="stageAInvoiceDeliDate" value="" class="form-control" readonly>
+											</div>		
+										</s:else>
+									</div>
+									<div class="col-lg-2">
+										<s:if test='#session.user_rank >= "B"'>
+											<div class="col-lg-4">
+												<div class="input-group date" data-provide="datepicker">
+													<input type="text" style="width:150px;" name="stageAInvoiceDate" value="" class="form-control datepicker" readonly>
+													<div class="input-group-addon">
+														<span class="glyphicon glyphicon-th"></span>
+													</div>
+												</div>
+											</div>
+									</s:if>
+										<s:else>
+											<div class="col-lg-4">
+												<input type="text" style="width:150px;" name="stageAInvoiceDate" value="" class="form-control" readonly>
+											</div>
+										</s:else>
+									</div>
+									<div class="col-lg-2">
+										<s:if test='#session.user_rank >= "B"'>
+											<div class="col-lg-4">
+												<div class="input-group date" data-provide="datepicker">
+													<input type="text" style="width:150px;" name="stageASetDate" value="" class="form-control datepicker" readonly>
+													<div class="input-group-addon">
+														<span class="glyphicon glyphicon-th"></span>
+													</div>
+												</div>
+											</div>
+										</s:if>
+										<s:else>
+											<div class="col-lg-4">
+												<input type="text" style="width:150px;" name="stageASetDate" value="" class="form-control" readonly>
+											</div>
+										</s:else>
+									</div>
+								</div>
+							</s:else>
+							<s:if test='addAuditCntrctDto.STAGE_A_AMOUNT2 != null'>
+								<div class="row">				
+									<div class="col-lg-2" style="text-align: center;">
+										<s:if test='#session.user_rank >= "B"'>
+											<a href="javascript:void(0);" onclick="addStageAmount();">
+												<img src="<%=request.getContextPath()%>/images/add.png" />
+											</a>
+											<a href="javascript:void(0);" onclick="delStageAmount(this);">
+												<img src="<%=request.getContextPath()%>/images/minus.png" />
+											</a>
+										</s:if>
+									</div>
+									<div class="col-lg-2">
+										<s:if test='#session.user_rank >= "B"'>
+											<div class="col-lg-4">
+												<input type="text" style="width:150px;" name="stageAAmount" value="<s:property value="addAuditCntrctDto.STAGE_A_AMOUNT2"/>" class="form-control" >
+											</div>
+										</s:if>
+										<s:else>
+											<div class="col-lg-4">
+												<input type="text" style="width:150px;" name="stageAAmount" value="<s:property value="addAuditCntrctDto.STAGE_A_AMOUNT2"/>" class="form-control" readonly>
+											</div>
+										</s:else>
+									</div>
+									<div class="col-lg-2">
+										<s:if test='#session.user_rank >= "B"'>
+											<div class="col-lg-4">
+												<div class="input-group date" data-provide="datepicker">
+													<input type="text" style="width:150px;" name="stageAInvoiceDeliDate" value="<s:date name="addAuditCntrctDto.STAGE_A_INVOICE_DELI_DATE2" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
+													<div class="input-group-addon">
+														<span class="glyphicon glyphicon-th"></span>
+													</div>
+												</div>
+											</div>
+										</s:if>
+										<s:else>
+											<div class="col-lg-4">
+												<input type="text" style="width:150px;" name="stageAInvoiceDeliDate" value="<s:date name="addAuditCntrctDto.STAGE_A_INVOICE_DELI_DATE2" format="yyyy-MM-dd"/>" class="form-control" readonly>
+											</div>
+										</s:else>
+									</div>
+									<div class="col-lg-2">
+										<s:if test='#session.user_rank >= "B"'>
+											<div class="col-lg-4">
+												<div class="input-group date" data-provide="datepicker">
+													<input type="text" style="width:150px;" name="stageAInvoiceDate" value="<s:date name="addAuditCntrctDto.STAGE_A_INVOICE_DATE2" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
+													<div class="input-group-addon">
+														<span class="glyphicon glyphicon-th"></span>
+													</div>
+												</div>
+											</div>
+										</s:if>
+										<s:else>
+											<div class="col-lg-4">
+												<input type="text" style="width:150px;" name="stageAInvoiceDate" value="<s:date name="addAuditCntrctDto.STAGE_A_INVOICE_DATE2" format="yyyy-MM-dd"/>" class="form-control" readonly>
+											</div>
+										</s:else>
+									</div>
+									<div class="col-lg-2">
+										<s:if test='#session.user_rank >= "B"'>
+											<div class="col-lg-4">
+												<div class="input-group date" data-provide="datepicker">
+													<input type="text" style="width:150px;" name="stageASetDate" value="<s:date name="addAuditCntrctDto.STAGE_A_SET_DATE2" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
+													<div class="input-group-addon">
+														<span class="glyphicon glyphicon-th"></span>
+													</div>
+												</div>
+											</div>
+										</s:if>
+										<s:else>
+											<div class="col-lg-4">
+												<input type="text" style="width:150px;" name="stageASetDate" value="<s:date name="addAuditCntrctDto.STAGE_A_SET_DATE2" format="yyyy-MM-dd"/>" class="form-control" readonly>
+											</div>
+										</s:else>
+									</div>
+								</div>
+							</s:if>
+							<s:if test='addAuditCntrctDto.STAGE_A_AMOUNT3 != null'>
+								<div class="row">				
+									<div class="col-lg-2" style="text-align: center;">
+										<s:if test='#session.user_rank >= "B"'>
+											<a href="javascript:void(0);" onclick="addStageAmount();">
+												<img src="<%=request.getContextPath()%>/images/add.png" />
+											</a>
+											<a href="javascript:void(0);" onclick="delStageAmount(this);">
+												<img src="<%=request.getContextPath()%>/images/minus.png" />
+											</a>
+										</s:if>
+									</div>
+									<div class="col-lg-2">
+										<s:if test='#session.user_rank >= "B"'>
+											<div class="col-lg-4">														
+												<input type="text" style="width:150px;" name="stageAAmount" value="<s:property value="addAuditCntrctDto.STAGE_A_AMOUNT3"/>" class="form-control" >
+											</div>
+										</s:if>
+										<s:else>
+											<div class="col-lg-4">
+												<input type="text" style="width:150px;" name="stageAAmount" value="<s:property value="addAuditCntrctDto.STAGE_A_AMOUNT3"/>" class="form-control" readonly>
+											</div>
+										</s:else>
+									</div>
+									<div class="col-lg-2">
+										<s:if test='#session.user_rank >= "B"'>
+											<div class="col-lg-4">
+												<div class="input-group date" data-provide="datepicker">
+													<input type="text" style="width:150px;" name="stageAInvoiceDeliDate" value="<s:date name="addAuditCntrctDto.STAGE_A_INVOICE_DELI_DATE3" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
+													<div class="input-group-addon">
+														<span class="glyphicon glyphicon-th"></span>
+													</div>
+												</div>
+											</div>
+										</s:if>
+										<s:else>
+											<div class="col-lg-4">
+												<input type="text" style="width:150px;" name="stageAInvoiceDeliDate" value="<s:date name="addAuditCntrctDto.STAGE_A_INVOICE_DELI_DATE3" format="yyyy-MM-dd"/>" class="form-control" readonly>
+											</div>
+										</s:else>
+									</div>
+									<div class="col-lg-2">
+										<s:if test='#session.user_rank >= "B"'>
+											<div class="col-lg-4">
+												<div class="input-group date" data-provide="datepicker">
+													<input type="text" style="width:150px;" name="stageAInvoiceDate" value="<s:date name="addAuditCntrctDto.STAGE_A_INVOICE_DATE3" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
+													<div class="input-group-addon">
+														<span class="glyphicon glyphicon-th"></span>
+													</div>
+												</div>
+											</div>
+										</s:if>
+										<s:else>
+											<div class="col-lg-4">
+												<input type="text" style="width:150px;" name="stageAInvoiceDate" value="<s:date name="addAuditCntrctDto.STAGE_A_INVOICE_DATE3" format="yyyy-MM-dd"/>" class="form-control" readonly>
+											</div>
+										</s:else>
+									</div>
+									<div class="col-lg-2">
+										<s:if test='#session.user_rank >= "B"'>
+											<div class="col-lg-4">
+												<div class="input-group date" data-provide="datepicker">
+													<input type="text" style="width:150px;" name="stageASetDate" value="<s:date name="addAuditCntrctDto.STAGE_A_SET_DATE3" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
+													<div class="input-group-addon">
+														<span class="glyphicon glyphicon-th"></span>
+													</div>
+												</div>
+											</div>
+										</s:if>
+										<s:else>
+											<div class="col-lg-4">
+												<input type="text" style="width:150px;" name="stageASetDate" value="<s:date name="addAuditCntrctDto.STAGE_A_SET_DATE3" format="yyyy-MM-dd"/>" class="form-control" readonly>
+											</div>
+										</s:else>
+									</div>
+								</div>
+							</s:if>
+							<s:if test='addAuditCntrctDto.STAGE_A_AMOUNT4 != null'>
+								<div class="row">				
+									<div class="col-lg-2" style="text-align: center;">
+										<s:if test='#session.user_rank >= "B"'>
+											<a href="javascript:void(0);" onclick="addStageAmount();">
+												<img src="<%=request.getContextPath()%>/images/add.png" />
+											</a>
+											<a href="javascript:void(0);" onclick="delStageAmount(this);">
+												<img src="<%=request.getContextPath()%>/images/minus.png" />
+											</a>
+										</s:if>
+									</div>
+									<div class="col-lg-2">
+										<s:if test='#session.user_rank >= "B"'>
+											<div class="col-lg-4">
+												<input type="text" style="width:150px;" name="stageAAmount" value="<s:property value="addAuditCntrctDto.STAGE_A_AMOUNT4"/>" class="form-control" >
+											</div>
+										</s:if>
+										<s:else>
+											<div class="col-lg-4">
+												<input type="text" style="width:150px;" name="stageAAmount" value="<s:property value="addAuditCntrctDto.STAGE_A_AMOUNT4"/>" class="form-control" readonly>
+											</div>
+										</s:else>
+									</div>
+									<div class="col-lg-2">
+										<s:if test='#session.user_rank >= "B"'>
+											<div class="col-lg-4">
+												<div class="input-group date" data-provide="datepicker">
+													<input type="text" style="width:150px;" name="stageAInvoiceDeliDate" value="<s:date name="addAuditCntrctDto.STAGE_A_INVOICE_DELI_DATE4" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
+													<div class="input-group-addon">
+														<span class="glyphicon glyphicon-th"></span>
+													</div>
+												</div>
+											</div>
+										</s:if>
+										<s:else>
+											<div class="col-lg-4">
+												<input type="text" style="width:150px;" name="stageAInvoiceDeliDate" value="<s:date name="addAuditCntrctDto.STAGE_A_INVOICE_DELI_DATE4" format="yyyy-MM-dd"/>" class="form-control" readonly>
+											</div>
+										</s:else>
+									</div>
+									<div class="col-lg-2">
+										<s:if test='#session.user_rank >= "B"'>
+											<div class="col-lg-4">
+												<div class="input-group date" data-provide="datepicker">
+													<input type="text" style="width:150px;" name="stageAInvoiceDate" value="<s:date name="addAuditCntrctDto.STAGE_A_INVOICE_DATE4" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
+													<div class="input-group-addon">
+														<span class="glyphicon glyphicon-th"></span>
+													</div>
+												</div>
+											</div>
+										</s:if>
+										<s:else>
+											<div class="col-lg-4">
+												<input type="text" style="width:150px;" name="stageAInvoiceDate" value="<s:date name="addAuditCntrctDto.STAGE_A_INVOICE_DATE4" format="yyyy-MM-dd"/>" class="form-control" readonly>
+											</div>
+										</s:else>
+									</div>
+									<div class="col-lg-2">
+										<s:if test='#session.user_rank >= "B"'>
+											<div class="col-lg-4">
+												<div class="input-group date" data-provide="datepicker">
+													<input type="text" style="width:150px;" name="stageASetDate" value="<s:date name="addAuditCntrctDto.STAGE_A_SET_DATE4" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
+													<div class="input-group-addon">
+														<span class="glyphicon glyphicon-th"></span>
+													</div>
+												</div>
+											</div>
+										</s:if>
+										<s:else>
+											<div class="col-lg-4">
+												<input type="text" style="width:150px;" name="stageASetDate" value="<s:date name="addAuditCntrctDto.STAGE_A_SET_DATE4" format="yyyy-MM-dd"/>" class="form-control" readonly>
+											</div>
+										</s:else>
+									</div>
+								</div>
+							</s:if>
+							<s:if test='addAuditCntrctDto.STAGE_A_AMOUNT5 != null'>
+								<div class="row">				
+									<div class="col-lg-2" style="text-align: center;">
+										<s:if test='#session.user_rank >= "B"'>
+											<a href="javascript:void(0);" onclick="addStageAmount();">
+												<img src="<%=request.getContextPath()%>/images/add.png" />
+											</a>
+											<a href="javascript:void(0);" onclick="delStageAmount(this);">
+												<img src="<%=request.getContextPath()%>/images/minus.png" />
+											</a>
+										</s:if>
+									</div>
+									<div class="col-lg-2">
+										<s:if test='#session.user_rank >= "B"'>
+											<div class="col-lg-4">
+												<input type="text" style="width:150px;" name="stageAAmount" value="<s:property value="addAuditCntrctDto.STAGE_A_AMOUNT5"/>" class="form-control" >
+											</div>
+										</s:if>
+										<s:else>
+											<div class="col-lg-4">
+												<input type="text" style="width:150px;" name="stageAAmount" value="<s:property value="addAuditCntrctDto.STAGE_A_AMOUNT5"/>" class="form-control" readonly>
+											</div>
+										</s:else>
+									</div>
+									<div class="col-lg-2">
+										<s:if test='#session.user_rank >= "B"'>
+											<div class="col-lg-4">
+												<div class="input-group date" data-provide="datepicker">
+													<input type="text" style="width:150px;" name="stageAInvoiceDeliDate" value="<s:date name="addAuditCntrctDto.STAGE_A_INVOICE_DELI_DATE5" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
+													<div class="input-group-addon">
+														<span class="glyphicon glyphicon-th"></span>
+													</div>
+												</div>
+											</div>
+										</s:if>
+										<s:else>
+											<input type="text" style="width:150px;" name="stageAInvoiceDeliDate" value="<s:date name="addAuditCntrctDto.STAGE_A_INVOICE_DELI_DATE5" format="yyyy-MM-dd"/>" class="form-control" readonly>
+										</s:else>
+									</div>
+									<div class="col-lg-2">
+										<s:if test='#session.user_rank >= "B"'>
+											<div class="col-lg-4">
+												<div class="input-group date" data-provide="datepicker">
+													<input type="text" style="width:150px;" name="stageAInvoiceDate" value="<s:date name="addAuditCntrctDto.STAGE_A_INVOICE_DATE5" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
+													<div class="input-group-addon">
+														<span class="glyphicon glyphicon-th"></span>
+													</div>
+												</div>
+											</div>
+										</s:if>
+										<s:else>
+											<div class="col-lg-4">
+												<input type="text" style="width:150px;" name="stageAInvoiceDate" value="<s:date name="addAuditCntrctDto.STAGE_A_INVOICE_DATE5" format="yyyy-MM-dd"/>" class="form-control" readonly>
+											</div>
+										</s:else>
+									</div>
+									<div class="col-lg-2">
+										<s:if test='#session.user_rank >= "B"'>
+											<div class="col-lg-4">
+												<div class="input-group date" data-provide="datepicker">
+													<input type="text" style="width:150px;" name="stageASetDate" value="<s:date name="addAuditCntrctDto.STAGE_A_SET_DATE5" format="yyyy-MM-dd"/>" class="form-control datepicker" readonly>
+													<div class="input-group-addon">
+														<span class="glyphicon glyphicon-th"></span>
+													</div>
+												</div>
+											</div>
+										</s:if>
+										<s:else>
+											<div class="col-lg-4">
+												<input type="text" style="width:150px;" name="stageASetDate" value="<s:date name="addAuditCntrctDto.STAGE_A_SET_DATE5" format="yyyy-MM-dd"/>" class="form-control" readonly>
+											</div>
+										</s:else>
+									</div>
+								</div>
+							</s:if>
+						</div>			
+						<!-- END-->						
+						
 						<div id="nometro" style="display:none">
 							<div class="col-lg-12 form-group" style="background-color: #ACD6FF;">
 								<label for="" class="col-lg-2 form-label">合同金额</label>

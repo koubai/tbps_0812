@@ -1,5 +1,6 @@
 package com.cn.tbps.service.impl;
 
+import java.text.ParseException;
 import java.util.List;
 
 import com.cn.common.service.BaseService;
@@ -46,7 +47,7 @@ public class AuditCntrctServiceImpl extends BaseService implements AuditCntrctSe
 	}
 
 	@Override
-	public void insertAuditCntrct(AuditCntrctDto auditCntrct) {
+	public void insertAuditCntrct(AuditCntrctDto auditCntrct) throws Exception {
 		auditCntrct.setDELETE_FLG(Constants.IS_DELETE_NORMAL);
 		auditCntrctDao.insertAuditCntrct(auditCntrct);
 		//新增审价履历
@@ -54,14 +55,14 @@ public class AuditCntrctServiceImpl extends BaseService implements AuditCntrctSe
 	}
 
 	@Override
-	public void updateAuditCntrct(AuditCntrctDto auditCntrct) {
+	public void updateAuditCntrct(AuditCntrctDto auditCntrct) throws Exception {
 		auditCntrctDao.updateAuditCntrct(auditCntrct);
 		//新增审价履历
 		insertAuditCntrctHist(auditCntrct);
 	}
 
 	@Override
-	public void deleteAuditCntrct(String cntrctNo, String user) {
+	public void deleteAuditCntrct(String cntrctNo, String user) throws Exception {
 		AuditCntrctDto auditCntrct = auditCntrctDao.queryAuditCntrctByID(cntrctNo);
 		if(auditCntrct != null) {
 			//删除标记=已删除
@@ -76,8 +77,9 @@ public class AuditCntrctServiceImpl extends BaseService implements AuditCntrctSe
 	/**
 	 * 插入审价履历
 	 * @param auditCntrct
+	 * @throws ParseException 
 	 */
-	private void insertAuditCntrctHist(AuditCntrctDto auditCntrct) {
+	private void insertAuditCntrctHist(AuditCntrctDto auditCntrct) throws ParseException {
 		AuditCntrctHisDto auditCntrctHist = new AuditCntrctHisDto();
 		auditCntrctHist.setCNTRCT_BELONG(auditCntrct.getCNTRCT_BELONG());
 		auditCntrctHist.setCNTRCT_NO(auditCntrct.getCNTRCT_NO());

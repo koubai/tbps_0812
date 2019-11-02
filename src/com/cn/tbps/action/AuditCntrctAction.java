@@ -2,7 +2,6 @@ package com.cn.tbps.action;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -178,6 +177,13 @@ public class AuditCntrctAction extends BaseAction {
 	private Integer ajaxTotalCount;
 	private Integer ajaxPageIndex;
 	
+	//节点信息保存
+	private String[] stageAAmount;
+	private String[] stageAInvoiceDeliDate;
+	private String[] stageAInvoiceDate;
+	private String[] stageASetDate;
+
+	
 	/**
 	 * Ajax翻页查询函数
 	 * @return
@@ -234,6 +240,9 @@ public class AuditCntrctAction extends BaseAction {
 		try {
 			this.clearMessages();
 			updAuditCntrctDto = auditCntrctService.queryAuditCntrctByID(updAuditCntrctNo);
+			String strReserve3 = updAuditCntrctDto.getRESERVE3();
+			System.out.println("RESERVE3():" + strReserve3);
+			System.out.println("STAGE_A_AMOUNT1():" + updAuditCntrctDto.getSTAGE_A_AMOUNT1());
 			if(updAuditCntrctDto == null) {
 				this.addActionMessage("该数据不存在！");
 				return "checkerror";
@@ -262,6 +271,7 @@ public class AuditCntrctAction extends BaseAction {
 			//更新审价
 			String username = (String) ActionContext.getContext().getSession().get(Constants.USER_NAME);
 			updAuditCntrctDto.setUPDATE_USER(username);
+			updAuditCntrctDto.setRESERVE3(getStageAAmount(),getStageAInvoiceDeliDate(),getStageAInvoiceDate(),getStageASetDate());
 			auditCntrctService.updateAuditCntrct(updAuditCntrctDto);
 			updAuditCntrctDtoOld = auditCntrctService.queryAuditCntrctByID(updAuditCntrctNo);
 			this.addActionMessage("修改审价成功！");
@@ -305,6 +315,10 @@ public class AuditCntrctAction extends BaseAction {
 			String username = (String) ActionContext.getContext().getSession().get(Constants.USER_NAME);
 			
 			addAuditCntrctDto.setUPDATE_USER(username);
+			addAuditCntrctDto.setRESERVE3(stageAAmount,stageAInvoiceDeliDate, stageAInvoiceDate,stageASetDate);
+			String strReserve3 = addAuditCntrctDto.getRESERVE3();
+			System.out.println("RESERVE3():" + strReserve3);
+			System.out.println("STAGE_A_AMOUNT1():" + updAuditCntrctDto.getSTAGE_A_AMOUNT1());
 			String auditCntrctNo = addAuditCntrctDto.getCNTRCT_NO();
 			auditCntrctService.insertAuditCntrct(addAuditCntrctDto);
 			addAuditCntrctDto = new AuditCntrctDto();
@@ -836,4 +850,43 @@ public class AuditCntrctAction extends BaseAction {
 		this.cntrctNm = cntrctNm;
 	}
 
+	public String[] getStageAAmount() {
+		return stageAAmount;
+	}
+
+
+	public void setStageAAmount(String[] stageAAmount) {
+		this.stageAAmount = stageAAmount;
+	}
+
+
+	public String[] getStageAInvoiceDeliDate() {
+		return stageAInvoiceDeliDate;
+	}
+
+
+	public void setStageAInvoiceDeliDate(String[] stageAInvoiceDeliDate) {
+		this.stageAInvoiceDeliDate = stageAInvoiceDeliDate;
+	}
+
+
+	public String[] getStageAInvoiceDate() {
+		return stageAInvoiceDate;
+	}
+
+
+	public void setStageAInvoiceDate(String[] stageAInvoiceDate) {
+		this.stageAInvoiceDate = stageAInvoiceDate;
+	}
+
+
+	public String[] getStageASetDate() {
+		return stageASetDate;
+	}
+
+
+	public void setStageASetDate(String[] stageASetDate) {
+		this.stageASetDate = stageASetDate;
+	}
+	
 }

@@ -559,7 +559,8 @@
 			document.getElementById('docRecDateDiv').style.display='block';
 			//补充资料日期等
 			document.getElementById('supportDocDateDiv').style.display='block';
-			
+			//标的金额
+			document.getElementById('AimPriceDiv').style.display='none';
 		} else if(cntrctInfo == 3) {//清单编制
 			//项目大致进度简述
 			document.getElementById('progressStatusMemo').style.display='none';
@@ -619,7 +620,8 @@
 			document.getElementById('docRecDateDiv').style.display='block';
 			//补充资料日期等
 			document.getElementById('supportDocDateDiv').style.display='block';
-			
+			//标的金额
+			document.getElementById('AimPriceDiv').style.display='none';			
 		} else if(cntrctInfo == 4) {//控制价编制
 			//项目大致进度简述
 			document.getElementById('progressStatusMemo').style.display='none';
@@ -680,7 +682,8 @@
 			document.getElementById('docRecDateDiv').style.display='block';
 			//补充资料日期等
 			document.getElementById('supportDocDateDiv').style.display='block';
-			
+			//标的金额
+			document.getElementById('AimPriceDiv').style.display='none';
 		} else if(cntrctInfo == 5) {//投资监理A
 			//资料收到时间
 			document.getElementById('docRecDateDiv').style.display='none';
@@ -733,7 +736,9 @@
 			document.getElementById('verify2').style.display='block';
 			//甲乙方
 //			document.getElementById('ab').style.display='block';
-			
+			//标的金额
+			document.getElementById('AimPriceDiv').style.display='block';
+
 		} else {//审价
 			//项目大致进度简述
 			document.getElementById('progressStatusMemo').style.display='none';
@@ -776,6 +781,8 @@
 			document.getElementById('docRecDateDiv').style.display='block';
 			//补充资料日期等
 			document.getElementById('supportDocDateDiv').style.display='block';
+			//标的金额
+			document.getElementById('AimPriceDiv').style.display='none';
 		}
 		reserve6Change();
 	}
@@ -2050,7 +2057,13 @@
 								<div class="col-lg-2">
 									<s:textfield name="updAuditDto.RESERVE7" id="RESERVE7" cssClass="col-lg-10 form-control" maxlength="14" theme="simple"></s:textfield>
 								</div>
-							</div>							
+							</div>				
+							<div id="AimPriceDiv">
+								<label for="" class="col-lg-1 form-label colorGold">标的金额</label>
+								<div class="col-lg-2">
+									<s:textfield name="updAuditDto.RESERVE8" id="RESERVE8" cssClass="col-lg-10 form-control" maxlength="14" theme="simple"></s:textfield>
+								</div>
+							</div>										
 						</div>
 						<div class="col-lg-12 form-group" id="verify">
 							<div class="col-lg-2"></div>

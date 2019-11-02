@@ -526,7 +526,7 @@ public class AuditDto extends BaseDto {
 	private BigDecimal RESERVE7;
 
 	/**
-	 * 备用8
+	 * 备用8  (收费标的金额  全过程投资监理时)
 	 */
 	private BigDecimal RESERVE8;
 

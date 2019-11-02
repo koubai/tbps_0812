@@ -1,6 +1,8 @@
 package com.cn.tbps.dto;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.cn.common.dto.BaseDto;
@@ -317,6 +319,52 @@ public class AuditCntrctDto extends BaseDto {
 	private String PROJECT_SENIOR_MANAGER;
 
 	/**
+	 * 节点收费1
+	 * 甲方收费(万元),开票流转单日期,开票日期,到账日期
+	 */
+	private BigDecimal STAGE_A_AMOUNT1;
+	private Date STAGE_A_INVOICE_DELI_DATE1;
+	private Date STAGE_A_INVOICE_DATE1;
+	private Date STAGE_A_SET_DATE1;
+
+	/**
+	 * 节点收费2
+	 * 甲方收费(万元),开票流转单日期,开票日期,到账日期
+	 */
+	private BigDecimal STAGE_A_AMOUNT2;
+	private Date STAGE_A_INVOICE_DELI_DATE2;
+	private Date STAGE_A_INVOICE_DATE2;
+	private Date STAGE_A_SET_DATE2;
+
+	/**
+	 * 节点收费3
+	 * 甲方收费(万元),开票流转单日期,开票日期,到账日期
+	 */
+	private BigDecimal STAGE_A_AMOUNT3;
+	private Date STAGE_A_INVOICE_DELI_DATE3;
+	private Date STAGE_A_INVOICE_DATE3;
+	private Date STAGE_A_SET_DATE3;
+
+	/**
+	 * 节点收费4
+	 * 甲方收费(万元),开票流转单日期,开票日期,到账日期
+	 */
+	private BigDecimal STAGE_A_AMOUNT4;
+	private Date STAGE_A_INVOICE_DELI_DATE4;
+	private Date STAGE_A_INVOICE_DATE4;
+	private Date STAGE_A_SET_DATE4;
+
+	/**
+	 * 节点收费5
+	 * 甲方收费(万元),开票流转单日期,开票日期,到账日期
+	 */
+	private BigDecimal STAGE_A_AMOUNT5;
+	private Date STAGE_A_INVOICE_DELI_DATE5;
+	private Date STAGE_A_INVOICE_DATE5;
+	private Date STAGE_A_SET_DATE5;
+	
+
+	/**
 	 * 备用1
 	 */
 	private String RESERVE1;
@@ -327,7 +375,7 @@ public class AuditCntrctDto extends BaseDto {
 	private String RESERVE2;
 
 	/**
-	 * 备用3
+	 * 备用3 （节点收费系列 5 个， 1：甲方收费，2：甲方开票流转单日期，3：甲方开票日期，4：甲方到账日期；）
 	 */
 	private String RESERVE3;
 
@@ -391,6 +439,9 @@ public class AuditCntrctDto extends BaseDto {
 	 */
 	private Date UPDATE_DATE;
 
+
+	
+	
 	public String getCNTRCT_BELONG() {
 		return CNTRCT_BELONG;
 	}
@@ -863,10 +914,143 @@ public class AuditCntrctDto extends BaseDto {
 		RESERVE2 = rESERVE2;
 	}
 
-	public String getRESERVE3() {
+	public String getRESERVE3() throws ParseException {	
+		splitRESERVE3(RESERVE3);
 		return RESERVE3;
 	}
+	
+	public void splitRESERVE3(String rESERVE3) throws ParseException {
+		SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd");
+		if (rESERVE3 != null && !rESERVE3.isEmpty()){
+			String[] stageInfo = rESERVE3.split(";", -1);
+			if (stageInfo.length >= 5){
+				String[] st1 = stageInfo[0].split(",", -1);
+				if (st1.length >= 4){
+					if (st1[0]== null || st1[0].isEmpty())
+						setSTAGE_A_AMOUNT1(null);
+					else
+						setSTAGE_A_AMOUNT1(new BigDecimal(st1[0]));
+					if (st1[1]== null || st1[1].isEmpty())
+						setSTAGE_A_INVOICE_DELI_DATE1(null);
+					else 
+						setSTAGE_A_INVOICE_DELI_DATE1( sdFormat.parse(st1[1]));
+					if (st1[2]== null || st1[2].isEmpty())
+						setSTAGE_A_INVOICE_DATE1(null);
+					else 
+						setSTAGE_A_INVOICE_DATE1( sdFormat.parse(st1[2]));
+					if (st1[3]== null || st1[3].isEmpty())
+						setSTAGE_A_SET_DATE1(null);
+					else
+						setSTAGE_A_SET_DATE1( sdFormat.parse(st1[3]));
+				}else return;
+				String[] st2 = stageInfo[1].split(",", -1);
+				if (st2.length >= 4){
+					if (st2[0]== null || st2[0].isEmpty())
+						setSTAGE_A_AMOUNT2(null);
+					else
+						setSTAGE_A_AMOUNT2(new BigDecimal(st2[0]));
+					if (st2[1]== null || st2[1].isEmpty())
+						setSTAGE_A_INVOICE_DELI_DATE2(null);
+					else
+						setSTAGE_A_INVOICE_DELI_DATE2( sdFormat.parse(st2[1]));
+					if (st2[2]== null || st2[2].isEmpty())
+						setSTAGE_A_INVOICE_DATE2(null);
+					else
+						setSTAGE_A_INVOICE_DATE2( sdFormat.parse(st2[2]));
+					if (st2[3]== null || st2[3].isEmpty())
+						setSTAGE_A_SET_DATE2(null);
+					else
+						setSTAGE_A_SET_DATE2( sdFormat.parse(st2[3]));
+				}else return;
+				String[] st3 = stageInfo[2].split(",", -1);
+				if (st3.length >= 4){
+					if (st3[0]== null || st3[0].isEmpty())
+						setSTAGE_A_AMOUNT3(null);
+					else
+						setSTAGE_A_AMOUNT3(new BigDecimal(st3[0]));
+					if (st3[1]== null || st3[1].isEmpty())
+						setSTAGE_A_INVOICE_DELI_DATE3(null);
+					else
+						setSTAGE_A_INVOICE_DELI_DATE3( sdFormat.parse(st3[1]));
+					if (st3[2]== null || st3[2].isEmpty())
+						setSTAGE_A_INVOICE_DATE3(null);
+					else
+						setSTAGE_A_INVOICE_DATE3( sdFormat.parse(st3[2]));
+					if (st3[3]== null || st3[3].isEmpty())
+						setSTAGE_A_SET_DATE3(null);
+					else
+						setSTAGE_A_SET_DATE3( sdFormat.parse(st3[3]));
+				}else return;
+				String[] st4 = stageInfo[3].split(",", -1);
+				if (st4.length >= 4){
+					if (st4[0]== null || st4[0].isEmpty())
+						setSTAGE_A_AMOUNT4(null);
+					else
+						setSTAGE_A_AMOUNT4(new BigDecimal(st4[0]));
+					if (st4[1]== null || st4[1].isEmpty())
+						setSTAGE_A_INVOICE_DELI_DATE4(null);
+					else
+						setSTAGE_A_INVOICE_DELI_DATE4( sdFormat.parse(st4[1]));
+					if (st4[2]== null || st4[2].isEmpty())
+						setSTAGE_A_INVOICE_DATE4(null);
+					else
+						setSTAGE_A_INVOICE_DATE4( sdFormat.parse(st4[2]));
+					if (st4[3]== null || st4[3].isEmpty())
+						setSTAGE_A_SET_DATE4(null);
+					else
+						setSTAGE_A_SET_DATE4( sdFormat.parse(st4[3]));
+				}else return;
+				String[] st5 = stageInfo[4].split(",", -1);
+				if (st5.length >= 4){
+					if (st5[0]== null || st5[0].isEmpty())
+						setSTAGE_A_AMOUNT5(null);
+					else
+						setSTAGE_A_AMOUNT5(new BigDecimal(st5[0]));
+					if (st5[1]== null || st5[1].isEmpty())
+						setSTAGE_A_INVOICE_DELI_DATE5(null);
+					else
+						setSTAGE_A_INVOICE_DELI_DATE5( sdFormat.parse(st5[1]));
+					if (st5[2]== null || st5[2].isEmpty())
+						setSTAGE_A_INVOICE_DATE5(null);
+					else
+						setSTAGE_A_INVOICE_DATE5( sdFormat.parse(st5[2]));
+					if (st5[3]== null || st5[3].isEmpty())
+						setSTAGE_A_SET_DATE5(null);
+					else
+						setSTAGE_A_SET_DATE5( sdFormat.parse(st5[3]));
+				}else return;
+			} else return;
+		} else return;
+	}
 
+	public void setRESERVE3(String[] stageAAmount, String[] stageAInvoiceDeliDate,String[] stageAInvoiceDate,String[] stageASetDate){
+		RESERVE3 = "";
+		if (stageAAmount!=null && stageAAmount.length > 0){
+			for (int i=0; i<5 ; i++){
+				if (stageAAmount.length>i){
+					RESERVE3 += stageAAmount[i]+ ",";
+				}else {
+					RESERVE3 += ",";
+				}
+				if (stageAInvoiceDeliDate.length>i){
+					RESERVE3 += stageAInvoiceDeliDate[i]+ ",";
+				}else {
+					RESERVE3 += ",";
+				}
+				if (stageAInvoiceDate.length>i){
+					RESERVE3 += stageAInvoiceDate[i]+ ",";
+				}else {
+					RESERVE3 += ",";
+				}
+				if (stageASetDate.length>i){
+					RESERVE3 += stageASetDate[i]+ ";";
+				}else {
+					RESERVE3 += ";";
+				}
+			}
+		}
+	}
+	
 	public void setRESERVE3(String rESERVE3) {
 		RESERVE3 = rESERVE3;
 	}
@@ -1033,6 +1217,166 @@ public class AuditCntrctDto extends BaseDto {
 
 	public void setCNTRCT_ED_DATE_SHOW(String cNTRCT_ED_DATE_SHOW) {
 		CNTRCT_ED_DATE_SHOW = cNTRCT_ED_DATE_SHOW;
+	}
+
+	public BigDecimal getSTAGE_A_AMOUNT1() {
+		return STAGE_A_AMOUNT1;
+	}
+
+	public void setSTAGE_A_AMOUNT1(BigDecimal sTAGE_A_AMOUNT1) {
+		STAGE_A_AMOUNT1 = sTAGE_A_AMOUNT1;
+	}
+
+	public Date getSTAGE_A_INVOICE_DELI_DATE1() {
+		return STAGE_A_INVOICE_DELI_DATE1;
+	}
+
+	public void setSTAGE_A_INVOICE_DELI_DATE1(Date sTAGE_A_INVOICE_DELI_DATE1) {
+		STAGE_A_INVOICE_DELI_DATE1 = sTAGE_A_INVOICE_DELI_DATE1;
+	}
+
+	public Date getSTAGE_A_INVOICE_DATE1() {
+		return STAGE_A_INVOICE_DATE1;
+	}
+
+	public void setSTAGE_A_INVOICE_DATE1(Date sTAGE_A_INVOICE_DATE1) {
+		STAGE_A_INVOICE_DATE1 = sTAGE_A_INVOICE_DATE1;
+	}
+
+	public Date getSTAGE_A_SET_DATE1() {
+		return STAGE_A_SET_DATE1;
+	}
+
+	public void setSTAGE_A_SET_DATE1(Date sTAGE_A_SET_DATE1) {
+		STAGE_A_SET_DATE1 = sTAGE_A_SET_DATE1;
+	}
+
+	public BigDecimal getSTAGE_A_AMOUNT2() {
+		return STAGE_A_AMOUNT2;
+	}
+
+	public void setSTAGE_A_AMOUNT2(BigDecimal sTAGE_A_AMOUNT2) {
+		STAGE_A_AMOUNT2 = sTAGE_A_AMOUNT2;
+	}
+
+	public Date getSTAGE_A_INVOICE_DELI_DATE2() {
+		return STAGE_A_INVOICE_DELI_DATE2;
+	}
+
+	public void setSTAGE_A_INVOICE_DELI_DATE2(Date sTAGE_A_INVOICE_DELI_DATE2) {
+		STAGE_A_INVOICE_DELI_DATE2 = sTAGE_A_INVOICE_DELI_DATE2;
+	}
+
+	public Date getSTAGE_A_INVOICE_DATE2() {
+		return STAGE_A_INVOICE_DATE2;
+	}
+
+	public void setSTAGE_A_INVOICE_DATE2(Date sTAGE_A_INVOICE_DATE2) {
+		STAGE_A_INVOICE_DATE2 = sTAGE_A_INVOICE_DATE2;
+	}
+
+	public Date getSTAGE_A_SET_DATE2() {
+		return STAGE_A_SET_DATE2;
+	}
+
+	public void setSTAGE_A_SET_DATE2(Date sTAGE_A_SET_DATE2) {
+		STAGE_A_SET_DATE2 = sTAGE_A_SET_DATE2;
+	}
+
+	public BigDecimal getSTAGE_A_AMOUNT3() {
+		return STAGE_A_AMOUNT3;
+	}
+
+	public void setSTAGE_A_AMOUNT3(BigDecimal sTAGE_A_AMOUNT3) {
+		STAGE_A_AMOUNT3 = sTAGE_A_AMOUNT3;
+	}
+
+	public Date getSTAGE_A_INVOICE_DELI_DATE3() {
+		return STAGE_A_INVOICE_DELI_DATE3;
+	}
+
+	public void setSTAGE_A_INVOICE_DELI_DATE3(Date sTAGE_A_INVOICE_DELI_DATE3) {
+		STAGE_A_INVOICE_DELI_DATE3 = sTAGE_A_INVOICE_DELI_DATE3;
+	}
+
+	public Date getSTAGE_A_INVOICE_DATE3() {
+		return STAGE_A_INVOICE_DATE3;
+	}
+
+	public void setSTAGE_A_INVOICE_DATE3(Date sTAGE_A_INVOICE_DATE3) {
+		STAGE_A_INVOICE_DATE3 = sTAGE_A_INVOICE_DATE3;
+	}
+
+	public Date getSTAGE_A_SET_DATE3() {
+		return STAGE_A_SET_DATE3;
+	}
+
+	public void setSTAGE_A_SET_DATE3(Date sTAGE_A_SET_DATE3) {
+		STAGE_A_SET_DATE3 = sTAGE_A_SET_DATE3;
+	}
+
+	public BigDecimal getSTAGE_A_AMOUNT4() {
+		return STAGE_A_AMOUNT4;
+	}
+
+	public void setSTAGE_A_AMOUNT4(BigDecimal sTAGE_A_AMOUNT4) {
+		STAGE_A_AMOUNT4 = sTAGE_A_AMOUNT4;
+	}
+
+	public Date getSTAGE_A_INVOICE_DELI_DATE4() {
+		return STAGE_A_INVOICE_DELI_DATE4;
+	}
+
+	public void setSTAGE_A_INVOICE_DELI_DATE4(Date sTAGE_A_INVOICE_DELI_DATE4) {
+		STAGE_A_INVOICE_DELI_DATE4 = sTAGE_A_INVOICE_DELI_DATE4;
+	}
+
+	public Date getSTAGE_A_INVOICE_DATE4() {
+		return STAGE_A_INVOICE_DATE4;
+	}
+
+	public void setSTAGE_A_INVOICE_DATE4(Date sTAGE_A_INVOICE_DATE4) {
+		STAGE_A_INVOICE_DATE4 = sTAGE_A_INVOICE_DATE4;
+	}
+
+	public Date getSTAGE_A_SET_DATE4() {
+		return STAGE_A_SET_DATE4;
+	}
+
+	public void setSTAGE_A_SET_DATE4(Date sTAGE_A_SET_DATE4) {
+		STAGE_A_SET_DATE4 = sTAGE_A_SET_DATE4;
+	}
+
+	public BigDecimal getSTAGE_A_AMOUNT5() {
+		return STAGE_A_AMOUNT5;
+	}
+
+	public void setSTAGE_A_AMOUNT5(BigDecimal sTAGE_A_AMOUNT5) {
+		STAGE_A_AMOUNT5 = sTAGE_A_AMOUNT5;
+	}
+
+	public Date getSTAGE_A_INVOICE_DELI_DATE5() {
+		return STAGE_A_INVOICE_DELI_DATE5;
+	}
+
+	public void setSTAGE_A_INVOICE_DELI_DATE5(Date sTAGE_A_INVOICE_DELI_DATE5) {
+		STAGE_A_INVOICE_DELI_DATE5 = sTAGE_A_INVOICE_DELI_DATE5;
+	}
+
+	public Date getSTAGE_A_INVOICE_DATE5() {
+		return STAGE_A_INVOICE_DATE5;
+	}
+
+	public void setSTAGE_A_INVOICE_DATE5(Date sTAGE_A_INVOICE_DATE5) {
+		STAGE_A_INVOICE_DATE5 = sTAGE_A_INVOICE_DATE5;
+	}
+
+	public Date getSTAGE_A_SET_DATE5() {
+		return STAGE_A_SET_DATE5;
+	}
+
+	public void setSTAGE_A_SET_DATE5(Date sTAGE_A_SET_DATE5) {
+		STAGE_A_SET_DATE5 = sTAGE_A_SET_DATE5;
 	}
 
 }
