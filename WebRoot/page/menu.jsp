@@ -25,6 +25,7 @@
 						<li><a href="<%=request.getContextPath()%>/audit/showAddAuditAction.action">审价项目（新增）</a></li>
 						<li><a href="<%=request.getContextPath()%>/audit/showAuditAuth.action">项目情况检查</a></li>
 						<li><a href="<%=request.getContextPath()%>/audit/showAuditStatistics.action">统计界面</a></li>
+						<li><a href="<%=request.getContextPath()%>/audit/showAuditMonthSumList.action">月报统计</a></li>
 						<li><a href="<%=request.getContextPath()%>/audit/showAuditStatCost.action">项目收费统计输出</a></li>
 						<li><a href="<%=request.getContextPath()%>/audit/showAuditStatPaid.action">到账统计</a></li>
 						<li><a href="<%=request.getContextPath()%>/auditcntrct/showAuditCntrctBAction.action">投资监理B项目一览</a></li>

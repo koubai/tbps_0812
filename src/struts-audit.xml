@@ -122,6 +122,14 @@
 			<result name="success">/page/audit/auditstatistics.jsp</result>
 		</action>
 		
+		<action name="showAuditMonthSumList" class="auditAction" method="showAuditMonthSumList">
+			<result name="success">/page/audit/auditmonthsumlist.jsp</result>
+		</action>
+		
+		<action name="queryAuditMonthSumList" class="auditAction" method="queryAuditMonthSumList">
+			<result name="success">/page/audit/auditmonthsumlist.jsp</result>
+		</action>
+		
 		<action name="showAuditStatCost" class="auditAction" method="showAuditStatCost">
 			<result name="success">/page/audit/auditstatcost.jsp</result>
 		</action>
