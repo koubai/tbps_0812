@@ -55,6 +55,7 @@ public class PoiBidDataReport extends Poi2007Base {
 		cell.setCellStyle(style);
 	}
 	
+	
 	/**
 	 * 输出数据部分
 	 * @param sheet
@@ -183,7 +184,7 @@ public class PoiBidDataReport extends Poi2007Base {
 			cell0.setCellValue(TbpsUtil.obj2string(biddata.getCNTRCT_NO()));
 			cell0.setCellStyle(style);
 			// 承接项目日期
-			cell1.setCellValue(TbpsUtil.obj2string(biddata.getPROJECT_DEVIEW_DATE()));
+			cell1.setCellValue(format0.format(biddata.getPROJECT_DEVIEW_DATE()));
 			cell1.setCellStyle(style);
 			// 招标编号
 			cell2.setCellValue(TbpsUtil.obj2string(biddata.getBID_NO()));
@@ -313,19 +314,19 @@ public class PoiBidDataReport extends Poi2007Base {
 			cell26.setCellStyle(style);
 			// 评标报告扫描归档
 			if (biddata.getBID_VER_DOC_SCAN_DATE()!=null)
-				cell27.setCellValue(biddata.getBID_VER_DOC_SCAN_DATE().toString());
+				cell27.setCellValue(format0.format(biddata.getBID_VER_DOC_SCAN_DATE()));
 			else
 				cell27.setCellValue("");
 			cell27.setCellStyle(style);
 			// 招投标文件送至甲方
 			if (biddata.getBID_DOC_DELI_DATE1()!=null)
-				cell28.setCellValue(biddata.getBID_DOC_DELI_DATE1().toString());
+				cell28.setCellValue(format0.format(biddata.getBID_DOC_DELI_DATE1()));
 			else
 				cell28.setCellValue("");
 			cell28.setCellStyle(style);
 			// 评标报告送至甲方
 			if (biddata.getBID_VER_DOC_DELI_DATE1() != null)
-				cell29.setCellValue(biddata.getBID_VER_DOC_DELI_DATE1().toString());
+				cell29.setCellValue(format0.format(biddata.getBID_VER_DOC_DELI_DATE1()));
 			else
 				cell29.setCellValue("");
 			cell29.setCellStyle(style);
@@ -405,6 +406,18 @@ public class PoiBidDataReport extends Poi2007Base {
 			cell42.setCellValue(StringUtil.BigDecimal2Str(biddata.getBID_EXPERT_COMMISION_ACT_YUAN_SHOW(),2));
 			cell42.setCellStyle(style);			
 		}
+		mergeCellData( sheet, workbook, 1, 4);
+		mergeCellData( sheet, workbook, 2, 4);
+		mergeCellData( sheet, workbook, 3, 4);
+		mergeCellData( sheet, workbook, 4, 4);
+		mergeCellData( sheet, workbook, 5, 4);
+		mergeCellData( sheet, workbook, 6, 4);
+		mergeCellData( sheet, workbook, 7, 4);
+		mergeCellData( sheet, workbook, 8, 4);
+		mergeCellData( sheet, workbook, 9, 4);
+		mergeCellData( sheet, workbook, 10, 4);
+		mergeCellData( sheet, workbook, 11, 4);
+		mergeCellData( sheet, workbook, 12, 4);
 	}
 	
 	/**
@@ -439,7 +452,7 @@ public class PoiBidDataReport extends Poi2007Base {
 		
 		XSSFCell cell2 = null;
 		XSSFCell cell3 = null;
-		for(int i = 0; i < 11; i++) {
+		for(int i = 0; i < 43; i++) {
 			cell2 = row2.createCell(i);
 			cell2.setCellStyle(style);
 			cell3 = row3.createCell(i);

@@ -231,7 +231,7 @@ public class BidExpertCostAction extends BaseAction {
 					"", "", "",
 					"", "", "", "", "",
 					"", "", "", "", "",
-					strCNTRCT_ST_DATE, strCNTRCT_ED_DATE);
+					strCNTRCT_ST_DATE, strCNTRCT_ED_DATE, "");
 			
 			base.setDatas(listBid);
 			base.setSheetName(Constants.EXCEL_TYPE_EXPERTPAYREPORT);

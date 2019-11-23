@@ -74,12 +74,14 @@
 	}
 	
 	function queryList() {
+		$("#strProjectManager").val($("#tmpPROJECT_MANAGER").val());
 		document.mainform.action = '<c:url value="/bid/queryBidList.action"></c:url>';
 		document.mainform.submit();
 	}
 	
 	//翻页
 	function changePage(pageNum) {
+		$("#strProjectManager").val($("#tmpPROJECT_MANAGER").val());
 		document.getElementById("startIndex").value = pageNum;
 		document.mainform.action = '<c:url value="/bid/turnBidPage.action"></c:url>';
 		document.mainform.submit();
@@ -115,6 +117,7 @@
 	}
 	
 	function exportBid() {
+		$("#strProjectManager").val($("#tmpPROJECT_MANAGER").val());
 		document.mainform.action = '<c:url value="/bid/exportBidListAction.action"></c:url>';
 		document.mainform.submit();
 	}
@@ -180,6 +183,7 @@
 				<s:form id="mainform" name="mainform" method="POST">
 					<s:hidden name="startIndex" id="startIndex"/>
 					<s:hidden name="updateBidNo" id="updateBidNo"/>
+					<s:hidden name="strProjectManager" id="strProjectManager"/>
 					<s:hidden name="strBID_NO" id="strBID_NO"/>
 					<h3 class="title">招标项目检索和一览<a class="backHome" href="#" onclick="goHome();"><i class="fa fa-home" aria-hidden="true"></i>返回首页</a></h3>
 					<div class="row">
@@ -188,7 +192,7 @@
 								<span style="color:red; text-align:center;"><s:actionmessage /></span>
 							</div>
 						</s:if>
-						<div class="col-lg-6 form-group">
+						<div class="col-lg-5 form-group">
 							<label for="" class="col-lg-2 form-label">招标编号</label>
 							<div class="col-lg-4">
 								<s:textfield name="strBidNoLow" id="strBidNoLow" cssClass="form-control" maxlength="18" theme="simple"></s:textfield>
@@ -204,7 +208,19 @@
 								<s:textfield name="strProjectName" id="strProjectName" cssClass="form-control" maxlength="30" theme="simple"></s:textfield>
 							</div>
 						</div>
-						<div class="col-lg-2 form-group">
+						<div class="col-lg-3 form-group">
+						 	<label for="" class="col-lg-4 form-label">工程师</label>
+						 	<div class="col-lg-8">
+						 		<select id="tmpPROJECT_MANAGER" class="form-control">
+						 			<option value="" selected="selected">请选择</option>
+									<s:iterator id="listUserInfo" value="listUserInfo" status="st1">
+										<option value="<s:property value="LOGIN_ID"/>" <s:if test="%{strProjectManager == LOGIN_ID}">selected</s:if>>><s:property value="LOGIN_NAME"/></option>
+									</s:iterator>
+								</select>
+						 	</div>
+						</div>
+						
+						<div class="col-lg-1 form-group">
 							<button class="btn btn-success form-control" onclick="queryList();">检索</button>
 						</div>
 					</div>

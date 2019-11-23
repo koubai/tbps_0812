@@ -19,6 +19,7 @@ import org.apache.poi.hssf.util.CellRangeAddress;
 import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.util.RegionUtil;
+import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -410,5 +411,50 @@ public class Poi2007Base {
 
 	public void setMap(Map<String, Object> map) {
 		this.map = map;
+	}
+	
+	//合并单元格
+	@SuppressWarnings("deprecation")
+	public void mergeCellData(XSSFSheet sheet, XSSFWorkbook workbook, int Col, int EndRow) {
+
+		int lastRowNum = sheet.getLastRowNum();
+		int mergeStartRow = 0;
+		int mergeEndRow = EndRow;
+		
+		if (lastRowNum > EndRow-1){
+			XSSFRow row0 = sheet.getRow(lastRowNum);
+			XSSFCell cell0 = row0.getCell(Col-1);	
+			mergeStartRow = lastRowNum;
+			
+			XSSFRow row = sheet.getRow(lastRowNum);
+			XSSFCell cell = row.getCell(Col-1);	
+			for (int i=lastRowNum; i >= EndRow; i--){
+				row = sheet.getRow(i);
+				cell = row.getCell(Col-1);	
+				
+				if (i<=5){
+					System.out.println("i=" + i);
+					System.out.println("cell0.toString()=" + cell0.toString());
+					System.out.println("cell.toString()=" + cell.toString());
+				}
+				
+				
+				if (cell.toString()!= null && cell.toString().compareTo(cell0.toString())==0){
+					mergeEndRow = i;					
+				}else{
+					cell0 = row.getCell(Col-1);
+					if (mergeStartRow != mergeEndRow){
+						sheet.addMergedRegion(new CellRangeAddress( mergeEndRow, mergeStartRow, Col-1, Col-1));		
+					}
+					mergeStartRow = i;					
+					mergeEndRow = i;											
+				}
+			}
+			if (cell.toString()!= null && cell.toString().compareTo(cell0.toString())==0){
+				if (mergeStartRow != mergeEndRow){
+					sheet.addMergedRegion(new CellRangeAddress( mergeEndRow, mergeStartRow, Col-1, Col-1));		
+				}
+			}
+		}
 	}
 }

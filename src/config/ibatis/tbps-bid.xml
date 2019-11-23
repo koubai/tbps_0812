@@ -539,6 +539,9 @@
 			<isNotEmpty prepend="and" property="strRECEIPT1_VALUE_DATE">
 				$strRECEIPT1_VALUE_DATE$
 			</isNotEmpty>
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				B.PROJECT_MANAGER = #PROJECT_MANAGER#
+			</isNotEmpty>
 		) A where 1 = 1
 			<isNotEmpty prepend="and" property="cntrctNos">
 				A.CNTRCT_NO in ($cntrctNos$)
@@ -777,7 +780,7 @@
 		 from (
 			select * from (
 				select C.BID_COMP_NO,C.CNTRCT_YEAR,C.CNTRCT_NAME,C.CNTRCT_ST_DATE,C.CNTRCT_ED_DATE,C.BID_COMP_NAME,C.CO_MANAGER1,
-					T.* from bid T left join bidcntrct C on C.CNTRCT_NO = T.CNTRCT_NO and T.DELETE_FLG = '1'
+					T.* from (select * from bid where bid.DELETE_FLG = '1' ) T left join bidcntrct C on C.CNTRCT_NO = T.CNTRCT_NO 
 			) B  
 			where 1 = 1 and B.DELETE_FLG = '1'
 			<isNotEmpty prepend="and" property="CNTRCT_YEAR">
@@ -819,7 +822,7 @@
 			<isNotEmpty prepend="and" property="strRECEIPT1_VALUE_DATE">
 				$strRECEIPT1_VALUE_DATE$
 			</isNotEmpty>
-		) A right join bidcomp M on A.BID_NO = M.BID_NO and M.DELETE_FLG = '1'
+		) A join (select * from bidcomp where DELETE_FLG = '1' ) M on A.BID_NO = M.BID_NO 
 		where 1 = 1
 			<isNotEmpty prepend="and" property="cntrctNos">
 				A.CNTRCT_NO in ($cntrctNos$)

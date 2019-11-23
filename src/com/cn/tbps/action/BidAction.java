@@ -116,6 +116,11 @@ public class BidAction extends BaseAction {
 	 */
 	private String strOpenDateHigh;
 	
+	/**
+	 * 查询条件-工程师
+	 */
+	private String strProjectManager;
+	
 	//新增
 	/**
 	 * 新增招标DTO
@@ -461,7 +466,7 @@ public class BidAction extends BaseAction {
 			
 			//查询数据
 			List<BidDto> list = bidService.queryAllBidExport("", "", "", "", "", strProjectName, strBidNoLow, strBidNoHigh,
-					"", "", "", "", "", "", "");
+					"", "", "", "", "", "", "",strProjectManager);
 			
 			base.setDatas(list);
 			base.setSheetName(Constants.EXCEL_TYPE_ZBYL);
@@ -787,6 +792,7 @@ public class BidAction extends BaseAction {
 			updateBidDto = new BidDto();
 			updateBidDtoOld = new BidDto();
 			delBidNo = "";
+			listUserInfo = userInfoService.queryAllUser();
 		} catch(Exception e) {
 			return ERROR;
 		}
@@ -802,6 +808,7 @@ public class BidAction extends BaseAction {
 			this.clearMessages();
 			page = new Page();
 			startIndex = 0;
+
 			queryBid();
 		} catch(Exception e) {
 			log.error(e);
@@ -835,10 +842,11 @@ public class BidAction extends BaseAction {
 		if(page == null) {
 			page = new Page();
 		}
+		
 		//翻页查询所有招标
 		this.page.setStartIndex(startIndex);
 		bidService.queryBidAndBidCntrctByPage("", "", "", "", "", strProjectName, strBidNoLow, strBidNoHigh,
-				"", "", "", "", "", "", "", "", "", "", "", page);
+				"", "", "", "", "", "", "", "", "", strProjectManager, "", page);
 		listBid = (List<BidDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
@@ -1428,5 +1436,13 @@ public class BidAction extends BaseAction {
 		this.listBidRpt = listBidRpt;
 	}
 	
-	
+	public String getStrProjectManager() {
+		return strProjectManager;
+	}
+
+	public void setStrProjectManager(String strProjectManager) {
+		this.strProjectManager = strProjectManager;
+	}
+
+
 }

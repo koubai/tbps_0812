@@ -158,7 +158,7 @@ public class PoiBidNeiyeReport extends Poi2007Base {
 			cell0.setCellValue(TbpsUtil.obj2string(biddata.getCNTRCT_NO()));
 			cell0.setCellStyle(style);
 			// 承接项目日期
-			cell1.setCellValue(TbpsUtil.obj2string(biddata.getPROJECT_DEVIEW_DATE()));
+			cell1.setCellValue(format0.format(biddata.getPROJECT_DEVIEW_DATE()));
 			cell1.setCellStyle(style);
 			// 招标编号
 			cell2.setCellValue(TbpsUtil.obj2string(biddata.getBID_NO()));
@@ -316,6 +316,13 @@ public class PoiBidNeiyeReport extends Poi2007Base {
 				cell29.setCellValue("");
 			cell29.setCellStyle(style);
 		}
+		mergeCellData( sheet, workbook, 1, 4);
+		mergeCellData( sheet, workbook, 2, 4);
+		mergeCellData( sheet, workbook, 3, 4);
+		mergeCellData( sheet, workbook, 4, 4);
+		mergeCellData( sheet, workbook, 5, 4);
+		mergeCellData( sheet, workbook, 6, 4);
+
 	}
 	
 	/**
