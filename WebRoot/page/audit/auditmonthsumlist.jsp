@@ -38,7 +38,7 @@
 	}
 	
 	function exportAuditAnnualData() {
-		document.mainform.action = '<c:url value="/audit/exportAuditAnnualStatistics.action"></c:url>';
+		document.mainform.action = '<c:url value="/audit/exportAuditMonthStatistics.action"></c:url>';
 		document.mainform.submit();
 	}
 </script>
@@ -163,12 +163,12 @@
 								<td><s:property value="incompleteAuditCurrentMonth"/></td>
 								<td><s:property value="incompleteAuditHis"/></td>
 								<td></td>
+								<td><s:property value="auditAmountMonthConfirm"/></td>
 								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
+								<td><s:property value="receiptAuditPieceMonth"/></td>
+								<td><s:property value="receiptAuditAmountMonth"/></td>
+								<td><s:property value="receiptAuditPieceHis"/></td>
+								<td><s:property value="receiptAuditAmountHis"/></td>
 								<td><s:property value="totalNumMonth"/></td>
 								<td><s:property value="totalAmountMonth"/></td>
 								<td><s:property value="unreceivedNumMonth"/></td>
@@ -177,8 +177,8 @@
 								<td><s:property value="unreceivedAmountHis"/></td>
 							</tr>
 							</s:iterator>
-							<tr>
-								<td>总计</td>
+							<%-- <tr>
+								<td>本年</td>
 								<td><s:property value="sumAuditAnnualData_1.receiveAudit"/></td>
 								<td><s:property value="sumAuditAnnualData_1.completeAuditCurrentMonth"/></td>
 								<td><s:property value="sumAuditAnnualData_1.completeAuditHis"/></td>
@@ -187,9 +187,9 @@
 								<td><s:property value="sumAuditAnnualData_1.authorizeAuditAmount"/></td>
 								<td><s:property value="sumAuditAnnualData_1.incompleteAuditCurrentMonth"/></td>
 								<td><s:property value="sumAuditAnnualData_1.incompleteAuditHis"/></td>
-								<td><s:property value="sumAuditAnnualData_1.reviewAudit"/></td>
+								<td></td>
 								<td><s:property value="sumAuditAnnualData_1.auditAmountMonthConfirm"/></td>
-								<td><s:property value="sumAuditAnnualData_1.auditAmountMonthUnconfirmed"/></td>
+								<td></td>
 								<td><s:property value="sumAuditAnnualData_1.receiptAuditPieceMonth"/></td>
 								<td><s:property value="sumAuditAnnualData_1.receiptAuditAmountMonth"/></td>
 								<td><s:property value="sumAuditAnnualData_1.receiptAuditPieceHis"/></td>
@@ -200,7 +200,7 @@
 								<td><s:property value="sumAuditAnnualData_1.unreceivedAmountMonth"/></td>
 								<td><s:property value="sumAuditAnnualData_1.unreceivedNumHis"/></td>
 								<td><s:property value="sumAuditAnnualData_1.unreceivedAmountHis"/></td>
-							</tr>
+							</tr> --%>
 							<tr>
 								<th colspan="14" style="text-align: center;">地铁咨询项目</tg>
 								<th></th>
@@ -224,12 +224,12 @@
 								<td><s:property value="incompleteAuditCurrentMonth"/></td>
 								<td><s:property value="incompleteAuditHis"/></td>
 								<td></td>
+								<td><s:property value="auditAmountMonthConfirm"/></td>
 								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
-								<td></td>
+								<td><s:property value="receiptAuditPieceMonth"/></td>
+								<td><s:property value="receiptAuditAmountMonth"/></td>
+								<td><s:property value="receiptAuditPieceHis"/></td>
+								<td><s:property value="receiptAuditAmountHis"/></td>
 								<td><s:property value="totalNumMonth"/></td>
 								<td><s:property value="totalAmountMonth"/></td>
 								<td><s:property value="unreceivedNumMonth"/></td>
@@ -238,8 +238,8 @@
 								<td><s:property value="unreceivedAmountHis"/></td>
 							</tr>
 							</s:iterator>
-							<tr>
-								<td>总计</td>
+							<%-- <tr>
+								<td>本年</td>
 								<td><s:property value="sumAuditAnnualData_2.receiveAudit"/></td>
 								<td><s:property value="sumAuditAnnualData_2.completeAuditCurrentMonth"/></td>
 								<td><s:property value="sumAuditAnnualData_2.completeAuditHis"/></td>
@@ -248,9 +248,9 @@
 								<td><s:property value="sumAuditAnnualData_2.authorizeAuditAmount"/></td>
 								<td><s:property value="sumAuditAnnualData_2.incompleteAuditCurrentMonth"/></td>
 								<td><s:property value="sumAuditAnnualData_2.incompleteAuditHis"/></td>
-								<td><s:property value="sumAuditAnnualData_2.reviewAudit"/></td>
+								<td></td>
 								<td><s:property value="sumAuditAnnualData_2.auditAmountMonthConfirm"/></td>
-								<td><s:property value="sumAuditAnnualData_2.auditAmountMonthUnconfirmed"/></td>
+								<td></td>
 								<td><s:property value="sumAuditAnnualData_2.receiptAuditPieceMonth"/></td>
 								<td><s:property value="sumAuditAnnualData_2.receiptAuditAmountMonth"/></td>
 								<td><s:property value="sumAuditAnnualData_2.receiptAuditPieceHis"/></td>
@@ -261,7 +261,7 @@
 								<td><s:property value="sumAuditAnnualData_2.unreceivedAmountMonth"/></td>
 								<td><s:property value="sumAuditAnnualData_2.unreceivedNumHis"/></td>
 								<td><s:property value="sumAuditAnnualData_2.unreceivedAmountHis"/></td>
-							</tr>
+							</tr> --%>
 							<tr>
 								<th colspan="14" style="text-align: center;">地铁控制价项目</tg>
 								<th></th>
@@ -279,8 +279,8 @@
 								<td><s:property value="receiveAudit"/></td>
 								<td><s:property value="completeAuditCurrentMonth"/></td>
 								<td><s:property value="completeAuditHis"/></td>
-								<td><s:property value="submitAuditAmount"/></td>
-								<td><s:property value="completeAuditAmount"/></td>
+								<td></td>
+								<td></td>
 								<td><s:property value="authorizeAuditAmount"/></td>
 								<td><s:property value="incompleteAuditCurrentMonth"/></td>
 								<td><s:property value="incompleteAuditHis"/></td>
@@ -291,38 +291,38 @@
 								<td></td>
 								<td></td>
 								<td></td>
-								<td><s:property value="totalNumMonth"/></td>
-								<td><s:property value="totalAmountMonth"/></td>
-								<td><s:property value="unreceivedNumMonth"/></td>
-								<td><s:property value="unreceivedAmountMonth"/></td>
-								<td><s:property value="unreceivedNumHis"/></td>
-								<td><s:property value="unreceivedAmountHis"/></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
 							</tr>
 							</s:iterator>
-							<tr>
-								<td>总计</td>
+							<%-- <tr>
+								<td>本年</td>
 								<td><s:property value="sumAuditAnnualData_4.receiveAudit"/></td>
 								<td><s:property value="sumAuditAnnualData_4.completeAuditCurrentMonth"/></td>
 								<td><s:property value="sumAuditAnnualData_4.completeAuditHis"/></td>
-								<td><s:property value="sumAuditAnnualData_4.submitAuditAmount"/></td>
-								<td><s:property value="sumAuditAnnualData_4.completeAuditAmount"/></td>
+								<td></td>
+								<td></td>
 								<td><s:property value="sumAuditAnnualData_4.authorizeAuditAmount"/></td>
 								<td><s:property value="sumAuditAnnualData_4.incompleteAuditCurrentMonth"/></td>
 								<td><s:property value="sumAuditAnnualData_4.incompleteAuditHis"/></td>
-								<td><s:property value="sumAuditAnnualData_4.reviewAudit"/></td>
-								<td><s:property value="sumAuditAnnualData_4.auditAmountMonthConfirm"/></td>
-								<td><s:property value="sumAuditAnnualData_4.auditAmountMonthUnconfirmed"/></td>
-								<td><s:property value="sumAuditAnnualData_4.receiptAuditPieceMonth"/></td>
-								<td><s:property value="sumAuditAnnualData_4.receiptAuditAmountMonth"/></td>
-								<td><s:property value="sumAuditAnnualData_4.receiptAuditPieceHis"/></td>
-								<td><s:property value="sumAuditAnnualData_4.receiptAuditAmountHis"/></td>
-								<td><s:property value="sumAuditAnnualData_4.totalNumMonth"/></td>
-								<td><s:property value="sumAuditAnnualData_4.totalAmountMonth"/></td>
-								<td><s:property value="sumAuditAnnualData_4.unreceivedNumMonth"/></td>
-								<td><s:property value="sumAuditAnnualData_4.unreceivedAmountMonth"/></td>
-								<td><s:property value="sumAuditAnnualData_4.unreceivedNumHis"/></td>
-								<td><s:property value="sumAuditAnnualData_4.unreceivedAmountHis"/></td>
-							</tr>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr> --%>
 						</table>
 						<div class="operationBtns">
 							<button type="button" class="btn btn-success" onclick="exportAuditAnnualData();">导出审价统计</button>

@@ -1064,6 +1064,12 @@ public class AuditAction extends BaseAction {
 	 */
 	private void queryAuditMonthSum() {
 		try {
+			auditDataMonthSum_1 = new ArrayList<AuditAnnualDataDto>();
+			auditDataMonthSum_2 = new ArrayList<AuditAnnualDataDto>();
+			auditDataMonthSum_4 = new ArrayList<AuditAnnualDataDto>();
+			sumAuditAnnualData_1 = new AuditAnnualDataDto();
+			sumAuditAnnualData_2 = new AuditAnnualDataDto();
+			sumAuditAnnualData_4 = new AuditAnnualDataDto();
 			SimpleDateFormat sdftime = new SimpleDateFormat("yyyy-MM-dd");
 			String startDate = strStartDate;
 			String endDate = strEndDate;
@@ -1111,8 +1117,11 @@ public class AuditAction extends BaseAction {
 				auditDataMonthSum_4.add(auditAnnualData);
 			}
 			sumAuditAnnualData_1 = sumAuditAnnualData(auditDataMonthSum_1);
+			auditDataMonthSum_1.add(sumAuditAnnualData_1);
 			sumAuditAnnualData_2 = sumAuditAnnualData(auditDataMonthSum_2);
+			auditDataMonthSum_2.add(sumAuditAnnualData_2);
 			sumAuditAnnualData_4 = sumAuditAnnualData(auditDataMonthSum_4);
+			auditDataMonthSum_4.add(sumAuditAnnualData_4);
 			
 		} catch(Exception e) {
 			log.error(e);
@@ -1173,6 +1182,38 @@ public class AuditAction extends BaseAction {
 	}
 	
 	/**
+	 * 导出审价月报统计数据
+	 * @return
+	 */
+	public String exportAuditMonthStatistics() {
+		try {
+			this.clearMessages();
+			String name = StringUtil.createFileName(Constants.EXCEL_TYPE_SJTJ);
+			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
+			response.setContentType("application/vnd.ms-excel");
+			Poi2007Base base = PoiFactory.getPoi(Constants.EXCEL_TYPE_YBTJ);
+			
+			//查询审价统计数据
+			queryAuditMonthSum();
+			
+			//上一年份数据
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("project_manager", strProjectManager);
+			map.put("audit_data_month_sum_1", auditDataMonthSum_1);
+			map.put("audit_data_month_sum_2", auditDataMonthSum_2);
+			map.put("audit_data_month_sum_4", auditDataMonthSum_4);
+			base.setMap(map);
+			
+			base.setSheetName(Constants.EXCEL_TYPE_YBTJ);
+			base.exportExcel(response.getOutputStream());
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
 	 * 按年统计审价数据
 	 */
 	private void queryAnnualAuditStatistics() {
@@ -1218,6 +1259,7 @@ public class AuditAction extends BaseAction {
 	 */
 	private AuditAnnualDataDto sumAuditAnnualData(List<AuditAnnualDataDto> list) {
 		AuditAnnualDataDto sumAuditAnnualData = new AuditAnnualDataDto();
+		sumAuditAnnualData.setShowtime("本年");
 		if(list != null && list.size() > 0) {
 			for(AuditAnnualDataDto auditAnnualData : list) {
 				if(auditAnnualData.getReceiveAudit() != null) {

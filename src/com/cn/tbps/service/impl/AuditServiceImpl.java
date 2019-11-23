@@ -1165,6 +1165,16 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 		Integer incompleteAuditCurrentMonth = 0;
 		//未完成审价历史（个）
 		Integer incompleteAuditHis = 0;
+		//审价费本月确认应收（万元）
+		BigDecimal bAmount = new BigDecimal(0);
+		//实收审价费本月发票（个）
+		Integer bAmountNumMonth = 0;
+		//实收审价费本月（万元）
+		BigDecimal bAmountMonth = new BigDecimal(0);
+		//实收审价费历史发票（个）
+		Integer bAmountNumMonthHis = 0;
+		//实收审价费历史（万元）
+		BigDecimal bAmountMonthHis = new BigDecimal(0);
 		//本月总发票（张）
 		Integer totalNumMonth = 0;
 		//本月总发票（元）
@@ -1182,12 +1192,25 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 		//判断条件是“资料收到日期”为统计日期范围
 		String dateCondition = " ((T.PLAN_DOC_RCV_DATE >= '" + startDate + "' and T.PLAN_DOC_RCV_DATE <= '" + endDate + "') ";
 		dateCondition += "or (T.DOC_REC_DATE >= '" + startDate + "' and T.DOC_REC_DATE <= '" + endDate + "'))";
+		switch(CNTRCT_INFO){
+		case "1":
+			//地铁审价以发出审定单时间作为完成节点
+			dateCondition = " (T.APPROVAL_SND_DATE >= '" + startDate + "' and T.APPROVAL_SND_DATE <= '" + endDate + "') ";
+			break;
+		case "2":
+		case "4":
+			//咨询及控制价以初稿日期作为完成节点
+			dateCondition = " (T.DRAFT_DATE >= '" + startDate + "' and T.DRAFT_DATE <= '" + endDate + "') ";
+			break;
+		default:
+			break;
+		}
 		List<AuditDto> list1 = auditDao.queryAuditMonthSumList(projectManager, CNTRCT_TYPE, dateCondition, CNTRCT_INFO);
 		if(list1 != null) {
 			receiveAudit = list1.size();
 			for(AuditDto audit : list1) {
 				//本月送审项目金额
-				if(audit.getVERIFY_PER_AMOUNT() != null) {
+				if(audit.getVERIFY_PER_AMOUNT() != null && !CNTRCT_INFO.equals("4")) {
 					submitAuditAmount = submitAuditAmount.add(audit.getVERIFY_PER_AMOUNT());
 					if(calcCompleteAudit(audit, start, end)) {
 						//完成送审项目数
@@ -1196,6 +1219,16 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 						completeAuditAmount = completeAuditAmount.add(audit.getVERIFY_PER_AMOUNT());
 						//本月完成送审
 						authorizeAuditAmount = authorizeAuditAmount.add(audit.getVERIFY_AMOUNT());
+					}
+
+					//本月应收指该月发出审定单的项目对应的乙方收费，未确认部分由人工填写
+					if(audit.getB_AMOUNT() != null) {
+						bAmount = bAmount.add(audit.getB_AMOUNT());
+					}
+					//实收审价费根据乙方开票日期，该月开具的当月送审项目发票计入本月，该月开具的之前月送审项目的发票计入历史，一个项目开具的发票数计为一张
+					if((audit.getB_INVOICE_DATE() != null && audit.getB_INVOICE_DATE().after(start) && audit.getB_INVOICE_DATE().before(end))){
+						bAmountMonth = bAmountMonth.add(audit.getB_AMOUNT());
+						bAmountNumMonth++;
 					}
 					
 					//乙方发票号不为空
@@ -1241,6 +1274,13 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 						}
 					}
 				}
+
+				if(audit.getCNT_PRICE() != null && audit.getCNT_PRICE().compareTo(BigDecimal.ZERO) > 0 && CNTRCT_INFO.equals("4")) {
+					//完成送审项目数
+					completeAuditCurrentMonth++;
+					//本月完成送审
+					authorizeAuditAmount = authorizeAuditAmount.add(audit.getCNT_PRICE());
+				}
 			}
 		}
 		auditAnnualData.setReceiveAudit(receiveAudit);
@@ -1253,15 +1293,37 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 		//历史的判断条件是“资料收到日期”在本统计日期范围以前即小于3/29， 完成条件同上
 		dateCondition = "(T.PLAN_DOC_RCV_DATE < '" + startDate+ "'";
 		dateCondition += " or T.DOC_REC_DATE < '" + startDate + "')";
+		switch(CNTRCT_INFO){
+		case "1":
+			//地铁审价以发出审定单时间作为完成节点
+			dateCondition = " T.APPROVAL_SND_DATE < '" + startDate + "'";
+			break;
+		case "2":
+		case "4":
+			//咨询及控制价以初稿日期作为完成节点
+			dateCondition = " T.DRAFT_DATE < '" + startDate + "'";
+			break;
+		default:
+			break;
+		}
 		List<AuditDto> list2 = auditDao.queryAuditMonthSumList(projectManager, CNTRCT_TYPE, dateCondition, CNTRCT_INFO);
 		if(list2 != null) {
 			for(AuditDto audit : list2) {
 				//本月送审总金额
-				if(audit.getVERIFY_PER_AMOUNT() != null) {
-					if(calcCompleteAudit(audit, start, end)) {
+				if(audit.getVERIFY_PER_AMOUNT() != null && !CNTRCT_INFO.equals("4")) {
+					if(calcCompleteAuditHis(audit, start)) {
 						//历史完成送审
 						completeAuditHis++;
 					}
+				}
+				if(audit.getCNT_PRICE() != null && audit.getCNT_PRICE().compareTo(BigDecimal.ZERO) > 0 && CNTRCT_INFO.equals("4")) {
+					//历史完成送审
+					completeAuditHis++;
+				}
+				//实收审价费根据乙方开票日期，该月开具的当月送审项目发票计入本月，该月开具的之前月送审项目的发票计入历史，一个项目开具的发票数计为一张
+				if((audit.getB_INVOICE_DATE() != null && audit.getB_INVOICE_DATE().after(start) && audit.getB_INVOICE_DATE().before(end))){
+					bAmountMonthHis = bAmountMonthHis.add(audit.getB_AMOUNT());
+					bAmountNumMonthHis++;
 				}
 				//乙方发票号不为空
 				if(StringUtil.isNotBlank(audit.getB_INVOICE_NO())) {
@@ -1335,6 +1397,20 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 		//历史未收发票金额
 		//3/29以前（不含3/29）的审价项目的“乙方发票号”不为空但是“乙方到账日期”为空的“乙方收费”金额。
 		auditAnnualData.setUnreceivedAmountHis(unreceivedAmountHis.setScale(6, BigDecimal.ROUND_HALF_UP));
+
+		//审价费本月确认应收（万元）
+		//本月应收指该月发出审定单的项目对应的乙方收费
+		auditAnnualData.setAuditAmountMonthConfirm(bAmount.setScale(6, BigDecimal.ROUND_HALF_UP));
+		
+		//实收审价费根据乙方开票日期，该月开具的当月送审项目发票计入本月，该月开具的之前月送审项目的发票计入历史，一个项目开具的发票数计为一张
+		//实收审价费本月发票（个）
+		auditAnnualData.setReceiptAuditPieceMonth(bAmountNumMonth);
+		//实收审价费本月（万元）
+		auditAnnualData.setReceiptAuditAmountMonth(bAmountMonth.setScale(6, BigDecimal.ROUND_HALF_UP));
+		//实收审价费历史发票（个）
+		auditAnnualData.setReceiptAuditPieceHis(bAmountNumMonthHis);
+		//实收审价费历史（万元）
+		auditAnnualData.setReceiptAuditAmountHis(bAmountMonthHis.setScale(6, BigDecimal.ROUND_HALF_UP));
 		return auditAnnualData;
 	}
 	
@@ -1374,6 +1450,50 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 						//取“乙方到账日期”和“结算报告出具日期”两者离现在近的那个判断是否落在本统计日期范围内
 						tmpdate = (audit.getB_SET_DATE().after(audit.getSET_DOC_RPT_DATE())) ? audit.getB_SET_DATE() : audit.getSET_DOC_RPT_DATE();
 						if(tmpdate.after(start) && tmpdate.before(end)) {
+							isCompleteAudit = true;
+						}
+					}					
+				}
+			}
+		}
+		return isCompleteAudit;
+	}
+	
+	/**
+	 * 判断历史是否是完成审价
+	 * @param audit
+	 * @param start
+	 * @return
+	 */
+	private boolean calcCompleteAuditHis(AuditDto audit, Date start) {
+		Date tmpdate = null;
+		boolean isCompleteAudit = false;
+		BigDecimal zero = new BigDecimal(0);
+		
+		//（如果“乙方收费”为0或空，“报告出具日期"不为空且在本统计日期范围内。）
+		//或（如果"乙方收费"不为空也不为0，“乙方到账日期”也不为空，"报告出具日期"也不为空，取“乙方到账日期”和“报告出具日期”两者离现在近的那个判断是否落在本统计日期范围内）
+		//乙方收费为0或空
+		if(audit.getB_AMOUNT() == null || zero.setScale(6).equals(audit.getB_AMOUNT())) {
+			//“报告出具日期"或"结算报告出具日期"不为空且在本统计日期范围内
+			if((audit.getREPORT_RAISE_DATE() != null && audit.getREPORT_RAISE_DATE().before(start)) ||
+					(audit.getSET_DOC_RPT_DATE() != null && audit.getSET_DOC_RPT_DATE().before(start))){
+				isCompleteAudit = true;
+			}
+		} else {
+			//乙方收费不为空也不为0
+			//“乙方到账日期”也不为空，"报告出具日期"也不为空
+			if(audit.getB_SET_DATE() != null ){ 
+				if (audit.getREPORT_RAISE_DATE() != null) {
+					//取“乙方到账日期”和“报告出具日期”两者离现在近的那个判断是否落在本统计日期范围内
+					tmpdate = (audit.getB_SET_DATE().after(audit.getREPORT_RAISE_DATE())) ? audit.getB_SET_DATE() : audit.getREPORT_RAISE_DATE();
+					if(tmpdate.before(start)) {
+						isCompleteAudit = true;
+					}
+				}else{
+					if (audit.getSET_DOC_RPT_DATE() != null) {
+						//取“乙方到账日期”和“结算报告出具日期”两者离现在近的那个判断是否落在本统计日期范围内
+						tmpdate = (audit.getB_SET_DATE().after(audit.getSET_DOC_RPT_DATE())) ? audit.getB_SET_DATE() : audit.getSET_DOC_RPT_DATE();
+						if(tmpdate.before(start)) {
 							isCompleteAudit = true;
 						}
 					}					

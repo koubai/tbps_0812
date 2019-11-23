@@ -136,6 +136,10 @@ public class Constants {
 	 * 审价统计数据
 	 */
 	public final static String EXCEL_TYPE_SJTJ = "SJTJ";
+	/**
+	 * 月报统计数据
+	 */
+	public final static String EXCEL_TYPE_YBTJ = "YBTJ";
 	
 	/**
 	 * 保证金汇总
