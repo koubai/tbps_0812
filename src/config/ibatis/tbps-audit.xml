@@ -340,6 +340,26 @@
 		</isNotEmpty>
 	</select>
 	
+	<select id="queryAuditMonthSum" parameterClass="java.util.Map" resultMap="AuditDto1">
+		select A.* from (
+			select T.*,
+			(select C.CNTRCT_TYPE from auditcntrct C where C.CNTRCT_NO = T.CNTRCT_NO and C.DELETE_FLG = '1') as CNTRCT_TYPE
+			from audit T where 1 = 1
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				T.PROJECT_MANAGER like '%$PROJECT_MANAGER$%' ESCAPE '/'
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="dateCondition">
+				$dateCondition$
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="CNTRCT_INFO">
+				T.CNTRCT_INFO = #CNTRCT_INFO#
+			</isNotEmpty>
+		) A where 1 = 1
+		<isNotEmpty prepend="and" property="CNTRCT_TYPE">
+			A.CNTRCT_TYPE = #CNTRCT_TYPE#
+		</isNotEmpty>
+	</select>
+	
 	<select id="queryAuditCountByPage" resultClass="int" parameterClass="java.util.Map">
 		select count(*) from (
 			select TT.* from

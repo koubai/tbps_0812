@@ -1,5 +1,6 @@
 package com.cn.tbps.action;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -276,6 +277,18 @@ public class AuditAction extends BaseAction {
 	private String strSetList;
 	//去年一年审价数据
 	private AuditAnnualDataDto auditDataMonthSum;
+	//月报统计按月数据审价
+	private List<AuditAnnualDataDto> auditDataMonthSum_1;
+	//月报统计总计数据审价
+	private AuditAnnualDataDto sumAuditAnnualData_1;
+	//月报统计按月数据咨询
+	private List<AuditAnnualDataDto> auditDataMonthSum_2;
+	//月报统计总计数据咨询
+	private AuditAnnualDataDto sumAuditAnnualData_2;
+	//月报统计按月数据控制价
+	private List<AuditAnnualDataDto> auditDataMonthSum_4;
+	//月报统计总计数据控制价
+	private AuditAnnualDataDto sumAuditAnnualData_4;
 	
 	private String strKeyword;
 	
@@ -991,6 +1004,153 @@ public class AuditAction extends BaseAction {
 		}
 		return SUCCESS;
 	}
+
+	/**
+	 * 显示月报统计
+	 * @return
+	 */
+	public String showAuditMonthSumList() {
+		try {
+			this.clearMessages();
+			strProjectManager = "";
+			strStartDate = "";
+			strEndDate = "";
+			auditDataMonthSum_1 = new ArrayList<AuditAnnualDataDto>();
+			auditDataMonthSum_2 = new ArrayList<AuditAnnualDataDto>();
+			auditDataMonthSum_4 = new ArrayList<AuditAnnualDataDto>();
+			sumAuditAnnualData_1 = new AuditAnnualDataDto();
+			sumAuditAnnualData_2 = new AuditAnnualDataDto();
+			sumAuditAnnualData_4 = new AuditAnnualDataDto();
+			
+			listUserInfo = userInfoService.queryAllUser();
+			UserInfoDto userinfo = new UserInfoDto();
+			userinfo.setLOGIN_NAME("");
+			listUserInfo.add(userinfo);
+			System.out.println("listUserInfo" + listUserInfo.size());
+
+			//月报统计
+			queryAuditMonthSum();
+		} catch(Exception e) {
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 查询月报统计
+	 * @return
+	 */
+	public String queryAuditMonthSumList() {
+		try {
+			this.clearMessages();
+			auditDataMonthSum_1 = new ArrayList<AuditAnnualDataDto>();
+			auditDataMonthSum_2 = new ArrayList<AuditAnnualDataDto>();
+			auditDataMonthSum_4 = new ArrayList<AuditAnnualDataDto>();
+			sumAuditAnnualData_1 = new AuditAnnualDataDto();
+			sumAuditAnnualData_2 = new AuditAnnualDataDto();
+			sumAuditAnnualData_4 = new AuditAnnualDataDto();
+			
+			//月报统计
+			queryAuditMonthSum();
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 按年统计月报数据
+	 */
+	private void queryAuditMonthSum() {
+		try {
+			auditDataMonthSum_1 = new ArrayList<AuditAnnualDataDto>();
+			auditDataMonthSum_2 = new ArrayList<AuditAnnualDataDto>();
+			auditDataMonthSum_4 = new ArrayList<AuditAnnualDataDto>();
+			sumAuditAnnualData_1 = new AuditAnnualDataDto();
+			sumAuditAnnualData_2 = new AuditAnnualDataDto();
+			sumAuditAnnualData_4 = new AuditAnnualDataDto();
+			SimpleDateFormat sdftime = new SimpleDateFormat("yyyy-MM-dd");
+			String startDate = strStartDate;
+			String endDate = strEndDate;
+			if(StringUtils.isEmpty(strStartDate)){
+				Calendar calendar = Calendar.getInstance();  
+		        int currentYear = calendar.get(Calendar.YEAR);
+		        calendar.clear();
+		        calendar.set(Calendar.YEAR, currentYear);
+		        startDate = sdftime.format(calendar.getTime());
+			}
+			if(StringUtils.isEmpty(strEndDate)){
+				Calendar calendar = Calendar.getInstance();  
+		        int currentYear = calendar.get(Calendar.YEAR);
+		        calendar.clear();
+		        calendar.set(Calendar.YEAR, currentYear);
+		        calendar.roll(Calendar.DAY_OF_YEAR, -1);
+		        endDate = sdftime.format(calendar.getTime());
+			}
+			List<String> monthList = getMonthList(startDate, endDate);
+			//只查询合同性质=地铁类的
+			for(String month : monthList){
+				Calendar calendar = Calendar.getInstance(); 
+				//指定月份第一天
+				calendar.set(Calendar.YEAR, Integer.valueOf(month.substring(0, 4)));
+				calendar.set(Calendar.MONTH, Integer.valueOf(month.substring(5)) -1); 
+				int firstDay = calendar.getMinimum(Calendar.DATE);
+				calendar.set(Calendar.DAY_OF_MONTH, firstDay); 
+				startDate = sdftime.format(calendar.getTime());
+				//指定月份最后一天
+		        int lastDay = calendar.getActualMaximum(Calendar.DATE);
+		        calendar.set(Calendar.DAY_OF_MONTH, lastDay); 
+		        endDate = sdftime.format(calendar.getTime()); 
+				//委托内容审价
+				AuditAnnualDataDto auditAnnualData = new AuditAnnualDataDto();
+				auditAnnualData = auditService.queryAuditMonthData(strProjectManager, startDate, endDate, "1", "1");
+				auditAnnualData.setShowtime(month.substring(5)+"月");
+				auditDataMonthSum_1.add(auditAnnualData);
+				//委托内容咨询
+				auditAnnualData = auditService.queryAuditMonthData(strProjectManager, startDate, endDate, "1", "2");
+				auditAnnualData.setShowtime(month.substring(5)+"月");
+				auditDataMonthSum_2.add(auditAnnualData);
+				//委托内容控制价
+				auditAnnualData = auditService.queryAuditMonthData(strProjectManager, startDate, endDate, "1", "4");
+				auditAnnualData.setShowtime(month.substring(5)+"月");
+				auditDataMonthSum_4.add(auditAnnualData);
+			}
+			sumAuditAnnualData_1 = sumAuditAnnualData(auditDataMonthSum_1);
+			auditDataMonthSum_1.add(sumAuditAnnualData_1);
+			sumAuditAnnualData_2 = sumAuditAnnualData(auditDataMonthSum_2);
+			auditDataMonthSum_2.add(sumAuditAnnualData_2);
+			sumAuditAnnualData_4 = sumAuditAnnualData(auditDataMonthSum_4);
+			auditDataMonthSum_4.add(sumAuditAnnualData_4);
+			
+		} catch(Exception e) {
+			log.error(e);
+		}
+	}
+
+	public List<String> getMonthList(String beginTime, String endTime) {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat monthFormat = new SimpleDateFormat("yyyy-MM");
+		List<String> monthList = new ArrayList<String>();
+		try {
+			Date begin = format.parse(beginTime);
+			Date end = format.parse(endTime);
+			int months = (end.getYear() - begin.getYear()) * 12
+					+ (end.getMonth() - begin.getMonth());
+
+			for (int i = 0; i <= months; i++) {
+				Calendar calendar = Calendar.getInstance();  
+				calendar.setTime(begin);  
+				calendar.add(Calendar.MONTH, i);
+				monthList.add(monthFormat.format(calendar.getTime()));
+			}
+
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+		return monthList;
+	}
 	
 	/**
 	 * 导出审价统计数据
@@ -1013,6 +1173,38 @@ public class AuditAction extends BaseAction {
 			base.setMap(map);
 			
 			base.setSheetName(Constants.EXCEL_TYPE_SJTJ);
+			base.exportExcel(response.getOutputStream());
+		} catch(Exception e) {
+			log.error(e);
+			return ERROR;
+		}
+		return SUCCESS;
+	}
+	
+	/**
+	 * 导出审价月报统计数据
+	 * @return
+	 */
+	public String exportAuditMonthStatistics() {
+		try {
+			this.clearMessages();
+			String name = StringUtil.createFileName(Constants.EXCEL_TYPE_SJTJ);
+			response.setHeader("Content-Disposition","attachment;filename=" + name);//指定下载的文件名
+			response.setContentType("application/vnd.ms-excel");
+			Poi2007Base base = PoiFactory.getPoi(Constants.EXCEL_TYPE_YBTJ);
+			
+			//查询审价统计数据
+			queryAuditMonthSum();
+			
+			//上一年份数据
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("project_manager", strProjectManager);
+			map.put("audit_data_month_sum_1", auditDataMonthSum_1);
+			map.put("audit_data_month_sum_2", auditDataMonthSum_2);
+			map.put("audit_data_month_sum_4", auditDataMonthSum_4);
+			base.setMap(map);
+			
+			base.setSheetName(Constants.EXCEL_TYPE_YBTJ);
 			base.exportExcel(response.getOutputStream());
 		} catch(Exception e) {
 			log.error(e);
@@ -1067,6 +1259,7 @@ public class AuditAction extends BaseAction {
 	 */
 	private AuditAnnualDataDto sumAuditAnnualData(List<AuditAnnualDataDto> list) {
 		AuditAnnualDataDto sumAuditAnnualData = new AuditAnnualDataDto();
+		sumAuditAnnualData.setShowtime("本年");
 		if(list != null && list.size() > 0) {
 			for(AuditAnnualDataDto auditAnnualData : list) {
 				if(auditAnnualData.getReceiveAudit() != null) {
@@ -2040,5 +2233,53 @@ public class AuditAction extends BaseAction {
 
 	public void setAuditDataMonthSum(AuditAnnualDataDto auditDataMonthSum) {
 		this.auditDataMonthSum = auditDataMonthSum;
+	}
+
+	public List<AuditAnnualDataDto> getAuditDataMonthSum_1() {
+		return auditDataMonthSum_1;
+	}
+
+	public void setAuditDataMonthSum_1(List<AuditAnnualDataDto> auditDataMonthSum_1) {
+		this.auditDataMonthSum_1 = auditDataMonthSum_1;
+	}
+
+	public AuditAnnualDataDto getSumAuditAnnualData_1() {
+		return sumAuditAnnualData_1;
+	}
+
+	public void setSumAuditAnnualData_1(AuditAnnualDataDto sumAuditAnnualData_1) {
+		this.sumAuditAnnualData_1 = sumAuditAnnualData_1;
+	}
+
+	public List<AuditAnnualDataDto> getAuditDataMonthSum_2() {
+		return auditDataMonthSum_2;
+	}
+
+	public void setAuditDataMonthSum_2(List<AuditAnnualDataDto> auditDataMonthSum_2) {
+		this.auditDataMonthSum_2 = auditDataMonthSum_2;
+	}
+
+	public AuditAnnualDataDto getSumAuditAnnualData_2() {
+		return sumAuditAnnualData_2;
+	}
+
+	public void setSumAuditAnnualData_2(AuditAnnualDataDto sumAuditAnnualData_2) {
+		this.sumAuditAnnualData_2 = sumAuditAnnualData_2;
+	}
+
+	public List<AuditAnnualDataDto> getAuditDataMonthSum_4() {
+		return auditDataMonthSum_4;
+	}
+
+	public void setAuditDataMonthSum_4(List<AuditAnnualDataDto> auditDataMonthSum_4) {
+		this.auditDataMonthSum_4 = auditDataMonthSum_4;
+	}
+
+	public AuditAnnualDataDto getSumAuditAnnualData_4() {
+		return sumAuditAnnualData_4;
+	}
+
+	public void setSumAuditAnnualData_4(AuditAnnualDataDto sumAuditAnnualData_4) {
+		this.sumAuditAnnualData_4 = sumAuditAnnualData_4;
 	}
 }

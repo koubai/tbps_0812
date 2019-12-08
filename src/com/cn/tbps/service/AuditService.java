@@ -79,6 +79,17 @@ public interface AuditService {
 	public AuditAnnualDataDto queryAuditMonthData(String projectManager, String startDate, String endDate, String CNTRCT_TYPE);
 	
 	/**
+	 * 查询审价月度统计数据（只查询合同性质为地铁类）
+	 * @param projectManager
+	 * @param startDate
+	 * @param endDate
+	 * @param CNTRCT_TYPE 合同性质：1为地铁，2位非地铁
+	 * @param CNTRCT_INFO 委托内容
+	 * @return
+	 */
+	public AuditAnnualDataDto queryAuditMonthData(String projectManager, String startDate, String endDate, String CNTRCT_TYPE, String CNTRCT_INFO);
+	
+	/**
 	 * 项目收费统计输出
 	 * @param projectManager
 	 * @param startDate

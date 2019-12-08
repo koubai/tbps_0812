@@ -129,6 +129,9 @@ public class PoiFactory {
 		}else if(Constants.EXCEL_TYPE_SJTJ.equals(type)) {
 			//审价统计数据导出
 			return new PoiAuditAnnualData();
+		}else if(Constants.EXCEL_TYPE_YBTJ.equals(type)) {
+			//月报统计数据导出
+			return new PoiAuditMonthData();
 		}
 		return null;
 	}
