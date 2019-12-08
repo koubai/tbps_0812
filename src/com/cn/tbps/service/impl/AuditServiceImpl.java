@@ -1192,13 +1192,13 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 		//判断条件是“资料收到日期”为统计日期范围
 		String dateCondition = " ((T.PLAN_DOC_RCV_DATE >= '" + startDate + "' and T.PLAN_DOC_RCV_DATE <= '" + endDate + "') ";
 		dateCondition += "or (T.DOC_REC_DATE >= '" + startDate + "' and T.DOC_REC_DATE <= '" + endDate + "'))";
-		switch(CNTRCT_INFO){
-		case "1":
+		switch(Integer.parseInt(CNTRCT_INFO)){
+		case 1:
 			//地铁审价以发出审定单时间作为完成节点
 			dateCondition = " (T.APPROVAL_SND_DATE >= '" + startDate + "' and T.APPROVAL_SND_DATE <= '" + endDate + "') ";
 			break;
-		case "2":
-		case "4":
+		case 2:
+		case 4:
 			//咨询及控制价以初稿日期作为完成节点
 			dateCondition = " (T.DRAFT_DATE >= '" + startDate + "' and T.DRAFT_DATE <= '" + endDate + "') ";
 			break;
@@ -1293,13 +1293,13 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 		//历史的判断条件是“资料收到日期”在本统计日期范围以前即小于3/29， 完成条件同上
 		dateCondition = "(T.PLAN_DOC_RCV_DATE < '" + startDate+ "'";
 		dateCondition += " or T.DOC_REC_DATE < '" + startDate + "')";
-		switch(CNTRCT_INFO){
-		case "1":
+		switch(Integer.parseInt(CNTRCT_INFO)){
+		case 1:
 			//地铁审价以发出审定单时间作为完成节点
 			dateCondition = " T.APPROVAL_SND_DATE < '" + startDate + "'";
 			break;
-		case "2":
-		case "4":
+		case 2:
+		case 4:
 			//咨询及控制价以初稿日期作为完成节点
 			dateCondition = " T.DRAFT_DATE < '" + startDate + "'";
 			break;
