@@ -1195,7 +1195,7 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 		switch(Integer.parseInt(CNTRCT_INFO)){
 		case 1:
 			//地铁审价以发出审定单时间作为完成节点
-			dateCondition = " (T.APPROVAL_SND_DATE >= '" + startDate + "' and T.APPROVAL_SND_DATE <= '" + endDate + "') ";
+			//dateCondition = " (T.APPROVAL_SND_DATE >= '" + startDate + "' and T.APPROVAL_SND_DATE <= '" + endDate + "') ";
 			break;
 		case 2:
 		case 4:
@@ -1212,7 +1212,7 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 				//本月送审项目金额
 				if(audit.getVERIFY_PER_AMOUNT() != null && !CNTRCT_INFO.equals("4")) {
 					submitAuditAmount = submitAuditAmount.add(audit.getVERIFY_PER_AMOUNT());
-					if(calcCompleteAudit(audit, start, end)) {
+					if(calcCompleteAuditSJ(audit, start, end)) {
 						//完成送审项目数
 						completeAuditCurrentMonth++;
 						//完成送审项目金额
@@ -1296,7 +1296,7 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 		switch(Integer.parseInt(CNTRCT_INFO)){
 		case 1:
 			//地铁审价以发出审定单时间作为完成节点
-			dateCondition = " T.APPROVAL_SND_DATE < '" + startDate + "'";
+			//dateCondition = " T.APPROVAL_SND_DATE < '" + startDate + "'";
 			break;
 		case 2:
 		case 4:
@@ -1311,7 +1311,7 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 			for(AuditDto audit : list2) {
 				//本月送审总金额
 				if(audit.getVERIFY_PER_AMOUNT() != null && !CNTRCT_INFO.equals("4")) {
-					if(calcCompleteAuditHis(audit, start)) {
+					if(calcCompleteAuditHisSJ(audit, start)) {
 						//历史完成送审
 						completeAuditHis++;
 					}
@@ -1497,6 +1497,77 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 							isCompleteAudit = true;
 						}
 					}					
+				}
+			}
+		}
+		return isCompleteAudit;
+	}
+	
+	/**
+	 * 判断是否是完成审价(初稿时间)
+	 * @param audit
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	private boolean calcCompleteAuditSJ(AuditDto audit, Date start, Date end) {
+		Date tmpdate = null;
+		boolean isCompleteAudit = false;
+		BigDecimal zero = new BigDecimal(0);
+		
+		//（如果“乙方收费”为0或空，“初稿时间"不为空且在本统计日期范围内。）
+		//或（如果"乙方收费"不为空也不为0，“乙方到账日期”也不为空，"报告出具日期"也不为空，取“乙方到账日期”和“初稿时间”两者离现在近的那个判断是否落在本统计日期范围内）
+		//乙方收费为0或空
+		if(audit.getB_AMOUNT() == null || zero.setScale(6).equals(audit.getB_AMOUNT())) {
+			//“初稿时间"不为空且在本统计日期范围内
+			if((audit.getDRAFT_DATE() != null && audit.getDRAFT_DATE().after(start) && audit.getDRAFT_DATE().before(end))){
+				isCompleteAudit = true;
+			}
+		} else {
+			//乙方收费不为空也不为0
+			//“乙方到账日期”也不为空，"初稿时间"也不为空
+			if(audit.getB_SET_DATE() != null ){ 
+				if (audit.getDRAFT_DATE() != null) {
+					//取“乙方到账日期”和“初稿时间”两者离现在近的那个判断是否落在本统计日期范围内
+					tmpdate = (audit.getB_SET_DATE().after(audit.getDRAFT_DATE())) ? audit.getB_SET_DATE() : audit.getDRAFT_DATE();
+					if(tmpdate.after(start) && tmpdate.before(end)) {
+						isCompleteAudit = true;
+					}
+				}
+			}
+		}
+		return isCompleteAudit;
+	}
+	
+	/**
+	 * 判断历史是否是完成审价(初稿时间)
+	 * @param audit
+	 * @param start
+	 * @return
+	 */
+	private boolean calcCompleteAuditHisSJ(AuditDto audit, Date start) {
+		Date tmpdate = null;
+		boolean isCompleteAudit = false;
+		BigDecimal zero = new BigDecimal(0);
+		
+		//（如果“乙方收费”为0或空，“初稿时间"不为空且在本统计日期范围内。）
+		//或（如果"乙方收费"不为空也不为0，“乙方到账日期”也不为空，"初稿时间"也不为空，取“乙方到账日期”和“初稿时间”两者离现在近的那个判断是否落在本统计日期范围内）
+		//乙方收费为0或空
+		if(audit.getB_AMOUNT() == null || zero.setScale(6).equals(audit.getB_AMOUNT())) {
+			//“初稿时间"不为空且在本统计日期范围内
+			if((audit.getDRAFT_DATE() != null && audit.getDRAFT_DATE().before(start)) ){
+				isCompleteAudit = true;
+			}
+		} else {
+			//乙方收费不为空也不为0
+			//“乙方到账日期”也不为空，"初稿时间"也不为空
+			if(audit.getB_SET_DATE() != null ){ 
+				if (audit.getDRAFT_DATE() != null) {
+					//取“乙方到账日期”和“初稿时间”两者离现在近的那个判断是否落在本统计日期范围内
+					tmpdate = (audit.getB_SET_DATE().after(audit.getDRAFT_DATE())) ? audit.getB_SET_DATE() : audit.getDRAFT_DATE();
+					if(tmpdate.before(start)) {
+						isCompleteAudit = true;
+					}
 				}
 			}
 		}
