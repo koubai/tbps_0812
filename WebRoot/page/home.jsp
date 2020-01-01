@@ -88,6 +88,10 @@
 	function manageMesg() {
 		window.location.href = '<c:url value="/mesg/showMesgAction.action"></c:url>';
 	}
+	// 月报统计
+	function monthreport() {
+		window.location.href = '<c:url value="/audit/showAuditMonthSumList.action"></c:url>';
+	}
 </script>
 </head>
 <body>
@@ -160,7 +164,7 @@
 			</div>
 			<!-- 9 -->
 			<div class="col-lg-6">
-				<a class="btn btn-primary" href="#" onclick="">-----</a>
+				<a class="btn btn-primary" href="#" onclick="monthreport()">月报统计</a>
 			</div>
 			<div class="col-lg-6">
 				<a class="btn btn-primary" href="#" onclick="bidprogress();">招标项目进展一览</a>
