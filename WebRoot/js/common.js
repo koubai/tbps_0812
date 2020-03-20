@@ -266,7 +266,7 @@ function checkString(s){
  */
 function isMobile(s) {
 	//var valid= /^1\d{10}$/;
-	var valid= /^1[3|4|5|8][0-9]\d{4,8}$/;
+	var valid= /^1[2|3|4|5|6|7|8|9][0-9]\d{4,8}$/;
 	return (valid.test(s));
 }
 
