@@ -837,6 +837,7 @@
 				html += "<option value=\"4\">汇票</option>";
 				html += "<option value=\"5\">保函</option>";
 				html += "<option value=\"6\">现金2</option>";
+				html += "<option value=\"9\">/</option>";
 			} else if(v == "3") {
 				html += "<option value=\"1\">现金</option>";
 				html += "<option value=\"2\">支票</option>";
@@ -844,6 +845,7 @@
 				html += "<option value=\"4\">汇票</option>";
 				html += "<option value=\"5\">保函</option>";
 				html += "<option value=\"6\">现金2</option>";
+				html += "<option value=\"9\">/</option>";
 			} else if(v == "4") {
 				html += "<option value=\"1\">现金</option>";
 				html += "<option value=\"2\">支票</option>";
@@ -851,6 +853,7 @@
 				html += "<option value=\"4\" selected=\"selected\">汇票</option>";
 				html += "<option value=\"5\">保函</option>";
 				html += "<option value=\"6\">现金2</option>";
+				html += "<option value=\"9\">/</option>";
 			} else if(v == "5") {
 				html += "<option value=\"1\">现金</option>";
 				html += "<option value=\"2\">支票</option>";
@@ -858,6 +861,7 @@
 				html += "<option value=\"4\">汇票</option>";
 				html += "<option value=\"5\" selected=\"selected\">保函</option>";
 				html += "<option value=\"6\">现金2</option>";
+				html += "<option value=\"9\">/</option>";
 			} else if(v == "6") {
 				html += "<option value=\"1\">现金</option>";
 				html += "<option value=\"2\">支票</option>";
@@ -865,6 +869,15 @@
 				html += "<option value=\"4\">汇票</option>";
 				html += "<option value=\"5\">保函</option>";
 				html += "<option value=\"6\" selected=\"selected\">现金2</option>";
+				html += "<option value=\"9\">/</option>";
+			} else if(v == "9") {
+				html += "<option value=\"1\">现金</option>";
+				html += "<option value=\"2\">支票</option>";
+				html += "<option value=\"3\">转账</option>";
+				html += "<option value=\"4\">汇票</option>";
+				html += "<option value=\"5\">保函</option>";
+				html += "<option value=\"6\">现金2</option>";
+				html += "<option value=\"9\" selected=\"selected\">/</option>";
 			} else {
 				html += "<option value=\"1\" selected=\"selected\">现金</option>";
 				html += "<option value=\"2\">支票</option>";
@@ -872,6 +885,7 @@
 				html += "<option value=\"4\">汇票</option>";
 				html += "<option value=\"5\">保函</option>";
 				html += "<option value=\"6\">现金2</option>";
+				html += "<option value=\"9\">/</option>";
 			}
 			html += "</select>";
 		} else {
@@ -1212,6 +1226,7 @@
 							<option value="4">汇票</option>
 							<option value="5">保函</option>
 							<option value="6">现金2</option>
+							<option value="9">/</option>
 						</select>
 					</div>
 					<div class="box1_right"></div>

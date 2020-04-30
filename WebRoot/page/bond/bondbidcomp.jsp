@@ -89,6 +89,9 @@
 								<s:elseif test='BID_PAYMENT_TYPE == "6"'>
 									现金2
 								</s:elseif>
+								<s:elseif test='BID_PAYMENT_TYPE == "9"'>
+									/
+								</s:elseif>
 							</td>
 							<td><s:property value="BID_PRICE"/></td>
 							<td><s:property value="BID_CHECK_PRICE"/></td>

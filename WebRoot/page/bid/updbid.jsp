@@ -3041,6 +3041,7 @@
 														<option value="4">汇票</option>
 														<option value="5">保函</option>
 														<option value="6">现金2</option>
+														<option value="9">/</option>
 													</s:if>
 													<s:elseif test='BID_PAYMENT_TYPE == "2"'>
 														<option value="0">未支付</option>
@@ -3050,6 +3051,7 @@
 														<option value="4">汇票</option>
 														<option value="5">保函</option>
 														<option value="6">现金2</option>
+														<option value="9">/</option>
 													</s:elseif>
 													<s:elseif test='BID_PAYMENT_TYPE == "3"'>
 														<option value="0">未支付</option>
@@ -3059,6 +3061,7 @@
 														<option value="4">汇票</option>
 														<option value="5">保函</option>
 														<option value="6">现金2</option>
+														<option value="9">/</option>
 													</s:elseif>
 													<s:elseif test='BID_PAYMENT_TYPE == "4"'>
 														<option value="0">未支付</option>
@@ -3068,6 +3071,7 @@
 														<option value="4" selected="selected">汇票</option>
 														<option value="5">保函</option>
 														<option value="6">现金2</option>
+														<option value="9">/</option>
 													</s:elseif>
 													<s:elseif test='BID_PAYMENT_TYPE == "5"'>
 														<option value="0">未支付</option>
@@ -3077,6 +3081,7 @@
 														<option value="4">汇票</option>
 														<option value="5" selected="selected">保函</option>
 														<option value="6">现金2</option>
+														<option value="9">/</option>
 													</s:elseif>
 													<s:elseif test='BID_PAYMENT_TYPE == "6"'>
 														<option value="0">未支付</option>
@@ -3086,6 +3091,17 @@
 														<option value="4">汇票</option>
 														<option value="5">保函</option>
 														<option value="6" selected="selected">现金2</option>
+														<option value="9">/</option>
+													</s:elseif>
+													<s:elseif test='BID_PAYMENT_TYPE == "9"'>
+														<option value="0">未支付</option>
+														<option value="1">现金</option>
+														<option value="2">支票</option>
+														<option value="3">转账</option>
+														<option value="4">汇票</option>
+														<option value="5">保函</option>
+														<option value="6">现金2</option>
+														<option value="9" selected="selected">/</option>
 													</s:elseif>
 													<s:else>
 														<option selected="selected" value="0">未支付</option>
@@ -3095,6 +3111,7 @@
 														<option value="4">汇票</option>
 														<option value="5">保函</option>
 														<option value="6">现金2</option>
+														<option value="9">/</option>
 													</s:else>
 												</select>
 											</td>
@@ -3192,16 +3209,25 @@
 														<option value="0">未支付</option>
 														<option value="1" selected="selected">现金</option>
 														<option value="3">转账</option>
+														<option value="9">/</option>
 													</s:if>
 													<s:elseif test='BID_APPLY_PAYMENT_TYPE == "3"'>
 														<option value="0">未支付</option>
 														<option value="1">现金</option>
 														<option value="3" selected="selected">转账</option>
+														<option value="9">/</option>
+													</s:elseif>
+													<s:elseif test='BID_APPLY_PAYMENT_TYPE == "9"'>
+														<option value="0">未支付</option>
+														<option value="1">现金</option>
+														<option value="3">转账</option>
+														<option value="9" selected="selected">/</option>
 													</s:elseif>
 													<s:else>
 														<option value="0" selected="selected">未支付</option>
 														<option value="1">现金</option>
 														<option value="3">转账</option>
+														<option value="9">/</option>
 													</s:else>
 												</select>
 											</td>
