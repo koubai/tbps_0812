@@ -1014,14 +1014,26 @@ public class BidProgressAction extends BaseAction {
 				int cnt3=0; //保证金入账日期
 				int cnt4=0; //退定日期
 				for (int z =0; z<complist.size(); z++) {
-					if (complist.get(z).getBID_APPLY_PRICE_DATE()!= null && StringUtil.isNotBlank(complist.get(z).getBID_APPLY_PRICE_DATE().toString()))
+					//标书费支付形式为/时，自动完成
+					if (complist.get(z).getBID_APPLY_PAYMENT_TYPE()!= null && complist.get(z).getBID_APPLY_PAYMENT_TYPE().equals("9")){
 						cnt1 += 1;
-					if (complist.get(z).getINVOICE_DATE()!= null && StringUtil.isNotBlank(complist.get(z).getINVOICE_DATE().toString()))
 						cnt2 += 1;
-					if (complist.get(z).getBID_VALUE_DATE() != null && StringUtil.isNotBlank(complist.get(z).getBID_VALUE_DATE().toString()))
+					} else {
+						if (complist.get(z).getBID_APPLY_PRICE_DATE()!= null && StringUtil.isNotBlank(complist.get(z).getBID_APPLY_PRICE_DATE().toString()))
+							cnt1 += 1;
+						if (complist.get(z).getINVOICE_DATE()!= null && StringUtil.isNotBlank(complist.get(z).getINVOICE_DATE().toString()))
+							cnt2 += 1;
+					}
+					//保证金支付形式为/时，自动完成
+					if (complist.get(z).getBID_PAYMENT_TYPE()!= null && complist.get(z).getBID_PAYMENT_TYPE().equals("9")){
 						cnt3 += 1;
-					if (complist.get(z).getREFOUND_DEPOSIT_DATE() != null && StringUtil.isNotBlank(complist.get(z).getREFOUND_DEPOSIT_DATE().toString()))
 						cnt4 += 1;
+					} else {
+						if (complist.get(z).getBID_VALUE_DATE() != null && StringUtil.isNotBlank(complist.get(z).getBID_VALUE_DATE().toString()))
+							cnt3 += 1;
+						if (complist.get(z).getREFOUND_DEPOSIT_DATE() != null && StringUtil.isNotBlank(complist.get(z).getREFOUND_DEPOSIT_DATE().toString()))
+							cnt4 += 1;
+					}					
 				}
 				if (cnt1 == 0)
 					setStatus0602("0");
