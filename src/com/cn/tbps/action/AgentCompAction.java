@@ -278,7 +278,7 @@ public class AgentCompAction extends BaseAction {
 		}
 		//翻页查询所有招标
 		this.page.setStartIndex(startIndex);
-		//这里只查询委托公司：J打头的
+		//这里只查询委托公司：J/K打头的
 		//pageAgentComp = agentCompService.queryAgentCompByPage(pageAgentComp, agentCompNoLow, agentCompNoHigh, "1", agentCompName);
 		page = agentCompService.queryAgentCompByPage(page, agentCompNoLow, agentCompNoHigh, agentAddFlag, agentCompName);
 		agentCompList = (List<AgentCompDto>) page.getItems();
@@ -606,7 +606,7 @@ public class AgentCompAction extends BaseAction {
 		}
 		//翻页查询所有招标
 		this.pageAgentComp.setStartIndex(startIndexAgentComp);
-		//这里只查询委托公司：J打头的
+		//这里只查询委托公司：J/K打头的
 		//pageAgentComp = agentCompService.queryAgentCompByPage(pageAgentComp, agentCompNoLow, agentCompNoHigh, "1", agentCompName);
 		pageAgentComp = agentCompService.queryAgentCompByPage(pageAgentComp, agentCompNoLow, agentCompNoHigh, agentAddFlag, agentCompName);
 		agentCompList = (List<AgentCompDto>) pageAgentComp.getItems();

@@ -2,6 +2,8 @@ package com.cn.common.factory;
 
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
@@ -406,18 +408,20 @@ public class PoiBidDataReport extends Poi2007Base {
 			cell42.setCellValue(StringUtil.BigDecimal2Str(biddata.getBID_EXPERT_COMMISION_ACT_YUAN_SHOW(),2));
 			cell42.setCellStyle(style);			
 		}
-		mergeCellData( sheet, workbook, 1, 4);
-		mergeCellData( sheet, workbook, 2, 4);
-		mergeCellData( sheet, workbook, 3, 4);
-		mergeCellData( sheet, workbook, 4, 4);
-		mergeCellData( sheet, workbook, 5, 4);
-		mergeCellData( sheet, workbook, 6, 4);
-		mergeCellData( sheet, workbook, 7, 4);
-		mergeCellData( sheet, workbook, 8, 4);
-		mergeCellData( sheet, workbook, 9, 4);
-		mergeCellData( sheet, workbook, 10, 4);
-		mergeCellData( sheet, workbook, 11, 4);
-		mergeCellData( sheet, workbook, 12, 4);
+		
+		Set<Integer> com_set = new HashSet<Integer>();
+		com_set = mergeCellData( sheet, workbook, 1, 4, com_set);
+		com_set = mergeCellData( sheet, workbook, 2, 4, com_set);
+		com_set = mergeCellData( sheet, workbook, 3, 4, com_set);
+		com_set = mergeCellData( sheet, workbook, 4, 4, com_set);
+		com_set = mergeCellData( sheet, workbook, 5, 4, com_set);
+		com_set = mergeCellData( sheet, workbook, 6, 4, com_set);
+		com_set = mergeCellData( sheet, workbook, 7, 4, com_set);
+		com_set = mergeCellData( sheet, workbook, 8, 4, com_set);
+		com_set = mergeCellData( sheet, workbook, 9, 4, com_set);
+		com_set = mergeCellData( sheet, workbook, 10, 4, com_set);
+		com_set = mergeCellData( sheet, workbook, 11, 4, com_set);
+		com_set = mergeCellData( sheet, workbook, 12, 4, com_set);
 	}
 	
 	/**

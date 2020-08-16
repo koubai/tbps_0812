@@ -90,6 +90,9 @@
 		<isNotEmpty prepend="and" property="ANGENT_COMP_NO_PRE">
 			T.ANGENT_COMP_NO like '$ANGENT_COMP_NO_PRE$%'
 		</isNotEmpty>
+		<isNotEmpty prepend="or" property="ANGENT_COMP_NO_PRE2">
+			T.ANGENT_COMP_NO like '$ANGENT_COMP_NO_PRE2$%'
+		</isNotEmpty>
 		order by ANGENT_COMP_NO desc
 		LIMIT #start#, #end#
 	</select>

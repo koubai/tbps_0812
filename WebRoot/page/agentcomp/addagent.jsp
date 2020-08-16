@@ -46,8 +46,8 @@
 			return;
 		}
 		//委托公司必须以J或者Y打头
-		if(ANGENT_COMP_NO.substring(0, 1).toUpperCase() != "J" && ANGENT_COMP_NO.substring(0, 1).toUpperCase() != "Y") {
-			alert("委托公司代码必须以J或者Y打头！");
+		if(ANGENT_COMP_NO.substring(0, 1).toUpperCase() != "J" && ANGENT_COMP_NO.substring(0, 1).toUpperCase() != "K" && ANGENT_COMP_NO.substring(0, 1).toUpperCase() != "X" && ANGENT_COMP_NO.substring(0, 1).toUpperCase() != "Y") {
+			alert("委托公司代码必须以J/K或者X/Y打头！");
 			$("#ANGENT_COMP_NO").focus();
 			return;
 		}

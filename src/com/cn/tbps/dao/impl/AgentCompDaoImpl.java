@@ -58,11 +58,14 @@ public class AgentCompDaoImpl extends BaseDao implements AgentCompDao {
 		if("3".equals(agentAddFlag)) {
 			//承包公司
 			paramMap.put("ANGENT_COMP_NO_PRE", "Y");
+			paramMap.put("ANGENT_COMP_NO_PRE2", "X");
 		} else if("1".equals(agentAddFlag) || "2".equals(agentAddFlag)) {
 			//专业公司或委托公司
 			paramMap.put("ANGENT_COMP_NO_PRE", "J");
+			paramMap.put("ANGENT_COMP_NO_PRE2", "K");
 		} else {
 			paramMap.put("ANGENT_COMP_NO_PRE", "");
+			paramMap.put("ANGENT_COMP_NO_PRE2", "");
 		}
 		@SuppressWarnings("unchecked")
 		List<AgentCompDto> list = getSqlMapClientTemplate().queryForList("queryAgentCompByPage", paramMap);

@@ -8,8 +8,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URISyntaxException;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -415,7 +417,7 @@ public class Poi2007Base {
 	
 	//合并单元格
 	@SuppressWarnings("deprecation")
-	public void mergeCellData(XSSFSheet sheet, XSSFWorkbook workbook, int Col, int EndRow) {
+	public Set<Integer> mergeCellData(XSSFSheet sheet, XSSFWorkbook workbook, int Col, int EndRow, Set<Integer> com_set) {
 
 		int lastRowNum = sheet.getLastRowNum();
 		int mergeStartRow = 0;
@@ -432,14 +434,14 @@ public class Poi2007Base {
 				row = sheet.getRow(i);
 				cell = row.getCell(Col-1);	
 				
-				if (i<=5){
-					System.out.println("i=" + i);
-					System.out.println("cell0.toString()=" + cell0.toString());
-					System.out.println("cell.toString()=" + cell.toString());
-				}
+//				if (i<=5){
+//					System.out.println("i=" + i);
+//					System.out.println("cell0.toString()=" + cell0.toString());
+//					System.out.println("cell.toString()=" + cell.toString());
+//				}
 				
 				
-				if (cell.toString()!= null && cell.toString().compareTo(cell0.toString())==0){
+				if (cell.toString()!= null && cell.toString().compareTo(cell0.toString())==0 && !com_set.contains(i)){
 					mergeEndRow = i;					
 				}else{
 					cell0 = row.getCell(Col-1);
@@ -447,7 +449,8 @@ public class Poi2007Base {
 						sheet.addMergedRegion(new CellRangeAddress( mergeEndRow, mergeStartRow, Col-1, Col-1));		
 					}
 					mergeStartRow = i;					
-					mergeEndRow = i;											
+					mergeEndRow = i;
+					com_set.add(i);
 				}
 			}
 			if (cell.toString()!= null && cell.toString().compareTo(cell0.toString())==0){
@@ -456,5 +459,6 @@ public class Poi2007Base {
 				}
 			}
 		}
+		return com_set;
 	}
 }
