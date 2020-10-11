@@ -49,7 +49,7 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 			String valueDateHigh, String agentNo, String reportNoComp,
 			String reportNoLow, String reportNoHigh, Page page, String auditStatus, 
 			String projectClass, String docArrDateLow, String docArrDateHigh, String agentName, 
-			String contractName, String reportNo, String projectName, String cntrctInfo) {
+			String contractName, String reportNo, String projectName, String cntrctInfo, String cntYear) {
 		
 		System.out.println("queryAuditByPage  auditStatus: "+auditStatus);
 
@@ -69,6 +69,17 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 		}
 		//add auditStatus condition 20150425  end<---------
 		System.out.println("queryAuditByPage  auditStatus2: "+auditStatus);
+		
+		String cntYear2 = "";
+		if (cntYear.isEmpty())
+			cntYear2 = "";
+		else {
+			if (cntYear.length() == 4)
+				cntYear2 = cntYear.substring(2);
+			else
+				cntYear2 = "";			
+		}
+		System.out.println("queryAuditByPage  cntYear: "+cntYear);
 
 		String comp = reportNoComp;
 //		String reportlow = "";
@@ -95,7 +106,7 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 		//查询总记录数
 		int totalCount = auditDao.queryAuditCountByPage(auditNoLow, auditNoHigh, projectStatus,
 				projectManager, valueDateLow, valueDateHigh, agentNo, comp, reportlow, reporthigh, auditStatus, 
-				projectClass, docArrDateLow, docArrDateHigh, agentName, contractName, reportNo, projectName, cntrctInfo);
+				projectClass, docArrDateLow, docArrDateHigh, agentName, contractName, reportNo, projectName, cntrctInfo, cntYear2);
 		page.setTotalCount(totalCount);
 		if(totalCount % page.getPageSize() > 0) {
 			page.setTotalPage(totalCount / page.getPageSize() + 1);
@@ -105,15 +116,16 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 		//翻页查询记录
 		List<AuditDto> list = auditDao.queryAuditByPage(auditNoLow, auditNoHigh, projectStatus, projectManager,
 				valueDateLow, valueDateHigh, agentNo, comp, reportlow, reporthigh, auditStatus,
-				projectClass, docArrDateLow, docArrDateHigh, agentName, contractName, reportNo, projectName, cntrctInfo,
+				projectClass, docArrDateLow, docArrDateHigh, agentName, contractName, reportNo, projectName, cntrctInfo, cntYear2,
 				page.getStartIndex() * page.getPageSize(), page.getPageSize());
 		page.setItems(list);
 		return page;
 	}
 
 	@Override
-	public Page queryAuditByPage(String keyword, String auditStatus, Page page) {
-		
+//	public Page queryAuditByPage(String keyword, String auditStatus, Page page) {
+	public Page queryAuditByPage(String keyword, String projectManager, String reportNo, String projectName, String cntrctInfo, String cntYear, String auditStatus, Page page){
+	
 		System.out.println("queryAuditByPage  auditStatus: "+auditStatus);
 
 		//add auditStatus condition 20150425  start--->
@@ -132,10 +144,20 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 		}
 		//add auditStatus condition 20150425  end<---------
 		System.out.println("queryAuditByPage  auditStatus2: "+auditStatus);
+		String cntYear2 = "";
+		if (cntYear.isEmpty())
+			cntYear2 = "";
+		else {
+			if (cntYear.length() == 4)
+				cntYear2 = cntYear.substring(2);
+			else
+				cntYear2 = "";			
+		}
+		System.out.println("queryAuditByPage  cntYear: "+cntYear);
 
 		keyword = StringUtil.replaceDatabaseKeyword_mysql(keyword);
 		//查询总记录数
-		int totalCount = auditDao.queryAuditCountByPage(keyword, auditStatus);
+		int totalCount = auditDao.queryAuditCountByPage(keyword, projectManager, reportNo, projectName, cntrctInfo, cntYear2, auditStatus);
 		page.setTotalCount(totalCount);
 		if(totalCount % page.getPageSize() > 0) {
 			page.setTotalPage(totalCount / page.getPageSize() + 1);
@@ -143,7 +165,7 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 			page.setTotalPage(totalCount / page.getPageSize());
 		}
 		//翻页查询记录
-		List<AuditDto> list = auditDao.queryAuditByPage(keyword, auditStatus,
+		List<AuditDto> list = auditDao.queryAuditByPage(keyword, projectManager, reportNo, projectName, cntrctInfo, cntYear2, auditStatus,
 				page.getStartIndex() * page.getPageSize(), page.getPageSize());
 		page.setItems(list);
 		return page;
@@ -155,7 +177,7 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 			String valueDateLow, String valueDateHigh, String agentNo,
 			String reportNoComp, String reportNoLow, String reportNoHigh, String auditStatus, 
 			String projectClass, String docArrDateLow, String docArrDateHigh, String agentName, 
-			String contractName, String reportNo, String projectName, String cntrctInfo) {
+			String contractName, String reportNo, String projectName, String cntrctInfo, String cntYear) {
 		
 		//add auditStatus condition 20150425  start--->
 		if(StringUtil.isBlank(auditStatus) || "00".equals(auditStatus)) {
@@ -188,17 +210,27 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 		if(StringUtil.isNotBlank(reportNoHigh)) {
 			reporthigh = StringUtil.replaceDatabaseKeyword_mysql(reportNoComp + "-" + reportNoHigh);
 		}
+		String cntYear2 = "";
+		if (cntYear.isEmpty())
+			cntYear2 = "";
+		else {
+			if (cntYear.length() == 4)
+				cntYear2 = cntYear.substring(2);
+			else
+				cntYear2 = "";			
+		}
+		System.out.println("queryAuditByPage  cntYear: "+cntYear);
 
 		projectManager = StringUtil.replaceDatabaseKeyword_mysql(projectManager);
 		projectName = StringUtil.replaceDatabaseKeyword_mysql(projectName);
 		return auditDao.queryAllAuditExport(auditNoLow, auditNoHigh, projectStatus,
 				projectManager, valueDateLow, valueDateHigh, agentNo,
 				comp, reportlow, reporthigh, auditStatus, 
-				projectClass, docArrDateLow, docArrDateHigh, agentName, contractName, reportNo, projectName, cntrctInfo);
+				projectClass, docArrDateLow, docArrDateHigh, agentName, contractName, reportNo, projectName, cntrctInfo, cntYear2);
 	}
 
 	@Override
-	public List<AuditDto> queryAllAuditExport(String keyword, String auditStatus) {
+	public List<AuditDto> queryAllAuditExport(String keyword, String projectManager, String reportNo, String projectName, String cntrctInfo, String cntYear, String auditStatus) {
 		
 		//add auditStatus condition 20150425  start--->
 		if(StringUtil.isBlank(auditStatus) || "00".equals(auditStatus)) {
@@ -215,9 +247,19 @@ public class AuditServiceImpl extends BaseService implements AuditService {
 			auditStatus = tmp;
 		}
 		//add auditStatus condition 20150425  end<---------
+		String cntYear2 = "";
+		if (cntYear.isEmpty())
+			cntYear2 = "";
+		else {
+			if (cntYear.length() == 4)
+				cntYear2 = cntYear.substring(2);
+			else
+				cntYear2 = "";			
+		}
+		System.out.println("queryAuditByPage  cntYear: "+cntYear);
 
 		keyword = StringUtil.replaceDatabaseKeyword_mysql(keyword);
-		return auditDao.queryAllAuditExport(keyword, auditStatus);
+		return auditDao.queryAllAuditExport(keyword, projectManager, reportNo, projectName, cntrctInfo, cntYear2, auditStatus);
 	}
 
 	@Override

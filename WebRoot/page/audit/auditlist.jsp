@@ -137,6 +137,14 @@
 	}
 
 	function queryList() {
+		var cntYear = $("#strCntYear").val();
+		if (cntYear != null && cntYear !="") {
+			if(!isNumber(cntYear) || cntYear.length!=4) {
+				alert("项目年份格式不正确(YYYY)！");
+				$("#strCntYear").focus();
+				return;
+			}
+		}
 		setQueryDate();
 		var keywordFlag = document.getElementById("keywordFlag");
 		if(keywordFlag.checked) {
@@ -266,6 +274,10 @@
 							<label for="" class="col-lg-1 form-label">项目文号</label>
 							<div class="col-lg-2">
 								<s:textfield name="strReportNo" id="strReportNo" cssClass="form-control" maxlength="80" theme="simple"></s:textfield>
+							</div>
+							<label for="" class="col-lg-1 form-label">项目年份</label>
+							<div class="col-lg-2">
+								<s:textfield name="strCntYear" id="strCntYear" cssClass="form-control" maxlength="80" theme="simple"></s:textfield>
 							</div>
 						</div>
 						<div class="col-lg-12 form-group">

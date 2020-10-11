@@ -40,7 +40,7 @@ public interface AuditService {
 			String projectManager, String valueDateLow, String valueDateHigh, String agentNo,
 			String reportNoComp, String reportNoLow, String reportNoHigh, Page page, String auditStatus, 
 			String projectClass, String docArrDateLow, String docArrDateHigh, String agentName, 
-			String contractName, String strReportNo, String strProjectName, String strCntrctInfo);
+			String contractName, String strReportNo, String strProjectName, String strCntrctInfo, String strCntYear);
 
 	//审价
 	/**
@@ -48,8 +48,9 @@ public interface AuditService {
 	 * @param strKeyword
 	 * @return
 	 */
-	public Page queryAuditByPage(String keyword, String auditStatus, Page page);
-	
+	//public Page queryAuditByPage(String keyword, String auditStatus, Page page);
+	public Page queryAuditByPage(String strKeyword, String strProjectManager, String strReportNo, String strProjectName, String strCntrctInfo, String strCntYear, String strAuditStatus, Page page);
+
 	/**
 	 * 项目情况检查
 	 * @param projectManager
@@ -126,7 +127,7 @@ public interface AuditService {
 			String projectManager, String valueDateLow, String valueDateHigh, String agentNo,
 			String reportNoComp, String reportNoLow, String reportNoHigh, String auditStatus, 
 			String projectClass, String docArrDateLow, String docArrDateHigh, String agentName, 
-			String contractName, String reportNo, String projectName, String cntrctInfo);
+			String contractName, String reportNo, String projectName, String cntrctInfo, String cntYear);
 	
 	/**
 	 * 查询审价（导出数据用）使用关键字
@@ -134,7 +135,7 @@ public interface AuditService {
 	 * @param auditStatus
 	 * @return
 	 */
-	public List<AuditDto> queryAllAuditExport(String keyword, String auditStatus);
+	public List<AuditDto> queryAllAuditExport(String keyword, String projectManager, String reportNo, String projectName, String cntrctInfo, String cntYear, String auditStatus);
 	
 	/**
 	 * 根据审价编号查询记录（查询未删除的记录）

@@ -37,7 +37,7 @@ public interface AuditDao {
 			String projectManager, String valueDateLow, String valueDateHigh, String agentNo,
 			String reportNoComp, String reportNoLow, String reportNoHigh, String auditStatus, 
 			String projectClass, String docArrDateLow, String docArrDateHigh, String agentName, 
-			String contractName, String reportNo, String projectName, String cntrctInfo);
+			String contractName, String reportNo, String projectName, String cntrctInfo, String cntYear);
 	
 	/**
 	 * 翻页查询记录
@@ -60,7 +60,7 @@ public interface AuditDao {
 			String projectManager, String valueDateLow, String valueDateHigh, String agentNo,
 			String reportNoComp, String reportNoLow, String reportNoHigh, String auditStatus, 
 			String projectClass, String docArrDateLow, String docArrDateHigh, String agentName, 
-			String contractName, String reportNo, String projectName, String cntrctInfo, int start, int end);
+			String contractName, String reportNo, String projectName, String cntrctInfo, String cntYear, int start, int end);
 
 	//审价
 	/**
@@ -78,7 +78,7 @@ public interface AuditDao {
 	 * @param auditStatus
 	 * @return
 	 */
-	public int queryAuditCountByPage(String keyword, String auditStatus);
+	public int queryAuditCountByPage(String keyword, String strProjectManager, String strReportNo, String strProjectName, String strCntrctInfo, String strCntYear, String auditStatus);
 	
 	/**
 	 * 翻页查询记录根据关键字
@@ -97,7 +97,7 @@ public interface AuditDao {
 	 * @param end
 	 * @return
 	 */
-	public List<AuditDto> queryAuditByPage(String keyword, String auditStatus, int start, int end);
+	public List<AuditDto> queryAuditByPage(String keyword, String strProjectManager, String strReportNo, String strProjectName, String strCntrctInfo, String strCntYear, String auditStatus, int start, int end);
 	
 	/**
 	 * 查询合同所以项目记录
@@ -181,7 +181,7 @@ public interface AuditDao {
 			String projectManager, String valueDateLow, String valueDateHigh, String agentNo,
 			String reportNoComp, String reportNoLow, String reportNoHigh, String auditStatus, 
 			String projectClass, String docArrDateLow, String docArrDateHigh, String agentName, 
-			String contractName, String reportNo, String projectName, String cntrctInfo);
+			String contractName, String reportNo, String projectName, String cntrctInfo, String cntYear);
 	
 	/**
 	 * 查询审价（导出数据用）使用关键字
@@ -189,7 +189,7 @@ public interface AuditDao {
 	 * @param auditStatus
 	 * @return
 	 */
-	public List<AuditDto> queryAllAuditExport(String keyword, String auditStatus);
+	public List<AuditDto> queryAllAuditExport(String keyword, String projectManager, String reportNo, String projectName, String cntrctInfo, String cntYear, String auditStatus);
 	
 	/**
 	 * 根据审价编号查询记录（查询未删除的记录）

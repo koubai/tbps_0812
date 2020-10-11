@@ -265,6 +265,9 @@ public class AuditAction extends BaseAction {
 	//委托内容
 	private String strCntrctInfo;
 	
+	//检索年度
+	private String strCntYear;
+	
 	private AuditCntrctDto updAuditCntrctDtoOld;
 	private String updAuditCntrctNo;
 	
@@ -419,10 +422,10 @@ public class AuditAction extends BaseAction {
 			//查询数据
 			List<AuditDto> list = null;
 			if("1".equals(strKeywordFlag)){
-				list = auditService.queryAllAuditExport(strKeyword, "");
+				list = auditService.queryAllAuditExport(strKeyword, strProjectManager, strReportNo, strProjectName, strCntrctInfo, strCntYear, "");
 			} else {
 				list = auditService.queryAllAuditExport("", "", "", strProjectManager, "", "", "",
-						"", "", "", "", "", "", "", "", "", strReportNo, strProjectName, strCntrctInfo);
+						"", "", "", "", "", "", "", "", "", strReportNo, strProjectName, strCntrctInfo, strCntYear);
 			}
 			
 			//2019.02.08 
@@ -491,7 +494,7 @@ public class AuditAction extends BaseAction {
 			List<AuditDto> list = auditService.queryAllAuditExport(strAuditNoLow, strAuditNoHigh,
 					strProjectStatus, strProjectManager, strValueDateLow, strValueDateHigh, strAgentNo,
 					strPreReport, strReportLow, strReportHigh, strAuditStatus, 
-					strProjectClass, strDocArrDateLow, strDocArrDateHigh, strAgentName, strContractName, strReportNo, strProjectName, strCntrctInfo);
+					strProjectClass, strDocArrDateLow, strDocArrDateHigh, strAgentName, strContractName, strReportNo, strProjectName, strCntrctInfo, "");
 			base.setDatas(list);
 			base.setSheetName(Constants.EXCEL_TYPE_RECEIPT_SJYL);
 			base.exportExcel(response.getOutputStream());
@@ -1720,7 +1723,7 @@ public class AuditAction extends BaseAction {
 				strProjectManager, strValueDateLow, strValueDateHigh, strAgentNo,
 				strPreReport, strReportLow, strReportHigh, page, strAuditStatus, 
 				strProjectClass, strDocArrDateLow, strDocArrDateHigh, strAgentName, strContractName, 
-				strReportNo, strProjectName, strCntrctInfo);
+				strReportNo, strProjectName, strCntrctInfo, strCntYear);
 		listAudit = (List<AuditDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
@@ -1734,7 +1737,7 @@ public class AuditAction extends BaseAction {
 		
 		//翻页查询所有审价根据关键字
 		this.page.setStartIndex(startIndex);
-		page = auditService.queryAuditByPage(strKeyword, strAuditStatus, page);
+		page = auditService.queryAuditByPage(strKeyword,strProjectManager,strReportNo,strProjectName, strCntrctInfo, strCntYear, strAuditStatus, page);
 		listAudit = (List<AuditDto>) page.getItems();
 		this.setStartIndex(page.getStartIndex());
 	}
@@ -2282,4 +2285,13 @@ public class AuditAction extends BaseAction {
 	public void setSumAuditAnnualData_4(AuditAnnualDataDto sumAuditAnnualData_4) {
 		this.sumAuditAnnualData_4 = sumAuditAnnualData_4;
 	}
+	
+	public String getStrCntYear() {
+		return strCntYear;
+	}
+
+	public void setStrCntYear(String strCntYear) {
+		this.strCntYear = strCntYear;
+	}
+
 }

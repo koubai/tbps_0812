@@ -383,6 +383,10 @@ public class BidServiceImpl extends BaseService implements BidService {
 		if(bid != null) {
 			bid.setBID_EXPERT_COMMISION_ACT_YUAN(TbpsUtil.bigDecimal2str(bid.getBID_EXPERT_COMMISION_ACT_YUAN_SHOW()));
 			bid.setBID_EXPERT_COMMISION_PRE_YUAN(TbpsUtil.bigDecimal2str(bid.getBID_EXPERT_COMMISION_PRE_YUAN_SHOW()));
+			bid.setBID_EXPERT_COMMISION_ACT_YUAN2(TbpsUtil.bigDecimal2str(bid.getBID_EXPERT_COMMISION_ACT_YUAN_SHOW2()));
+			bid.setBID_EXPERT_COMMISION_PRE_YUAN2(TbpsUtil.bigDecimal2str(bid.getBID_EXPERT_COMMISION_PRE_YUAN_SHOW2()));
+			bid.setBID_EXPERT_COMMISION_ACT_YUAN3(TbpsUtil.bigDecimal2str(bid.getBID_EXPERT_COMMISION_ACT_YUAN_SHOW3()));
+			bid.setBID_EXPERT_COMMISION_PRE_YUAN3(TbpsUtil.bigDecimal2str(bid.getBID_EXPERT_COMMISION_PRE_YUAN_SHOW3()));
 			BidCntrctDto bidCntrct = bidCntrctDao.queryBidCntrctByID(bid.getCNTRCT_NO());
 			if(bidCntrct != null) {
 				bid.setCNTRCT_NAME(bidCntrct.getCNTRCT_NAME());
@@ -409,6 +413,10 @@ public class BidServiceImpl extends BaseService implements BidService {
 		if(bid != null) {
 			bid.setBID_EXPERT_COMMISION_ACT_YUAN(TbpsUtil.bigDecimal2str(bid.getBID_EXPERT_COMMISION_ACT_YUAN_SHOW()));
 			bid.setBID_EXPERT_COMMISION_PRE_YUAN(TbpsUtil.bigDecimal2str(bid.getBID_EXPERT_COMMISION_PRE_YUAN_SHOW()));
+			bid.setBID_EXPERT_COMMISION_ACT_YUAN2(TbpsUtil.bigDecimal2str(bid.getBID_EXPERT_COMMISION_ACT_YUAN_SHOW2()));
+			bid.setBID_EXPERT_COMMISION_PRE_YUAN2(TbpsUtil.bigDecimal2str(bid.getBID_EXPERT_COMMISION_PRE_YUAN_SHOW2()));
+			bid.setBID_EXPERT_COMMISION_ACT_YUAN3(TbpsUtil.bigDecimal2str(bid.getBID_EXPERT_COMMISION_ACT_YUAN_SHOW3()));
+			bid.setBID_EXPERT_COMMISION_PRE_YUAN3(TbpsUtil.bigDecimal2str(bid.getBID_EXPERT_COMMISION_PRE_YUAN_SHOW3()));
 			BidCntrctDto bidCntrct = bidCntrctDao.queryBidCntrctByID(bid.getCNTRCT_NO());
 			if(bidCntrct != null) {
 				bid.setCNTRCT_NAME(bidCntrct.getCNTRCT_NAME());

@@ -37,7 +37,7 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 			String projectStatus, String projectManager, String valueDateLow,
 			String valueDateHigh, String agentNo, String reportNoComp, String reportNoLow, String reportNoHigh, String auditStatus, 
 			String projectClass, String docArrDateLow, String docArrDateHigh, String agentName, 
-			String contractName, String reportNo, String projectName, String cntrctInfo) {
+			String contractName, String reportNo, String projectName, String cntrctInfo, String cntYear) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("AUDIT_NO_LOW", auditNoLow);
 		paramMap.put("AUDIT_NO_HIGH", auditNoHigh);
@@ -69,7 +69,9 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 		paramMap.put("PROJECT_NAME", projectName);
 		//委托内容
 		paramMap.put("CNTRCT_INFO", cntrctInfo);
-		
+		//项目年份
+		paramMap.put("CNTRCT_YEAR", cntYear);
+
 		return (Integer) getSqlMapClientTemplate().queryForObject("queryAuditCountByPage", paramMap);
 	}
 
@@ -79,7 +81,7 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 			String valueDateLow, String valueDateHigh, String agentNo,
 			String reportNoComp, String reportNoLow, String reportNoHigh, String auditStatus, 
 			String projectClass, String docArrDateLow, String docArrDateHigh, String agentName,
-			String contractName, String reportNo, String projectName, String cntrctInfo, int start, int end) {
+			String contractName, String reportNo, String projectName, String cntrctInfo, String cntYear, int start, int end) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("AUDIT_NO_LOW", auditNoLow);
 		paramMap.put("AUDIT_NO_HIGH", auditNoHigh);
@@ -111,6 +113,8 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 		paramMap.put("PROJECT_NAME", projectName);
 		//委托内容
 		paramMap.put("CNTRCT_INFO", cntrctInfo);
+		//项目年份
+		paramMap.put("CNTRCT_YEAR", cntYear);
 				
 		paramMap.put("start", start);
 		paramMap.put("end", end);
@@ -121,8 +125,18 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 
 	//审价
 	@Override
-	public int queryAuditCountByPage(String keyword, String auditStatus) {
+	public int queryAuditCountByPage(String keyword, String projectManager, String reportNo, String projectName, String cntrctInfo, String cntYear, String auditStatus) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		//工程师
+		paramMap.put("PROJECT_MANAGER", projectManager);
+		//项目文号
+		paramMap.put("REPORT_NO", reportNo);
+		//项目名称
+		paramMap.put("PROJECT_NAME", projectName);
+		//委托内容
+		paramMap.put("CNTRCT_INFO", cntrctInfo);
+		//项目年份
+		paramMap.put("CNTRCT_YEAR", cntYear);
 		//审价状态
 		paramMap.put("AUDIT_STATUS", auditStatus);
 		//关键字
@@ -132,8 +146,18 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 	}
 
 	@Override
-	public List<AuditDto> queryAuditByPage(String keyword, String auditStatus, int start, int end) {
+	public List<AuditDto> queryAuditByPage(String keyword, String projectManager, String reportNo, String projectName, String cntrctInfo, String cntYear, String auditStatus, int start, int end) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
+		//工程师
+		paramMap.put("PROJECT_MANAGER", projectManager);
+		//项目文号
+		paramMap.put("REPORT_NO", reportNo);
+		//项目名称
+		paramMap.put("PROJECT_NAME", projectName);
+		//委托内容
+		paramMap.put("CNTRCT_INFO", cntrctInfo);
+		//项目年份
+		paramMap.put("CNTRCT_YEAR", cntYear);
 		//审价状态
 		paramMap.put("AUDIT_STATUS", auditStatus);
 		//关键字
@@ -152,7 +176,7 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 			String valueDateLow, String valueDateHigh, String agentNo,
 			String reportNoComp, String reportNoLow, String reportNoHigh, String auditStatus, 
 			String projectClass, String docArrDateLow, String docArrDateHigh, String agentName, 
-			String contractName, String reportNo, String projectName, String cntrctInfo) {
+			String contractName, String reportNo, String projectName, String cntrctInfo, String cntYear) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
 		paramMap.put("AUDIT_NO_LOW", auditNoLow);
 		paramMap.put("AUDIT_NO_HIGH", auditNoHigh);
@@ -184,15 +208,27 @@ public class AuditDaoImpl extends BaseDao implements AuditDao {
 		paramMap.put("PROJECT_NAME", projectName);
 		//委托内容
 		paramMap.put("CNTRCT_INFO", cntrctInfo);
+		//项目年份
+		paramMap.put("CNTRCT_YEAR", cntYear);
 		@SuppressWarnings("unchecked")
 		List<AuditDto> list = getSqlMapClientTemplate().queryForList("queryAllAuditExport", paramMap);
 		return list;
 	}
 
 	@Override
-	public List<AuditDto> queryAllAuditExport(String keyword, String auditStatus) {
+	public List<AuditDto> queryAllAuditExport(String keyword, String projectManager, String reportNo, String projectName, String cntrctInfo, String cntYear, String auditStatus) {
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		//审价状态		
+		//工程师
+		paramMap.put("PROJECT_MANAGER", projectManager);
+		//项目文号
+		paramMap.put("REPORT_NO", reportNo);
+		//项目名称
+		paramMap.put("PROJECT_NAME", projectName);
+		//委托内容
+		paramMap.put("CNTRCT_INFO", cntrctInfo);
+		//项目年份
+		paramMap.put("CNTRCT_YEAR", cntYear);
+		//审价状态
 		paramMap.put("AUDIT_STATUS", auditStatus);
 		//关键字
 		paramMap.put("KEYWORD", keyword);

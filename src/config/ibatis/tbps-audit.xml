@@ -525,6 +525,9 @@
 				<isNotEmpty prepend="and" property="CNTRCT_INFO">
 					T.CNTRCT_INFO = #CNTRCT_INFO#
 				</isNotEmpty>
+				<isNotEmpty prepend="and" property="CNTRCT_YEAR">
+					left(T.AUDIT_NO,2) = #CNTRCT_YEAR#
+				</isNotEmpty>
 			) TT where 1 = 1
 				AND (TT.B_SET_DATE IS NULL OR TT.B_SET_DATE <![CDATA[>]]> NOW())
 			UNION
@@ -690,6 +693,9 @@
 				</isNotEmpty>
 				<isNotEmpty prepend="and" property="CNTRCT_INFO">
 					T.CNTRCT_INFO = #CNTRCT_INFO#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="CNTRCT_YEAR">
+					left(T.AUDIT_NO,2) = #CNTRCT_YEAR#
 				</isNotEmpty>
 			) TT where 1 = 1
 				AND TT.B_SET_DATE IS NOT NULL AND TT.B_SET_DATE <![CDATA[<=]]> NOW()
@@ -864,6 +870,9 @@
 				<isNotEmpty prepend="and" property="CNTRCT_INFO">
 					T.CNTRCT_INFO = #CNTRCT_INFO#
 				</isNotEmpty>
+				<isNotEmpty prepend="and" property="CNTRCT_YEAR">
+					left(T.AUDIT_NO,2) = #CNTRCT_YEAR#
+				</isNotEmpty>
 			) TT where 1 = 1
 				AND (TT.B_SET_DATE IS NULL OR TT.B_SET_DATE <![CDATA[>]]> NOW())
 			UNION
@@ -1030,6 +1039,9 @@
 				<isNotEmpty prepend="and" property="CNTRCT_INFO">
 					T.CNTRCT_INFO = #CNTRCT_INFO#
 				</isNotEmpty>
+				<isNotEmpty prepend="and" property="CNTRCT_YEAR">
+					left(T.AUDIT_NO,2) = #CNTRCT_YEAR#
+				</isNotEmpty>
 			) TT where 1 = 1
 				AND TT.B_SET_DATE IS NOT NULL AND TT.B_SET_DATE <![CDATA[<=]]> NOW()
 		) B where 1 = 1
@@ -1153,6 +1165,21 @@
 				T.UPDATE_DATE
 				from audit_keyword T where 1 = 1
 				and T.DELETE_FLG = '1'
+				<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+					T.PROJECT_MANAGER like '%$PROJECT_MANAGER$%' ESCAPE '/'
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="REPORT_NO">
+					T.REPORT_NO like '%$REPORT_NO$%' ESCAPE '/'
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="PROJECT_NAME">
+					T.PROJECT_NAME like '%$PROJECT_NAME$%' ESCAPE '/'
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="CNTRCT_INFO">
+					T.CNTRCT_INFO = #CNTRCT_INFO#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="CNTRCT_YEAR">
+					left(T.AUDIT_NO,2) = #CNTRCT_YEAR#
+				</isNotEmpty>
 				<isNotEmpty prepend="and" property="KEYWORD">
 					T.KEYWORD like '%$KEYWORD$%' ESCAPE '/'
 				</isNotEmpty>
@@ -1270,6 +1297,21 @@
 				T.UPDATE_DATE
 				from audit_keyword T where 1 = 1
 				and T.DELETE_FLG = '1'
+				<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+					T.PROJECT_MANAGER like '%$PROJECT_MANAGER$%' ESCAPE '/'
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="REPORT_NO">
+					T.REPORT_NO like '%$REPORT_NO$%' ESCAPE '/'
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="PROJECT_NAME">
+					T.PROJECT_NAME like '%$PROJECT_NAME$%' ESCAPE '/'
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="CNTRCT_INFO">
+					T.CNTRCT_INFO = #CNTRCT_INFO#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="CNTRCT_YEAR">
+					left(T.AUDIT_NO,2) = #CNTRCT_YEAR#
+				</isNotEmpty>
 				<isNotEmpty prepend="and" property="KEYWORD">
 					T.KEYWORD like '%$KEYWORD$%' ESCAPE '/'
 				</isNotEmpty>
@@ -1394,6 +1436,21 @@
 				T.UPDATE_DATE
 				from audit_keyword T where 1 = 1
 				and T.DELETE_FLG = '1'
+				<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+					T.PROJECT_MANAGER like '%$PROJECT_MANAGER$%' ESCAPE '/'
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="REPORT_NO">
+					T.REPORT_NO like '%$REPORT_NO$%' ESCAPE '/'
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="PROJECT_NAME">
+					T.PROJECT_NAME like '%$PROJECT_NAME$%' ESCAPE '/'
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="CNTRCT_INFO">
+					T.CNTRCT_INFO = #CNTRCT_INFO#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="CNTRCT_YEAR">
+					left(T.AUDIT_NO,2) = #CNTRCT_YEAR#
+				</isNotEmpty>
 				<isNotEmpty prepend="and" property="KEYWORD">
 					T.KEYWORD like '%$KEYWORD$%' ESCAPE '/'
 				</isNotEmpty>
@@ -1511,6 +1568,21 @@
 				T.UPDATE_DATE
 				from audit_keyword T where 1 = 1
 				and T.DELETE_FLG = '1'
+				<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+					T.PROJECT_MANAGER like '%$PROJECT_MANAGER$%' ESCAPE '/'
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="REPORT_NO">
+					T.REPORT_NO like '%$REPORT_NO$%' ESCAPE '/'
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="PROJECT_NAME">
+					T.PROJECT_NAME like '%$PROJECT_NAME$%' ESCAPE '/'
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="CNTRCT_INFO">
+					T.CNTRCT_INFO = #CNTRCT_INFO#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="CNTRCT_YEAR">
+					left(T.AUDIT_NO,2) = #CNTRCT_YEAR#
+				</isNotEmpty>
 				<isNotEmpty prepend="and" property="KEYWORD">
 					T.KEYWORD like '%$KEYWORD$%' ESCAPE '/'
 				</isNotEmpty>
@@ -1637,6 +1709,21 @@
 				T.UPDATE_DATE
 				from audit_keyword T where 1 = 1
 				and T.DELETE_FLG = '1'
+				<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+					T.PROJECT_MANAGER like '%$PROJECT_MANAGER$%' ESCAPE '/'
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="REPORT_NO">
+					T.REPORT_NO like '%$REPORT_NO$%' ESCAPE '/'
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="PROJECT_NAME">
+					T.PROJECT_NAME like '%$PROJECT_NAME$%' ESCAPE '/'
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="CNTRCT_INFO">
+					T.CNTRCT_INFO = #CNTRCT_INFO#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="CNTRCT_YEAR">
+					left(T.AUDIT_NO,2) = #CNTRCT_YEAR#
+				</isNotEmpty>
 				<isNotEmpty prepend="and" property="KEYWORD">
 					T.KEYWORD like '%$KEYWORD$%' ESCAPE '/'
 				</isNotEmpty>
@@ -1754,6 +1841,21 @@
 				T.UPDATE_DATE
 				from audit_keyword T where 1 = 1
 				and T.DELETE_FLG = '1'
+				<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+					T.PROJECT_MANAGER like '%$PROJECT_MANAGER$%' ESCAPE '/'
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="REPORT_NO">
+					T.REPORT_NO like '%$REPORT_NO$%' ESCAPE '/'
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="PROJECT_NAME">
+					T.PROJECT_NAME like '%$PROJECT_NAME$%' ESCAPE '/'
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="CNTRCT_INFO">
+					T.CNTRCT_INFO = #CNTRCT_INFO#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="CNTRCT_YEAR">
+					left(T.AUDIT_NO,2) = #CNTRCT_YEAR#
+				</isNotEmpty>
 				<isNotEmpty prepend="and" property="KEYWORD">
 					T.KEYWORD like '%$KEYWORD$%' ESCAPE '/'
 				</isNotEmpty>
@@ -1931,6 +2033,9 @@
 				<isNotEmpty prepend="and" property="CNTRCT_INFO">
 					T.CNTRCT_INFO = #CNTRCT_INFO#
 				</isNotEmpty>
+				<isNotEmpty prepend="and" property="CNTRCT_YEAR">
+					left(T.AUDIT_NO,2) = #CNTRCT_YEAR#
+				</isNotEmpty>
 			) TT where 1 = 1
 				AND (TT.B_SET_DATE IS NULL OR TT.B_SET_DATE <![CDATA[>]]> NOW())
 			UNION
@@ -2096,6 +2201,9 @@
 				</isNotEmpty>
 				<isNotEmpty prepend="and" property="CNTRCT_INFO">
 					T.CNTRCT_INFO = #CNTRCT_INFO#
+				</isNotEmpty>
+				<isNotEmpty prepend="and" property="CNTRCT_YEAR">
+					left(T.AUDIT_NO,2) = #CNTRCT_YEAR#
 				</isNotEmpty>
 			) TT where 1 = 1
 				AND TT.B_SET_DATE IS NOT NULL AND TT.B_SET_DATE <![CDATA[<=]]> NOW()
