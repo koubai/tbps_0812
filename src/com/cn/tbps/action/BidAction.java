@@ -586,12 +586,48 @@ public class BidAction extends BaseAction {
 			} else {
 				addBidDto.setBID_EXPERT_COMMISION_PRE(null);
 			}
+			if(addBidDto.getBID_EXPERT_COMMISION_PRE_YUAN1() != null) {
+				addBidDto.setBID_EXPERT_COMMISION_PRE1(
+						TbpsUtil.bigDecimal2str(addBidDto.getBID_EXPERT_COMMISION_PRE_YUAN1().divide(new BigDecimal(10000)).setScale(6, BigDecimal.ROUND_HALF_EVEN)));
+			} else {
+				addBidDto.setBID_EXPERT_COMMISION_PRE1(null);
+			}
+			if(addBidDto.getBID_EXPERT_COMMISION_PRE_YUAN2() != null) {
+				addBidDto.setBID_EXPERT_COMMISION_PRE2(
+						TbpsUtil.bigDecimal2str(addBidDto.getBID_EXPERT_COMMISION_PRE_YUAN2().divide(new BigDecimal(10000)).setScale(6, BigDecimal.ROUND_HALF_EVEN)));
+			} else {
+				addBidDto.setBID_EXPERT_COMMISION_PRE2(null);
+			}
+			if(addBidDto.getBID_EXPERT_COMMISION_PRE_YUAN3() != null) {
+				addBidDto.setBID_EXPERT_COMMISION_PRE3(
+						TbpsUtil.bigDecimal2str(addBidDto.getBID_EXPERT_COMMISION_PRE_YUAN3().divide(new BigDecimal(10000)).setScale(6, BigDecimal.ROUND_HALF_EVEN)));
+			} else {
+				addBidDto.setBID_EXPERT_COMMISION_PRE3(null);
+			}
 			//实际专家费单位元转化为万元
 			if(addBidDto.getBID_EXPERT_COMMISION_ACT_YUAN() != null) {
 				addBidDto.setBID_EXPERT_COMMISION_ACT(
 						TbpsUtil.bigDecimal2str(addBidDto.getBID_EXPERT_COMMISION_ACT_YUAN().divide(new BigDecimal(10000)).setScale(6, BigDecimal.ROUND_HALF_EVEN)));
 			} else {
 				addBidDto.setBID_EXPERT_COMMISION_ACT(null);
+			}
+			if(addBidDto.getBID_EXPERT_COMMISION_ACT_YUAN1() != null) {
+				addBidDto.setBID_EXPERT_COMMISION_ACT1(
+						TbpsUtil.bigDecimal2str(addBidDto.getBID_EXPERT_COMMISION_ACT_YUAN1().divide(new BigDecimal(10000)).setScale(6, BigDecimal.ROUND_HALF_EVEN)));
+			} else {
+				addBidDto.setBID_EXPERT_COMMISION_ACT1(null);
+			}
+			if(addBidDto.getBID_EXPERT_COMMISION_ACT_YUAN2() != null) {
+				addBidDto.setBID_EXPERT_COMMISION_ACT2(
+						TbpsUtil.bigDecimal2str(addBidDto.getBID_EXPERT_COMMISION_ACT_YUAN2().divide(new BigDecimal(10000)).setScale(6, BigDecimal.ROUND_HALF_EVEN)));
+			} else {
+				addBidDto.setBID_EXPERT_COMMISION_ACT2(null);
+			}
+			if(addBidDto.getBID_EXPERT_COMMISION_ACT_YUAN3() != null) {
+				addBidDto.setBID_EXPERT_COMMISION_ACT3(
+						TbpsUtil.bigDecimal2str(addBidDto.getBID_EXPERT_COMMISION_ACT_YUAN3().divide(new BigDecimal(10000)).setScale(6, BigDecimal.ROUND_HALF_EVEN)));
+			} else {
+				addBidDto.setBID_EXPERT_COMMISION_ACT3(null);
 			}
 
 			//承接项目日期默认=当天
@@ -718,6 +754,12 @@ public class BidAction extends BaseAction {
 			} else {
 				updateBidDto.setBID_EXPERT_COMMISION_PRE(null);
 			}
+			if(updateBidDto.getBID_EXPERT_COMMISION_PRE_YUAN1() != null) {
+				updateBidDto.setBID_EXPERT_COMMISION_PRE1(
+						TbpsUtil.bigDecimal2str(updateBidDto.getBID_EXPERT_COMMISION_PRE_YUAN1().divide(new BigDecimal(10000)).setScale(6, BigDecimal.ROUND_HALF_UP)));
+			} else {
+				updateBidDto.setBID_EXPERT_COMMISION_PRE1(null);
+			}
 			if(updateBidDto.getBID_EXPERT_COMMISION_PRE_YUAN2() != null) {
 				updateBidDto.setBID_EXPERT_COMMISION_PRE2(
 						TbpsUtil.bigDecimal2str(updateBidDto.getBID_EXPERT_COMMISION_PRE_YUAN2().divide(new BigDecimal(10000)).setScale(6, BigDecimal.ROUND_HALF_UP)));
@@ -736,6 +778,12 @@ public class BidAction extends BaseAction {
 						TbpsUtil.bigDecimal2str(updateBidDto.getBID_EXPERT_COMMISION_ACT_YUAN().divide(new BigDecimal(10000)).setScale(6, BigDecimal.ROUND_HALF_UP)));
 			} else {
 				updateBidDto.setBID_EXPERT_COMMISION_ACT(null);
+			}
+			if(updateBidDto.getBID_EXPERT_COMMISION_ACT_YUAN1() != null) {
+				updateBidDto.setBID_EXPERT_COMMISION_ACT1(
+						TbpsUtil.bigDecimal2str(updateBidDto.getBID_EXPERT_COMMISION_ACT_YUAN1().divide(new BigDecimal(10000)).setScale(6, BigDecimal.ROUND_HALF_UP)));
+			} else {
+				updateBidDto.setBID_EXPERT_COMMISION_ACT1(null);
 			}
 			if(updateBidDto.getBID_EXPERT_COMMISION_ACT_YUAN2() != null) {
 				updateBidDto.setBID_EXPERT_COMMISION_ACT2(

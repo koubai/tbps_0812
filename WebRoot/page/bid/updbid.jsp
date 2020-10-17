@@ -264,6 +264,8 @@
 		//#tab8
 		var BID_EXPERT_COMMISION_PRE_YUAN = $("#BID_EXPERT_COMMISION_PRE_YUAN").val();
 		var BID_EXPERT_COMMISION_ACT_YUAN = $("#BID_EXPERT_COMMISION_ACT_YUAN").val();
+		var BID_EXPERT_COMMISION_PRE_YUAN1 = $("#BID_EXPERT_COMMISION_PRE_YUAN1").val();
+		var BID_EXPERT_COMMISION_ACT_YUAN1 = $("#BID_EXPERT_COMMISION_ACT_YUAN1").val();
 		var BID_EXPERT_COMMISION_PRE_YUAN2 = $("#BID_EXPERT_COMMISION_PRE_YUAN2").val();
 		var BID_EXPERT_COMMISION_ACT_YUAN2 = $("#BID_EXPERT_COMMISION_ACT_YUAN2").val();
 		var BID_EXPERT_COMMISION_PRE_YUAN3 = $("#BID_EXPERT_COMMISION_PRE_YUAN3").val();
@@ -487,6 +489,18 @@
 			$("#BID_EXPERT_COMMISION_ACT_YUAN").focus();
 			return false;
 		}
+		if(BID_EXPERT_COMMISION_PRE_YUAN1 != "" && !isReal(BID_EXPERT_COMMISION_PRE_YUAN1)) {
+			showtab("8");
+			alert("预借费用1格式不正确！");
+			$("#BID_EXPERT_COMMISION_PRE_YUAN1").focus();
+			return false;
+		}
+		if(BID_EXPERT_COMMISION_ACT_YUAN1 != "" && !isReal(BID_EXPERT_COMMISION_ACT_YUAN1)) {
+			showtab("8");
+			alert("实际费用1格式不正确！");
+			$("#BID_EXPERT_COMMISION_ACT_YUAN1").focus();
+			return false;
+		}
 		if(BID_EXPERT_COMMISION_PRE_YUAN2 != "" && !isReal(BID_EXPERT_COMMISION_PRE_YUAN2)) {
 			showtab("8");
 			alert("预借费用2格式不正确！");
@@ -649,6 +663,7 @@
 			
 			tr.appendChild(td);
 			document.getElementById("bidCompListTable").appendChild(tr);
+
 		}
 		
 		//专家列表
@@ -711,10 +726,13 @@
 		
 		$("#RECEIPT1_DATE").attr("value", $("#tmpRECEIPT1_DATE").val());
 		$("#RECEIPT1_VALUE_DATE").attr("value", $("#tmpRECEIPT1_VALUE_DATE").val());
-		$("#BID_EXPERT_COMMISION_DIFF_DATE").attr("value", $("#tmpBID_EXPERT_COMMISION_DIFF_DATE").val());
+		$("#BID_EXPERT_COMMISION_APPLY_DATE").attr("value", $("#tmpBID_EXPERT_COMMISION_PRE_DATE1").val());		
+		$("#BID_EXPERT_COMMISION_DIFF_DATE").attr("value", $("#tmpBID_EXPERT_COMMISION_DIFF_DATE1").val());
+		$("#BID_EXPERT_COMMISION_DIFF_DATE1").attr("value", $("#tmpBID_EXPERT_COMMISION_DIFF_DATE1").val());
 		$("#BID_EXPERT_COMMISION_DIFF_DATE2").attr("value", $("#tmpBID_EXPERT_COMMISION_DIFF_DATE2").val());
 		$("#BID_EXPERT_COMMISION_DIFF_DATE3").attr("value", $("#tmpBID_EXPERT_COMMISION_DIFF_DATE3").val());
-		$("#BID_EXPERT_COMMISION_PRE_DATE").attr("value", $("#tmpBID_EXPERT_COMMISION_PRE_DATE").val());
+		$("#BID_EXPERT_COMMISION_PRE_DATE").attr("value", $("#tmpBID_EXPERT_COMMISION_PRE_DATE1").val());
+		$("#BID_EXPERT_COMMISION_PRE_DATE1").attr("value", $("#tmpBID_EXPERT_COMMISION_PRE_DATE1").val());		
 		$("#BID_EXPERT_COMMISION_PRE_DATE2").attr("value", $("#tmpBID_EXPERT_COMMISION_PRE_DATE2").val());
 		$("#BID_EXPERT_COMMISION_PRE_DATE3").attr("value", $("#tmpBID_EXPERT_COMMISION_PRE_DATE3").val());
 		
@@ -2140,15 +2158,21 @@
 			<s:hidden name="updateBidDto.TENDER_OPEN_DATE" id="TENDER_OPEN_DATE"/>
 			<s:hidden name="updateBidDto.TENDER_VERIFY_DATE" id="TENDER_VERIFY_DATE"/>
 			<s:hidden name="updateBidDto.BID_EXPERT_COMMISION_PRE_DATE" id="BID_EXPERT_COMMISION_PRE_DATE"/>
+			<s:hidden name="updateBidDto.BID_EXPERT_COMMISION_PRE_DATE1" id="BID_EXPERT_COMMISION_PRE_DATE1"/>
 			<s:hidden name="updateBidDto.BID_EXPERT_COMMISION_PRE_DATE2" id="BID_EXPERT_COMMISION_PRE_DATE2"/>
 			<s:hidden name="updateBidDto.BID_EXPERT_COMMISION_PRE_DATE3" id="BID_EXPERT_COMMISION_PRE_DATE3"/>
 			<s:hidden name="updateBidDto.BID_EXPERT_COMMISION_APPLY_DATE" id="BID_EXPERT_COMMISION_APPLY_DATE"/>
 			<s:hidden name="updateBidDto.RECEIPT1_DATE" id="RECEIPT1_DATE"/>
 			<s:hidden name="updateBidDto.RECEIPT1_VALUE_DATE" id="RECEIPT1_VALUE_DATE"/>
 			<s:hidden name="updateBidDto.BID_EXPERT_COMMISION_DIFF_DATE" id="BID_EXPERT_COMMISION_DIFF_DATE"/>
+			<s:hidden name="updateBidDto.BID_EXPERT_COMMISION_DIFF_DATE1" id="BID_EXPERT_COMMISION_DIFF_DATE1"/>
 			<s:hidden name="updateBidDto.BID_EXPERT_COMMISION_DIFF_DATE2" id="BID_EXPERT_COMMISION_DIFF_DATE2"/>
 			<s:hidden name="updateBidDto.BID_EXPERT_COMMISION_DIFF_DATE3" id="BID_EXPERT_COMMISION_DIFF_DATE3"/>
+			<s:hidden name="updateBidDto.BID_EXPERT_COMMISION_PRE_YUAN" id="BID_EXPERT_COMMISION_PRE_YUAN"/>
+			<s:hidden name="updateBidDto.BID_EXPERT_COMMISION_ACT_YUAN" id="BID_EXPERT_COMMISION_ACT_YUAN"/>
+	
 			<s:hidden name="updBidTabIndex" id="updBidTabIndex"/>
+			
 			<div class="row">
 				<table id="bidCompListTable" style="display: none;">
 				</table>
@@ -3438,17 +3462,17 @@
 									</div>
 								</div>
 								<div class="col-lg-4 form-group">
-									<label for="" class="col-lg-4 form-label">预借费用</label>
+									<label for="" class="col-lg-4 form-label">预借费用1</label>
 									<div class="col-lg-7">
-										<s:textfield name="updateBidDto.BID_EXPERT_COMMISION_PRE_YUAN" id="BID_EXPERT_COMMISION_PRE_YUAN" cssClass="form-control" maxlength="18" theme="simple"></s:textfield>
+										<s:textfield name="updateBidDto.BID_EXPERT_COMMISION_PRE_YUAN1" id="BID_EXPERT_COMMISION_PRE_YUAN1" cssClass="form-control" maxlength="18" theme="simple"></s:textfield>
 									</div>
 									<label for="" class="col-lg-1 form-label" style="text-align:left;">元</label>
 								</div>
 								<div class="col-lg-4 form-group">
-									<label for="" class="col-lg-4 form-label">申请日期</label>
+									<label for="" class="col-lg-4 form-label">申请日期1</label>
 									<div class="col-lg-8">
 										<div class="input-group date" data-provide="datepicker">
-											<input id="tmpBID_EXPERT_COMMISION_PRE_DATE" value="<s:date name="updateBidDto.BID_EXPERT_COMMISION_PRE_DATE" format="yyyy-MM-dd"/>" maxlength="10" type="text" class="form-control datepicker" readonly>
+											<input id="tmpBID_EXPERT_COMMISION_PRE_DATE1" value="<s:date name="updateBidDto.BID_EXPERT_COMMISION_PRE_DATE1" format="yyyy-MM-dd"/>" maxlength="10" type="text" class="form-control datepicker" readonly>
 											<div class="input-group-addon">
 												<span class="glyphicon glyphicon-th"></span>
 											</div>
@@ -3467,17 +3491,17 @@
 									</div>
 								</div>
 								<div class="col-lg-4 form-group">
-									<label for="" class="col-lg-4 form-label">实际费用</label>
+									<label for="" class="col-lg-4 form-label">实际费用1</label>
 									<div class="col-lg-7">
-										<s:textfield name="updateBidDto.BID_EXPERT_COMMISION_ACT_YUAN" id="BID_EXPERT_COMMISION_ACT_YUAN" cssClass="form-control" maxlength="18" theme="simple"></s:textfield>
+										<s:textfield name="updateBidDto.BID_EXPERT_COMMISION_ACT_YUAN1" id="BID_EXPERT_COMMISION_ACT_YUAN1" cssClass="form-control" maxlength="18" theme="simple"></s:textfield>
 									</div>
 									<label for="" class="col-lg-1 form-label" style="text-align:left;">元</label>
 								</div>
 								<div class="col-lg-4 form-group">
-									<label for="" class="col-lg-4 form-label">差价退还日期</label>
+									<label for="" class="col-lg-4 form-label">差价退还日期1</label>
 									<div class="col-lg-8">
 										<div class="input-group date" data-provide="datepicker">
-											<input id="tmpBID_EXPERT_COMMISION_DIFF_DATE" value="<s:date name="updateBidDto.BID_EXPERT_COMMISION_DIFF_DATE" format="yyyy-MM-dd"/>" maxlength="10" type="text" class="form-control datepicker" readonly>
+											<input id="tmpBID_EXPERT_COMMISION_DIFF_DATE1" value="<s:date name="updateBidDto.BID_EXPERT_COMMISION_DIFF_DATE1" format="yyyy-MM-dd"/>" maxlength="10" type="text" class="form-control datepicker" readonly>
 											<div class="input-group-addon">
 												<span class="glyphicon glyphicon-th"></span>
 											</div>
