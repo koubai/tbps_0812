@@ -321,6 +321,7 @@
 		<result property="BID_LIMIT_PRICE" column="BID_LIMIT_PRICE" />
 		<result property="BID_CO_NAME" column="BID_CO_NAME" />
 		<result property="BID_RESULT" column="BID_RESULT" />
+		<result property="BID_PRICE" column="BID_PRICE" />
 		<result property="BID_WIN_PRICE" column="BID_WIN_PRICE" />
 		<result property="BID_APPLY_PRICE" column="BID_APPLY_PRICE" />
 		<result property="BID_AGENT_PRICE" column="BID_AGENT_PRICE" />
@@ -784,6 +785,7 @@
 			,A.BID_LIMIT_PRICE
 			,M.BID_CO_NAME
 			,M.BID_RESULT
+			,M.BID_PRICE
 			,M.BID_WIN_PRICE
 			,M.BID_APPLY_PRICE
 			,A.BID_AGENT_PRICE
