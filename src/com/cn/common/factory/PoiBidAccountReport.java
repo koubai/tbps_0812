@@ -191,13 +191,13 @@ public class PoiBidAccountReport extends Poi2007Base {
 //			cell6.setCellValue(biddata.getBID_AGENT_PAY());
 			cell6.setCellStyle(style);
 			// 保证金金额（万元）
-			cell7.setCellValue(StringUtil.BigDecimal2Str(biddata.getBID_BOND(), 2));
+			cell7.setCellValue(StringUtil.BigDecimal2Str(biddata.getBID_BOND(), 6));
 			cell7.setCellStyle(style);
 			// 投标单位
 			cell8.setCellValue(biddata.getBID_CO_NAME());
 			cell8.setCellStyle(style);
 			// 投标价（万元）
-			cell9.setCellValue((StringUtil.BigDecimal2Str(biddata.getBID_PRICE(),2)));
+			cell9.setCellValue((StringUtil.BigDecimal2Str(biddata.getBID_PRICE(),6)));
 			cell9.setCellStyle(style);
 			// 中标单位
 			if (biddata.getBID_RESULT() != null && biddata.getBID_RESULT().equals("1"))
@@ -207,7 +207,7 @@ public class PoiBidAccountReport extends Poi2007Base {
 			cell10.setCellStyle(style);
 			// 中标价（万元）
 			if (biddata.getBID_RESULT() != null && biddata.getBID_RESULT().equals("1"))
-				cell11.setCellValue(StringUtil.BigDecimal2Str(biddata.getBID_WIN_PRICE(),2));
+				cell11.setCellValue(StringUtil.BigDecimal2Str(biddata.getBID_WIN_PRICE(),6));
 			else 
 				cell11.setCellValue("");			
 			cell11.setCellStyle(style);
@@ -215,10 +215,10 @@ public class PoiBidAccountReport extends Poi2007Base {
 			cell12.setCellValue(StringUtil.BigDecimal2Str(biddata.getBID_APPLY_PRICE(),2));
 			cell12.setCellStyle(style);
 			// 应收代理费（万元）
-			cell13.setCellValue(StringUtil.BigDecimal2Str(biddata.getBID_AGENT_PRICE(),2));
+			cell13.setCellValue(StringUtil.BigDecimal2Str(biddata.getBID_AGENT_PRICE(),6));
 			cell13.setCellStyle(style);
 			// 实收代理费（万元）
-			cell14.setCellValue(StringUtil.BigDecimal2Str(biddata.getBID_AGENT_PRICE_ACT(),2));
+			cell14.setCellValue(StringUtil.BigDecimal2Str(biddata.getBID_AGENT_PRICE_ACT(),6));
 			cell14.setCellStyle(style);
 			// 工程师
 			cell15.setCellValue(biddata.getPROJECT_MANAGER_NAME());

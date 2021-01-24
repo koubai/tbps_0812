@@ -869,7 +869,7 @@
 			<isNotEmpty prepend="and" property="strRECEIPT1_VALUE_DATE">
 				$strRECEIPT1_VALUE_DATE$
 			</isNotEmpty>
-		) A join (select * from bidcomp where DELETE_FLG = '1' ) M on A.BID_NO = M.BID_NO 
+		) A left join (select * from bidcomp where DELETE_FLG = '1' ) M on A.BID_NO = M.BID_NO 
 		where 1 = 1
 			<isNotEmpty prepend="and" property="cntrctNos">
 				A.CNTRCT_NO in ($cntrctNos$)
