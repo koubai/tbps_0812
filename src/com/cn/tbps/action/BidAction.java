@@ -1042,7 +1042,7 @@ public class BidAction extends BaseAction {
 					"", "", "",
 					"", "", "", strBidNoLow, strBidNoHigh,
 					"", "", "", "", "",
-					"", "");
+					"", "", strProjectManager);
 			
 			base.setDatas(listBidRpt);
 			base.setSheetName(Constants.EXCEL_TYPE_BIDDATAREPORT);
@@ -1068,7 +1068,7 @@ public class BidAction extends BaseAction {
 					"", "", "",
 					"", "", "", strBidNoLow, strBidNoHigh,
 					"", "", "", "", "",
-					"", "");
+					"", "", strProjectManager);
 			
 			base.setDatas(listBidRpt);
 			base.setSheetName(Constants.EXCEL_TYPE_BIDENGINEERREPORT);
@@ -1093,7 +1093,7 @@ public class BidAction extends BaseAction {
 					"", "", "",
 					"", "", "", strBidNoLow, strBidNoHigh,
 					"", "", "", "", "",
-					"", "");
+					"", "", strProjectManager);
 			
 			base.setDatas(listBidRpt);
 			base.setSheetName(Constants.EXCEL_TYPE_BIDACCOUNTREPORT);
@@ -1118,7 +1118,7 @@ public class BidAction extends BaseAction {
 					"", "", "",
 					"", "", "", strBidNoLow, strBidNoHigh,
 					"", "", "", "", "",
-					"", "");
+					"", "", strProjectManager);
 			
 			base.setDatas(listBidRpt);
 			base.setSheetName(Constants.EXCEL_TYPE_BIDNEIYEREPORT);

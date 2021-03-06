@@ -332,6 +332,13 @@
 		<result property="REGISTE_ST_DATE1" column="REGISTE_ST_DATE1" />
 		<result property="REGISTE_ED_DATE1" column="REGISTE_ED_DATE1" />
 		<result property="REGISTE_ST_DATE2" column="REGISTE_ST_DATE2" />
+		<result property="REGISTE_ED_DATE2" column="REGISTE_ED_DATE2" />
+		<result property="REGISTE_ST_DATE3" column="REGISTE_ST_DATE3" />
+		<result property="REGISTE_ED_DATE3" column="REGISTE_ED_DATE3" />
+		<result property="REGISTE_ST_DATE4" column="REGISTE_ST_DATE4" />
+		<result property="REGISTE_ED_DATE4" column="REGISTE_ED_DATE4" />
+		<result property="REGISTE_ST_DATE5" column="REGISTE_ST_DATE5" />
+		<result property="REGISTE_ED_DATE5" column="REGISTE_ED_DATE5" />
 		<result property="BID_NOTICE_ST_DATE" column="BID_NOTICE_ST_DATE" />
 		<result property="BID_NOTICE_ED_DATE" column="BID_NOTICE_ED_DATE" />
 		<result property="BID_WIN_DOC_SCAN_FLG" column="BID_WIN_DOC_SCAN_FLG" />
@@ -797,6 +804,13 @@
 			,A.REGISTE_ST_DATE1
 			,A.REGISTE_ED_DATE1
 			,A.REGISTE_ST_DATE2
+			,A.REGISTE_ED_DATE2
+			,A.REGISTE_ST_DATE3
+			,A.REGISTE_ED_DATE3
+			,A.REGISTE_ST_DATE4
+			,A.REGISTE_ED_DATE4
+			,A.REGISTE_ST_DATE5
+			,A.REGISTE_ED_DATE5
 			,A.BID_NOTICE_ST_DATE
 			,A.BID_NOTICE_ED_DATE
 			,A.BID_WIN_DOC_SCAN_FLG
@@ -870,6 +884,9 @@
 			</isNotEmpty>
 			<isNotEmpty prepend="and" property="strRECEIPT1_VALUE_DATE">
 				$strRECEIPT1_VALUE_DATE$
+			</isNotEmpty>
+			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
+				B.PROJECT_MANAGER = #PROJECT_MANAGER#
 			</isNotEmpty>
 		) A left join (select * from bidcomp where DELETE_FLG = '1' ) M on A.BID_NO = M.BID_NO 
 		where 1 = 1

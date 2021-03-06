@@ -1896,7 +1896,7 @@ public class BidServiceImpl extends BaseService implements BidService {
 			String strBID_AGENT_PRICE_ACT, String strRECEIPT1_DATE, String strRECEIPT1_VALUE_DATE,
 			String cntrctNos, String finishStatuss, String PROJECT_NAME, String BID_NO_LOW, String BID_NO_HIGH,
 			String CNTRCT_YEAR, String CNTRCT_NO, String BID_COMP_NO, String CNTRCT_NAME, String CNTRCT_TYPE,
-			String CNTRCT_ST_DATE, String CNTRCT_ED_DATE){
+			String CNTRCT_ST_DATE, String CNTRCT_ED_DATE, String PROJECT_MANAGER){
 		
 		String newCntrctNos = "";
 		if(StringUtil.isNotBlank(cntrctNos)) {
@@ -1933,7 +1933,7 @@ public class BidServiceImpl extends BaseService implements BidService {
 		CNTRCT_NAME = StringUtil.replaceDatabaseKeyword_mysql(CNTRCT_NAME);
 		List<BidRptDto> list = bidDao.queryAllBidDetailExport(strBID_AGENT_PRICE_ACT, strRECEIPT1_DATE, strRECEIPT1_VALUE_DATE,
 				newCntrctNos, finishStatuss, PROJECT_NAME, BID_NO_LOW, BID_NO_HIGH, CNTRCT_YEAR,
-				CNTRCT_NO, BID_COMP_NO, CNTRCT_NAME, CNTRCT_TYPE, CNTRCT_ST_DATE, CNTRCT_ED_DATE);
+				CNTRCT_NO, BID_COMP_NO, CNTRCT_NAME, CNTRCT_TYPE, CNTRCT_ST_DATE, CNTRCT_ED_DATE, PROJECT_MANAGER);
 		if(list != null && list.size() > 0) {
 			Map<String, String> userMap = new HashMap<String, String>();
 			List<UserInfoDto> userList = userInfoDao.queryAllUser();

@@ -143,23 +143,33 @@ public class PoiBidEngineerReport extends Poi2007Base {
 			// 招标公告结束时间
 			XSSFCell cell23 = row.createCell(23);
 			// 是否二次公告
+//			XSSFCell cell24 = row.createCell(24);
+			
+			// 二次公告开始时间
 			XSSFCell cell24 = row.createCell(24);
-			// 中标公示开始时间
+			// 二次公告结束时间
 			XSSFCell cell25 = row.createCell(25);
-			// 中标公示结束时间
+			// 三次公告开始时间
 			XSSFCell cell26 = row.createCell(26);
-			// 中标文件扫描
+			// 三次公告结束时间
 			XSSFCell cell27 = row.createCell(27);
-			// 评标报告扫描归档
+
+			// 中标公示开始时间
 			XSSFCell cell28 = row.createCell(28);
-			// 招投标文件送至甲方
+			// 中标公示结束时间
 			XSSFCell cell29 = row.createCell(29);
-			// 评标报告送至甲方
+			// 中标文件扫描
 			XSSFCell cell30 = row.createCell(30);
-			// 失败项目日期
+			// 评标报告扫描归档
 			XSSFCell cell31 = row.createCell(31);
-			// 项目完成情况
+			// 招投标文件送至甲方
 			XSSFCell cell32 = row.createCell(32);
+			// 评标报告送至甲方
+			XSSFCell cell33 = row.createCell(33);
+			// 失败项目日期
+			XSSFCell cell34 = row.createCell(34);
+			// 项目完成情况
+			XSSFCell cell35 = row.createCell(35);
 
 			// 合同编号
 			cell0.setCellValue(TbpsUtil.obj2string(biddata.getCNTRCT_NO()));
@@ -265,7 +275,7 @@ public class PoiBidEngineerReport extends Poi2007Base {
 				cell23.setCellValue("");
 			cell23.setCellStyle(style);
 			// 是否二次公告
-			if (biddata.getREGISTE_ST_DATE1() == null)
+/*			if (biddata.getREGISTE_ST_DATE1() == null)
 				cell24.setCellValue("");
 			else{
 				if (StringUtil.isBlank(format0.format(biddata.getREGISTE_ST_DATE1())))
@@ -274,55 +284,81 @@ public class PoiBidEngineerReport extends Poi2007Base {
 					cell24.setCellValue("是");				
 			}
 			cell24.setCellStyle(style);
-			// 中标公示开始时间
-			if (biddata.getBID_NOTICE_ST_DATE()!=null)
-				cell25.setCellValue(format0.format(biddata.getBID_NOTICE_ST_DATE()));
+*/			
+			// 二次公告开始时间
+			if (biddata.getREGISTE_ST_DATE2()!= null)
+				cell24.setCellValue(format0.format(biddata.getREGISTE_ST_DATE2()));
+			else
+				cell24.setCellValue("");
+			cell24.setCellStyle(style);
+			// 二次公告结束时间
+			if (biddata.getREGISTE_ED_DATE2()!=null )
+				cell25.setCellValue(format0.format(biddata.getREGISTE_ED_DATE2()));
 			else
 				cell25.setCellValue("");
 			cell25.setCellStyle(style);
-			// 中标公示结束时间
-			if (biddata.getBID_NOTICE_ED_DATE()!=null)
-				cell26.setCellValue(format0.format(biddata.getBID_NOTICE_ED_DATE()));
+			// 三次公告开始时间
+			if (biddata.getREGISTE_ST_DATE3()!= null)
+				cell26.setCellValue(format0.format(biddata.getREGISTE_ST_DATE3()));
 			else
 				cell26.setCellValue("");
 			cell26.setCellStyle(style);
-			// 中标文件扫描
-			if (StringUtil.isBlank(biddata.getBID_WIN_DOC_SCAN_FLG()))
-					cell27.setCellValue("");
-			else{
-				if (biddata.getBID_WIN_DOC_SCAN_FLG().equals("0"))
-					cell27.setCellValue("无");
-				else
-					cell27.setCellValue("有");
-			}
+			// 三次公告结束时间
+			if (biddata.getREGISTE_ED_DATE3()!=null )
+				cell27.setCellValue(format0.format(biddata.getREGISTE_ED_DATE3()));
+			else
+				cell27.setCellValue("");
 			cell27.setCellStyle(style);
-			// 评标报告扫描归档
-			if (biddata.getBID_VER_DOC_SCAN_DATE()!=null)
-				cell28.setCellValue(format0.format(biddata.getBID_VER_DOC_SCAN_DATE()));
+			
+			// 中标公示开始时间
+			if (biddata.getBID_NOTICE_ST_DATE()!=null)
+				cell28.setCellValue(format0.format(biddata.getBID_NOTICE_ST_DATE()));
 			else
 				cell28.setCellValue("");
 			cell28.setCellStyle(style);
-			// 招投标文件送至甲方
-			if (biddata.getBID_DOC_DELI_DATE1()!=null)
-				cell29.setCellValue(format0.format(biddata.getBID_DOC_DELI_DATE1()));
+			// 中标公示结束时间
+			if (biddata.getBID_NOTICE_ED_DATE()!=null)
+				cell29.setCellValue(format0.format(biddata.getBID_NOTICE_ED_DATE()));
 			else
 				cell29.setCellValue("");
 			cell29.setCellStyle(style);
-			// 评标报告送至甲方
-			if (biddata.getBID_VER_DOC_DELI_DATE1() != null)
-				cell30.setCellValue(format0.format(biddata.getBID_VER_DOC_DELI_DATE1()));
-			else
-				cell30.setCellValue("");
+			// 中标文件扫描
+			if (StringUtil.isBlank(biddata.getBID_WIN_DOC_SCAN_FLG()))
+					cell30.setCellValue("");
+			else{
+				if (biddata.getBID_WIN_DOC_SCAN_FLG().equals("0"))
+					cell30.setCellValue("无");
+				else
+					cell30.setCellValue("有");
+			}
 			cell30.setCellStyle(style);
-			// 失败项目日期
-			if (biddata.getFINISH_DATE()!= null)
-				cell31.setCellValue(format0.format(biddata.getFINISH_DATE()));
+			// 评标报告扫描归档
+			if (biddata.getBID_VER_DOC_SCAN_DATE()!=null)
+				cell31.setCellValue(format0.format(biddata.getBID_VER_DOC_SCAN_DATE()));
 			else
 				cell31.setCellValue("");
 			cell31.setCellStyle(style);
-			// 项目完成情况
-			cell32.setCellValue(biddata.getFINISH_STATUS_NAME());
+			// 招投标文件送至甲方
+			if (biddata.getBID_DOC_DELI_DATE1()!=null)
+				cell32.setCellValue(format0.format(biddata.getBID_DOC_DELI_DATE1()));
+			else
+				cell32.setCellValue("");
 			cell32.setCellStyle(style);
+			// 评标报告送至甲方
+			if (biddata.getBID_VER_DOC_DELI_DATE1() != null)
+				cell33.setCellValue(format0.format(biddata.getBID_VER_DOC_DELI_DATE1()));
+			else
+				cell33.setCellValue("");
+			cell33.setCellStyle(style);
+			// 失败项目日期
+			if (biddata.getFINISH_DATE()!= null)
+				cell34.setCellValue(format0.format(biddata.getFINISH_DATE()));
+			else
+				cell34.setCellValue("");
+			cell34.setCellStyle(style);
+			// 项目完成情况
+			cell35.setCellValue(biddata.getFINISH_STATUS_NAME());
+			cell35.setCellStyle(style);
 		}
 		Set<Integer> com_set = new HashSet<Integer>();
 		com_set = mergeCellData( sheet, workbook, 1, 4, com_set);
@@ -372,7 +408,7 @@ public class PoiBidEngineerReport extends Poi2007Base {
 		
 		XSSFCell cell2 = null;
 		XSSFCell cell3 = null;
-		for(int i = 0; i < 33; i++) {
+		for(int i = 0; i < 36; i++) {
 			cell2 = row2.createCell(i);
 			cell2.setCellStyle(style);
 			cell3 = row3.createCell(i);
@@ -524,56 +560,80 @@ public class PoiBidEngineerReport extends Poi2007Base {
 		cell.setCellStyle(style);
 		
 		// 是否二次公告
-		sheet.setColumnWidth(24, 15 * 256);
+/*		sheet.setColumnWidth(24, 15 * 256);
 		cell = row3.createCell(24);
 		cell.setCellValue("是否二次公告");
 		cell.setCellStyle(style);
+*/		
+		// 二次公告开始时间
+		sheet.setColumnWidth(24, 15 * 256);
+		cell = row3.createCell(24);
+		cell.setCellValue("二次公告开始时间");
+		cell.setCellStyle(style);
 		
-		// 中标公示开始时间
+		// 二次公告结束时间
 		sheet.setColumnWidth(25, 15 * 256);
 		cell = row3.createCell(25);
+		cell.setCellValue("二次公告结束时间");
+		cell.setCellStyle(style);
+
+		// 三次公告开始时间
+		sheet.setColumnWidth(26, 15 * 256);
+		cell = row3.createCell(26);
+		cell.setCellValue("三次公告开始时间");
+		cell.setCellStyle(style);
+		
+		// 三次公告结束时间
+		sheet.setColumnWidth(27, 15 * 256);
+		cell = row3.createCell(27);
+		cell.setCellValue("三次公告结束时间");
+		cell.setCellStyle(style);
+		
+		// 中标公示开始时间
+		sheet.setColumnWidth(28, 15 * 256);
+		cell = row3.createCell(28);
 		cell.setCellValue("中标公示开始时间");
 		cell.setCellStyle(style);
 		
 		// 中标公示结束时间
-		sheet.setColumnWidth(26, 15 * 256);
-		cell = row3.createCell(26);
+		sheet.setColumnWidth(29, 15 * 256);
+		cell = row3.createCell(29);
 		cell.setCellValue("中标公示结束时间");
 		cell.setCellStyle(style);
 		
 		// 中标文件扫描
-		sheet.setColumnWidth(27, 15 * 256);
-		cell = row3.createCell(27);
+		sheet.setColumnWidth(30, 15 * 256);
+		cell = row3.createCell(30);
 		cell.setCellValue("中标文件扫描");
 		cell.setCellStyle(style);
 		
 		// 评标报告扫描归档
-		sheet.setColumnWidth(28, 15 * 256);
-		cell = row3.createCell(28);
+		sheet.setColumnWidth(31, 15 * 256);
+		cell = row3.createCell(31);
 		cell.setCellValue("评标报告扫描归档");
 		cell.setCellStyle(style);
 		
 		// 招投标文件送至甲方
-		sheet.setColumnWidth(29, 15 * 256);
-		cell = row3.createCell(29);
+		sheet.setColumnWidth(32, 15 * 256);
+		cell = row3.createCell(32);
 		cell.setCellValue("招投标文件送至甲方");
 		cell.setCellStyle(style);
 		
 		// 评标报告送至甲方
-		sheet.setColumnWidth(30, 15 * 256);
-		cell = row3.createCell(30);
+		sheet.setColumnWidth(33, 15 * 256);
+		cell = row3.createCell(33);
 		cell.setCellValue("评标报告送至甲方");
 		cell.setCellStyle(style);
 		
 		// 失败项目日期
-		sheet.setColumnWidth(31, 15 * 256);
-		cell = row3.createCell(31);
+		sheet.setColumnWidth(34, 15 * 256);
+		cell = row3.createCell(34);
 		cell.setCellValue("失败项目日期");
 		cell.setCellStyle(style);
 		
 		// 项目进度
-		sheet.setColumnWidth(32, 15 * 256);
-		cell = row3.createCell(32);
+		sheet.setColumnWidth(35, 15 * 256);
+		cell = row3.createCell(35);
 		cell.setCellValue("项目完成情况");
 		cell.setCellStyle(style);
 		

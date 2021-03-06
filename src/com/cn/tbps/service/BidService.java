@@ -295,13 +295,14 @@ public interface BidService {
 	 * @param CNTRCT_TYPE
 	 * @param CNTRCT_ST_DATE
 	 * @param CNTRCT_ED_DATE
+	 * @param PROJECT_MANAGER
 	 * @return
 	 */
 	public List<BidRptDto> queryAllBidDetailExport(
 			String strBID_AGENT_PRICE_ACT, String strRECEIPT1_DATE, String strRECEIPT1_VALUE_DATE,
 			String cntrctNos, String finishStatuss, String PROJECT_NAME, String BID_NO_LOW, String BID_NO_HIGH,
 			String CNTRCT_YEAR, String CNTRCT_NO, String BID_COMP_NO, String CNTRCT_NAME, String CNTRCT_TYPE,
-			String CNTRCT_ST_DATE, String CNTRCT_ED_DATE);
+			String CNTRCT_ST_DATE, String CNTRCT_ED_DATE, String PROJECT_MANAGER);
 		
 	
 	/**
