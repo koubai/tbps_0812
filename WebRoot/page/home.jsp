@@ -99,6 +99,7 @@
 	<div class="container-fluid">
 		<jsp:include page="info.jsp" flush="true" />
 		<!-- <div class="row menuList">  -->
+		<s:if test='#session.user_rank >= "A"'>
 		<div class="row menuList">
 			<!-- 1 -->
 			<div class="col-lg-6">
@@ -170,6 +171,10 @@
 				<a class="btn btn-primary" href="#" onclick="bidprogress();">招标项目进展一览</a>
 			</div>
 		</div>
+		</s:if>
+		<s:else>
+			请联系系统管理员
+		</s:else>
 	</div>
 	<!--  <div class="bottom">
 		<div class="container">

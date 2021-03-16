@@ -8,6 +8,7 @@
 <s:else>
 	<div class="col-lg-2 left">
 </s:else>
+	<s:if test='#session.user_rank >= "A"'>
 	<ul class="nav navbar-nav side-nav">
 	<div class="panel-group" id="accordion">
 		<div class="panel panel-default">
@@ -118,4 +119,5 @@
 		</div>
 	</div>
 	</ul>
+	</s:if>
 </div>

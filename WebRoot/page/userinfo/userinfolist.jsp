@@ -173,6 +173,9 @@
 									<s:elseif test='RANK == "B"'>
 										工程师
 									</s:elseif>
+									<s:elseif test='RANK == "0"'>
+										离职用户
+									</s:elseif>
 									<s:else>
 										一般用户
 									</s:else>

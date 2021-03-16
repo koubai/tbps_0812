@@ -126,24 +126,35 @@
 												<option value="L" selected="selected">管理员</option>
 												<option value="C">负责人</option>
 												<option value="B">工程师</option>
+												<option value="0">离职用户</option>
 											</s:if>
 											<s:elseif test='updUserInfoDto.RANK == "C"'>
 												<option value="A">一般用户</option>
 												<option value="L">管理员</option>
 												<option value="C" selected="selected">负责人</option>
 												<option value="B">工程师</option>
+												<option value="0">离职用户</option>
 											</s:elseif>
 											<s:elseif test='updUserInfoDto.RANK == "B"'>
 												<option value="A">一般用户</option>
 												<option value="L">管理员</option>
 												<option value="C">负责人</option>
 												<option value="B" selected="selected">工程师</option>
+												<option value="0">离职用户</option>
+											</s:elseif>
+											<s:elseif test='updUserInfoDto.RANK == "0"'>
+												<option value="A">一般用户</option>
+												<option value="L">管理员</option>
+												<option value="C">负责人</option>
+												<option value="B">工程师</option>
+												<option value="0" selected="selected">离职用户</option>
 											</s:elseif>
 											<s:else>
 												<option value="A" selected="selected">一般用户</option>
 												<option value="L">管理员</option>
 												<option value="C">负责人</option>
 												<option value="B">工程师</option>
+												<option value="0">离职用户</option>
 											</s:else>
 										</select>
 									</div>
