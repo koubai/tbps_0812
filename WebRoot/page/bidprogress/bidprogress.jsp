@@ -277,7 +277,7 @@ th {
 											进行中*
 										</s:elseif>
 										<s:elseif test='Finish_status == "52"'>
-											失败（报名不满6家）*
+											失败（报名不满3家）*
 										</s:elseif>
 										<s:elseif test='Finish_status == "54"'>
 											失败（开标不满3家）*
@@ -305,7 +305,7 @@ th {
 											进行中*
 										</s:elseif>
 										<s:elseif test='Finish_status == "52"'>
-											失败（报名不满6家）*
+											失败（报名不满3家）*
 										</s:elseif>
 										<s:elseif test='Finish_status == "54"'>
 											失败（开标不满3家）*
@@ -333,7 +333,7 @@ th {
 											进行中*
 										</s:elseif>
 										<s:elseif test='Finish_status == "52"'>
-											失败（报名不满6家）*
+											失败（报名不满3家）*
 										</s:elseif>
 										<s:elseif test='Finish_status == "54"'>
 											失败（开标不满3家）*
@@ -361,7 +361,7 @@ th {
 											进行中*
 										</s:elseif>
 										<s:elseif test='Finish_status == "52"'>
-											失败（报名不满6家）*
+											失败（报名不满3家）*
 										</s:elseif>
 										<s:elseif test='Finish_status == "54"'>
 											失败（开标不满3家）*

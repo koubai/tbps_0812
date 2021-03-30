@@ -547,7 +547,7 @@
 								<td>
 									<s:if test='FINISH_STATUS == "10"'>取消</s:if>
 									<s:elseif test='FINISH_STATUS == "20"'>进行中</s:elseif>
-									<s:elseif test='FINISH_STATUS == "52"'>失败（报名不满6家）</s:elseif>
+									<s:elseif test='FINISH_STATUS == "52"'>失败（报名不满3家）</s:elseif>
 									<s:elseif test='FINISH_STATUS == "54"'>失败（开标不满3家）</s:elseif>
 									<s:elseif test='FINISH_STATUS == "56"'>失败（评审失败）</s:elseif>
 									<s:elseif test='FINISH_STATUS == "70"'>终止</s:elseif>

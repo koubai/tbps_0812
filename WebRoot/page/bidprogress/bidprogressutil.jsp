@@ -304,7 +304,7 @@
 														<option value="">请选择</option>
 														<option value="10" selected="selected">暂停</option>
 														<option value="20">进行中</option>
-														<option value="52">失败（报名不满6家）</option>
+														<option value="52">失败（报名不满3家）</option>
 														<option value="54">失败（开标不满3家）</option>
 														<option value="56">失败（评审失败）</option>
 														<option value="70">终止</option>
@@ -314,7 +314,7 @@
 														<option value="">请选择</option>
 														<option value="10">暂停</option>
 														<option value="20" selected="selected">进行中</option>
-														<option value="52">失败（报名不满6家）</option>
+														<option value="52">失败（报名不满3家）</option>
 														<option value="54">失败（开标不满3家）</option>
 														<option value="56">失败（评审失败）</option>
 														<option value="70">终止</option>
@@ -324,7 +324,7 @@
 														<option value="">请选择</option>
 														<option value="10">暂停</option>
 														<option value="20">进行中</option>
-														<option value="52" selected="selected">失败（报名不满6家）</option>
+														<option value="52" selected="selected">失败（报名不满3家）</option>
 														<option value="54">失败（开标不满3家）</option>
 														<option value="56">失败（评审失败）</option>
 														<option value="70">终止</option>
@@ -334,7 +334,7 @@
 														<option value="">请选择</option>
 														<option value="10">暂停</option>
 														<option value="20">进行中</option>
-														<option value="52">失败（报名不满6家）</option>
+														<option value="52">失败（报名不满3家）</option>
 														<option value="54" selected="selected">失败（开标不满3家）</option>
 														<option value="56">失败（评审失败）</option>
 														<option value="70">终止</option>
@@ -344,7 +344,7 @@
 														<option value="">请选择</option>
 														<option value="10">暂停</option>
 														<option value="20">进行中</option>
-														<option value="52">失败（报名不满6家）</option>
+														<option value="52">失败（报名不满3家）</option>
 														<option value="54">失败（开标不满3家）</option>
 														<option value="56" selected="selected">失败（评审失败）</option>
 														<option value="70">终止</option>
@@ -354,7 +354,7 @@
 														<option value="">请选择</option>
 														<option value="10">暂停</option>
 														<option value="20">进行中</option>
-														<option value="52">失败（报名不满6家）</option>
+														<option value="52">失败（报名不满3家）</option>
 														<option value="54">失败（开标不满3家）</option>
 														<option value="56">失败（评审失败）</option>
 														<option value="70" selected="selected">终止</option>
@@ -364,7 +364,7 @@
 														<option value="">请选择</option>
 														<option value="10">暂停</option>
 														<option value="20">进行中</option>
-														<option value="52">失败（报名不满6家）</option>
+														<option value="52">失败（报名不满3家）</option>
 														<option value="54">失败（开标不满3家）</option>
 														<option value="56">失败（评审失败）</option>
 														<option value="70">终止</option>
@@ -374,7 +374,7 @@
 														<option value="" selected="selected">请选择</option>
 														<option value="10">暂停</option>
 														<option value="20">进行中</option>
-														<option value="52">失败（报名不满6家）</option>
+														<option value="52">失败（报名不满3家）</option>
 														<option value="54">失败（开标不满3家）</option>
 														<option value="56">失败（评审失败）</option>
 														<option value="70">终止</option>

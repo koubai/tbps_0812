@@ -769,7 +769,7 @@ public class BidDto extends BaseDto {
 	private String PROGRESS_STATUS_NAME;
 
 	/**
-	 * 项目完成情况，10：取消，20：进行中（新建时状态=20），52：失败（报名不满6家）,54:失败（开标不满3家），56：失败（评审失败），70：终止，90：完成
+	 * 项目完成情况，10：取消，20：进行中（新建时状态=20），52：失败（报名不满3家）,54:失败（开标不满3家），56：失败（评审失败），70：终止，90：完成
 	 */
 	private String FINISH_STATUS;
 	private String FINISH_STATUS_NAME;
@@ -2179,14 +2179,14 @@ public class BidDto extends BaseDto {
 	}
 
 	public String getFINISH_STATUS_NAME() {
-		//10：取消，20：进行中（新建时状态=20），52：失败（报名不满6家）,54:失败（开标不满3家），56：失败（评审失败），70：终止，90：完成
+		//10：取消，20：进行中（新建时状态=20），52：失败（报名不满3家）,54:失败（开标不满3家），56：失败（评审失败），70：终止，90：完成
 		FINISH_STATUS_NAME = "";
 		if("10".equals(FINISH_STATUS)) {
 			FINISH_STATUS_NAME = "暂停";
 		} else if("20".equals(FINISH_STATUS)) {
 			FINISH_STATUS_NAME = "进行中";
 		} else if("52".equals(FINISH_STATUS)) {
-			FINISH_STATUS_NAME = "失败（报名不满6家）";
+			FINISH_STATUS_NAME = "失败（报名不满3家）";
 		} else if("54".equals(FINISH_STATUS)) {
 			FINISH_STATUS_NAME = "失败（开标不满3家）";
 		} else if("56".equals(FINISH_STATUS)) {
