@@ -372,19 +372,35 @@ public class AgentCompAction extends BaseAction {
 		agentcomplst = agentCompService.queryAllAgentComp2();
 		
 		List<String> j_complst = new ArrayList<String>();
+		List<String> k_complst = new ArrayList<String>();
 		List<String> y_complst = new ArrayList<String>();
+		List<String> x_complst = new ArrayList<String>();
 		if(!agentcomplst.isEmpty()) {
 			for (AgentCompDto ag : agentcomplst) {
 		        // do stuff here 
 				if (ag.getANGENT_COMP_NO().charAt(0)== 'J'){
 					j_complst.add(new String(ag.getANGENT_COMP_NO()));
 				}
+				if (ag.getANGENT_COMP_NO().charAt(0)== 'K'){
+					k_complst.add(new String(ag.getANGENT_COMP_NO()));
+				}
 				if (ag.getANGENT_COMP_NO().charAt(0)== 'Y'){
 					y_complst.add(new String(ag.getANGENT_COMP_NO()));
+				}
+				if (ag.getANGENT_COMP_NO().charAt(0)== 'X'){
+					x_complst.add(new String(ag.getANGENT_COMP_NO()));
 				}
 		    }
 		}
 		if (JY_flg.equals("J")){
+			if (k_complst.size() > 0 ){
+				for (int m= 1; m<=999; m++){
+					String k_comp_no = String.format("K%03d", m);
+					if (!k_complst.contains(k_comp_no)){
+						return k_comp_no;
+					}
+				}
+			}
 			for (int i= 1; i<=999; i++){
 				String j_comp_no = String.format("J%03d", i);
 				if (!j_complst.contains(j_comp_no)){
@@ -392,7 +408,16 @@ public class AgentCompAction extends BaseAction {
 				}
 			}
 		}
+		
 		if (JY_flg.equals("Y")){
+			if (x_complst.size() > 0 ){
+				for (int n= 1; n<=999; n++){
+					String x_comp_no = String.format("X%03d", n);
+					if (!x_complst.contains(x_comp_no)){
+						return x_comp_no;
+					}
+				}
+			}
 			for (int j= 1; j<=999; j++){
 				String y_comp_no = String.format("Y%03d", j);
 				if (!y_complst.contains(y_comp_no)){

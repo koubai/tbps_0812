@@ -475,6 +475,10 @@ public class BidDto extends BaseDto {
 	 * 标书费
 	 */
 	private BigDecimal BID_APPLY_PRICE;
+	/**
+	 * 已付标书费合计
+	 */
+	private BigDecimal BID_APPLY_PRICE_TOTPAID;
 
 	/**
 	 * 专家费申请人
@@ -2609,6 +2613,14 @@ public class BidDto extends BaseDto {
 
 	public BigDecimal getBID_EXPERT_COMMISION_ACT3() {
 		return BID_EXPERT_COMMISION_ACT3;
+	}
+
+	public BigDecimal getBID_APPLY_PRICE_TOTPAID() {
+		return BID_APPLY_PRICE_TOTPAID;
+	}
+
+	public void setBID_APPLY_PRICE_TOTPAID(BigDecimal bID_APPLY_PRICE_TOTPAID) {
+		BID_APPLY_PRICE_TOTPAID = bID_APPLY_PRICE_TOTPAID;
 	}
 
 }

@@ -2737,7 +2737,8 @@
 			and PROGRESS_STATUS <![CDATA[<>]]> '2'
 			and PROGRESS_STATUS <![CDATA[<>]]> '3'
 			and CNTRCT_INFO = '1'
-			and (REG_DATE is null or B_SET_DATE is null)
+			<!-- and (REG_DATE is null or B_SET_DATE is null)  2021.04.25 change for report_raise_date -->
+			and (REPORT_RAISE_DATE is null)
 			<isNotEmpty prepend="and" property="PROJECT_MANAGER">
 				PROJECT_MANAGER in ($PROJECT_MANAGER$)
 			</isNotEmpty>

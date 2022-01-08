@@ -109,14 +109,14 @@
 							<td>未发初稿</td>
 							<td colspan="2"><s:property value="auditAuth.DRAFT_DATE_NULL1"/></td>
 						</tr>
-						<tr>
+						<!-- <tr>
 							<td>未发审定单</td>
 							<td colspan="2"><s:property value="auditAuth.APPROVAL_SND_DATE_NULL1_NU"/></td>
 						</tr>
 						<tr>
 							<td>未收到审定稿</td>
 							<td colspan="2"><s:property value="auditAuth.APPROVAL_RCV_DATE_NULL1_NU"/></td>
-						</tr>
+						</tr> -->
 						<tr>
 							<td>未完成审核（5天以上）</td>
 							<td colspan="2"><s:property value="auditAuth.APPROVAL_SND_DATE_NULL1"/></td>
@@ -129,14 +129,14 @@
 							<td>未出具审价报告（1天以上）</td>
 							<td colspan="2"><s:property value="auditAuth.REPORT_RAISE_DATE_NULL1"/></td>
 						</tr>
-						<tr>
+						<!-- <tr>
 							<td>未开票（30天以上）</td>
 							<td colspan="2"><s:property value="auditAuth.B_INVOICE_DATE_NULL1"/></td>
 						</tr>
 						<tr>
 							<td>未收款（30天以上）</td>
 							<td colspan="2"><s:property value="auditAuth.B_SET_DATE_NULL1"/></td>
-						</tr>
+						</tr> -->
 						<tr>
 							<td>未归档（60天以上）</td>
 							<td colspan="2"><s:property value="auditAuth.REG_DATE_NULL1"/></td>
@@ -160,14 +160,14 @@
 							<td>未发初稿</td>
 							<td colspan="2"><s:property value="auditAuth.DRAFT_DATE_NULL2"/></td>
 						</tr>
-						<tr>
+						<!-- <tr>
 							<td>未发审定单</td>
 							<td colspan="2"><s:property value="auditAuth.APPROVAL_SND_DATE_NULL2_NU"/></td>
 						</tr>
 						<tr>
 							<td>未收到审定稿</td>
 							<td colspan="2"><s:property value="auditAuth.APPROVAL_RCV_DATE_NULL2_NU"/></td>
-						</tr>
+						</tr> -->
 						<tr>
 							<td>未完成审核（5天以上）</td>
 							<td colspan="2"><s:property value="auditAuth.REPORT_RAISE_DATE_NULL2"/></td>
@@ -195,14 +195,14 @@
 							<td>未发初稿</td>
 							<td colspan="2"><s:property value="auditAuth.DRAFT_DATE_NULL4"/></td>
 						</tr>
-						<tr>
+						<!-- <tr>
 							<td>未发审定单</td>
 							<td colspan="2"><s:property value="auditAuth.APPROVAL_SND_DATE_NULL4_NU"/></td>
 						</tr>
 						<tr>
 							<td>未收到审定稿</td>
 							<td colspan="2"><s:property value="auditAuth.APPROVAL_RCV_DATE_NULL4_NU"/></td>
-						</tr>
+						</tr> -->
 						<tr>
 							<td>未完成审核（7天以上）</td>
 							<td colspan="2"><s:property value="auditAuth.REPORT_RAISE_DATE_NULL4"/></td>

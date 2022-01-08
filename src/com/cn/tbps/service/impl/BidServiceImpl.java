@@ -1310,6 +1310,7 @@ public class BidServiceImpl extends BaseService implements BidService {
 				//评审人
 				bid.setBID_AUTH_NAME(userMap.get(bid.getBID_AUTH()));
 				
+				bid.setBID_APPLY_PRICE_TOTPAID(new BigDecimal(0));
 				//查询投标公司
 				String compids = bid.getBID_CO_LIST();
 				if(StringUtil.isNotBlank(compids)) {
@@ -1319,6 +1320,9 @@ public class BidServiceImpl extends BaseService implements BidService {
 						String BID_CO_NAME_LIST = "";
 						for(BidCompDto bidComp : bidCompList) {
 							BID_CO_NAME_LIST += bidComp.getBID_CO_NAME() + ",";
+							if (bidComp.getBID_APPLY_PRICE()!= null && bidComp.getBID_APPLY_PRICE_DATE()!= null){
+								bid.setBID_APPLY_PRICE_TOTPAID(bid.getBID_APPLY_PRICE_TOTPAID().add(bidComp.getBID_APPLY_PRICE()));
+							}
 						}
 						bid.setBID_CO_NAME_LIST(BID_CO_NAME_LIST);
 					}
